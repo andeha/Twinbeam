@@ -62,7 +62,7 @@ Virtual addresses are automatically converted into its physical counterpart.
 
 The optional argument `-b` allows for the inclusion of a boot loader into the final image.
 
-Exit Status
+### Exit Status
 
 The `llvm2pic32` utility exits `0` on success and non-zero otherwise.
 
