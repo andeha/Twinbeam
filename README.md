@@ -2,16 +2,17 @@
 
 Modern C++ software development for Intel x86-64 and PIC32/MIPS.
 
-Contains indispensables: Unicode, `Memory`*, `Vector`, `Map` and `Chronology`.
+Contains indispensables: Utf-8, `Vector`, `Map` and `Chronology`.
 
-To use the library, include the `Twinbeam.h` header and link with its corresponding 
-`libTwinbeam_PIC32MZ` or `libTwinbeam_macOS` archive.
+To use the library, include the `Twinbeam.h` header and link with its corresponding `libTwinbeam_pic32mz_*.a` or `libTwinbeam_macOS_*.a` archive.
 
-Examples are soon available in the `Examples` directory.
+Requires [`ninja`](https://ninja-build.org) and — for MIPS development — a pic32mz development board.  
+
+Examples are available in the [`Examples`](https://github.com/andeha/Twinbeam/tree/master/Examples) directory.
 
 ## Embedded Development with MIPS
 
-To compile a program, normally you just type ninja to run something similar to
+To compile a program, normally you just type `ninja` to run something similar to
 
     terminal$ clang-6.0 -g -target mipsel -mips32r2 -fno-rtti -fno-exceptions -fblocks --std=c++17 -c main.cpp -o main.o
     
@@ -25,7 +26,7 @@ To query where in the virtual address space a symbol is defined, enter:
     terminal$ q main
     bfc01dbc T main
 
-To get insights into the current memory consumption, write:
+To get insights into your current memory consumption, write:
 
     terminal$ ninja size
     text      data    bss   dec      hex filename
@@ -46,8 +47,8 @@ To debug your application, write:
     terminal$ src
     terminal$ mdb ...
     llvm2pic32
-
-Tool converting a llvm-generated MIPS executable file into an Intel Hex file.
+ 
+To convert an llvm-generated MIPS executable file into a `.hex` file, use [`llvm2pic32`](https://github.com/andeha/Twinbeam/tree/master/llvm2pic32/main.cpp). (For details, see [Intel Hex](https://en.wikipedia.org/wiki/Intel_HEX) and other documents on Internet.)
 
 ### Synopsis
 
@@ -55,8 +56,7 @@ Tool converting a llvm-generated MIPS executable file into an Intel Hex file.
 
 ### Description
 
-The `llvm2pic32` utility converts the `.bss`, `.data` and `.text` sections in an Executable 
-and Linkable Format file into a text-based Intel Hex file.
+The `llvm2pic32` utility converts the `.bss`, `.data` and `.text` sections in an *Executable and Linkable Format* file into a text-based Intel Hex file.
 
 Virtual addresses are automatically converted into its physical counterpart.
 
@@ -68,9 +68,20 @@ The `llvm2pic32` utility exits `0` on success and non-zero otherwise.
 
 ### Bugs
 
-Compile the program with `clang -o llvm2pic32 -std=c++1z main.cpp`.
+Compile `llvm2pic32` with `clang -o llvm2pic32 -std=c++1z main.cpp`.
 
-### The Pic32mz Bootloader
+## Booting a Chip
 
-The bootloader expects the interrupt service routine to start on the virtual address 
-`0xBD000000` and that the `__start` symbol is placed on `0xBD001000`.
+The bootloader [bootloader_MZ](bootloader_MZ_xxxxxxx) lives at `0xBFC00000` and expects your kernels' interrupt service routine to start on the virtual address `0xBD000000` and that your `__start` symbol is placed on `0xBD001000`. See [`helloworld`](https://github.com/andeha/Twinbeam/tree/master/Examples/helloworld) for details.
+
+[bootloader_MZ_xxxxxxx]: https://github.com/andeha/Twinbeam/bootloader_MZ_xxxxxxx.hex
+
+## References
+
+[1] The [Ninja, a small build system](https://ninja-build.org) web site.
+
+[2] The [Intel® 64 and IA-32 Architectures Software Developer Manual: Vol 3](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.pdf) document.
+
+[3] The Microchip [PIC32MX5XX/6XX/7XX](http://ww1.microchip.com/downloads/en/DeviceDoc/60001156J.pdf) Family Data Sheets.
+
+[4] The [Intel Hex](https://en.wikipedia.org/wiki/Intel_HEX) format.
