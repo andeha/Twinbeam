@@ -1,12 +1,12 @@
 // Acceptable and Enclavable Platform Base ✁ until ✂️
 
 /**
- 
+    
     Utf-8 Non-regulars: .*｟｠ ⃦ ('Combining double vertical stroke overlay' or
-        'fat-pipe') ✚ ★ ‽ ⸺ \ 𐤟 (PHOENICIAN WORD SEPARATOR) ↩︎ ↹
+      'fat-pipe') ✚ ★ ‽ ⸺ \ 𐤟 (PHOENICIAN WORD SEPARATOR) ↩︎ ↹
     Example: ｟↹↩︎｠★
     Logic and one-liners: ≅ ≠ ⋍ ~ ⟶ ⟷ ⊂⊄⊆⊈ ⊃ (Małuszyński inclusion) ∩∪ ∈∉
-        ¬∧∨ ≤≥ ≰ ≱ ∞ ∀∃∄ ⊨ ∅ 𝜖 √ ∑∏ ∂𝜕∆ ∇𝛻 ∫∬∭ ¶
+      ¬∧∨ ≤≥ ≰ ≱ ∞ ∀∃∄ ⊨ ∅ 𝜖 √ ∑∏ ∂𝜕∆ ∇𝛻 ∫∬∭ ¶
     Greek: 𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲𝛳𝛴𝛵𝛶𝛷𝛸𝛹𝛺 𝛼𝛽𝛾𝛿𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜎𝜏𝜐𝜑𝜒𝜓𝜔 𝜙𝜛
     Mathematics 𝐼𝑡𝑎𝑙𝑖cs: 𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐾𝐽𝐿𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍 𝑎𝑏𝑐𝑑𝑒𝑓𝑔ℎ𝑖𝚤𝑗𝚥𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧
     Math. 𝑩𝒐𝒍𝒅 Italics: 𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿𝒀𝒁 𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛
@@ -25,53 +25,53 @@
     Big No-no: ≈ ≣ --<'', '' (Slanted dowsing.)
     Misc¹: ℃ ℉ ® © ™ № º µ Ω ℊ ℑ𝑚 ℜ𝑒 ∁ ≙ ⋈ ⫝ ⦣⧄⧅⧆⧇ ⧈ ⧉ ╳ ☩ ₧ ₥
     Misc²: ª º ✓ ✔︎ ☑︎☒ ✕ ✖︎ ✗ ✘ ▲◇□▪︎ △□◇▷▽ ○◦●∙⦁
-        à ⬷ The letter 'a'+'COMBINING GRAVE ACCENT'. See ACUTE and CIRCUMFLEX
-        a͟͞z͟͞ ⬷ 'Combining double-macaron' or the 'Bitfields' macraron'.
-        L̵ ⬷ L and 'Combining short stroke overlay'
-        a⃝ ⬷ The letter 'a' + "COMBINING ENCLOSING CIRCLE"
-        ℹ︎ ⬷ 'Information source'
-        i⃝ ⬷ The letter 'i' + "COMBINING ENCLOSING CIRCLE"
-         ⃒⃘ ⬷ 'Combining long vertical line' and 'ring overlay'
-        c⃥ ⬷ 'Combining reverse solidus overlay'
-         ⃫ ⬷ 'COMBINING LONG SOLIDUS OVERLAY'
- 
+     à ⬷ The letter 'a'+'COMBINING GRAVE ACCENT'. See ACUTE and CIRCUMFLEX
+    a͟͞z͟͞ ⬷ 'Combining double-macaron' or the 'Bitfields' macraron'.
+     L̵ ⬷ L and 'Combining short stroke overlay'
+    a⃝ ⬷ The letter 'a' + "COMBINING ENCLOSING CIRCLE"
+     ℹ︎ ⬷ 'Information source'
+    i⃝ ⬷ The letter 'i' + "COMBINING ENCLOSING CIRCLE"
+      ⃒⃘ ⬷ 'Combining long vertical line' and 'ring overlay'
+     c⃥ ⬷ 'Combining reverse solidus overlay'
+      ⃫ ⬷ 'COMBINING LONG SOLIDUS OVERLAY'
+   
    Footnotes, references and (enum.) lists: ¹₁²₂³₃⁴₄⁵₅⁶₆⁷₇⁸₈⁹₉⁰₀ •○◦・•⁃⦾⦿‣⁌⁍
- 
+   
      ╮  ╯ ╭ ╰ ╱ ╲ ╳     ┤ ┌ ├ ┼ ┘ ┐ ─ │ ┴ ┬    ╴╵╷╴
- 
+   
       Key   Value   ∃
      ┾━━━╈━━━━━━━━━┿━┽           ⌏  ⌎   ⌜  ⌝  ⌖  ⏚
      │k₁ ┃         │✓│           ⌍  ⌌   ⌞  ⌟  ‖
      └───┸─────────┴─┘
- 
+   
           ┌def┐
           │   │                     ╭─ Leaf 1 ──╮
      ─abc─┘─┐ ┘           ── Stem ──┤           ├── Again ──
             └                       ╰─ Leaf 2 ──╯
- 
+   
     „ ⃨as illustrated below or above:‟
- 
+   
       ∞              ∞
       ⌠ 🔍😐         \̅
       ⎮ 𝘦^-𝘹 𝘥𝘹 ≅ √𝘹 + › ⁣⅟k² ≅ @w Sum[, ... ∈ ℝ (DOUBLE-STRUCK CAPITAL R)    (0)
       ⌡              /͟
      -∞             k=1
- 
+   
       ⎡n₁₁     ⎤    ⎧ ⎫    ⎛   ⎞      ⸑
       ⎢        ⎥    ⎨ ⎬    ⎜   ⎟     ⎸    ⎲
       ⎣     nᵣᵥ⎦    ⎩ ⎭    ⎝   ⎠    ⎷    ⎳
- 
+   
    Further, consider:
- 
+   
    Dashes: ‒ Figure Dash, – En Dash, — Em Dash, ⁓ Swung Dash, ⸺ Two-em Dash,
         ⸻ Three-em Dash, 〰 Wavy Dash, - Hyphen Minus.
- 
+   
    Arrows: ⇽ ⇾ ⟲⟳ ↗︎↘︎↙︎↖︎ ⸔⸕ ⤡⤢ ⤺⤻ ↰↱↲↳ ↴ ↩︎ ↵  ⮐ ↹ ←↑→↓
      ↼ (Leftward harpoon with barb upwards) ↽↾↿⇀⇁⇂⇃⇄⇅⇆⇇⇈⇉⇊⇋⇌⇍⇏⇐⇑⇒⇓⇚⇛⇜⇝⇤⇥⇦⇧
      ⇨⇩⇪⇵⇶ ⎔ ➔➙➛➜➝➞➟➠⟰⟤⟥ ⤶ ⤷  ↔︎
      📲📩📈📉🔃➡︎⬅︎⬆︎⬇︎↩︎⤴︎⤵︎⤴⤵ (牮筏)
      ⬷ ⤐ (Leftwards two-headed triple dash arrow)
- 
+   
    Extensions: ⁌⁍ ⊸ ⫰ ⫱ ⿱⿳⿶  ⃦ a⃮ b⃯ a͍ (Combining left and right arrow below),
      a̫b̫c̫ ⬷ 'Combining inverted double arch below' a⃨b⃨c⃨ a⃩ a⃪
      1゚ (Combining Katakana Sound Mark)
@@ -79,26 +79,26 @@
      aᷣ (Combining latin small letter R rotund)
      a⳯b⳰c⳱ (The Coptics)
      ˥ ˦ ˧ ˨ ˩ (Tone letters)
- 
+   
     Symbol  c-char  Utf-8          Unicode Name
        ␜  "\u241C" 0xE2 0x90 0x9C SYMBOL FOR FILE SEPARATOR
        ␝  "\u241D" 0xE2 0x90 0x9D SYMBOL FOR GROUP SEPARATOR
        ␞  "\u241E" 0xE2 0x90 0x9E SYMBOL FOR RECORD SEPARATOR
        ␟  "\u241F" 0xE2 0x90 0x9F SYMBOL FOR UNIT SEPARATOR
- 
+   
     ␉ ␋ HORZONTAL and VERTICAL TABULATION ⇀↽ ⇀↽ ⇀↽ ⇀↽ "\u001F" - "\u001C",
     0x1F - 0x1C, INFORMATION SEPARATOR ONE/FOUR
- 
+   
    Buttons: ⌘ Command, &#x2318; – &#8984; ⌥ Option, &#x2325; – &#8997; ⇧ Shift,
      &#x21E7; – &#8679; ⎋ ESC &#x238B; – &#9099; ⇪ Capslock &#x21ea; – &#8682;
      ⏎  Return &#x23ce; – &#9166; ⌫ Delete/Backspace, &#x232b; – &#9003;
      ⇥ Tab Arrow
- 
+   
    Spaces: ⇀ ↽ (en space), ⇀  ↽ (em space), ⇀ ↽ (Three-per-em space),
      ⇀ ↽ (Four per em-space), ⇀ ↽ (Six-per-em), ⇀ ↽ (Figure space),
      ⇀ ↽ (Punctuation space), ⇀ ↽ (Thin space), ⇀ ↽ (Hair space),
      ⇀ ​↽ (Zero width space), ⇀ ↽ (Narrow no-break space),
      ⇀ ↽ (Medium mathematical space), ⇀　↽ (Ideographic space), ⇀〿↽
      (Ideographic half-fill space). ␣ (Knuths' Constant.)
- 
+   
  *␣///}✂️ >> --<shoebox>{Utf-8 Symbols} */

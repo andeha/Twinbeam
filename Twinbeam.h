@@ -94,11 +94,11 @@ extern "C" { int setjmp2(jmp_buf2 env); void longjmp2(void **env,
 #endif
 #define BLURTS /* Mandatory */
 #define NEVERBLURTS /* Fortunately optional. */
-#define FALLIBLE /* Unfortunately not mandatory while constructor blurts. */
+#define FALLIBLE /* Unfortunately not mandatory while the constructor gently blurts. */
 #define TRY { int __e = setjmp2(*JmpBuf()); if (!__e) {
 #define CATCH } else {
 #define END_TRY } }
-extern "C" jmp_buf2 * /* volatile */ JmpBuf(); /* A great symbol to break! */
+extern "C" jmp_buf2 * /* volatile */ JmpBuf(); /* ⬷ A great symbol for a break! */
 struct SharedOptional { bool populated; explicit SharedOptional() : populated(
   false) { } explicit operator bool() const { return populated; } };
 #ifdef  __mips__
@@ -1088,7 +1088,7 @@ template<typename V> struct Map<__builtin_int_t, V> : public SharedMap<V> {
         
         return 0;
     }
-
+    
     /**  Returns a reference to existing value, does not create new values. */
     
     Opt<V&> operator[](__builtin_int_t key) const { __block V * y = NULL;
