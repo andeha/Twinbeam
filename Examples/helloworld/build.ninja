@@ -1,0 +1,34 @@
+# build.ninja -- Building a Twinbeam app.
+
+optflags   = -g
+progname   = helloworld
+loadscript = ../../pic32.ld
+platflags  = -D__MZ__ -I ../..
+
+include    ../../Version.ninja
+objsdir    = ./.objs/7703a312-55A9-44ba-A992-eabcf7f97663_$progname
+tools      = /Users/andershansson/Projects/mips-tools
+
+sha1git = `git log -1 '--pretty=format:%h'`
+flags = $optflags -target mipsel -mips32r2 -fno-rtti -fno-exceptions -fblocks $platflags
+
+rule cc
+    command = $tools/clang-6.0 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags --std=c++17 -c $in -o $out
+    depfile = $out.d
+    deps = gcc
+
+rule c
+    command = $tools/clang-6.0 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
+    depfile = $out.d
+    deps = gcc
+
+rule asm
+    command = $tools/clang-6.0 $flags -c $in -o $out
+
+rule link
+    command = $tools/ld.lld -T $loadscript -o $out $in $library; $tools/llvm2pic32 -b ../../bootloader_MZ_14aeac1.hex $progname > Releases/$progname\_$sha1git.hex
+
+build $progname: link $objsdir/start.o $objsdir/main.o 
+build $objsdir/start.o: asm ../../start.S
+build $objsdir/main.o: cc main.cpp
+default $progname
