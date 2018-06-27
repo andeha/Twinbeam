@@ -1,0 +1,1 @@
+../bin/mdb mz_target_dbg  2>/dev/null
