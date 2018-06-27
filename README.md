@@ -46,7 +46,6 @@ To debug your application, write:
     terminal$ alias src='ninja source | less '
     terminal$ src
     terminal$ mdb ...
-    llvm2pic32
  
 To convert an llvm-generated MIPS executable file into a `.hex` file, use [`llvm2pic32`](https://github.com/andeha/Twinbeam/tree/master/llvm2pic32/main.cpp). (For details, see [Intel Hex](https://en.wikipedia.org/wiki/Intel_HEX) and other documents on Internet.)
 
