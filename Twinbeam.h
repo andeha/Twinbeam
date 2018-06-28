@@ -36,17 +36,17 @@ typedef short               int16_t;
 typedef __builtin_uint_t Tribool;
 
 typedef struct bignum {
-    static const int maxdigits = 100; // TO AVOID: Templates, ... T
-    char digits[maxdigits];         /* represent the number */
-    int signbit;            /* 1 if positive, -1 if negative */
-    int lastdigit;            /* index of high-order digit */
+  static const int maxdigits = 100; // TO AVOID: Templates, ... T
+  char digits[maxdigits];         /* represent the number */
+  int signbit;            /* 1 if positive, -1 if negative */
+  int lastdigit;            /* index of high-order digit */
 } bignum;
 void print_bignum(bignum *n, void (^output)(char c));
 void int_to_bignum(int s, bignum *n);
 void initialize_bignum(bignum *n);
 void add_bignum(bignum *a, bignum *b, bignum *c);
 void subtract_bignum(bignum *a, bignum *b, bignum *c);
-int  compare_bignum(bignum *a, bignum *b);
+int compare_bignum(bignum *a, bignum *b);
 void digit_shift(bignum *n, int d); /* multiply n by 10^d */
 void multiply_bignum(bignum *a, bignum *b, bignum *c);
 void divide_bignum(bignum *a, bignum *b, bignum *c);
@@ -55,14 +55,14 @@ void divide_bignum(bignum *a, bignum *b, bignum *c);
 #define intel __asm { .intel_syntax noprefix /* Requires -fms-extensions when on llvm. */
 template<typename T>
 struct InnerFrame {
-    InnerFrame<T>() {} T * ref_;
-    // ~InnerFrame() { /* Delete ref_ in outer class destructor. */ }
-    T * operator->() const { return ref_; }
-    InnerFrame(T * ref) { ref_ = ref; }
+  InnerFrame<T>() {} T * ref_;
+  // ~InnerFrame() { /* Delete ref_ in outer class destructor. */ }
+  T * operator->() const { return ref_; }
+  InnerFrame(T * ref) { ref_ = ref; }
 };
 #define APPEND_PIMPL                                                         \
-    struct Implementation;                                                   \
-    InnerFrame<Implementation> impl_;
+  struct Implementation;                                                     \
+  InnerFrame<Implementation> impl_;
 #define 😐 APPEND_PIMPL }
 #define VISITISR(sym) void sym(); sym();
 #define UNITTEST(symbol) extern "C" void UnitTest_##symbol()
@@ -234,41 +234,41 @@ typedef int64_t x86_64_context[(9 * 2) + 3 + 16];
 typedef x86_64_context jmp_buf;
 #endif
 FOCAL void Base( /* TeX §64, §65 and §67 */
-    __builtin_uint_t n,
-    unsigned short base,
-    short digitsOr0, /* Not more than 64 digits! Set to 0 to disable padding or truncation. */
-    void (^output)(char utf8)
+  __builtin_uint_t n,
+  unsigned short base,
+  short digitsOr0, /* Not more than 64 digits! Set to 0 to disable padding or truncation. */
+  void (^output)(char utf8)
 );
 template <typename T> T abs(T x) { return x < 0 ? -x : x; }
-#define SIGNBIT_INT32  0x80000000
-#define SIGNBIT_INT64  0x8000000000000000L
+#define SIGNBIT_INT32 0x80000000
+#define SIGNBIT_INT64 0x8000000000000000L
 #define abs32i(x) int32_t(((uint32_t)(x) & ~SIGNBIT_INT32))
 #define abs64i(x) int64_t(((uint64_t)(x) & ~SIGNBIT_INT64))
 
 #pragma mark - 📖😐 ”𝑈𝑛𝑖𝑐𝑜𝑑𝑒”
 
 typedef struct Impression {
-    Memoryview unicodes;
-    __builtin_int_t tetrasOffset;
-    __builtin_int_t tetrasCount;
+  Memoryview unicodes;
+  __builtin_int_t tetrasOffset;
+  __builtin_int_t tetrasCount;
 } Impression; // i.e a grapheme cluster or a user-percieved character.
 
 typedef struct Twinbeam {
-    Memoryview unicodes;
-    __builtin_int_t tetrasOffset;
-    SemanticPointer<char32_t *>
-    unicodeLook(
-      __builtin_uint_t unicodesAhead,
-      BinaryChoice direction
-    ) const;
-    enum Segmentation { unicode, grapheme, word, sentence, line };
-    void
-    perceives(
-      __builtin_uint_t impressionsAhead,
-      Segmentation segmentation, 
-      BinaryChoice direction,
-      void (^touchbase)(Impression * character)
-    ) const;
+  Memoryview unicodes;
+  __builtin_int_t tetrasOffset;
+  SemanticPointer<char32_t *>
+  unicodeLook(
+    __builtin_uint_t unicodesAhead,
+    BinaryChoice direction
+  ) const;
+  enum Segmentation { unicode, grapheme, word, sentence, line };
+  void
+  perceives(
+    __builtin_uint_t impressionsAhead,
+    Segmentation segmentation, 
+    BinaryChoice direction,
+    void (^touchbase)(Impression * character)
+  ) const;
 } Twinbeam;
 
 void TwinbeamInit(Twinbeam *beam, Memoryview unicodes, bool atEnd);
@@ -313,32 +313,32 @@ Tribool UnicodeLT(Language lang, Memoryview l, Memoryview r);
 #pragma mark Characters (i.e. 'Splines 'n Stuff')
 
 struct UnicodeCategory {
-    
-    enum Symbol { mark, number, punctuation, symbol, separator, uppercase,
-      lowercase, titlecase, nonspacing, spacingCombining, enclosing,
-      decimalDigit, connector, dash, open, close, initialQuote, finalQuote,
-      math, currency, space, line, paragraph, control, format, surrogate,
-      privateUse, notAssigned, letter, modifier, other };
-    
-    Symbol master, subcat;
+  
+  enum Symbol { mark, number, punctuation, symbol, separator, uppercase,
+    lowercase, titlecase, nonspacing, spacingCombining, enclosing,
+    decimalDigit, connector, dash, open, close, initialQuote, finalQuote,
+    math, currency, space, line, paragraph, control, format, surrogate,
+    privateUse, notAssigned, letter, modifier, other };
+  
+  Symbol master, subcat;
 };
 
 struct CharacterInfo {
-    char32_t look;
-    const char *names[4];
-    UnicodeCategory category;
-    short unsigned combiningclass; // (0..254) Only combining marks have a combining class other than zero. I.e non-combining = 0,
-    const char *refs; // Sorted sequence of notable chars
+  char32_t look;
+  const char *names[4];
+  UnicodeCategory category;
+  short unsigned combiningclass; // (0..254) Only combining marks have a combining class other than zero. I.e non-combining = 0,
+  const char *refs; // Sorted sequence of notable chars
 };
 
 int UnicodeData(char32_t c, void (^touchbase)(CharacterInfo * info));
 
 MACRO const char * UnicodePrimaryName(char32_t c) {
-    __block const char * res;
-    if (UnicodeData(c, ^(CharacterInfo * info) {
-        res = info->names[0];
-    })) { return NULL; }
-    return res;
+  __block const char * res;
+  if (UnicodeData(c, ^(CharacterInfo * info) {
+    res = info->names[0];
+  })) { return NULL; }
+  return res;
 }
 
 #pragma mark Utf-8
@@ -448,7 +448,9 @@ void   Forall(void *opaque, void (^dfs)(void * ref, bool& stop, __builtin_treein
 template <typename T> T * materialize(Memoryview * view) {
   extern void * 💫(void *); return (T *)💫((void *)view); }
 
-// template <> Unicodestring materialize(MemoryView * view) { return Unicodestring(Endianness::Native, 💫(view), view.bytesCount, true, alloc); }
+// template <> Unicodestring materialize(MemoryView * view) { 
+//   return Unicodestring(Endianness::Native, 💫(view), view.bytesCount, 
+//   true, alloc); }
 
 extern void * (^alloc)(__builtin_int_t); // Since ^ ∧ =alloc sometimes 💥
 
@@ -460,7 +462,7 @@ enum class Endianness { Native, Network };
 #define va_prologue(symbol)            \
   __builtin_va_list arg;               \
   __builtin_va_start(arg, symbol);
-    
+
 struct String {
     
     /**
@@ -936,7 +938,7 @@ template<typename V> struct Map<const char *, V> : public SharedMap<V> {
         
         return 0;
     }
-
+    
     /**  Returns a reference to existing value, does not create new values. */
     
     Opt<V&> operator[](const char * utf8Key) const { __block V * y = NULL;
