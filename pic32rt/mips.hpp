@@ -1,3 +1,8 @@
+//
+//  mips.hpp
+//  pic32rt
+//
+
 MACRO __builtin_uint_t 🔎Count() { __builtin_uint_t val; asm
   volatile("mfc0 %0, $9, 0; nop" : "=r" (val)); return val; }
 MACRO __builtin_uint_t 🔎Compare() { __builtin_uint_t val; asm
