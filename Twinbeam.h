@@ -73,6 +73,8 @@ extern void RunUnitTests(const char * filepath);
 #define FINAL //   ⃨ or DO_NOT_DESTABBILIZE
 #define LONGTOOTH
 #define FOCAL
+#define Si_FOCAL
+#define OPT_Si_FOCAL
 // #define ⚠️_IMPLIES_DOING_HARDTIME
 #define ONLY_FOR_SOFT_REALTIME
 #define MAY_CONTAIN_TRACES_OF_FIRM_REALTIME
@@ -84,7 +86,7 @@ typedef int64_t x86_64_context[37];
 typedef x86_64_context jmp_buf2;
 #endif
 extern "C" { int setjmp2(jmp_buf2 env); void longjmp2(void **env,
-  __builtin_int_t val); /* __builtin_longjmp requires last arg to be const. */ }
+  __builtin_int_t val); /* __builtin_longjmp requires last arg to be const and is not longer than `int`. */ }
 #ifdef  __mips__
 #define BLURT(str) { tetra t; t.tetra = (uint32_t)(const char *)str;         \
   longjmp2((void **)*JmpBuf(), int(t.unsigned_little_endian.lsh)); }
@@ -438,12 +440,13 @@ typedef __m128 __builtin_treeint_t;
 #elif defined __mips__
 typedef octa uint64_t;
 typedef octa int64_t;
-typedef int64_t __builtin_treeint_t; // Signed
+typedef int64_t __builtin_treeint_t; // Note: Is signed!
 #endif
 
 void * Insert(void *opaque, __builtin_treeint_t data, void * ref); // Consider __builtin_treeint_t as ref. See `Unittests`.
-void * Lookup(void *opaque, __builtin_treeint_t target);
-void   Forall(void *opaque, void (^dfs)(void * ref, bool& stop, __builtin_treeint_t mask, void * node));
+void * Lookup(void *opaque, __builtin_treeint_t target); void Forall(void *
+  opaque, void (^dfs)(void * ref, bool& stop, __builtin_treeint_t mask, void * 
+  node));
 
 template <typename T> T * materialize(Memoryview * view) {
   extern void * 💫(void *); return (T *)💫((void *)view); }
@@ -570,13 +573,25 @@ Concaternate(
       true, allocate);
 }
 
+MACRO
+void
+Append(
+    String& s,
+    char32_t c
+)
+{
+    Memoryview view = *s;
+    s.replace(Memoryview { view.region, s.unicodeCount(), 0 }, (const char32_t 
+    *)&c, 1, alloc);
+}
+
+ONLY_FOR_SOFT_REALTIME MACRO String operator+(const String& l, const String& r)
+{ return Concaternate(l, r, alloc); }
+
 __builtin_int_t UnicodesUntilNull(const char *utf8, __builtin_int_t max);
 __builtin_int_t UnicodesUntilNull(const char32_t *nativeEndianUnicodes,
   __builtin_int_t max);
 __builtin_int_t Utf8BytesUntilNull(const char *utf8, __builtin_int_t max);
-
-ONLY_FOR_SOFT_REALTIME MACRO String operator+(const String& l, const String& r)
-{ return Concaternate(l, r, alloc); }
 
 #pragma mark - ”𝑇ℎ𝑒 𝑉𝑒𝑐𝑡𝑜𝑟” 🤲
 
@@ -584,7 +599,7 @@ template <typename T> struct Sequence {
     virtual __builtin_int_t count() const = 0;
     virtual int dereference(__builtin_int_t idx, void (^touchbase)(SemanticPointer<T *> elem)) const = 0;
     MACRO int forall(void (^block)(SemanticPointer<T *> elem, bool first, bool last,
-        __builtin_int_t idx, bool& stop)) const { // TODO: _∀(void ...)
+        __builtin_int_t idx, bool& stop)) const { // TODO: _∀(void ...) ⟷ Touchbar
         __builtin_int_t itemCount = count();
         __builtin_int_t idx = 0;
     again:
@@ -656,7 +671,7 @@ struct Vector : public Mitigate<T, Vector<T>> {
         touchbase(SemanticPointer<T *> { plate + (idx - startIdx)*sizeof(T) });
         return 0;
     }
-
+    
     T& at(__builtin_int_t idx) const {
         __block T * elem = NULL;
         if (dereference(idx, ^(SemanticPointer<T *> e) {
@@ -1164,7 +1179,7 @@ int
 InstantToText(
    Chronology chronology,
    Chronology::Instant ts,
-   bool fractionals,
+   bool fractionalsToo,
    void (^touchbase)(char c)
 );
 

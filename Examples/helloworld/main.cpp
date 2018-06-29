@@ -30,7 +30,6 @@ mips_general_exception()
     }
 }
 
-Context ctx;
 auto stdout = ^(char utf8) { putch(utf8); };
 auto stdin = ^{ return getutf8(); };
 auto alloc = ^(__builtin_int_t bytes) { return malloc(bytes); };
