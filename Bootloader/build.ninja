@@ -1,0 +1,53 @@
+# build.ninja -- Building the MIPS/PIC32 Bootloader.
+
+optflags = -g
+
+progname   = bootloader_MZ
+loadscript = ./pic32mz.ld
+platflags  = -D__MZ__
+
+objsdir = ./.objs/7703a312-5599-44ab-A9A2-eabcf7f87663_$progname
+sha1git = `git log -1 '--pretty=format:%h'`
+flags = $optflags -target mipsel -mips32r2 -fno-rtti -fno-exceptions -fblocks $platflags
+include ../tools.ninja
+
+rule cc
+    command = $tools/clang-6.0 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags --std=c++17 -c $in -o $out
+    depfile = $out.d
+    deps = gcc
+
+rule c
+    command = $tools/clang-6.0 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
+    depfile = $out.d
+    deps = gcc
+
+rule asm
+    command = $tools/clang-6.0 $flags -c $in -o $out
+
+rule link
+    command = $tools/ld.lld -T $loadscript -o $out $in; $tools/llvm2pic32 $progname > Releases/$progname\_$sha1git.hex
+
+rule emitsize
+    command = $tools/llvm-size $progname
+
+rule emitsect
+    command = $tools/llvm-objdump -section-headers $progname
+
+rule emitlist
+    command = $tools/llvm-objdump -disassemble $progname
+
+# requires -g
+rule emitsource
+    command = $tools/llvm-objdump -source $progname
+
+rule emitsyms
+    command = $tools/llvm-nm $progname | sort
+
+build $progname: link $objsdir/bootloader.o
+build $objsdir/bootloader.o: asm bootloader.S
+build size: emitsize
+build sect: emitsect
+build syms: emitsyms
+build list: emitlist
+build source: emitsource
+default $progname
