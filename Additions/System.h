@@ -14,10 +14,9 @@ namespace Naturals {
 
 #pragma mark Rectangular Coordinate Systems
 
-typedef unsigned long long    __builtin_uint_t;
-typedef long long             __builtin_int_t;
+#include <Twinbeam.h>
 
-struct Cartesian3D { typedef double type; type x, y, z; };
+struct Cartesian3D { typedef double (^f)(Chronology::Instant t) type; type x, y, z; };
 
 struct Rasterized2D { typedef __builtin_int_t type; type x, y; };
 
@@ -109,7 +108,6 @@ typedef __builtin_uint_t Manhattan; enum : Manhattan {
 
 template <typename T> struct Interval { T closedBeginning; T openEnd; };
 
-#include <Twinbeam.h>
 #include <Additions/Additions.h>
 
 #endif
