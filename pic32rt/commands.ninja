@@ -1,0 +1,21 @@
+# commands.ninja -- Essentials when doing embedded.
+
+rule emitsyms
+    command = $tools/llvm-nm $progname
+build syms: emitsyms
+
+rule emitsize
+    command = $tools/llvm-size $progname
+build size: emitsize
+
+rule emitsect
+    command = $tools/llvm-objdump -section-headers $progname
+build sect: emitsect
+
+rule emitlist
+    command = $tools/llvm-objdump -disassemble $progname
+build list: emitlist
+
+rule emitsource
+    command = $tools/llvm-objdump -source $progname
+build source: emitsource

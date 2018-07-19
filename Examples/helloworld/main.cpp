@@ -10,9 +10,9 @@ void
 Isr()
 {
     switch (🔎IRQ()) {
-    case Coretimer: break; // Core Timer Interrupt
-    case Coresoftware0: break; // Core Software Interrupt 0
-    case Realtimeclock: break; // Real Time Clock
+    case Coretimer: break;
+    case Coresoftware0: break;
+    case Realtimeclock: break;
     }
 }
 
@@ -21,12 +21,12 @@ void
 mips_general_exception()
 {
     switch ((🔎Cause() & 0b1111100)>>2) {
-    case 4: break; // Load from illegal address
-    case 5: break; // Store to illegal address
-    case 6: break; // Bus error on instruction fetch
-    case 7: break; // Bus error on data reference
-    case 8: break; // Syscall
-    case 9: break; // Break instruction executed
+    case 4: printf("Load from illegal address"); break;
+    case 5: printf("Store to illegal address"); break;
+    case 6: printf("Bus error on instruction fetch"); break;
+    case 7: printf("Bus error on data reference"); break;
+    case 8: printf("Syscall"); break;
+    case 9: printf("Break instruction executed"); break;
     }
 }
 
