@@ -23,12 +23,12 @@ SECTIONS
   .abiflags_boot : { *(.MIPS.abiflags) } > kseg1_ram
   .got ALIGN(4) : { *(.got.plt) *(.got) . = ALIGN(4); } > kseg1_ram
   .ahstk : { PROVIDE(_gp = .); . = . + StackAndHeap; PROVIDE(_sp = .); } > kseg1_ram
-  .conf : { LONG(0xF4FFFFFF) } > BF1DEVCFG4
-  .conf : { LONG(0xFFFFFFFF) } > BF1DEVCFG3
-  .conf : { LONG(0xDFFFFFFF) } > BF1DEVCFG2
-  .conf : { LONG(0xDFF4FFFF) } > BF1DEVCFG1
-  .conf : { LONG(0xFFFFFFF7) } > BF1DEVCFG0  /* ICESEL = ICS_PGx2 */
-  .conf : { LONG(0xF4FFFFFF) } > BF1DEVCP0
   .text : { bootloader.o (.text) } > kseg1_boot_flash_1
   .rodata : { *(.rodata) } > kseg1_boot_flash_1
+  .conf : { LONG(0xFFFFFFFF) } > BF1DEVCFG4
+  .conf : { LONG(0xFFFFFFFF) } > BF1DEVCFG3
+  .conf : { LONG(0xFFFFFFFF) } > BF1DEVCFG2
+  .conf : { LONG(0xFFFFFFFF) } > BF1DEVCFG1
+  .conf : { LONG(0xFFFFFFF7) } > BF1DEVCFG0  /* ICESEL = ICS_PGx2 */
+  .conf : { LONG(0xFFFFFFFF) } > BF1DEVCP0
 }

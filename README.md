@@ -71,9 +71,9 @@ Compile `llvm2pic32` with `clang -o llvm2pic32 -std=c++1z main.cpp`.
 
 ## Booting a Chip
 
-The bootloader [bootloader_MZ](bootloader_MZ_xxxxxxx) lives at `0xBFC00000` and expects your kernels' interrupt service routine to start on the virtual address `0xBD000000` and that your `__start` symbol is placed on `0xBD001000`. See [`helloworld`](https://github.com/andeha/Twinbeam/tree/master/Examples/helloworld) for details.
+The bootloader [bootloader_mz](bootloader_mz_eec0c30.hex) lives at `0xBFC00000` and expects your kernels' interrupt service routine to start on the virtual address `0xBD000000` and that your `__start` symbol is placed on `0xBD001000`. See [`helloworld`](https://github.com/andeha/Twinbeam/tree/master/Examples/helloworld) for details.
 
-[bootloader_MZ_xxxxxxx]: https://github.com/andeha/Twinbeam/bootloader_MZ_xxxxxxx.hex
+[bootloader_mz_eec0c30.hex]: https://github.com/andeha/Twinbeam/releases/download/boot_v1.0/bootloader_mz_eec0c30.hex
 
 ## References
 
