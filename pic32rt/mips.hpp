@@ -79,3 +79,7 @@ BITMASK (uint32_t) { // MIPS Debug
 #define __debug_break(code) asm("sdbbp " #code)
 #define __break(code)       asm("break " #code)
 #define __wait              asm("wait")
+
+#define di asm volatile("di")
+#define ei asm volatile("ei")
+
