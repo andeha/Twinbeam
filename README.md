@@ -59,7 +59,7 @@ The `llvm2pic32` utility converts the `.bss`, `.data` and `.text` sections in an
 
 Virtual addresses are automatically converted into its physical counterpart.
 
-The optional argument `-b` allows for the inclusion of a boot loader into the final image.
+The optional argument `-b` injects a boot loader into the final image. If no `-b` is given, output suitable for inclusion via `-b` is emitted.
 
 ### Exit Status
 

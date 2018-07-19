@@ -162,8 +162,7 @@ main(
             if (bytesLeft > 0) goto again;
         }
     }
-    
-    fprintf(stdout, ":00000001FF\x0d\x0a");
+    if (argc == 4) { fprintf(stdout, ":00000001FF\x0d\x0a"); }
     fclose(in);
     return 0;
 }
