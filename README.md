@@ -4,57 +4,17 @@ Modern C++ software development for Intel x86-64 and PIC32/MIPS.
 
 Contains necessities: Utf-8, `Vector`, `Map` and `Chronology`.
 
-To use the library, include the `Twinbeam.h` header and link with its corresponding `libTwinbeam_pic32mz_*.a` or `libTwinbeam_macOS_*.a` archive.
+To use, include the `Twinbeam.h` header and link with its corresponding `libTwinbeam_pic32mz_*.a` or `libTwinbeam_macOS_*.a` archive.
 
-Requires [`ninja`](https://ninja-build.org), [`llvm`](https://llvm.org) and — for MIPS development — a pic32mz development board.  
+Requires [`ninja`](https://ninja-build.org), [`llvm`](https://llvm.org) and — for MIPS development — a pic32mz development board.
 
-Examples are available in the [`Examples`](https://github.com/andeha/Twinbeam/tree/master/Examples) directory.
+More details are given in [`Examples`](https://github.com/andeha/Twinbeam/tree/master/Examples) and on the Twinbeam [wiki](https://github.com/andeha/Twinbeam/wiki).
 
-For additional details, see the [Twinbeam wiki](https://github.com/andeha/Twinbeam/wiki).
+## Prebuilt
 
-## Embedded Development with MIPS
+Core: libTwinbeam_macOS.a, libTwinbeam_pic32mz.a, Twinbeam.h. (For Xcode 9 and llvm-6.0.)
 
-
-To compile a program, normally you just type `ninja` to run something similar to:
-    
-    terminal$ clang-6.0 -g -target mipsel -mips32r2 -fno-rtti -fno-exceptions -fblocks --std=c++17 -c main.cpp -o main.o
-    
-    terminal$ ld.lld -T ./pic32.ld -o mykernel main.o
-    
-    terminal$ llvm2pic32 -b bootloader.hex mykernel.elf > mykernel.hex
-    
-To query where in the virtual address space a symbol is defined, enter:
-    
-    terminal$ alias q='ninja syms | egrep'
-    terminal$ q main
-    bfc01dbc T main
-    
-To get insights into your current memory consumption, write:
-    
-    terminal$ ninja size
-    text      data    bss   dec      hex filename
-    11056     400   16640   28096    6dc0monitor_pic32mx795F512L
-    
-To list the sections created by the linker, enter:
-    
-    terminal$ ninja sect
-    
-To view all symbols in your program, write:
-    
-    terminal$ alias syms='ninja syms'
-    terminal$ syms 
-    
-To debug your application, write:
-    
-    terminal$ alias src='ninja source | less '
-    terminal$ src
-    terminal$ mdb ...
-    
-To convert an llvm-generated MIPS executable file into a `.hex` file, use [`llvm2pic32`](https://github.com/andeha/Twinbeam/wiki/Clang-to-pic32-flash). (For details, see [Intel Hex](https://en.wikipedia.org/wiki/Intel_HEX) and other documents on Internet.)
-
-## Booting a Chip
-
-The bootloader [bootloader_mz](https://github.com/andeha/Twinbeam/releases) lives at `0xBFC00000` and expects your kernels' interrupt service routine to start on the virtual address `0xBD000000` and that your `__start` symbol is placed on `0xBD001000`. See [`helloworld`](https://github.com/andeha/Twinbeam/tree/master/Examples/helloworld) for details.
+Bootloader: [pic32mz](https://github.com/andeha/Twinbeam/releases/download/boot_v1.0/bootloader_mz_eec0c30.hex). 
 
 ## References
 
