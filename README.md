@@ -14,7 +14,7 @@ More details are given in [`Examples`](https://github.com/andeha/Twinbeam/tree/m
 
 Core: libTwinbeam_macOS.a, libTwinbeam_pic32mz.a, Twinbeam.h. (For Xcode 9 and llvm-6.0.)
 
-Bootloader: [pic32mz](https://github.com/andeha/Twinbeam/releases/download/boot_v1.0/bootloader_mz_eec0c30.hex). 
+Bootloader: [pic32mz](https://github.com/andeha/Twinbeam/releases/download/boot_v1.0/bootloader_mz_eec0c30.hex) (eec0c30)
 
 ## References
 
