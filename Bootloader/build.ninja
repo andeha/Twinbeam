@@ -27,27 +27,6 @@ rule asm
 rule link
     command = $tools/ld.lld -T $loadscript -o $out $in; $tools/llvm2pic32 $progname > Releases/$progname\_$sha1git.hex
 
-rule emitsize
-    command = $tools/llvm-size $progname
-
-rule emitsect
-    command = $tools/llvm-objdump -section-headers $progname
-
-rule emitlist
-    command = $tools/llvm-objdump -disassemble $progname
-
-# requires -g
-rule emitsource
-    command = $tools/llvm-objdump -source $progname
-
-rule emitsyms
-    command = $tools/llvm-nm $progname | sort
-
 build $progname: link $objsdir/bootloader.o
 build $objsdir/bootloader.o: asm bootloader.S
-build size: emitsize
-build sect: emitsect
-build syms: emitsyms
-build list: emitlist
-build source: emitsource
 default $progname
