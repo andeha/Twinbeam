@@ -10,7 +10,10 @@ Requires [`ninja`](https://ninja-build.org), [`llvm`](https://llvm.org) and — 
 
 Examples are available in the [`Examples`](https://github.com/andeha/Twinbeam/tree/master/Examples) directory.
 
+For additional details, see the [Twinbeam wiki](https://github.com/andeha/Twinbeam/wiki).
+
 ## Embedded Development with MIPS
+
 
 To compile a program, normally you just type `ninja` to run something similar to:
     
