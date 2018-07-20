@@ -51,9 +51,7 @@ To convert an llvm-generated MIPS executable file into a `.hex` file, use [`llvm
 
 ## Booting a Chip
 
-The bootloader [bootloader_mz](bootloader_mz_eec0c30.hex) lives at `0xBFC00000` and expects your kernels' interrupt service routine to start on the virtual address `0xBD000000` and that your `__start` symbol is placed on `0xBD001000`. See [`helloworld`](https://github.com/andeha/Twinbeam/tree/master/Examples/helloworld) for details.
-
-[bootloader_mz_eec0c30.hex]: https://github.com/andeha/Twinbeam/releases
+The bootloader [bootloader_mz](https://github.com/andeha/Twinbeam/releases) lives at `0xBFC00000` and expects your kernels' interrupt service routine to start on the virtual address `0xBD000000` and that your `__start` symbol is placed on `0xBD001000`. See [`helloworld`](https://github.com/andeha/Twinbeam/tree/master/Examples/helloworld) for details.
 
 ## References
 
