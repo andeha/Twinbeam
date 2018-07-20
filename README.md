@@ -47,33 +47,13 @@ To debug your application, write:
     terminal$ src
     terminal$ mdb ...
     
-To convert an llvm-generated MIPS executable file into a `.hex` file, use [`llvm2pic32`](https://github.com/andeha/Twinbeam/tree/master/llvm2pic32/main.cpp). (For details, see [Intel Hex](https://en.wikipedia.org/wiki/Intel_HEX) and other documents on Internet.)
-
-### Synopsis
-    
-    lvm2pic32 [-b <bootloader.hex file>] <elf32 file>
-    
-### Description
-
-The `llvm2pic32` utility converts the `.bss`, `.data` and `.text` sections in an *Executable and Linkable Format* file into a text-based Intel Hex file.
-
-Virtual addresses are automatically converted into its physical counterpart.
-
-The optional argument `-b` injects a boot loader into the final image. If no `-b` is given, output suitable for inclusion via `-b` is emitted.
-
-### Exit Status
-
-The `llvm2pic32` utility exits `0` on success and non-zero otherwise.
-
-### Bugs
-
-Compile `llvm2pic32` with `clang -o llvm2pic32 -std=c++1z main.cpp`.
+To convert an llvm-generated MIPS executable file into a `.hex` file, use [`llvm2pic32`](https://github.com/andeha/Twinbeam/wiki/Clang-to-pic32-flash). (For details, see [Intel Hex](https://en.wikipedia.org/wiki/Intel_HEX) and other documents on Internet.)
 
 ## Booting a Chip
 
 The bootloader [bootloader_mz](bootloader_mz_eec0c30.hex) lives at `0xBFC00000` and expects your kernels' interrupt service routine to start on the virtual address `0xBD000000` and that your `__start` symbol is placed on `0xBD001000`. See [`helloworld`](https://github.com/andeha/Twinbeam/tree/master/Examples/helloworld) for details.
 
-[bootloader_mz_eec0c30.hex]: https://github.com/andeha/Twinbeam/releases/download/boot_v1.0/bootloader_mz_eec0c30.hex
+[bootloader_mz_eec0c30.hex]: https://github.com/andeha/Twinbeam/releases
 
 ## References
 
