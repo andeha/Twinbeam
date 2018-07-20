@@ -3,16 +3,8 @@
 //  pic32rt
 //
 
-MACRO __builtin_uint_t 🔎Count() 
-{ 
-#ifdef __x86_64__
-    __builtin_uint_t val = __rdtsc();
-#elif defined __mips__
-    __builtin_uint_t val; 
-    asm volatile("mfc0 %0, $9, 0; nop" : "=r" (val)); 
-#endif
-    return val;
-}
+MACRO __builtin_uint_t 🔎Count() { __builtin_uint_t val; asm 
+  volatile("mfc0 %0, $9, 0; nop" : "=r" (val)); return val; }
 MACRO __builtin_uint_t 🔎Compare() { __builtin_uint_t val; asm
   volatile("mfc0 %0, $11, 0; nop" : "=r" (val)); return val; }
 MACRO __builtin_uint_t 🔎Status() { __builtin_uint_t val; asm
