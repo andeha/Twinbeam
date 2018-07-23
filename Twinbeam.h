@@ -163,7 +163,7 @@ MACRO __builtin_uint_t&  🔧(__builtin_uint_t var) { return (__builtin_uint_t&)
 MACRO __builtin_uint_t TrailingZeros(__builtin_uint_t x) { if (x == 0) { return
   8*sizeof(x); } __builtin_uint_t zeros = 0, mask = 1; while (!(x&mask)) {
   zeros++; mask<<=1; } return zeros; }
-MACRO __builtin_uint_t MaskAndShift(__builtin_uint_t value, __builtin_uint_t
+inline __builtin_uint_t MaskAndShift(__builtin_uint_t value, __builtin_uint_t
   mask) { __builtin_uint_t shift = TrailingZeros(mask); return (mask&value) >>
   shift; }
 MACRO __builtin_uint_t 🔎MaskandShift(__builtin_uint_t var, __builtin_uint_t
@@ -176,8 +176,19 @@ MACRO void 🔧Toggle(__builtin_uint_t var, __builtin_uint_t mask) {
   __builtin_uint_t shift = TrailingZeros(mask); __builtin_uint_t secured =
   mask>>shift; *(__builtin_uint_t *)var ^= secured<<shift; }
 extern "C" { void * malloc(size_t); void free(void *); int printf(const char
-  *utf8Format, ...); uint8_t getch(); void putch(uint8_t data); int atexit(void
-  (*func) (void)); void exit(int); }
+  *utf8format, ...); int atexit(void (*func) (void)); void exit(int); }
+int
+bprintf_utf8(
+    unsigned short (^output)(char *p, short unsigned bytes),
+    const char *utf8Format,
+    __builtin_va_list arg
+);
+int // Tuple<int, int, int> i.e user-percieved characters, unicodes and utf-8.
+bprintf_unicode(
+    unsigned short (^output)(char *p, short unsigned bytes),
+    const char32_t *unicodeFormat,
+    __builtin_va_list arg
+);			
 typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
 #ifdef __x86_64__
 FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memory(
@@ -201,11 +212,11 @@ FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef l,
   ByteAlignedRef r, __builtin_uint_t bytes); // i.e `memcmp`
 #endif
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
-  const uint32_t PIC32##serie##_##symbol = vaddr;                            \
-  const uint32_t PIC32##serie##_##symbol##SET = (vaddr + 0x4);               \
-  const uint32_t PIC32##serie##_##symbol##CLR = (vaddr + 0x8);               \
-  const uint32_t PIC32##serie##_##symbol##INV = (vaddr + 0xC);
-#define PortRectifyAsInputs(serie,X,tris) (*((uint32_t *)PIC32##serie##_##TRIS##X##SET) = (uint16_t)(tris))
+  constexpr uint32_t PIC32##serie##_##symbol = vaddr;                        \
+  constexpr uint32_t PIC32##serie##_##symbol##CLR = (vaddr + 0x4);           \
+  constexpr uint32_t PIC32##serie##_##symbol##SET = (vaddr + 0x8);           \
+  constexpr uint32_t PIC32##serie##_##symbol##INV = (vaddr + 0xC);
+#define PortRectifyAsOutputs(serie,X,tris) (*((uint32_t *)PIC32##serie##_##TRIS##X##CLR) = (uint16_t)(tris))
 ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
 ByteAlignedRef Overwrite8Memory(ByteAlignedRef src, uint8_t val,
   __builtin_int_t bytes);
@@ -235,12 +246,11 @@ typedef mips32_context jmp_buf;
 typedef int64_t x86_64_context[(9 * 2) + 3 + 16];
 typedef x86_64_context jmp_buf;
 #endif
-FOCAL void Base( /* TeX §64, §65 and §67 */
-  __builtin_uint_t n,
-  unsigned short base,
-  short digitsOr0, /* Not more than 64 digits! Set to 0 to disable padding or truncation. */
-  void (^output)(char utf8)
-);
+FOCAL void Base(/* TeX §64, §65 and §67 */ __builtin_uint_t n, unsigned
+  short base, short digitsOr0, /* Not more than 64 digits! Set to 0 to disable
+  padding or truncation. */ void (^output)(char utf8)); 
+FOCAL void Base(__builtin_int_t z, unsigned short base, short digitsOrZero, 
+  void (^output)(char utf8));
 template <typename T> T abs(T x) { return x < 0 ? -x : x; }
 #define SIGNBIT_INT32 0x80000000
 #define SIGNBIT_INT64 0x8000000000000000L
@@ -375,8 +385,8 @@ struct Memoryregion {
     
     void incorporate(void *virtue, __builtin_int_t bytes, metaaddress loc);
     
-    int inject(__builtin_int_t index, const Memoryregion& sub, void *(^allocate)
-      (__builtin_int_t bytes) /* = ^(__builtin_int_t b) { return malloc(b); } */ );
+    int inject(__builtin_int_t index, const Memoryregion& src, void *(^allocate)
+      (__builtin_int_t bytes) /* = ^(__builtin_int_t b) { return malloc(b); } */);
     
     int exclude(metaaddress start, __builtin_int_t bytes);
     
