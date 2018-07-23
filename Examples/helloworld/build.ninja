@@ -2,7 +2,7 @@
 optflags   = -g
 progname   = helloworld
 loadscript = ../../pic32rt/pic32.ld
-platflags  = -D__MZ__ -I ../.. -I ../../pic32rt
+platflags  = -D__MZ__ -D__MZDAStarterBoard__ -I ../.. -I ../../pic32rt
 bootloader = ../../Bootloader/Releases/bootloader_mz_eec0c30.hex
 libtwinbeam = ../../Source/Releases/libTwinbeam_pic32mz_f27bcc1.a
 

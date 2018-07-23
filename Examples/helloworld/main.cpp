@@ -13,6 +13,7 @@ Isr()
     case Coretimer: break;
     case Coresoftware0: break;
     case Realtimeclock: break;
+    default: ;
     }
 }
 
@@ -30,8 +31,8 @@ mips_general_exception()
     }
 }
 
-auto stdout = ^(char utf8) { putch(utf8); };
-auto stdin = ^{ return getutf8(); };
+auto Putch = ^(char utf8) { putch(utf8); };
+auto Getch = ^{ return getutf8(); };
 auto alloc = ^(__builtin_int_t bytes) { return malloc(bytes); };
 
 int
@@ -40,16 +41,11 @@ main(
   const char *argv[]
 )
 {
-    
-#ifdef __MZ__
-    mz_init();
-#endif
-    
-    InitUART();
+    InitMZDAStarterBoard();
     
     printf("Hello World (%s)\xA\xA", SHA1GIT);
     
-    while (1) { putch('X'); }
+    while (1) { uint8_t c = Getch(); Putch('X'); }
     
     return 0;
 }
