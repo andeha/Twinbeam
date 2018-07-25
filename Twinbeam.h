@@ -78,6 +78,7 @@ extern void RunUnitTests(const char * filepath);
 // #define ⚠️_IMPLIES_DOING_HARDTIME
 #define ONLY_FOR_SOFT_REALTIME
 #define MAY_CONTAIN_TRACES_OF_FIRM_REALTIME
+#define INFLATABBLE
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -292,7 +293,9 @@ int Next(Twinbeam *beam, Twinbeam::Segmentation segmentation, BinaryChoice
 
 bool CaseSensitiveIsEqual(const char32_t *l, const char32_t *r);
 
-int NonapproximativeCompare(
+INFLATABBLE
+int 
+UnicodeNonapproximativeCompare(
   const char32_t *l, const char32_t *r,
   __builtin_int_t tetras,
   void (^completion)(Tribool isEqual) /* = ^(bool isEqual) { } */,
