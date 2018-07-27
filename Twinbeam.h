@@ -53,9 +53,9 @@ void divide_bignum(bignum *a, bignum *b, bignum *c);
 
 #define BITMASK(type) enum : type
 #ifdef  __mips__
-#define mips __asm { .set noreorder; .set noat;
+#define Mips __asm { .set noreorder; .set noat;
 #elif defined __x86_64__
-#define intel __asm { .intel_syntax noprefix /* Requires -fms-extensions when on llvm. */
+#define Intel __asm { .intel_syntax noprefix /* Requires -fms-extensions when on llvm. */
 #endif
 template<typename T>
 struct InnerFrame {
@@ -447,7 +447,10 @@ typedef union {
         unsigned mantissah : 20;
         unsigned exponent  : 11;
         unsigned sign      :  1;
-    } ieee754;
+    } ieee754b2;
+    struct {
+        unsigned sign      :  1; // ⚓️
+    } ieee754b10;
 #ifdef __x86_64__
     uint64_t octa;
 #endif
