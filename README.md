@@ -12,7 +12,7 @@ More details are given in [`Examples`](https://github.com/andeha/Twinbeam/tree/m
 
 ## Prebuilt
 
-Core: [libTwinbeam_macOS.a](https://github.com/andeha/Twinbeam/releases/download/twinbeam_prerel1/libTwinbeam_macOS_ee4043e.a), [libTwinbeam_pic32mz.a](https://github.com/andeha/Twinbeam/releases/download/twinbeam_prerel1/libTwinbeam_pic32mz_ee4043e.a), [Twinbeam.h](https://github.com/andeha/Twinbeam/releases/download/twinbeam_prerel1/Twinbeam.h). (For Xcode 9 and llvm-6.0.)
+Core: [libTwinbeam_macOS.a](https://github.com/andeha/Twinbeam/releases/download/twinbeam_prerel1/libTwinbeam_macOS_ee4043e.a), [libTwinbeam_pic32mz.a](https://github.com/andeha/Twinbeam/releases/download/twinbeam_prerel1/libTwinbeam_pic32mz_ee4043e.a), [Twinbeam.h](https://github.com/andeha/Twinbeam/releases/download/twinbeam_prerel1/Twinbeam.h). (Revision ee4043e, for Xcode 9 and llvm-6.0.)
 
 Bootloader: [pic32mz](https://github.com/andeha/Twinbeam/releases/download/boot_v1.0/bootloader_mz_eec0c30.hex) (eec0c30)
 
