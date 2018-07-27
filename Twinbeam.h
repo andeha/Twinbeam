@@ -17,8 +17,8 @@
 #define INNER_FUNCTION static __attribute__ ((internal_linkage))
 typedef unsigned char       uint8_t;
 #ifdef  __mips__
-typedef unsigned long long  uint32_t;
-typedef long long           int32_t;
+typedef unsigned long       uint32_t;
+typedef long                int32_t;
 typedef uint32_t            __builtin_uint_t;
 typedef int32_t             __builtin_int_t;
 #define TriboolUnknown 0xFFFFFFFF
@@ -52,7 +52,11 @@ void multiply_bignum(bignum *a, bignum *b, bignum *c);
 void divide_bignum(bignum *a, bignum *b, bignum *c);
 
 #define BITMASK(type) enum : type
+#ifdef  __mips__
+#define mips __asm { .set noreorder; .set noat;
+#elif defined __x86_64__
 #define intel __asm { .intel_syntax noprefix /* Requires -fms-extensions when on llvm. */
+#endif
 template<typename T>
 struct InnerFrame {
   InnerFrame<T>() {} T * ref_;
@@ -248,10 +252,11 @@ typedef int64_t x86_64_context[(9 * 2) + 3 + 16];
 typedef x86_64_context jmp_buf;
 #endif
 FOCAL void Base(/* TeX §64, §65 and §67 */ __builtin_uint_t n, unsigned
-  short base, short digitsOr0, /* Not more than 64 digits! Set to 0 to disable
-  padding or truncation. */ void (^output)(char utf8)); 
-FOCAL void Base(__builtin_int_t z, unsigned short base, short digitsOrZero, 
-  void (^output)(char utf8));
+  short base, unsigned short digitsOr0, /* Not more than 32 or 64 digits 
+  depending on word size! (Or set to `0` to skip leading zeros.) */ void 
+  (^output)(char utf8)); 
+FOCAL void Base(__builtin_int_t z, unsigned short base, unsigned short 
+  digitsOr0, void (^output)(char utf8));
 template <typename T> T abs(T x) { return x < 0 ? -x : x; }
 #define SIGNBIT_INT32 0x80000000
 #define SIGNBIT_INT64 0x8000000000000000L
@@ -408,7 +413,7 @@ struct Memoryregion {
     INLINED void toggleNetworkAndNative(void (^ping)(bool &stop), void
       (^completion)(__builtin_int_t bytes)); // REQ: O(1)
     
-#pragma mark Conveniences
+#pragma mark Fields of Capacitors
     
     static Opt<Memoryregion> abduct(__builtin_int_t bytes, MemoryDelegate *
       delegate = NULL, bool allowWrites = true, void *(^allocate)(
@@ -420,7 +425,7 @@ struct Memoryregion {
       void *(^allocate)(__builtin_int_t bytes) = ^(__builtin_int_t bytes) {
       return malloc(bytes); });
     
-#pragma mark Memory-mangement
+#pragma mark Memory Mangement
     
     Memoryregion() = delete;
     
