@@ -184,13 +184,13 @@ extern "C" { void * malloc(size_t); void free(void *); int printf(const char
   *utf8format, ...); int atexit(void (*func) (void)); void exit(int); }
 int
 bprintf_utf8(
-    unsigned short (^output)(char *p, short unsigned bytes),
+    unsigned short (^utf8)(char *p, short unsigned bytes),
     const char *utf8Format,
     __builtin_va_list arg
 );
 int // Tuple<int, int, int> i.e user-percieved characters, unicodes and utf-8.
 bprintf_unicode(
-    unsigned short (^output)(char *p, short unsigned bytes),
+    unsigned short (^utf8)(char *p, short unsigned bytes),
     const char32_t *unicodeFormat,
     __builtin_va_list arg
 );			
@@ -215,13 +215,13 @@ FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAligned
   dst, ByteAlignedRef src, __builtin_int_t bytes);
 FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef l,
   ByteAlignedRef r, __builtin_uint_t bytes); // i.e `memcmp`
-#endif
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
   constexpr uint32_t PIC32##serie##_##symbol = vaddr;                        \
   constexpr uint32_t PIC32##serie##_##symbol##CLR = (vaddr + 0x4);           \
   constexpr uint32_t PIC32##serie##_##symbol##SET = (vaddr + 0x8);           \
   constexpr uint32_t PIC32##serie##_##symbol##INV = (vaddr + 0xC);
 #define PortRectifyAsOutputs(serie,X,tris) (*((uint32_t *)PIC32##serie##_##TRIS##X##CLR) = (uint16_t)(tris))
+#endif
 ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
 ByteAlignedRef Overwrite8Memory(ByteAlignedRef src, uint8_t val,
   __builtin_int_t bytes);
@@ -304,10 +304,10 @@ UnicodeNonapproximativeCompare(
   const char32_t *l, const char32_t *r,
   __builtin_int_t tetras,
   void (^completion)(Tribool isEqual) /* = ^(bool isEqual) { } */,
-  bool (^acceptable)(char32_t l,  char32_t r, bool& stop) /* =
+  bool (^acceptable)(char32_t l, char32_t r, bool& stop) /* =
     ^(char32_t l, char32_t r, bool& stop) { return false; } */,
   void (^preproc)(char32_t l, char32_t r, void (^out)(char32_t lo, char32_t ro)),
-  void (^ping)(bool& stop) /* = ^(bool& stop) { } */);
+  void (^ping)(bool& stop) /* = ^(bool& stop) { } */); // The roman numerial IV annd U+2164.
 
 #pragma mark Unicode Querying
 
