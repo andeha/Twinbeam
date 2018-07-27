@@ -300,14 +300,14 @@ bool CaseSensitiveIsEqual(const char32_t *l, const char32_t *r);
 
 INFLATABBLE
 int 
-UnicodeNonapproximativeCompare(
+UnicodeNonapproximativeCompare( // 𝜀 ≈ |theory - practice| ∨ ∑ |theory - practice|
   const char32_t *l, const char32_t *r,
   __builtin_int_t tetras,
   void (^completion)(Tribool isEqual) /* = ^(bool isEqual) { } */,
   bool (^acceptable)(char32_t l, char32_t r, bool& stop) /* =
     ^(char32_t l, char32_t r, bool& stop) { return false; } */,
   void (^preproc)(char32_t l, char32_t r, void (^out)(char32_t lo, char32_t ro)),
-  void (^ping)(bool& stop) /* = ^(bool& stop) { } */); // The roman numerial IV annd U+2164.
+  void (^ping)(double PbutlessthanOrEqualToSimilar1point024whenIsIeee7542008b2, bool& stop) /* = ^(bool& stop) { } */); // The roman numerial IV and U+2164.
 
 #pragma mark Unicode Querying
 
