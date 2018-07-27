@@ -17,13 +17,14 @@ MEMORY {
 
 SECTIONS
 {
-  .data : { *(.data) } > kseg1_ram
+  .text : { * (.text) } > kseg1_program_flash
+  .rodata : { *(.rodata) _etext = .; } > kseg1_program_flash
+  
+  .data : { _data_begin = .; *(.data) _data_end = .; } > kseg1_ram AT > kseg1_program_flash
   .bss : { _bss_begin = .; *(.bss) *(COMMON) _bss_end = .; } > kseg1_ram
   .reginfo_app : { *(.reginfo) } > kseg1_ram
   .abiflags_app : { *(.MIPS.abiflags) } > kseg1_ram
   .got ALIGN(4) : { *(.got.plt) *(.got) . = ALIGN(4); } > kseg1_ram
   .ahstk : { PROVIDE(_gp = .); . = . + StackAndHeap; PROVIDE(_sp = .); } > kseg1_ram
-  .text : { * (.text) } > kseg1_program_flash
-  .rodata : { *(.rodata) } > kseg1_program_flash
 }
 
