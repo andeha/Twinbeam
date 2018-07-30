@@ -1,1 +1,3 @@
-tools = /Users/myname/path_to_mips-tools
+tools = /Users/<Username>/Projects/mips-tools
+runtime = /Users/<Username>/Projects/Twinbeam/pic32rt
+additions = $runtime/../Additions

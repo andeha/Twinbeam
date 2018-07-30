@@ -145,10 +145,10 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char32_t *unicodes) {
           term.write(unicode);
     })) { } return term; }
 
-MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const String& s) {
-  __builtin_int_t tetras = s.unicodeCount(); for (int i = 0; i < tetras; i++)
-  { s.unicode(i, ^(SemanticPointer<char *> prev, char32_t elem,
-  SemanticPointer<char *> next) { term.write(elem); }); } return term; }
+// MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const String& s) {
+//  __builtin_int_t tetras = s.unicodeCount(); for (int i = 0; i < tetras; i++)
+//  { s.unicode(i, ^(SemanticPointer<char *> prev, char32_t elem,
+//  SemanticPointer<char *> next) { term.write(elem); }); } return term; }
 
 // MACRO Utf8Terminal & operator<<(Utf8Terminal &term, DecoratedString s)
 // { Present(term, s); return term; }
