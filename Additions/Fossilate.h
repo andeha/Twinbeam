@@ -6,8 +6,15 @@
 #ifndef __FOSSILATE_H
 #define __FOSSILATE_H
 
-typedef unsigned long long    __builtin_uint_t;
-typedef long long             __builtin_int_t;
+typedef unsigned long long  uint64_t; // 64 bits on x86_64 as well as on MIPS32.
+typedef long long           int64_t;
+#ifdef  __mips__
+typedef unsigned long       __builtin_uint_t;
+typedef long                __builtin_int_t;
+#elif defined __x86_64__
+typedef unsigned long long  __builtin_uint_t;
+typedef long long           __builtin_int_t;
+#endif
 
 // extern ENCRYPTED "Utf-8✕json" struct "myTuple" Pair { int a; int b; } foo() { return { 0, 0 }; }
 
@@ -45,4 +52,6 @@ typedef long long             __builtin_int_t;
 
 // 💀🎤😐: 🎲⤣ ≅
 
+struct Envelope { uint8_t utf8Address[4]; Fossilate content; };
+ 
 #endif
