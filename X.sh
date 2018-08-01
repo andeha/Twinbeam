@@ -1,0 +1,14 @@
+ninja -f Source/build_macOS.ninja
+ninja -f Source/build_pic32mz.ninja
+ninja -f macOS/build_test.ninja
+ninja -f Examples/dbgout/build.ninja
+ninja -f Examples/ledflash/build.ninja
+ninja -f Examples/helloworld/build.ninja
+ninja -f Examples/fpu/build.ninja
+ninja -f Examples/bldc/build.ninja
+ninja -f Examples/usb/build.ninja
+ninja -f Examples/twinsh/build.ninja
+ninja -f Examples/turbine/build.ninja
+ninja -f Examples/flightcontroller/build.ninja
+ninja -f Examples/😐/build.ninja
+ninja -f Additions/build_macOS.ninja
