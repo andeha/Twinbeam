@@ -1,0 +1,19 @@
+# build.ninja -- Building libTwinbeam_macOS.a.
+optflags   = -g
+progroot   = libTwinbeam_macOS
+platflags  = -I ..
+
+objsdir = ./.objs/7703a312-55A9-44da-A892-ebbcf8f87663_$progname
+sha1git = `git log -1 '--pretty=format:%h'`
+flags = $optflags -fno-rtti -fno-exceptions -fblocks $platflags
+
+include rules.ninja
+
+rule link
+    command = xcrun ld -macosx_version_min 10.13.0 -lSystem -lc++ -o $out $in $libtwinbeam
+
+build TwinbeamTests: link $objsdir/main.o $objsdir/Utf8Tests.o $objsdir/ChronologyTests.o
+build $objsdir/main.o: cc main.cpp
+build $objsdir/Utf8Tests.o: cc ../Unittests/Utf8Tests.cpp
+build $objsdir/ChronologyTests.o: cc ../Unittests/ChronologyTests.cpp
+default TwinbeamTests

@@ -1,0 +1,14 @@
+
+rule cc
+    command = xcrun clang -std=c++1z $macoscflags -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
+    depfile = $out.d
+    deps = gcc
+
+rule c
+    command = xcrun clang -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
+    depfile = $out.d
+    deps = gcc
+
+rule asm
+    command = xcrun clang $flags -c $in -o $out
+
