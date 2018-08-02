@@ -74,7 +74,7 @@ enum Interrupt { Coretimer=0, Coresoftware0=1, Coresoftware1=2, ExternalInt0=3,
   ADCDigitalComparator1=46, ADCDigitalFilter1=52, ADCFault=58, ADCData0=59, 
   USBSuspendResume=103, Crypto=107, SPI1ReceiveDone=110, SPI1TransferDone=111, 
   InputchangePortB=119, USBGeneral=132, USBDMA=133, DMAChannel0=134, 
-  I2C2BusCollision=148, I2C2Slave=149, I2C2Master=150, Realtimeclock=166, 
+  I2C2BusCollision=148, I2C2Slave=149, I2C2Master=150, Clock=166, 
   Flash=167, Prefetch=168, SQI=169, SDHC=191, GLCD=192, GPU=193, CTMU=195, 
   ADCEndOfScan=196, ADCAnalogCircuitReady=197, ADCUpdateReady=198, ADC0Early=199, 
   ADCGroupEarly=205, ADC0Warm=207, MPLLFault=215 };
