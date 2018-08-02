@@ -1,6 +1,8 @@
-ninja -f Source/build_macOS.ninja
 ninja -f Source/build_pic32mz.ninja
+ninja -f Source/build_macOS.ninja
 ninja -f macOS/build_test.ninja
+ninja -f Sprinkle/llvm2pic32/build_test.ninja
+ninja -f Sprinkle/pdb/build.ninja
 ninja -f Examples/dbgout/build.ninja
 ninja -f Examples/ledflash/build.ninja
 ninja -f Examples/helloworld/build.ninja
