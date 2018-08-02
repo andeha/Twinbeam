@@ -14,7 +14,7 @@ include ../macOS/rules.ninja
 rule link
     command = xcrun ld -macosx_version_min 10.13.0 -lSystem -lc++ -o $out $libtwinbeam $in 
 
-build $progname: link $objsdir/Additions.o $objsdir/Ieee754_64bits.o $objsdir/Utf8Terminal.o $objsdir/Present.o $objsdir/Streams.o $objsdir/main.o $objsdir/Present.o $objsdir/mips.o $objsdir/mzda.o
+build $progname: link $objsdir/Additions.o $objsdir/Ieee754_64bits.o $objsdir/Utf8Terminal.o $objsdir/Present.o $objsdir/Streams.o $objsdir/main.o $objsdir/Present2.o $objsdir/mips.o $objsdir/mzda.o
 build $objsdir/Additions.o: cc $additions/Additions.cpp
 # Required for CastToString
 build $objsdir/Ieee754_64bits.o: cc $additions/Ieee754_64bits.cpp
@@ -24,5 +24,6 @@ build $objsdir/Streams.o: cc $additions/Streams.cpp
 build $objsdir/Present.o: cc Present.cpp
 build $objsdir/mips.o: cc mips.cpp
 build $objsdir/mzda.o: cc mzda.cpp
+build $objsdir/Present2.o: cc Present2.cpp
 build $objsdir/main.o: cc main.cpp
 default $progname
