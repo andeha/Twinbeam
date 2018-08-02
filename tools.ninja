@@ -1,3 +1,7 @@
-tools = /Users/<Username>/Projects/mips-tools
-runtime = /Users/<Username>/Projects/Twinbeam/pic32rt
+tools = /Users/<User- or project name>/mips-tools
+runtime = /Users/<User- or project name>/Twinbeam/pic32rt
 additions = $runtime/../Additions
+pic32cflags = -target mipsel -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32
+macoscflags = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mmacosx-version-min=10.13
+host = /Users/<User- or project name>/Twinbeam/macOS
+
