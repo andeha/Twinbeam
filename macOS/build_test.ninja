@@ -2,6 +2,7 @@
 optflags   = -g
 progroot   = libTwinbeam_macOS
 platflags  = -I ..
+libtwinbeam = ../Source/Releases/libTwinbeam_macOS_b99f89d.a
 
 objsdir = ./.objs/7703a312-55A9-44da-A892-ebbcf8f87663_$progname
 sha1git = `git log -1 '--pretty=format:%h'`

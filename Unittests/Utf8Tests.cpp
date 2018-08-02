@@ -3,7 +3,7 @@
 //  Twinbeam Tests
 //
 
-#include <Twinbeam/Twinbeam.h>
+#include <Twinbeam.h>
 
 UNITTEST(Utf8_Utf8ToUnicode_1)
 {

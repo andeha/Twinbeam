@@ -3,7 +3,7 @@
 //  Twinbeam Tests
 //
 
-#include <Twinbeam/Twinbeam.h>
+#include <Twinbeam.h>
 #include <stdio.h>
 
 UNITTEST(Chronology_localNow)
