@@ -10,7 +10,7 @@ ninja -C Examples/bldc
 ninja -C Examples/usb
 ninja -C Examples/twinsh
 ninja -C Examples/turbine
-ninja -C Examples/flightcontroller
 ninja -C Examples/radio
+ninja -C Examples/flightcontroller
 ninja -C Examples/😐/
 ninja -C Additions -f build_macOS.ninja
