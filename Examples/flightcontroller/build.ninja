@@ -1,41 +1,33 @@
 # build.ninja -- Building flight controller.
 
-optflags   = -g
-progname   = coconut_II
-loadscript = ../../pic32rt/pic32.ld
-platflags  = -D__MZ__ -I ../.. -I ../../pic32rt
+optflags = -g
+progname = coconut_II
+include ../../tools.ninja
+loadscript = $runtime/pic32rt/pic32.ld
+platflags = -D__MZ__ -D__MZDAStarterBoard__ -I $runtime/.. -I $runtime
+bootloader = ../../Bootloader/Releases/bootloader_mz_eec0c30.hex
+libtwinbeam = ../../Source/Releases/libTwinbeam_pic32mz_0f5fabc.a
 
 objsdir = ./.objs/7703a312-55A9-44ba-A992-eabcf7f97663_$progname
-sha1git = `git log -1 '--pretty=format:%h'`
-flags = $optflags -target mipsel -mips32r2 -fno-rtti -fno-exceptions -fblocks $platflags
-libtwinbeam = ../../Source/Releases/libTwinbeam_pic32mz_f27bcc1.a
-include ../../tools.ninja
-
-rule cc
-    command = $tools/clang-6.0 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags --std=c++17 -c $in -o $out
-    depfile = $out.d
-    deps = gcc
-
-rule c
-    command = $tools/clang-6.0 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
-    depfile = $out.d
-    deps = gcc
-
-rule asm
-    command = $tools/clang-6.0 $flags -c $in -o $out
+flags = $optflags $pic32cflags $platflags
+include $runtime/commands.ninja
 
 rule link
-    command = $tools/ld.lld -T $loadscript -o $out $in $libtwinbeam; $tools/llvm2pic32 -b ../../Bootloader/Releases/bootloader_MZ_2d656fe.hex $progname > Releases/$progname\_$sha1git.hex
+    command = $tools/ld.lld -T $loadscript -o $out $in $libtwinbeam;        $
+      $tools/llvm2pic32 -b $bootloader $progname > $progname.hex
 
-build $progname: link $objsdir/start.o $objsdir/clang.o $objsdir/Ieee754_64bits.o $objsdir/Utf8Terminal.o $objsdir/Streams.o $objsdir/Present.o $objsdir/History.o $objsdir/main.o
-build $objsdir/start.o: asm ../../pic32rt/start.S
-build $objsdir/clang.o: asm ../../pic32rt/clang.cpp
-build $objsdir/Additions.o: asm ../../Additions/Additions.cpp
-build $objsdir/Ieee754_64bits.o: asm ../../Additions/Ieee754_64bits.cpp
-build $objsdir/Utf8Terminal.o: asm ../../Additions/Utf8Terminal.cpp
-build $objsdir/Streams.o: asm ../../Additions/Streams.cpp
-build $objsdir/Present.o: asm ../../Additions/Present.cpp
-build $objsdir/History.o: asm ../../Additions/History.cpp
+build $progname: link $objsdir/start.o $objsdir/clang.o                     $
+  $objsdir/Ieee754_64bits.o $objsdir/Utf8Terminal.o $objsdir/Streams.o      $
+  $objsdir/Present.o $objsdir/History.o $objsdir/init.o $objsdir/pid.o      $
+  $objsdir/sensor.o $objsdir/motor.o $objsdir/plan.o $objsdir/main.o
+build $objsdir/start.o: asm $runtime/start.S
+build $objsdir/clang.o: asm $runtime/clang.cpp
+build $objsdir/Additions.o: asm $additions/Additions.cpp
+build $objsdir/Ieee754_64bits.o: asm $additions/Ieee754_64bits.cpp
+build $objsdir/Utf8Terminal.o: asm $additions/Utf8Terminal.cpp
+build $objsdir/Streams.o: asm $additions/Streams.cpp
+build $objsdir/Present.o: asm $additions/Present.cpp
+build $objsdir/History.o: asm $additions/History.cpp
 build $objsdir/init.o: cc init.cpp
 build $objsdir/pid.o: cc pid.cpp
 build $objsdir/sensor.o: cc sensor.cpp
