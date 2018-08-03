@@ -1,10 +1,10 @@
 # build.ninja -- Building flight controller.
 
-optflags = -g
+optflags = -D__MZDAStarterBoard__ -g
 progname = coconut_II
 include ../../tools.ninja
 loadscript = $runtime/pic32rt/pic32.ld
-platflags = -D__MZ__ -D__MZDAStarterBoard__ -I $runtime/.. -I $runtime
+platflags = -D__MZ__ -I $runtime/.. -I $runtime -I $additions
 bootloader = ../../Bootloader/Releases/bootloader_mz_eec0c30.hex
 libtwinbeam = ../../Source/Releases/libTwinbeam_pic32mz_0f5fabc.a
 
