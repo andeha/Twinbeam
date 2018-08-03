@@ -1,0 +1,29 @@
+# build.ninja -- Building libTwinbeam_macOS.a.
+optflags   = -g
+progroot   = libTwinbeam_macOS
+platflags  = -I ..
+
+objsdir = ./.objs/7703a312-55A9-44da-A892-ebbcf8f87663_$progname
+sha1git = `git log -1 '--pretty=format:%h'`
+flags = $optflags -fno-rtti -fno-exceptions -fblocks $platflags
+
+include ../macOS/rules.ninja
+
+rule lib
+    command = xcrun ar rcs Releases/$out\_$sha1git.a $in
+
+build $progroot: lib $objsdir/Utf8.o $objsdir/Tree.o $objsdir/Memory.o $objsdir/Chronology.o $objsdir/Strinng.o $objsdir/Unicodes.o $objsdir/Unicode.o $objsdir/bignum.o $objsdir/SHA256.o $objsdir/printf.o $objsdir/macOS.o $objsdir/exception.o $objsdir/System.o 
+build $objsdir/bignum.o: cc ../Source/bignum.cpp
+build $objsdir/Chronology.o: cc ../Source/Chronology.cpp
+build $objsdir/macOS.o: cc ../Source/macOS.cpp
+build $objsdir/Memory.o: cc ../Source/Memory.cpp
+build $objsdir/printf.o: cc ../Source/printf.cpp
+build $objsdir/SHA256.o: cc ../Source/SHA256.cpp
+build $objsdir/Strinng.o: cc ../Source/Strinng.cpp
+build $objsdir/System.o: cc ../Source/System.cpp
+build $objsdir/Tree.o: cc ../Source/Tree.cpp
+build $objsdir/Unicode.o: cc ../Source/Unicode.cpp
+build $objsdir/Unicodes.o: cc ../Source/Unicodes.cpp
+build $objsdir/Utf8.o: cc ../Source/Utf8.cpp
+build $objsdir/exception.o: asm ../Source/exception.S
+default $progroot

@@ -1,4 +1,4 @@
-# commands.ninja -- Essentials when doing embedded.
+# commands.ninja -- Essentials for embedded.
 
 rule emitsyms
     command = $tools/llvm-nm $progname
@@ -19,3 +19,16 @@ build list: emitlist
 rule emitsource
     command = $tools/llvm-objdump -source $progname
 build source: emitsource
+
+rule cc
+    command = $tools/clang-6.0 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags --std=c++2a -c $in -o $out
+    depfile = $out.d
+    deps = gcc
+
+rule c
+    command = $tools/clang-6.0 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
+    depfile = $out.d
+    deps = gcc
+
+rule asm
+    command = $tools/clang-6.0 $flags -c $in -o $out
