@@ -1,0 +1,27 @@
+# build.ninja - Build clock.
+
+optflags = -D__MZDAStarterBoard__ -g
+progname = clock
+include ../../tools.ninja
+loadscript = $runtime/pic32.ld
+platflags = -D__MZ__ -I $runtime/.. -I $additions -I $runtime
+bootloader = ../../Bootloader/Releases/bootloader_mz_eec0c30.hex
+# libadditions = ../../Additions/Releases/libAAdditions_pic32mz.a
+libtwinbeam = ../../Source/Releases/libTwinbeam_pic32mz_448add9.a
+
+objsdir = ./.objs/7703a322-55A9-34ca-ba92-eabcf7f87663_$progname
+flags = $optflags $pic32cflags $platflags
+include $runtime/commands.ninja
+
+build $objsdir/Utf8Terminal.o: cc $additions/Utf8Terminal.cpp
+build $objsdir/Streams.o: cc $additions/Streams.cpp
+
+rule link
+    command = $tools/ld.lld -T $loadscript -o $out $in $libtwinbeam ;       $
+      $tools/llvm2pic32 -b $bootloader $progname > $progname.hex
+
+build $progname: link $objsdir/start.o $objsdir/clang.o $objsdir/main.o $objsdir/Utf8Terminal.o $objsdir/Streams.o
+build $objsdir/start.o: asm $runtime/start.S
+build $objsdir/clang.o: cc $runtime/clang.cpp
+build $objsdir/main.o: cc main.cpp
+default $progname

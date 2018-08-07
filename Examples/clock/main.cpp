@@ -1,0 +1,56 @@
+/*  clock for Twinbeam. */
+
+#include <Twinbeam.h>
+#include <mips.hpp>
+#include <pic32mz.hpp>
+#include <pic32mzda.hpp>
+#include <stable.hpp>
+#include <rtcc.hpp>
+#include <trng.hpp>
+#include <Additions.h>
+
+auto Putch = ^(char utf8) { putch(utf8); };
+auto Getch = ^{ return getutf8(); };
+auto Alloc = ^(__builtin_int_t bytes) { return malloc(bytes); };
+auto Put = ^(char32_t unicode) { if (UnicodeToUtf8(unicode, ^(const uint8_t *p,
+  int bytes) { for (int i = 0; i < bytes; i++) Putch(*(p + i));	})) { __debug_break(0x10); } };
+auto LocalNow = ^{ OptInitRTCC(false, ^(unsigned& y, unsigned& M, unsigned& d,
+  unsigned& h, unsigned& m, unsigned& s, uint32_t& key1, uint32_t& key2, bool&
+  rollback) { y=2012; M=1; d=24; h=17; m=1; s=5; key1=PIC32MZDA_KEY1; key2=
+  PIC32MZDA_KEY2; }); int32_t t[6];
+  GetRTCC(&t[0], &t[1], &t[2], &t[3], &t[4], &t[5]);
+  Chronology chronology = SystemCalendricChronology();
+  uint32_t halfsec = PIC32MZDA_RTCCON_HALFSEC & 🔎𝑀𝑍𝐷𝐴(RCON);
+  return chronology.timestamp(t, halfsec ? 0xBFFFffff : 0x3FFFFFFF); };
+auto RandomInteger = ^(octa *out) { return TRNG(out); };
+
+extern "C" void Isr() { }
+
+extern "C" void mips_general_exception() { }
+
+int
+main(
+  int argc,
+  const char *argv[]
+)
+{
+    if (PIC32MZDA_RCON_VBAT & 🔎𝑀𝑍𝐷𝐴(RCON)) {
+        printf("Woke up from VBAT.\n");
+        🔧0𝑀𝑍𝐷𝐴(RCON,VBAT); /* Clear VBAT */
+    }
+    
+    InitMZDAStarterBoard();
+    
+    Chronology::Instant instant = LocalNow();
+    
+    Termlog << "Clock (Rev. " << SHA1GIT << ") is ";
+    
+    Chronology chronology = SystemCalendricChronology();
+    
+    if (InstantToText(chronology, instant, 0, ^(char digit) { Putch(digit); }))
+    { Termlog << "Error when InstantToText" << eol; }
+    
+    Termlog << eol;
+    
+    return 0;
+}
