@@ -7,13 +7,13 @@
 #include <stable.hpp>
 #include <rtcc.hpp>
 #include <trng.hpp>
-#include <Additions.h>
+#include <System.h>
 
 auto Putch = ^(char utf8) { putch(utf8); };
 auto Getch = ^{ return getutf8(); };
 auto Alloc = ^(__builtin_int_t bytes) { return malloc(bytes); };
 auto Put = ^(char32_t unicode) { if (UnicodeToUtf8(unicode, ^(const uint8_t *p,
-  int bytes) { for (int i = 0; i < bytes; i++) Putch(*(p + i));	})) { __debug_break(0x10); } };
+  int bytes) { for (int i = 0; i < bytes; i++) Putch(*(p + i)); })) { __debug_break(0x10); } };
 auto LocalNow = ^{ OptInitRTCC(false, ^(unsigned& y, unsigned& M, unsigned& d,
   unsigned& h, unsigned& m, unsigned& s, uint32_t& key1, uint32_t& key2, bool&
   rollback) { y=2012; M=1; d=24; h=17; m=1; s=5; key1=PIC32MZDA_KEY1; key2=
@@ -23,6 +23,8 @@ auto LocalNow = ^{ OptInitRTCC(false, ^(unsigned& y, unsigned& M, unsigned& d,
   uint32_t halfsec = PIC32MZDA_RTCCON_HALFSEC & 🔎𝑀𝑍𝐷𝐴(RCON);
   return chronology.timestamp(t, halfsec ? 0xBFFFffff : 0x3FFFFFFF); };
 auto RandomInteger = ^(octa *out) { return TRNG(out); };
+auto Where = ^{ EarthBasedSpatialTemporalLocation { 0.0, 0.0, 0.0 }; };
+auto How = ^{ EulerAngles { 0.0, 0.0, 0.0 }; };
 
 extern "C" void Isr() { }
 
