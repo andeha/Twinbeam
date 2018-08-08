@@ -14,9 +14,9 @@ namespace Naturals {
 
 #pragma mark Rectangular Coordinate Systems
 
-#include <Twinbeam.h>
+#include <Twinbeam.h> // For partial order, convenntion and hypothesis.
 
-struct Cartesian3D { typedef double (^f)(Chronology::Instant t) type; type x, y, z; };
+struct Cartesian3D { typedef double type; typedef type (^Hilbert)(Chronology::Instant t); Hilbert x, y, z; };
 
 struct Rasterized2D { typedef __builtin_int_t type; type x, y; };
 
@@ -24,13 +24,13 @@ struct Cartesian2D {
     
     typedef double type; type x, y;
     
-    Cartesian2D(double x, double y) : x(x), y(y) {}
+    Cartesian2D(double x, double y) : x(x), y(y) { }
     
-    Cartesian2D(const Cartesian2D &p) : x(p.x), y(p.y) {}
+    Cartesian2D(const Cartesian2D &p) : x(p.x), y(p.y) { }
     
 };
 
-#pragma mark Non-Rectangular Coordinate Systems
+#pragma mark Non-rectangular Coordinate Systems
 
 typedef struct Polar { typedef double type; type r, 𝜑; } Polar;
 
@@ -40,15 +40,15 @@ typedef struct Cylindrical { typedef double type; type h, 𝜑; } Cylindrical;
 
 enum Projection { Equirectangular, Cassini, Mercator };
 
-typedef struct EarthBasedSpatialTemporalLocation {
+typedef struct EarthbasedSpatial {
     double degrees, arcminutes, arcseconds;
-} EarthBasedSpatialTemporalLocation;
+} EarthbasedSpatial;
 
-typedef EarthBasedSpatialTemporalLocation DefaultSpatialTemporalLocation;
+typedef EarthbasedSpatial DefaultSpatialLocation;
 
 /**  Angles continue in a clockwise direction, rather than counterclockwise. */
 
-typedef struct EulerAngles { double 𝛳, 𝛹, 𝛷; } EulerAngles;
+typedef struct Eulerangles { typedef double type; typedef type (^Hilbert)(Chronology::Instant t); Hilbert 𝛳, 𝛹, 𝛷; } EulerAngles;
 
 // #define EarthBasedSpatialTemporalHeading 360 == 0 degrees
 
@@ -106,7 +106,8 @@ typedef __builtin_uint_t Manhattan; enum : Manhattan {
     ManhattanTopToBottom = 0b0100,
     ManhattanBottomToTop = 0b1000 };
 
-template <typename T> struct Interval { T closedBeginning; T openEnd; };
+template <typename T> struct LeftclosedInterval { T closedBeginning; T openEnd; };
+template <typename T> struct ClosedInterval { T closedBeginning; T closedEnd; };
 
 #include <Additions/Additions.h>
 

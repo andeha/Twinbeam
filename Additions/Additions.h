@@ -27,7 +27,6 @@ double sqrt(double x);
 double sin(double x); double asin(double x);
 double cos(double x); double acos(double x);
 
-int IntegerRandom(octa *x);
 enum GaussianApproximate { AbramowitzStegun, ZogheibHlynka };
 int Gaussian(GaussianApproximate approximate, double *out);
 int Uniform(double *out); // *out ∈ [0, 1)
@@ -108,7 +107,7 @@ void Present(Utf8Terminal &term, __builtin_int_t z);
 void Present(Utf8Terminal &term, __builtin_uint_t n, PresentBase base = PresentBase::dec);
 void Present(Utf8Terminal &term, double value);
 void Present(Utf8Terminal &term, char32_t unicode);
-void Present(Utf8Terminal &term, DecoratedString ds);
+void Present(Utf8Terminal &term, const DecoratedString& ds);
 // void Present(Utf8Terminal &term, SourceLocation location); // ☜😐: ?
 
 #pragma mark - Conveniences for Small Clients
@@ -150,7 +149,7 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char32_t *unicodes) {
 //  { s.unicode(i, ^(SemanticPointer<char *> prev, char32_t elem,
 //  SemanticPointer<char *> next) { term.write(elem); }); } return term; }
 
-// MACRO Utf8Terminal & operator<<(Utf8Terminal &term, DecoratedString s)
+// MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const DecoratedString& s)
 // { Present(term, s); return term; }
 // template <typename T> Utf8Terminal& operator<<(Utf8Terminal &term,
 //  Vector<T> &v) { Present(v, term); return v; }
@@ -171,10 +170,8 @@ struct AdditionsContext { volatile bool _trngInited; };
 
 typedef sexdeca Guid;
 
-int NewGuid(void (^touchbase)(Guid *guid));
+int NewGuid(void (^output)(Guid *guid));
 
 String GuidToString(Guid *guid);
-
-String GUID();
 
 #endif
