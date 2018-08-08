@@ -1,10 +1,11 @@
+# tools.ninja — Settings for macOS and pic32.
 tools = /Users/<User- or project name>/mips-tools
 runtime = /Users/<User- or project name>/Twinbeam/pic32rt
 additions = $runtime/../Additions
-gencdflags = -fno-rtti -fno-exceptions -fblocks
+gencdflags = -fno-rtti -fblocks -fno-exceptions
 # -mmsa -mmicromips
 pic32cflags = -target mipsel -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32 -mfp64 -gcodeview $gencdflags
-macoscflags = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mmacosx-version-min=10.13
+macoscflags = $gencdflags -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mmacosx-version-min=10.13
 host = /Users/<User- or project name>/Twinbeam/macOS
 sha1git = `git log -1 '--pretty=format:%h'`
 

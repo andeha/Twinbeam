@@ -1,6 +1,6 @@
 //
-//  Twinbeam.h (libTwinbeam_X_6c78989_2.a)
-//  Twinbeam (C++17 for clang to x86_64 or MIPS.)
+//  Twinbeam.h (libTwinbeam_X_cdcdc7f.a)
+//  Twinbeam (C++20 for clang to x86_64 or MIPS.)
 //  MIPS compiled using clang version 6.0.0 (tags/RELEASE_600/final)
 //  x86_64 compiled using Xcode Version 9.4 beta (9Q1019a)
 //
@@ -180,6 +180,7 @@ MACRO void 🔧(__builtin_uint_t var, __builtin_uint_t mask, __builtin_uint_t
 MACRO void 🔧Toggle(__builtin_uint_t var, __builtin_uint_t mask) {
   __builtin_uint_t shift = TrailingZeros(mask); __builtin_uint_t secured =
   mask>>shift; *(__builtin_uint_t *)var ^= secured<<shift; }
+extern void * (^Alloc)(__builtin_int_t);
 extern "C" { void * malloc(size_t); void free(void *); int printf(const char
   *utf8format, ...); int atexit(void (*func) (void)); void exit(int); }
 int
@@ -236,7 +237,7 @@ struct Block_descriptor { unsigned long int reserved; unsigned long int size;
 struct Block_layout { void *isa; int flags; int reserved; void (*invoke)(void *,
   ...); struct Block_descriptor *descriptor; /* Imported variables. */ };
 MACRO void * _Block_copy(const void *arg) { struct Block_layout *block = (struct
-  Block_layout *)arg; struct Block_layout *res = (struct Block_layout *)malloc(
+  Block_layout *)arg; struct Block_layout *res = (struct Block_layout *)Alloc(
   block->descriptor->size); Copy8Memory((ByteAlignedRef)res, (ByteAlignedRef)
   block, block->descriptor->size); return res; }
 MACRO void _Block_release(const void *arg) { free((void *)arg); }
@@ -394,7 +395,7 @@ struct Memoryregion {
     void incorporate(void *virtue, __builtin_int_t bytes, metaaddress loc);
     
     int inject(__builtin_int_t index, const Memoryregion& src, void *(^allocate)
-      (__builtin_int_t bytes) /* = ^(__builtin_int_t b) { return malloc(b); } */);
+      (__builtin_int_t bytes) /* = ^(__builtin_int_t b) { return Alloc(b); } */);
     
     int exclude(metaaddress start, __builtin_int_t bytes);
     
@@ -417,13 +418,13 @@ struct Memoryregion {
     
     static Opt<Memoryregion> abduct(__builtin_int_t bytes, MemoryDelegate *
       delegate = NULL, bool allowWrites = true, void *(^allocate)(
-      __builtin_int_t bytes) = ^(__builtin_int_t bytes) { return malloc(bytes); });
+      __builtin_int_t bytes) = ^(__builtin_int_t bytes) { return Alloc(bytes); });
     
     static Opt<Memoryregion> reflect(const char * utf8Filepath,
       __builtin_int_t pagesOffset = 0, __builtin_int_t pagesLength = 0,
       MemoryDelegate *delegate = NULL, bool allowWrites = false,
       void *(^allocate)(__builtin_int_t bytes) = ^(__builtin_int_t bytes) {
-      return malloc(bytes); });
+      return Alloc(bytes); });
     
 #pragma mark Memory Mangement
     
@@ -449,7 +450,7 @@ typedef union {
         unsigned sign      :  1;
     } ieee754b2;
     struct {
-        unsigned sign      :  1; // ⚓️
+        unsigned sign      :  1; // ⫝
     } ieee754b10;
 #ifdef __x86_64__
     uint64_t octa;
@@ -472,11 +473,11 @@ void * Lookup(void *opaque, __builtin_treeint_t target); void Forall(void *
 template <typename T> T * materialize(Memoryview * view) {
   extern void * 💫(void *); return (T *)💫((void *)view); }
 
-// template <> Unicodestring materialize(MemoryView * view) { 
-//   return Unicodestring(Endianness::Native, 💫(view), view.bytesCount, 
-//   true, alloc); }
-
-extern void * (^alloc)(__builtin_int_t); // Since ^ ∧ =alloc sometimes 💥
+// template <> Unicodestring materialize(MemoryView * view) {
+//   return Unicodestring(Endianness::Native, 💫(view), view.bytesCount,
+//   true, Alloc); }
+  
+bool IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 
 enum class Endianness { Native, Network };
 
@@ -506,8 +507,8 @@ struct String {
         const char32_t *nativeEndianUnicodes,
         __builtin_int_t tetrasOrMinusOne, // -1 indicates loop until NULL.
         bool readonly,
-        void * (^allocate)(__builtin_int_t bytes) /* = ^(__builtin_int_t bytes)
-          { return malloc(bytes); } */
+        void * (^alloc)(__builtin_int_t bytes) /* = ^(__builtin_int_t bytes)
+          { return Alloc(bytes); } */
     );
     
     /**  Creates an already measured or truncated @c String. */
@@ -519,8 +520,8 @@ struct String {
         __builtin_int_t bytesOrMinusOne, // -1 indicates loop until NULL.
         bool readonly,
         __builtin_va_list arg,
-        void * (^allocate)(__builtin_int_t bytes) /* = ^(__builtin_int_t bytes)
-          { return malloc(bytes); } */
+        void * (^alloc)(__builtin_int_t bytes) /* = ^(__builtin_int_t bytes)
+          { return Alloc(bytes); } */
     );
     
     /**  As String::Literal, but creates an owning writable instance. */
@@ -557,8 +558,8 @@ struct String {
     void alsoAtDealloc(void (^deferral)()); // ☜😐: 🛵𝜆
     
     int replace(Memoryview range, const char32_t *withNativeEndianUnicodes,
-      __builtin_int_t count, void *(^allocate)(__builtin_int_t bytes) = ^(
-      __builtin_int_t bytes) { return malloc(bytes); } );
+      __builtin_int_t count, void *(^alloc)(__builtin_int_t bytes) = ^(
+      __builtin_int_t bytes) { return Alloc(bytes); } );
     
     ~String();
     
@@ -580,18 +581,18 @@ MACRO
 String
 Concaternate(
     const String& l, const String& r,
-    void *(^allocate)(__builtin_int_t bytes) /* = ^(__builtin_int_t bytes) {
-      return malloc(bytes); } */
+    void *(^alloc)(__builtin_int_t bytes) /* = ^(__builtin_int_t bytes) {
+      return Alloc(bytes); } */
 )
 {
     __builtin_int_t bl = l.unicodeCount() << 2, br = r.unicodeCount() << 2;
-    const char32_t *nativeEndianUnicodes = (char32_t *)allocate(bl + br);
+    const char32_t *nativeEndianUnicodes = (char32_t *)alloc(bl + br);
     Copy8Memory((ByteAlignedRef)nativeEndianUnicodes, (ByteAlignedRef)((*l).
       region->pointer(0).pointer), bl);
     Copy8Memory((ByteAlignedRef)(nativeEndianUnicodes + bl),
       (ByteAlignedRef)((*r).region->pointer(0).pointer), br);
     return String::PossiblyMeasuredLiteral(nativeEndianUnicodes, (bl + br)>>2, 
-      true, allocate);
+      true, alloc);
 }
 
 MACRO
@@ -603,11 +604,11 @@ Append(
 {
     Memoryview view = *s;
     s.replace(Memoryview { view.region, s.unicodeCount(), 0 }, (const char32_t 
-    *)&c, 1, alloc);
+    *)&c, 1, Alloc);
 }
 
 ONLY_FOR_SOFT_REALTIME MACRO String operator+(const String& l, const String& r)
-{ return Concaternate(l, r, alloc); }
+{ return Concaternate(l, r, Alloc); }
 
 __builtin_int_t UnicodesUntilNull(const char *utf8, __builtin_int_t max);
 __builtin_int_t UnicodesUntilNull(const char32_t *nativeEndianUnicodes,
@@ -640,19 +641,19 @@ template <typename T> struct Sequence {
     }
 };
 
-template <typename T, typename C = Sequence<T>> struct Mitigate : public Sequence<T> {};
+template <typename T, typename C = Sequence<T>> struct Mitigate : public Sequence<T> { };
     
 template <typename T>
 struct Vector : public Mitigate<T, Vector<T>> {
     
   /* ⚠️ IMPLIES_DOING_HARDTIME */ Vector(std::initializer_list<T> l) :
-    Vector(l.size()/sizeof(T), alloc) { const T * i = l.begin(); const T *
+    Vector(l.size()/sizeof(T), Alloc) { const T * i = l.begin(); const T *
     const end = l.end(); for (; i != end; ++i) push(*i); }
     
-    Vector() : Vector(0, alloc) { }
+    Vector() : Vector(0, Alloc) { }
     
     Vector(__builtin_int_t count, void * (^alloc)(__builtin_int_t) /* = ^(
-      __builtin_int_t bytes) { return malloc(bytes); } */ ) { allocate = alloc;
+      __builtin_int_t bytes) { return Alloc(bytes); } */ ) { allocate = alloc;
       occupied = 0; plate(count*sizeof(T)); }
     
     Vector(const Vector& other) { for (__builtin_int_t i = 0; i <
@@ -713,7 +714,7 @@ struct Vector : public Mitigate<T, Vector<T>> {
     int elements(void (^block)(SemanticPointer<T *> elem, bool& stop)) const {
       int ret = this->forall(^(SemanticPointer<T *> elem, bool first, bool last,
       __builtin_int_t idx, bool& stop) { block(elem, stop); }); return ret; }
-
+    
 };
 
 ONLY_FOR_SOFT_REALTIME
@@ -826,9 +827,9 @@ struct Map : public SharedMap<V> {
       i != end; ++i) this->include(get<0>(*(Tuple<K, V> *)i), get<1>(*(Tuple<K,
       V> *)i), true); }
     
-    Map() : SharedMap<V>(alloc) { }
+    Map() : SharedMap<V>(Alloc) { }
     
-    Map(const Map<K, V>& other) : SharedMap<V>(alloc) {
+    Map(const Map<K, V>& other) : SharedMap<V>(Alloc) {
         Forall(other.opaque, ^(__builtin_treeint_t mask, void * ref) {
             SharedMap<V>::treeInsert(mask, (V &)ref);
         });
@@ -913,7 +914,7 @@ template<typename V> struct Map<const char *, V> : public SharedMap<V> {
     l.end(); for (; i != end; ++i) include(get<0>(*(Tuple<const char *, V> *)i),
     get<1>(*(Tuple<const char *, V> *)i), true); }
     
-    Map() : SharedMap<V>(alloc) { }
+    Map() : SharedMap<V>(Alloc) { }
     
     void seek(const char * utf8Key, void (^completion)(__builtin_treeint_t mask,
       V * found)) const { __builtin_int_t bytes = Utf8BytesUntilNull(utf8Key,
@@ -990,7 +991,7 @@ template<typename V> struct Map<const char32_t *, V> : public SharedMap<V> {
     end = l.end(); for (; i != end; ++i) include(get<0>(*(Tuple<const char32_t
     *, V> *)i), get<1>(*(Tuple<const char32_t *, V> *)i), true); }
     
-    Map() : SharedMap<V>(alloc) { }
+    Map() : SharedMap<V>(Alloc) { }
     void * finnd(__builtin_treeint_t mask) const { return SharedMap<V>::find(mask); }
     void seek(const char32_t * nativeEndianUnicodeKey, void (^completion)(
       __builtin_treeint_t mask, V * found)) const {
@@ -1071,7 +1072,7 @@ template<typename V> struct Map<__builtin_int_t, V> : public SharedMap<V> {
       *(Tuple<__builtin_int_t, V> *)i), get<1>(*(Tuple<__builtin_int_t, V>*)i),
       true); } }
     
-    Map() : SharedMap<V>(alloc) { }
+    Map() : SharedMap<V>(Alloc) { }
     
     void seek(__builtin_int_t key, void (^completion)(__builtin_treeint_t mask,
       V * found)) const {
@@ -1161,11 +1162,11 @@ struct Chronology {
      @param parts  Contains year, month (1-12), day (1-31), hour (0-23),
      minutes (0-59) and seconds (0-59)
      
-     @param fracSec  The number of 232 ps intervals.
+     @param fract  The number of 232 ps intervals.
      
      */
     
-    Instant timestamp(int32_t parts[6], uint32_t fracSec) const;
+    Opt<Chronology::Instant> timestamp(int32_t parts[6], uint32_t fract) const;
     
     /**  Return a future instant. */
     
@@ -1179,10 +1180,6 @@ struct Chronology {
       subtract throws an error. */
     
     Instant subtractSeconds(Instant instant, uint32_t seconds) const BLURTS;
-    
-    /**  The time without any NTP correction. */
-    
-    Instant localNow(uint32_t fracSec) const;
     
     /**  Return weekday assuming a week starts on a Sunday. (Encoded as 0.) */
     
@@ -1201,7 +1198,7 @@ InstantToText(
    Chronology chronology,
    Chronology::Instant ts,
    bool fractionalsToo,
-   void (^touchbase)(char c)
+   void (^touchbase)(char digitHyphenColonPeriodOrSpace)
 );
 
 /**  The unperturbed — yet based on Caesium 133 — chronology. */
