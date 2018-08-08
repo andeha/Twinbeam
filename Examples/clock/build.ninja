@@ -7,7 +7,7 @@ loadscript = $runtime/pic32.ld
 platflags = -D__MZ__ -I $runtime/.. -I $additions -I $runtime
 bootloader = ../../Bootloader/Releases/bootloader_mz_eec0c30.hex
 # libadditions = ../../Additions/Releases/libAAdditions_pic32mz.a
-libtwinbeam = ../../Source/Releases/libTwinbeam_pic32mz_448add9.a
+libtwinbeam = ../../Source/Releases/libTwinbeam_pic32mz_e31ca86.a
 
 objsdir = ./.objs/7703a322-55A9-34ca-ba92-eabcf7f87663_$progname
 flags = $optflags $pic32cflags $platflags

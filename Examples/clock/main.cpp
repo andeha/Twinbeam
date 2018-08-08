@@ -13,7 +13,8 @@ auto Putch = ^(char utf8) { putch(utf8); };
 auto Getch = ^{ return getutf8(); };
 auto Alloc = ^(__builtin_int_t bytes) { return malloc(bytes); };
 auto Put = ^(char32_t unicode) { if (UnicodeToUtf8(unicode, ^(const uint8_t *p,
-  int bytes) { for (int i = 0; i < bytes; i++) Putch(*(p + i)); })) { __debug_break(0x10); } };
+  int bytes) { for (int i = 0; i < bytes; i++) Putch(*(p + i)); })) { 
+  __debug_break(0x10); } };
 auto LocalNow = ^{ OptInitRTCC(false, ^(unsigned& y, unsigned& M, unsigned& d,
   unsigned& h, unsigned& m, unsigned& s, uint32_t& key1, uint32_t& key2, bool&
   rollback) { y=2012; M=1; d=24; h=17; m=1; s=5; key1=PIC32MZDA_KEY1; key2=
@@ -21,10 +22,13 @@ auto LocalNow = ^{ OptInitRTCC(false, ^(unsigned& y, unsigned& M, unsigned& d,
   GetRTCC(&t[0], &t[1], &t[2], &t[3], &t[4], &t[5]);
   Chronology chronology = SystemCalendricChronology();
   uint32_t halfsec = PIC32MZDA_RTCCON_HALFSEC & 🔎𝑀𝑍𝐷𝐴(RCON);
-  return chronology.timestamp(t, halfsec ? 0xBFFFffff : 0x3FFFFFFF); };
+  return *(chronology.timestamp(t, halfsec ? 0xBFFFffff : 0x3FFFFFFF)); };
 auto RandomInteger = ^(octa *out) { return TRNG(out); };
-auto Where = ^{ EarthBasedSpatialTemporalLocation { 0.0, 0.0, 0.0 }; };
-auto How = ^{ EulerAngles { 0.0, 0.0, 0.0 }; };
+auto Where = ^{ return EarthbasedSpatial { 0.0, 0.0, 0.0 }; };
+auto How = ^{ return Eulerangles { 
+  ^(Chronology::Instant t) { return 0.0; },
+  ^(Chronology::Instant t) { return 0.0; },
+  ^(Chronology::Instant t) { return 0.0; } }; };
 
 extern "C" void Isr() { }
 
@@ -38,7 +42,7 @@ main(
 {
     if (PIC32MZDA_RCON_VBAT & 🔎𝑀𝑍𝐷𝐴(RCON)) {
         printf("Woke up from VBAT.\n");
-        🔧0𝑀𝑍𝐷𝐴(RCON,VBAT); /* Clear VBAT */
+        🔧0𝑀𝑍𝐷𝐴(RCON,VBAT); /* Clear VBAT. */
     }
     
     InitMZDAStarterBoard();
@@ -53,6 +57,8 @@ main(
     { Termlog << "Error when InstantToText" << eol; }
     
     Termlog << eol;
+    
+    for (;;);
     
     return 0;
 }
