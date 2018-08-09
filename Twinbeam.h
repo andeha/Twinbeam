@@ -168,18 +168,13 @@ MACRO __builtin_uint_t&  🔧(__builtin_uint_t var) { return (__builtin_uint_t&)
 MACRO __builtin_uint_t TrailingZeros(__builtin_uint_t x) { if (x == 0) { return
   8*sizeof(x); } __builtin_uint_t zeros = 0, mask = 1; while (!(x&mask)) {
   zeros++; mask<<=1; } return zeros; }
-inline __builtin_uint_t MaskAndShift(__builtin_uint_t value, __builtin_uint_t
-  mask) { __builtin_uint_t shift = TrailingZeros(mask); return (mask&value) >>
-  shift; }
-MACRO __builtin_uint_t 🔎MaskandShift(__builtin_uint_t var, __builtin_uint_t
-  mask) { return MaskAndShift(🔎(var), mask); }
-MACRO void 🔧(__builtin_uint_t var, __builtin_uint_t mask, __builtin_uint_t
-  value) { __builtin_uint_t shift = TrailingZeros(mask); __builtin_uint_t
-  secured = value & (mask>>shift); *(__builtin_uint_t *)var &= ~mask;
-  *(__builtin_uint_t *)var |= secured<<shift; }
-MACRO void 🔧Toggle(__builtin_uint_t var, __builtin_uint_t mask) {
-  __builtin_uint_t shift = TrailingZeros(mask); __builtin_uint_t secured =
-  mask>>shift; *(__builtin_uint_t *)var ^= secured<<shift; }
+// And for contemplative consumption of abstraction, 𝑃𝑖𝑛𝑐𝑒 𝑎𝑏𝑠𝑡𝑟𝑎𝑖𝑡:
+inline __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
+  void (^update)(__builtin_uint_t& shifted) = ^(__builtin_uint_t&) { }) {
+  __builtin_uint_t shift = TrailingZeros(mask); __builtin_uint_t orig = mask &
+  *symbol; __builtin_uint_t shifted = (*symbol)>>shift; if (update) 
+  update(shifted); __builtin_uint_t fresh = (shifted<<shift)&mask; *symbol =
+  (*symbol & ~mask) | fresh; return orig>>shift; } // if (_DEBUG && (shiftedNow ^ shiftedPrev)) { printf("%x: %x to %x\n", (__builtin_uint_t)symbol, (__builtin_uint_t)shiftedPrev, (__builtin_uint_t)shiftedNow); }
 extern void * (^Alloc)(__builtin_int_t);
 extern "C" { void * malloc(size_t); void free(void *); int printf(const char
   *utf8format, ...); int atexit(void (*func) (void)); void exit(int); }
@@ -222,6 +217,8 @@ FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef l,
   constexpr uint32_t PIC32##serie##_##symbol##SET = (vaddr + 0x8);           \
   constexpr uint32_t PIC32##serie##_##symbol##INV = (vaddr + 0xC);
 #define PortRectifyAsOutputs(serie,X,tris) (*((uint32_t *)PIC32##serie##_##TRIS##X##CLR) = (uint16_t)(tris))
+#define 🔎🎭𝑀𝑍(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
+#define 🔎🎭𝑀𝑍𝐷𝐴(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
 #endif
 ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
 ByteAlignedRef Overwrite8Memory(ByteAlignedRef src, uint8_t val,

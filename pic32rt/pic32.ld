@@ -17,7 +17,7 @@ MEMORY {
 
 SECTIONS
 {
-  .text : { * (.text) } > kseg1_program_flash
+  .text : { * (.text .ctors .dtors) } > kseg1_program_flash
   .rodata : { *(.rodata) _etext = .; } > kseg1_program_flash
   
   .data : { _data_begin = .; *(.data) _data_end = .; } > kseg1_ram AT > kseg1_program_flash

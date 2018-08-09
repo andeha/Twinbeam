@@ -3,9 +3,6 @@
 //  pic32rt
 //
 
-#ifndef __PIC32MX_HPP
-#define __PIC32MX_HPP
-
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-variable"
 PIC32SYMBOL(MX, U5MODE,  0xBF806a00) // UARTx mode register
@@ -27,7 +24,8 @@ BITMASK (uint32_t) { // UxSTA
 
 #define 🔎𝑀𝑋(symbol) 🔎(PIC32MX_##symbol)
 #define 🔧𝑀𝑋(symbol) 🔧(PIC32MX_##symbol)
+#define 🎭𝑀𝑋(sym,msk,...) 🎭((__builtin_uint_t *)(PIC32MX_##sym), PIC32MX_##sym##_##msk __VA_OPT__(,) __VA_ARGS__)
 #define 🔧0𝑀𝑋(symbol,msk) 🔧(PIC32MX_##symbol##CLR) = PIC32MX_##symbol##_##msk
 #define 🔧1𝑀𝑋(symbol,msk) 🔧(PIC32MX_##symbol##SET) = PIC32MX_##symbol##_##msk
 
-#endif
+#define PIC32MX_SYSKEY 0xBF80F230

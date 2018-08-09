@@ -3,9 +3,6 @@
 //  pic32rt
 //
 
-#ifndef __PIC32MZ_HPP
-#define __PIC32MZ_HPP
-
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-variable"
 PIC32SYMBOL(MZ, INTSTAT, 0xBF810020)
@@ -64,12 +61,12 @@ BITMASK (uint32_t) { // UxSTA
 
 #define 🔎𝑀𝑍(symbol) 🔎(PIC32MZ_##symbol)
 #define 🔧𝑀𝑍(symbol) 🔧(PIC32MZ_##symbol)
+#define 🎭𝑀𝑍(sym,msk,...) 🎭((__builtin_uint_t *)(PIC32MZ_##sym), PIC32MZ_##sym##_##msk __VA_OPT__(,) __VA_ARGS__)
 #define 🔧0𝑀𝑍(symbol,msk) 🔧(PIC32MZ_##symbol##CLR) = PIC32MZ_##symbol##_##msk
 #define 🔧1𝑀𝑍(symbol,msk) 🔧(PIC32MZ_##symbol##SET) = PIC32MZ_##symbol##_##msk
 
-#ifdef __MZDAStarterBoard__
 enum Interrupt { Coretimer=0, Coresoftware0=1, Coresoftware1=2, ExternalInt0=3,
-  Timer1=4, InputCapture1Error=5, InputCapture1=6, OutputCompare1=7, Timer2=9, 
+  Timer1=4, InputCapture1Error=5, InputCapture1=6, OutputCompare1=7, Timer2=9, OutputCompare2=12,
   Timer5=24, Timer6=28, Timer7=32, Timer8=36, Timer9=40, ADCGlobal=44, ADCFIFO=45,
   ADCDigitalComparator1=46, ADCDigitalFilter1=52, ADCFault=58, ADCData0=59, 
   USBSuspendResume=103, Crypto=107, SPI1ReceiveDone=110, SPI1TransferDone=111, 
@@ -78,12 +75,9 @@ enum Interrupt { Coretimer=0, Coresoftware0=1, Coresoftware1=2, ExternalInt0=3,
   Flash=167, Prefetch=168, SQI=169, SDHC=191, GLCD=192, GPU=193, CTMU=195, 
   ADCEndOfScan=196, ADCAnalogCircuitReady=197, ADCUpdateReady=198, ADC0Early=199, 
   ADCGroupEarly=205, ADC0Warm=207, MPLLFault=215 };
-#endif
 
 BITMASK (uint32_t) { // INTSTAT
-  PIC32MZ_INTSTAT_SIRQ_8̄ = 0b00000111111 // Interrupt vector
+  PIC32MZ_INTSTAT_SIRQ_8̄ = 0b00011111111 // Interrupt vector
 };
 
 MACRO Interrupt 🔎IRQ() { return Interrupt(PIC32MZ_INTSTAT_SIRQ_8̄ & 🔎𝑀𝑍(INTSTAT)); }
-
-#endif
