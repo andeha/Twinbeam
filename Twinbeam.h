@@ -174,7 +174,7 @@ inline __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   __builtin_uint_t shift = TrailingZeros(mask); __builtin_uint_t orig = mask &
   *symbol; __builtin_uint_t shifted = (*symbol)>>shift; if (update) 
   update(shifted); __builtin_uint_t fresh = (shifted<<shift)&mask; *symbol =
-  (*symbol & ~mask) | fresh; return orig>>shift; } // if (_DEBUG && (shiftedNow ^ shiftedPrev)) { printf("%x: %x to %x\n", (__builtin_uint_t)symbol, (__builtin_uint_t)shiftedPrev, (__builtin_uint_t)shiftedNow); }
+  (*symbol & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL // ⬷ if (_DEBUG && (shiftedNow ^ shiftedPrev)) { printf("%x: %x to %x\n", (__builtin_uint_t)symbol, (__builtin_uint_t)shiftedPrev, (__builtin_uint_t)shiftedNow); }
 extern void * (^Alloc)(__builtin_int_t);
 extern "C" { void * malloc(size_t); void free(void *); int printf(const char
   *utf8format, ...); int atexit(void (*func) (void)); void exit(int); }
