@@ -144,23 +144,20 @@ template <class... Ts> struct Tuple {}; template <class T, class... Ts>
   != 0, typename elem_type_holder<k, Tuple<T, Ts...>>::type&>::type
   get(Tuple<T, Ts...>& t) { Tuple<Ts...> &base = t; return get<k-1>(base); }
 template <class ...T> Tuple<T...> Tie(T... t) { return Tuple<T...>(t...); }      /* ☜😐: 🔅 ⬷ 𝘋𝘰 𝑛𝑜𝑡 move sun. */
-namespace std { // The Standard Residual
-  typedef ::size_t size_t; template<class T> class initializer_list {
-  const T *beg; size_t sz; initializer_list(const T * b, size_t s) : beg(b),
-  sz(s) {} public: typedef T value_type; typedef const T& reference; typedef
-  const T& const_reference; typedef size_t size_type; typedef const T *
-  iterator; typedef const T * const_iterator; initializer_list() : beg(0), sz(0)
-  {} size_t size() const { return sz; } const T * begin() const { return beg; }
-  const T * end() const { return beg + sz; } }; template<class T> inline const T
-  * begin(std::initializer_list<T> i) { return i.begin(); } template<class T>
-  inline const T * end(std::initializer_list<T> i) { return i.end(); } }
-// template <typename T> struct SemanticPointer { T * pointer; };
-// template <> struct SemanticPointer<const char32_t *> { const char32_t ** pointer; const char32_t * dereference() { return *pointer; } };
+namespace std { /* The Standard Residual */ typedef ::size_t size_t; 
+  template<class T> class initializer_list { const T *beg; size_t sz; 
+  initializer_list(const T * b, size_t s) : beg(b), sz(s) {} public: typedef 
+  T value_type; typedef const T& reference; typedef const T& const_reference; 
+  typedef size_t size_type; typedef const T * iterator; typedef const T * 
+  const_iterator; initializer_list() : beg(0), sz(0) {} size_t size() const { 
+  return sz; } const T * begin() const { return beg; } const T * end() const { 
+  return beg + sz; } }; template<class T> inline const T * begin(
+  std::initializer_list<T> i) { return i.begin(); } template<class T> inline 
+  const T * end(std::initializer_list<T> i) { return i.end(); } }
 template <typename T> struct SemanticPointer { T pointer; };
 /* ☜😐: 🔅 ⬷ Earlier remark still valid? */
-/* ☜😐: 🔅 ⬷ Earlier remark still valid? */
-struct Memoryregion; struct Memoryview { Memoryregion *
-  region; __builtin_int_t bytesOffset; __builtin_int_t byteCount; };
+struct Memoryregion; struct Memoryview { Memoryregion * region; __builtin_int_t
+  bytesOffset; __builtin_int_t byteCount; };
 MACRO __builtin_uint_t 🔎(__builtin_uint_t var) { return *((__builtin_uint_t
   /* volatile */ *) var); }
 MACRO __builtin_uint_t&  🔧(__builtin_uint_t var) { return (__builtin_uint_t&)
@@ -169,12 +166,12 @@ MACRO __builtin_uint_t TrailingZeros(__builtin_uint_t x) { if (x == 0) { return
   8*sizeof(x); } __builtin_uint_t zeros = 0, mask = 1; while (!(x&mask)) {
   zeros++; mask<<=1; } return zeros; }
 // And for contemplative consumption of abstraction, 𝑃𝑖𝑛𝑐𝑒 𝑎𝑏𝑠𝑡𝑟𝑎𝑖𝑡:
-inline __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
-  void (^update)(__builtin_uint_t& shifted) = ^(__builtin_uint_t&) { }) {
-  __builtin_uint_t shift = TrailingZeros(mask); __builtin_uint_t orig = mask &
-  *symbol; __builtin_uint_t shifted = (*symbol)>>shift; if (update) 
-  update(shifted); __builtin_uint_t fresh = (shifted<<shift)&mask; *symbol =
-  (*symbol & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL // ⬷ if (_DEBUG && (shiftedNow ^ shiftedPrev)) { printf("%x: %x to %x\n", (__builtin_uint_t)symbol, (__builtin_uint_t)shiftedPrev, (__builtin_uint_t)shiftedNow); }
+MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
+  void (^rejuvenate)(__builtin_uint_t& shifted) = ^(__builtin_uint_t&){}) {
+  __builtin_uint_t shift = TrailingZeros(mask), orig = mask & *symbol, 
+  shifted = (*symbol)>>shift; if (update) rejuvenate(shifted); __builtin_uint_t
+  fresh = (shifted<<shift)&mask; *symbol = (*symbol & ~mask) | fresh; return 
+  orig>>shift; } OPT_Si_FOCAL // ⬷ if (_DEBUG_🎭 && (shiftedNow ^ shiftedPrev)) { printf("0x%x: %x to %x\n", (__builtin_uint_t)symbol, (__builtin_uint_t)shiftedPrev, (__builtin_uint_t)shiftedNow); }
 extern void * (^Alloc)(__builtin_int_t);
 extern "C" { void * malloc(size_t); void free(void *); int printf(const char
   *utf8format, ...); int atexit(void (*func) (void)); void exit(int); }
