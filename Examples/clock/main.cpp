@@ -32,21 +32,22 @@ auto How = ^{ return Eulerangles {
 auto x = ^(Chronology::Instant t) { return 1.0; };
 auto y = ^(Chronology::Instant t) { return 1.0; };
 auto z = ^(Chronology::Instant t) { return 1.0; };
-auto VelocityEye1 = ^(Chronology::Instant t) { return Cartesian3D { x, y, z }; }; // Acceleration?
-auto VelocityEye2 = ^(Chronology::Instant t) { return Cartesian3D { x, y, z }; };
+auto VelocityEye1 = ^(Chronology::Instant t) { return Cartesian3d { x, y, z }; }; // Acceleration?
+auto VelocityEye2 = ^(Chronology::Instant t) { return Cartesian3d { x, y, z }; };
 auto 𝛳 = ^(Chronology::Instant t) { return 0.0; };
 auto 𝛹 = ^(Chronology::Instant t) { return 0.0; };
 auto 𝛷 = ^(Chronology::Instant t) { return 0.0; };
 auto Head = ^(Chronology::Instant t) { return Eulerangles { 𝛳, 𝛹, 𝛷 }; };
-auto EyeballsGradient = ^(Chronology::Instant t) { return Cartesian3D { x, y, z }; };
-auto Milieu = ^(double radii, void (^enter)(Tuple<Cartesian3D, Cartesian3D,
-  bool> ell), void (^exit)(Tuple<Cartesian3D, Cartesian3D> coords), void
+auto EyeballsGradient = ^(Chronology::Instant t) { return Cartesian3d { x, y, z }; };
+auto Milieu = ^(double radii, void (^enter)(Tuple<Cartesian3d, Cartesian3d,
+  bool> ell), void (^exit)(Tuple<Cartesian3d, Cartesian3d> coords), void
   (^max)(double radii), void (^min)(double radii)) {
       // Flat or rounnd? Another round. Found gradient?
       // Cartesian2D c1 = ComputeCircleCenter(Cartesian2D a, Cartesian2D b, Cartesian2D c);
       // Cartesian2D c2 = ComputeCircleCenter(Cartesian2D a, Cartesian2D b, Cartesian2D c);
       // double 𝛥R = ..;
       // double v = ...;
+      // (1, t, t², t³, t⁴)
   };
 
 extern "C" void Isr() { }
