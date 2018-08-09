@@ -43,11 +43,11 @@ auto Milieu = ^(double radii, void (^enter)(Tuple<Cartesian3d, Cartesian3d,
   bool> ell), void (^exit)(Tuple<Cartesian3d, Cartesian3d> coords), void
   (^max)(double radii), void (^min)(double radii)) {
       // Flat or rounnd? Another round. Found gradient?
-      // Cartesian2D c1 = ComputeCircleCenter(Cartesian2D a, Cartesian2D b, Cartesian2D c);
-      // Cartesian2D c2 = ComputeCircleCenter(Cartesian2D a, Cartesian2D b, Cartesian2D c);
+      // Cartesian2d c1 = ComputeCircleCenter(Cartesian2d a, Cartesian2d b, Cartesian2d c);
+      // Cartesian2d c2 = ComputeCircleCenter(Cartesian2d a, Cartesian2d b, Cartesian2d c);
       // double 𝛥R = ..;
       // double v = ...;
-      // (1, t, t², t³, t⁴)
+      // (1*N(𝜇₀(t), 𝜎₀(t)), t*N(𝜇₁(t), 𝜎₁(t)), t²*N(𝜇₂(t), 𝜎₂(t)), t³*N(𝜇₃(t), 𝜎₃(t)), t⁴*N(𝜇₄(t), 𝜎₄(t)))
   };
 
 extern "C" void Isr() { }
@@ -67,7 +67,8 @@ main(
     
     InitMZDAStarterBoard();
     
-    🎭𝑀𝑍(OSCTUN, TUN, ^(__builtin_uint_t& shifted) { shifted = 0x1; });
+    // Tune oscillator.
+    🎭𝑀𝑍(OSCTUN, TUN, ^(uint32_t& shifted) { shifted = 0x1; });
     
     Chronology::Instant instant = LocalNow();
     
