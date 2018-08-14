@@ -69,7 +69,7 @@ struct InnerFrame {
   InnerFrame<Implementation> impl_;
 #define 😐 APPEND_PIMPL }
 #define VISITISR(sym) void sym(); sym();
-#define UNITTEST(symbol) extern "C" void UnitTest_##symbol()
+#define UNITTEST(symbol) extern "C" void Unittest_##symbol()
 #define Panic(log,s) { printf("'%s'\nPanicking at %s in %s:%d\n",            \
   s, __FUNCTION__, __FILE__, __LINE__); exit(-1); }
 #define ENSURE(c,s) { if (!(c)) { Panic(Testlog, s); } }
@@ -143,7 +143,7 @@ template <class... Ts> struct Tuple {}; template <class T, class... Ts>
   template <__builtin_uint_t k, class T, class... Ts> typename std__enable_if<k
   != 0, typename elem_type_holder<k, Tuple<T, Ts...>>::type&>::type
   get(Tuple<T, Ts...>& t) { Tuple<Ts...> &base = t; return get<k-1>(base); }
-template <class ...T> Tuple<T...> Tie(T... t) { return Tuple<T...>(t...); }      /* ☜😐: 🔅 ⬷ 𝘋𝘰 𝑛𝑜𝑡 move sun. */
+template <class ...T> Tuple<T...> Tie(T... t) { return Tuple<T...>(t...); }      /* ☜😐: 🔅 ⬷ 𝘋𝘰 𝑛𝑜𝑡 move sun. (146) */
 namespace std { /* The Standard Residual */ typedef ::size_t size_t; 
   template<class T> class initializer_list { const T *beg; size_t sz; 
   initializer_list(const T * b, size_t s) : beg(b), sz(s) {} public: typedef 
@@ -167,11 +167,11 @@ MACRO __builtin_uint_t TrailingZeros(__builtin_uint_t x) { if (x == 0) { return
   zeros++; mask<<=1; } return zeros; }
 // And for contemplative consumption of abstraction, 𝑃𝑖𝑛𝑐𝑒 𝑎𝑏𝑠𝑡𝑟𝑎𝑖𝑡:
 MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
-  void (^rejuvenate)(__builtin_uint_t& shifted) = ^(__builtin_uint_t&){}) {
+  void (^update)(__builtin_uint_t& shifted) = ^(__builtin_uint_t&){}) {
   __builtin_uint_t shift = TrailingZeros(mask), orig = mask & *symbol, 
-  shifted = (*symbol)>>shift; if (update) rejuvenate(shifted); __builtin_uint_t
-  fresh = (shifted<<shift)&mask; *symbol = (*symbol & ~mask) | fresh; return 
-  orig>>shift; } OPT_Si_FOCAL // ⬷ if (_DEBUG_🎭 && (shiftedNow ^ shiftedPrev)) { printf("0x%x: %x to %x\n", (__builtin_uint_t)symbol, (__builtin_uint_t)shiftedPrev, (__builtin_uint_t)shiftedNow); }
+  shifted = (*symbol)>>shift; if (update) update(shifted); 
+  __builtin_uint_t fresh = (shifted<<shift)&mask; *symbol = (*symbol & ~mask) |
+  fresh; return orig>>shift; } OPT_Si_FOCAL // ⬷ if (_DEBUG_🎭 && (shiftedNow ^ shiftedPrev)) { printf("0x%x: %x to %x\n", (__builtin_uint_t)symbol, (__builtin_uint_t)shiftedPrev, (__builtin_uint_t)shiftedNow); }
 extern void * (^Alloc)(__builtin_int_t);
 extern "C" { void * malloc(size_t); void free(void *); int printf(const char
   *utf8format, ...); int atexit(void (*func) (void)); void exit(int); }
@@ -186,7 +186,7 @@ bprintf_unicode(
     unsigned short (^utf8)(char *p, short unsigned bytes),
     const char32_t *unicodeFormat,
     __builtin_va_list arg
-);			
+);
 typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
 #ifdef __x86_64__
 FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memory(
@@ -257,6 +257,8 @@ template <typename T> T abs(T x) { return x < 0 ? -x : x; }
 #define SIGNBIT_INT64 0x8000000000000000L
 #define abs32i(x) int32_t(((uint32_t)(x) & ~SIGNBIT_INT32))
 #define abs64i(x) int64_t(((uint64_t)(x) & ~SIGNBIT_INT64))
+template <typename T> T min(T a, T b) { return a < b ? a : b; }
+template <typename T> T max(T a, T b) { return a < b ? b : a; }
 
 #pragma mark - 📖😐 ”𝑈𝑛𝑖𝑐𝑜𝑑𝑒”
 
@@ -1034,7 +1036,7 @@ template<typename V> struct Map<const char32_t *, V> : public SharedMap<V> {
     
     /**  Removes a value and returns a reference to that value. */
     
-    // Opt<V&> remove(const char32_t *key) {}
+    // Opt<V&> remove(const char32_t *key) { }
     
     int elements(void (^touchbase)(const char32_t *key, V& value, bool& stop)) const {
         
