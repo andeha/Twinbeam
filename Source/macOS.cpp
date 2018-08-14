@@ -54,9 +54,9 @@ Symbols(
     const char * utf8exepath,
     void (^callback)(const char *, uint64_t, bool&))
 {
-    if (Opt<Memoryregion> optRegion = Memoryregion::reflect(utf8exepath)) {
+    if (Opt<Memoryregion> regionOpt = Memoryregion::reflect(utf8exepath)) {
         
-        char *obj = (char *)(*optRegion).pointer(0).pointer;
+        char *obj = (char *)(*regionOpt).pointer(0).pointer;
         
         char *obj_p = (char *)obj;
         struct mach_header_64 *header = (struct mach_header_64 *)obj_p;
