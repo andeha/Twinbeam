@@ -21,7 +21,7 @@ auto LocalNow = ^{ OptInitRTCC(false, ^(unsigned& y, unsigned& M, unsigned& d,
   PIC32MZDA_KEY2; }); int32_t t[6];
   GetRTCC(&t[0], &t[1], &t[2], &t[3], &t[4], &t[5]);
   Chronology chronology = SystemCalendricChronology();
-  uint32_t halfsec = PIC32MZDA_RTCCON_HALFSEC & 🔎𝑀𝑍𝐷𝐴(RCON);
+  uint32_t halfsec = 🎭𝑀𝑍(RTCCON, HALFSEC);
   return *(chronology.timestamp(t, halfsec ? 0xBFFFffff : 0x3FFFFFFF)); };
 auto RandomInteger = ^(octa *out) { return TRNG(out); };
 auto Where = ^{ return EarthbasedSpatial { 0.0, 0.0, 0.0 }; };
@@ -29,11 +29,14 @@ auto How = ^{ return Eulerangles {
   ^(Chronology::Instant t) { return 0.0; },
   ^(Chronology::Instant t) { return 0.0; },
   ^(Chronology::Instant t) { return 0.0; } }; };
-auto x = ^(Chronology::Instant t) { return 1.0; };
-auto y = ^(Chronology::Instant t) { return 1.0; };
-auto z = ^(Chronology::Instant t) { return 1.0; };
-auto VelocityEye1 = ^(Chronology::Instant t) { return Cartesian3d { x, y, z }; }; // Acceleration?
-auto VelocityEye2 = ^(Chronology::Instant t) { return Cartesian3d { x, y, z }; };
+auto x₁ = ^(Chronology::Instant t) { return 1.0; };
+auto y₁ = ^(Chronology::Instant t) { return 1.0; };
+auto z₁ = ^(Chronology::Instant t) { return 1.0; };
+auto x₂ = ^(Chronology::Instant t) { return 1.0; };
+auto y₂ = ^(Chronology::Instant t) { return 1.0; };
+auto z₂ = ^(Chronology::Instant t) { return 1.0; };
+auto VelocityEye1 = ^(Chronology::Instant t) { return Cartesian3d { x₁, y₁, z₁ }; }; // Acceleration?
+auto VelocityEye2 = ^(Chronology::Instant t) { return Cartesian3d { x₂, y₂, z₂ }; };
 auto 𝛳 = ^(Chronology::Instant t) { return 0.0; };
 auto 𝛹 = ^(Chronology::Instant t) { return 0.0; };
 auto 𝛷 = ^(Chronology::Instant t) { return 0.0; };
@@ -48,6 +51,7 @@ auto Milieu = ^(double radii, void (^enter)(Tuple<Cartesian3d, Cartesian3d,
       // double 𝛥R = ..;
       // double v = ...;
       // (1*N(𝜇₀(t), 𝜎₀(t)), t*N(𝜇₁(t), 𝜎₁(t)), t²*N(𝜇₂(t), 𝜎₂(t)), t³*N(𝜇₃(t), 𝜎₃(t)), t⁴*N(𝜇₄(t), 𝜎₄(t)))
+      // HW-𝜀.
   };
 
 extern "C" void Isr() { }
