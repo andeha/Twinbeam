@@ -1,13 +1,12 @@
-# build.ninja -- Building libTwinbeam_macOS.a.
-optflags   = -g
-progroot   = libTwinbeam_macOS
-platflags  = -I ..
-libtwinbeam = ../Source/Releases/libTwinbeam_macOS_b99f89d.a
+# build.ninja — Building libTwinbeam_macOS.a.
 
-objsdir = ./.objs/7703a312-55A9-44da-A892-ebbcf8f87663_$progname
-sha1git = `git log -1 '--pretty=format:%h'`
-flags = $optflags -fno-rtti -fno-exceptions -fblocks $platflags
-
+optflags = -g
+progroot = TwinbeamTests
+objsdir = ./.objs/7703a312-55A9-44da-A792-ebbcf8f87663_$progroot
+platflags = -I ..
+libtwinbeam = ../Source/Releases/libTwinbeam_macOS_ff0759a.a
+include ../tools.ninja
+flags = $optflags $macoscflags $platflags
 include rules.ninja
 
 rule link
@@ -17,4 +16,4 @@ build TwinbeamTests: link $objsdir/main.o $objsdir/Utf8Tests.o $objsdir/Chronolo
 build $objsdir/main.o: cc main.cpp
 build $objsdir/Utf8Tests.o: cc ../Unittests/Utf8Tests.cpp
 build $objsdir/ChronologyTests.o: cc ../Unittests/ChronologyTests.cpp
-default TwinbeamTests
+default $progroot
