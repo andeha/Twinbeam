@@ -1,6 +1,6 @@
 //
 //  Additions.h to Twinbeam.
-//  C++2a to clang to x86_64 annd MIPS.
+//  C++2a to clang to x86_64 and MIPS.
 //  Version 6.0.0 to MIPS. (tags/RELEASE_600/final.)
 //  Xcode Version 9.4 beta (9Q1019a) to x86_64.
 //
@@ -33,7 +33,7 @@ int Uniform(double *out); // *out ∈ [0, 1)
 
 #pragma mark - Decorated String in Procrastinative Style
 
-typedef struct UnicodeIntervalAndOrLocation {
+typedef struct UnicodeIntervalAnd𝑂𝑟Location {
     Memoryregion *region;
     Opt<__builtin_int_t> tetrasRelativeOffsetFirst;
     Opt<__builtin_int_t> tetrasRelativeOffsetLast;
@@ -57,7 +57,7 @@ FINAL struct DecoratedString {
     
     Memoryview unicodes();
     
-    Map<const char *, UnicodeIntervalAndOrLocation> namedRuns;
+    Map<const char *, UnicodeIntervalAnd𝑂𝑟Location> namedRuns;
     
     // kdTreeMap<UnicodeInterval...
     
