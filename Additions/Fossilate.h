@@ -55,10 +55,18 @@ typedef long long           __builtin_int_t;
 
 struct Envelope { uint8_t utf8Address[4]; Fossilate content; };
 
+// Overridable prepacked lambdas.
 DISORDERABLE extern void (^Init)();
 DISORDERABLE extern void (^Putch)(char utf8);
 DISORDERABLE extern uint8_t (^Getch)();
 DISORDERABLE extern void (^Put)(char32_t unicode);
 DISORDERABLE extern void (^SetPixelAA)(int x, int y, long err);
+#ifdef __mips__
+DISORDERABLE extern void (^InteractivelySetClock)(unsigned& y, unsigned& M,
+  unsigned& d, unsigned& h, unsigned& m, unsigned& s, uint32_t& key1, 
+  uint32_t& key2, bool& rollback);
+#endif
+// Non-overridable mandatory prepacked lambdas include `Alloc`, `LocalNow` and 
+// `RandomInteger`.  See --<Fossilate.cpp> for details.
 
 #endif
