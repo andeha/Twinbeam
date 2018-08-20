@@ -173,7 +173,10 @@ int NewGuid(void (^output)(Guid *guid));
 
 String GuidToString(Guid *guid);
 
-Opt<__builtin_int_t> ParseAndCastToInt(const char32_t commits[], char32_t
-  (^feeder)(bool& abort));
+Opt<__builtin_int_t>
+ParseAndCastToInt(
+    Tuple<__builtin_int_t, const char32_t *> commits,
+    char32_t (^feeder)(bool& stop)
+);
 
 #endif
