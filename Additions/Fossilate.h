@@ -1,13 +1,14 @@
 //
-//  Fossilate.cpp
-//  Twinbeam Additions
+//  Fossilate.h
+//  Additions
 //
 
 #ifndef __FOSSILATE_H
 #define __FOSSILATE_H
 
-typedef unsigned long long  uint64_t; // 64 bits on x86_64 as well as on MIPS32.
-typedef long long           int64_t;
+// typedef unsigned long long  uint64_t; // 64 bits on x86_64 as well as on MIPS32.
+// typedef long long           int64_t;
+
 #ifdef  __mips__
 typedef unsigned long       __builtin_uint_t;
 typedef long                __builtin_int_t;

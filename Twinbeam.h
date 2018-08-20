@@ -15,8 +15,10 @@
 #define INNER_UNION union __attribute__ ((internal_linkage))
 #define INNER_DATA static __attribute__ ((internal_linkage))
 #define INNER_FUNCTION static __attribute__ ((internal_linkage))
+#define DISORDERABLE __attribute__((weak))
 typedef unsigned char       uint8_t;
 #ifdef  __mips__
+typedef char                int8_t;
 typedef unsigned long       uint32_t;
 typedef long                int32_t;
 typedef uint32_t            __builtin_uint_t;
@@ -144,15 +146,15 @@ template <class... Ts> struct Tuple {}; template <class T, class... Ts>
   != 0, typename elem_type_holder<k, Tuple<T, Ts...>>::type&>::type
   get(Tuple<T, Ts...>& t) { Tuple<Ts...> &base = t; return get<k-1>(base); }
 template <class ...T> Tuple<T...> Tie(T... t) { return Tuple<T...>(t...); }      /* ☜😐: 🔅 ⬷ 𝘋𝘰 𝑛𝑜𝑡 move sun. (146) */
-namespace std { /* The Standard Residual */ typedef ::size_t size_t; 
-  template<class T> class initializer_list { const T *beg; size_t sz; 
-  initializer_list(const T * b, size_t s) : beg(b), sz(s) {} public: typedef 
-  T value_type; typedef const T& reference; typedef const T& const_reference; 
-  typedef size_t size_type; typedef const T * iterator; typedef const T * 
-  const_iterator; initializer_list() : beg(0), sz(0) {} size_t size() const { 
-  return sz; } const T * begin() const { return beg; } const T * end() const { 
+namespace std { /* The Standard Residual */ typedef ::size_t size_t;
+  template<class T> class initializer_list { const T *beg; size_t sz;
+  initializer_list(const T * b, size_t s) : beg(b), sz(s) { } public: typedef
+  T value_type; typedef const T& reference; typedef const T& const_reference;
+  typedef size_t size_type; typedef const T * iterator; typedef const T *
+  const_iterator; initializer_list() : beg(0), sz(0) {} size_t size() const {
+  return sz; } const T * begin() const { return beg; } const T * end() const {
   return beg + sz; } }; template<class T> inline const T * begin(
-  std::initializer_list<T> i) { return i.begin(); } template<class T> inline 
+  std::initializer_list<T> i) { return i.begin(); } template<class T> inline
   const T * end(std::initializer_list<T> i) { return i.end(); } }
 template <typename T> struct SemanticPointer { T pointer; };
 /* ☜😐: 🔅 ⬷ Earlier remark still valid? */
@@ -241,10 +243,10 @@ MACRO __builtin_int_t SystemInfoPagesize() { return 4096; }
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
 #ifdef  __mips__
 typedef uint32_t mips32_context[32];
-typedef mips32_context jmp_buf;
+typedef mips32_context jmp_buf2;
 #elif defined __x86_64__
 typedef int64_t x86_64_context[(9 * 2) + 3 + 16];
-typedef x86_64_context jmp_buf;
+typedef x86_64_context jmp_buf2;
 #endif
 FOCAL void Base(/* TeX §64, §65 and §67 */ __builtin_uint_t n, unsigned
   short base, unsigned short digitsOr0, /* Not more than 32 or 64 digits 
@@ -276,11 +278,11 @@ typedef struct Twinbeam {
     __builtin_uint_t unicodesAhead,
     BinaryChoice direction
   ) const;
-  enum Segmentation { unicode, grapheme, word, sentence, line };
+  enum Segmentation { unicode, grapheme, word, sentence, line }; // Cart
   void
   perceives(
     __builtin_uint_t impressionsAhead,
-    Segmentation segmentation, 
+    Segmentation segmentation,
     BinaryChoice direction,
     void (^touchbase)(Impression * character)
   ) const;
@@ -434,7 +436,7 @@ void * ExactSeek(const void *key, const void *base, size_t num, size_t size,
   __builtin_int_t (^cmp)(const void *key, const void *elt));
 
 typedef union {
-    double base2; // 2^–1022  2^1023 or 2.23 × 10^–308 to 1.79 × 10^308
+    double base2; // 2^–1022, 2^1023 or 2.23 × 10^–308 to 1.79 × 10^308
     struct { uint32_t lst; int32_t mst; } signed_little_endian;
     struct { int32_t mst; uint32_t lst; } signed_big_endian;
     struct { uint32_t lst; uint32_t mst; } unsigned_little_endian;
@@ -1162,7 +1164,7 @@ struct Chronology {
      
      */
     
-    Opt<Chronology::Instant> timestamp(int32_t parts[6], uint32_t fract) const;
+    Opt<Chronology::Instant> timestamp(int32_t parts[6], uint32_t fract = 0) const;
     
     /**  Return a future instant. */
     

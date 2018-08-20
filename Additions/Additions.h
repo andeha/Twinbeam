@@ -10,9 +10,9 @@
 
 void
 CastToText(
-    double value,
-    void (^digits)(bool neg, int e, const char *zerosToNines),
-    void (^zero)(), void (^inf)(), void (^nan)()
+  double value,
+  void (^digits)(bool neg, int e, const char *zerosToNines),
+  void (^zero)(), void (^inf)(), void (^nan)()
 );
 
 double arctan(double x);
@@ -21,8 +21,8 @@ double exp(double x);
 double ln(double val);
 double sqrt(double x);
 
-#define IEEE754BASE2_64BIT_NINF   0xfff0000000000000L
-#define IEEE754BASE2_32BIT_QNAN   0x7fc00000
+#define IEEE754BASE2_64BIT_NINF 0xfff0000000000000L
+#define IEEE754BASE2_32BIT_QNAN 0x7fc00000
 
 double sin(double x); double asin(double x);
 double cos(double x); double acos(double x);
@@ -31,18 +31,22 @@ enum GaussianApproximate { AbramowitzStegun, ZogheibHlynka };
 int Gaussian(GaussianApproximate approximate, double *out);
 int Uniform(double *out); // *out ∈ [0, 1)
 
+/**  Output integer possibly in compliance with Mediterranean laws. */
+      
+int Roman(__builtin_int_t n, void (^ping)(char numeral));
+
 #pragma mark - Decorated String in Procrastinative Style
 
 typedef struct UnicodeIntervalAnd𝑂𝑟Location {
-    Memoryregion *region;
-    Opt<__builtin_int_t> tetrasRelativeOffsetFirst;
-    Opt<__builtin_int_t> tetrasRelativeOffsetLast;
+  Memoryregion *region;
+  Opt<__builtin_int_t> tetrasRelativeOffsetFirst;
+  Opt<__builtin_int_t> tetrasRelativeOffsetLast;
 } UnicodeInterval;
 
 typedef struct UnicodeBlock {
-    Memoryregion *region;
-    __builtin_int_t linesOffsetFirst;
-    __builtin_int_t linesOffsetLast;
+  Memoryregion *region;
+  __builtin_int_t linesOffsetFirst;
+  __builtin_int_t linesOffsetLast;
 } UnicodeBlock;
 
 FINAL struct DecoratedString {
@@ -57,7 +61,7 @@ FINAL struct DecoratedString {
     
     Memoryview unicodes();
     
-    Map<const char *, UnicodeIntervalAnd𝑂𝑟Location> namedRuns;
+    Map<const char *, UnicodeIntervalAnd𝑂𝑟Location> namedruns;
     
     // kdTreeMap<UnicodeInterval...
     
@@ -82,7 +86,7 @@ struct Utf8Terminal {
          __builtin_int_t periods,
          __builtin_int_t seconds,
          void (^ping)(bool &stop),
-         void (^touchbase)(uint8_t *utf8, __builtin_int_t bytes)
+         void (^touchbase)(uint8_t *utf8, __builtin_int_t bytes, bool &stop)
     ) const;
     
     virtual
@@ -91,7 +95,7 @@ struct Utf8Terminal {
         __builtin_int_t periods,
         __builtin_int_t seconds,
         void (^ping)(bool &stop),
-        void (^touchbase)(uint8_t *utf8, __builtin_int_t bytes)
+        void (^touchbase)(uint8_t *utf8, __builtin_int_t bytes, bool &stop)
     ) const;
     
     virtual void write(char32_t unicode) const;
@@ -125,24 +129,23 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, char32_t unicode)
 { Present(term, unicode); return term; }
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char *utf8) {
-    __builtin_int_t bytes = Utf8BytesUntilNull(utf8, BUILTIN_INT_MAX);
-    Memoryregion region { (void *)utf8, bytes };
-    Memoryview content { &region, 0, region.bytes() };
-    __builtin_int_t beam = 0;
-    if (TokenizeUtf8OrUnicode(Encoding::utf8, content, beam,
-      ^(char32_t unicode, __builtin_int_t byteOffset, bool& stop) {
-          term.write(unicode);
-      })) { } return term; }
+   __builtin_int_t bytes = Utf8BytesUntilNull(utf8, BUILTIN_INT_MAX);
+   Memoryregion region { (void *)utf8, bytes };
+   Memoryview content { &region, 0, region.bytes() };
+   __builtin_int_t beam = 0;
+   if (TokenizeUtf8OrUnicode(Encoding::utf8, content, beam,
+    ^(char32_t unicode, __builtin_int_t byteOffset, bool& stop) {
+       term.write(unicode); })) { } return term; }
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char32_t *unicodes) {
-    __builtin_int_t tetras = UnicodesUntilNull(unicodes, BUILTIN_INT_MAX);
-    Memoryregion region { (void *)unicodes, tetras<<2 };
-    Memoryview view { &region, 0, region.bytes() };
-    __builtin_int_t beam = 0;
-    if (TokenizeUtf8OrUnicode(Encoding::unicode, view, beam,
-      ^(char32_t unicode, __builtin_int_t byteOffset, bool& stop) {
-          term.write(unicode);
-    })) { } return term; }
+   __builtin_int_t tetras = UnicodesUntilNull(unicodes, BUILTIN_INT_MAX);
+   Memoryregion region { (void *)unicodes, tetras<<2 };
+   Memoryview view { &region, 0, region.bytes() };
+   __builtin_int_t beam = 0;
+   if (TokenizeUtf8OrUnicode(Encoding::unicode, view, beam,
+    ^(char32_t unicode, __builtin_int_t byteOffset, bool& stop) {
+       term.write(unicode);
+   })) { } return term; }
 
 // MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const String& s) {
 //  __builtin_int_t tetras = s.unicodeCount(); for (int i = 0; i < tetras; i++)
@@ -162,10 +165,6 @@ extern Utf8Terminal _myTerminal;
 
 #define Termlog _myTerminal
 
-#pragma mark - Footprint
-
-struct AdditionsContext { volatile bool _trngInited; };
-
 #pragma mark - Guid
 
 typedef sexdeca Guid;
@@ -173,5 +172,8 @@ typedef sexdeca Guid;
 int NewGuid(void (^output)(Guid *guid));
 
 String GuidToString(Guid *guid);
+
+Opt<__builtin_int_t> ParseAndCastToInt(const char32_t commits[], char32_t
+  (^feeder)(bool& abort));
 
 #endif

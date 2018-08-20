@@ -1,51 +1,25 @@
-# build.ninja -- Building twinbeam for MIPS/PIC32MZ.
+# build.ninja — Building libTwinbeam_pic32mz.a.
 
-optflags = -g -I .. -D__MZ__ -mfp64
-progroot = libTwinbeam_pic32mz
-objsdir = ./.objs/7703a312-559A-43ca-A992-eabcf7f87663_$progroot
-sha1git = `git log -1 '--pretty=format:%h'`
-flags = $optflags -target mipsel -mcpu=mips32r5 -mabi=o32 -fno-rtti -fno-exceptions -fblocks
+optflags = -g
+stem = libTwinbeam_pic32mz
+objsdir = ./.objs/7703a312-559A-43ca-A992-eabcf7f87663_$stem
 include ../tools.ninja
+platflags = -D__MZ__ -I ..
+flags = $optflags $pic32cflags $platflags
+progname = $stem\_$sha1git.a
+include $runtime/commands.ninja
 
-rule cc
-    command = $tools/clang-6.0 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags --std=c++17 -c $in -o $out
-    depfile = $out.d
-    deps = gcc
-
-rule c
-    command = $tools/clang-6.0 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
-    depfile = $out.d
-    deps = gcc
-
-rule asm
-    command = $tools/clang-6.0 $flags -c $in -o $out
+rule emitcontent
+    command = $tools/llvm-ar t $progname.a
 
 rule lib
     command = $tools/llvm-ar rcs Releases/$out\_$sha1git.a $in
 
-rule emitsize
-    command = $tools/llvm-size libTwinbeam_pic32mz\_$sha1git.a
-
-rule emitsect
-    command = $tools/llvm-objdump -section-headers libTwinbeam_pic32mz\_$sha1git.a
-
-rule emitlist
-    command = $tools/llvm-objdump -disassemble libTwinbeam_pic32mz\_$sha1git.a
-
-# requires -g
-rule emitsource
-    command = $tools/llvm-objdump -source libTwinbeam_pic32mz\_$sha1git.a
-
-rule emitdump
-    command = $tools/llvm-objdump -s libTwinbeam_pic32mz\_$sha1git.a
-
-rule emitsyms
-    command = $tools/llvm-nm libTwinbeam_pic32mz\_$sha1git.a
-
-rule emitcontent
-    command = $tools/llvm-ar t libTwinbeam_pic32mz\_$sha1git.a
-
-build libTwinbeam_pic32mz: lib $objsdir/Utf8.o $objsdir/Tree.o $objsdir/Memory.o $objsdir/Chronology.o $objsdir/Strinng.o $objsdir/Unicodes.o $objsdir/Unicode.o $objsdir/bignum.o $objsdir/SHA256.o $objsdir/printf.o $objsdir/pic32mz.o $objsdir/exception.o $objsdir/System.o 
+build $stem: lib $objsdir/Utf8.o $objsdir/Tree.o                            $
+  $objsdir/Memory.o $objsdir/Chronology.o $objsdir/Strinng.o                $
+  $objsdir/Unicodes.o $objsdir/Unicode.o $objsdir/bignum.o                  $
+  $objsdir/SHA256.o $objsdir/printf.o $objsdir/pic32mz.o                    $
+  $objsdir/exception.o $objsdir/System.o
 build $objsdir/Utf8.o: cc Utf8.cpp
 build $objsdir/Tree.o: cc Tree.cpp
 build $objsdir/Memory.o: cc Memory.cpp
@@ -59,10 +33,4 @@ build $objsdir/printf.o: cc printf.cpp
 build $objsdir/pic32mz.o: cc pic32mz.cpp
 build $objsdir/exception.o: asm exception.S
 build $objsdir/System.o: cc System.cpp
-build size: emitsize
-build sect: emitsect
-build list: emitlist
-build syms: emitsyms 
-build source: emitsource
-build content: emitcontent
-default libTwinbeam_pic32mz
+default $stem

@@ -69,22 +69,22 @@ Symbols(
         for (int i = 0; i < header->ncmds; ++i) {
             struct load_command *lc = (struct load_command *)obj_p;
             if (lc->cmd == LC_SYMTAB) {
-                struct symtab_command *symtab = (struct symtab_command *)obj_p;
-                obj_p += sizeof *symtab;
-                struct nlist_64 *ns = (struct nlist_64 *)(obj + symtab->symoff);
-                char *strtable = obj + symtab->stroff;
-                for (int i = 0; i < symtab->nsyms; i++) {
-                    struct nlist_64 *entry = ns + i;
-                    uint32_t idx = entry->n_un.n_strx;
-                    callback(strtable + idx, entry->n_value, outerStop);
-                    if (outerStop) { return; }
-                }
+               struct symtab_command *symtab = (struct symtab_command *)obj_p;
+               obj_p += sizeof *symtab;
+               struct nlist_64 *ns = (struct nlist_64 *)(obj + symtab->symoff);
+               char *strtable = obj + symtab->stroff;
+               for (int i = 0; i < symtab->nsyms; i++) {
+                  struct nlist_64 *entry = ns + i;
+                  uint32_t idx = entry->n_un.n_strx;
+                  callback(strtable + idx, entry->n_value, outerStop);
+                  if (outerStop) { return; }
+               }
             } else if (lc->cmd == LC_SEGMENT) {
-                segment_command *segment = (struct segment_command *)obj_p;
-                obj_p += sizeof *segment;
-                nsects = segment->nsects;
-                sections = (struct section *)obj_p;
-                obj_p += nsects * sizeof *sections;
+               segment_command *segment = (struct segment_command *)obj_p;
+               obj_p += sizeof *segment;
+               nsects = segment->nsects;
+               sections = (struct section *)obj_p;
+               obj_p += nsects * sizeof *sections;
             } else { obj_p += lc->cmdsize; }
         }
     }
@@ -98,7 +98,7 @@ RunUnitTests(
 )
 {
     Symbols(filepath, ^(const char * sym, uint64_t addr, bool& stop) {
-        if (addr && IsPrefixOrEqual((char *)sym, (char *)"_UnitTest_")) {
+        if (addr && IsPrefixOrEqual((char *)sym, (char *)"_Unittest_")) {
             printf("\nRunning %s\n",  sym);
             typedef void (*Testcase)(); void (*testcase)() = (Testcase)addr;
             testcase();
