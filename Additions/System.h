@@ -17,8 +17,8 @@ namespace Naturals {
 #include <Twinbeam.h> // For partial order, convention and hypothesis.
 
 struct Cartesian3d { typedef double type; typedef type (^Hilbert)(Chronology::
-  Instant t); struct Ħ { Hilbert x, y, z; }; struct Sampled { type x, y, z; 
-  }; union { Ħ 𝒇; Sampled s; }; __builtin_uint_t kind; };
+  Instant t); struct Ħ { Hilbert x, y, z; }; struct T { type x, y, z; 
+  }; union { Ħ 𝒇; T p; }; __builtin_uint_t kind; };
 
 struct Rasterized2d { typedef __builtin_int_t type; type x, y; };
 

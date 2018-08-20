@@ -22,11 +22,11 @@ DISORDERABLE auto InteractivelySetClock = ^(unsigned& y, unsigned& M, unsigned& 
   PIC32MZDA_KEY2; rollback = false; };
 auto LocalNow = ^{ OptInitRTCC(false, ^(unsigned& y, unsigned& M, unsigned& d,
   unsigned& h, unsigned& m, unsigned& s, uint32_t& key1, uint32_t& key2, bool&
-  rollback) { InteractivelySetClock(y, M, d, h, m, s, key1, key2, rollback); }); 
+  rollback) { InteractivelySetClock(y, M, d, h, m, s, key1, key2, rollback); });
   int32_t t[6]; GetRTCC(&t[0], &t[1], &t[2], &t[3], &t[4], &t[5]);
   Chronology chronology = SystemCalendricChronology();
-  uint32_t halfsec = 🎭𝑀𝑍𝐷𝐴(RTCCON, HALFSEC);
-  return *(chronology.timestamp(t, halfsec ? 0xBFFFffff : 0x3FFFFFFF)); };
+  uint32_t halfsec = 🎭𝑀𝑍𝐷𝐴(RTCCON, HALFSEC); Opt<Chronology::Instant> now = 
+  chronology.timestamp(t, halfsec ? 0xBFFFffff : 0x3FFFFFFF); return *now; };
 auto RandomInteger = ^(octa *out) { return TRNG(out); };
 #elif defined __x86_64__
 #include <time.h>
@@ -35,8 +35,8 @@ auto LocalNow = ^{
   // The number of seconds between the NTP Epoch 1 January 1900,
   // 00:00:00 and 00:00:00 Coordinated Universal Time (UTC), Thursday, 1
   // January 1970.
-  const uint32_t NTPToUnixConversion = 2208988800U;
-  uint32_t ta = uint32_t(now + NTPToUnixConversion);
+  const uint32_t ntpToUnix = 2208988800U;
+  uint32_t ta = uint32_t(now + ntpToUnix);
   Chronology::Instant res; res.octa = uint64_t(ta)<<32; // NTPTimestamp { ta, 0 }.bits;
   return res; };
 #include <immintrin.h>

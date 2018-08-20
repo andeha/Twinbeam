@@ -54,5 +54,11 @@ typedef long long           __builtin_int_t;
 // 💀🎤😐: 🎲⤣ ≅
 
 struct Envelope { uint8_t utf8Address[4]; Fossilate content; };
- 
+
+DISORDERABLE extern void (^Init)();
+DISORDERABLE extern void (^Putch)(char utf8);
+DISORDERABLE extern uint8_t (^Getch)();
+DISORDERABLE extern void (^Put)(char32_t unicode);
+DISORDERABLE extern void (^SetPixelAA)(int x, int y, long err);
+
 #endif
