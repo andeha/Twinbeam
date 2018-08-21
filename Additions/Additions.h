@@ -175,6 +175,7 @@ String GuidToString(Guid *guid);
 
 Opt<__builtin_int_t>
 ParseAndCastToInt(
+    Tuple<__builtin_int_t, const char32_t *> eols,
     Tuple<__builtin_int_t, const char32_t *> commits,
     char32_t (^feeder)(bool& stop)
 );
