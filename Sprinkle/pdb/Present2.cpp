@@ -1,5 +1,5 @@
 //
-//  Present.cpp
+//  Present2.cpp
 //  pdb
 //
 
@@ -7,21 +7,20 @@
 #include <Additions.h>
 #include "pdb.h"
 
-extern void (^Putch)(char utf8);
-const char *bright = "<ESC>[1m", *dim = "<ESC>[2m", *fgBlue = "<ESC>[34m", 
+const char *bright = "<ESC>[1m", *dim = "<ESC>[2m", *fgBlue = "<ESC>[34m",
   *fgRed = "<ESC>[31m", *reset = "<ESC>[0m", *reverse  = "<ESC>[7m";
-  
+
 bool color = false;
-    
+
 INNER_FUNCTION
-void 
+void
 Present(
     Utf8Terminal &term,
     const Bitfield& field,
     __builtin_uint_t value,
     __builtin_uint_t init
 )
-{    
+{
     Termlog << field.ident << tab << "= " << (color ? fgBlue : "") << "0b"; 
     
     __block bool masking = false;
@@ -47,9 +46,9 @@ Present(
     __builtin_uint_t init
 )
 {
-    r.forall(^(SemanticPointer<Bitfield *> field, bool first, bool last,
-      __builtin_int_t idx, bool& stop) { Present(term, *(field.pointer),
-      value, init); });
+    for (int i = 0; i < r.count(); i++) {
+        Present(term, r[i], value, init);
+    }
 }
 
 FOCAL
