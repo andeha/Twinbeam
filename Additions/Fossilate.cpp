@@ -25,7 +25,7 @@ auto LocalNow = ^{ OptInitRTCC(false, ^(unsigned& y, unsigned& M, unsigned& d,
   rollback) { InteractivelySetClock(y, M, d, h, m, s, key1, key2, rollback); });
   int32_t t[6]; GetRTCC(&t[0], &t[1], &t[2], &t[3], &t[4], &t[5]);
   Chronology chronology = SystemCalendricChronology();
-  uint32_t halfsec = 🎭𝑀𝑍𝐷𝐴(RTCCON, HALFSEC); Opt<Chronology::Instant> now = 
+  uint32_t halfsec = 🎭𝑀𝑍𝐷𝐴(RTCCON, HALFSEC); Opt<Chronology::Instant> now =
   chronology.timestamp(t, halfsec ? 0xBFFFffff : 0x3FFFFFFF); return *now; };
 auto RandomInteger = ^(octa *out) { return TRNG(out); };
 #elif defined __x86_64__
@@ -40,7 +40,7 @@ auto LocalNow = ^{
   Chronology::Instant res; res.octa = uint64_t(ta)<<32; // NTPTimestamp { ta, 0 }.bits;
   return res; };
 #include <immintrin.h>
-__attribute__((target("rdrnd"))) int RandomInteger(octa *x) { for (int i = 0; 
+__attribute__((target("rdrnd"))) int RandomInteger(octa *x) { for (int i = 0;
   i < 10; i++) { if (_rdrand64_step(&(x->octa))) return 0; } return 1; }
 #include <stdio.h>
 uint8_t getutf8() { return (uint8_t)getc(stdin); }
@@ -63,7 +63,7 @@ namespace ContextualAwareness {
 namespace Probing {
  auto DecentAstarboardAhead = ^(Chronology::Instant t) { return 0.0; };
  auto DecentAstarboardAft = ^(Chronology::Instant t) { return 0.0; };
- auto DecentAportAhead = ^(Chronology::Instant t) { return 0.0; }; 
+ auto DecentAportAhead = ^(Chronology::Instant t) { return 0.0; };
  auto DecentAportAft = ^(Chronology::Instant t) { return 0.0; }; // Baseline - decent = landing, so to speak...
 }
 namespace Emotionals {
@@ -75,15 +75,15 @@ namespace Emotionals {
  // and the errata...
  auto TemperatureAmidships = ^(Chronology::Instant t) { return 0; };
 }
-DISORDERABLE auto Init = ^{ 
+DISORDERABLE auto Init = ^{
 #ifdef  __mips__
-    StartTRNG(); 
+    StartTRNG();
 #endif
 };
 DISORDERABLE auto Putch = ^(char utf8) { putch(utf8); };
 DISORDERABLE auto Getch = ^{ return getutf8(); };
 DISORDERABLE auto Put = ^(char32_t unicode) { if (UnicodeToUtf8(unicode, ^(const uint8_t *p,
   int bytes) { for (int i = 0; i < bytes; i++) Putch(*(p + i)); })) {
-  __debug_break(0x10); } };
+  __debug_break(0x911); } };
 DISORDERABLE auto SetPixelAA = ^(int x, int y, long err) { printf("x=%d, y=%d, e=%ld\n", x, y, err); };
 #pragma clang diagnostic pop –
