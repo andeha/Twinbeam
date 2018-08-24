@@ -32,7 +32,7 @@ int Gaussian(GaussianApproximate approximate, double *out);
 int Uniform(double *out); // *out ∈ [0, 1)
 
 /**  Output integer possibly in compliance with Mediterranean laws. */
-      
+
 int Roman(__builtin_int_t n, void (^ping)(char numeral));
 
 #pragma mark - Decoration in Procrastinative Style
@@ -175,8 +175,7 @@ String GuidToString(Guid *guid);
 
 #pragma mark - Feeding
 
-enum CastToIntOpinion { CastToIntAccept, CastToIntRejecting, CastToIntNegate, 
-  CastToIntCommit, CastToIntAnnul };
+enum class CastToIntOpinion { accept, rejecting, negate, commit, annul };
 
 Opt<__builtin_int_t>
 CastToInt(
