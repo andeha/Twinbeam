@@ -3,83 +3,69 @@
 //  pdb
 //
 
-#include <Twinbeam.h>
+#include <System.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <Additions.h>
 #include "pdb.h"
 
-uint8_t getutf8() { return (uint8_t)getc(stdin); }
-void putch(char utf8) { putchar(utf8); }
-auto Putch = ^(char utf8) { putch(utf8); };
-auto Getch = ^{ return getutf8(); };
-auto alloc = ^(__builtin_int_t bytes) { return malloc(bytes); };
-inline void dbgout(const char *utf8) { while (*utf8) { putch(*utf8++); } } // Note: U+007f=DELETE.
-auto Put = ^(char32_t unicode) {
-  if (UnicodeToUtf8(unicode, ^(const uint8_t *p, int bytes) {
-      for (int i = 0; i < bytes; i++) Putch(*(p + i));	
-  })) { dbgout("Unicode error"); } };
-
-INNER_FUNCTION
-void 
-pdbToMdb(
-    const char *line,
-    void (^output)(char utf8)
-)
-{
-    auto strcmp = ^(const char * s1, const char * s2) {
-      while (*s1 == *s2 && *s1++ | *s2++);
-      int i = *s1 - *s2;
-      return i < 0 ? -1 : i > 0 ? 1 : 0; };
-    // TODO: Translate pdb line to mdb commands.
-    while (*line) { output(*line++); } 
-}
-
-INNER_FUNCTION
-void 
-mdbToPdb(
-    char c
-)
-{
-    enum class State { init, found };
-    static struct { State state; } context = { State::init };
-    // TODO: Translate mdb to pdb.
-}
-
-typedef void (^Request)(); 
-typedef void (^Response)(const char *resp);
-typedef Tuple<Request, Response> Query;
-
-extern AnnotatedRegister AR_Mips_Debug;
-extern AnnotatedRegister AR_Microchip_RCON;
-extern void Present(Utf8Terminal &term, const AnnotatedRegister& r, 
+extern void Present(Utf8Terminal &term, const AnnotatedRegister& r,
   __builtin_uint_t value);
 
-Map<const char *, Query> pic32mzda = { 
-    { "fpu", Tuple<Request, Response>(
-      ^{ Termlog << "device PIC32MZ2064DAH169\nhwtool SK\nprogram \"../fpu.hex\" \n"; }, 
-      ^(const char *resp) { })
-    },
-    { "debug", Tuple<Request, Response>(
-      ^{ Termlog << "print /x debug\n"; }, 
-      ^(const char *resp) { __builtin_uint_t val = 0x12341234; Present(Termlog, AR_Mips_Debug, val); })
-    },
-    { "rcon", Tuple<Request, Response>(
-      ^{ Termlog << "print /x rcon\n";  }, 
-      ^(const char *resp) { __builtin_uint_t val = 0x12341234; Present(Termlog, AR_Microchip_RCON, val); })
-    },
-};
+INNER_FUNCTION
+void 
+userTowardsMdb(
+  const char *pdb,
+  char *mdb
+)
+{
+    auto strcmp = ^(const char *s1, const char *s2) { while (*s1 && (*s1 == *s2)) {
+      s1++; s2++; } return *(const unsigned char *)s1 - *(const unsigned
+      char *)s2; };
+    auto strcpy = ^(char dest[], const char source[]) { int i = 0; while ((dest[i] =
+      source[i]) != '\0') { i++; } };
+    strcpy(mdb, pdb);
+}
+
+INNER_FUNCTION
+void
+mdbTowardsUser(
+  char *mdb
+)
+{
+    __block bool virgin = true; static int si = 0;
+    auto feeder = ^(unsigned short& digit) {
+      auto utf8byte = (unsigned short)*(mdb + si++);
+      if (utf8byte == '\n') return virgin ? CastToIntOpinion::annul : CastToIntOpinion::commit;
+      auto asciidigit = ^(char32_t u) { return 0x30 <= u && u < 0x40; };
+      if (asciidigit(utf8byte)) { digit = (unsigned short)(utf8byte - '0');
+        virgin = false; return CastToIntOpinion::accept; }
+      if (utf8byte == U'-') return CastToIntOpinion::negate;
+      if (utf8byte == 1) return virgin ? CastToIntOpinion::rejecting : CastToIntOpinion::commit;
+      return CastToIntOpinion::rejecting; };
+    if (EightBitIsPrefixOrEqual(mdb, "rcon=")) { mdb += 5;
+        Opt<__builtin_int_t> rconOpt = CastToInt(feeder);
+        if (__builtin_int_t rcon = *rconOpt) {
+           Present(Termlog, AR_Microchip_RCON, rcon);
+        } else { fprintf(stderr, "Error presenting `RCON`"); }
+    } else if (EightBitIsPrefixOrEqual(mdb, "debug=")) { mdb += 6;
+        Opt<__builtin_int_t> debugOpt = CastToInt(feeder);
+        if (__builtin_int_t debug = *debugOpt) {
+           Present(Termlog, AR_Mips_Debug, debug);
+        } else { fprintf(stderr, "Error presenting `Debug`"); }
+    } else fprintf(stderr, "%s", mdb);
+}
 
 int
 main(
-    int argc,
-    char * argv[]
+  int argc,
+  char * argv[]
 )
 { // stdin=0, stdout=1 and stderr=2
+    
     int status = 0;
     int fd_p2c[2], fd_c2p[2];
-    if (argc != 2) { fprintf(stderr, "Usage: pdb <program.hex>\n"); exit(1); }
+    if (argc != 2) { fprintf(stderr, "Usage: pdb <program.hex>\n"); exit(1); } else { fprintf(stderr, "pdb, revision %s (^-c to quit.)\n\n", SHA1GIT); }
     if (pipe(fd_p2c) == -1 || pipe(fd_c2p) == -1) { fprintf(stderr, "pdb: Error when pipe\n"); exit(1); }
     pid_t pid = fork();
     if (pid == -1) { fprintf(stderr, "pdb: Error when initial fork\n"); exit(1); }
@@ -91,17 +77,20 @@ main(
         if (pid2) { // Parent (reading the debuggers' stdout)
             for (;;) { const int maxLine = 1024; char line[maxLine]; int len = 0;
                 if ((len = read(fd_c2p[0], line, maxLine)) < 0) { fprintf(stderr, "pdb: Error when reading mdb\n"); exit(1); }
-                line[len] = 0; pdbToMdb(line, ^(char utf8) { });
-                fprintf(stderr, "%s", line);
+                line[len] = 0; mdbTowardsUser(line);
             }
-        } else { char c; // Child (writing the debuggers' stdin)
-            while (read(STDIN_FILENO, &c, 1) > 0) {
-                mdbToPdb(c);
-                // TODO: Translate pdb to mdb.
-                if (write(fd_p2c[1], &c, 1) != 1) {
-                    fprintf(stderr, "pdb: Error when writing mdb\n");
-                    exit(1);
-                }
+        } else { const int maxline = 1024; char pdbline[maxline]; // Child (writing the debuggers' stdin)
+            while (read(STDIN_FILENO, &pdbline, maxline) > 0) {
+                char mdbline[maxline];
+                userTowardsMdb(pdbline, mdbline);
+                auto toMdb = ^(int fd, char *s) {
+                    int len = Utf8BytesUntilNull(s, BUILTIN_INT_MAX);
+                    if (write(fd, s, len) != len) {
+                        fprintf(stderr, "pdb: Error when writing mdb\n");
+                        exit(1);
+                    }
+                };
+                toMdb(fd_p2c[1], mdbline);
             }
         }
         
@@ -127,5 +116,6 @@ main(
         if (status == -1) { fprintf(stderr, "pdb: Error in execlp\n"); exit(1); }
         fflush(stdout);
     }
+    
     return status;
 }
