@@ -35,7 +35,7 @@ int Uniform(double *out); // *out ∈ [0, 1)
       
 int Roman(__builtin_int_t n, void (^ping)(char numeral));
 
-#pragma mark - Decorated String in Procrastinative Style
+#pragma mark - Decoration in Procrastinative Style
 
 typedef struct UnicodeIntervalAnd𝑂𝑟Location {
   Memoryregion *region;
@@ -105,14 +105,14 @@ struct Utf8Terminal {
 😐;
 
 enum class PresentBase { dec, hex, oct, bin };
-namespace NumberFormatCatalogue { extern void (^Default)(double, Utf8Terminal&);
+namespace NumberformatCatalogue { extern void (^Default)(double, Utf8Terminal&);
   extern void (^Monetary)(double, Utf8Terminal &); }
 void Present(Utf8Terminal &term, __builtin_int_t z);
 void Present(Utf8Terminal &term, __builtin_uint_t n, PresentBase base = PresentBase::dec);
 void Present(Utf8Terminal &term, double value);
 void Present(Utf8Terminal &term, char32_t unicode);
 void Present(Utf8Terminal &term, const DecoratedString& ds);
-// void Present(Utf8Terminal &term, SourceLocation location); // ☜😐: ?
+// void Present(Utf8Terminal &term, Sourcelocation location); // ☜😐: ?
 
 #pragma mark - Conveniences for Small Clients
 
@@ -173,9 +173,14 @@ int NewGuid(void (^output)(Guid *guid));
 
 String GuidToString(Guid *guid);
 
+#pragma mark - Feeding
+
+enum CastToIntOpinion { CastToIntAccept, CastToIntRejecting, CastToIntNegate, 
+  CastToIntCommit, CastToIntAnnul };
+
 Opt<__builtin_int_t>
-ParseAndCastToInt(
-  char32_t (^feeder)(bool& reject, bool& commit)
+CastToInt(
+  CastToIntOpinion (^feeder)(unsigned short& digit)
 );
 
 #endif
