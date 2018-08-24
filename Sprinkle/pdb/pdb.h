@@ -9,6 +9,7 @@ struct Bitfield { const char32_t * ident; __builtin_uint_t mask; const char32_t
   char32_t * footer; };
 
 extern void (^Putch)(char utf8);
+extern void (^Put)(char32_t unicode);
 
 inline bool EightBitIsPrefixOrEqual(const char *eightbitString, const char * eightbitPrefix)
 { if (!*eightbitString) { return false; } while (*eightbitString && *eightbitPrefix) {
