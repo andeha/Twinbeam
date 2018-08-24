@@ -23,7 +23,7 @@ typedef long long           __builtin_int_t;
     /* DISJUNCT */ union Value {
         // ...Interesting. FINAL below often                        ☜😐🔅¹
         struct { __builtin_int_t tetras; char32_t *unicodes; } machineString; // ⬷ Not stored in SI™
-        const char *eightbitCString;
+        const char *eightbitCString; // Is 0-terminated.
         __builtin_uint_t bitmap;
         double real;
         typedef struct Reference {
@@ -64,7 +64,7 @@ DISORDERABLE extern void (^SetPixelAA)(int x, int y, long err);
 #ifdef __mips__
 DISORDERABLE extern void (^InteractivelySetClock)(unsigned& y, unsigned& M,
   unsigned& d, unsigned& h, unsigned& m, unsigned& s, uint32_t& key1, 
-  uint32_t& key2, bool& rollback);
+  uint32_t& key2, unsigned& tuner, bool& rollback);
 #endif
 // Non-overridable mandatory prepacked lambdas include `Alloc`, `LocalNow` and 
 // `RandomInteger`.  See --<Fossilate.cpp> for details.

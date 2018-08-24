@@ -16,15 +16,16 @@ auto Alloc = ^(__builtin_int_t bytes) { return malloc(bytes); };
 #include <stable.hpp>
 #include <rtcc.hpp>
 #include <trng.hpp>
-DISORDERABLE auto InteractivelySetClock = ^(unsigned& y, unsigned& M, unsigned& d,
-  unsigned& h, unsigned& m, unsigned& s, uint32_t& key1, uint32_t& key2, bool&
-  rollback) { y=2012; M=1; d=24; h=17; m=1; s=5; key1=PIC32MZDA_KEY1; key2=
-  PIC32MZDA_KEY2; rollback = false; };
+DISORDERABLE auto InteractivelySetClock = ^(unsigned& y, unsigned& M,
+  unsigned& d, unsigned& h, unsigned& m, unsigned& s, uint32_t& key1,
+  uint32_t& key2, unsigned& tuner, bool& rollback) { y=2012; M=1; d=24; h=17;
+  m=1; s=5; key1=PIC32MZDA_KEY1; key2=PIC32MZDA_KEY2; tuner=0; rollback=
+  false; };
 auto LocalNow = ^{ OptInitRTCC(false, ^(unsigned& y, unsigned& M, unsigned& d,
-  unsigned& h, unsigned& m, unsigned& s, uint32_t& key1, uint32_t& key2, bool&
-  rollback) { InteractivelySetClock(y, M, d, h, m, s, key1, key2, rollback); });
-  int32_t t[6]; GetRTCC(&t[0], &t[1], &t[2], &t[3], &t[4], &t[5]);
-  Chronology chronology = SystemCalendricChronology();
+  unsigned& h, unsigned& m, unsigned& s, uint32_t& key1, uint32_t& key2,
+  unsigned& tuner, bool& rollback) { InteractivelySetClock(y, M, d, h, m, s,
+  key1, key2, tuner, rollback); }); int32_t t[6]; GetRTCC(&t[0], &t[1], &t[2],
+  &t[3], &t[4], &t[5]); Chronology chronology = SystemCalendricChronology();
   uint32_t halfsec = 🎭𝑀𝑍𝐷𝐴(RTCCON, HALFSEC); Opt<Chronology::Instant> now =
   chronology.timestamp(t, halfsec ? 0xBFFFffff : 0x3FFFFFFF); return *now; };
 auto RandomInteger = ^(octa *out) { return TRNG(out); };
@@ -67,12 +68,12 @@ namespace Probing {
  auto DecentAportAft = ^(Chronology::Instant t) { return 0.0; }; // Baseline - decent = landing, so to speak...
 }
 namespace Emotionals {
- // Topside located TDK's.
+ // Topside located TDK's:
  auto VelocityAstarboardAhead = ^(Chronology::Instant t) { return Cartesian3d { 0, 0, 0 }; };
  auto VelocityAstarboardAft = ^(Chronology::Instant t) { return Cartesian3d { 0, 0, 0 }; };
  auto VelocityAportAhead = ^(Chronology::Instant t) { return Cartesian3d { 0, 0, 0 }; };
  auto VelocityAportAft = ^(Chronology::Instant t) { return Cartesian3d { 0, 0, 0 }; };
- // and the errata...
+ // ...and the errata:
  auto TemperatureAmidships = ^(Chronology::Instant t) { return 0; };
 }
 DISORDERABLE auto Init = ^{
@@ -86,4 +87,9 @@ DISORDERABLE auto Put = ^(char32_t unicode) { if (UnicodeToUtf8(unicode, ^(const
   int bytes) { for (int i = 0; i < bytes; i++) Putch(*(p + i)); })) {
   __debug_break(0x911); } };
 DISORDERABLE auto SetPixelAA = ^(int x, int y, long err) { printf("x=%d, y=%d, e=%ld\n", x, y, err); };
+DISORDERABLE auto SetPixelAA_L = ^(int x, int y, long err, short modulus) { printf("x=%d, y=%d, e=%ld\n", x, y, err); };
+DISORDERABLE auto SetPixelAA_R = ^(int x, int y, long err, short modulus) { printf("x=%d, y=%d, e=%ld\n", x, y, err); };
+namespace Presentationals {
+  DISORDERABLE auto SetPixelAA_EXT = ^(int x, int y, long err, short modulus) { printf("x=%d, y=%d, e=%ld\n", x, y, err); };
+}
 #pragma clang diagnostic pop –
