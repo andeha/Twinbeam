@@ -36,12 +36,14 @@ mdbTowardsUser(
     __block bool virgin = true; static int si = 0;
     auto feeder = ^(unsigned short& digit) {
       auto utf8byte = (unsigned short)*(mdb + si++);
-      if (utf8byte == '\n') return virgin ? CastToIntOpinion::annul : CastToIntOpinion::commit;
+      if (utf8byte == '\n') return virgin ? CastToIntOpinion::annul :
+        CastToIntOpinion::commit;
       auto asciidigit = ^(char32_t u) { return 0x30 <= u && u < 0x40; };
       if (asciidigit(utf8byte)) { digit = (unsigned short)(utf8byte - '0');
         virgin = false; return CastToIntOpinion::accept; }
       if (utf8byte == U'-') return CastToIntOpinion::negate;
-      if (utf8byte == 1) return virgin ? CastToIntOpinion::rejecting : CastToIntOpinion::commit;
+      if (utf8byte == 1) return virgin ? CastToIntOpinion::rejecting :
+        CastToIntOpinion::commit;
       return CastToIntOpinion::rejecting; };
     if (EightBitIsPrefixOrEqual(mdb, "rcon=")) { mdb += 5;
         Opt<__builtin_int_t> rconOpt = CastToInt(feeder);
@@ -64,22 +66,24 @@ main(
 { // stdin=0, stdout=1 and stderr=2
     
     int status = 0;
-    int fd_p2c[2], fd_c2p[2];
-    if (argc != 2) { fprintf(stderr, "Usage: pdb <program.hex>\n"); exit(1); } else { fprintf(stderr, "pdb, revision %s (^-c to quit.)\n\n", SHA1GIT); }
-    if (pipe(fd_p2c) == -1 || pipe(fd_c2p) == -1) { fprintf(stderr, "pdb: Error when pipe\n"); exit(1); }
+    int fd_p2c[2], fd_c2p[2]; const int maxline = 1024;
+    if (argc != 2) { fprintf(stderr, "Usage: pdb <program.hex>\n"); exit(1); }
+    else { fprintf(stderr, "pdb, revision %s (^-c to quit.)\n\n", SHA1GIT); }
+    if (pipe(fd_p2c) == -1 || pipe(fd_c2p) == -1) { fprintf(stderr, 
+      "pdb: Error when pipe\n"); exit(1); }
     pid_t pid = fork();
-    if (pid == -1) { fprintf(stderr, "pdb: Error when initial fork\n"); exit(1); }
+    if (pid == -1) { fprintf(stderr, "pdb: Error when fork\n"); exit(1); }
     if (pid) { // Parent
-        close(fd_p2c[0]);
-        close(fd_c2p[1]);
-        pid_t pid2 = fork(); // Fiber instead.
-        if (pid2 == -1) { fprintf(stderr, "pdb: Error when second fork\n"); exit(1); }
-        if (pid2) { // Parent (reading the debuggers' stdout)
-            for (;;) { const int maxLine = 1024; char line[maxLine]; int len = 0;
-                if ((len = read(fd_c2p[0], line, maxLine)) < 0) { fprintf(stderr, "pdb: Error when reading mdb\n"); exit(1); }
+        close(fd_p2c[0]); close(fd_c2p[1]);
+        pid_t pid₂ = fork(); // Fiber instead.
+        if (pid₂ == -1) { fprintf(stderr, "pdb: Error when child forks\n"); exit(1); }
+        if (pid₂) { // Parent (reading the debuggers' stdout)
+            for (;;) { char line[maxline]; int len = 0;
+                if ((len = read(fd_c2p[0], line, maxline)) < 0) { fprintf(
+                  stderr, "pdb: Error when reading mdb\n"); exit(1); }
                 line[len] = 0; mdbTowardsUser(line);
             }
-        } else { const int maxline = 1024; char pdbline[maxline]; // Child (writing the debuggers' stdin)
+        } else { char pdbline[maxline]; // Child (writing the debuggers' stdin)
             while (read(STDIN_FILENO, &pdbline, maxline) > 0) {
                 char mdbline[maxline];
                 userTowardsMdb(pdbline, mdbline);
@@ -113,7 +117,7 @@ main(
             exit(1);
         }
         status = execlp("/Applications/microchip/mplabx/v4.20/mplab_platform/bin/mdb.sh", "", (char *)NULL);
-        if (status == -1) { fprintf(stderr, "pdb: Error in execlp\n"); exit(1); }
+        if (status == -1) { fprintf(stderr, "pdb: Error when execlp\n"); exit(1); }
         fflush(stdout);
     }
     

@@ -14,5 +14,3 @@ inline bool EightBitIsPrefixOrEqual(const char *eightbitString, const char * eig
 { if (!*eightbitString) { return false; } while (*eightbitString && *eightbitPrefix) {
   if(*eightbitString++ != *eightbitPrefix++) return false; } return true; }
 
-extern AnnotatedRegister AR_Mips_Debug;
-extern AnnotatedRegister AR_Microchip_RCON;
