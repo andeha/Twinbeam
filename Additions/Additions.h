@@ -83,19 +83,19 @@ struct Utf8Terminal {
     virtual
     int
     read(
-         __builtin_int_t periods,
-         __builtin_int_t seconds,
-         void (^ping)(bool &stop),
-         void (^touchbase)(uint8_t *utf8, __builtin_int_t bytes, bool &stop)
+       __builtin_int_t periods,
+       __builtin_int_t seconds,
+       void (^ping)(bool &stop),
+       void (^touchbase)(uint8_t *utf8, __builtin_int_t bytes, bool &stop)
     ) const;
     
     virtual
     int
     password(
-        __builtin_int_t periods,
-        __builtin_int_t seconds,
-        void (^ping)(bool &stop),
-        void (^touchbase)(uint8_t *utf8, __builtin_int_t bytes, bool &stop)
+      __builtin_int_t periods,
+      __builtin_int_t seconds,
+      void (^ping)(bool &stop),
+      void (^touchbase)(uint8_t *utf8, __builtin_int_t bytes, bool &stop)
     ) const;
     
     virtual void write(char32_t unicode) const;
@@ -173,7 +173,7 @@ int NewGuid(void (^output)(Guid *guid));
 
 String GuidToString(Guid *guid);
 
-#pragma mark - Feeding
+#pragma mark - Input Feeding in Practice
 
 enum class CastToIntOpinion { accept, rejecting, negate, commit, annul };
 
@@ -181,5 +181,31 @@ Opt<__builtin_int_t>
 CastToInt(
   CastToIntOpinion (^feeder)(unsigned short& digit)
 );
+
+enum class Inputcontrol { ok, quit };
+
+enum class Readlineopinion { accept, rejecting, commit, quit };
+
+int ReadUtf8line(Readlineopinion (^feeder)(char& utf8byte), Inputcontrol (^line)(char * line));
+int ReadUnicodeline(Readlineopinion (^feeder)(char32_t& unicode), Inputcontrol (^line)(char32_t * line));
+
+#pragma mark Tri-cameral Tokenizer
+
+enum class Tokenizefact { fragment, rejecting, separator, error, eol };
+
+int
+Tokenize(
+  Tokenizefact (^feeder)(char32_t& unicode),
+  Inputcontrol (^ahead)(char32_t * unicodes, __builtin_int_t count),
+  Inputcontrol (^token)(char32_t * unicodes, __builtin_int_t count)
+);
+
+#pragma mark Language Translation
+
+enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
+
+int Parse(const char *text, void (^untangle)(char32_t unicode, const
+  Vector<int>& ss, Map<char32_t *, __builtin_uint_t>& stab,
+  __builtin_int_t byteoffset, bool edge₁, bool& stop));
 
 #endif
