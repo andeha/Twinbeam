@@ -23,13 +23,13 @@ struct Cartesian3d { typedef double type; typedef type (^Hilbert)(Chronology::
 struct Rasterized2d { typedef __builtin_int_t type; type x, y; };
 
 struct Cartesian2d {
-    
-    typedef double type; type x, y;
-    
-    Cartesian2d(double x, double y) : x(x), y(y) { }
-    
-    Cartesian2d(const Cartesian2d &p) : x(p.x), y(p.y) { }
-    
+   
+   typedef double type; type x, y;
+   
+   Cartesian2d(double x, double y) : x(x), y(y) { }
+   
+   Cartesian2d(const Cartesian2d &p) : x(p.x), y(p.y) { }
+   
 };
 
 #pragma mark Non-rectangular Coordinate Systems
@@ -55,12 +55,12 @@ typedef struct Eulerangles { typedef double type; typedef type (^Ħ)(Chronology:
 // #define EarthBasedSpatialTemporalHeading 360 == 0 degrees
 
 namespace Naturals {
-    constexpr auto degreesPerRadian = 57.296;
-    constexpr auto π² = 9.86960440108935861883449099987615113531369940724079062641334; // 😐: ≅ 10
-    constexpr auto π²div6 = 1.6449340668482264364724151666460251892189499012067984377; // 😐: ≅ ∑ 1/k², k ∈ [1 ⃨∞)
-    // constexpr auto √5 = 2.23606797749978969640917366873127623544061835961152572427089; // 🕛: 𝜖 = 10³ @w N[Sqrt[5], 70]
-    // constexpr auto πᵉ = 22.45915771836104547342715220454373502758931513399669224920;
-    // constexpr auto φ² = 2.618033988749894848204586834365638117720309179805762862135; 😐: ≅ φ¹ + φ⁰
+   constexpr auto degreesPerRadian = 57.296;
+   constexpr auto π² = 9.86960440108935861883449099987615113531369940724079062641334; // 😐: ≅ 10
+   constexpr auto π²div6 = 1.6449340668482264364724151666460251892189499012067984377; // 😐: ≅ ∑ 1/k², k ∈ [1 ⃨∞)
+   // constexpr auto √5 = 2.23606797749978969640917366873127623544061835961152572427089; // 🕛: 𝜖 = 10³ @w N[Sqrt[5], 70]
+   // constexpr auto πᵉ = 22.45915771836104547342715220454373502758931513399669224920;
+   // constexpr auto φ² = 2.618033988749894848204586834365638117720309179805762862135; 😐: ≅ φ¹ + φ⁰
 }
 
 #pragma mark - Directions
@@ -111,17 +111,20 @@ typedef __builtin_uint_t Manhattan; enum : Manhattan {
 template <typename T> struct LeftclosedInterval { T closedBeginning; T openEnd; };
 template <typename T> struct ClosedInterval { T closedBeginning; T closedEnd; };
 
+typedef _Float16 half; // Computation and storage.
+
 typedef union { // 2^–14 to 2^15 or 3.1 × 10^–5 to 6.50 × 10^4
    // binary16 base2
    struct { int8_t lsh; uint8_t msh; } signed_little_endian;
    struct { uint8_t msh; int8_t lsh; } unsigned_big_endian;
    struct {
-       unsigned mantissa : 10;
-       unsigned exponent :  5;
-       unsigned sign     :  1;
+     unsigned mantissa : 10;
+     unsigned exponent :  5;
+     unsigned sign     :  1;
    } ieee754;
+   half value;
    uint16_t half;
-} half;
+} pythagorean_double;
 
 union FourHalfs { half half[4]; };
 union EightHalfs { half half[8]; struct two { FourHalfs left; FourHalfs right; }; };
@@ -143,11 +146,40 @@ typedef v4f32 FourFloats;
 typedef __m128 FourFloats;
 #endif
 
-int Sample(Cartesian3d::Ħ 𝒇₁, Cartesian3d::Ħ 𝒇₂, Chronology::Instant t, EightHalfs &lr);
+int Sample(Cartesian3d::Ħ 𝒇₁, Cartesian3d::Ħ 𝒇₂, Chronology::
+  Instant t, EightHalfs &lr);
 int Sample(Cartesian3d 𝗽, Chronology::Instant t, FourFloats &fourFloats);
 int Sample(Eulerangles 𝗽, Chronology::Instant t, FourFloats &fourFloats);
 template <typename T> int Sample(Cartesian3d 𝗽, Chronology::Instant t, T out[3]);
 template <typename T> int Sample(Eulerangles 𝗽, Chronology::Instant t, T out[3]);
+
+// Built-ins when multiply annd add where t ∈ [0, ⃨,1)
+OPT_Si_FOCAL MACRO half lerp₁(half v₀, half v₁, half t) { return ((half)1.0 - t) * v₀ + t * v₁; }
+OPT_Si_FOCAL MACRO half lerp₂(half v₀, half v₁, half t) { return v₀ + t * (v₁ - v₀); }
+
+struct Linear { double ts[2]; double vals[2]; int brk = 0; bool
+  comparable = false; void include(double val, double t) { ts[brk] = t;
+  vals[brk] = val; brk = (brk + 1) % 2; if (!comparable && brk == 0) comparable
+  = true; } double value(double t) { if (!comparable) { return brk == 0 ?
+  IEEE754BASE2_64BIT_QNAN : vals[0]; } else { /* y(x) = kx + m, y₁ - y₂ =
+  k*(x₁ - x₂), y₁ + y₂ = kx₁ + kx₂ + 2*m ⟷ 2 m = y₁ + y₂ - k*(x₁ + x₂) */
+  double k = (vals[0] - vals[1])/(ts[0] - ts[1]); /* t₀ ≠ t₁ */ double m =
+  0.5*(vals[0] + vals[1] - (ts[0] + ts[1])*k); return k*t + m; } } };
+
+void Plotline(int x₀, int y₀, int x₁, int y₁, void (^setPixelAA)(int x, int y,
+  long err)); // Background, percent of int.
+void PlotCubicBezierSeg(int x₀, int y₀, float x₁, float y₁, float x2, float y2,
+  int x₃, int y₃, void (^setPixelAA)(int x, int y, long err));
+void PlotQuadSpline(int n, int x[], int y[], void (^setPixelAA)(int x, int y,
+  long err));
+void PlotCubicSpline(int n, int x[], int y[], void (^setPixelAA)(int x, int y,
+  long err));
+
+typedef struct { Cartesian2d z₁; Cartesian2d z₂; Cartesian2d z₃; Cartesian2d
+  z₄; } Beziercurve;
+
+void ParametricQuadBezier(double t, Beziercurve c, void (^stream)(Cartesian2d &𝗽,
+  Opt<Cartesian2d> &prevOpt));
 
 #include <Additions/Additions.h>
 #include <Additions/Fossilate.h>
