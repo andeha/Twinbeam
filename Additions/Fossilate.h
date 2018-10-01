@@ -63,7 +63,7 @@ DISORDERABLE extern void (^Put)(char32_t unicode);
 DISORDERABLE extern char32_t (^GetCh)();
 DISORDERABLE extern Q15 (^Sinus)(Chronology::Instant t, const Modulation::Variat& V);
 DISORDERABLE extern void (^SetPixelAA)(int x, int y, long err);
-DISORDERABLE extern int (^Mesmerize)(Chronology::Instant t, void (^output)(int x, int y, long err));
+DISORDERABLE extern int (^Mesmerize)(Chronology::Instant t, float version, void (^output)(int x, int y, long err));
 #ifdef __mips__
 DISORDERABLE extern void (^InteractivelySetClock)(unsigned& y, unsigned& M,
   unsigned& d, unsigned& h, unsigned& m, unsigned& s, uint32_t& key1, 
