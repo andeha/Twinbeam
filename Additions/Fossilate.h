@@ -31,7 +31,7 @@ typedef long long           __builtin_int_t;
             struct { __builtin_int_t tetras; char32_t *unicodes; } canonizedTypename;
         } Reference;
     } value;
-    __builtin_int_t kind; // ∈ [0, ⃨,k-1].
+    __builtin_int_t kind; // ∈ [0, ⃨,k-1]
     Fossilate *optUnit;
     struct { __builtin_int_t tetras; char32_t *unicodes; } optUnitNameOrIdent;
     // ↸ But not neccessarily FINAL here...                         ☜😐🔅²
@@ -53,14 +53,17 @@ typedef long long           __builtin_int_t;
 
 // 💀🎤😐: 🎲⤣ ≅
 
-struct Envelope { uint8_t utf8Address[4]; Fossilate content; };
+struct Envelop { uint8_t utf8Address[4]; Fossilate content; };
 
 // Overridable prepacked lambdas.
 DISORDERABLE extern void (^Init)();
 DISORDERABLE extern void (^Putch)(char utf8);
 DISORDERABLE extern uint8_t (^Getch)();
 DISORDERABLE extern void (^Put)(char32_t unicode);
+DISORDERABLE extern char32_t (^GetCh)();
+DISORDERABLE extern Q15 (^Sinus)(Chronology::Instant t, const Modulation::Variat& V);
 DISORDERABLE extern void (^SetPixelAA)(int x, int y, long err);
+DISORDERABLE extern int (^Mesmerize)(Chronology::Instant t, void (^output)(int x, int y, long err));
 #ifdef __mips__
 DISORDERABLE extern void (^InteractivelySetClock)(unsigned& y, unsigned& M,
   unsigned& d, unsigned& h, unsigned& m, unsigned& s, uint32_t& key1, 
