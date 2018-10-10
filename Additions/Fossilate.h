@@ -63,11 +63,12 @@ DISORDERABLE extern void (^Put)(char32_t unicode);
 DISORDERABLE extern char32_t (^GetCh)();
 DISORDERABLE extern Q15 (^Sinus)(Chronology::Instant t, const Modulation::Variat& V);
 DISORDERABLE extern void (^SetPixelAA)(int x, int y, long err);
-DISORDERABLE extern int (^Mesmerize)(Chronology::Instant t, float generation, void (^output)(int x, int y, long err));
+DISORDERABLE extern int (^Mesmerize)(Chronology::Instant t, float version, void (^output)(int x, int y, long err)); // TODO: Rewrite to InititeMesmerization.
 #ifdef __mips__
-DISORDERABLE extern void (^InteractivelySetClock)(unsigned& y, unsigned& M,
+DISORDERABLE extern void (^InteractivelySetChronometer)(unsigned& y, unsigned& M,
   unsigned& d, unsigned& h, unsigned& m, unsigned& s, uint32_t& key1, 
-  uint32_t& key2, unsigned& tuner, bool& rollback);
+  uint32_t& key2, unsigned& tuner, bool& rollback); // Measure the RTCC pin using an oscilloscope to compare.
+DISORDERABLE extern void (^TuneChronometer)(void (^ping)(int& tenbitSignedOffset, bool& commit));
 #endif
 // Non-overridable mandatory prepacked lambdas include `Alloc`, `LocalNow` and 
 // `RandomInteger`.  See --<Fossilate.cpp> for details.
