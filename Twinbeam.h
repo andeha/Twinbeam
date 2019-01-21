@@ -264,6 +264,7 @@ template <typename T> T abs(T x) { return x < 0 ? -x : x; }
 MACRO int64_t abs64i(int64_t x) indisponible(__mips__) { return int64_t(((uint64_t)(x) & ~SIGNBIT_INT64)); }
 #endif
 #define MAIN void _Noreturn main
+
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
 namespace Relative {
@@ -339,7 +340,7 @@ void Forall(void *opaque, void (^dfs)(void * ref, bool& stop,
   __builtin_treeint_t mask, void *node));
 void * Lookup(const void *opaque, const __builtin_treeint_t target);
 
-/* Big endian=most significant first, little endian=least sigificant first */
+/* Big endian=most significant first, little endian=least sigificant first. */
 
 typedef union {
 #ifdef __x86_64__
@@ -404,7 +405,7 @@ int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content,
   __builtin_int_t& beam, void (^character)(char32_t unicode, __builtin_int_t
   byteOffset, bool& stop));
 
-int Utf8Sync(uint8_t **p); // Backs at most 3 bytes to regain sync.
+int Utf8Sync(uint8_t **p); /* Backs at most 3 bytes to regain sync. */
 
 #pragma mark - ”𝑇ℎ𝑒 🧠🧠” 🔍😐
 
@@ -549,10 +550,10 @@ TS( // E.g 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.
 
 /**  The unperturbed — yet based on Caesium 133 — chronology. */
 
-Chronology& ComputationalChronology(); // 𝐸.𝑔. for chronometers.
+Chronology& ComputationalChronology(); // 𝐸․𝑔 for chronometers.
 
 /**  The chronology of the users' choice. */
 
-Chronology& SystemCalendricChronology(); // Irreversible, conclusive mass. Connnsider 'Ease-in'.
+Chronology& SystemCalendricChronology(); // Irreversible, conclusive mass. Connsider 'Ease-in'.
 
 #endif
