@@ -175,7 +175,9 @@ MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
 #define PRINTF_ATTRS __attribute__((__format__ (__printf__, 1, 2)))
 extern "C" { void * malloc(size_t); void free(void *); int printf(const char
-  *utf8format, ...) PRINTF_ATTRS; int atexit(void (*func) (void)); void exit(int); }
+  *utf8format, ...) PRINTF_ATTRS /* Note that a character literal prefixed
+  with the letter `U` does not neccessarily ends with for example `NULL` */;
+  int atexit(void(*func)(void)); void exit(int); }
 int
 bprintf_utf8(
   unsigned short (^utf8)(char *p, short unsigned bytes),
@@ -185,7 +187,7 @@ bprintf_utf8(
 int // Tuple<int, int, int>, 𝘪․𝘦 user-percieved characters, unicodes and utf-8.
 bprintf_unicode(
   unsigned short (^utf8)(char *p, short unsigned bytes),
-  const char32_t *unicodeFormat,
+  const char32_t *unicodeFormatWithExplicitEOTTermination,
   __builtin_va_list arg
 );
 typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
@@ -215,7 +217,7 @@ FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef l,
   constexpr uint32_t PIC32##serie##_##symbol##SET = (vaddr + 0x8);           \
   constexpr uint32_t PIC32##serie##_##symbol##INV = (vaddr + 0xc);
 #define PortRectifyAsOutputs(serie,X,tris) (*((uint32_t *)PIC32##serie##_##TRIS##X##CLR) = (uint16_t)(tris))
-#define 🔎🎭𝑀𝑍(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
+#define 🔎🎭𝑀𝑋(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
 #define 🔎🎭𝑀𝑍𝐷𝐴(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
 #endif
 ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
@@ -265,6 +267,10 @@ MACRO int64_t abs64i(int64_t x) indisponible(__mips__) { return int64_t(((uint64
 #endif
 #define MAIN void _Noreturn main
 
+// int old_value = __sync_swap(&value, new_value);
+// __attribute__ ((no_caller_saved_registers,
+// __builtin_object_size(param, Type
+// preserve_all, preserve_most, __regcall, __vectorcall
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
 namespace Relative {
@@ -282,9 +288,9 @@ template <typename T> bool eqeql(T x₁, T x₂) { return x₁ == x₂; }; }
 #define NOT_EVERYTIME const static
 #define CARDINALS(...) enum Cardinal { __hole=0, __VA_ARGS__ };              \
   static jmp_buf __snapshot;                                                 \
-  auto confess = ^(Cardinal sin) { longjmp(__snapshot, sin); };
+  auto confess = ^(Cardinal sin) { longjmp2(__snapshot, sin); };
 #define NEARBYCROSS                                                          \
-  int __ctrl = setjmp(__snapshot);                                           \
+  int __ctrl = setjmp2(__snapshot);                                          \
   switch (__ctrl)
 #define 🧵(...) /* ✠ */ CARDINALS(__VA_ARGS__) NEARBYCROSS
 #define 🥇 NOT_EVERYTIME
@@ -347,7 +353,7 @@ typedef union {
   __m128 intel; /* 16 (possibly unaligned) bytes divided into `float` slots. */
 #elif defined __mips__
 #endif
-  __uint128_t sexdeca;
+  __uint128_t bits;
   struct { uint64_t lso; int64_t mso; } signed_little_endian;
   struct { int64_t mso; uint64_t lso; } signed_big_endian;
   struct { uint64_t lso; uint64_t mso; } unsigned_little_endian;

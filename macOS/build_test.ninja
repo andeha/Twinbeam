@@ -12,8 +12,8 @@ include rules.ninja
 rule link
     command = xcrun ld -macosx_version_min 10.13.0 -lSystem -lc++ -o $out $in $libtwinbeam
 
-build TwinbeamTests: link $objsdir/main.o $objsdir/Utf8Tests.o $objsdir/ChronologyTests.o
-build $objsdir/main.o: cc main.cpp
+build TwinbeamTests: link $objsdir/harness.o $objsdir/Utf8Tests.o $objsdir/ChronologyTests.o
+build $objsdir/harness.o: cc harness.cpp
 build $objsdir/Utf8Tests.o: cc ../Unittests/Utf8Tests.cpp
 build $objsdir/ChronologyTests.o: cc ../Unittests/ChronologyTests.cpp
 default $progroot
