@@ -2,7 +2,7 @@
 
 Modern C++ software development for Intel x86-64 and PIC32/MIPS.
 
-Contains necessities: Utf-8, `Vector`, `Map` and `Chronology`.
+Contains necessities for Utf-8, `Vector`, `Map` and `Chronology`.
 
 To use, include the `Twinbeam.h` header and link with its corresponding `libTwinbeam_pic32mz_*.a` or `libTwinbeam_macOS_*.a` archive.
 
