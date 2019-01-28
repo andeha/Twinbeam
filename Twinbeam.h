@@ -16,7 +16,7 @@
 #define inexorable static __attribute__ ((internal_linkage)) /* embedded */
 /* Line above replaces INNER_DATA ∧ INNER_FUNCTION. 'See 𝚗𝚖 for details'. */
 #define DISORDERABLE __attribute__((weak)) // Artificial
-typedef char                int8_t;
+typedef signed char         int8_t;
 typedef unsigned char       uint8_t;
 typedef unsigned long long  uint64_t;
 typedef long long           int64_t;
@@ -159,7 +159,7 @@ namespace std { /* The Standard Residual */ typedef ::size_t size_t;
   const T * end(std::initializer_list<T> i) { return i.end(); } }
 /* ☜😐: 🔅 ⬷ Earlier remark still valid? */
 struct Memoryregion; struct Memoryview { Memoryregion * region; __builtin_int_t
-  bytesOffset; __builtin_int_t byteCount; };
+  bytesOffset; __builtin_int_t byteCount; }; /* Intervallic */
 MACRO __builtin_uint_t 🔎(__builtin_uint_t var) { return *((__builtin_uint_t
   /* volatile */ *) var); }
 MACRO __builtin_uint_t&  🔧(__builtin_uint_t var) { return (__builtin_uint_t&)
@@ -172,12 +172,12 @@ MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   __builtin_uint_t word = *symbol, shift = TrailingZeros(mask), orig = mask & word,
   shifted = orig>>shift; if (update) update(shifted); __builtin_uint_t fresh =
   (shifted<<shift)&mask; *symbol = (word & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL
-extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
 #define PRINTF_ATTRS __attribute__((__format__ (__printf__, 1, 2)))
-extern "C" { void * malloc(size_t); void free(void *); int printf(const char
-  *utf8format, ...) PRINTF_ATTRS /* Note that a character literal prefixed
-  with the letter `U` does not neccessarily ends with for example `NULL` */;
-  int atexit(void(*func)(void)); void exit(int); }
+extern "C" { int printf(const char *utf8format, ...) PRINTF_ATTRS /* Note that
+  a character literal prefixed with the letter `U` does not neccessarily ends 
+  with for example `NULL` */; int atexit(void(*func)(void)); void exit(int); }
+extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
+extern "C" { void * malloc(size_t); void free(void *); }
 int
 bprintf_utf8(
   unsigned short (^utf8)(char *p, short unsigned bytes),
@@ -260,17 +260,14 @@ template <typename T> T abs(T x) { return x < 0 ? -x : x; }
 #define SIGNBIT_INT64 0x8000000000000000
 #define abs32i(x) int32_t(((uint32_t)(x) & ~SIGNBIT_INT32))
 #define abs64i(x) int64_t(((uint64_t)(x) & ~SIGNBIT_INT64))
-
+int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂); /* Non-
+atomic, yet consistent swap that may fail. */
 #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error")))
-#ifdef __x86_64__
-MACRO int64_t abs64i(int64_t x) indisponible(__mips__) { return int64_t(((uint64_t)(x) & ~SIGNBIT_INT64)); }
-#endif
 #define MAIN void _Noreturn main
+#define LEAF __attribute__ ((no_caller_saved_registers))
+/* #define BEFORE_CTXSWITCH __attribute__ ((preserve_all))
+#define HOT_PATH  __attribute__ ((preserve_most)) */
 
-// int old_value = __sync_swap(&value, new_value);
-// __attribute__ ((no_caller_saved_registers,
-// __builtin_object_size(param, Type
-// preserve_all, preserve_most, __regcall, __vectorcall
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
 namespace Relative {
@@ -335,7 +332,7 @@ typedef union {
 } octa;
 
 #ifdef __x86_64__
-typedef __m128 __builtin_treeint_t;
+typedef __int128_t __builtin_treeint_t;
 #elif defined __mips__
 typedef int64_t __builtin_treeint_t; /* Note: Is signed! */
 #endif
@@ -449,7 +446,7 @@ struct Memoryregion {
     INLINED void toggleNetworkAndNative(void (^ping)(bool &stop), void
       (^completion)(__builtin_int_t bytes)); // REQ: O(1)
     
-#pragma mark Fields of Capacitors
+#pragma mark Fields of Capacitors on Two-gates/feedbacked-inverters
     
     static Opt<Memoryregion> abduct(__builtin_int_t bytes, MemoryDelegate *
       delegate = NULL, bool allowWrites = true, void *(^allocate)(
@@ -483,10 +480,10 @@ bool IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 
 #pragma mark - 😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
-#define va_epilogue __builtin_va_end(arg);
+#define va_epilogue __builtin_va_end(__arg);
 #define va_prologue(symbol)                                                 \
-  __builtin_va_list arg;                                                    \
-  __builtin_va_start(arg, symbol);
+  __builtin_va_list __arg;                                                  \
+  __builtin_va_start(__arg, symbol);
 
 #pragma mark - 😐😇
 
