@@ -57,7 +57,8 @@ void divide_bignum(bignum *a, bignum *b, bignum *c);
 #ifdef  __mips__
 #define Mips __asm__ __volatile__ (".set noat       \n"  ".set noreorder  \n"
 #elif defined __x86_64__
-#define Intel __asm { .intel_syntax noprefix /* Requires -𝚏𝚖𝚜-𝚎𝚡𝚝𝚎𝚗𝚜𝚒𝚘𝚗𝚜 when on llvm. */
+#define Intel👈 __asm { .intel_syntax noprefix
+#define IntelPlusATT👉 asm { .att_syntax .text
 #endif
 template<typename T>
 struct InnerFrame {
@@ -86,6 +87,8 @@ template <typename T> struct SemanticPointer { T pointer; };
 #define MAY_CONTAIN_TRACES_OF_FIRM_REALTIME
 #define INFLATABBLE
 #define SYNTESIZABLE /* 𝘪.𝘦 no loops, ... */
+#define CONTEMPLATE
+#define 🚫🔌 ONLY_FOR_SOFT_REALTIME // ⏲
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -159,7 +162,7 @@ namespace std { /* The Standard Residual */ typedef ::size_t size_t;
   const T * end(std::initializer_list<T> i) { return i.end(); } }
 /* ☜😐: 🔅 ⬷ Earlier remark still valid? */
 struct Memoryregion; struct Memoryview { Memoryregion * region; __builtin_int_t
-  bytesOffset; __builtin_int_t byteCount; }; /* Intervallic */
+  bytesOffset; __builtin_int_t byteCount; }; /* Intervallic behavior. */
 MACRO __builtin_uint_t 🔎(__builtin_uint_t var) { return *((__builtin_uint_t
   /* volatile */ *) var); }
 MACRO __builtin_uint_t&  🔧(__builtin_uint_t var) { return (__builtin_uint_t&)
@@ -252,22 +255,21 @@ typedef x86_64_context jmp_buf2;
 FOCAL void Base(/* TeX §64, §65 and §67 */ __builtin_uint_t n, unsigned
   short base, unsigned short digitsOr0, /* Not more than 32 or 64 digits
   depending on word size! (Or set to `0` to skip leading zeros.) */ void
-  (^output)(char utf8));
+  (^out)(char utf8));
 FOCAL void Base(__builtin_int_t z, unsigned short base, unsigned short
-  digitsOr0, void (^output)(char utf8));
+  digitsOr0, void (^out)(char utf8));
 template <typename T> T abs(T x) { return x < 0 ? -x : x; }
 #define SIGNBIT_INT32 0x80000000
 #define SIGNBIT_INT64 0x8000000000000000
 #define abs32i(x) int32_t(((uint32_t)(x) & ~SIGNBIT_INT32))
 #define abs64i(x) int64_t(((uint64_t)(x) & ~SIGNBIT_INT64))
 int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂); /* Non-
-atomic, yet consistent swap that may fail. */
+atomic, yet consistent gracefully failing with a non-zero return value. */
 #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error")))
 #define MAIN void _Noreturn main
 #define LEAF __attribute__ ((no_caller_saved_registers))
 /* #define BEFORE_CTXSWITCH __attribute__ ((preserve_all))
 #define HOT_PATH  __attribute__ ((preserve_most)) */
-
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
 namespace Relative {
@@ -426,7 +428,7 @@ struct Memoryregion {
     
     void incorporate(void *virtue, __builtin_int_t bytes, metaaddress loc);
     
-    int inject(__builtin_int_t index, const Memoryregion& src, void *(^allocate)
+    int inject(__builtin_int_t index, const Memoryregion& src, void *(^alloc)
       (__builtin_int_t bytes) = Alloc);
     
     int exclude(metaaddress start, __builtin_int_t bytes);
@@ -449,14 +451,13 @@ struct Memoryregion {
 #pragma mark Fields of Capacitors on Two-gates/feedbacked-inverters
     
     static Opt<Memoryregion> abduct(__builtin_int_t bytes, MemoryDelegate *
-      delegate = NULL, bool allowWrites = true, void *(^allocate)(
-      __builtin_int_t bytes) = ^(__builtin_int_t bytes) { return Alloc(bytes); });
+      delegate = NULL, bool allowWrites = true, void *(^alloc)(
+      __builtin_int_t bytes) = Alloc);
     
     static Opt<Memoryregion> reflect(const char * utf8Filepath,
       __builtin_int_t pagesOffset = 0, __builtin_int_t pagesLength = 0,
       MemoryDelegate *delegate = NULL, bool allowWrites = false,
-      void *(^allocate)(__builtin_int_t bytes) = ^(__builtin_int_t bytes) {
-      return Alloc(bytes); });
+      void *(^alloc)(__builtin_int_t bytes) = Alloc);
     
 #pragma mark Memory Mangement
     
@@ -541,7 +542,7 @@ InstantToText(
   Chronology chronology,
    Chronology::Instant ts,
    bool fractionalsToo,
-  void (^touchbase)(char digitHyphenColonPeriodOrSpace)
+  void (^out)(char digitHyphenColonPeriodOrSpace)
 );
   
 Opt<Chronology::Instant>
