@@ -488,6 +488,65 @@ atomic, yet consistent and gracefully failing with a non-zero return value. */
 // struct Peekey { __builtin_int_t 🥈 ⬚=2, 🗝=1; __builtin_int_t board₁, palm₂; };
 #define 🔒(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, MustBeOrdered)
 #define 🔓(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, JustSwap);
+// #include <Source/osXFiber.hpp>
+namespace Fiber {
+    
+    int 🥈 Bytes =
+ #ifdef __x86_64__
+        160
+ #elif defined __mips__
+        128
+ #endif
+        ;
+    
+#ifndef POSIX_FIBER
+    struct ucontext_t {
+      union {
+        struct { uint8_t bytes[Bytes]; } generic;
+        struct { __builtin_uint_t regs[1+15+4], rip, rsp; } intel;
+        struct { __builtin_uint_t gprs[Bytes/4]; } mips;
+      } cpu;
+      __builtin_int_t bytesStk; uint8_t * rtstk;
+      uint8_t alcoda[Bytes]; /* ⌖ */
+    };
+#endif
+    struct fuContext {
+      ucontext_t ctx;
+      int 🥈 bytes = sizeof(ucontext_t);
+      uint8_t alcoda[bytes]; /* ⌖ */
+    };
+    int Snapshot(fuContext *ucp) LEAF;
+    int Recall(const fuContext *ucp) LEAF;
+    void Incubate(fuContext *ucp, void (*ufnc)(...), int argc, ...);
+    register __builtin_uint_t rsp asm("rsp"), rbp asm("rbp");
+    typedef fuContext fiber_t;
+    
+    inline void create(fiber_t& fib, void (*ufnc)(void *), void * uctx,
+      void *(^alloc)(__builtin_int_t bytes) = Alloc) {
+        Snapshot(&fib);
+        __builtin_uint_t 🥈ᵢ bytesStack = 131072;
+#ifdef POSIX_FIBER
+        fib.ctx.uc_stack.ss_sp = alloc(bytesStack);
+        fib.ctx.uc_stack.ss_size = bytesStack;
+        fib.ctx.uc_link = 0;
+#else
+        fib.ctx.rtstk = (uint8_t *)alloc(bytesStack);
+        fib.ctx.bytesStk = bytesStack;
+#endif
+        Incubate(&fib, (void (*)(...))ufnc, 1, uctx);
+    }
+    
+    inline void create(Fiber::fiber_t& fib, void (*ufnc)(Fiber::fiber_t *),
+      void *(^alloc)(__builtin_int_t bytes) = Alloc) {
+        Fiber::create(fib, (void (*)(void *))ufnc, (void *)&fib, alloc);
+    }
+    
+    MACRO void swap(fiber_t& nxt, fiber_t& prv)
+    { if (Snapshot(&prv) == 0) Recall(&nxt); }
+    
+    MACRO void start(fiber_t& nxt) { Recall(&nxt); }
+    
+}
 #define va_prologue(symbol)                                                 \
   __builtin_va_list __arg;                                                  \
   __builtin_va_start(__arg, symbol);
