@@ -30,7 +30,7 @@ typedef int32_t             __builtin_int_t;
 typedef unsigned int        uint32_t;
 typedef int                 int32_t;
 typedef uint64_t            __builtin_uint_t;
-typedef int64_t             __builtin_int_t;
+typedef int64_t             __builtin_int_t; /* 𝘢․𝘬․𝘢 sequential */
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
 #endif
 typedef unsigned short     uint16_t;
@@ -263,10 +263,8 @@ template <typename T> T abs(T x) { return x < 0 ? -x : x; }
 #define SIGNBIT_INT64 0x8000000000000000
 #define abs32i(x) int32_t(((uint32_t)(x) & ~SIGNBIT_INT32))
 #define abs64i(x) int64_t(((uint64_t)(x) & ~SIGNBIT_INT64))
-int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂); /* Non-
-atomic, yet consistent gracefully failing with a non-zero return value. */
 #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error")))
-#define MAIN void _Noreturn main
+#define STRANGE_MAIN void _Noreturn main
 #define LEAF __attribute__ ((no_caller_saved_registers))
 /* #define BEFORE_CTXSWITCH __attribute__ ((preserve_all))
 #define HOT_PATH  __attribute__ ((preserve_most)) */
@@ -286,7 +284,7 @@ template <typename T> bool eqeql(T x₁, T x₂) { return x₁ == x₂; }; }
 #define WHEN_COMPILING constexpr static
 #define NOT_EVERYTIME const static
 #define CARDINALS(...) enum Cardinal { __hole=0, __VA_ARGS__ };              \
-  static jmp_buf __snapshot;                                                 \
+  static jmp_buf2 __snapshot;                                                \
   auto confess = ^(Cardinal sin) { longjmp2(__snapshot, sin); };
 #define NEARBYCROSS                                                          \
   int __ctrl = setjmp2(__snapshot);                                          \
@@ -482,6 +480,14 @@ bool IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 #pragma mark - 😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
 #define va_epilogue __builtin_va_end(__arg);
+extern "C" void Sheriff();
+// #define ⭐️ Sheriff();
+enum Impediment { MustBeOrdered, JustSwap };
+int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂, Impediment it); /* Non-
+atomic, yet consistent and gracefully failing with a non-zero return value. */
+// struct Peekey { __builtin_int_t 🥈 ⬚=2, 🗝=1; __builtin_int_t board₁, palm₂; };
+#define 🔒(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, MustBeOrdered)
+#define 🔓(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, JustSwap);
 #define va_prologue(symbol)                                                 \
   __builtin_va_list __arg;                                                  \
   __builtin_va_start(__arg, symbol);
