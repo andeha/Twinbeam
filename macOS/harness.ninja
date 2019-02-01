@@ -4,7 +4,7 @@ optflags = -g
 progroot = TwinbeamTests
 objsdir = ./.objs/7703a312-55A9-44da-A792-ebbcf8f87663_$progroot
 platflags = -I ..
-libtwinbeam = ../Source/Releases/libTwinbeam_macOS_ff0759a.a
+libtwinbeam = ../Source/Releases/libTwinbeam_macOS_6f0624e.a
 include ../tools.ninja
 flags = $optflags $macoscflags $platflags
 include rules.ninja
@@ -12,8 +12,7 @@ include rules.ninja
 rule link
     command = xcrun ld -macosx_version_min 10.13.0 -lSystem -lc++ -o $out $in $libtwinbeam
 
-build TwinbeamTests: link $objsdir/harness.o $objsdir/Utf8Tests.o $objsdir/ChronologyTests.o
+build TwinbeamTests: link $objsdir/harness.o $objsdir/BignumTests.o
 build $objsdir/harness.o: cc harness.cpp
-build $objsdir/Utf8Tests.o: cc ../Unittests/Utf8Tests.cpp
-build $objsdir/ChronologyTests.o: cc ../Unittests/ChronologyTests.cpp
+build $objsdir/BignumTests.o: cc ../Unittests/BignumTests.cpp
 default $progroot

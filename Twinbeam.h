@@ -96,14 +96,15 @@ typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
 typedef int64_t x86_64_context[37];
 typedef x86_64_context jmp_buf2;
 #endif
-extern "C" { int setjmp2(jmp_buf2 env); void longjmp2(void **env,
-  __builtin_int_t val); /* __builtin_longjmp requires last arg to be const and is not longer than `int`. */ }
+extern "C" { int setjmp2(jmp_buf2 env); void longjmp2(jmp_buf2 env,
+  __builtin_int_t val); /* __builtin_longjmp requires last arg to be 
+  const and is not longer than `int`. */ }
 #ifdef  __mips__
 #define BLURT(str) { tetra t; t.bits = (uint32_t)(const char *)str;          \
-  longjmp2((void **)*JmpBuf(), int(t.unsigned_little_endian.lsh)); }
+  longjmp2(*JmpBuf(), int(t.unsigned_little_endian.lsh)); }
 #elif defined __x86_64__
 #define BLURT(str) { octa o; o.bits = (uint64_t)(const char *)str;           \
-  longjmp2((void **)*JmpBuf(), int(o.unsigned_little_endian.lst)); }
+  longjmp2(*JmpBuf(), int(o.unsigned_little_endian.lst)); }
 #endif
 #define BLURTS /* Mandatory */
 #define NEVERBLURTS /* Fortunately optional. */
@@ -265,9 +266,13 @@ template <typename T> T abs(T x) { return x < 0 ? -x : x; }
 #define abs64i(x) int64_t(((uint64_t)(x) & ~SIGNBIT_INT64))
 #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error")))
 #define STRANGE_MAIN void _Noreturn main
+#ifdef __x86_64__
 #define LEAF __attribute__ ((no_caller_saved_registers))
 /* #define BEFORE_CTXSWITCH __attribute__ ((preserve_all))
 #define HOT_PATH  __attribute__ ((preserve_most)) */
+#elif defined __mips__
+#define LEAF
+#endif
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
 namespace Relative {
@@ -285,7 +290,7 @@ template <typename T> bool eqeql(T x₁, T x₂) { return x₁ == x₂; }; }
 #define NOT_EVERYTIME const static
 #define CARDINALS(...) enum Cardinal { __hole=0, __VA_ARGS__ };              \
   static jmp_buf2 __snapshot;                                                \
-  auto confess = ^(Cardinal sin) { longjmp2(__snapshot, sin); };
+  auto confess = ^(Cardinal sin) { longjmp2(__snapshot, (__builtin_int_t)sin); };
 #define NEARBYCROSS                                                          \
   int __ctrl = setjmp2(__snapshot);                                          \
   switch (__ctrl)
@@ -484,11 +489,14 @@ extern "C" void Sheriff();
 // #define ⭐️ Sheriff();
 enum Impediment { MustBeOrdered, JustSwap };
 int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂, Impediment it); /* Non-
-atomic, yet consistent and gracefully failing with a non-zero return value. */
-// struct Peekey { __builtin_int_t 🥈 ⬚=2, 🗝=1; __builtin_int_t board₁, palm₂; };
+atomic, yet consistent and gracefully failing indicated through a non-zero return value. */
+/* struct Peekey { __builtin_int_t 🥈 ⬚=2, 🗝=1; __builtin_int_t board₁, palm₂; }; */
 #define 🔒(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, MustBeOrdered)
 #define 🔓(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, JustSwap);
-// #include <Source/osXFiber.hpp>
+#ifdef __x86_64__
+#define POSIX_FIBER
+#endif
+#include <Source/osXFiber.hpp>
 namespace Fiber {
     
     int 🥈 Bytes =
@@ -518,7 +526,9 @@ namespace Fiber {
     int Snapshot(fuContext *ucp) LEAF;
     int Recall(const fuContext *ucp) LEAF;
     void Incubate(fuContext *ucp, void (*ufnc)(...), int argc, ...);
+#ifdef __x86_64__
     register __builtin_uint_t rsp asm("rsp"), rbp asm("rbp");
+#endif
     typedef fuContext fiber_t;
     
     inline void create(fiber_t& fib, void (*ufnc)(void *), void * uctx,
@@ -547,6 +557,7 @@ namespace Fiber {
     MACRO void start(fiber_t& nxt) { Recall(&nxt); }
     
 }
+
 #define va_prologue(symbol)                                                 \
   __builtin_va_list __arg;                                                  \
   __builtin_va_start(__arg, symbol);

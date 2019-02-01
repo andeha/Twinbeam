@@ -1,6 +1,6 @@
 
 rule cc
-    command = xcrun clang -std=c++1z $macoscflags -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
+    command = xcrun clang -std=c++2a $macoscflags -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
     depfile = $out.d
     deps = gcc
 
