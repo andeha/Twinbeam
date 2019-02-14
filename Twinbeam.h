@@ -30,7 +30,7 @@ typedef int32_t             __builtin_int_t;
 typedef unsigned int        uint32_t;
 typedef int                 int32_t;
 typedef uint64_t            __builtin_uint_t;
-typedef int64_t             __builtin_int_t; /* 𝘢․𝘬․𝘢 sequential */
+typedef int64_t             __builtin_int_t; /* 𝘈․𝘬․𝘢 sequential */
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
 #endif
 typedef unsigned short     uint16_t;
@@ -55,7 +55,7 @@ void divide_bignum(bignum *a, bignum *b, bignum *c);
 
 #define BITMASK(type) enum : type
 #ifdef  __mips__
-#define Mips __asm__ __volatile__ (".set noat       \n"  ".set noreorder  \n"
+#define Mips __asm__ __volatile__ (/* ".set noat   \n" */ ".set noreorder  \n" ".set nomacro    \n"
 #elif defined __x86_64__
 #define Intel👈 __asm { .intel_syntax noprefix
 #define IntelPlusATT👉 asm { .att_syntax .text
@@ -97,8 +97,8 @@ typedef int64_t x86_64_context[37];
 typedef x86_64_context jmp_buf2;
 #endif
 extern "C" { int setjmp2(jmp_buf2 env); void longjmp2(jmp_buf2 env,
-  __builtin_int_t val); /* __builtin_longjmp requires last arg to be 
-  const and is not longer than `int`. */ }
+  __builtin_int_t val); /* `__builtin_longjmp` requires last arg to be 
+  const and bounded by `int`. */ }
 #ifdef  __mips__
 #define BLURT(str) { tetra t; t.bits = (uint32_t)(const char *)str;          \
   longjmp2(*JmpBuf(), int(t.unsigned_little_endian.lsh)); }
@@ -329,12 +329,15 @@ typedef union {
    struct {
       unsigned sign      :  1; // ⫝
    } ieee754b10;
-   struct {
+   /* struct {
       unsigned absolute  : 31;
       unsigned sign      :  1;
-   } sgned;
+   } sgned; */
+   int64_t sgned;
    uint64_t bits;
 } octa;
+
+struct Octa { uint32_t h, l; };
 
 #ifdef __x86_64__
 typedef __int128_t __builtin_treeint_t;
@@ -438,7 +441,9 @@ struct Memoryregion {
     
     int takeover(Memoryregion& virtue, metaaddress loc);
     
-    SemanticPointer<void *> pointer(__builtin_int_t byte) const;
+    SemanticPointer<void *> start() const;
+    
+    SemanticPointer<void *> relative(__builtin_int_t byte, SemanticPointer<void *> base) const;
     
     __builtin_int_t bytes() const;
     
@@ -479,7 +484,7 @@ template <typename T> T * materialize(Memoryview * view) {
 // template <> Unicodestring materialize(MemoryView * view) {
 //   return Unicodestring(Endianness::Native, 💫(view), view.bytesCount,
 //   true, Alloc); }
-  
+
 bool IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 
 #pragma mark - 😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
@@ -495,6 +500,8 @@ atomic, yet consistent and gracefully failing indicated through a non-zero retur
 #define 🔓(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, JustSwap);
 #ifdef __x86_64__
 #define POSIX_FIBER
+#elif defined __mips__
+#define MIPS_MCU_AUTOMATIC_PROLOG_EPILOG_IRQ
 #endif
 #include <Source/osXFiber.hpp>
 namespace Fiber {
@@ -628,12 +635,12 @@ TS( // E.g 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.
   Memoryview datetime
 ) NEVERBLURTS;
 
-/**  The unperturbed — yet based on Caesium 133 — chronology. */
+/**  The unperturbed — yet based on ¹³³Caesium — chronology. */
 
-Chronology& ComputationalChronology(); // 𝐸․𝑔 for chronometers.
+Chronology& ComputationalChronology(); // 𝖤.𝘨 for chronometers.
 
 /**  The chronology of the users' choice. */
 
-Chronology& SystemCalendricChronology(); // Irreversible, conclusive mass. Connsider 'Ease-in'.
+Chronology& SystemCalendricChronology(); // Irreversible, conclusive mass; Consider 'Ease-in".
 
 #endif
