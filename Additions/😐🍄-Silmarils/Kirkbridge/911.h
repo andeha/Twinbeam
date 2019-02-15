@@ -51,7 +51,7 @@ extern void (^𝚑𝚜𝚞𝚖𝚄ℚ7)(gpr r₁, gpr r₌); // [ x0y0 + x1y1, x
 extern void (^𝚏𝚖̲𝚊ℚ𝟷𝟻)(gpr r₁, gpr r₂, gpr r₌, void (^𝚍𝚒𝚍𝙾𝚟𝚎𝚛𝚏𝚕𝚘𝚠)()); /* -1 ≤ x ≤ 1 - 1/2¹⁵ */
 extern void (^𝚏𝚖̲𝚊ℤ₆₄₍𝚖𝚘𝚍𝟸⁶³₎except𝚄𝙼𝙰𝚇)(gpr 𝚛₁, gpr 𝚛₂, gpr rʰ, gpr rˡ, void (^𝚍𝚒𝚍𝙾𝚟𝚎𝚛𝚏𝚕𝚘𝚠)());
 extern void (^𝚗𝚎𝚐𝚊𝚝𝚎)(gpr r, gpr neg, 𝙶𝚛𝚊𝚗𝚞𝚕 g, gpr r₌);
-extern void (^𝚛𝚎𝚌𝚒𝚙𝚛𝚘𝚌)(gpr r, gpr inv, 𝙶𝚛𝚊𝚗𝚞𝚕 g, gpr r₌, void (^𝚍𝚒𝚍𝙾𝚟𝚎𝚛𝚏𝚕𝚘𝚠)()); /* IEEE-754, i.e simd_tᵦ. */
+extern void (^𝚛𝚎𝚌𝚒𝚙𝚛𝚘𝚌)(gpr r, gpr inv, 𝙶𝚛𝚊𝚗𝚞𝚕 g, gpr r₌); /* IEEE-754, 𝘪․𝘦 simd_tᵦ. */
 extern void (^𝚌𝚝𝚣)(gpr r, 𝙶𝚛𝚊𝚗𝚞𝚕 g, gpr r₌);
 extern void (^𝚌𝚕𝚣)(gpr r, 𝙶𝚛𝚊𝚗𝚞𝚕 g, gpr r₌);
 extern void (^𝚎𝚡𝚝)(gpr r, 𝙶𝚛𝚊𝚗𝚞𝚕 g, gpr r₌);
