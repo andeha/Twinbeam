@@ -268,13 +268,15 @@ template <typename T> T abs(T x) { return x < 0 ? -x : x; }
 #define STRANGE_MAIN void _Noreturn main
 #ifdef __x86_64__
 #define LEAF __attribute__ ((no_caller_saved_registers))
-/* #define BEFORE_CTXSWITCH __attribute__ ((preserve_all))
+/* void __attribute__ ((interrupt, leaf)) v1 ();
+#define BEFORE_CTXSWITCH __attribute__ ((preserve_all))
 #define HOT_PATH  __attribute__ ((preserve_most)) */
 #elif defined __mips__
 #define LEAF
 #endif
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
+#define SIGNPOW(n) ((n & 1) ? -1 : 1); /* Computes (-1)ⁿ for both `int` and IEEE-754 when `n` is `int`. */
 namespace Relative {
 template <typename T> T arithmeticBetween(T x₁, T x₂) { return (x₁ + x₂) / 2; }
 // template <typename T> T geometricBetween(T x₁, T acc) { return sqrt(x₁ * acc); } // See: Search ☜😐: ⌨️ MMXVII, XXX, ⅳ
@@ -447,7 +449,7 @@ struct Memoryregion {
     
     __builtin_int_t bytes() const;
     
-    void alsoAtDealloc(void (^deferral)()); // ☜😐: 🛵𝜆
+    void alsoAtDealloc(void (^deferral)()); /* ☜😐: 🛵𝜆 */
     
 #pragma mark Little and Big Endians
     
@@ -473,7 +475,7 @@ struct Memoryregion {
     
     Memoryregion(const Memoryregion& other);
     
-😐; // Pimpl optional because of opaque, mandatory since `alsoAtDealloc`.
+😐; /* Pimpl optional because of opaque, mandatory since `alsoAtDealloc`. */
 
 void * ExactSeek(const void *key, const void *base, size_t num, size_t size,
   __builtin_int_t (^cmp)(const void *key, const void *elt));
@@ -538,6 +540,7 @@ namespace Fiber {
 #endif
     typedef fuContext fiber_t;
     
+    // __attribute__((callback (ufnc, uctx)))
     inline void create(fiber_t& fib, void (*ufnc)(void *), void * uctx,
       void *(^alloc)(__builtin_int_t bytes) = Alloc) {
         Snapshot(&fib);
@@ -553,6 +556,7 @@ namespace Fiber {
         Incubate(&fib, (void (*)(...))ufnc, 1, uctx);
     }
     
+    // __attribute__((callback (ufnc, fib)))
     inline void create(Fiber::fiber_t& fib, void (*ufnc)(Fiber::fiber_t *),
       void *(^alloc)(__builtin_int_t bytes) = Alloc) {
         Fiber::create(fib, (void (*)(void *))ufnc, (void *)&fib, alloc);
