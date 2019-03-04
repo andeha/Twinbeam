@@ -68,17 +68,17 @@ struct InnerFrame {
   InnerFrame(T * ref) { ref_ = ref; }
 };
 #define APPEND_PIMPL                                                         \
-  struct Implementation;                                                     \
-  InnerFrame<Implementation> impl_;
+  struct Internals;                                                          \
+  InnerFrame<Internals> impl_;
 #define 😐 APPEND_PIMPL }
 template <typename T> struct SemanticPointer { T pointer; };
-#define VISITISR(sym) void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + call */
+#define VISITISR(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + call */
 #define UNITTEST(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
 #define Panic(log,s) { printf("'%s'\nPanicking at %s in %s:%d\n",            \
   s, __FUNCTION__, __FILE__, __LINE__); exit(-1); }
 #define ENSURE(c,s) { if (!(c)) { Panic(Testlog, s); } }
 #define FINAL //   ⃨ or DO_NOT_DESTABBILIZE
-#define LONGTOOTH __attribute__((deprecated("Marked LONGTOOTH.")))
+#define LONGTOOTH /* __attribute__((deprecated("Marked LONGTOOTH."))) */
 #define FOCAL
 #define Si_FOCAL
 #define OPT_Si_FOCAL
@@ -87,6 +87,7 @@ template <typename T> struct SemanticPointer { T pointer; };
 #define MAY_CONTAIN_TRACES_OF_FIRM_REALTIME
 #define INFLATABBLE
 #define SYNTESIZABLE /* 𝘪.𝘦 no loops, ... */
+#define FOSSILATED
 #define CONTEMPLATE
 #define 🚫🔌 ONLY_FOR_SOFT_REALTIME // ⏲
 #ifdef  __mips__
@@ -268,15 +269,14 @@ template <typename T> T abs(T x) { return x < 0 ? -x : x; }
 #define STRANGE_MAIN void _Noreturn main
 #ifdef __x86_64__
 #define LEAF __attribute__ ((no_caller_saved_registers))
-/* void __attribute__ ((interrupt, leaf)) v1 ();
-#define BEFORE_CTXSWITCH __attribute__ ((preserve_all))
+/* #define BEFORE_CTXSWITCH __attribute__ ((preserve_all))
 #define HOT_PATH  __attribute__ ((preserve_most)) */
 #elif defined __mips__
+// void __attribute__ ((interrupt, leaf)) v1 ();
 #define LEAF
 #endif
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
-#define SIGNPOW(n) ((n & 1) ? -1 : 1); /* Computes (-1)ⁿ for both `int` and IEEE-754 when `n` is `int`. */
 namespace Relative {
 template <typename T> T arithmeticBetween(T x₁, T x₂) { return (x₁ + x₂) / 2; }
 // template <typename T> T geometricBetween(T x₁, T acc) { return sqrt(x₁ * acc); } // See: Search ☜😐: ⌨️ MMXVII, XXX, ⅳ
@@ -317,7 +317,7 @@ enum { END_OF_TRANSMISSION = U'\x4' };
 #pragma mark - 🌱
 
 typedef union {
-   double base2; // 2⁻¹⁰²², 2¹⁰²³ or 2.23×10⁻³⁰⁸ to 1.79×10³⁰⁸
+   double base2; // 2⁻¹⁰²² and 2¹⁰²³ or in base-2: 2.23×10⁻³⁰⁸ to 1.79×10³⁰⁸
    struct { uint32_t lst; int32_t mst; } signed_little_endian;
    struct { int32_t mst; uint32_t lst; } signed_big_endian;
    struct { uint32_t lst; uint32_t mst; } unsigned_little_endian;
@@ -408,6 +408,8 @@ typedef union {
    uint32_t bits;
 } tetra;
 
+typedef uint32_t Tetra;
+
 enum class Endianness { Native, Network };
 
 #pragma mark - 📖😐 ”𝑈𝑛𝑖𝑐𝑜𝑑𝑒”
@@ -481,11 +483,11 @@ void * ExactSeek(const void *key, const void *base, size_t num, size_t size,
   __builtin_int_t (^cmp)(const void *key, const void *elt));
 
 template <typename T> T * materialize(Memoryview * view) {
-  extern void * 💫(void *); return (T *)💫((void *)view); }
+  extern void * 💫(void *); return (T *)💫((void *)view); } // ...may require 𝙰𝚕𝚕𝚘𝚌․
 
-// template <> Unicodestring materialize(MemoryView * view) {
+// template <> Unicodestring materialize(Memoryview * view) {
 //   return Unicodestring(Endianness::Native, 💫(view), view.bytesCount,
-//   true, Alloc); }
+//   true); }
 
 bool IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 
@@ -646,5 +648,7 @@ Chronology& ComputationalChronology(); // 𝖤.𝘨 for chronometers.
 /**  The chronology of the users' choice. */
 
 Chronology& SystemCalendricChronology(); // Irreversible, conclusive mass; Consider 'Ease-in".
+
+typedef Chronology Chronology🚀; /* 𝘪․𝘦 'Celestial fractional' */
 
 #endif
