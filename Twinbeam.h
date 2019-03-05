@@ -643,12 +643,22 @@ TS( // E.g 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.
 
 /**  The unperturbed — yet based on ¹³³Caesium — chronology. */
 
-Chronology& ComputationalChronology(); // 𝖤.𝘨 for chronometers.
+Chronology& ComputationalChronology(); /* 𝖤.𝘨 for chronometers. */
 
 /**  The chronology of the users' choice. */
 
-Chronology& SystemCalendricChronology(); // Irreversible, conclusive mass; Consider 'Ease-in".
+Chronology& SystemCalendricChronology(); /* Irreversible, conclusive mass; Consider 𝑒𝑎𝑠𝑒-𝑖𝑛․ */
 
-typedef Chronology Chronology🚀; /* 𝘪․𝘦 'Celestial fractional' */
+typedef Chronology Chronology🚀; /* I․𝘦 'Celestial fractional' with identical epoc. */
+
+/*
+ 
+ Mars got five days a week and five seasons per year:
+ 
+  enum class Veneuveteuean { Again, trout, loo, master, shoRt };
+ 
+ ...and also a longer relative of unknown periodicity. 
+ 
+ */
 
 #endif
