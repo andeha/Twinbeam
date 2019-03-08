@@ -24,7 +24,9 @@ CastToText(
 #define Q7_EPS1      1.0078125                          // 1+2⁻⁷
 #define X86FP80_EPS1 1.0000000000000000000542101        // 1+2⁻⁶⁴
 #define BINARY128_EPS1 1.000000000000000000000000000000000096296
+#ifdef __x86_64__
 typedef long double x86_fp80;
+#endif
 /* decimal128/binary128, 𝜀b₂≈log₁₀(2¹¹³)≈34.16 decimal digits, BSM */
 
 #define IEEE754BASE2_64BIT_PZERO  0x0000000000000000L
@@ -134,7 +136,7 @@ struct Utf8Terminal {
       void (^touchbase)(uint8_t *utf8, __builtin_int_t bytes, bool &stop)
     ) const;
     
-    virtual void write(char32_t unicode) const; /* char utf8 */
+    virtual int write(char32_t unicode) const; /* ...and not `char utf8`. */
     
     void (^scientificFormat)(double x, Utf8Terminal &stream);
     
@@ -245,36 +247,6 @@ enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
   Vector<int>& ss, Map<char32_t *, __builtin_uint_t>& stab,
   __builtin_int_t byteoffset, bool edge₁, bool& stop)); */
 
-// enum { ■ = 1, □ = 0, ⬚ = TriboolUnknown };
-
-#pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber
-
-MACRO void Rally(Fiber::fiber_t& fib)
-{ Fiber::swap(fib, (Fiber::fiber_t &)(fib.alcoda)); }
-MACRO void Fend(Fiber::fiber_t * self)
-{ Fiber::start((Fiber::fiber_t &)(self->alcoda)); }
-#define 🛎(fib) Rally(fib)
-#define 🏁₁ Fend(self);
-#define 🎼(fib) Fiber::start(fib)
-#ifdef __x86_64__
-#include <unistd.h>
-#include <cpuid.h>
-#endif
-MACRO int __builtin_coreid() {
-   int res = 0;
-#ifdef __x86_64__ /* Return the APIC_ID of current logical /intel */
-   unsigned leaf=0xB, eax=11, ebx=0, ecx=0, edx;
-   res = __get_cpuid(leaf, &eax, &ebx, &ecx, &edx);
-   if (res == 0) return 0;
-   res = edx;
-#endif
-   return res; }
-MACRO int __builtin_core_count() {
-   int res = 1;
-#ifdef __x86_64__
-   res = (int)sysconf(_SC_NPROCESSORS_CONF);
-#endif
-   return res; }
-#define 🧶ᵩ __builtin_core_count()
+/* enum { ■ = 1, □ = 0, ⬚ = TriboolUnknown }; */
 
 #endif
