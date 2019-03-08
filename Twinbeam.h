@@ -14,7 +14,7 @@
 #define structᵢ struct __attribute__((internal_linkage))
 #define unionᵢ union __attribute__ ((internal_linkage))
 #define inexorable static __attribute__ ((internal_linkage)) /* embedded */
-/* Line above replaces INNER_DATA ∧ INNER_FUNCTION. 'See 𝚗𝚖 for details'. */
+/* Line above replaces `INNER_DATA` ∧ `INNER_FUNCTION`. 'See 𝚗𝚖 for details'. */
 #define DISORDERABLE __attribute__((weak)) // Artificial
 typedef signed char         int8_t;
 typedef unsigned char       uint8_t;
@@ -77,19 +77,20 @@ template <typename T> struct SemanticPointer { T pointer; };
 #define Panic(log,s) { printf("'%s'\nPanicking at %s in %s:%d\n",            \
   s, __FUNCTION__, __FILE__, __LINE__); exit(-1); }
 #define ENSURE(c,s) { if (!(c)) { Panic(Testlog, s); } }
-#define FINAL //   ⃨ or DO_NOT_DESTABBILIZE
+#define FINAL /*   ⃨ or DO_NOT_DESTABBILIZE */
 #define LONGTOOTH /* __attribute__((deprecated("Marked LONGTOOTH."))) */
 #define FOCAL
 #define Si_FOCAL
 #define OPT_Si_FOCAL
+#define ENCLAVED
 // #define ⚠️_IMPLIES_DOING_HARDTIME
-#define ONLY_FOR_SOFT_REALTIME
+#define ARGUMENTANTIVE /* 𝘢․𝘬․𝘢 `ONLY_FOR_SOFT_REALTIME`. */
 #define MAY_CONTAIN_TRACES_OF_FIRM_REALTIME
 #define INFLATABBLE
 #define SYNTESIZABLE /* 𝘪.𝘦 no loops, ... */
 #define FOSSILATED
 #define CONTEMPLATE
-#define 🚫🔌 ONLY_FOR_SOFT_REALTIME // ⏲
+#define 🚫🔌 ARGUMENTANTIVE // ⏲
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -122,7 +123,7 @@ void * operator new(unsigned int size, void * here) noexcept;
 #elif defined __x86_64__
 typedef unsigned long size_t;
 void * operator new(unsigned long size, void * here) noexcept;
-#endif /* On `Opt` minus 'void *': See 𝐶𝑟𝑎𝑠ℎ 𝑓𝑟𝑒𝑞𝑢𝑒𝑛𝑛𝑐𝑦, 𝑐𝑜𝑝𝑦/𝑝𝑎𝑠𝑡𝑒 and 𝑒𝑥𝑝𝑙𝑜𝑖𝑡𝑖𝚤𝑛𝑔 𝑢𝑛𝑖𝑛𝑖𝑡𝑖𝑎𝑙𝑖𝑧𝑒𝑑. */
+#endif /* On `Opt` minus `void *`: See 𝐶𝑟𝑎𝑠ℎ 𝑓𝑟𝑒𝑞𝑢𝑒𝑛𝑛𝑐𝑦, 𝑐𝑜𝑝𝑦/𝑝𝑎𝑠𝑡𝑒 and 𝑒𝑥𝑝𝑙𝑜𝑖𝑡𝑖𝚤𝑛𝑔 𝑢𝑛𝑖𝑛𝑖𝑡𝑖𝑎𝑙𝑖𝑧𝑒𝑑. */
 template <typename T> struct Opt : public SharedOptional { explicit Opt(const
   T& v) { new (content) T(v); populated = true; } explicit Opt() = default; Opt(
   const Opt<T>& other) { populated = other.populated; if (populated) { new
@@ -254,11 +255,11 @@ typedef mips32_context jmp_buf2;
 typedef int64_t x86_64_context[(9 * 2) + 3 + 16];
 typedef x86_64_context jmp_buf2;
 #endif
-FOCAL void Base(/* TeX §64, §65 and §67 */ __builtin_uint_t n, unsigned
+FOCAL void Base(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned
   short base, unsigned short digitsOr0, /* Not more than 32 or 64 digits
   depending on word size! (Or set to `0` to skip leading zeros.) */ void
   (^out)(char utf8));
-FOCAL void Base(__builtin_int_t z, unsigned short base, unsigned short
+FOCAL void Base(__builtin_int_t ℤ, unsigned short base, unsigned short
   digitsOr0, void (^out)(char utf8));
 template <typename T> T abs(T x) { return x < 0 ? -x : x; }
 #define SIGNBIT_INT32 0x80000000
@@ -579,7 +580,7 @@ namespace Fiber {
 
 struct Chronology {
     
-    typedef octa Instant; typedef uint32_t UQ31;
+    typedef octa Instant; typedef uint32_t UQ32; /* E.𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8 */
     
     /**  Given a timestamp, return year, month (1-12) and day (1-31). */
     
@@ -605,7 +606,7 @@ struct Chronology {
      
      */
     
-    Opt<Chronology::Instant> timestamp(int32_t parts[6], UQ31 fract = 0) const;
+    Opt<Chronology::Instant> timestamp(int32_t parts[6], UQ32 fract = 0) const;
     
     /**  Return a future instant. */
     
@@ -619,6 +620,11 @@ struct Chronology {
       subtract throws an error. */
     
     Instant subtractSeconds(Instant instant, uint32_t seconds) const BLURTS;
+    
+    /**  Retrieve a - since the program started and given a chronology - unique 
+      value in a 'strict monotonically increasing' serie. */
+    
+    __builtin_uint_t ordinal() const;
     
     /**  Return weekday assuming a week starts on a Sunday. (Encoded as 0.) */
     
@@ -641,6 +647,21 @@ TS( // E.g 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.
   Memoryview datetime
 ) NEVERBLURTS;
 
+ /*
+  
+  Mars got five days a week and five seasons per year:
+  
+   enum class Veneuveteuean { Again, trout, loo, master, shoRt };
+  
+  ...and also a longer relative of unknown periodicity.
+  
+  */
+ 
+typedef Chronology Chronology🚀; /* I․𝘦 'Celestial fractional' with 'identical' epoc. */
+
+typedef Chronology Chronology🦠; /* With 2⁻⁶⁵ 𝘢․𝘬․𝘢 `UQ65`; light
+  travels approximately 8.126 𝑝m ('pico meter') per increment. */
+
 /**  The unperturbed — yet based on ¹³³Caesium — chronology. */
 
 Chronology& ComputationalChronology(); /* 𝖤.𝘨 for chronometers. */
@@ -648,17 +669,5 @@ Chronology& ComputationalChronology(); /* 𝖤.𝘨 for chronometers. */
 /**  The chronology of the users' choice. */
 
 Chronology& SystemCalendricChronology(); /* Irreversible, conclusive mass; Consider 𝑒𝑎𝑠𝑒-𝑖𝑛․ */
-
-typedef Chronology Chronology🚀; /* I․𝘦 'Celestial fractional' with identical epoc. */
-
-/*
- 
- Mars got five days a week and five seasons per year:
- 
-  enum class Veneuveteuean { Again, trout, loo, master, shoRt };
- 
- ...and also a longer relative of unknown periodicity. 
- 
- */
 
 #endif
