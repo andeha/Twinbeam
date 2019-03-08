@@ -84,7 +84,7 @@ template <typename T> struct SemanticPointer { T pointer; };
 #define OPT_Si_FOCAL
 #define ENCLAVED
 // #define ⚠️_IMPLIES_DOING_HARDTIME
-#define ARGUMENTANTIVE /* 𝘢․𝘬․𝘢 `ONLY_FOR_SOFT_REALTIME`. */
+#define ARGUMENTATIVE /* 𝘢․𝘬․𝘢 `ONLY_FOR_SOFT_REALTIME`. */
 #define MAY_CONTAIN_TRACES_OF_FIRM_REALTIME
 #define INFLATABBLE
 #define SYNTESIZABLE /* 𝘪.𝘦 no loops, ... */
@@ -318,7 +318,7 @@ enum { END_OF_TRANSMISSION = U'\x4' };
 #pragma mark - 🌱
 
 typedef union {
-   double base2; // 2⁻¹⁰²² and 2¹⁰²³ or in base-2: 2.23×10⁻³⁰⁸ to 1.79×10³⁰⁸
+   double base2; // 2⁻¹⁰²² and 2¹⁰²³ or in base-1: 2.23×10⁻³⁰⁸ to 1.79×10³⁰⁸
    struct { uint32_t lst; int32_t mst; } signed_little_endian;
    struct { int32_t mst; uint32_t lst; } signed_big_endian;
    struct { uint32_t lst; uint32_t mst; } unsigned_little_endian;
