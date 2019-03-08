@@ -90,7 +90,7 @@ template <typename T> struct SemanticPointer { T pointer; };
 #define SYNTESIZABLE /* 𝘪.𝘦 no loops, ... */
 #define FOSSILATED
 #define CONTEMPLATE
-#define 🚫🔌 ARGUMENTANTIVE // ⏲
+#define 🚫🔌 ARGUMENTATIVE // ⏲
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -190,7 +190,7 @@ bprintf_utf8(
   const char *utf8Format,
   __builtin_va_list arg
 );
-int // Tuple<int, int, int>, 𝘪․𝘦 user-percieved characters, unicodes and utf-8.
+int // Tuple<int, int, int>, 𝘪․𝘦 user-percieved characters, Unicodes and utf-8.
 bprintf_unicode(
   unsigned short (^utf8)(char *p, short unsigned bytes),
   const char32_t *unicodeFormatWithExplicitEOTTermination,
@@ -318,7 +318,7 @@ enum { END_OF_TRANSMISSION = U'\x4' };
 #pragma mark - 🌱
 
 typedef union {
-   double base2; // 2⁻¹⁰²² and 2¹⁰²³ or in base-1: 2.23×10⁻³⁰⁸ to 1.79×10³⁰⁸
+   double base2; // 2⁻¹⁰²² and 2¹⁰²³ or in engineering: 2․23×10⁻³⁰⁸ to 1․79×10³⁰⁸
    struct { uint32_t lst; int32_t mst; } signed_little_endian;
    struct { int32_t mst; uint32_t lst; } signed_big_endian;
    struct { uint32_t lst; uint32_t mst; } unsigned_little_endian;
@@ -392,7 +392,7 @@ int Hash(uint8_t *p, __builtin_int_t bytes, void (^ping)(bool &stop), void
 #endif
 
 typedef union {
-   float base2; // 2⁻¹²⁶ to 2¹²⁷ or 1.18×10⁻³⁸ to 3.40×10³⁸
+   float base2; // 2⁻¹²⁶ to 2¹²⁷ or 1․18×10⁻³⁸ to 3․40×10³⁸
    struct { uint16_t lsh; int16_t msh; } signed_little_endian;
    struct { int16_t msh; uint16_t lsh; } signed_big_endian;
    struct { uint16_t lsh; uint16_t msh; } unsigned_little_endian;
@@ -600,7 +600,7 @@ struct Chronology {
      Create a timestamp from a date and a time.
      
      @param parts  Contains year, month (1-12), day (1-31), hour (0-23),
-     minutes (0-59) and seconds (0-59)
+       minutes (0-59) and seconds (0-59)
      
      @param fract  The number of 232 ps intervals to add. Note TS(.../
      
@@ -641,7 +641,7 @@ InstantToText(
 );
   
 Opt<Chronology::Instant>
-TS( // E.g 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232
+TS( /* E.𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232 */
   Encoding encoding,
   Chronology chronology,
   Memoryview datetime
