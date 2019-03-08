@@ -276,6 +276,5 @@ MACRO int __builtin_core_count() {
 #endif
    return res; }
 #define 🧶ᵩ __builtin_core_count()
-#define 🧶 __builtin_coreid()
 
 #endif
