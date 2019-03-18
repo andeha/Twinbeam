@@ -124,7 +124,7 @@ struct Utf8Terminal {
       __builtin_int_t periods,
       __builtin_int_t seconds,
       void (^ping)(bool &stop),
-      void (^touchbase)(uint8_t *utf8, __builtin_int_t bytes, bool &stop)
+      void (^touchbase)(char32_t unicode, bool &stop)
     ) const;
     
     virtual
@@ -133,7 +133,7 @@ struct Utf8Terminal {
       __builtin_int_t periods,
       __builtin_int_t seconds,
       void (^ping)(bool &stop),
-      void (^touchbase)(uint8_t *utf8, __builtin_int_t bytes, bool &stop)
+      void (^touchbase)(char32_t unicode, bool &stop)
     ) const;
     
     virtual int write(char32_t unicode) const; /* ...and not `char utf8`. */
@@ -248,5 +248,7 @@ enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
   __builtin_int_t byteoffset, bool edge₁, bool& stop)); */
 
 /* enum { ■ = 1, □ = 0, ⬚ = TriboolUnknown }; */
+
+#pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber
 
 #endif
