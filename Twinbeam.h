@@ -223,8 +223,9 @@ FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef l,
   constexpr uint32_t PIC32##serie##_##symbol##SET = (vaddr + 0x8);           \
   constexpr uint32_t PIC32##serie##_##symbol##INV = (vaddr + 0xc);
 #define PortRectifyAsOutputs(serie,X,tris) (*((uint32_t *)PIC32##serie##_##TRIS##X##CLR) = (uint16_t)(tris))
-#define 🔎🎭𝑀𝑋(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
+#define 🔎🎭𝑀𝑋(symval,msk,...) /* 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__) */
 #define 🔎🎭𝑀𝑍𝐷𝐴(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
+#define 🔎🎭𝑀𝑍(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
 #endif
 ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
 ByteAlignedRef Overwrite8Memory(ByteAlignedRef src, uint8_t val,
@@ -258,9 +259,9 @@ typedef x86_64_context jmp_buf2;
 FOCAL void Base(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned
   short base, unsigned short digitsOr0, /* Not more than 32 or 64 digits
   depending on word size! (Or set to `0` to skip leading zeros.) */ void
-  (^out)(char utf8));
+  (^out)(char 𝟶to𝟿));
 FOCAL void Base(__builtin_int_t ℤ, unsigned short base, unsigned short
-  digitsOr0, void (^out)(char utf8));
+  digitsOr0, void (^out)(char 𝟶to𝟿));
 template <typename T> T abs(T x) { return x < 0 ? -x : x; }
 #define SIGNBIT_INT32 0x80000000
 #define SIGNBIT_INT64 0x8000000000000000
@@ -276,12 +277,13 @@ template <typename T> T abs(T x) { return x < 0 ? -x : x; }
 // void __attribute__ ((interrupt, leaf)) v1 ();
 #define LEAF
 #endif
+#define IsOdd(x) ((x) & 0b1)
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
 namespace Relative {
 template <typename T> T arithmeticBetween(T x₁, T x₂) { return (x₁ + x₂) / 2; }
-// template <typename T> T geometricBetween(T x₁, T acc) { return sqrt(x₁ * acc); } // See: Search ☜😐: ⌨️ MMXVII, XXX, ⅳ
-// template <typename T>  T harmonicBetween(T x₁, T acc) { return 1 / sqrt(x₁ * acc); } // See: Padé ☜😐: ⌨️ 🐚, 🐇,
+// template <typename T> T geometricBetween(T x₁, T acc) { return sqrt(x₁ * acc); } // 𝘚𝘦𝘦: Search ☜😐: ⌨️ MMXVII, XXX, ⅳ
+// template <typename T>  T harmonicBetween(T x₁, T acc) { return 1 / sqrt(x₁ * acc); } // 𝘚𝘦𝘦: Padé ☜😐: ⌨️ 🐚, 🐇,
 template <typename T> T leftChange(T x₁, T x₂) { return (x₁ - x₂) / x₂; } // ∈ [0, 1]
 template <typename T> T rightChange(T x₁, T x₂) { return (x₂ - x₁) / x₁; } // ∉ [0, 1]
 // Norm == Sequence<T>|AccumulativeSequence<T> S, AlgebraicCategory<T> C
@@ -318,7 +320,7 @@ enum { END_OF_TRANSMISSION = U'\x4' };
 #pragma mark - 🌱
 
 typedef union {
-   double base2; // 2⁻¹⁰²² and 2¹⁰²³ or in engineering: 2․23×10⁻³⁰⁸ to 1․79×10³⁰⁸
+   double base2; // Captures 2⁻¹⁰²² and 2¹⁰²³ or in engineering: 2․23×10⁻³⁰⁸ to 1․79×10³⁰⁸
    struct { uint32_t lst; int32_t mst; } signed_little_endian;
    struct { int32_t mst; uint32_t lst; } signed_big_endian;
    struct { uint32_t lst; uint32_t mst; } unsigned_little_endian;
@@ -358,19 +360,17 @@ void * Lookup(const void *opaque, const __builtin_treeint_t target);
 
 typedef union {
 #ifdef __x86_64__
-  __m128 intel; /* 16 (possibly unaligned) bytes divided into `float` slots. */
+  __m128 intel; /* Sixteen (possibly unaligned) bytes divided into `float` slots. */
 #elif defined __mips__
 #endif
   __uint128_t bits;
-  struct { uint64_t lso; int64_t mso; } signed_little_endian;
-  struct { int64_t mso; uint64_t lso; } signed_big_endian;
-  struct { uint64_t lso; uint64_t mso; } unsigned_little_endian;
-  struct { uint64_t mso; uint64_t lso; } unsigned_big_endian;
+  struct { octa lso; octa mso; } little_endian;
+  struct { octa mso; octa lso; } big_endian;
 } sexdeca;
 
 typedef union {
 #ifdef __x86_64__
-  __m256 intel; /* 32 (possibly unaligned) bytes divided into `float` slots. */
+  __m256 intel; /* Thirty-two (possibly unaligned) bytes divided into `float` slots. */
 #elif defined __mips__
 #endif
   uint32_t eighttetra[8];
@@ -392,7 +392,7 @@ int Hash(uint8_t *p, __builtin_int_t bytes, void (^ping)(bool &stop), void
 #endif
 
 typedef union {
-   float base2; // 2⁻¹²⁶ to 2¹²⁷ or 1․18×10⁻³⁸ to 3․40×10³⁸
+   float base2; // For 2⁻¹²⁶ to 2¹²⁷ or 1․18×10⁻³⁸ to 3․40×10³⁸․
    struct { uint16_t lsh; int16_t msh; } signed_little_endian;
    struct { int16_t msh; uint16_t lsh; } signed_big_endian;
    struct { uint16_t lsh; uint16_t msh; } unsigned_little_endian;
@@ -402,11 +402,8 @@ typedef union {
      unsigned exponent :  8;
      unsigned sign     :  1;
    } ieee754;
-   struct {
-     unsigned value : 31;
-     unsigned sign  :  1;
-   } sgned;
    uint32_t bits;
+   int32_t sgned;
 } tetra;
 
 typedef uint32_t Tetra;
@@ -580,7 +577,7 @@ namespace Fiber {
 
 struct Chronology {
     
-    typedef octa Instant; typedef uint32_t UQ32; /* E.𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8 */
+    typedef octa Instant; typedef uint32_t UQ32; /* E.𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
     
     /**  Given a timestamp, return year, month (1-12) and day (1-31). */
     
