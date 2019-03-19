@@ -128,14 +128,14 @@ template <typename T> struct Opt : public SharedOptional { explicit Opt(const
   T& v) { new (content) T(v); populated = true; } explicit Opt() = default; Opt(
   const Opt<T>& other) { populated = other.populated; if (populated) { new
   (content) T((const T&)(other.content)); } } ~Opt() { reinterpret_cast<T *>(
-  content)->~T(); } alignas(T) uint8_t content[sizeof(T)]; T& operator*() const;
-  T * operator->() const { return &(**this); } static Opt no() { return Opt(); } };
+  content)->~T(); } alignas(T) uint8_t content[sizeof(T)]; T& operator*() const
+  { return (T&)content; } T * operator->() const { return &(**this); } static Opt no() { return Opt(); } };
 template <typename T> struct Opt<T&> : public SharedOptional { explicit Opt(
   const T& v) { new (content) T(v); populated = true; } explicit Opt() = default;
   Opt(const Opt<T>& other) { populated = other.populated; if (populated) { new
   (content) T((const T&)(other.content)); } } ~Opt() { reinterpret_cast<T *>(
-  content)->~T(); } alignas(T) uint8_t content[sizeof(T)]; T& operator*() const;
-  T * operator->() const { return &(**this); } static Opt no() { return Opt(); } };
+  content)->~T(); } alignas(T) uint8_t content[sizeof(T)]; T& operator*() const
+  { return (T&)content; } T * operator->() const { return &(**this); } static Opt no() { return Opt(); } };
 template <class... Ts> struct Tuple {}; template <class T, class... Ts>
   struct Tuple<T, Ts...> : Tuple<Ts...> { Tuple(T t, Ts... ts) : Tuple<Ts...>
   (ts...), tail(t) {} T tail; };
@@ -223,7 +223,7 @@ FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef l,
   constexpr uint32_t PIC32##serie##_##symbol##SET = (vaddr + 0x8);           \
   constexpr uint32_t PIC32##serie##_##symbol##INV = (vaddr + 0xc);
 #define PortRectifyAsOutputs(serie,X,tris) (*((uint32_t *)PIC32##serie##_##TRIS##X##CLR) = (uint16_t)(tris))
-#define 🔎🎭𝑀𝑋(symval,msk,...) /* 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__) */
+#define 🔎🎭𝑀𝑋(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__) 
 #define 🔎🎭𝑀𝑍𝐷𝐴(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
 #define 🔎🎭𝑀𝑍(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
 #endif
@@ -262,11 +262,11 @@ FOCAL void Base(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned
   (^out)(char 𝟶to𝟿));
 FOCAL void Base(__builtin_int_t ℤ, unsigned short base, unsigned short
   digitsOr0, void (^out)(char 𝟶to𝟿));
-template <typename T> T abs(T x) { return x < 0 ? -x : x; }
 #define SIGNBIT_INT32 0x80000000
 #define SIGNBIT_INT64 0x8000000000000000
-#define abs32i(x) int32_t(((uint32_t)(x) & ~SIGNBIT_INT32))
-#define abs64i(x) int64_t(((uint64_t)(x) & ~SIGNBIT_INT64))
+MACRO double abs64i(int64_t x) { return x & ~SIGNBIT_INT64; }
+MACRO double abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
+/* template <typename T> T abs(T x) { return x < 0 ? -x : x; } */
 #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error")))
 #define STRANGE_MAIN void _Noreturn main
 #ifdef __x86_64__
@@ -277,7 +277,7 @@ template <typename T> T abs(T x) { return x < 0 ? -x : x; }
 // void __attribute__ ((interrupt, leaf)) v1 ();
 #define LEAF
 #endif
-#define IsOdd(x) ((x) & 0b1)
+#define IsOdd(x) ((x) & 0b1) /* For int32_t|int64_t. */
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
 namespace Relative {

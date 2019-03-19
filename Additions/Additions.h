@@ -11,14 +11,14 @@
 void
 CastToText(
   double value,
-  void (^digits)(bool neg, int e, const char *zerosToNines),
-  void (^zero)(), void (^inf)(), void (^nan)()
+  void (^digits)(bool 𝚗𝚎𝚐, int e, const char *𝟶to𝟿s),
+  void (^𝚣𝚎𝚛𝚘)(), void (^𝚒𝚗𝚏)(), void (^𝚗𝚊𝚗)()
 );
 
 /* The next smallest value after `1`. */
 #define DOUBLE_EPS1  1.00000000000000011102230246251565 // 1+2⁻⁵³
-#define FLOAT_EPS1   1.0000000119                       // 1+2⁻²³
-#define HALF_EPS1    1.0009765625                       // 1+2⁻¹⁰
+#define FLOAT_EPS1   1.0000000119                       // 1+2⁻²³ ...possibly 2⁻²⁴.
+#define HALF_EPS1    1.0009765625                       // 1+2⁻¹⁰ ...maybe 2⁻¹¹.
 #define Q31_EPS1     1.0000000004656612873077392578125  // 1+2⁻³¹
 #define Q15_EPS1     1.000030517578125                  // 1+2⁻¹⁵
 #define Q7_EPS1      1.0078125                          // 1+2⁻⁷
@@ -31,23 +31,22 @@ typedef long double x86_fp80;
 
 #define IEEE754BASE2_64BIT_PZERO  0x0000000000000000L
 #define IEEE754BASE2_64BIT_NZERO  0x8000000000000000L
-#define IEEE754BASE2_64BIT_SNAN   0x7FF0000000000001L
-#define IEEE754BASE2_64BIT_PINF   0x7FF0000000000000L
-#define IEEE754BASE2_64BIT_NINF   0xFFF0000000000000L
-#define IEEE754BASE2_64BIT_QNAN   0x7ff8000000000000L
+#define IEEE754BASE2_64BIT_SNAN   0x7FF0000000000001L /* Signalling */
+#define IEEE754BASE2_64BIT_PINF   0x7FF0000000000000L /* Positive */
+#define IEEE754BASE2_64BIT_NINF   0xFFF0000000000000L /* Negative */
+#define IEEE754BASE2_64BIT_QNAN   0x7ff8000000000000L /* Quiet */
 #define IEEE754BASE2_32BIT_QNAN   0x7FC00000
 
 MACRO bool isinf(double x) { octa o; o.base2 = x; return o.bits ==
-  IEEE754BASE2_64BIT_NINF || x == IEEE754BASE2_64BIT_PINF; }
+  IEEE754BASE2_64BIT_NINF || o.bits == IEEE754BASE2_64BIT_PINF; }
 
 MACRO bool isnan(double x) { octa o; o.base2 = x; return (o.ieee754b2.mantissah
-  != 0 || o.ieee754b2.mantissal != 0) && o.ieee754b2.exponent == 0x7ff; }
+  != 0 || o.ieee754b2.mantissal != 0) && o.ieee754b2.exponent == 0x7ff; } /* Exponent is eleven bits. Sign not relevant; and IEEE 754-2008: MSB is `is_quiet`. */
 
 MACRO bool isexactlyzero(double x) { octa o; o.base2 = x; return o.bits ==
   IEEE754BASE2_64BIT_PZERO || o.bits == IEEE754BASE2_64BIT_NZERO; }
 
-MACRO double abs64d(double x) { octa o; o.base2 = x; o.ieee754b2.sign = 0; return o.base2; }
-// MACRO double abs64d₂(double x) { return double(((uint64_t)(x) & ~SIGNBIT_INT64)); } indisponible(endianess);
+MACRO double abs64d(double x) { octa o; o.base2 = x; o.bits &= ~SIGNBIT_INT64; return o.base2; }
 
 enum GaussianApproximate { AbramowitzStegun, ZogheibHlynka };
 int Gaussian(GaussianApproximate approximate, double *out);
