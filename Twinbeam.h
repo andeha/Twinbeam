@@ -317,7 +317,7 @@ inline char32_t Superscript(short 𝟶to𝟿) { const char * s = "⁰";
   char32_t u = Utf8ToUnicode(s, 3); return u + 𝟶to𝟿; } /* ⁰¹⋯⁹ */
 
 inline char32_t Subscript(short 𝟶to𝟿) { const char * s = "₀";
-  char32_t u = Utf8ToUnicode(s, 3); return u + 𝟶to𝟿; } /* ₀₁…₉ */
+  char32_t u = Utf8ToUnicode(s, 3); return u + 𝟶to𝟿; } /* ₀₁…₉; For the computational chemistry inclined. */
 
 struct Utf8Artifact { __builtin_int_t line, bytesOffset, count; };
 
