@@ -1,7 +1,7 @@
 //  
 //  Twinbeam.h (libTwinbeam_X_cdcdc7f.a)
 //  Twinbeam (C++20 for clang to x86_64 or MIPS.)
-//  MIPS compiled using clang version 7.0.0
+//  MIPS compiled using clang version 7.0.1
 //  x86_64 compiled using Xcode Version 10.1 (10B61)
 //  
 
@@ -28,28 +28,28 @@ typedef int32_t             __builtin_int_t;
 #define TriboolUnknown 0xFFFFFFFF
 #elif defined __x86_64__
 typedef unsigned int        uint32_t;
-typedef int                 int32_t;
+typedef int                 int32_t; /* ≡`long` */
 typedef uint64_t            __builtin_uint_t;
-typedef int64_t             __builtin_int_t; /* 𝘈․𝘬․𝘢 sequential */
+typedef int64_t             __builtin_int_t; /* 𝘈․𝘬․𝘢 sequential. */
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
 #endif
-typedef unsigned short     uint16_t;
-typedef short              int16_t;
+typedef unsigned short      uint16_t;
+typedef short               int16_t;
 typedef __builtin_uint_t Tribool;
 
 typedef struct bignum {
-  static const int maxdigits = 100; // TO AVOID: Templates, ... T
-  char digits[maxdigits];         /* represent the number */
-  int signbit;            /* 1 if positive, -1 if negative */
-  int lastdigit;            /* index of high-order digit */
+  constexpr static int maxdigits = 100; /* To avoid: Templates, … */
+  char digits[maxdigits]; /* Binary coded decimals. */
+  int signbit; /* Indicates with 𝟷 if positive and with -𝟷 if negative. */
+  int lastdigit; /* High-order digit index. */
 } bignum;
 void print_bignum(bignum *n, void (^output)(char c));
-void int_to_bignum(int s, bignum *n);
+void int_to_bignum(__builtin_int_t s, bignum *n);
 void initialize_bignum(bignum *n);
 void add_bignum(bignum *a, bignum *b, bignum *c);
 void subtract_bignum(bignum *a, bignum *b, bignum *c);
 int compare_bignum(bignum *a, bignum *b);
-void digit_shift(bignum *n, int d); /* multiply `n` by 10ᵈ */
+void digit_shift(bignum *n, __builtin_int_t d); /* Multiply 𝚗 by 10ᵈ. */
 void multiply_bignum(bignum *a, bignum *b, bignum *c);
 void divide_bignum(bignum *a, bignum *b, bignum *c);
 
@@ -74,20 +74,20 @@ struct InnerFrame {
 template <typename T> struct SemanticPointer { T pointer; };
 #define VISITISR(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + call */
 #define UNITTEST(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
-#define Panic(log,s) { printf("'%s'\nPanicking at %s in %s:%d\n",            \
+#define Panic(log,s) { printf("\n\n'%s'\nPanicking at %s in %s:%d\n",        \
   s, __FUNCTION__, __FILE__, __LINE__); exit(-1); }
 #define ENSURE(c,s) { if (!(c)) { Panic(Testlog, s); } }
-#define FINAL /*   ⃨ or DO_NOT_DESTABBILIZE */
+#define FINAL /*  …or DO_NOT_DESTABBILIZE */
 #define LONGTOOTH /* __attribute__((deprecated("Marked LONGTOOTH."))) */
 #define FOCAL
 #define Si_FOCAL
 #define OPT_Si_FOCAL
 #define ENCLAVED
 // #define ⚠️_IMPLIES_DOING_HARDTIME
-#define ARGUMENTATIVE /* 𝘢․𝘬․𝘢 `ONLY_FOR_SOFT_REALTIME`. */
+#define ARGUMENTATIVE /* A․𝘬․𝘢 `ONLY_FOR_SOFT_REALTIME`. */
 #define MAY_CONTAIN_TRACES_OF_FIRM_REALTIME
 #define INFLATABBLE
-#define SYNTESIZABLE /* 𝘪.𝘦 no loops, ... */
+#define SYNTESIZABLE /* I.𝘦 no loops, … */
 #define FOSSILATED
 #define CONTEMPLATE
 #define 🚫🔌 ARGUMENTATIVE // ⏲
@@ -144,7 +144,7 @@ template <class... Ts> struct Tuple {}; template <class T, class... Ts>
   template <__builtin_uint_t k, class T, class... Ts>
   struct elem_type_holder<k, Tuple<T, Ts...>> { typedef typename
   elem_type_holder <k - 1, Tuple<Ts...>>::type type; };
-  template <bool, typename T = void> struct std__enable_if {};
+  template <bool, typename T = void> struct std__enable_if { };
   template <typename T> struct std__enable_if<true, T> { typedef T type; };
   template <__builtin_uint_t k, class... Ts>
   typename std__enable_if<k == 0, typename elem_type_holder<0, Tuple<Ts...>>::
@@ -172,7 +172,7 @@ MACRO __builtin_uint_t&  🔧(__builtin_uint_t var) { return (__builtin_uint_t&)
   *(__builtin_uint_t /* volatile */ *)var; }
 MACRO __builtin_uint_t TrailingZeros(__builtin_uint_t x) { if (x == 0) { return
   8*sizeof(x); } return ((x-1)^x)-1; /* dst=(a-1) xor a (or on x64 `_blsmsk_u64`) */ }
-// And for contemplative consumption of abstraction, 𝑃𝑖𝑛𝑐𝑒 𝑎𝑏𝑠𝑡𝑟𝑎𝑖𝑡:
+/* And for contemplative consumption of abstraction, 𝑃𝑖𝑛𝑐𝑒 𝑎𝑏𝑠𝑡𝑟𝑎𝑖𝑡: */
 MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   void (^update)(__builtin_uint_t& shifted) = ^(__builtin_uint_t&) { } ) {
   __builtin_uint_t word = *symbol, shift = TrailingZeros(mask), orig = mask & word,
@@ -190,7 +190,7 @@ bprintf_utf8(
   const char *utf8Format,
   __builtin_va_list arg
 );
-int // Tuple<int, int, int>, 𝘪․𝘦 user-percieved characters, Unicodes and utf-8.
+int /* Tuple<int, int, int>, I․𝘦 user-percieved characters, Unicodes and utf-8. */
 bprintf_unicode(
   unsigned short (^utf8)(char *p, short unsigned bytes),
   const char32_t *unicodeFormatWithExplicitEOTTermination,
@@ -205,7 +205,7 @@ FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memor
   #include <xmmintrin.h>  // ≥ SSE 4.2
   #include <immintrin.h>  // `blend` from smmintrin.h and AVX/AVX2 from avxintrin.h and avx2intrin.h
 FOCAL int  /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ __attribute__((
-  target("sse4.2"))) Compare8Memory(ByteAlignedRef l, ByteAlignedRef r,
+  target("sse4.2"))) Compare8Memory(ByteAlignedRef p₁, ByteAlignedRef p₂,
   __builtin_uint_t bytes);
 #define MEASURE_START(prefix) int64_t prefix##Start = __rdtsc(); /* 𝚜𝚒𝚐𝚗𝚎𝚍 ⟵ Comparision */
 #define MEASURE_END(prefix)                                                  \
@@ -215,8 +215,8 @@ FOCAL int  /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ __attribute__((
 #elif defined __mips__
 FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef
   dst, ByteAlignedRef src, __builtin_int_t bytes);
-FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef l,
-  ByteAlignedRef r, __builtin_uint_t bytes); // 𝘪․𝘦 𝚖𝚎𝚖𝚌𝚖𝚙
+FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁,
+  ByteAlignedRef p₂, __builtin_uint_t bytes); // I․𝘦 𝚖𝚎𝚖𝚌𝚖𝚙
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
   constexpr uint32_t PIC32##serie##_##symbol = vaddr;                        \
   constexpr uint32_t PIC32##serie##_##symbol##CLR = (vaddr + 0x4);           \
@@ -264,8 +264,8 @@ FOCAL void Base(__builtin_int_t ℤ, unsigned short base, unsigned short
   digitsOr0, void (^out)(char 𝟶to𝟿));
 #define SIGNBIT_INT32 0x80000000
 #define SIGNBIT_INT64 0x8000000000000000
-MACRO double abs64i(int64_t x) { return x & ~SIGNBIT_INT64; }
-MACRO double abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
+MACRO int64_t abs64i(int64_t x) { return x & ~SIGNBIT_INT64; }
+MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
 /* template <typename T> T abs(T x) { return x < 0 ? -x : x; } */
 #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error")))
 #define STRANGE_MAIN void _Noreturn main
@@ -282,8 +282,8 @@ template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; 
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
 namespace Relative {
 template <typename T> T arithmeticBetween(T x₁, T x₂) { return (x₁ + x₂) / 2; }
-// template <typename T> T geometricBetween(T x₁, T acc) { return sqrt(x₁ * acc); } // 𝘚𝘦𝘦: Search ☜😐: ⌨️ MMXVII, XXX, ⅳ
-// template <typename T>  T harmonicBetween(T x₁, T acc) { return 1 / sqrt(x₁ * acc); } // 𝘚𝘦𝘦: Padé ☜😐: ⌨️ 🐚, 🐇,
+/* template <typename T> T geometricBetween(T x₁, T acc) { return ⁿ√(x₁ * acc); } 𝘚𝘦𝘦: 𝚂𝚎𝚊𝚛𝚌𝚑 ☜😐: ⌨️ MMCLXVII, XXX, ⅳ */
+/* template <typename T> T harmonicBetween(T x₁, T acc) { return 1/(1/x₁ + … + 1/xₒ₊𝜀); } 𝘚𝘦𝘦: 𝑃𝑎𝑑é (acute) ☜😐: ⌨️ 🐚, 🐇 */
 template <typename T> T leftChange(T x₁, T x₂) { return (x₁ - x₂) / x₂; } // ∈ [0, 1]
 template <typename T> T rightChange(T x₁, T x₂) { return (x₂ - x₁) / x₁; } // ∉ [0, 1]
 // Norm == Sequence<T>|AccumulativeSequence<T> S, AlgebraicCategory<T> C
@@ -313,6 +313,12 @@ __builtin_int_t Utf8Followers(uint8_t leadOr8Bit);
 
 char32_t Utf8ToUnicode(const char *p, __builtin_int_t bytes);
 
+inline char32_t Superscript(short 𝟶to𝟿) { const char * s = "⁰";
+  char32_t u = Utf8ToUnicode(s, 3); return u + 𝟶to𝟿; } /* ⁰¹⋯⁹ */
+
+inline char32_t Subscript(short 𝟶to𝟿) { const char * s = "₀";
+  char32_t u = Utf8ToUnicode(s, 3); return u + 𝟶to𝟿; } /* ₀₁…₉ */
+
 struct Utf8Artifact { __builtin_int_t line, bytesOffset, count; };
 
 enum { END_OF_TRANSMISSION = U'\x4' };
@@ -320,7 +326,7 @@ enum { END_OF_TRANSMISSION = U'\x4' };
 #pragma mark - 🌱
 
 typedef union {
-   double base2; // Captures 2⁻¹⁰²² and 2¹⁰²³ or in engineering: 2․23×10⁻³⁰⁸ to 1․79×10³⁰⁸
+   double base₂; /* Captures 2⁻¹⁰²² and 2¹⁰²³ or in engineering: 2․23×10⁻³⁰⁸ to 1․79×10³⁰⁸. */
    struct { uint32_t lst; int32_t mst; } signed_little_endian;
    struct { int32_t mst; uint32_t lst; } signed_big_endian;
    struct { uint32_t lst; uint32_t mst; } unsigned_little_endian;
@@ -331,9 +337,6 @@ typedef union {
       unsigned exponent  : 11;
       unsigned sign      :  1;
    } ieee754b2;
-   struct {
-      unsigned sign      :  1; // ⫝
-   } ieee754b10;
    /* struct {
       unsigned absolute  : 31;
       unsigned sign      :  1;
@@ -392,7 +395,7 @@ int Hash(uint8_t *p, __builtin_int_t bytes, void (^ping)(bool &stop), void
 #endif
 
 typedef union {
-   float base2; // For 2⁻¹²⁶ to 2¹²⁷ or 1․18×10⁻³⁸ to 3․40×10³⁸․
+   float base₂; /* For 2⁻¹²⁶ to 2¹²⁷ or 1․18×10⁻³⁸ to 3․40×10³⁸. */
    struct { uint16_t lsh; int16_t msh; } signed_little_endian;
    struct { int16_t msh; uint16_t lsh; } signed_big_endian;
    struct { uint16_t lsh; uint16_t msh; } unsigned_little_endian;
@@ -402,6 +405,9 @@ typedef union {
      unsigned exponent :  8;
      unsigned sign     :  1;
    } ieee754;
+   struct {
+      unsigned sign      :  1; // ⫝
+   } ieee754b10;
    uint32_t bits;
    int32_t sgned;
 } tetra;
@@ -483,9 +489,9 @@ void * ExactSeek(const void *key, const void *base, size_t num, size_t size,
 template <typename T> T * materialize(Memoryview * view) {
   extern void * 💫(void *); return (T *)💫((void *)view); } // ...may require 𝙰𝚕𝚕𝚘𝚌․
 
-// template <> Unicodestring materialize(Memoryview * view) {
-//   return Unicodestring(Endianness::Native, 💫(view), view.bytesCount,
-//   true); }
+/* template <> Unicodestring materialize(Memoryview * view) {
+  return Unicodestring(Endianness::Native, 💫(view), view.bytesCount,
+  true); } */
 
 bool IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 
@@ -540,7 +546,7 @@ namespace Fiber {
 #endif
     typedef fuContext fiber_t;
     
-    // __attribute__((callback (ufnc, uctx)))
+    /* __attribute__((callback (ufnc, uctx))) */
     inline void create(fiber_t& fib, void (*ufnc)(void *), void * uctx,
       void *(^alloc)(__builtin_int_t bytes) = Alloc) {
         Snapshot(&fib);
@@ -556,7 +562,7 @@ namespace Fiber {
         Incubate(&fib, (void (*)(...))ufnc, 1, uctx);
     }
     
-    // __attribute__((callback (ufnc, fib)))
+    /* __attribute__((callback (ufnc, fib))) */
     inline void create(Fiber::fiber_t& fib, void (*ufnc)(Fiber::fiber_t *),
       void *(^alloc)(__builtin_int_t bytes) = Alloc) {
         Fiber::create(fib, (void (*)(void *))ufnc, (void *)&fib, alloc);
@@ -632,11 +638,10 @@ struct Chronology {
 int
 InstantToText(
   Chronology chronology,
-   Chronology::Instant ts,
-   bool fractionalsToo,
+  Chronology::Instant ts,
   void (^out)(char digitHyphenColonPeriodOrSpace)
 );
-  
+
 Opt<Chronology::Instant>
 TS( /* E.𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232 */
   Encoding encoding,
@@ -648,9 +653,9 @@ TS( /* E.𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:
   
   Mars got five days a week and five seasons per year:
   
-   enum class Veneuveteuean { Again, trout, loo, master, shoRt };
+   enum Veneuveteuean { Again, trout, loo, master, shoRt };
   
-  ...and also a longer relative of unknown periodicity.
+   …and also a longer relative of unknown periodicity.
   
   */
  
