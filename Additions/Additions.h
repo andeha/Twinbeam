@@ -16,18 +16,21 @@ CastToText(
 );
 
 /* The next smallest value after `1`. */
-#define DOUBLE_EPS1  1.00000000000000011102230246251565 // 1+2⁻⁵³
-#define FLOAT_EPS1   1.0000000119                       // 1+2⁻²³ ...possibly 2⁻²⁴.
-#define HALF_EPS1    1.0009765625                       // 1+2⁻¹⁰ ...maybe 2⁻¹¹.
-#define Q31_EPS1     1.0000000004656612873077392578125  // 1+2⁻³¹
-#define Q15_EPS1     1.000030517578125                  // 1+2⁻¹⁵
-#define Q7_EPS1      1.0078125                          // 1+2⁻⁷
-#define X86FP80_EPS1 1.0000000000000000000542101        // 1+2⁻⁶⁴
+#define DOUBLE_EPS1  1.00000000000000011102230246251565 /* 1+2⁻⁵³ */
+#define FLOAT_EPS1   1.0000000119                       /* 1+2⁻²³ …possibly 2⁻²⁴. */
+#define HALF_EPS1    1.0009765625                       /* 1+2⁻¹⁰ …maybe 2⁻¹¹. */
+#define Q31_EPS1     1.0000000004656612873077392578125  /* 1+2⁻³¹ */
+#define Q15_EPS1     1.000030517578125                  /* 1+2⁻¹⁵ */
+#define Q7_EPS1      1.0078125                          /* 1+2⁻⁷ */ 
+#define X86FP80_EPS1 1.0000000000000000000542101        /* 1+2⁻⁶⁴ */
 #define BINARY128_EPS1 1.000000000000000000000000000000000096296
+/* decimal128/binary128, 𝜀b₂≈log₁₀(2¹¹³)≈34.16 decimal digits, BSM */
 #ifdef __x86_64__
 typedef long double x86_fp80;
+typedef x86_fp80 maxprec;
+#elif defined __mips__
+typedef double maxprec;
 #endif
-/* decimal128/binary128, 𝜀b₂≈log₁₀(2¹¹³)≈34.16 decimal digits, BSM */
 
 #define IEEE754BASE2_64BIT_PZERO  0x0000000000000000L
 #define IEEE754BASE2_64BIT_NZERO  0x8000000000000000L
@@ -50,18 +53,18 @@ MACRO double abs64d(double x) { octa o; o.base2 = x; o.bits &= ~SIGNBIT_INT64; r
 
 enum GaussianApproximate { AbramowitzStegun, ZogheibHlynka };
 int Gaussian(GaussianApproximate approximate, double *out);
-int Uniform(double *out); // *out ∈ [0, 1)
+int Uniform(double *out); /* *out ∈ [0, 1) */
 
-// Gauss' K𝑒𝑡𝑡𝑒𝑛𝑏𝑟𝑢𝑐ℎ
-// MACRO void Khinchin(double * A, int count, double& acc) { for (int i=count-1;
-//  i >= 0; i--) { acc = 1/(A[i] + acc); } }
-// MACRO void Khinchin(double (^A)(double k), double (^B)(double k), int count,
-//  double& acc) { for (int i=count-1; i >= 1; i--) { acc = A(i)/(B(i) + acc);}}
+/* Gauss' K𝑒𝑡𝑡𝑒𝑛𝑏𝑟𝑢𝑐ℎ */
+/* MACRO void Khinchin(double * A, int count, double& acc) { for (int i=count-1;
+  i >= 0; i--) { acc = 1/(A[i] + acc); } } */
+/* MACRO void Khinchin(double (^A)(double k), double (^B)(double k), int count,
+  double& acc) { for (int i=count-1; i >= 1; i--) { acc = A(i)/(B(i) + acc); } } */
 MACRO void Khinchin(double z, double (^A)(double k, double z), double (^B)(
   double k, double z), int count, double& acc) { for (int i=count-1; i >= 1;
   i--) { acc = A(i,z)/(B(i,z) + acc); } }
-// auto A𝜋 = ^(double k) { return (2*k-1)*(2*k-1); }, B𝜋 = ^(double k) { return 6.0; };
-// To retrieve coefficients for continued fractions, see Hardy and Wright.
+/* auto A𝜋 = ^(double k) { return (2*k-1)*(2*k-1); }, B𝜋 = ^(double k) { return 6.0; }; */
+/* To retrieve coefficients for continued fractions, see Hardy and Wright. */
 
 MACRO bool Similar(double x, double y, double 𝜀) { if (isinf(x) &&
   isinf(y)) return true; if (isnan(x) && isnan(y)) return true; if (
@@ -84,30 +87,42 @@ typedef struct UnicodeBlock {
   __builtin_int_t linesOffsetLast;
 } UnicodeBlock;
 
-FINAL struct DecoratedString { // 𝘢․𝘬․𝘢 `IntervallicString`
-    //   ⎡      😐≅        ⎤
-    //  ♢⎢    😐?😐≅😐     ⎥
-    //   ⎣ 😐?😐≅😐?😐?😐?⎦
+#include <Additions/Map.hpp>
+#include <Additions/Urn.hpp>
+
+FINAL struct DecoratedString { /* A․𝘬․𝘢 `IntervallicString`. */
+    /*   ⎡      😐≅        ⎤
+        ♢⎢    😐?😐≅😐     ⎥
+         ⎣ 😐?😐≅😐?😐?😐?⎦   */
     
-    DecoratedString(const char32_t *nativeEndianUnicodes, __builtin_int_t
-      tetras, bool readonly);
+    DecoratedString(const char32_t *nativeEndianUnicodes,
+      __builtin_int_t tetras, bool readonly);
     
     DecoratedString() = delete;
     
+    Urn<Utf8Artifact> original;
+    
+    Urn<UnicodeIntervalAnd𝑂𝑟Location> parsed;
+    
+    Urn<UnicodeBlock> rendered;
+    
+    typedef __builtin_int_t Parsedᴵᵈˣ;
+    
+    Map<const char32_t *, Parsedᴵᵈˣ> namedruns₁;
+    
+    Map<const char *, Parsedᴵᵈˣ> namedruns₂;
+    
+    /* kdTreeMap<UnicodeInterval…
+      void *namedruns; Hashed const char32_t * × UnicodeArtifact
+      void *formatting; Hashed const char32_t * × UnicodeBlock
+      Map<const char *, UnicodeBlock> formatting; */
+    
     Memoryview unicodes();
-    
-    void *namedruns; /* Hashed const char32_t * × UnicodeArtifact */
-    // Map<const char *, UnicodeIntervalAnd𝑂𝑟Location> namedruns;
-    
-    // kdTreeMap<UnicodeInterval...
-    
-    void *formatting; /* Hashed const char32_t * × UnicodeBlock */
-    // Map<const char *, UnicodeBlock> formatting;
     
 😐;
 
-// #include <Additions/Color.hpp>
-// #include <Additions/Typesetting.hpp>
+/* #include <Additions/Color.hpp>
+#include <Additions/Typesetting.hpp> */
 
 #pragma mark - Terminal
 
@@ -135,7 +150,7 @@ struct Utf8Terminal {
       void (^touchbase)(char32_t unicode, bool &stop)
     ) const;
     
-    virtual int write(char32_t unicode) const; /* ...and not `char utf8`. */
+    virtual int write(char32_t unicode) const; /* …and not `char utf8`. */
     
     void (^scientificFormat)(double x, Utf8Terminal &stream);
     
@@ -248,6 +263,7 @@ enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
 
 /* enum { ■ = 1, □ = 0, ⬚ = TriboolUnknown }; */
 
-#pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber
+#pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
+// ✂️ >> --<shoebox>{Fiber}
 
 #endif
