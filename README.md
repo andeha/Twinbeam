@@ -20,7 +20,6 @@ Bootloader: [pic32mz.hex](https://github.com/andeha/Twinbeam/releases/download/t
 
 [1] The [Intel® 64 and IA-32 Architectures Software Developer Manual: Vol 3](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.pdf) document.
 
-[2] The Microchip [PIC32MM0256GPM064](https://eu.mouser.com/datasheet/2/268/50002576a%20PIC32MM%20USB%20Curiosity%20Development%20Board%20-1113849.pdf)
-[2] The Microchip [PIC32MX5XX/6XX/7XX](http://ww1.microchip.com/downloads/en/DeviceDoc/60001156J.pdf) Family Data Sheets.
+[2] The Microchip [PIC32MM0256GPM064](https://eu.mouser.com/datasheet/2/268/50002576a%20PIC32MM%20USB%20Curiosity%20Development%20Board%20-1113849.pdf), The Microchip [PIC32MX5XX/6XX/7XX](http://ww1.microchip.com/downloads/en/DeviceDoc/60001156J.pdf) Family Data Sheets.
 
 [3] The [Intel Hex](https://en.wikipedia.org/wiki/Intel_HEX) format.
