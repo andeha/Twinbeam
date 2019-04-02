@@ -1,8 +1,16 @@
 /*
     
-    pic32.ld
+    pic32.ld (E.g for MX, MZDA and MM.)
     
-    Ensure `start.S` is the first file when `ld.lld start.S ...`.
+    Ensure 'start.S' is the first file when 'prompt> ld.lld start.S …'.
+    
+                              ram      flash     stkheap  
+      Model                 (bytes)   (bytes)    (bytes)  
+    ├─────────────────────┼─────────┼──────────┼─────────┤
+    ╎ PIC32MM0256GPM064   ┊ 0x7FFF  ┆ 0x3FFFF  ┆   28671 ╎
+    ╎ PIC32MX775F512(H|L) ┊ 0xFFFF  ┆ 0x7FFFF  ┆  520191 ╎
+    ╎ PIC32MZ2xxxDAxxxxx  ┊ 0x9FFFF ┆ 0x1FFFFF ┆  651264 ╎
+    └─────────────────────┴─────────┴──────────┴─────────┘
     
  */
 
@@ -12,7 +20,7 @@ StackAndHeap = 159*Pagesize; /* 4096 bytes reserved for .got, .abiflags_app, reg
 
 MEMORY {
   kseg1_program_flash : ORIGIN = 0xBD000000, LENGTH = 0x1FFFFF
-  kseg1_ram : ORIGIN = 0xA0000000, LENGTH = 0x9FFFF /* 640 kB (PIC32MZ2...) or 256 kB (PIC32MZ1...). */
+  kseg1_ram : ORIGIN = 0xA0000000, LENGTH = 0x9FFFF /* 640kB (PIC32MZ2…) or 256kB (PIC32MZ1…). */
 }
 
 SECTIONS

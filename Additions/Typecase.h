@@ -6,7 +6,7 @@
       'fat-pipe') ✚ ★ ‽ ⸺ \ 𐤟 (PHOENICIAN WORD SEPARATOR) ↩︎ ↹
     Example: ｟↹↩︎｠★
     Logic and one-liners: ≅ ≠ ⋍ ~ ⟶ ⟷ ⊂⊄⊆⊈ ⊃ (Małuszyński inclusion) ∩∪ ∈∉
-      ¬∧∨ ≤≥ ≰ ≱ ∞ ∀∃∄ ⊨ ∅ 𝜖 √ ∑∏ ∂∆ ∇𝛻 ∫∬∭ ℕℤℂℝ ℚ ¶
+      ¬∧∨ ≤≥ ≰ ≱ ∞ ∀∃∄ ⊨ ∅ 𝜖 √ ∑∏ ∂∆ ∇𝛻 ∫∬∭ ℕℤℂℍℝ ℚ ¶ ⌈⌉ ⌊⌋
       𝘦․𝘨 𝐊 (ᵃ𝑛/ᵇ𝑛), where n∈[1,∞) = a₁/(b₁ + a₂/(b₂ + …)
     Greek: 𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲𝛳𝛴𝛵𝛶𝛷𝛸𝛹𝛺 𝛼𝛽𝛾𝛿𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜎𝜏𝜐𝜑𝜒𝜓𝜔 𝜙𝜛
     Mathematics 𝐼𝑡𝑎𝑙𝑖cs: 𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐾𝐽𝐿𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍 𝑎𝑏𝑐𝑑𝑒𝑓𝑔ℎ𝑖𝚤𝑗𝚥𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧
@@ -15,8 +15,8 @@
     Math. Sans-serif B𝗼𝗹𝗱: 𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭 𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵 𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇
     Math. Sans-serif (non-Bold) 𝘐𝘵𝘢𝘭𝘪𝘤: 𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡 𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻
     Mathematics 𝙼𝚘𝚗𝚘space: 𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿 𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉 𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣
-    Models and Mathematics: ⊏ ⊑ ⊢ ⊨, ⊿ ª0 + …  ⃨ + ªn₋1 n₍2k₊1₎ ª1⋯ªk ∴ ∵ ∎ ⇀↽
-    Parenthesis: ⎛⎜⎝   ⎞⎟⎠ ⁻⁺⁽¹ˣ⁾⁼ⁿ ᵢᵣᵤᵥᵦᵧᵨᵩᵪ₊₋₌₍₎⨧ₐₑₒₓₔⱼ ᵃⁿᵈᵉʰᵊᵇⁱˡˢᵋᵌᵍᵎᵏᵐⁿᵒᵖʳᵗᵘᵙᵚᵛˣʸᴬᴮᴴᴵᴺ
+    Models and Mathematics: ⊏ ⊑ ⊢ ⊨ ⊿ ª0 + … + ªn₋1 n₍2k₊1₎ ª1⋯ªk ∴ ∵ ∎ ⇀↽
+    Parenthesis: ⎛⎜⎝   ⎞⎟⎠ ⁻⁺⁽¹ˣ⁾⁼ⁱⁿ ᵢᵣᵤᵥᵦᵧᵨᵩᵪ₊₋₌₍₎⨧ₐₑₒₓₔⱼ ᵃⁿᵈᵉʰᵊᵇⁱʲˡˢᵋᵌᵍᵎᵏᵐⁿᵒᵖʳᵗᵘᵙᵚᵛˣʸᴬᴮᴴᴵᴺᵅᵝᵞᵟᵋᶿᵠᵡ
     Matrices and Conditionals: ⎡⎢⎣ ⋱ ⋰ ⋮ ⎤⎥⎦  ⎧⎨⎩  ⎫⎬⎭  ⎪
     Temporals: ◯ ♢ ▢
     ^-Graphemes: ␁ ␂ ␚
@@ -24,7 +24,7 @@
     Chemistry Hobbyist: ⇾ ₀₁₂₃₄₅₆₇₈₉
     Alt. Math: ± ∓ ∔ ×
     Big No-no: ≈ ≣ --<'', '' (Slanted dowsing.)
-    Misc¹: ℃ ℉ ® © ™ № ºª µ Ω ℊ ϵε϶— ℑ𝑚 ℜ𝑒 ∁ ≙ ⋈ ⫝ ⦣⧄⧅⧆⧇ ⧈ ⧉ ╳ ☩ ₧ ₥
+    Misc¹: ℃ ℉ ® © ™ № ºª µ Ω ℊ ϵε϶— ∁ ≙ ⋈ ⫝ ⦣⧄⧅⧆⧇ ⧈ ⧉ ╳ ☩ ₧ ₥
     Misc²: ª º ✓ ✔︎ ☑︎☒ ✕ ✖︎ ✗ ✘ ▲◇□▪︎ △□◇▷▽ ○◦●∙⦁
      à ⬷ The letter 'a'+'COMBINING GRAVE ACCENT'. See ACUTE and CIRCUMFLEX
     a͟͞z͟͞ ⬷ 'Combining double-macaron' or the 'Bitfields' macraron'.
@@ -41,9 +41,9 @@
      ╮  ╯ ╭ ╰ ╱ ╲ ╳     ┤ ┌ ├ ┼ ┘ └ ┐ ─ │ ┴ ┬    ╴╵╷╴
    
       Key   Value   ∃
-     ┾━━━╈━━━━━━━━━┿━┽           ⌏  ⌎   ⌜  ⌝  ⌖
-     │k₁ ┃         │✓│           ⌍  ⌌   ⌞  ⌟  ‖
-     └───┸─────────┴─┘
+     ├───┼─────────┼─┤           ⌏  ⌎   ⌜  ⌝  ⌖
+     ╎k₁ ┆         ┊✓╎           ⌍  ⌌   ⌞  ⌟  ‖
+     └───┴─────────┴─┘
    
           ┌def┐
           │   │                     ╭─ Leaf 1 ──╮
@@ -54,7 +54,7 @@
    
       ∞              ∞
       ⌠  🔍😐        \̅
-      ⎮ 𝘦⁻ˣ 𝘥𝑥 ≅ √𝘹 + › ⁣⅟k² ≅ @w Sum[, ... ∈ ℝ (DOUBLE-STRUCK CAPITAL R)    (0)
+      ⎮ 𝘦⁻ˣ 𝘥𝑥 ≅ √𝘹 + › ⁣⅟k² ≅ @w Sum[, … ∈ ℝ (DOUBLE-STRUCK CAPITAL R)    (0)
       ⌡              /͟
      -∞             k=1
    
