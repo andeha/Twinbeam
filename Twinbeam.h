@@ -591,7 +591,7 @@ struct Chronology {
     
     /**
      
-     Return hour (0-23), minute (0-59), seconds (0-59) and fractionals
+     Return hour (0-23), minute (0-59), seconds (0-59) and fractions
      since midnight.
      
      */
