@@ -2,7 +2,7 @@
 //  Twinbeam.h (libTwinbeam_X_cdcdc7f.a)
 //  Twinbeam (C++20 for clang to x86_64 or MIPS.)
 //  MIPS compiled using clang version 7.0.1
-//  x86_64 compiled using Xcode Version 10.1 (10B61)
+//  x86_64 compiled using Xcode Version 10.2 (10E125)
 //  
 
 #ifndef __TWINBEAM_H
@@ -247,7 +247,7 @@ MACRO void * _Block_copy(const void *arg) { struct Block_layout *block = (struct
 MACRO void _Block_release(const void *arg) { Fallow((void *)arg); }
 typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
-MACRO __builtin_int_t SystemInfoPagesize() { return 8192; } /* One definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
+MACRO __builtin_int_t SystemInfoPagesize() { return 4096; } /* One definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
 #ifdef  __mips__
 typedef uint32_t mips32_context[32];
@@ -268,7 +268,7 @@ MACRO int64_t abs64i(int64_t x) { return x & ~SIGNBIT_INT64; }
 MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
 /* template <typename T> T abs(T x) { return x < 0 ? -x : x; } */
 #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error")))
-#define STRANGE_MAIN void _Noreturn main
+/* #define STRANGE_MAIN void _Noreturn main */
 #ifdef __x86_64__
 #define LEAF __attribute__ ((no_caller_saved_registers))
 /* #define BEFORE_CTXSWITCH __attribute__ ((preserve_all))
@@ -475,7 +475,7 @@ struct Memoryregion {
       MemoryDelegate *delegate = NULL, bool allowWrites = false,
       void *(^alloc)(__builtin_int_t bytes) = Alloc);
     
-#pragma mark Memory Mangement
+#pragma mark Implicits
     
     Memoryregion() = delete;
     
@@ -499,7 +499,7 @@ bool IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 
 #define va_epilogue __builtin_va_end(__arg);
 extern "C" void Sheriff();
-// #define ⭐️ Sheriff();
+/* #define ⭐️ Sheriff(); */
 enum Impediment { MustBeOrdered, JustSwap };
 int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂, Impediment it); /* Non-
 atomic, yet consistent and gracefully failing indicated through a non-zero return value. */
@@ -533,7 +533,7 @@ namespace Fiber {
       uint8_t alcoda[Bytes]; /* ⌖ */
     };
 #endif
-    struct fuContext {
+    struct fuContext { /* Consider `Orbital` and `Principia`. */
       ucontext_t ctx;
       int 🥈 bytes = sizeof(ucontext_t);
       uint8_t alcoda[bytes]; /* ⌖ */
@@ -591,8 +591,8 @@ struct Chronology {
     
     /**
      
-     Return hour (0-23), minute (0-59), seconds (0-59) and fractional
-     precision since midnight.
+     Return hour (0-23), minute (0-59), seconds (0-59) and fractionals
+     since midnight.
      
      */
     
@@ -605,11 +605,11 @@ struct Chronology {
      @param parts  Contains year, month (1-12), day (1-31), hour (0-23),
        minutes (0-59) and seconds (0-59)
      
-     @param fract  The number of 232 ps intervals to add. Note TS(.../
+     @param frac The number of 232 ps intervals to add. Note TS(.../
      
      */
     
-    Opt<Chronology::Instant> timestamp(int32_t parts[6], UQ32 fract = 0) const;
+    Opt<Chronology::Instant> timestamp(int32_t parts[6], UQ32 frac = 0) const;
     
     /**  Return a future instant. */
     
@@ -659,7 +659,7 @@ TS( /* E.𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:
   
   */
  
-typedef Chronology Chronology🚀; /* I․𝘦 'Celestial fractional' with 'identical' epoc. */
+typedef Chronology Chronology🚀; /* I.𝘦 'Celestial fractional' with 'identical' epoc. */
 
 typedef Chronology Chronology🦠; /* With 2⁻⁶⁵ 𝘢․𝘬․𝘢 `UQ65`; light
   travels approximately 8.126 𝑝m ('pico meter') per increment. */
