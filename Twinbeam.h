@@ -270,13 +270,16 @@ MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
 #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error")))
 /* #define STRANGE_MAIN void _Noreturn main */
 #ifdef __x86_64__
-#define LEAF __attribute__ ((no_caller_saved_registers))
 /* #define BEFORE_CTXSWITCH __attribute__ ((preserve_all))
-#define HOT_PATH  __attribute__ ((preserve_most)) */
+ #define HOT_PATH __attribute__ ((preserve_most)) */
+#define READONLY __attribute__ ((section(".rodata,.rodata")))
+#define LEAF __attribute__ ((no_caller_saved_registers)) /* Sluggee. */
 #elif defined __mips__
-// void __attribute__ ((interrupt, leaf)) v1 ();
+// void __attribute__ ((interrupt /*, leaf */)) v1 ();
+#define READONLY __attribute__ ((section(".rodata")))
 #define LEAF
 #endif
+#define /* Do not follow. (That sometimes occurs...) */ LEAFLING
 #define IsOdd(x) ((x) & 0b1) /* For int32_t|int64_t. */
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
@@ -539,7 +542,7 @@ namespace Fiber {
       uint8_t alcoda[bytes]; /* ⌖ */
     };
     int Snapshot(fuContext *ucp) LEAF;
-    int Recall(const fuContext *ucp) LEAF;
+    int Recall(const fuContext *ucp) LEAFLING;
     void Incubate(fuContext *ucp, void (*ufnc)(...), int argc, ...);
 #ifdef __x86_64__
     register __builtin_uint_t rsp asm("rsp"), rbp asm("rbp");
@@ -591,7 +594,7 @@ struct Chronology {
     
     /**
      
-     Return hour (0-23), minute (0-59), seconds (0-59) and fractions
+     Return hour (0-23), minute (0-59), seconds (0-59) and fractionals
      since midnight.
      
      */
