@@ -8,10 +8,10 @@
  objdump -section-headers Cordal */
 
 template <typename T>
-struct Cordal { /* A․k․a 𝚅𝚎𝚌𝚝𝚘𝚛ᵚ⁻. */
-   const T * start; __builtin_int_t bytes;
+struct Cordal { /* A․𝘬․𝘢 𝚅𝚎𝚌𝚝𝚘𝚛ᵚ⁻. */
+   __builtin_int_t bytes; const T * start;
    Cordal(std::initializer_list<T> l) { start = l.begin(); bytes = l.size(); }
-   const T& operator[](__builtin_int_t idx) const { return const_cast<T&>(start + idx); }
+   const T& operator[](__builtin_int_t idx) const { return const_cast<T&>(*(start + idx)); }
 }; /* 0P: Points into /pertaining/ the .𝚛𝚘𝚍𝚊𝚝𝚊 segment that hypothetically is copied in `start` at startup. */
 
 #define READONLY __attribute__ ((section(".rodata,.rodata")))
