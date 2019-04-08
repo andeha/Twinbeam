@@ -15,7 +15,7 @@
     Math. Sans-serif B𝗼𝗹𝗱: 𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭 𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵 𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇
     Math. Sans-serif (non-Bold) 𝘐𝘵𝘢𝘭𝘪𝘤: 𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡 𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻
     Mathematics 𝙼𝚘𝚗𝚘space: 𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿 𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉 𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣
-    Models and Mathematics: ⊏ ⊑ ⊢ ⊨ ⊿ ª0 + … + ªn₋1 n₍2k₊1₎ ª1⋯ªk ∴ ∵ ∎ ⇀↽
+    Models and Mathematics: ⊏ ⊑ ⊢ ⊨ ⊿ ª0 + … + ªn₋1 n₍2k₊1₎ ª1⋯ªk ∴ (tf) ∵ (b) ∎ ⇀↽
     Parenthesis: ⎛⎜⎝   ⎞⎟⎠ ⁻⁺⁽¹ˣ⁾⁼ⁱⁿ ᵢᵣᵤᵥᵦᵧᵨᵩᵪ₊₋₌₍₎⨧ₐₑₒₓₔⱼ ᵃⁿᵈᵉʰᵊᵇⁱʲˡˢᵋᵌᵍᵎᵏᵐⁿᵒᵖʳᵗᵘᵙᵚᵛˣʸᴬᴮᴴᴵᴺᵅᵝᵞᵟᵋᶿᵠᵡ
     Matrices and Conditionals: ⎡⎢⎣ ⋱ ⋰ ⋮ ⎤⎥⎦  ⎧⎨⎩  ⎫⎬⎭  ⎪
     Temporals: ◯ ♢ ▢
@@ -23,7 +23,7 @@
     Signals: ⎍ ⎎ ⊕ ⏚ ㊉㊀ ㎽ ㎮ ㎯
     Chemistry Hobbyist: ⇾ ₀₁₂₃₄₅₆₇₈₉
     Alt. Math: ± ∓ ∔ ×
-    Big No-no: ≈ ≣ --<'', '' (Slanted dowsing.)
+    Big No-no: ≈ ≣ ≡ --<'', '' (Slanted dowsing.)
     Misc¹: ℃ ℉ ® © ™ № ºª µ Ω ℊ ϵε϶— ∁ ≙ ⋈ ⫝ ⦣⧄⧅⧆⧇ ⧈ ⧉ ╳ ☩ ₧ ₥
     Misc²: ª º ✓ ✔︎ ☑︎☒ ✕ ✖︎ ✗ ✘ ▲◇□▪︎ △□◇▷▽ ○◦●∙⦁
      à ⬷ The letter 'a'+'COMBINING GRAVE ACCENT'. See ACUTE and CIRCUMFLEX
@@ -42,25 +42,25 @@
    
       Key   Value   ∃
      ├───┼─────────┼─┤           ⌏  ⌎   ⌜  ⌝  ⌖
-     ╎k₁ ┆         ┊✓╎           ⌍  ⌌   ⌞  ⌟  ‖
+     ╎k₁ ┊         ┆✓╎           ⌍  ⌌   ⌞  ⌟  ‖
      └───┴─────────┴─┘
    
           ┌def┐
-          │   │                     ╭─ Leaf 1 ──╮
+          │   │                     ╭─ Leaf 1 ──╮           
      ─abc─┘─┐ ┘           ── Stem ──┤           ├── Again ──
-            └                       ╰─ Leaf 2 ──╯
+            └                       ╰─ Leaf 2 ──╯           
    
     „ ⃨as illustrated below or above:‟
    
-      ∞              ∞
-      ⌠  🔍😐        \̅
+      ∞              ∞                                                      
+      ⌠  🔍😐        \̅                                                      
       ⎮ 𝘦⁻ˣ 𝘥𝑥 ≅ √𝘹 + › ⁣⅟k² ≅ @w Sum[, … ∈ ℝ (DOUBLE-STRUCK CAPITAL R)    (0)
-      ⌡              /͟
-     -∞             k=1
+      ⌡              /͟                                                      
+     -∞             k=1                                                     
    
-      ⎡n₁₁     ⎤    ⎧ ⎫    ⎛   ⎞      ⸑
-      ⎢        ⎥    ⎨ ⎬    ⎜   ⎟     ⎸    ⎲
-      ⎣     nᵤᵥ⎦    ⎩ ⎭    ⎝   ⎠    ⎷    ⎳
+      ⎡n₁₁     ⎤    ⎧ ⎫    ⎛   ⎞      ⸑      
+      ⎢        ⎥    ⎨ ⎬    ⎜   ⎟     ⎸    ⎲ 
+      ⎣     nᵤᵥ⎦    ⎩ ⎭    ⎝   ⎠    ⎷    ⎳ 
    
    Further, consider:
    
