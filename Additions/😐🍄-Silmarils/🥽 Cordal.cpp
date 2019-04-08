@@ -1,4 +1,4 @@
-/*  Cordal.cpp — Accessing elements 𝑖𝑛𝑠𝑖𝑑𝑒 a read-only sequence. */
+/*  Cordal.cpp | 🥽 — Accessing elements 𝑖𝑛𝑠𝑖𝑑𝑒 a read-only sequence. */
 
 #include <Twinbeam.h>
 
