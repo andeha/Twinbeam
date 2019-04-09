@@ -2,7 +2,7 @@
 
 optflags = -g
 stem = libTwinbeam_pic32mz
-objsdir = ./.objs/7703a312-559A-43ca-A992-eabcf7f87663_$stem
+objsdir = ./.objs/7703a312-559A-43ca-A992-eaccf7f87663_$stem
 include ../tools.ninja
 platflags = -D__MZ__ -I ..
 flags = $optflags $pic32cflags $platflags
@@ -13,22 +13,19 @@ rule emitcontent
     command = $tools/llvm-ar t $progname.a
 
 rule lib
-    command = $tools/llvm-ar rcs Releases/$out\_$sha1git.a $in
+    command = $tools/llvm-ar rcs Releases/$out\_$sha1git.a $in; printf $sha1git
 
-build $stem: lib $objsdir/Utf8.o $objsdir/Tree.o                            $
-  $objsdir/Memory.o $objsdir/Chronology.o $objsdir/Strinng.o                $
-  $objsdir/Unicodes.o $objsdir/Unicode.o $objsdir/bignum.o                  $
-  $objsdir/SHA256.o $objsdir/printf.o $objsdir/pic32mz.o                    $
+build $stem: lib $objsdir/Utf8.o $objsdir/Tree.o $objsdir/Memory.o          $
+  $objsdir/Chronology.o $objsdir/bignum.o $objsdir/sha256.o                 $
+  $objsdir/pic32mz.o $objsdir/printf.o $objsdir/Fiber.o                     $
   $objsdir/exception.o $objsdir/System.o
+build $objsdir/Fiber.o: cc Fiber.cpp
 build $objsdir/Utf8.o: cc Utf8.cpp
 build $objsdir/Tree.o: cc Tree.cpp
 build $objsdir/Memory.o: cc Memory.cpp
 build $objsdir/Chronology.o: cc Chronology.cpp
-build $objsdir/Strinng.o: cc Strinng.cpp
-build $objsdir/Unicodes.o: cc Unicodes.cpp
-build $objsdir/Unicode.o: cc Unicode.cpp
 build $objsdir/bignum.o: cc bignum.cpp
-build $objsdir/SHA256.o: cc SHA256.cpp
+build $objsdir/sha256.o: cc sha256.cpp
 build $objsdir/printf.o: cc printf.cpp
 build $objsdir/pic32mz.o: cc pic32mz.cpp
 build $objsdir/exception.o: asm exception.S

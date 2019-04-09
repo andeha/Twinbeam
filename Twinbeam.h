@@ -339,8 +339,9 @@ typedef union {
       unsigned mantissah : 20;
       unsigned exponent  : 11;
       unsigned sign      :  1;
-   } ieee754b2;
-   /* struct {
+   } ieee754b2₂;
+   /* struct { ... } ieee754b2₁;
+   struct {
       unsigned absolute  : 31;
       unsigned sign      :  1;
    } sgned; */
@@ -536,18 +537,18 @@ namespace Fiber {
       uint8_t alcoda[Bytes]; /* ⌖ */
     };
 #endif
-    struct fuContext { /* Consider `Orbital` and `Principia`. */
+    struct Peel { /* Consider `Orbital` and `Principia`. */
       ucontext_t ctx;
       int 🥈 bytes = sizeof(ucontext_t);
       uint8_t alcoda[bytes]; /* ⌖ */
     };
-    int Snapshot(fuContext *ucp) LEAF;
-    int Recall(const fuContext *ucp) LEAFLING;
-    void Incubate(fuContext *ucp, void (*ufnc)(...), int argc, ...);
+    int Snapshot(Peel *ucp) LEAF;
+    int Recall(const Peel *ucp) LEAFLING;
+    void Incubate(Peel *ucp, void (*ufnc)(...), int argc, ...);
 #ifdef __x86_64__
     register __builtin_uint_t rsp asm("rsp"), rbp asm("rbp");
 #endif
-    typedef fuContext fiber_t;
+    typedef Peel fiber_t;
     
     /* __attribute__((callback (ufnc, uctx))) */
     inline void create(fiber_t& fib, void (*ufnc)(void *), void * uctx,

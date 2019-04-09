@@ -9,24 +9,21 @@ flags = $optflags $macoscflags $platflags
 include ../macOS/rules.ninja
 
 rule lib
-    command = xcrun ar rcs Releases/$out\_$sha1git.a $in
+    command = xcrun ar rcs Releases/$out\_$sha1git.a $in; printf $sha1git
 
-build $progroot: lib $objsdir/Utf8.o $objsdir/Tree.o                        $
-  $objsdir/Memory.o $objsdir/Chronology.o $objsdir/Strinng.o                $
-  $objsdir/Unicodes.o $objsdir/Unicode.o $objsdir/bignum.o                  $
-  $objsdir/SHA256.o $objsdir/printf.o $objsdir/macOS.o                      $
-  $objsdir/exception.o $objsdir/System.o 
+build $progroot: lib $objsdir/Utf8.o $objsdir/Tree.o $objsdir/Memory.o      $
+  $objsdir/Chronology.o $objsdir/bignum.o $objsdir/sha256.o                 $
+  $objsdir/macOS.o $objsdir/printf.o $objsdir/Fiber.o                       $
+  $objsdir/exception.o $objsdir/System.o
 build $objsdir/bignum.o: cc ../Source/bignum.cpp
 build $objsdir/Chronology.o: cc ../Source/Chronology.cpp
 build $objsdir/macOS.o: cc ../Source/macOS.cpp
 build $objsdir/Memory.o: cc ../Source/Memory.cpp
 build $objsdir/printf.o: cc ../Source/printf.cpp
-build $objsdir/SHA256.o: cc ../Source/SHA256.cpp
-build $objsdir/Strinng.o: cc ../Source/Strinng.cpp
+build $objsdir/sha256.o: cc ../Source/sha256.cpp
 build $objsdir/System.o: cc ../Source/System.cpp
 build $objsdir/Tree.o: cc ../Source/Tree.cpp
-build $objsdir/Unicode.o: cc ../Source/Unicode.cpp
-build $objsdir/Unicodes.o: cc ../Source/Unicodes.cpp
 build $objsdir/Utf8.o: cc ../Source/Utf8.cpp
+build $objsdir/Fiber.o: cc ../Source/Fiber.cpp
 build $objsdir/exception.o: asm ../Source/exception.S
 default $progroot
