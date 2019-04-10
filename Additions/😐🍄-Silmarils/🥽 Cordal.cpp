@@ -1,4 +1,4 @@
-/*  Cordal.cpp | 🥽 — Accessing elements 𝑖𝑛𝑠𝑖𝑑𝑒 a read-only sequence. */
+/*  Cordal.cpp | 📚 — Accessing elements 𝑖𝑛𝑠𝑖𝑑𝑒 a read-only sequence. */
 
 #include <Twinbeam.h>
 
@@ -18,7 +18,7 @@ struct Cordal { /* A․𝘬․𝘢 𝚅𝚎𝚌𝚝𝚘𝚛ᵚ⁻. */
 
 int constants₁[] READONLY = { 1, 2, 3 };
 
-/* The symbol `constants₁` references `{ 1,2,3 }` pertaining .𝚛𝚘𝚍𝚊𝚝𝚊. */
+/* The symbol `constants₁` references `{ 1,2,3 }` pertaining ․𝚛𝚘𝚍𝚊𝚝𝚊. */
 
 #pragma clang section bss="myBSS" data="myData" rodata="rodata" text="myText"
 
