@@ -19,9 +19,9 @@ main(
 )
 {
     switch (__builtin_coreid()) {
-    case 0: Load("🍏", 0); Fiber::create(😎₁, 😎₁ᵪ, 0); 🎼(😎₁ᵪ); break;
-    case 1: Load("🍎", 1); Fiber::create(😎₂, 😎₂ᵪ, 0); 🎼(😎₂ᵪ); break;
-    case 2: Load("🌳", 2); Fiber::create(💡,  💡ᵪ,  0); 🎼(💡ᵪ);  break;
+    case 0: Load("🍏", 0); Fiber::create(😎₁, 😎₁ᵪ, 0); 🎼(😎₁); break;
+    case 1: Load("🍎", 1); Fiber::create(😎₂, 😎₂ᵪ, 0); 🎼(😎₂); break;
+    case 2: Load("🌳", 2); Fiber::create(💡,  💡ᵪ,  0); 🎼(💡);  break;
     } /* TODO: Add cores, improve the API and jot down the details. */
     return 0; /* (Also attempt to add HIDDEN `/​*` and `*​/` Unicodes to C++). */
 } /* ...and '\n' that renders at design-time as ␣. */
