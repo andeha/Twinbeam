@@ -15,7 +15,7 @@
 #define unionᵢ union __attribute__ ((internal_linkage))
 #define inexorable static __attribute__ ((internal_linkage)) /* embedded */
 /* Line above replaces `INNER_DATA` ∧ `INNER_FUNCTION`. 'See 𝚗𝚖 for details'. */
-#define DISORDERABLE __attribute__((weak)) // Artificial
+#define DISORDERABLE __attribute__((weak)) /* Artificial */
 typedef signed char         int8_t;
 typedef unsigned char       uint8_t;
 typedef unsigned long long  uint64_t;
@@ -38,7 +38,7 @@ typedef short               int16_t;
 typedef __builtin_uint_t Tribool;
 
 typedef struct bignum {
-  constexpr static int maxdigits = 100; /* To avoid: Templates, … */
+  constexpr static int maxdigits = 100; /* To not: Templates, … */
   char digits[maxdigits]; /* Binary coded decimals. */
   int signbit; /* Indicates with 𝟷 if positive and with -𝟷 if negative. */
   int lastdigit; /* High-order digit index. */
@@ -49,7 +49,7 @@ void initialize_bignum(bignum *n);
 void add_bignum(bignum *a, bignum *b, bignum *c);
 void subtract_bignum(bignum *a, bignum *b, bignum *c);
 int compare_bignum(bignum *a, bignum *b);
-void digit_shift(bignum *n, __builtin_int_t d); /* Multiply 𝚗 by 10ᵈ. */
+void digit_shift(bignum *n, __builtin_int_t d); /* Multiply n by 10ᵈ. */
 void multiply_bignum(bignum *a, bignum *b, bignum *c);
 void divide_bignum(bignum *a, bignum *b, bignum *c);
 
@@ -83,14 +83,17 @@ template <typename T> struct SemanticPointer { T pointer; };
 #define Si_FOCAL
 #define OPT_Si_FOCAL
 #define ENCLAVED
-// #define ⚠️_IMPLIES_DOING_HARDTIME
+// #define ⚠️_IMPLICATIONS_WHILE_HARDTIMES
 #define ARGUMENTATIVE /* A․𝘬․𝘢 `ONLY_FOR_SOFT_REALTIME`. */
 #define MAY_CONTAIN_TRACES_OF_FIRM_REALTIME
 #define INFLATABBLE
 #define SYNTESIZABLE /* I.𝘦 no loops, … */
 #define FOSSILATED
 #define CONTEMPLATE
-#define 🚫🔌 ARGUMENTATIVE // ⏲
+#define 🚫🔌 ARGUMENTATIVE /* ⏲ */
+#define PLUSKVAMCOMPLETE
+#define CHRONOLOGICAL
+#define SPATIALPERTUBAL
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -279,7 +282,7 @@ MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
 #define READONLY __attribute__ ((section(".rodata")))
 #define LEAF
 #endif
-#define /* Do not follow. (That sometimes occurs...) */ LEAFLING
+#define /* Do not follow. (That sometimes occurs…) */ LEAFLING
 #define IsOdd(x) ((x) & 0b1) /* For int32_t|int64_t. */
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
@@ -408,10 +411,8 @@ typedef union {
      unsigned mantissa : 23;
      unsigned exponent :  8;
      unsigned sign     :  1;
-   } ieee754;
-   struct {
-      unsigned sign      :  1; // ⫝
-   } ieee754b10;
+   } ieee754₂;
+   struct { /* ⫝ */ } ieee754₁₀;
    uint32_t bits;
    int32_t sgned;
 } tetra;
@@ -513,6 +514,7 @@ atomic, yet consistent and gracefully failing indicated through a non-zero retur
 #ifdef __x86_64__
 #define POSIX_FIBER
 #elif defined __mips__
+#define MIPS_VIRTUAL_MULTITHREADED
 #define MIPS_MCU_AUTOMATIC_PROLOG_EPILOG_IRQ
 #endif
 #include <Source/osXFiber.hpp>
@@ -550,7 +552,7 @@ namespace Fiber {
 #endif
     typedef Peel fiber_t;
     
-    /* __attribute__((callback (ufnc, uctx))) */
+    /* __attribute__ ((callback (ufnc, uctx))) */
     inline void create(fiber_t& fib, void (*ufnc)(void *), void * uctx,
       void *(^alloc)(__builtin_int_t bytes) = Alloc) {
         Snapshot(&fib);
@@ -566,7 +568,7 @@ namespace Fiber {
         Incubate(&fib, (void (*)(...))ufnc, 1, uctx);
     }
     
-    /* __attribute__((callback (ufnc, fib))) */
+    /* __attribute__ ((callback (ufnc, fib))) */
     inline void create(Fiber::fiber_t& fib, void (*ufnc)(Fiber::fiber_t *),
       void *(^alloc)(__builtin_int_t bytes) = Alloc) {
         Fiber::create(fib, (void (*)(void *))ufnc, (void *)&fib, alloc);
