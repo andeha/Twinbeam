@@ -2,7 +2,7 @@
 //  Additions.h to Twinbeam.
 //  C++2a to clang to x86_64 and MIPS.
 //  Version 7.0.1 to MIPS.
-//  Xcode Version 10.1 beta (10B61) to x86_64.
+//  Xcode Version 10.2 beta (10E125) to x86_64.
 //
 
 #ifndef __ADDITIONS_H
@@ -21,9 +21,9 @@ CastToText(
 #define HALF_EPS1    1.0009765625                       /* 1+2⁻¹⁰ …maybe 2⁻¹¹. */
 #define Q31_EPS1     1.0000000004656612873077392578125  /* 1+2⁻³¹ */
 #define Q15_EPS1     1.000030517578125                  /* 1+2⁻¹⁵ */
-#define Q7_EPS1      1.0078125                          /* 1+2⁻⁷ */ 
+#define Q7_EPS1      1.0078125                          /* 1+2⁻⁷ */
 #define X86FP80_EPS1 1.0000000000000000000542101        /* 1+2⁻⁶⁴ */
-#define BINARY128_EPS1 1.000000000000000000000000000000000096296
+#define BINARY128_EPS1 1.000000000000000000000000000000000096296 /* 754-2008 */
 /* decimal128/binary128, 𝜀b₂≈log₁₀(2¹¹³)≈34.16 decimal digits, BSM */
 #ifdef __x86_64__
 typedef long double x86_fp80;
@@ -40,16 +40,16 @@ typedef double maxprec;
 #define IEEE754BASE2_64BIT_QNAN   0x7ff8000000000000L /* Quiet */
 #define IEEE754BASE2_32BIT_QNAN   0x7FC00000
 
-MACRO bool isinf(double x) { octa o; o.base2 = x; return o.bits ==
+MACRO bool isinf(double x) { octa o; o.base₂ = x; return o.bits ==
   IEEE754BASE2_64BIT_NINF || o.bits == IEEE754BASE2_64BIT_PINF; }
 
-MACRO bool isnan(double x) { octa o; o.base2 = x; return (o.ieee754b2.mantissah
-  != 0 || o.ieee754b2.mantissal != 0) && o.ieee754b2.exponent == 0x7ff; } /* Exponent is eleven bits. Sign not relevant; and IEEE 754-2008: MSB is `is_quiet`. */
+MACRO bool isnan(double x) { octa o; o.base₂ = x; return (o.ieee754b2₂.mantissah
+  != 0 || o.ieee754b2₂.mantissal != 0) && o.ieee754b2₂.exponent == 0x7ff; } /* Exponent is eleven bits. Sign not relevant; and IEEE 754-2008: MSB is `is_quiet`. */
 
-MACRO bool isexactlyzero(double x) { octa o; o.base2 = x; return o.bits ==
+MACRO bool isexactlyzero(double x) { octa o; o.base₂ = x; return o.bits ==
   IEEE754BASE2_64BIT_PZERO || o.bits == IEEE754BASE2_64BIT_NZERO; }
 
-MACRO double abs64d(double x) { octa o; o.base2 = x; o.bits &= ~SIGNBIT_INT64; return o.base2; }
+MACRO double abs64d(double x) { octa o; o.base₂ = x; o.bits &= ~SIGNBIT_INT64; return o.base₂; }
 
 enum GaussianApproximate { AbramowitzStegun, ZogheibHlynka };
 int Gaussian(GaussianApproximate approximate, double *out);
@@ -78,21 +78,23 @@ int Roman(__builtin_int_t n, void (^out)(char numeral));
 #pragma mark - Decoration in Procrastinative Style
 
 typedef struct UnicodeIntervalAnd𝑂𝑟Location {
-  __builtin_int_t tetrasRelativeOffsetFirst;
-  __builtin_int_t tetrasRelativeOffsetLast;
+  __builtin_int_t tetrasRelativeFirst;
+  __builtin_int_t tetrasRelativeLast;
 } UnicodeArtifact;
 
 typedef struct UnicodeBlock {
-  __builtin_int_t linesOffsetFirst;
-  __builtin_int_t linesOffsetLast;
+  __builtin_int_t linesOffsetFirst, linesOffsetLast;
 } UnicodeBlock;
 
+#include <Additions/Knot.hpp>
+__builtin_int_t Utf8BytesUntilNull(const char *utf8, __builtin_int_t max);
+/* __builtin_int_t UnicodesUntilNull(const char *utf8, __builtin_int_t max); */
+__builtin_int_t UnicodesUntilExplicitEOT(const char32_t *nativeEndianUnicodes, __builtin_int_t max); /* Required by `Map<const char32_t *, V>` */
 #include <Additions/Map.hpp>
-#include <Additions/Urn.hpp>
 
 FINAL struct DecoratedString { /* A․𝘬․𝘢 `IntervallicString`. */
     /*   ⎡      😐≅        ⎤
-        ♢⎢    😐?😐≅😐     ⎥
+        ♢⎢    😐?😐≅😐    ⎥
          ⎣ 😐?😐≅😐?😐?😐?⎦   */
     
     DecoratedString(const char32_t *nativeEndianUnicodes,
@@ -100,11 +102,11 @@ FINAL struct DecoratedString { /* A․𝘬․𝘢 `IntervallicString`. */
     
     DecoratedString() = delete;
     
-    Urn<Utf8Artifact> original;
+    Knot<Utf8Artifact> original;
     
-    Urn<UnicodeIntervalAnd𝑂𝑟Location> parsed;
+    Knot<UnicodeIntervalAnd𝑂𝑟Location> parsed;
     
-    Urn<UnicodeBlock> rendered;
+    Knot<UnicodeBlock> rendered;
     
     typedef __builtin_int_t Parsedᴵᵈˣ;
     
@@ -150,7 +152,7 @@ struct Utf8Terminal {
       void (^touchbase)(char32_t unicode, bool &stop)
     ) const;
     
-    virtual int write(char32_t unicode) const; /* …and not `char utf8`. */
+    virtual int write(char32_t unicode) const; /* …and not 𝚌𝚑𝚊𝚛 𝚞𝚝𝚏𝟾․ */
     
     void (^scientificFormat)(double x, Utf8Terminal &stream);
     
@@ -166,10 +168,6 @@ void Present(Utf8Terminal &term, char32_t unicode);
 void Present(Utf8Terminal &term, const char * utf8);
 void Present(Utf8Terminal &term, const DecoratedString& ds);
 /* void Present(Utf8Terminal &term, UnicodeBlock location); */
-
-__builtin_int_t Utf8BytesUntilNull(const char *utf8, __builtin_int_t max);
-/* __builtin_int_t UnicodesUntilNull(const char *utf8, __builtin_int_t max); */
-__builtin_int_t UnicodesUntilExplicitEOT(const char32_t *nativeEndianUnicodes, __builtin_int_t max); /* Required by `Map<const char32_t *, V>` */
 
 #pragma mark - Conveniences for Small Clients
 
@@ -189,7 +187,7 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char *utf8)
 { Present(term, utf8); return term; }
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char32_t *unicodesOrEOT) {
-  __builtin_int_t tetras = UnicodesUntilExplicitEOT(unicodesOrEOT, BUILTIN_INT_MAX); /* ...UnicodesUntilNull may compile without warning. */
+  __builtin_int_t tetras = UnicodesUntilExplicitEOT(unicodesOrEOT, BUILTIN_INT_MAX); /* …UnicodesUntilNull may compile without warning. */
   Memoryregion region { (void *)unicodesOrEOT, tetras<<2 };
   Memoryview view { &region, 0, region.bytes() };
   __builtin_int_t beam = 0;
@@ -210,7 +208,7 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char32_t *unicodesOrEO
 // Utf8Terminal & operator<<(Utf8Terminal &u8os, Utf8Terminal present) { return u8os; }
 
 extern "C" { extern const char *tab; extern const char *eol; extern const char
-  *sep; } // ↹ ↩︎ ¶
+  *sep; } /* ↹ ↩︎ ¶ */
 
 extern Utf8Terminal _myTerminal;
 
@@ -240,7 +238,7 @@ enum class Readlineopinion { accept, rejecting, commit, quit };
 
 int ReadUtf8(Readlineopinion (^feeder)(char &utf8byte), Inputcontrol (^line)
   (char * line)); int ReadUnicode(Readlineopinion (^feeder)(char32_t &unicode),
-  Inputcontrol (^line)(char32_t * line)); // Count symbols with __block inside `feeder`.
+  Inputcontrol (^line)(char32_t * line)); /* Count symbols with __block inside `feeder`. */
 
 #pragma mark Tri-cameral Tokenizer
 
@@ -251,7 +249,7 @@ Tokenize(
   Tokenizefact (^feeder)(char32_t &unicode),
   Inputcontrol (^ahead)(char32_t * unicodes, __builtin_int_t count),
   Inputcontrol (^token)(char32_t * unicodes, __builtin_int_t count)
-); // `Tokenize` - `ReadUnicode` = Opt<𝑓𝑢𝑡𝑢𝑟𝑒 𝑡𝑒𝑛𝑠𝑒>
+); /* `Tokenize` - `ReadUnicode` = Opt<𝑓𝑢𝑡𝑢𝑟𝑒 𝑡𝑒𝑛𝑠𝑒> */
 
 #pragma mark Language Translation
 
@@ -264,6 +262,7 @@ enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
 /* enum { ■ = 1, □ = 0, ⬚ = TriboolUnknown }; */
 
 #pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
-// ✂️ >> --<shoebox>{Fiber}
+
+/* ✂️ << --<shoebox>{Fiber} ✃ */
 
 #endif
