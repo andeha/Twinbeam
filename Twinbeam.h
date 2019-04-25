@@ -412,7 +412,7 @@ typedef union {
      unsigned exponent :  8;
      unsigned sign     :  1;
    } ieee754₂;
-   struct { /* ⫝ */ } ieee754₁₀;
+   struct { /* ⫝ */ } ieee754_2008₁₀;
    uint32_t bits;
    int32_t sgned;
 } tetra;
