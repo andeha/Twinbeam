@@ -87,7 +87,7 @@ template <typename T> struct SemanticPointer { T pointer; };
 #define ARGUMENTATIVE /* A․𝘬․𝘢 `ONLY_FOR_SOFT_REALTIME`. */
 #define MAY_CONTAIN_TRACES_OF_FIRM_REALTIME
 #define INFLATABBLE
-#define SYNTESIZABLE /* I.𝘦 no loops, … */
+#define SYNTESIZABLE /* I․𝘦 no loops, … */
 #define FOSSILATED
 #define CONTEMPLATE
 #define 🚫🔌 ARGUMENTATIVE /* ⏲ */
@@ -250,7 +250,7 @@ MACRO void * _Block_copy(const void *arg) { struct Block_layout *block = (struct
 MACRO void _Block_release(const void *arg) { Fallow((void *)arg); }
 typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
-MACRO __builtin_int_t SystemInfoPagesize() { return 4096; } /* One definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
+__builtin_int_t constexpr SystemInfoPagesize() { return 4096; } /* One definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
 #ifdef  __mips__
 typedef uint32_t mips32_context[32];
@@ -343,7 +343,7 @@ typedef union {
       unsigned exponent  : 11;
       unsigned sign      :  1;
    } ieee754b2₂;
-   /* struct { ... } ieee754b2₁;
+   /* struct { ... } ieee754b2₁; ⬷ 52 not available
    struct {
       unsigned absolute  : 31;
       unsigned sign      :  1;
@@ -498,7 +498,9 @@ template <typename T> T * materialize(Memoryview * view) {
   return Unicodestring(Endianness::Native, 💫(view), view.bytesCount,
   true); } */
 
-bool IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
+int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
+/* Returns `int` indicating difference at branch, -1 if equal and `0` when 
+  neither prefix nor equal. */
 
 #pragma mark - 😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
@@ -665,14 +667,14 @@ TS( /* E.𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:
   
   */
  
-typedef Chronology Chronology🚀; /* I.𝘦 'Celestial fractional' with 'identical' epoc. */
+typedef Chronology Chronology🚀; /* I․𝘦 'Celestial fractional' with 'identical' epoc. */
 
 typedef Chronology Chronology🦠; /* With 2⁻⁶⁵ 𝘢․𝘬․𝘢 `UQ65`; light
   travels approximately 8.126 𝑝m ('pico meter') per increment. */
 
 /**  The unperturbed — yet based on ¹³³Caesium — chronology. */
 
-Chronology& ComputationalChronology(); /* 𝖤.𝘨 for chronometers. */
+Chronology& ComputationalChronology(); /* 𝖤․𝘨 for chronometers. */
 
 /**  The chronology of the users' choice. */
 
