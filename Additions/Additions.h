@@ -1,8 +1,8 @@
 //
 //  Additions.h to Twinbeam.
 //  C++2a to clang to x86_64 and MIPS.
-//  Version 7.0.1 to MIPS.
-//  Xcode Version 10.2 beta (10E125) to x86_64.
+//  Version 8.0.0 to MIPS.
+//  Xcode Version 10.2.1 (10E1001) to x86_64.
 //
 
 #ifndef __ADDITIONS_H
@@ -25,11 +25,14 @@ CastToText(
 #define X86FP80_EPS1 1.0000000000000000000542101        /* 1+2⁻⁶⁴ */
 #define BINARY128_EPS1 1.000000000000000000000000000000000096296 /* 754-2008 */
 /* decimal128/binary128, 𝜀b₂≈log₁₀(2¹¹³)≈34.16 decimal digits, BSM */
+
+typedef long double ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾;
 #ifdef __x86_64__
-typedef long double x86_fp80;
-typedef x86_fp80 maxprec;
+/* typedef `<?> double` x86_fp80; */
+typedef ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾 maxprec;
 #elif defined __mips__
 typedef double maxprec;
+// typedef ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾 maxprec;
 #endif
 
 #define IEEE754BASE2_64BIT_PZERO  0x0000000000000000L
@@ -262,7 +265,5 @@ enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
 /* enum { ■ = 1, □ = 0, ⬚ = TriboolUnknown }; */
 
 #pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
-
-/* ✂️ << --<shoebox>{Fiber} ✃ */
 
 #endif

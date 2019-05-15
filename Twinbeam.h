@@ -1,8 +1,8 @@
 //  
 //  Twinbeam.h (libTwinbeam_X_cdcdc7f.a)
 //  Twinbeam (C++20 for clang to x86_64 or MIPS.)
-//  MIPS compiled using clang version 7.0.1
-//  x86_64 compiled using Xcode Version 10.2 (10E125)
+//  MIPS compiled using clang version 8.0.0
+//  x86_64 compiled using Xcode Version 10.2.1 (10E1001)
 //  
 
 #ifndef __TWINBEAM_H
@@ -15,7 +15,7 @@
 #define unionᵢ union __attribute__ ((internal_linkage))
 #define inexorable static __attribute__ ((internal_linkage)) /* embedded */
 /* Line above replaces `INNER_DATA` ∧ `INNER_FUNCTION`. 'See 𝚗𝚖 for details'. */
-#define DISORDERABLE __attribute__((weak)) /* Artificial */
+#define DISORDERABLE __attribute__((weak)) // Artificial
 typedef signed char         int8_t;
 typedef unsigned char       uint8_t;
 typedef unsigned long long  uint64_t;
@@ -87,7 +87,7 @@ template <typename T> struct SemanticPointer { T pointer; };
 #define ARGUMENTATIVE /* A․𝘬․𝘢 `ONLY_FOR_SOFT_REALTIME`. */
 #define MAY_CONTAIN_TRACES_OF_FIRM_REALTIME
 #define INFLATABBLE
-#define SYNTESIZABLE /* I․𝘦 no loops, … */
+#define SYNTESIZABLE /* I.𝘦 no loops, … */
 #define FOSSILATED
 #define CONTEMPLATE
 #define 🚫🔌 ARGUMENTATIVE /* ⏲ */
@@ -276,7 +276,7 @@ MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
 /* #define BEFORE_CTXSWITCH __attribute__ ((preserve_all))
  #define HOT_PATH __attribute__ ((preserve_most)) */
 #define READONLY __attribute__ ((section(".rodata,.rodata")))
-#define LEAF __attribute__ ((no_caller_saved_registers)) /* Sluggee. */
+#define LEAF __attribute__ ((no_caller_saved_registers))
 #elif defined __mips__
 // void __attribute__ ((interrupt /*, leaf */)) v1 ();
 #define READONLY __attribute__ ((section(".rodata")))
@@ -309,7 +309,7 @@ template <typename T> bool eqeql(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 🥇 NOT_EVERYTIME
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
 #define 🥈 WHEN_COMPILING /* Must be assigned to a `const` and no inline assembler. */
-/* #define fluctuant __block */
+#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․𝘢 `__block` and 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎. */
 
 #pragma mark Utf-8
 
@@ -343,7 +343,7 @@ typedef union {
       unsigned exponent  : 11;
       unsigned sign      :  1;
    } ieee754b2₂;
-   /* struct { ... } ieee754b2₁; ⬷ 52 not available
+   /* struct { ... } ieee754b2₁;
    struct {
       unsigned absolute  : 31;
       unsigned sign      :  1;
@@ -667,14 +667,14 @@ TS( /* E.𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:
   
   */
  
-typedef Chronology Chronology🚀; /* I․𝘦 'Celestial fractional' with 'identical' epoc. */
+typedef Chronology Chronology🚀; /* I.𝘦 'Celestial fractional' with 'identical' epoc. */
 
 typedef Chronology Chronology🦠; /* With 2⁻⁶⁵ 𝘢․𝘬․𝘢 `UQ65`; light
   travels approximately 8.126 𝑝m ('pico meter') per increment. */
 
 /**  The unperturbed — yet based on ¹³³Caesium — chronology. */
 
-Chronology& ComputationalChronology(); /* 𝖤․𝘨 for chronometers. */
+Chronology& ComputationalChronology(); /* 𝖤.𝘨 for chronometers. */
 
 /**  The chronology of the users' choice. */
 
