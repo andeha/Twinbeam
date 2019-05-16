@@ -51,7 +51,7 @@ TokenizeUtf8OrUnicode(
   Encoding encoding,
   Memoryview content,
   __builtin_int_t& beam,
-  void (^character)(char32_t unicode, __builtin_int_t byteOffset, bool& stop)
+  void (^/*several-*/character)(char32_t unicode, __builtin_int_t byteOffset, bool& stop)
 )
 {
     __builtin_int_t bytes = content.byteCount, i = beam;
@@ -62,7 +62,7 @@ TokenizeUtf8OrUnicode(
         if (encoding == Encoding::utf8) {
             const char *c = (const char *)p.pointer;
             charBytes = Utf8Followers(*(uint8_t *)c) + 1;
-            if (charBytes == -1) return 1; /* Possibly non-Utf8 byte. */
+            if (charBytes == -1) return 1; /* Possibly non-utf8 byte. */
             char32_t unicode = Utf8ToUnicode(c, charBytes);
             if (unicode == 0) return 1;
             character(unicode, i, stop);
@@ -84,14 +84,14 @@ Utf8Sync(
 #define Utf8Is8Bit(x) ((x) <= 0x7f)
 #define Utf8IsPointerToFollower(p) (((*p)&0b11000000)==0xC0)
     while (i && Utf8IsPointerToFollower(*p)) { (*p)--; i--; }
-    return i == 0 || !(Utf8IsLead(**p) || Utf8Is8Bit(**p)); // Branch prolongation, followed by branch safety.
+    return i == 0 || !(Utf8IsLead(**p) || Utf8Is8Bit(**p));
 }
 
 FOCAL
 int
 UnicodeToUtf8(
   char32_t u,
-  void (^completion)(const uint8_t *p, int bytes)
+  void (^/*sometimes-*/completion)(const uint8_t *p, int bytes)
 )
 {
     unsigned char 🥈ᵢ firstByteMark[7] = { 0x00, 0x00, 0xC0, 0xE0, 0xF0,

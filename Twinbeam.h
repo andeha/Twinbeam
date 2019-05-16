@@ -34,7 +34,7 @@ typedef int64_t             __builtin_int_t; /* 𝘈․𝘬․𝘢 sequential. *
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
 #endif
 typedef unsigned short      uint16_t;
-typedef short               int16_t;
+typedef short               int16_t; /* ≡`ᵐⁱᵖˢint` */
 typedef __builtin_uint_t Tribool;
 
 typedef struct bignum {
@@ -71,7 +71,7 @@ struct InnerFrame {
   struct Internals;                                                          \
   InnerFrame<Internals> impl_;
 #define 😐 APPEND_PIMPL }
-template <typename T> struct SemanticPointer { T pointer; };
+template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․k․a `DisjunctPointer`. */
 #define VISITISR(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + call */
 #define UNITTEST(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
 #define Panic(log,s) { printf("\n\n'%s'\nPanicking at %s in %s:%d\n",        \
@@ -187,24 +187,24 @@ extern "C" { int printf(const char *utf8format, ...) PRINTF_ATTRS /* Note that
   with for example `NULL` */; int atexit(void(*func)(void)); void exit(int); }
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
 extern "C" { void * malloc(size_t); void free(void *); }
-int
+int /* Returns ﹟unicodes streamed. Compare with 'prompt> man 3 printf'. */
 bprintf_utf8(
   unsigned short (^utf8)(char *p, short unsigned bytes),
   const char *utf8Format,
   __builtin_va_list arg
 );
-int /* Tuple<int, int, int>, I․𝘦 user-percieved characters, Unicodes and utf-8. */
+int /* Tuple<int, int, int> ↫ I․𝘦 user-percieved characters, Unicodes and utf-8. */
 bprintf_unicode(
   unsigned short (^utf8)(char *p, short unsigned bytes),
   const char32_t *unicodeFormatWithExplicitEOTTermination,
   __builtin_va_list arg
-);
+); /* …also returns ﹟unicodes. (Not the storage requirement placed on message reciever.) */
 typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
 #ifdef __x86_64__
 FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memory(
   ByteAlignedRef dst, /* const */ ByteAlignedRef src, __builtin_int_t bytes) {
   ByteAlignedRef org = dst; __asm__ __volatile__ ("rep movsb" : "+D"(dst),
-  "+S"(src), "+c"(bytes) : : "memory"); return org; }  // 𝘪․𝘦 𝚖𝚎𝚖𝚌𝚙𝚢
+  "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* A․𝘬․𝘢 𝚖𝚎𝚖𝚌𝚙𝚢 */
   #include <xmmintrin.h>  // ≥ SSE 4.2
   #include <immintrin.h>  // `blend` from smmintrin.h and AVX/AVX2 from avxintrin.h and avx2intrin.h
 FOCAL int  /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ __attribute__((
@@ -219,7 +219,7 @@ FOCAL int  /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ __attribute__((
 FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef
   dst, ByteAlignedRef src, __builtin_int_t bytes);
 FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁,
-  ByteAlignedRef p₂, __builtin_uint_t bytes); // I․𝘦 𝚖𝚎𝚖𝚌𝚖𝚙
+  ByteAlignedRef p₂, __builtin_uint_t bytes); /* A․𝘬․𝘢 𝚖𝚎𝚖𝚌𝚖𝚙 */
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
   constexpr uint32_t PIC32##serie##_##symbol = vaddr;                        \
   constexpr uint32_t PIC32##serie##_##symbol##CLR = (vaddr + 0x4);           \
@@ -259,12 +259,13 @@ typedef mips32_context jmp_buf2;
 typedef int64_t x86_64_context[(9 * 2) + 3 + 16];
 typedef x86_64_context jmp_buf2;
 #endif
-FOCAL void Base(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned
+FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned
   short base, unsigned short digitsOr0, /* Not more than 32 or 64 digits
   depending on word size! (Or set to `0` to skip leading zeros.) */ void
   (^out)(char 𝟶to𝟿));
-FOCAL void Base(__builtin_int_t ℤ, unsigned short base, unsigned short
-  digitsOr0, void (^out)(char 𝟶to𝟿));
+FOCAL void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short
+  digitsOr0, void (^out)(char 𝟶to𝟿and₋));
+#define OVERLOADABLE __attribute__ ((overloadable))
 #define SIGNBIT_INT32 0x80000000
 #define SIGNBIT_INT64 0x8000000000000000
 MACRO int64_t abs64i(int64_t x) { return x & ~SIGNBIT_INT64; }
@@ -313,7 +314,7 @@ template <typename T> bool eqeql(T x₁, T x₂) { return x₁ == x₂; }; }
 
 #pragma mark Utf-8
 
-int UnicodeToUtf8(char32_t uc, void (^completion)(const uint8_t *p, int bytes));
+int UnicodeToUtf8(char32_t uc, void (^sometimes)(const uint8_t *p, int bytes));
 
 __builtin_int_t Utf8Followers(uint8_t leadOr8Bit);
 
@@ -327,7 +328,7 @@ inline char32_t Subscript(short 𝟶to𝟿) { const char * s = "₀";
 
 struct Utf8Artifact { __builtin_int_t line, bytesOffset, count; };
 
-enum { END_OF_TRANSMISSION = U'\x4' };
+enum { END_OF_TRANSMISSION = U'\x4' }; /* Consider `int ⁸BitsAgain(char32_t uc, void (^always)(char c))` illustrating `Retropective-incorrect` and `occational-multiple`. */
 
 #pragma mark - 🌱
 
@@ -357,7 +358,7 @@ struct Octa { uint32_t h, l; };
 #ifdef __x86_64__
 typedef __int128_t __builtin_treeint_t;
 #elif defined __mips__
-typedef int64_t __builtin_treeint_t; /* Note: Is signed! */
+typedef int64_t __builtin_treeint_t; /* Note signed! */
 #endif
 
 void * Insert(void *opaque, __builtin_treeint_t data, void * ref); /* Consider
@@ -426,7 +427,7 @@ enum class Endianness { Native, Network };
 enum class Encoding { utf8, unicode };
 
 int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content,
-  __builtin_int_t& beam, void (^character)(char32_t unicode, __builtin_int_t
+  __builtin_int_t& beam, void (^several)(char32_t unicode, __builtin_int_t
   byteOffset, bool& stop));
 
 int Utf8Sync(uint8_t **p); /* Backs at most 3 bytes to regain sync. */
@@ -499,8 +500,8 @@ template <typename T> T * materialize(Memoryview * view) {
   true); } */
 
 int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
-/* Returns `int` indicating difference at branch, -1 if equal and `0` when 
-  neither prefix nor equal. */
+/* Returns `int` indicating difference at branch, -1 if equal and `0` when string contains
+  neither prefix nor is equal. */
 
 #pragma mark - 😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
@@ -639,14 +640,14 @@ struct Chronology {
     
     /**  Return weekday assuming a week starts on a Sunday. (Encoded as 0.) */
     
-    int dayofweek(Instant instant) const;
+    int dayofweek(Instant instant) const; /* Reconsider `numberedWeek`. */
     
 };
 
 int
 InstantToText(
   Chronology chronology,
-  Chronology::Instant ts,
+  Chronology::Instant ts, /* bool inclFrac, */
   void (^out)(char digitHyphenColonPeriodOrSpace)
 );
 

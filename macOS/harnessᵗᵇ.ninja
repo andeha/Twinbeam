@@ -1,0 +1,56 @@
+# buildᵗᵇ.ninja — Building units testing Twinbeam.
+
+optflags = -g
+
+cases = ../Unittests
+src = ../Source
+adds = ../Additions
+progname = TwinbeamUnits
+objs = ./.objs/7703a312-55B9-44da-A792-ebbcf9f87663_$progname
+platflags = -I ..
+include ../tools.ninja
+flags = $optflags $macoscflags $platflags
+include macbook.ninja
+
+rule link
+    command = xcrun ld -macosx_version_min 10.14.0 -lSystem -lc++ -o $out   $
+      $in $libtwinbeam
+
+# Consider x87math ⟷ bignum and ∩- exception.o
+build TwinbeamUnits: link $objs/harness.o $objs/x87math.o $objs/Chronology.o$
+  $objs/Utf8.o $objs/sha256.o $objs/printf.o $objs/exception.o              $
+  $objs/macOS.o $objs/System.o $objs/Memory.o $objs/Fiber.o $objs/Tree.o    $
+                                                                            $
+  $objs/BaseTests.o
+
+# $objs/BignumTests.o $objs/GuidTests.o $objs/History.o                     $
+
+build $objs/BaseTests.o: cc $cases/BaseTests.cpp
+#build $objs/ChronologyTests.o: cc $cases/ChronologyTests.cpp
+#build $objs/Doodle_n'_Tests.o: cc $cases/Doodle_n'_Tests.cpp
+#build $objs/GuidTests.o: cc $cases/GuidTests.cpp
+#build $objs/MallocTests.o: cc $cases/MallocTests.cpp
+#build $objs/MapTests.o: cc $cases/MapTests.cpp
+#build $objs/MemoryTests.o: cc $cases/MemoryTests.cpp
+#build $objs/MemTests.o: cc $cases/MemTests.cpp
+#build $objs/OptionalTests.o: cc $cases/OptionalTests.cpp
+#build $objs/PagesizeTests.o: cc $cases/PagesizeTests.cpp
+#build $objs/StringTests.o: cc $cases/StringTests.cpp
+#build $objs/TwinbeamTests.o: cc $cases/TwinbeamTests.cpp
+#build $objs/UrnTests.o: cc $cases/UrnTests.cpp
+#build $objs/UnicodeTests.o: cc $cases/UnicodeTests.cpp
+#build $objs/Utf8Tests.o: cc $cases/Utf8Tests.cpp
+
+build $objs/Tree.o: cc $src/Tree.cpp
+build $objs/Utf8.o: cc $src/Utf8.cpp
+build $objs/sha256.o: cc $src/sha256.cpp
+build $objs/Fiber.o: cc $src/Fiber.cpp
+build $objs/Memory.o: cc $src/Memory.cpp
+build $objs/printf.o: cc $src/printf.cpp
+build $objs/System.o: cc $src/System.cpp
+build $objs/macOS.o: cc $src/macOS.cpp
+build $objs/exception.o: asm $src/exception.S
+build $objs/Chronology.o: cc $src/Chronology.cpp
+build $objs/x87math.o: ccms $adds/x87math.cpp
+build $objs/harness.o: cc harness.cpp
+default $progname

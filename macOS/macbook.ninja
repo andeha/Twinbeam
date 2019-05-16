@@ -1,11 +1,11 @@
 
 rule cc
-    command = xcrun clang -std=c++2a $macoscflags -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
+    command = xcrun clang -std=c++2a -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
     depfile = $out.d
     deps = gcc
 
 rule ccms
-    command = xcrun clang -std=c++2a $macoscflags -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -fms-extensions -c $in -o $out
+    command = xcrun clang -std=c++2a -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -fms-extensions -c $in -o $out
     depfile = $out.d
     deps = gcc
 

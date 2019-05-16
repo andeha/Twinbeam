@@ -1,12 +1,12 @@
 # tools.ninja — Settings for macOS and Pic32.
-tools = /Users/<User- or project name>/mips-tools/7.0.1
-runtime = /Users/<User- or project name>/Twinbeam/pic32rt
+tools = /Users/<llvm for mips and x86>/8.0.0
+runtime = /Users/<User- or project name>/pic32rt
 additions = $runtime/../Additions
 gencdflags = -fno-rtti -fblocks -fno-exceptions
-# -mmicromips -dump-ast -mno-micromips -mnan=2008 -fdump-record-layouts /* -fasm-blocks -gcodeview */
+# -mmicromips -dump-ast -mno-micromips -mnan=2008 -fdump-record-layouts -fasm-blocks -gcodeview */
 pic32cflags = -target mipsel -fforce-enable-int128 -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32 -mfp64 -mmsa -mdspr2 -gdwarf-5 -Wno-format $gencdflags
 macoscflags = $gencdflags -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mmacosx-version-min=10.14
-host = /Users/<User- or project name>/Twinbeam/macOS
+host = /Users/<User- or project name>/macOS
+# Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git reset --hard HEAD^'.
 sha1git = `git log -1 '--pretty=format:%h'`
-
 

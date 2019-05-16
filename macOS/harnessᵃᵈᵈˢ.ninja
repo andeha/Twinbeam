@@ -1,28 +1,30 @@
-# build.ninja — Building units testing Additions and Twinbeam.
-
-cases = ../Unittests
-adds = ../Additions
+# buildᵃᵈᵈˢ.ninja — Building units testing Additions.
 
 optflags = -g
-progname = TwinbeamUnits
-objs = ./.objs/7703a312-55B9-44da-A792-ebbcf9f87663_$progname
+
+progname = AdditionsUnits
+libtwinbeam = ../Source/Releases/libTwinbeam_macOS_32c71bb.a
+cases = ../Unittests
+adds = ../Additions
+objs = ./.objs/7703a312-55B9-44da-A793-ebbcf9f87663_$progname
 platflags = -I ..
-libtwinbeam = ../Source/Releases/libTwinbeam_macOS_81f6858.a
 include ../tools.ninja
 flags = $optflags $macoscflags $platflags -I ../Thirdparty/include
-include rules.ninja
+include macbook.ninja
 
 rule link
     command = xcrun ld -macosx_version_min 10.14.0 -lSystem -lc++ -o $out   $
       $in $libtwinbeam ../Thirdparty/libfreetype_macOS.a
 
-build TwinbeamUnits: link $objs/harness.o                                   $
-  $objs/Additions.o $objs/Automata.o $objs/Bezier_101.o $objs/Bezier_201.o  $
-  $objs/FontRasterizer.o $objs/Fossilate.o $objs/Guid.o $objs/Half.o        $
-  $objs/Ieee754_64bits.o $objs/Present.o $objs/Random.o                     $
-  $objs/Streams.o $objs/Utf8Terminal.o $objs/x87math.o                      $
-  $objs/arctan.o $objs/atan₂.o $objs/cherry.o $objs/ℯ🔭².o $objs/mod.o      $
-  $objs/sincos.o $objs/tan.o $objs/tanh.o $objs/⌊𝑥⌋+nearest.o               $
+build TwinbeamUnits: link $objs/harness.o $objs/x87math.o $objs/Additions.o $
+  $objs/Automata.o $objs/Bezier_101.o $objs/FontRasterizer.o                $
+  $objs/Fossilate.o $objs/Guid.o $objs/Half.o $objs/Ieee754_64bits.o        $
+  $objs/Present.o $objs/Streams.o $objs/Utf8Terminal.o                      $
+                                                                            $
+  $objs/arctan.o $objs/atan₂.o $objs/ℯ🔭².o $objs/mod.o $objs/sincos.o      $
+  $objs/tan.o $objs/tanh.o $objs/⌊𝑥⌋+nearest.o $objs/cherry.o               $
+  $objs/Random.o                                                            $
+                                                                            $
   $objs/BaseTests.o
 
 # $objs/BignumTests.o $objs/GuidTests.o $objs/History.o                     $
@@ -40,9 +42,9 @@ build $objs/BaseTests.o: cc $cases/BaseTests.cpp
 #build $objs/PagesizeTests.o: cc $cases/PagesizeTests.cpp
 #build $objs/StringTests.o: cc $cases/StringTests.cpp
 #build $objs/TwinbeamTests.o: cc $cases/TwinbeamTests.cpp
+#build $objs/UrnTests.o: cc $cases/UrnTests.cpp
 #build $objs/UnicodeTests.o: cc $cases/UnicodeTests.cpp
 #build $objs/Utf8Tests.o: cc $cases/Utf8Tests.cpp
-#build $objs/VectorTests.o: cc $cases/VectorTests.cpp
 
 build $objs/Additions.o: cc $adds/Additions.cpp
 build $objs/Automata.o: cc $adds/Automata.cpp
