@@ -5,7 +5,7 @@
 /* Compile with xcrun clang @ccargs_macos -o tan⁻¹ '🥽 tan⁻¹.cpp' */
 
 MACRO void Khinchin(double z, double (^A)(double k, double z), double (^B)(
-  double k, double z), int count, double& acc) { for (int i=count-1; i >= 1;
+  double k, double z), int count, double &acc) { for (int i=count-1; i >= 1;
   i--) { acc = A(i,z)/(B(i,z) + acc); } }
   
 double tan⁻¹(double x)
