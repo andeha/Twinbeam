@@ -6,8 +6,9 @@
 #ifndef __FOSSILATE_H
 #define __FOSSILATE_H
 
-// typedef unsigned long long  uint64_t; // 64 bits on x86_64 as well as on MIPS32.
-// typedef long long           int64_t;
+/* 64 bits on x86_64 as well as on Mips32.
+typedef unsigned long long  uint64_t;
+ ypedef long long           int64_t; */
 
 #ifdef  __mips__
 typedef unsigned long       __builtin_uint_t;
@@ -17,7 +18,7 @@ typedef unsigned long long  __builtin_uint_t;
 typedef long long           __builtin_int_t;
 #endif
 
-// extern ENCRYPTED "Utf-8✕json" struct "myTuple" Pair { int a; int b; } foo() { return { 0, 0 }; }
+/* extern ENCRYPTED "Utf-8✕json" struct "myTuple" Pair { int a; int b; } foo() { return { 0, 0 }; } */
 
 /* ONETIMEPAD */ typedef struct Fossilate /* public : base */ {
     /* DISJUNCT */ union Value {
@@ -60,16 +61,17 @@ DISORDERABLE extern void (^Init)();
 DISORDERABLE extern void (^Putₒ)(char utf8);
 DISORDERABLE extern void (^Reciever)(void (*isr)(Fiber::fiber_t * self));
 DISORDERABLE extern void (^TerminalIn)(void (*isr)(Fiber::fiber_t * self));
-DISORDERABLE extern Q15 (^📡 /*♬*/)(Chronology::Instant t, const Modulation::Variat& V);
+DISORDERABLE extern void (^📡 /*♬*/)(Chronology::Instant t, const Modulation::Variat& V, float &c, float &s);
 DISORDERABLE extern void (^SetPixelAA)(int x, int y, long err);
-DISORDERABLE extern int (^Mesmerize)(Chronology::Instant t, float version, void (^output)(int x, int y, long err)); // TODO: Rewrite to InititeMesmerization.
+DISORDERABLE extern int (^InititeMesmerization)(Chronology::Instant t, float version, 
+  void (^output)(int x, int y, long err));
 #ifdef __mips__
 DISORDERABLE extern void (^InteractivelySetChronometer)(unsigned& y, unsigned& M,
   unsigned& d, unsigned& h, unsigned& m, unsigned& s, uint32_t& key1,
   uint32_t& key2, unsigned& tuner, bool& rollback); /* Using an oscilloscope, measure the RTCC pin. */
 DISORDERABLE extern void (^TuneChronometer)(void (^ping)(int16_t &tenbitSignedOffset, bool &commit));
 #endif
-/* Non-overridable mandatory prepacked lambdas include `Alloc`, LocalNow`,
+/* Non-overridable mandatory prepacked lambdas include `Alloc`, `LocalNow`,
     `RandomInteger` and `Fallow`.  See --<Fossilate.cpp> for details. */
 
 #endif
