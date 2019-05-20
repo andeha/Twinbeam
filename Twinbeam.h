@@ -15,7 +15,7 @@
 #define unionᵢ union __attribute__ ((internal_linkage))
 #define inexorable static __attribute__ ((internal_linkage)) /* embedded */
 /* Line above replaces `INNER_DATA` ∧ `INNER_FUNCTION`. 'See 𝚗𝚖 for details'. */
-#define DISORDERABLE __attribute__((weak)) // Artificial
+#define DISORDERABLE __attribute__((weak))
 typedef signed char         int8_t;
 typedef unsigned char       uint8_t;
 typedef unsigned long long  uint64_t;
@@ -37,7 +37,7 @@ typedef unsigned short      uint16_t;
 typedef short               int16_t; /* ≡`ᵐⁱᵖˢint` */
 typedef __builtin_uint_t Tribool;
 
-typedef struct bignum {
+typedef struct bignum { /* Artificial */
   constexpr static int maxdigits = 100; /* To not: Templates, … */
   char digits[maxdigits]; /* Binary coded decimals. */
   int signbit; /* Indicates with 𝟷 if positive and with -𝟷 if negative. */
@@ -94,6 +94,10 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․k․a `Di
 #define PLUSKVAMCOMPLETE
 #define CHRONOLOGICAL
 #define SPATIALPERTUBAL
+#define EVENTUALRETROSPECTIVE
+#define ROTATIONAL
+#define IRREVERSIb /* IRREVERSI♭ */
+#define TRAJECTORAL
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -189,13 +193,17 @@ extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
 extern "C" { void * malloc(size_t); void free(void *); }
 int /* Returns ﹟unicodes streamed. Compare with 'prompt> man 3 printf'. */
 bprintf_utf8(
-  unsigned short (^utf8)(char *p, short unsigned bytes),
+  void (^utf8)(char *p, short unsigned bytes),
+  void (*printArgAndPop)(char32_t c, void (^output)(char *p, short unsigned 
+    bytes), int& printedSymbolsExcept0, __builtin_va_list arg),
   const char *utf8Format,
   __builtin_va_list arg
 );
 int /* Tuple<int, int, int> ↫ I․𝘦 user-percieved characters, Unicodes and utf-8. */
 bprintf_unicode(
-  unsigned short (^utf8)(char *p, short unsigned bytes),
+  void (^utf8)(char *p, short unsigned bytes),
+  void (*printArgAndPop)(char32_t c, void (^output)(char *p, short unsigned 
+    bytes), int& printedSymbolsExcept0, __builtin_va_list arg),
   const char32_t *unicodeFormatWithExplicitEOTTermination,
   __builtin_va_list arg
 ); /* …also returns ﹟unicodes. (Not the storage requirement placed on message reciever.) */
@@ -328,7 +336,7 @@ inline char32_t Subscript(short 𝟶to𝟿) { const char * s = "₀";
 
 struct Utf8Artifact { __builtin_int_t line, bytesOffset, count; };
 
-enum { END_OF_TRANSMISSION = U'\x4' }; /* Consider `int ⁸BitsAgain(char32_t uc, void (^always)(char c))` illustrating `Retropective-incorrect` and `occational-multiple`. */
+enum { END_OF_TRANSMISSION = U'\x4' };
 
 #pragma mark - 🌱
 
