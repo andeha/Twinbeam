@@ -1,6 +1,7 @@
 //
 //  System.h ('Nature tells us life is')
 //  sometimes cognized inside 𝐵𝐿𝑈𝐸 𝑈𝑁𝐼𝐶𝑂𝑅𝑁 𝑂𝐹 𝑆𝑇𝐸𝐸𝐿.
+//  (𝘈․𝘬․𝘢 'while on the ferromagnetic ellipsoid'.)
 //
 
 #ifndef __SYSTEM_H
@@ -22,7 +23,11 @@ enum Variation { Rasterized, FunctionalD, FunctionalS };
 
 #include <Additions/math/cherry.h>
 
-namespace Cartesian3d { typedef float type; typedef type (^Hilbert)(Chronology
+typedef float floatʳ; typedef double doubleʳ; typedef simd_tᵦ simd_tᵦʳ;
+/* Additive-relative: 𝑥⁺ʳ∈[0₋𝜀, 1₊𝜀); Correlative-relative: 𝑥ʳ∈[-1/2₋𝜀, +1/2₊𝜀] */
+typedef float float⁺ʳ; typedef double double⁺ʳ; typedef simd_tᵦ simd_tᵦ⁺ʳ;
+
+namespace Cartesian3d { typedef floatʳ type; typedef type (^Hilbert)(Chronology
   ::Instant t); struct Ħ { Hilbert x, y, z; }; struct 𝗣 { type x, y, z; }; struct
   Variat { union { Cartesian3d::𝗣 p; Cartesian3d::Ħ ħ; }; Variation v; }; }
 
@@ -65,11 +70,9 @@ namespace Polar { typedef double type; typedef type (^Hilbert)(Chronology
   ::Instant t); struct Ħ { Hilbert r, 𝜑; }; struct 𝗣 { type r, 𝜑; }; struct
   Variat { union { Polar::𝗣 p; Polar::Ħ ħ; }; Variation v; }; }
 
-struct Cartesian2d {
+struct Cartesian2d { typedef floatʳ type; type x, y;
    
-   typedef float type; type x, y;
-   
-   Cartesian2d(float x, float y) : x(x), y(y) { }
+   Cartesian2d(floatʳ x, floatʳ y) : x(x), y(y) { }
    
    Cartesian2d(const Cartesian2d &p) : x(p.x), y(p.y) { }
    
@@ -108,9 +111,9 @@ simd_tᵦ atan₂(simd_tᵦ 𝒚, simd_tᵦ 𝒙); /* ≈ atan(𝒚/𝒙) */
 template <typename T> struct ClosedInterval { T closedBeginning; T closedEnd; }; */
 
 namespace Naturals {
-   constexpr auto degreesPerRadian = 57.296;
+   constexpr auto degreesPerRadian = 57.296; /* 🕛 ∧ asin(√3/2) ∧ acos(0.5) */
    constexpr auto π² = 9.86960440108935861883449099987615113531369940724079062641334; // 😐: ≅ 10
-   constexpr auto π²div6 = 1.6449340668482264364724151666460251892189499012067984377; // 😐: ≅ ∑ 1/k², k ∈ [1 ⃨∞)
+   constexpr auto π²div6 = 1.6449340668482264364724151666460251892189499012067984377; // 😐: ≅ ∑ 1/k², k ∈ [1…∞)
    /* constexpr auto √5 = 2.23606797749978969640917366873127623544061835961152572427089; 🕛: 𝜖 = 10³ @w N[Sqrt[5], 70]
     constexpr auto πᵉ = 22.45915771836104547342715220454373502758931513399669224920;
    constexpr auto φ² = 2.618033988749894848204586834365638117720309179805762862135; 😐: ≅ φ¹ + φ⁰ */
@@ -154,14 +157,48 @@ typedef __builtin_uint_t Manhattan; enum : Manhattan {
 #include <Additions/Half.h>
 #include <Additions/Fractions.hpp>
 
-/* ... */
+typedef struct { Cartesian2d z₁, z₂, z₃, z₄; } Bezier;
 
+void Render(double⁺ʳ t, Bezier c, void (^out)(const Cartesian2d &𝗽));
+
+template <typename E>
+struct Fifo { /* 𝘈․𝘬․𝘢 Fifoʳᵉf and not Fifoⁱⁿcorp. */
+    /* Fifo(int depth, void * base, int bytes) { content = *base;  } */
+    /* ... */
+};
+
+/*
+ 
+ Integration using the trapezoid rule is a recursive filter:
+ 
+  yᵢ₊₁ = yᵢ + h (uᵢ₊₁ + uᵢ)/2
+ 
+ as well as Simpsons rule
+ 
+  yᵢ₊₁ = yᵢ₋₁ + h (uᵢ₊₁ + 4uᵢ + uᵢ₋₁)/3
+ 
+ See --<🥽 Romberg.cpp> for a ∫-metod that is not on-line.
+ 
+ */
+
+MACRO bool Comparable(const Fifo& fifo) { return fifo.count > 1; }
+MACRO bool Empty(const Fifo& fifo) { return fifo.count == 0; }
+
+Rasterized2d Rasterize(Cartesian2d &c, Opt<Cartesian2d> &prevOpt);
+
+struct Visual { simd_t⁺ʳ 𝑥, 𝑢₂, 𝑣₁; }; /* 0 — 1.625 V */
+
+union Cartesian2d² { simd_t simd; Cartesian2d 𝟸[2]; };
+
+#include <Additions/temporal.hpp>
 #include <Additions/fold/interval.hpp>
 #include <Additions/fold/normal.hpp>
 #include <Additions/fold/cyclicity.hpp>
 
+/* 2𝜋 rad = 360 deg ⟷ 1 rad = 360/(2𝜋) deg */
 MACRO double ˚2ᴿ(double 𝑑𝑒𝑔) { return (Naturals::π/180)*𝑑𝑒𝑔; }
 MACRO double ᴿ2˚(double 𝑟𝑎𝑑) { return (180/Naturals::π)*𝑟𝑎𝑑; }
+/* 400 𝑛𝑦𝑔𝑟𝑎𝑑 = 2𝜋 radians; 1 𝚐𝚛𝚊𝚍 = 9/10 ˚ */
 
 typedef double (^Computational)(double x); /* Not auto A = ^(int n, double z) { … */
 
@@ -173,6 +210,9 @@ MACRO Computational Chebyshevᵀ(int n) {
         Chebyshevᵀ(n-2)(x); }); /* 1998 to 9;th of april 2019, 10:10. */
     }
 }
+
+/* 𝖫․ 𝖤𝗎𝗅𝖾𝗋: '…𝘯𝘦𝘪𝘵𝘩𝘦𝘳 𝘨𝘳𝘦𝘢𝘵𝘦𝘳 𝘵𝘩𝘢𝘯 𝘻𝘦𝘳𝘰, 𝘯𝘰𝘳 𝑙𝑒𝑠𝑠 𝑡ℎ𝑎𝑛 𝘻𝘦𝘳𝘰, 𝘯𝘰𝘳 𝑒𝑞𝑢𝑎𝑙 𝑡𝑜 𝘻𝘦𝘳𝘰.' */
+#include <Additional/complex.hpp>
 
 MACRO void Presentᴿ(Utf8Terminal &term, complex 𝑧) {
   Present(term, Re(𝑧)); term << ", 𝒊"; Present(term, Im(𝑧)); }
