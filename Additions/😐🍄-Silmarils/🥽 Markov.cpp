@@ -149,7 +149,7 @@ main(
     if (argc < 2) { return -1; } const char * ᵘᵗf⁸path = argv[1]; 
     __builtin_int_t 🥈ᵢ Maxbytesᵒˢᵖᵃᵗʰ = 1024;
     __builtin_uint_t tetrasᵗᵒᵗ = UnicodesUntilNull(ᵘᵗf⁸path, Maxbytesᵒˢᵖᵃᵗʰ);
-    char32_t pathᵤC[tetrasᵗᵒᵗ+1]; 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 char32_t * pathᵤC₂=pathᵤC;
+    char32_t pathᵤC[tetrasᵗᵒᵗ+1], 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 * pathᵤC₂=pathᵤC;
     
     auto utf8ToUnicode = ^(const char * utf8, char32_t unicodes[]) {
       __builtin_int_t followers, incr; int ⁸b=0, tetra/*a.k.a ³²b*/=0; char32_t uc;
