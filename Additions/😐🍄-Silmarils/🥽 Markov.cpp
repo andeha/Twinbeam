@@ -13,7 +13,7 @@ __builtin_uint_t Utf8BytesIncludingNull(__builtin_int_t bytes,
 
 // ✁ until ✂️
 
-#define UnicodeToUtf8(Buffer,³²B,⁸B)                                        \
+#define ⁺⁼UnicodeToUtf8(Buffer,³²B,⁸B)                                      \
 auto unicodeToUtf8 = ^(char buffer[], int& ³²b, int& ⁸b) {                  \
 again:                                                                      \
    if (UnicodeToUtf8(*(nameᵚ + ³²b), ^(const uint8_t *p, int bytes) {       \
@@ -34,7 +34,7 @@ FileSystemItemExists(
 {  struct stat st; 
     __builtin_uint_t Maxpathᴮʸᵗᵉˢ = Utf8BytesIncludingNull(tetras<<2, nameᵚ);
     char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
-    if (UnicodeToUtf8(buffer, ³²b, ⁸b)) { return false; }
+    if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b)) { return false; }
     return stat((const char *)buffer, &st) == 0;
 }
 
@@ -47,7 +47,7 @@ IsRegularFile(
 {  struct stat st; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
       Utf8BytesIncludingNull(tetras<<2, nameᵚ);
     char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
-    if (UnicodeToUtf8(buffer, ³²b, ⁸b)) { return false; }
+    if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b)) { return false; }
     if (stat((const char *)buffer, &st)) { return false; }
     return S_ISREG(st.st_mode);
 }
@@ -61,7 +61,7 @@ RegularFileLength(
 {  struct stat st; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
       Utf8BytesIncludingNull(tetras<<2, nameᵚ);
     char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
-    if (UnicodeToUtf8(buffer, ³²b, ⁸b)) { return -1; }
+    if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b)) { return -1; }
     if (stat((const char *)buffer, &st)) { return -2; }
     return st.st_size;
 }
@@ -75,7 +75,7 @@ IsDirectory(
 {  struct stat st; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
       Utf8BytesIncludingNull(tetras<<2, nameᵚ);
     char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
-    if (UnicodeToUtf8(buffer, ³²b, ⁸b)) { return false; }
+    if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b)) { return false; }
     if (stat((const char *)buffer, &st)) { return false; }
     return S_ISDIR(st.st_mode);
 }
@@ -89,7 +89,7 @@ IsSymbolicLink(
 {  struct stat st; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
       Utf8BytesIncludingNull(tetras<<2, nameᵚ);
     char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
-    if (UnicodeToUtf8(buffer, ³²b, ⁸b)) { return false; }
+    if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b)) { return false; }
     if (stat((const char *)buffer, &st)) { return false; }
     return S_ISLNK(st.st_mode);
 }
