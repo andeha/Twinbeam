@@ -172,7 +172,7 @@ namespace std { /* The Standard Residual */ typedef ::size_t size_t;
   const T * end(std::initializer_list<T> i) { return i.end(); } }
 /* ☜😐: 🔅 ⬷ Earlier remark still valid? */
 struct Memoryregion; struct Memoryview { Memoryregion * region; __builtin_int_t
-  bytesOffset; __builtin_int_t byteCount; }; /* Intervallic behavior. */
+  bytesOffset; __builtin_int_t byteCount; };
 MACRO __builtin_uint_t 🔎(__builtin_uint_t var) { return *((__builtin_uint_t
   /* volatile */ *) var); }
 MACRO __builtin_uint_t&  🔧(__builtin_uint_t var) { return (__builtin_uint_t&)
@@ -185,28 +185,18 @@ MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   __builtin_uint_t word = *symbol, shift = TrailingZeros(mask), orig = mask & word,
   shifted = orig>>shift; if (update) update(shifted); __builtin_uint_t fresh =
   (shifted<<shift)&mask; *symbol = (word & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL
-#define PRINTF_ATTRS __attribute__((__format__ (__printf__, 1, 2)))
-extern "C" { int printf(const char *utf8format, ...) PRINTF_ATTRS /* Note that
-  a character literal prefixed with the letter `U` does not neccessarily ends 
-  with for example `NULL` */; int atexit(void(*func)(void)); void exit(int); }
+int print(const char *utf8format, ...); /* Note that a character literal prefixed 
+  with the letter `U` does not neccessarily ends with for example `NULL` */
+struct Argᴾ { union { __builtin_int_t d; __builtin_uint_t x, b; const char * utf8;
+  struct /* Unicodes */ { const char32_t * unicodes; int tetras; } ucs; char c; 
+  char32_t uc; double f₁; float f₂; /* And space for 'user-defined' types: Q567 q567; */ 
+  uint8_t padding[16]; } value; int kind; }; Argᴾ Pʳⁱⁿᵗd(__builtin_int_t d);
+Argᴾ Pʳⁱⁿᵗx(__builtin_uint_t x); Argᴾ Pʳⁱⁿᵗb(__builtin_uint_t b);
+Argᴾ Pʳⁱⁿᵗs(const char * utf8); Argᴾ PʳⁱⁿᵗS(int tetras, const char32_t * uc);
+Argᴾ Pʳⁱⁿᵗc(char c); Argᴾ PʳⁱⁿᵗC(char32_t C);
+extern "C" { int atexit(void(*func)(void)); void exit(int); }
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
 extern "C" { void * malloc(size_t); void free(void *); }
-int /* Returns ﹟unicodes streamed. Compare with 'prompt> man 3 printf'. */
-bprintf_utf8(
-  void (^utf8)(char *p, short unsigned bytes),
-  void (*printArgAndPop)(char32_t c, void (^output)(char *p, short unsigned 
-    bytes), int& printedSymbolsExcept0, __builtin_va_list arg),
-  const char *utf8Format,
-  __builtin_va_list arg
-);
-int /* Tuple<int, int, int> ↫ I․𝘦 user-percieved characters, Unicodes and utf-8. */
-bprintf_unicode(
-  void (^utf8)(char *p, short unsigned bytes),
-  void (*printArgAndPop)(char32_t c, void (^output)(char *p, short unsigned 
-    bytes), int& printedSymbolsExcept0, __builtin_va_list arg),
-  const char32_t *unicodeFormatWithExplicitEOTTermination,
-  __builtin_va_list arg
-); /* …also returns ﹟unicodes. (Not the storage requirement placed on message reciever.) */
 typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
 #ifdef __x86_64__
 FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memory(
@@ -439,6 +429,8 @@ int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content,
   byteOffset, bool& stop));
 
 int Utf8Sync(uint8_t **p); /* Backs at most 3 bytes to regain sync. */
+
+struct Unicodes { __builtin_int_t tetras; const char32_t * unicodes; };
 
 #pragma mark - ”𝑇ℎ𝑒 🧠🧠” 🔍😐
 
