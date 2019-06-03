@@ -195,8 +195,8 @@ struct Argᴾ { union { __builtin_int_t d; __builtin_uint_t x, b; const char * u
 Argᴾ Pʳⁱⁿᵗx(__builtin_uint_t x); Argᴾ Pʳⁱⁿᵗb(__builtin_uint_t b);
 Argᴾ Pʳⁱⁿᵗs(const char * utf8); Argᴾ PʳⁱⁿᵗS(int tetras, const char32_t * uc);
 Argᴾ Pʳⁱⁿᵗc(char c); Argᴾ PʳⁱⁿᵗC(char32_t C);
-Argᴾ PʳⁱⁿᵗU(__uint128_t U) { return Argᴾ { .value.U=U, 11 }; }
-Argᴾ PʳⁱⁿᵗI(__int128_t I) { return Argᴾ { .value.I=I, 12 }; }
+MACRO Argᴾ PʳⁱⁿᵗU(__uint128_t U) { return Argᴾ { .value.U=U, 11 }; }
+MACRO Argᴾ PʳⁱⁿᵗI(__int128_t I) { return Argᴾ { .value.I=I, 12 }; }
 extern "C" { int atexit(void(*func)(void)); void exit(int); }
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
 extern "C" { void * malloc(size_t); void free(void *); }

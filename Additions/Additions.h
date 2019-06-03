@@ -82,13 +82,13 @@ MACRO bool Similar(double x, double y, double 𝜀) { if (isinf(x) &&
 
 int Roman(__builtin_int_t n, void (^out)(char numeral));
 
+#pragma mark Conversion routines for --<Filesystem.hpp>
+
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
 __builtin_uint_t UnicodesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t maxbytes);
 __builtin_uint_t Utf8BytesIncludingNull(__builtin_int_t bytes, const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes);
 __builtin_uint_t Utf8BytesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t max); /* Required by `Map<const char *, V>` */
 __builtin_uint_t UnicodesUntilExplicitEOT(const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, __builtin_int_t max); /* Required by `Map<const char32_t *, V>` */
-
-#pragma mark Conversion routines for --<Filesystem.hpp>
 
 #define ⁺⁼UnicodeToUtf8(Buffer,³²B,⁸B)                                      \
 auto unicodeToUtf8 = ^(char buffer[], int& ³²b, int& ⁸b) {                  \
@@ -109,7 +109,7 @@ auto utf8ToUnicode = ^(const char * utf8, char32_t unicodes[]) {            \
    char32_t uc;                                                             \
 again:                                                                      \
    const char *leadOr8Bit = (const char *)utf8 + ⁸b;                        \
-   if (*leadOr8Bit == 0x0) { goto not_again; }                              \
+   if (*leadOr8Bit == 0x0) { goto unagain; }                                \
    followers = Utf8Followers(*leadOr8Bit);                                  \
    if (followers < 0) { return -2; }                                        \
    incr = followers + 1;                                                    \
@@ -119,7 +119,7 @@ again:                                                                      \
       pathᵤC[tetra] = uc; tetra++ } else { PrintArgAndPop(uc,               \
       printedSymbolsExcept0, __arg); } */ pathᵤC₂[tetra] = uc; tetra++;     \
    ⁸b += incr; goto again;                                                  \
-not_again:                                                                  \
+unagain:                                                                    \
    unicodes[tetra] = END_OF_TRANSMISSION; /* …when `ᵘᵗf⁸path` is to be      \
      parsed by machine. */                                                  \
    return 0;                                                                \
@@ -128,8 +128,7 @@ not_again:                                                                  \
 #pragma mark - Decoration in Procrastinative Style
 
 typedef struct UnicodeIntervalAnd𝑂𝑟Location {
-  __builtin_int_t tetrasRelativeFirst;
-  __builtin_int_t tetrasRelativeLast;
+  __builtin_int_t tetrasRelativeFirst, tetrasRelativeLast;
 } UnicodeArtifact;
 
 typedef struct UnicodeBlock {
