@@ -191,7 +191,7 @@ struct Argᴾ { union { __builtin_int_t d; __builtin_uint_t x, b; const char * u
   struct /* Unicodes */ { const char32_t * unicodes; int tetras; } ucs; char c; 
   char32_t uc; double f₁; float f₂; /* And space for 'user-defined' types: Q567 q567; */ 
   uint8_t bytes[16]; __uint128_t U; __int128_t I; uint64_t pair[2]; } value; 
-  int kind; }; Argᴾ Pʳⁱⁿᵗd(__builtin_int_t d);
+  int kind; }; Argᴾ Pʳⁱⁿᵗd(__builtin_int_t d); Argᴾ Pʳⁱⁿᵗreᵍ(__builtin_int_t r);
 Argᴾ Pʳⁱⁿᵗx(__builtin_uint_t x); Argᴾ Pʳⁱⁿᵗb(__builtin_uint_t b);
 Argᴾ Pʳⁱⁿᵗs(const char * utf8); Argᴾ PʳⁱⁿᵗS(int tetras, const char32_t * uc);
 Argᴾ Pʳⁱⁿᵗc(char c); Argᴾ PʳⁱⁿᵗC(char32_t C);
