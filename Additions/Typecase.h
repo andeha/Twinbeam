@@ -30,9 +30,9 @@
      à ⬷ The letter 'a'+'COMBINING GRAVE ACCENT'. See ACUTE and CIRCUMFLEX
     a͟͞z͟͞ ⬷ 'Combining double-macaron' or the 'Bitfields' macraron'.
      L̵ ⬷ L and 'Combining short stroke overlay'
-    a⃝ ⬷ The letter 'a' + "COMBINING ENCLOSING CIRCLE"
+    a⃝ ⬷ The letter 'a' + 'COMBINING ENCLOSING CIRCLE'
      ℹ︎ ⬷ 'Information source'
-    i⃝ ⬷ The letter 'i' + "COMBINING ENCLOSING CIRCLE"
+    i⃝ ⬷ The letter 'i' + 'COMBINING ENCLOSING CIRCLE'
       ⃒⃘ ⬷ 'Combining long vertical line' and 'ring overlay'
      c⃥ ⬷ 'Combining reverse solidus overlay'
       ⃫ ⬷ 'COMBINING LONG SOLIDUS OVERLAY'

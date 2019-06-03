@@ -30,7 +30,7 @@ typedef int32_t             __builtin_int_t;
 typedef unsigned int        uint32_t;
 typedef int                 int32_t; /* ≡`long` */
 typedef uint64_t            __builtin_uint_t;
-typedef int64_t             __builtin_int_t; /* 𝘈․𝘬․𝘢 sequential. */
+typedef int64_t             __builtin_int_t; /* 𝘈․𝘬․𝘢 `sequential`. */
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
 #endif
 typedef unsigned short      uint16_t;
@@ -190,10 +190,13 @@ int print(const char *utf8format, ...); /* Note that a character literal prefixe
 struct Argᴾ { union { __builtin_int_t d; __builtin_uint_t x, b; const char * utf8;
   struct /* Unicodes */ { const char32_t * unicodes; int tetras; } ucs; char c; 
   char32_t uc; double f₁; float f₂; /* And space for 'user-defined' types: Q567 q567; */ 
-  uint8_t padding[16]; } value; int kind; }; Argᴾ Pʳⁱⁿᵗd(__builtin_int_t d);
+  uint8_t bytes[16]; __uint128_t U; __int128_t I; uint64_t pair[2]; } value; 
+  int kind; }; Argᴾ Pʳⁱⁿᵗd(__builtin_int_t d);
 Argᴾ Pʳⁱⁿᵗx(__builtin_uint_t x); Argᴾ Pʳⁱⁿᵗb(__builtin_uint_t b);
 Argᴾ Pʳⁱⁿᵗs(const char * utf8); Argᴾ PʳⁱⁿᵗS(int tetras, const char32_t * uc);
 Argᴾ Pʳⁱⁿᵗc(char c); Argᴾ PʳⁱⁿᵗC(char32_t C);
+Argᴾ PʳⁱⁿᵗU(__uint128_t U) { return Argᴾ { .value.U=U, 11 }; }
+Argᴾ PʳⁱⁿᵗI(__int128_t I) { return Argᴾ { .value.I=I, 12 }; }
 extern "C" { int atexit(void(*func)(void)); void exit(int); }
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
 extern "C" { void * malloc(size_t); void free(void *); }
@@ -260,7 +263,7 @@ typedef x86_64_context jmp_buf2;
 FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned
   short base, unsigned short digitsOr0, /* Not more than 32 or 64 digits
   depending on word size! (Or set to `0` to skip leading zeros.) */ void
-  (^out)(char 𝟶to𝟿));
+  (^out)(char 𝟶to𝟿)); /* See --<𝙿𝚛𝚒𝚗𝚝𝚏₂.cpp> for a 128-bit version. */
 FOCAL void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short
   digitsOr0, void (^out)(char 𝟶to𝟿and₋));
 #define OVERLOADABLE __attribute__ ((overloadable))
@@ -342,7 +345,7 @@ typedef union {
       unsigned exponent  : 11;
       unsigned sign      :  1;
    } ieee754b2₂;
-   /* struct { ... } ieee754b2₁;
+   /* struct { … } ieee754b2₁;
    struct {
       unsigned absolute  : 31;
       unsigned sign      :  1;
@@ -351,7 +354,7 @@ typedef union {
    uint64_t bits;
 } octa;
 
-struct Octa { uint32_t h, l; };
+struct Octa { uint32_t l, h; };
 
 #ifdef __x86_64__
 typedef __int128_t __builtin_treeint_t;
@@ -359,11 +362,11 @@ typedef __int128_t __builtin_treeint_t;
 typedef int64_t __builtin_treeint_t; /* Note signed! */
 #endif
 
-void * Insert(void *opaque, __builtin_treeint_t data, void * ref); /* Consider
-  __builtin_treeint_t as ref. See 𝚄𝚗𝚒𝚝𝚝𝚎𝚜𝚝𝚜 for details. */
+void * Insert(void *opaque, __builtin_treeint_t data, void * ref, void * node); /* Consider __builtin_treeint_t as ref. See 𝚄𝚗𝚒𝚝𝚝𝚎𝚜𝚝𝚜 for details. */
 void Forall(void *opaque, void (^dfs)(void * ref, bool& stop,
   __builtin_treeint_t mask, void *node));
 void * Lookup(const void *opaque, const __builtin_treeint_t target);
+short unsigned TreenodeBytes();
 
 /* Big endian=most significant first, little endian=least sigificant first. */
 
@@ -431,6 +434,10 @@ int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content,
 int Utf8Sync(uint8_t **p); /* Backs at most 3 bytes to regain sync. */
 
 struct Unicodes { __builtin_int_t tetras; const char32_t * unicodes; };
+
+typedef Unicodes Unicodes⁻ᵚ; /* To use when characters are read from inside 
+  a no-write area such as a flash. See --<🥽 Cordal.cpp>. A `const struct` must 
+  not - after initialization - programatically change variables. */
 
 #pragma mark - ”𝑇ℎ𝑒 🧠🧠” 🔍😐
 

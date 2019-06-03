@@ -13,7 +13,7 @@ CastToText(
   double value,
   void (^digits)(bool 𝚗𝚎𝚐, int e, const char *𝟶to𝟿s),
   void (^𝚣𝚎𝚛𝚘)(), void (^𝚒𝚗𝚏)(), void (^𝚗𝚊𝚗)()
-);
+); /* A․𝘬․a `CastᵈᵇˡToText`. */
 
 /* The next smallest value after `1`. */
 #define DOUBLE_EPS1  1.00000000000000011102230246251565 /* 1+2⁻⁵³ */
@@ -26,13 +26,17 @@ CastToText(
 #define BINARY128_EPS1 1.000000000000000000000000000000000096296 /* 754-2008 */
 /* decimal128/binary128, 𝜀b₂≈log₁₀(2¹¹³)≈34.16 decimal digits, BSM */
 
-typedef long double ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾;
-#ifdef __x86_64__
-/* typedef `<?> double` x86_fp80; */
+Argᴾ PʳⁱⁿᵗF(double f) { return Argᴾ { .value.f₁=f, 8 }; }
+Argᴾ PʳⁱⁿᵗF(float r)  { return Argᴾ { .value.f₂=r, 9 }; }
+
+typedef long double ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾; /* 2⁻¹⁶³⁸² ≈ 3.3621 × 10⁻⁴⁹³² - 2⁻¹⁶³⁸⁴ − 2⁻¹⁶²⁷¹ ≈ 1.1897 × 10⁻⁴⁹³² */
+#ifdef __x86_64__ /* ¬x86_fp80; */
 typedef ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾 maxprec;
+Argᴾ PʳⁱⁿᵗF(maxprec rᵋ) { union Shim { ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾 f; uint64_t 
+  pair[2]; } rᵋ₂ = { .f=rᵋ }; return Argᴾ { .value.pair = { rᵋ₂.pair[0],
+  rᵋ₂.pair[1] }, 10 }; }
 #elif defined __mips__
-typedef double maxprec;
-// typedef ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾 maxprec;
+typedef double maxprec; /* typedef ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾 maxprec; */
 #endif
 
 #define IEEE754BASE2_64BIT_PZERO  0x0000000000000000L
@@ -43,13 +47,13 @@ typedef double maxprec;
 #define IEEE754BASE2_64BIT_QNAN   0x7ff8000000000000L /* Quiet */
 #define IEEE754BASE2_32BIT_QNAN   0x7FC00000
 
-MACRO bool isinf(double x) { octa o; o.base₂ = x; return o.bits ==
+MACRO bool isinf(double x) { octa o; o.base₂ = x; return o.bits == 
   IEEE754BASE2_64BIT_NINF || o.bits == IEEE754BASE2_64BIT_PINF; }
 
-MACRO bool isnan(double x) { octa o; o.base₂ = x; return (o.ieee754b2₂.mantissah
+MACRO bool isnan(double x) { octa o; o.base₂ = x; return (o.ieee754b2₂.mantissah 
   != 0 || o.ieee754b2₂.mantissal != 0) && o.ieee754b2₂.exponent == 0x7ff; } /* Exponent is eleven bits. Sign not relevant; and IEEE 754-2008: MSB is `is_quiet`. */
 
-MACRO bool isexactlyzero(double x) { octa o; o.base₂ = x; return o.bits ==
+MACRO bool isexactlyzero(double x) { octa o; o.base₂ = x; return o.bits == 
   IEEE754BASE2_64BIT_PZERO || o.bits == IEEE754BASE2_64BIT_NZERO; }
 
 MACRO double abs64d(double x) { octa o; o.base₂ = x; o.bits &= ~SIGNBIT_INT64; return o.base₂; }
@@ -59,12 +63,12 @@ int Gaussian(GaussianApproximate approximate, double *out);
 int Uniform(double *out); /* *out ∈ [0, 1) */
 
 /* Gauss' K𝑒𝑡𝑡𝑒𝑛𝑏𝑟𝑢𝑐ℎ */
-/* MACRO void Khinchin(double * A, int count, double& acc) { for (int i=count-1;
+/* MACRO void Khinchin(double * A, int count, double &acc) { for (int i=count-1;
   i >= 0; i--) { acc = 1/(A[i] + acc); } } */
 /* MACRO void Khinchin(double (^A)(double k), double (^B)(double k), int count,
-  double& acc) { for (int i=count-1; i >= 1; i--) { acc = A(i)/(B(i) + acc); } } */
+  double &acc) { for (int i=count-1; i >= 1; i--) { acc = A(i)/(B(i) + acc); } } */
 MACRO void Khinchin(double z, double (^A)(double k, double z), double (^B)(
-  double k, double z), int count, double& acc) { for (int i=count-1; i >= 1;
+  double k, double z), int count, double &acc) { for (int i=count-1; i >= 1;
   i--) { acc = A(i,z)/(B(i,z) + acc); } }
 /* auto A𝜋 = ^(double k) { return (2*k-1)*(2*k-1); }, B𝜋 = ^(double k) { return 6.0; }; */
 /* To retrieve coefficients for continued fractions, see Hardy and Wright. */
@@ -78,6 +82,49 @@ MACRO bool Similar(double x, double y, double 𝜀) { if (isinf(x) &&
 
 int Roman(__builtin_int_t n, void (^out)(char numeral));
 
+#define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
+__builtin_uint_t UnicodesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t maxbytes);
+__builtin_uint_t Utf8BytesIncludingNull(__builtin_int_t bytes, const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes);
+__builtin_uint_t Utf8BytesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t max); /* Required by `Map<const char *, V>` */
+__builtin_uint_t UnicodesUntilExplicitEOT(const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, __builtin_int_t max); /* Required by `Map<const char32_t *, V>` */
+
+#pragma mark Conversion routines for --<Filesystem.hpp>
+
+#define ⁺⁼UnicodeToUtf8(Buffer,³²B,⁸B)                                      \
+auto unicodeToUtf8 = ^(char buffer[], int& ³²b, int& ⁸b) {                  \
+again:                                                                      \
+   if (UnicodeToUtf8(*(nameᵚ + ³²b), ^(const uint8_t *p, int bytes) {       \
+      *(buffer + ⁸b) = *p;                                                  \
+      if (bytes >= 2) { *(buffer + ⁸b + 1) = *(p + 1); }                    \
+      if (bytes >= 3) { *(buffer + ⁸b + 2) = *(p + 2); }                    \
+      if (bytes >= 4) { *(buffer + ⁸b + 3) = *(p + 3); }                    \
+      ⁸b += bytes; })) { return -1; }                                       \
+   if (++³²b < tetras) goto again;                                          \
+   return 0;                                                                \
+}(Buffer, ³²B, ⁸B) /* Lexical lambda implicits: `nameᵚ` and `tetras`. */
+
+#define ⁺⁼Utf8ToUnicode(U8,UCS)                                             \
+auto utf8ToUnicode = ^(const char * utf8, char32_t unicodes[]) {            \
+   __builtin_int_t followers, incr; int ⁸b=0, tetra /* a.k.a ³²b */ = 0;    \
+   char32_t uc;                                                             \
+again:                                                                      \
+   const char *leadOr8Bit = (const char *)utf8 + ⁸b;                        \
+   if (*leadOr8Bit == 0x0) { goto not_again; }                              \
+   followers = Utf8Followers(*leadOr8Bit);                                  \
+   if (followers < 0) { return -2; }                                        \
+   incr = followers + 1;                                                    \
+   uc = Utf8ToUnicode(leadOr8Bit, incr);                                    \
+   if (uc == 0xFFFE || uc == 0xFFFF) { return -3; }                         \
+   /* else if (uc != U'🔗' && uc != U'@') { // streamout_unicode(uc):       \
+      pathᵤC[tetra] = uc; tetra++ } else { PrintArgAndPop(uc,               \
+      printedSymbolsExcept0, __arg); } */ pathᵤC₂[tetra] = uc; tetra++;     \
+   ⁸b += incr; goto again;                                                  \
+not_again:                                                                  \
+   unicodes[tetra] = END_OF_TRANSMISSION; /* …when `ᵘᵗf⁸path` is to be      \
+     parsed by machine. */                                                  \
+   return 0;                                                                \
+}(U8,UCS) /* Lexical lambda implicits: None. */
+
 #pragma mark - Decoration in Procrastinative Style
 
 typedef struct UnicodeIntervalAnd𝑂𝑟Location {
@@ -89,10 +136,7 @@ typedef struct UnicodeBlock {
   __builtin_int_t linesOffsetFirst, linesOffsetLast;
 } UnicodeBlock;
 
-#include <Additions/Knot.hpp>
-__builtin_int_t Utf8BytesUntilNull(const char *utf8, __builtin_int_t max);
-/* __builtin_int_t UnicodesUntilNull(const char *utf8, __builtin_int_t max); */
-__builtin_int_t UnicodesUntilExplicitEOT(const char32_t *nativeEndianUnicodes, __builtin_int_t max); /* Required by `Map<const char32_t *, V>` */
+#include <Additions/Knot₂.hpp>
 #include <Additions/Map.hpp>
 
 FINAL struct DecoratedString { /* A․𝘬․𝘢 `IntervallicString`. */
@@ -105,11 +149,11 @@ FINAL struct DecoratedString { /* A․𝘬․𝘢 `IntervallicString`. */
     
     DecoratedString() = delete;
     
-    Knot<Utf8Artifact> original;
+    Knot¹ᵈ<Utf8Artifact> original;
     
-    Knot<UnicodeIntervalAnd𝑂𝑟Location> parsed;
+    Knot¹ᵈ<UnicodeIntervalAnd𝑂𝑟Location> parsed;
     
-    Knot<UnicodeBlock> rendered;
+    Knot¹ᵈ<UnicodeBlock> rendered;
     
     typedef __builtin_int_t Parsedᴵᵈˣ;
     
@@ -122,9 +166,12 @@ FINAL struct DecoratedString { /* A․𝘬․𝘢 `IntervallicString`. */
       void *formatting; Hashed const char32_t * × UnicodeBlock
       Map<const char *, UnicodeBlock> formatting; */
     
-    Memoryview unicodes();
+    Unicodes unicodes();
     
 😐;
+
+Argᴾ PʳⁱⁿᵗRef(DecoratedString& ds) { return PʳⁱⁿᵗS(ds.unicodes().tetras, 
+  ds.unicodes().unicodes); } /* Struct assignment ⟶ Memory copy. */
 
 /* #include <Additions/Color.hpp>
 #include <Additions/Typesetting.hpp> */
@@ -186,7 +233,7 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, double x)
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, char32_t unicode)
 { Present(term, unicode); return term; }
 
-MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char *utf8)
+MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char * utf8)
 { Present(term, utf8); return term; }
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char32_t *unicodesOrEOT) {
@@ -199,16 +246,17 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char32_t *unicodesOrEO
       term.write(unicode);
   })) { } return term; }
 
-// MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const String& s) {
-//  __builtin_int_t tetras = s.unicodeCount(); for (int i = 0; i < tetras; i++)
-//  { s.unicode(i, ^(SemanticPointer<char *> prev, char32_t elem,
-//  SemanticPointer<char *> next) { term.write(elem); }); } return term; }
+/* MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const String& s) {
+  __builtin_int_t tetras = s.unicodeCount(); for (int i = 0; i < tetras; i++)
+  { s.unicode(i, ^(SemanticPointer<char *> prev, char32_t elem,
+  SemanticPointer<char *> next) { term.write(elem); }); } return term; } */
 
-// MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const DecoratedString& s)
-// { Present(term, s); return term; }
-// template <typename T> Utf8Terminal& operator<<(Utf8Terminal &term,
-//  Vector<T> &v) { Present(v, term); return v; }
-// Utf8Terminal & operator<<(Utf8Terminal &u8os, Utf8Terminal present) { return u8os; }
+/* MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const DecoratedString& s) 
+  { Present(term, s); return term; }
+template <typename T> Utf8Terminal& operator<<(Utf8Terminal &term, 
+  Vector<T> &v) { Present(v, term); return v; }
+Utf8Terminal & operator<<(Utf8Terminal &u8os, Utf8Terminal present) 
+  { return u8os; } */
 
 extern "C" { extern const char *tab; extern const char *eol; extern const char
   *sep; } /* ↹ ↩︎ ¶ */
@@ -226,14 +274,16 @@ Guid NewGuid();
 void GuidToText(Guid& guid, void (^out)(char digitOrHyphen));
 /* auto ascii7ToUnicode = ^(char c) { return (char32_t)c; }; */
 
+/* Argᴾ PʳⁱⁿᵗRef(Guid& g) { ⟶⟵ } */
+
 #pragma mark - Input Feeding in Practice
 
 enum class CastToIntOpinion { accept, rejecting, negate, commit, annul };
 
 Opt<__builtin_int_t>
-CastToInt(
+CastᵗˣᵗToInt(
   CastToIntOpinion (^feeder)(unsigned short& digit)
-);
+); /* 𝘈․𝘬․a `CastToInt`. */
 
 enum class Inputcontrol { ok, quit };
 
@@ -254,16 +304,47 @@ Tokenize(
   Inputcontrol (^token)(char32_t * unicodes, __builtin_int_t count)
 ); /* `Tokenize` - `ReadUnicode` = Opt<𝑓𝑢𝑡𝑢𝑟𝑒 𝑡𝑒𝑛𝑠𝑒> */
 
+#pragma mark First in and first out
+
+template <typename E>
+struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
+    /* Fifo(int depth, void * base, int bytes) { content = *base; } */
+};
+
+/*
+ 
+ Integration using the trapezoid rule is a recursive filter: 
+ 
+  yᵢ₊₁ = yᵢ + h (uᵢ₊₁ + uᵢ)/2
+ 
+ as well as Simpsons rule 
+ 
+  yᵢ₊₁ = yᵢ₋₁ + h (uᵢ₊₁ + 4uᵢ + uᵢ₋₁)/3
+ 
+ See --<🥽 Romberg.cpp> for a ∫-metod that is not on-line.
+ 
+ */
+
+template <typename T> bool Comparable(const Fifo<T>& fifo) { return fifo.count > 1; }
+template <typename T> bool Empty(const Fifo<T>& fifo) { return fifo.count == 0; }
+
 #pragma mark Language Translation
 
 enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
+
+/* enum { ■ = 1, □ = 0, ⬚ = TriboolUnknown }; */
 
 /* int Parse(const char *utf8, void (^untangle)(char32_t unicode, const
   Vector<int>& ss, Map<char32_t *, __builtin_uint_t>& stab,
   __builtin_int_t byteoffset, bool edge₁, bool& stop)); */
 
-/* enum { ■ = 1, □ = 0, ⬚ = TriboolUnknown }; */
+#pragma mark Dispatch, priorities and interrupts
+
+typedef void (^AsyncJob)(); /* 𝘈․𝘬․a `CHandler` and `Computatium`. */
 
 #pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
 
+/* ✂️ << --<shoebox>{Fiber} ✃ */
+
 #endif
+
