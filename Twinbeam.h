@@ -71,7 +71,7 @@ struct InnerFrame {
   struct Internals;                                                          \
   InnerFrame<Internals> impl_;
 #define 😐 APPEND_PIMPL }
-template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․𝘬․a `DisjunctPointer`. */
+template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․k․a `DisjunctPointer`. */
 #define VISITISR(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + call */
 #define UNITTEST(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
 #define Panic(log,s) { printf("\n\n'%s'\nPanicking at %s in %s:%d\n",        \
@@ -84,7 +84,7 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․𝘬․a 
 #define OPT_Si_FOCAL
 #define ENCLAVED
 // #define ⚠️_IMPLICATIONS_WHILE_HARDTIMES
-#define ARGUMENTATIVE /* A․𝘬․a `ONLY_FOR_SOFT_REALTIME`. */
+#define ARGUMENTATIVE /* A․𝘬․𝘢 `ONLY_FOR_SOFT_REALTIME`. */
 #define MAY_CONTAIN_TRACES_OF_FIRM_REALTIME
 #define INFLATABBLE
 #define SYNTESIZABLE /* I.𝘦 no loops, … */
@@ -173,6 +173,8 @@ namespace std { /* The Standard Residual */ typedef ::size_t size_t;
 /* ☜😐: 🔅 ⬷ Earlier remark still valid? */
 struct Memoryregion; struct Memoryview { Memoryregion * region; __builtin_int_t
   bytesOffset; __builtin_int_t byteCount; };
+struct Memoryview₂ { union { Memoryregion * region; uint8_t * raw; void * base; } content;
+  __builtin_int_t bytesOffset; __builtin_int_t byteCount; };
 MACRO __builtin_uint_t 🔎(__builtin_uint_t var) { return *((__builtin_uint_t
   /* volatile */ *) var); }
 MACRO __builtin_uint_t&  🔧(__builtin_uint_t var) { return (__builtin_uint_t&)
@@ -205,7 +207,7 @@ typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
 FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memory(
   ByteAlignedRef dst, /* const */ ByteAlignedRef src, __builtin_int_t bytes) {
   ByteAlignedRef org = dst; __asm__ __volatile__ ("rep movsb" : "+D"(dst),
-  "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* A․𝘬․a 𝚖𝚎𝚖𝚌𝚙𝚢 */
+  "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* A․𝘬․𝘢 𝚖𝚎𝚖𝚌𝚙𝚢 */
   #include <xmmintrin.h>  // ≥ SSE 4.2
   #include <immintrin.h>  // `blend` from smmintrin.h and AVX/AVX2 from avxintrin.h and avx2intrin.h
 FOCAL int  /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ __attribute__((
@@ -220,7 +222,7 @@ FOCAL int  /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ __attribute__((
 FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef
   dst, ByteAlignedRef src, __builtin_int_t bytes);
 FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁,
-  ByteAlignedRef p₂, __builtin_uint_t bytes); /* A․𝘬․a 𝚖𝚎𝚖𝚌𝚖𝚙 */
+  ByteAlignedRef p₂, __builtin_uint_t bytes); /* A․𝘬․𝘢 𝚖𝚎𝚖𝚌𝚖𝚙 */
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
   constexpr uint32_t PIC32##serie##_##symbol = vaddr;                        \
   constexpr uint32_t PIC32##serie##_##symbol##CLR = (vaddr + 0x4);           \
@@ -311,7 +313,7 @@ template <typename T> bool eqeql(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 🥇 NOT_EVERYTIME
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
 #define 🥈 WHEN_COMPILING /* Must be assigned to a `const` and no inline assembler. */
-#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․a `__block` and 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎. */
+#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․𝘢 `__block` and 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎. */
 
 #pragma mark Utf-8
 
