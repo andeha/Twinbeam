@@ -307,7 +307,6 @@ Tokenize(
 
 template <typename E>
 struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
-    /* Fifo(int depth, void * base, int bytes) { content = *base; } */
 };
 
 /*
@@ -329,7 +328,7 @@ template <typename T> bool Empty(const Fifo<T>& fifo) { return fifo.count == 0; 
 
 #pragma mark Recollection and Associativity
 
-struct Bitsetˢᵘᵖ {
+struct Bitsetˢᵘᵖ { /* A․k․a `Capped-ET-Bitset`. */
   
   __builtin_uint_t state;
   
