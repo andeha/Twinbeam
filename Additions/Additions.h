@@ -303,7 +303,7 @@ Tokenize(
   Inputcontrol (^token)(char32_t * unicodes, __builtin_int_t count)
 ); /* `Tokenize` - `ReadUnicode` = Opt<𝑓𝑢𝑡𝑢𝑟𝑒 𝑡𝑒𝑛𝑠𝑒> */
 
-#pragma mark First in and first out
+#pragma mark F̲irst i̲n and f̲irst o̲ut: Upper bounded `Vector`, `VM-realloc`, … that forgets.
 
 template <typename E>
 struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
@@ -326,6 +326,22 @@ struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
 
 template <typename T> bool Comparable(const Fifo<T>& fifo) { return fifo.count > 1; }
 template <typename T> bool Empty(const Fifo<T>& fifo) { return fifo.count == 0; }
+
+#pragma mark Recollection and Associativity
+
+struct Bitsetˢᵘᵖ {
+  
+  __builtin_uint_t state;
+  
+  void toggle(int pos) { state ^= 1<<pos; }
+  
+  __builtin_uint_t anset() {
+     __builtin_uint_t cnt = TrailingZeros(state);
+     toggle((int)cnt);
+     return cnt;
+  }
+  
+}; /* For --<🥽 Memclone.cpp> and --<🥽 Bookshelf.cpp>. */
 
 #pragma mark Language Translation
 
