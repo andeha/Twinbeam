@@ -86,22 +86,23 @@ int Roman(__builtin_int_t n, void (^out)(char numeral));
 
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
 __builtin_uint_t UnicodesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t maxbytes);
-__builtin_uint_t Utf8BytesIncludingNull(__builtin_int_t bytes, const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes);
+__builtin_uint_t Utf8BytesIncludingNull(__builtin_int_t bytes, const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, bool &includesUndefinedCodepoint);
 __builtin_uint_t Utf8BytesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t max); /* Required by `Map<const char *, V>` */
 __builtin_uint_t UnicodesUntilExplicitEOT(const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, __builtin_int_t max); /* Required by `Map<const char32_t *, V>` */
 
 #define ⁺⁼UnicodeToUtf8(Buffer,³²B,⁸B)                                      \
 auto unicodeToUtf8 = ^(char buffer[], int& ³²b, int& ⁸b) {                  \
 again:                                                                      \
-   if (UnicodeToUtf8(*(nameᵚ + ³²b), ^(const uint8_t *p, int bytes) {       \
+   if (UnicodeToUtf8(*(canonicalᵚ + ³²b), ^(const uint8_t *p, int bytes) {  \
       *(buffer + ⁸b) = *p;                                                  \
       if (bytes >= 2) { *(buffer + ⁸b + 1) = *(p + 1); }                    \
       if (bytes >= 3) { *(buffer + ⁸b + 2) = *(p + 2); }                    \
       if (bytes >= 4) { *(buffer + ⁸b + 3) = *(p + 3); }                    \
       ⁸b += bytes; })) { return -1; }                                       \
    if (++³²b < tetras) goto again;                                          \
+   *(buffer + ⁸b) = '\0';                                                   \
    return 0;                                                                \
-}(Buffer, ³²B, ⁸B) /* Lexical lambda implicits: `nameᵚ` and `tetras`. */
+}(Buffer, ³²B, ⁸B) /* Lexical lambda implicits: `canonicalᵚ` and `tetras`. */
 
 #define ⁺⁼Utf8ToUnicode(U8,UCS)                                             \
 auto utf8ToUnicode = ^(const char * utf8, char32_t unicodes[]) {            \
@@ -121,7 +122,7 @@ again:                                                                      \
    ⁸b += incr; goto again;                                                  \
 unagain:                                                                    \
    unicodes[tetra] = END_OF_TRANSMISSION; /* …when `ᵘᵗf⁸path` is to be      \
-     parsed by machine. */                                                  \
+     parsed by machine. */ /* ⬷ Always assumed, remember to pathᵤC₂[+1] */ \
    return 0;                                                                \
 }(U8,UCS) /* Lexical lambda implicits: None. */
 
@@ -129,11 +130,11 @@ unagain:                                                                    \
 
 typedef struct UnicodeIntervalAnd𝑂𝑟Location {
   __builtin_int_t tetrasRelativeFirst, tetrasRelativeLast;
-} UnicodeArtifact;
+} UnicodeArtifact; /* See also --<Preserves.h>{Utf8Interval} */
 
 typedef struct UnicodeBlock {
   __builtin_int_t linesOffsetFirst, linesOffsetLast;
-} UnicodeBlock;
+} UnicodeBlock; /* See also --<Preserves.h>{Utf8Interval} */
 
 #include <Additions/Knot₂.hpp>
 #include <Additions/Map.hpp>
@@ -303,7 +304,7 @@ Tokenize(
   Inputcontrol (^token)(char32_t * unicodes, __builtin_int_t count)
 ); /* `Tokenize` - `ReadUnicode` = Opt<𝑓𝑢𝑡𝑢𝑟𝑒 𝑡𝑒𝑛𝑠𝑒> */
 
-#pragma mark F̲irst i̲n and f̲irst o̲ut: Upper bounded `Vector`, `VM-realloc`, … that forgets.
+#pragma mark F̲irst i̲n f̲irst o̲ut: Easy-bounded `Vector`/`VM-realloc`
 
 template <typename E>
 struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
@@ -328,19 +329,19 @@ template <typename T> bool Empty(const Fifo<T>& fifo) { return fifo.count == 0; 
 
 #pragma mark Recollection and Associativity
 
-struct Bitsetˢᵘᵖ { /* A․k․a `Capped-ET-Bitset`. */
+struct Bitsetˢᵘᵖ { /* A․𝘬․a `Capped-ET-Bitset`. */
   
   __builtin_uint_t state;
   
-  void toggle(int pos) { state ^= 1<<pos; }
+  void toggle(int pos) { state ^= 1<<pos; } /* Xor₁: 'different' between two and toggles one; I․𝘦 'abstract` ⟷ Xor. */
   
-  __builtin_uint_t anset() {
+  __builtin_uint_t anset() { /* Xor₂: Toggles ∧ identifies 'change' simultaneously. */
      __builtin_uint_t cnt = TrailingZeros(state);
      toggle((int)cnt);
      return cnt;
-  }
+  } /* Toggles a `non-toggled` bit. */
   
-}; /* For --<🥽 Memclone.cpp> and --<🥽 Bookshelf.cpp>. */
+}; /* For --<🥽 Memclone.cpp> ∧ --<🥽 Bookshelf.cpp>. */
 
 #pragma mark Language Translation
 
@@ -354,10 +355,9 @@ enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
 
 #pragma mark Dispatch, priorities and interrupts
 
-typedef void (^AsyncJob)(); /* 𝘈․𝘬․a `CHandler` and `Computatium`. */
+typedef void (^AsyncJob)(); /* 𝘈․𝘬․a `CHandler` and 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀. */
 
 #pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
-
 /* ✂️ << --<shoebox>{Fiber} ✃ */
 
 #endif
