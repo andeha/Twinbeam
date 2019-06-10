@@ -41,7 +41,7 @@ RegularFileLength(
     if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b)) { return -1; }
     if (stat((const char *)buffer, &st)) { return -2; }
     return st.st_size;
-}
+} /* A.k.a `RegularOrLinkFileLength`. */
 
 MACRO
 bool
