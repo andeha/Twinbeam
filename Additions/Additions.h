@@ -9,11 +9,11 @@
 #define __ADDITIONS_H
 
 void
-CastToText(
+CastᵈᵇˡToText(
   double value,
   void (^digits)(bool 𝚗𝚎𝚐, int e, const char *𝟶to𝟿s),
   void (^𝚣𝚎𝚛𝚘)(), void (^𝚒𝚗𝚏)(), void (^𝚗𝚊𝚗)()
-); /* A․𝘬․a `CastᵈᵇˡToText`. */
+); /* A․𝘬․a `CastToText`. */
 
 /* The next smallest value after `1`. */
 #define DOUBLE_EPS1  1.00000000000000011102230246251565 /* 1+2⁻⁵³ */
@@ -85,7 +85,7 @@ int Roman(__builtin_int_t n, void (^out)(char numeral));
 #pragma mark Conversion routines for --<Filesystem.hpp>
 
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
-__builtin_uint_t UnicodesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t maxbytes);
+__builtin_uint_t UnicodesAndNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t maxbytes);
 __builtin_uint_t Utf8BytesIncludingNull(__builtin_int_t bytes, const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, bool &includesUndefinedCodepoint);
 __builtin_uint_t Utf8BytesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t max); /* Required by `Map<const char *, V>` */
 __builtin_uint_t UnicodesUntilExplicitEOT(const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, __builtin_int_t max); /* Required by `Map<const char32_t *, V>` */
@@ -349,13 +349,32 @@ enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
 
 /* enum { ■ = 1, □ = 0, ⬚ = TriboolUnknown }; */
 
-/* int Parse(const char *utf8, void (^untangle)(char32_t unicode, const
-  Vector<int>& ss, Map<char32_t *, __builtin_uint_t>& stab,
+/* int Parse(const char *utf8, void (^untangle)(char32_t unicode, 
+  const Vector<int>& ss, Map<char32_t *, __builtin_uint_t>& stab,
   __builtin_int_t byteoffset, bool edge₁, bool& stop)); */
 
 #pragma mark Dispatch, priorities and interrupts
 
 typedef void (^AsyncJob)(); /* 𝘈․𝘬․a `CHandler` and 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀. */
+
+#pragma mark Asynchronous file copying and file mapping
+
+void *
+mapfileʳᵚ(
+  Unicodes canonicalRegularOrLinkpathᵚ,
+  __builtin_int_t pagesOffset,
+  __builtin_int_t pagesCountOrZero,
+  __builtin_int_t * bytesActual
+);
+
+int
+OptimisticAsync8Copy(
+  void * noncachabledst,
+  void * noncachablesrc,
+  int bytes,
+  bool ᵗᵍᵍˡendian,
+  void (^error)(), void (^complete)()
+); /* 𝘈․𝘬․a `Copy8Async`. */
 
 #pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
 /* ✂️ << --<shoebox>{Fiber} ✃ */

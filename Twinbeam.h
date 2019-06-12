@@ -62,7 +62,7 @@ void divide_bignum(bignum *a, bignum *b, bignum *c);
 #endif
 template<typename T>
 struct InnerFrame {
-  InnerFrame<T>() {} T * ref_;
+  InnerFrame<T>() { } T * ref_;
   // ~InnerFrame() { /* Delete `ref_` in outer class destructor. */ }
   T * operator->() const { return ref_; }
   InnerFrame(T * ref) { ref_ = ref; }
@@ -173,8 +173,6 @@ namespace std { /* The Standard Residual */ typedef ::size_t size_t;
 /* ☜😐: 🔅 ⬷ Earlier remark still valid? */
 struct Memoryregion; struct Memoryview { Memoryregion * region; __builtin_int_t
   bytesOffset; __builtin_int_t byteCount; };
-struct Memoryview₂ { union { Memoryregion * region; uint8_t * raw; void * base; } content;
-  __builtin_int_t bytesOffset; __builtin_int_t byteCount; };
 MACRO __builtin_uint_t 🔎(__builtin_uint_t var) { return *((__builtin_uint_t
   /* volatile */ *) var); }
 MACRO __builtin_uint_t&  🔧(__builtin_uint_t var) { return (__builtin_uint_t&)
@@ -498,7 +496,7 @@ struct Memoryregion {
     
 😐; /* Pimpl optional because of opaque, mandatory since `alsoAtDealloc`. */
 
-void * ExactSeek(const void *key, const void *base, size_t num, size_t size,
+void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
   __builtin_int_t (^cmp)(const void *key, const void *elt));
 
 template <typename T> T * materialize(Memoryview * view) {
