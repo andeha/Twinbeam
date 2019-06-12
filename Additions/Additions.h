@@ -106,7 +106,7 @@ again:                                                                      \
 
 #define ⁺⁼Utf8ToUnicode(U8,UCS)                                             \
 auto utf8ToUnicode = ^(const char * utf8, char32_t unicodes[]) {            \
-   __builtin_int_t followers, incr; int ⁸b=0, tetra /* a.k.a ³²b */ = 0;    \
+   __builtin_int_t followers, incr; int ⁸b=0, tetra /* 𝘈․𝘬․a ³²b */ = 0;    \
    char32_t uc;                                                             \
 again:                                                                      \
    const char *leadOr8Bit = (const char *)utf8 + ⁸b;                        \
@@ -218,6 +218,7 @@ void Present(Utf8Terminal &term, char32_t unicode);
 void Present(Utf8Terminal &term, const char * utf8);
 void Present(Utf8Terminal &term, const DecoratedString& ds);
 /* void Present(Utf8Terminal &term, UnicodeBlock location); */
+/* enum Register { RTCC, DMA0, ... } */
 
 #pragma mark - Conveniences for Small Clients
 
@@ -251,7 +252,7 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char32_t *unicodesOrEO
   { s.unicode(i, ^(SemanticPointer<char *> prev, char32_t elem,
   SemanticPointer<char *> next) { term.write(elem); }); } return term; } */
 
-/* MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const DecoratedString& s) 
+/* MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const IntervallicString& s) 
   { Present(term, s); return term; }
 template <typename T> Utf8Terminal& operator<<(Utf8Terminal &term, 
   Vector<T> &v) { Present(v, term); return v; }
@@ -308,6 +309,12 @@ Tokenize(
 
 template <typename E>
 struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
+    /* Fifo(int depth, void * base, int bytes) { content = *base; } */
+    int count=0, brk=0, depth=10; int 🥈ᵢ MAX=100; E * content[MAX];
+    void include(E * ref) { content[brk] = ref; extern void Include(int depth, 
+      int * brk, int * count); Include(depth, &brk, &count); }
+    /* private */ int physical(unsigned 𝛥) { extern int Physical(unsigned 
+      nowdelta, int brk, int depth); return Physical(𝛥, brk, depth); }
 };
 
 /*
@@ -326,6 +333,11 @@ struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
 
 template <typename T> bool Comparable(const Fifo<T>& fifo) { return fifo.count > 1; }
 template <typename T> bool Empty(const Fifo<T>& fifo) { return fifo.count == 0; }
+template <typename T> Opt<T&> Youngest(const Fifo<T>& fifo) { if (fifo.count == 0) return 
+  Opt<T&>::no(); int idx = fifo.physical(0); T * e = fifo.content[idx]; return Opt<T&>(e); }
+template <typename T> Opt<T&> Oldest(const Fifo<T>& fifo) { if (fifo.count == 0) return 
+  Opt<T&>::no(); int idx = fifo.physical(fifo.count - 1); T * e = fifo.content[idx]; 
+  return Opt<T&>(e); }
 
 #pragma mark Recollection and Associativity
 
