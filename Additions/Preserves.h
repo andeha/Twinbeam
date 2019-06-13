@@ -89,8 +89,8 @@ typedef Utf8Interval SourceLocation;
  
  Note that a key can be associated with multiple values by including ␜.
  
- New line can be inhibited by ending a line with `\`, by starting a 
-  new line with `+`, by finalizing with double new line and ending with 
+ Optionally, new line can be inhibited by ending a line with `\`, by starting 
+  a new line with `+`, by finalizing with double new line and ending with 
   PARAGRAPH_SEPARATOR.
  
  */
