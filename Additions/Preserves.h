@@ -1,4 +1,4 @@
-/*  Preserves.h | 🍓 — Reading vectors, trees and maps. */
+/*  Preserves.h — Reading vectors, trees and maps. */
  
 /* ␜ separates entries in a list, 
    ␜␞ separates rows and columns in a matrix, 
