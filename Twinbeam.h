@@ -30,7 +30,7 @@ typedef int32_t             __builtin_int_t;
 typedef unsigned int        uint32_t;
 typedef int                 int32_t; /* ≡`long` */
 typedef uint64_t            __builtin_uint_t;
-typedef int64_t             __builtin_int_t; /* 𝘈․𝘬․𝘢 `sequential`. */
+typedef int64_t             __builtin_int_t; /* 𝘈․𝘬․a `sequential`. */
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
 #endif
 typedef unsigned short      uint16_t;
@@ -84,7 +84,7 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․k․a `Di
 #define OPT_Si_FOCAL
 #define ENCLAVED
 // #define ⚠️_IMPLICATIONS_WHILE_HARDTIMES
-#define ARGUMENTATIVE /* A․𝘬․𝘢 `ONLY_FOR_SOFT_REALTIME`. */
+#define ARGUMENTATIVE /* A․𝘬․a `ONLY_FOR_SOFT_REALTIME`. */
 #define MAY_CONTAIN_TRACES_OF_FIRM_REALTIME
 #define INFLATABBLE
 #define SYNTESIZABLE /* I.𝘦 no loops, … */
@@ -205,7 +205,7 @@ typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
 FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memory(
   ByteAlignedRef dst, /* const */ ByteAlignedRef src, __builtin_int_t bytes) {
   ByteAlignedRef org = dst; __asm__ __volatile__ ("rep movsb" : "+D"(dst),
-  "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* A․𝘬․𝘢 𝚖𝚎𝚖𝚌𝚙𝚢 */
+  "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* A․𝘬․a 𝚖𝚎𝚖𝚌𝚙𝚢. */
   #include <xmmintrin.h>  // ≥ SSE 4.2
   #include <immintrin.h>  // `blend` from smmintrin.h and AVX/AVX2 from avxintrin.h and avx2intrin.h
 FOCAL int  /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ __attribute__((
@@ -220,7 +220,7 @@ FOCAL int  /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ __attribute__((
 FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef
   dst, ByteAlignedRef src, __builtin_int_t bytes);
 FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁,
-  ByteAlignedRef p₂, __builtin_uint_t bytes); /* A․𝘬․𝘢 𝚖𝚎𝚖𝚌𝚖𝚙 */
+  ByteAlignedRef p₂, __builtin_uint_t bytes); /* A․𝘬․a 𝚖𝚎𝚖𝚌𝚖𝚙: Also consider DMA. */
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
   constexpr uint32_t PIC32##serie##_##symbol = vaddr;                        \
   constexpr uint32_t PIC32##serie##_##symbol##CLR = (vaddr + 0x4);           \
@@ -326,6 +326,9 @@ inline char32_t Superscript(short 𝟶to𝟿) { const char * s = "⁰";
 
 inline char32_t Subscript(short 𝟶to𝟿) { const char * s = "₀";
   char32_t u = Utf8ToUnicode(s, 3); return u + 𝟶to𝟿; } /* ₀₁…₉; ⬷ For the computational chemistry inclined. */
+
+struct Utf8Interval { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast, 
+  bytesOffsetInclLast; };
 
 struct Utf8Artifact { __builtin_int_t line, bytesOffset, count; };
 
