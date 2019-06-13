@@ -139,15 +139,15 @@ typedef struct UnicodeBlock {
 #include <Additions/Knot₂.hpp>
 #include <Additions/Map.hpp>
 
-FINAL struct DecoratedString { /* A․𝘬․𝘢 `IntervallicString`. */
+FINAL struct Intervallic { /* A․𝘬․a `DecoratedString` and `Recording`. */
     /*   ⎡      😐≅        ⎤
         ♢⎢    😐?😐≅😐    ⎥
          ⎣ 😐?😐≅😐?😐?😐?⎦   */
     
-    DecoratedString(const char32_t *nativeEndianUnicodes,
+    Intervallic(const char32_t *nativeEndianUnicodes,
       __builtin_int_t tetras, bool readonly);
     
-    DecoratedString() = delete;
+    Intervallic() = delete;
     
     Knot¹ᵈ<Utf8Artifact> original;
     
@@ -170,7 +170,7 @@ FINAL struct DecoratedString { /* A․𝘬․𝘢 `IntervallicString`. */
     
 😐;
 
-Argᴾ PʳⁱⁿᵗRef(DecoratedString& ds) { return PʳⁱⁿᵗS(ds.unicodes().tetras, 
+Argᴾ PʳⁱⁿᵗRef(Intervallic& ds) { return PʳⁱⁿᵗS(ds.unicodes().tetras, 
   ds.unicodes().unicodes); } /* Struct assignment ⟶ Memory copy. */
 
 /* #include <Additions/Color.hpp>
@@ -216,9 +216,9 @@ void Present(Utf8Terminal &term, __builtin_uint_t n, PresentBase base = PresentB
 void Present(Utf8Terminal &term, double value);
 void Present(Utf8Terminal &term, char32_t unicode);
 void Present(Utf8Terminal &term, const char * utf8);
-void Present(Utf8Terminal &term, const DecoratedString& ds);
+void Present(Utf8Terminal &term, const Intervallic& ds);
 /* void Present(Utf8Terminal &term, UnicodeBlock location); */
-/* enum Register { RTCC, DMA0, ... } */
+/* enum Register { rtcc, dma0, … }; void Present(Utf8Terminal &term, Register reg); */
 
 #pragma mark - Conveniences for Small Clients
 
@@ -252,7 +252,7 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char32_t *unicodesOrEO
   { s.unicode(i, ^(SemanticPointer<char *> prev, char32_t elem,
   SemanticPointer<char *> next) { term.write(elem); }); } return term; } */
 
-/* MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const IntervallicString& s) 
+/* MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const Intervallic& s) 
   { Present(term, s); return term; }
 template <typename T> Utf8Terminal& operator<<(Utf8Terminal &term, 
   Vector<T> &v) { Present(v, term); return v; }
@@ -275,7 +275,7 @@ Guid NewGuid();
 void GuidToText(Guid& guid, void (^out)(char digitOrHyphen));
 /* auto ascii7ToUnicode = ^(char c) { return (char32_t)c; }; */
 
-/* Argᴾ PʳⁱⁿᵗRef(Guid& g) { ⟶⟵ } */
+/* Argᴾ PʳⁱⁿᵗRef(Guid& g) { ⟶⟵ }, yet `Present`. */
 
 #pragma mark - Input Feeding in Practice
 
@@ -305,16 +305,17 @@ Tokenize(
   Inputcontrol (^token)(char32_t * unicodes, __builtin_int_t count)
 ); /* `Tokenize` - `ReadUnicode` = Opt<𝑓𝑢𝑡𝑢𝑟𝑒 𝑡𝑒𝑛𝑠𝑒> */
 
-#pragma mark F̲irst i̲n f̲irst o̲ut: Easy-bounded `Vector`/`VM-realloc`
+#pragma mark F̲irst i̲n f̲irst o̲ut: Easy-bounded `Vector` …possibly `VM-realloc`
 
 template <typename E>
 struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
-    /* Fifo(int depth, void * base, int bytes) { content = *base; } */
-    int count=0, brk=0, depth=10; int 🥈ᵢ MAX=100; E * content[MAX];
-    void include(E * ref) { content[brk] = ref; extern void Include(int depth, 
-      int * brk, int * count); Include(depth, &brk, &count); }
-    /* private */ int physical(unsigned 𝛥) { extern int Physical(unsigned 
-      nowdelta, int brk, int depth); return Physical(𝛥, brk, depth); }
+   /* Fifo(int depth, void * base, int bytes) { content = *base; } */
+   int count=0, brk=0, depth=10; int 🥈ᵢ MAX=100; E * content[MAX];
+   void include(E * ref) { content[brk] = ref; extern void Include(int depth, 
+     int * brk, int * count); Include(depth, &brk, &count); }
+ /* private */ int physical(unsigned 𝛥) const { extern int Physical(unsigned 
+     nowdelta, int brk, int depth); return Physical(𝛥, brk, depth); }
+   enum Flavor { allinorder, latest };
 };
 
 /*
@@ -331,13 +332,25 @@ struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
  
  */
 
-template <typename T> bool Comparable(const Fifo<T>& fifo) { return fifo.count > 1; }
-template <typename T> bool Empty(const Fifo<T>& fifo) { return fifo.count == 0; }
-template <typename T> Opt<T&> Youngest(const Fifo<T>& fifo) { if (fifo.count == 0) return 
-  Opt<T&>::no(); int idx = fifo.physical(0); T * e = fifo.content[idx]; return Opt<T&>(e); }
-template <typename T> Opt<T&> Oldest(const Fifo<T>& fifo) { if (fifo.count == 0) return 
-  Opt<T&>::no(); int idx = fifo.physical(fifo.count - 1); T * e = fifo.content[idx]; 
-  return Opt<T&>(e); }
+template <typename E> bool Empty(const Fifo<E>& s) { return s.count == 0; }
+template <typename E> Opt<E&> Youngest(const Fifo<E>& s) { if (s.count == 0) return 
+  Opt<E&>::no(); int idx = s.physical(0); E * e = s.content[idx]; return Opt<E&>(e); }
+template <typename E> Opt<E&> Oldest(const Fifo<E>& s) { if (s.count == 0) return 
+  Opt<E&>::no(); int idx = s.physical(s.count - 1); E * e = s.content[idx]; 
+  return Opt<E&>(e); }
+
+template <typename E>
+int Retrospect²(typename Fifo<E>::Flavor f, const Fifo<E>& fifo, E &t, E &t₋₁)
+{  if (fifo.count < 2) { return -1; } int idxᵢ, idxᵢ₋₁;
+    switch (f) {
+    case Fifo<E>::allinorder: idxᵢ₋₁=fifo.physical(fifo.count - 1), 
+      idxᵢ=fifo.physical(fifo.count - 2); break;
+    case Fifo<E>::latest: idxᵢ=fifo.physical(0), idxᵢ₋₁= 
+      fifo.physical(1); break;
+    } t = fifo.content[idxᵢ]; t₋₁ = fifo.content[idxᵢ₋₁];
+    return 0;
+} /* Zero, one or two halves are always returned: struct Half { E * f,l; }; int 
+  retrospect(unsigned youngs, Half &h, Half &h₋₁) { } */
 
 #pragma mark Recollection and Associativity
 
@@ -354,20 +367,6 @@ struct Bitsetˢᵘᵖ { /* A․𝘬․a `Capped-ET-Bitset`. */
   } /* Toggles a `non-toggled` bit. */
   
 }; /* For --<🥽 Memclone.cpp> ∧ --<🥽 Bookshelf.cpp>. */
-
-#pragma mark Language Translation
-
-enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
-
-/* enum { ■ = 1, □ = 0, ⬚ = TriboolUnknown }; */
-
-/* int Parse(const char *utf8, void (^untangle)(char32_t unicode, 
-  const Vector<int>& ss, Map<char32_t *, __builtin_uint_t>& stab,
-  __builtin_int_t byteoffset, bool edge₁, bool& stop)); */
-
-#pragma mark Dispatch, priorities and interrupts
-
-typedef void (^AsyncJob)(); /* 𝘈․𝘬․a `CHandler` and 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀. */
 
 #pragma mark Asynchronous file copying and file mapping
 
@@ -387,6 +386,20 @@ OptimisticAsync8Copy(
   bool ᵗᵍᵍˡendian,
   void (^error)(), void (^complete)()
 ); /* 𝘈․𝘬․a `Copy8Async`. */
+
+#pragma mark Dispatch, priorities and interrupts
+
+typedef void (^AsyncJob)(); /* 𝘈․𝘬․a `CHandler` and 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀. */
+
+#pragma mark Language Translation
+
+enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
+
+/* enum { ■ = 1, □ = 0, ⬚ = TriboolUnknown }; */
+
+/* int Parse(const char *utf8, void (^untangle)(char32_t unicode, 
+  const Vector<int>& ss, Map<char32_t *, __builtin_uint_t>& stab,
+  __builtin_int_t byteoffset, bool edge₁, bool& stop)); */
 
 #pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
 /* ✂️ << --<shoebox>{Fiber} ✃ */
