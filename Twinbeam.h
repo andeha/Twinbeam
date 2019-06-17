@@ -230,6 +230,8 @@ FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁
 #define 🔎🎭𝑀𝑋(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__) 
 #define 🔎🎭𝑀𝑍𝐷𝐴(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
 #define 🔎🎭𝑀𝑍(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
+MACRO uint32_t AsUncached(uint32_t vaddr) { return vaddr | 0x20000000; } /* A․𝘬․a `KSEG0ToKSEG1`. */
+MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /* A․𝘬․a `VToP`. */
 #endif
 ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
 ByteAlignedRef Overwrite8Memory(ByteAlignedRef src, uint8_t val,
@@ -438,9 +440,12 @@ int Utf8Sync(uint8_t **p); /* Backs at most 3 bytes to regain sync. */
 
 struct Unicodes { __builtin_int_t tetras; const char32_t * unicodes; };
 
-typedef Unicodes Unicodes⁻ᵚ; /* To use when characters are read from inside 
-  a no-write area such as a flash. See --<🥽 Cordal.cpp>. A `const struct` must 
-  not - after initialization - programatically change variables. */
+typedef Unicodes Unicodes⁺ᵃ⁻ᵚ; /*  To use when a sequence of symbols, 
+  yet neither the length of the sequence nor its start element, are 
+  read from inside an 'erase-first-before-you-program' area (such as 
+  𝘦․𝘨 a NOR-flash). Further, keep in mind that a `const struct` must 
+  not - after initialization - programatically change variables. 
+  See also: --<🥽 Cordal.cpp>. */
 
 #pragma mark - ”𝑇ℎ𝑒 🧠🧠” 🔍😐
 
