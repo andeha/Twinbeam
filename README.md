@@ -8,7 +8,7 @@ To use, include the `Twinbeam.h` header and link with its corresponding `libTwin
 
 Requires [`ninja`](https://ninja-build.org), [`llvm`](https://llvm.org) and — for MIPS development — a pic32mz development board.
 
-More details are given in [`Examples`](https://github.com/andeha/Twinbeam/tree/master/Examples), the pdb [man](https://raw.githubusercontent.com/wiki/andeha/Twinbeam/pdb.1.pdf) page
+More details are given in [`Examples`](https://github.com/andeha/Twinbeam/tree/master/Examples), the [pdb](https://raw.githubusercontent.com/wiki/andeha/Twinbeam/pdb.1.pdf) manual page
  and on the Twinbeam [wiki](https://github.com/andeha/Twinbeam/wiki).
 
 ## Prebuilt
