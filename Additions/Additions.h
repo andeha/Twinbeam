@@ -187,7 +187,7 @@ struct Utf8Terminal {
     virtual
     int
     read(
-      __builtin_int_t periods,
+      __builtin_int_t periodsOrMinusOne,
       __builtin_int_t seconds,
       void (^ping)(bool &stop),
       void (^touchbase)(char32_t unicode, bool &stop)
@@ -195,8 +195,8 @@ struct Utf8Terminal {
     
     virtual
     int
-    password(
-      __builtin_int_t periods,
+    password(char32_t echo,
+      __builtin_int_t periodsOrMinusOne,
       __builtin_int_t seconds,
       void (^ping)(bool &stop),
       void (^touchbase)(char32_t unicode, bool &stop)
@@ -275,7 +275,7 @@ Guid NewGuid();
 void GuidToText(Guid& guid, void (^out)(char digitOrHyphen));
 /* auto ascii7ToUnicode = ^(char c) { return (char32_t)c; }; */
 
-/* Argᴾ PʳⁱⁿᵗRef(Guid& g) { ⟶⟵ }, yet `Present`. */
+/* Argᴾ PʳⁱⁿᵗRef(Guid& g) { ⟶⟵ }, yet `Present`… */
 
 #pragma mark - Input Feeding in Practice
 
@@ -310,7 +310,7 @@ Tokenize(
 template <typename E>
 struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
    /* Fifo(int depth, void * base, int bytes) { content = *base; } */
-   int count=0, brk=0, depth=10; int 🥈ᵢ MAX=100; E * content[MAX];
+   int count=0, brk=0/*𝘈․𝘬․a ⬚*/, depth=10; int 🥈ᵢ MAX=100; E * content[MAX];
    void include(E * ref) { content[brk] = ref; extern void Include(int depth, 
      int * brk, int * count); Include(depth, &brk, &count); }
  /* private */ int physical(unsigned 𝛥) const { extern int Physical(unsigned 
@@ -384,8 +384,9 @@ OptimisticAsync8Copy(
   void * noncachablesrc,
   int bytes,
   bool ᵗᵍᵍˡendian,
+  void (^ping)(int bytes, bool &reset, bool &suspend),
   void (^error)(), void (^complete)()
-); /* 𝘈․𝘬․a `Copy8Async`. */
+); /* 𝘈․𝘬․a `Copy8Async`, `BasicTransfer`. */
 
 #pragma mark Dispatch, priorities and interrupts
 
@@ -402,7 +403,7 @@ enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
   __builtin_int_t byteoffset, bool edge₁, bool& stop)); */
 
 #pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
-/* ✂️ << --<shoebox>{Fiber} ✃ */
+ /* ✂️ << --<shoebox>{Fiber} ✃ */
 
 #endif
 
