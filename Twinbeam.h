@@ -522,7 +522,7 @@ int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 
 #define va_epilogue __builtin_va_end(__arg);
 extern "C" void Sheriff();
-/* #define ⭐️ Sheriff(); */
+/* #define ⭐️ Sheriff(); */ /* After delivery, a non-inquisitorial software is assumed. */
 enum Impediment { MustBeOrdered, JustSwap };
 int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂, Impediment it); /* Non-
 atomic, yet consistent and gracefully failing indicated through a non-zero return value. */
