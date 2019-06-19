@@ -188,21 +188,12 @@ struct Utf8Terminal {
     
     virtual
     Inputctrl
-    read(
+    interaction(
       __builtin_int_t periods𝘖𝘳Zero,
       __builtin_int_t ᵗᵉⁿᵗʰseconds,
-      void (^ping)(bool &stop),
-      void (^touchbase)(char32_t unicode, bool &stop)
-    ) const;
-    
-    virtual
-    Inputctrl
-    password(
-      __builtin_int_t periods𝘖𝘳Zero,
-      __builtin_int_t secondsᵗᵉⁿᵗʰ,
       void (^ping)(bool &stop), /* Cyclically whilst time passes. */
-      void (^touchbase)(char32_t unicode, bool &stop) /* After key press. */
-    ) const;
+      void (^touchbase)(char32_t unicode, bool &stop) /* After a key press. */
+    ) const; /* 𝘈․k․a `read` and `password`. */
     
     virtual int write(char * utf8s, unsigned short bytes) const;
     
