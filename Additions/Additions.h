@@ -184,25 +184,27 @@ struct Utf8Terminal {
     
     ~Utf8Terminal();
     
+    enum Inputctrl { Terminated, Timedout, Error };
+    
     virtual
-    int
+    Inputctrl
     read(
-      __builtin_int_t periodsOrMinusOne,
-      __builtin_int_t seconds,
+      __builtin_int_t periods𝘖𝘳Zero,
+      __builtin_int_t ᵗᵉⁿᵗʰseconds,
       void (^ping)(bool &stop),
       void (^touchbase)(char32_t unicode, bool &stop)
     ) const;
     
     virtual
-    int
-    password(char32_t echo,
-      __builtin_int_t periodsOrMinusOne,
-      __builtin_int_t seconds,
-      void (^ping)(bool &stop),
-      void (^touchbase)(char32_t unicode, bool &stop)
+    Inputctrl
+    password(
+      __builtin_int_t periods𝘖𝘳Zero,
+      __builtin_int_t secondsᵗᵉⁿᵗʰ,
+      void (^ping)(bool &stop), /* Cyclically whilst time passes. */
+      void (^touchbase)(char32_t unicode, bool &stop) /* After key press. */
     ) const;
     
-    virtual int write(char32_t unicode) const; /* …and not 𝚌𝚑𝚊𝚛 𝚞𝚝𝚏𝟾․ */
+    virtual int write(char * utf8s, unsigned short bytes) const;
     
     void (^scientificFormat)(double x, Utf8Terminal &stream);
     
@@ -310,7 +312,7 @@ Tokenize(
 template <typename E>
 struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
    /* Fifo(int depth, void * base, int bytes) { content = *base; } */
-   int count=0, brk=0/*𝘈․𝘬․a ⬚*/, depth=10; int 🥈ᵢ MAX=100; E * content[MAX];
+   int count=0, brk=0/*𝘈․𝘬․a ⬚-idx*/, depth=10; int 🥈ᵢ MAX=100; E * content[MAX];
    void include(E * ref) { content[brk] = ref; extern void Include(int depth, 
      int * brk, int * count); Include(depth, &brk, &count); }
  /* private */ int physical(unsigned 𝛥) const { extern int Physical(unsigned 
@@ -403,7 +405,7 @@ enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
   __builtin_int_t byteoffset, bool edge₁, bool& stop)); */
 
 #pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
- /* ✂️ << --<shoebox>{Fiber} ✃ */
+/* ✂️ << --<shoebox>{Fiber} ✃ */
 
 #endif
 
