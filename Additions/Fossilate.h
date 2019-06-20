@@ -8,7 +8,7 @@
 
 /* 64 bits on x86_64 as well as on Mips32.
 typedef unsigned long long  uint64_t;
- ypedef long long           int64_t; */
+typedef long long           int64_t; */
 
 #ifdef  __mips__
 typedef unsigned long       __builtin_uint_t;
@@ -58,14 +58,17 @@ struct Envelop { uint8_t utf8Address[4]; Fossilate content; };
 
 /* Overridable prepacked lambdas. */
 DISORDERABLE extern void (^Init)();
-DISORDERABLE extern void (^Putₒ)(char utf8);
+DISORDERABLE extern void (^Putₒ)(uint8_t * utf8s, uint16_t bytes);
 DISORDERABLE extern void (^Reciever)(void (*isr)(Fiber::fiber_t * self));
 DISORDERABLE extern void (^TerminalIn)(void (*isr)(Fiber::fiber_t * self));
 DISORDERABLE extern void (^📡 /*♬*/)(Chronology::Instant t, const Modulation::Variat& V, float &c, float &s);
 DISORDERABLE extern void (^SetPixelAA)(int x, int y, long err);
 DISORDERABLE extern int (^InititeMesmerization)(Chronology::Instant t, float version, 
   void (^output)(int x, int y, long err));
+DISORDERABLE extern int (^WaitTerminal)(int periods𝘖𝘳Zero, int ᵗᵉⁿᵗʰseconds, 
+  void (^ping)(bool &stop), char32_t * uc);
 #ifdef __mips__
+DISORDERABLE extern void (^TuneOscillator)(int8_t signandfivebits);
 DISORDERABLE extern void (^InteractivelySetChronometer)(unsigned& y, unsigned& M,
   unsigned& d, unsigned& h, unsigned& m, unsigned& s, uint32_t& key1,
   uint32_t& key2, unsigned& tuner, bool& rollback); /* Using an oscilloscope, measure the RTCC pin. */
