@@ -4,70 +4,86 @@
 //
 
 #include <Twinbeam.h>
-#include <Additions.h>
-#include <Formatting.hpp>
+#include <Additions/Additions.h>
 #include "pdb.h"
+#include <stdio.h>
 
 const char *bright = "\x1B[1m", *dim = "\x1B[2m", *fgBlue = "\x1B[34m",
-  *fgRed = "\x1B[31m", *reset = "\x1B[0m", *reverse  = "\x1B[7m";
+  *fgRed = "\x1B[31m", *reset = "\x1B[0m", *reverse = "\x1B[7m";
 
-INNER_FUNCTION
+auto outᵘcUntil𝟶𝚡𝟶𝟶𝟶𝟶 = ^(const char32_t * unicodes) {
+    int i=0;
+again:
+    char32_t uc = *(unicodes + i);
+    if (UnicodeToUtf8(uc, ^(const uint8_t *p, int bytes) {
+      if (bytes >= 1) fprintf(stderr, "%c", (char)*(p + 0));
+      if (bytes >= 2) fprintf(stderr, "%c", (char)*(p + 1));
+      if (bytes >= 3) fprintf(stderr, "%c", (char)*(p + 2));
+      if (bytes >= 4) fprintf(stderr, "%c", (char)*(p + 3));
+   } )) { /* Empty */ }
+   i++; goto again;
+};
+
+inexorable
 void
 Present(
   Utf8Terminal &term,
   const Bitfield& field,
   __builtin_uint_t value,
   __builtin_uint_t init,
-  __builtin_int_t maxWidth
+  __builtin_int_t maxwidth
 )
 {
-    unsigned spaces = maxWidth - UnicodesUntilNull(field.ident, BUILTIN_INT_MAX);
-    while (spaces--) { Putch(' '); }
-    Termlog << field.ident << " ";
+    unsigned spaces = maxwidth - UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(field.ident, BUILTIN_INT_MAX);
+    while (spaces--) { fprintf(stderr, " "); }
     
-    __block bool masking = false;
-    Base((__builtin_uint_t)(field.mask), 2, 32, ^(char utf8) {
+    outᵘcUntil𝟶𝚡𝟶𝟶𝟶𝟶(field.ident);
+    fprintf(stderr, " ");
+    
+    __block bool masking = false; __block unsigned pos = 31;
+    Base𝕟((__builtin_uint_t)(field.mask), 2, 32, ^(char 𝟶to𝟿) {
         
-        if (utf8 == '1' && !masking) { masking = true; }
+        if (𝟶to𝟿 == '1' && !masking) { masking = true; }
         
-        if (masking && utf8 == '0') { masking = false; }
+        if (masking && 𝟶to𝟿 == '0') { masking = false; }
         
-        if (masking) { if (value & field.mask) Putch('1'); else Putch('0'); } else { Put(U'␣'); }
+        if (masking) { fprintf(stderr, value & field.mask ? "1" : "0"); }
+        else { fprintf(stderr, "␣"); }
+        
+        if (pos % 4 == 0) fprintf(stderr, "|"); pos--;
         
     });
     
-    Termlog <<  " " << field.text << eol;
-}
-
-INNER_FUNCTION
-void
-Present(
-  Utf8Terminal &term,
-  const Register& r,
-  __builtin_uint_t value,
-  __builtin_uint_t init
-)
-{
-    PresentTable(Termlog, r,
-      ^(Utf8Terminal &os) { /* header */ },
-      ^(const Bitfield& bf1, const Bitfield& bf2) { return UnicodesUntilNull(bf1.ident, BUILTIN_INT_MAX) < UnicodesUntilNull(bf2.ident, BUILTIN_INT_MAX); },
-      ^(const Bitfield& bf) { return UnicodesUntilNull(bf.ident, BUILTIN_INT_MAX); },
-      ^(Utf8Terminal &os, const Bitfield& bf, __builtin_int_t maxwidth) { Present(os, bf, value, init, maxwidth); },
-      ^(Utf8Terminal &os) { /* footer */ }
-    );
+    outᵘcUntil𝟶𝚡𝟶𝟶𝟶𝟶(field.text);
+    fprintf(stderr, "\n");
 }
 
 FOCAL
 void
 Present(
   Utf8Terminal &term,
-  const AnnotatedRegister& r,
+  const AnnotatedRegister& ar,
   __builtin_uint_t value
 )
 {
-    Termlog << bright << r.header << reset << " = " << reverse << "0x";
-    Base(value, 16, 8, ^(char c) { Putch(c); }); // Termlog << (__builtin_uint_t)value;
-    Termlog << reset << eol;
-    Present(term, r.r, value, r.init);
-    Termlog << r.footer << sep;
+    auto present = ^(int count, const Bitfield * regs, __builtin_uint_t value, 
+         __builtin_uint_t init) { int maxwidth=0;
+       for (int i = 0; i < count; i++) {
+          const Bitfield * reg = regs + i; maxwidth = max(maxwidth, 
+           (int)UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(reg->ident, BUILTIN_INT_MAX));
+       }
+       for (int i = 0; i < count; i++) {
+          Present(term, *(regs + i), value, init, maxwidth);
+       }
+    };
+    fprintf(stderr, "%s\n", bright);
+    outᵘcUntil𝟶𝚡𝟶𝟶𝟶𝟶(ar.header);
+    fprintf(stderr, "%s\n = %s\n0x", reset, reverse);
+    Base𝕟(value, 16, 8, ^(char 𝟶to𝟿) { fprintf(stderr, "%c", 𝟶to𝟿); });
+    fprintf(stderr, "%s\n", reset);
+    present(ar.regcnt, ar.regs, value, ar.init);
+    outᵘcUntil𝟶𝚡𝟶𝟶𝟶𝟶(ar.footnote);
+    fprintf(stderr, "\n\n");
 }
+
+
