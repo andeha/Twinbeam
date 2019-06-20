@@ -196,7 +196,7 @@ Argᴾ Pʳⁱⁿᵗx(__builtin_uint_t x); Argᴾ Pʳⁱⁿᵗb(__builtin_uint_t 
 Argᴾ Pʳⁱⁿᵗs(const char * utf8); Argᴾ PʳⁱⁿᵗS(int tetras, const char32_t * uc);
 Argᴾ Pʳⁱⁿᵗc(char c); Argᴾ PʳⁱⁿᵗC(char32_t C);
 MACRO Argᴾ PʳⁱⁿᵗU(__uint128_t U) { return Argᴾ { .value.U=U, 11 }; }
-MACRO Argᴾ PʳⁱⁿᵗI(__int128_t I) { return Argᴾ { .value.I=I, 12 }; }
+MACRO Argᴾ PʳⁱⁿᵗI(__int128_t I) { return Argᴾ { .value.I=I, 10 }; }
 extern "C" { int atexit(void(*func)(void)); void exit(int); }
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
 extern "C" { void * malloc(size_t); void free(void *); }
@@ -313,7 +313,7 @@ template <typename T> bool eqeql(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 🥇 NOT_EVERYTIME
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
 #define 🥈 WHEN_COMPILING /* Must be assigned to a `const` and no inline assembler. */
-#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․𝘢 `__block` and 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎. */
+#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․a `__block` and 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎. */
 
 #pragma mark Utf-8
 
@@ -334,7 +334,7 @@ struct Utf8Interval { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast,
 
 struct Utf8Artifact { __builtin_int_t line, bytesOffset, count; };
 
-enum { END_OF_TRANSMISSION = U'\x4' };
+enum { END_OF_TRANSMISSION = U'\u0004' }; /* A․𝘬․a '\x4', '\x41', '\x42', … */
 
 #pragma mark - 🌱
 

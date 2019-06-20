@@ -27,7 +27,7 @@
     Big No-no: ≈ ≣ ≡ --<'', '' (Slanted dowsing.)
     Misc¹: ℃ ℉ ® © ™ № ºª µ Ω ℊ ϵε϶— ∁ ≙ ⋈ ⫝ ⦣⧄⧅⧆⧇ ⧈ ⧉ ╳ ☩ ₧ ₥
     Misc²: ª º ✓ ✔︎ ☑︎☒ ✕ ✖︎ ✗ ✘ ▲◇□▪︎ △□◇▷▽ ○◦●∙⦁
-     à ⬷ The letter 'a'+'COMBINING GRAVE ACCENT'. See ACUTE and CIRCUMFLEX
+     à ⬷ The letter 'a' + 'COMBINING GRAVE ACCENT'. See ACUTE and CIRCUMFLEX.
     a͟͞z͟͞ ⬷ 'Combining double-macaron' or the 'Bitfields' macraron'.
      L̵ ⬷ L and 'Combining short stroke overlay'
     a⃝ ⬷ The letter 'a' + 'COMBINING ENCLOSING CIRCLE'
@@ -82,6 +82,7 @@
      a⳯b⳰c⳱ (The Coptics)
      ˥ ˦ ˧ ˨ ˩ (Tone letters)
      ⎔⃚ (Combining anticlockwise ring overlay)
+     ﹟ 'Number-of' in 𝘦․𝘨 variable names
    
     Symbol  c-char  Utf-8          Unicode Name
        ␜  "\u241C" 0xE2 0x90 0x9C SYMBOL FOR FILE SEPARATOR
