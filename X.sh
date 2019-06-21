@@ -19,4 +19,5 @@ ninja -C Examples/radio
 ninja -C Examples/sdhc
 ninja -C Additions -f build_macOS.ninja                             || exit 1
 ninja -C Additions -f build_pic32mz.ninja                           || exit 1
-
+ninja -C Additions -f buildº_pic32mz.ninja                          || exit 1
+ninja -C Additions -f buildº_macOS.ninja                            || exit 1
