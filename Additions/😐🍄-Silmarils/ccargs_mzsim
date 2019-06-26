@@ -1,0 +1,9 @@
+-g
+-I /Users/<Relative or absolute path to the Twinbeam header>/
+-D__MZDAStarterBoard__ -D__MZ__ -D__REFLECTIVE__
+--std=c++2a
+-fno-rtti -fblocks -fno-exceptions
+-target mipsel -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32 -mfp64 -mmsa -mdspr2
+-gdwarf-5 -Wno-format
+-Xclang -fforce-enable-int128
+
