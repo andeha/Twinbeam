@@ -522,13 +522,17 @@ int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 
 #define va_epilogue __builtin_va_end(__arg);
 extern "C" void Sheriff();
-/* #define ⭐️ Sheriff(); */ /* After delivery, a non-inquisitorial system is assumed. */
+/* #define ⭐️ Sheriff();  After delivery, a non-inquisitorial system is assumed. */
 enum Impediment { MustBeOrdered, JustSwap };
 int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂, Impediment it); /* Non-
 atomic, yet consistent and gracefully failing indicated through a non-zero return value. */
 /* struct Peekey { __builtin_int_t 🥈 ⬚=2, 🗝=1; __builtin_int_t board₁, palm₂; }; */
 #define 🔒(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, MustBeOrdered)
 #define 🔓(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, JustSwap);
+struct Bitfield { const char32_t * ident; __builtin_uint_t mask; 
+  const char32_t * text; }; typedef Bitfield Register[];
+struct AnnotatedRegister { const char32_t * header; int regcnt;
+  const Bitfield * regs; __builtin_uint_t init; const char32_t * footnote; };
 #ifdef __x86_64__
 #define POSIX_FIBER
 #elif defined __mips__
