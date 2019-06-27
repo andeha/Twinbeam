@@ -334,7 +334,7 @@ struct Utf8Interval { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast,
 
 struct Utf8Artifact { __builtin_int_t line, bytesOffset, count; };
 
-enum { END_OF_TRANSMISSION = U'\u0004' }; /* A․𝘬․a '\x4', '\x41', '\x42', … */
+enum { END_OF_TRANSMISSION = U'\u0004' }; /* A․|incorrectly/𝘬․a '\x4', '\x41', '\x42', … */
 
 #pragma mark - 🌱
 
