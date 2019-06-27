@@ -4,9 +4,8 @@
 //
 
 #include <Twinbeam.h>
-#include "pdb.h"
 
-#pragma mark - SPECIAL FEATURES
+#pragma mark - Special Features
 
 BITMASK (uint32_t) { // DEVID
     PIC32MZDA_DEVID_VER = 0xF0000000, // 0b1111<<28, // Revision Identifier
@@ -20,6 +19,8 @@ Register Microchip_DEVID = {
 
 AnnotatedRegister AR_Microchip_DEVID = {
   U"DEVID: DEVICE AND REVISION ID REGISTER",
-  Microchip_DEVID, 0x00000000,
+  2, Microchip_DEVID, 0x00000000,
   U""
 };
+
+

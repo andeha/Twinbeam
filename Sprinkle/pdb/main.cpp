@@ -7,7 +7,6 @@
 #include <Additions/Additions.h>
 #include <stdio.h>
 #include <string.h>
-#include "pdb.h"
 
 const char *hexfile=NULL, *device_default="PIC32MZ2064DAB288" /*"PIC32MZ2064DAH169"*/, 
   *mdbpath_default="/Applications/microchip/mplabx/v5.20/mplab_platform/bin/mdb.sh";
