@@ -98,6 +98,8 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․k․a `Di
 #define ROTATIONAL
 #define IRREVERSIb /* IRREVERSI♭ */
 #define TRAJECTORAL
+#define INITIALPROJECTIVE
+#define IRREPABEL /* In German: `reparierbar`. */
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -319,14 +321,14 @@ template <typename T> bool eqeql(T x₁, T x₂) { return x₁ == x₂; }; }
 
 int UnicodeToUtf8(char32_t uc, void (^sometimes)(const uint8_t *p, int bytes));
 
-__builtin_int_t Utf8Followers(uint8_t leadOr8Bit);
+short Utf8Followers(uint8_t leadOr8Bit); /* See also `char8_t` and `uchar`. */
 
-char32_t Utf8ToUnicode(const char *p, __builtin_int_t bytes);
+char32_t Utf8ToUnicode(const uint8_t *p, __builtin_int_t bytes);
 
-inline char32_t Superscript(short 𝟶to𝟿) { const char * s = "⁰";
+inline char32_t Superscript(short 𝟶to𝟿) { const uint8_t s[] = "⁰";
   char32_t u = Utf8ToUnicode(s, 3); return u + 𝟶to𝟿; } /* ⁰¹⋯⁹ */
 
-inline char32_t Subscript(short 𝟶to𝟿) { const char * s = "₀";
+inline char32_t Subscript(short 𝟶to𝟿) { const uint8_t s[] = "₀";
   char32_t u = Utf8ToUnicode(s, 3); return u + 𝟶to𝟿; } /* ₀₁…₉; ⬷ For the computational chemistry inclined. */
 
 struct Utf8Interval { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast, 
