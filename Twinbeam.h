@@ -702,4 +702,6 @@ Chronology& ComputationalChronology(); /* 𝖤.𝘨 for chronometers. */
 
 Chronology& SystemCalendricChronology(); /* Irreversible, conclusive mass; Consider 𝑒𝑎𝑠𝑒-𝑖𝑛․ */
 
+typedef uint8_t uchar; typedef uint32_t uint32;
+
 #endif
