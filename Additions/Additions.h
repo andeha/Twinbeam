@@ -26,19 +26,6 @@ CastᵈᵇˡToText(
 #define BINARY128_EPS1 1.000000000000000000000000000000000096296 /* 754-2008 */
 /* decimal128/binary128, 𝜀b₂≈log₁₀(2¹¹³)≈34.16 decimal digits, BSM */
 
-Argᴾ PʳⁱⁿᵗF(double f) { return Argᴾ { .value.f₁=f, 8 }; }
-Argᴾ PʳⁱⁿᵗF(float r)  { return Argᴾ { .value.f₂=r, 9 }; }
-
-typedef long double ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾; /* 2⁻¹⁶³⁸² ≈ 3.3621 × 10⁻⁴⁹³² - 2⁻¹⁶³⁸⁴ − 2⁻¹⁶²⁷¹ ≈ 1.1897 × 10⁻⁴⁹³² */
-#ifdef __x86_64__ /* ¬x86_fp80; */
-typedef ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾 maxprec;
-Argᴾ PʳⁱⁿᵗF(maxprec rᵋ) { union Shim { ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾 f; uint64_t 
-  pair[2]; } rᵋ₂ = { .f=rᵋ }; return Argᴾ { .value.pair = { rᵋ₂.pair[0],
-  rᵋ₂.pair[1] }, 10 }; }
-#elif defined __mips__
-typedef double maxprec; /* typedef ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾 maxprec; */
-#endif
-
 #define IEEE754BASE2_64BIT_PZERO  0x0000000000000000L
 #define IEEE754BASE2_64BIT_NZERO  0x8000000000000000L
 #define IEEE754BASE2_64BIT_SNAN   0x7FF0000000000001L /* Signalling */
@@ -51,12 +38,27 @@ MACRO bool isinf(double x) { octa o; o.base₂ = x; return o.bits ==
   IEEE754BASE2_64BIT_NINF || o.bits == IEEE754BASE2_64BIT_PINF; }
 
 MACRO bool isnan(double x) { octa o; o.base₂ = x; return (o.ieee754b2₂.mantissah 
-  != 0 || o.ieee754b2₂.mantissal != 0) && o.ieee754b2₂.exponent == 0x7ff; } /* Exponent is eleven bits. Sign not relevant; and IEEE 754-2008: MSB is `is_quiet`. */
+  != 0 || o.ieee754b2₂.mantissal != 0) && o.ieee754b2₂.exponent == 0x7ff; } /* Exponent 
+ is eleven bits. Sign not relevant; and IEEE 754-2008: MSB is `is_quiet`. */
 
 MACRO bool isexactlyzero(double x) { octa o; o.base₂ = x; return o.bits == 
   IEEE754BASE2_64BIT_PZERO || o.bits == IEEE754BASE2_64BIT_NZERO; }
 
-MACRO double abs64d(double x) { octa o; o.base₂ = x; o.bits &= ~SIGNBIT_INT64; return o.base₂; }
+MACRO double abs64d(double x) { octa o; o.base₂ = x; o.bits &= ~SIGNBIT_INT64; 
+  return o.base₂; }
+
+MACRO Argᴾ PʳⁱⁿᵗF(double f) { return Argᴾ { .value.f₁=f, 9 }; }
+MACRO Argᴾ PʳⁱⁿᵗF(float r)  { return Argᴾ { .value.f₂=r, 8 }; }
+
+#pragma mark - In-cases of an High-precision IEEE754
+
+typedef long double ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾; /* 2⁻¹⁶³⁸² ≈ 
+  3.3621 × 10⁻⁴⁹³² - 2⁻¹⁶³⁸⁴ − 2⁻¹⁶²⁷¹ ≈ 1.1897 × 10⁻⁴⁹³² */
+#ifdef __x86_64__ /* ¬x86_fp80; */
+typedef ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾 maxprec;
+#elif defined __mips__
+typedef double maxprec; /* typedef ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾 maxprec; */
+#endif
 
 enum GaussianApproximate { AbramowitzStegun, ZogheibHlynka };
 int Gaussian(GaussianApproximate approximate, double *out);
@@ -82,27 +84,31 @@ MACRO bool Similar(double x, double y, double 𝜀) { if (isinf(x) &&
 
 int Roman(__builtin_int_t n, void (^out)(char numeral));
 
-#pragma mark Conversion routines for --<Filesystem.hpp>
+#pragma mark Conversions for --<Filesystem.hpp>
 
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
-__builtin_uint_t UnicodesAndNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t maxbytes);
-__builtin_uint_t Utf8BytesIncludingNull(__builtin_int_t bytes, const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, bool &includesUndefinedCodepoint);
-__builtin_uint_t Utf8BytesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t max); /* Required by `Map<const char *, V>` */
-__builtin_uint_t UnicodesUntilExplicitEOT(const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, __builtin_int_t max); /* Required by `Map<const char32_t *, V>` */
+__builtin_uint_t Utf8BytesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t 
+  maxᵘᵗfbytes); /* Returns `maxᵘᵗfbytes` in-case NULL is not earlier found. */
+__builtin_uint_t Utf8BytesIncludingANull(__builtin_int_t ³²bytes, const 
+  char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, bool &traversedUndefinedCodepoint);
+__builtin_uint_t UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes,
+  __builtin_int_t maxtetras);
+__builtin_uint_t UnicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t 
+  maxᵘᵗfbytes); /* ...also returns `maxᵘᵗfbytes` when NULL can not be found. */
 
 #define ⁺⁼UnicodeToUtf8(Buffer,³²B,⁸B)                                      \
 auto unicodeToUtf8 = ^(char buffer[], int& ³²b, int& ⁸b) {                  \
 again:                                                                      \
-   if (UnicodeToUtf8(*(canonicalᵚ + ³²b), ^(const uint8_t *p, int bytes) {  \
+   if (UnicodeToUtf8(*(𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ + ³²b), ^(const uint8_t *p, int bytes) {     \
       *(buffer + ⁸b) = *p;                                                  \
       if (bytes >= 2) { *(buffer + ⁸b + 1) = *(p + 1); }                    \
       if (bytes >= 3) { *(buffer + ⁸b + 2) = *(p + 2); }                    \
       if (bytes >= 4) { *(buffer + ⁸b + 3) = *(p + 3); }                    \
       ⁸b += bytes; })) { return -1; }                                       \
-   if (++³²b < tetras) goto again;                                          \
+   if (++³²b < 𝘁𝗲𝘁𝗿𝗮𝘀) goto again;                                            \
    *(buffer + ⁸b) = '\0';                                                   \
    return 0;                                                                \
-}(Buffer, ³²B, ⁸B) /* Lexical lambda implicits: `canonicalᵚ` and `tetras`. */
+}(Buffer, ³²B, ⁸B) /* Implicits in lambda expression: `canonicalᵚ` and `tetras`. */
 
 #define ⁺⁼Utf8ToUnicode(U8,UCS)                                             \
 auto utf8ToUnicode = ^(const char * utf8, char32_t unicodes[]) {            \
@@ -124,7 +130,7 @@ unagain:                                                                    \
    unicodes[tetra] = END_OF_TRANSMISSION; /* …when `ᵘᵗf⁸path` is to be      \
      parsed by machine. */ /* ⬷ Always assumed, remember to pathᵤC₂[+1] */ \
    return 0;                                                                \
-}(U8,UCS) /* Lexical lambda implicits: None. */
+}(U8,UCS) /* Implicits in lambda statement: None. */
 
 #pragma mark - Decoration in Procrastinative Style
 
@@ -139,7 +145,7 @@ typedef struct UnicodeBlock {
 #include <Additions/Knot₂.hpp>
 #include <Additions/Map.hpp>
 
-FINAL struct Intervallic { /* A․𝘬․a `DecoratedString` and `Recording`. */
+FINAL struct Intervallic {
     /*   ⎡      😐≅        ⎤
         ♢⎢    😐?😐≅😐    ⎥
          ⎣ 😐?😐≅😐?😐?😐?⎦   */
@@ -166,17 +172,14 @@ FINAL struct Intervallic { /* A․𝘬․a `DecoratedString` and `Recording`. */
       void *formatting; Hashed const char32_t * × UnicodeBlock
       Map<const char *, UnicodeBlock> formatting; */
     
-    Unicodes unicodes();
+    Unicodes unicodes() const;
     
-😐;
-
-Argᴾ PʳⁱⁿᵗRef(Intervallic& ds) { return PʳⁱⁿᵗS(ds.unicodes().tetras, 
-  ds.unicodes().unicodes); } /* Struct assignment ⟶ Memory copy. */
+😐; /* A․𝘬․a `DecoratedString` and `Recording`. */
 
 /* #include <Additions/Color.hpp>
 #include <Additions/Typesetting.hpp> */
 
-#pragma mark - Terminal
+#pragma mark - The Terminal
 
 struct Utf8Terminal {
     
@@ -189,13 +192,13 @@ struct Utf8Terminal {
     virtual
     Inputctrl
     interaction(
-      __builtin_int_t periods𝘖𝘳Zero,
-      __builtin_int_t ᵗᵉⁿᵗʰseconds,
+      int periods𝘖𝘳Zero,
+      int ᵗᵉⁿᵗʰseconds,
       void (^ping)(bool &stop), /* Cyclically whilst time passes. */
       void (^touchbase)(char32_t unicode, bool &stop) /* After a key press. */
-    ) const; /* 𝘈․k․a `read` and `password`. */
+    ) const; /* 𝘈․k․a `interact`, `read` and `password`. */
     
-    virtual int write(char * utf8s, unsigned short bytes) const;
+    virtual int write(const uint8_t * utf8s, __builtin_int_t bytes) const;
     
     void (^scientificFormat)(double x, Utf8Terminal &stream);
     
@@ -205,11 +208,12 @@ enum class PresentBase { dec, hex, oct, bin };
 namespace NumberformatCatalogue { extern void (^Default)(double, Utf8Terminal&);
   extern void (^Monetary)(double, Utf8Terminal &); }
 void Present(Utf8Terminal &term, __builtin_int_t z);
-void Present(Utf8Terminal &term, __builtin_uint_t n, PresentBase base = PresentBase::dec);
+void Present(Utf8Terminal &term, __builtin_uint_t n, PresentBase base);
 void Present(Utf8Terminal &term, double value);
 void Present(Utf8Terminal &term, char32_t unicode);
-void Present(Utf8Terminal &term, const char * utf8);
-void Present(Utf8Terminal &term, const Intervallic& ds);
+void Present(Utf8Terminal &term, const char * utf8, __builtin_int_t maxbytes=BUILTIN_INT_MAX);
+/* Struct assignment ⟶ Memory copy. */
+void Present(Utf8Terminal &term, const Intervallic & ds);
 /* void Present(Utf8Terminal &term, UnicodeBlock location); */
 /* enum Register { rtcc, dma0, … }; void Present(Utf8Terminal &term, Register reg); */
 
@@ -230,22 +234,32 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, char32_t unicode)
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char * utf8)
 { Present(term, utf8); return term; }
 
-MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char32_t *unicodesOrEOT) {
-  __builtin_int_t tetras = UnicodesUntilExplicitEOT(unicodesOrEOT, BUILTIN_INT_MAX); /* …UnicodesUntilNull may compile without warning. */
-  Memoryregion region { (void *)unicodesOrEOT, tetras<<2 };
-  Memoryview view { &region, 0, region.bytes() };
-  __builtin_int_t beam = 0;
-  if (TokenizeUtf8OrUnicode(Encoding::unicode, view, beam,
-   ^(char32_t unicode, __builtin_int_t byteOffset, bool& stop) {
-      term.write(unicode);
-  })) { } return term; }
+MACRO Utf8Terminal & operator<<(Utf8Terminal &term, char c)
+{ Present(term, (char32_t)c); return term; } /* A․𝘬․a `ascii7ToUnicode`. */
+
+MACRO Utf8Terminal & operator<<(Utf8Terminal &term, float x)
+{ Present(term, (double)x); return term; }
+
+MACRO
+Utf8Terminal &
+operator<<(
+  Utf8Terminal &term,
+  const char32_t * unicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶
+)
+{ if (!unicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶) { return term; }
+  char32_t uc; int i=0;
+again:
+  uc = *(unicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶 + i);
+  if (uc == 0x0000) { return term; }
+  Present(term, uc);
+  i++; goto again;
+}
 
 /* MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const String& s) {
   __builtin_int_t tetras = s.unicodeCount(); for (int i = 0; i < tetras; i++)
   { s.unicode(i, ^(SemanticPointer<char *> prev, char32_t elem,
-  SemanticPointer<char *> next) { term.write(elem); }); } return term; } */
-
-/* MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const Intervallic& s) 
+  SemanticPointer<char *> next) { term.write(elem); }); } return term; }
+MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const Intervallic& s) 
   { Present(term, s); return term; }
 template <typename T> Utf8Terminal& operator<<(Utf8Terminal &term, 
   Vector<T> &v) { Present(v, term); return v; }
@@ -259,16 +273,16 @@ extern Utf8Terminal _myTerminal;
 
 #define Termlog _myTerminal
 
-#pragma mark - Guid
+#pragma mark - Guids
 
 typedef sexdeca Guid;
 
 Guid NewGuid();
 
-void GuidToText(Guid& guid, void (^out)(char digitOrHyphen));
-/* auto ascii7ToUnicode = ^(char c) { return (char32_t)c; }; */
+void GuidToText(const Guid& guid, void (^out)(char digitOrHyphen));
 
-/* Argᴾ PʳⁱⁿᵗRef(Guid& g) { ⟶⟵ }, yet `Present`… */
+void Present(Utf8Terminal &term, const Guid& ds);
+/* …and not MACRO Argᴾ PʳⁱⁿᵗRef(Guid& g) { ⟶⟵ } */
 
 #pragma mark - Input Feeding in Practice
 
@@ -276,7 +290,7 @@ enum class CastToIntOpinion { accept, rejecting, negate, commit, annul };
 
 Opt<__builtin_int_t>
 CastᵗˣᵗToInt(
-  CastToIntOpinion (^feeder)(unsigned short& digit)
+  CastToIntOpinion (^feeder)(unsigned short &digit)
 ); /* 𝘈․𝘬․a `CastToInt`. */
 
 enum class Inputcontrol { ok, quit };
@@ -307,7 +321,8 @@ struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
    void include(E * ref) { content[brk] = ref; extern void Include(int depth, 
      int * brk, int * count); Include(depth, &brk, &count); }
  /* private */ int physical(unsigned 𝛥) const { extern int Physical(unsigned 
-     nowdelta, int brk, int depth); return Physical(𝛥, brk, depth); }
+     nowdelta /* 𝘢․𝘬․𝘢 `prevrelativehead` */, int brk, int depth);
+    return Physical(𝛥, brk, depth); }
    enum Flavor { allinorder, latest };
 };
 
@@ -351,7 +366,8 @@ struct Bitsetˢᵘᵖ { /* A․𝘬․a `Capped-ET-Bitset`. */
   
   __builtin_uint_t state;
   
-  void toggle(int pos) { state ^= 1<<pos; } /* Xor₁: 'different' between two and toggles one; I․𝘦 'abstract` ⟷ Xor. */
+  void toggle(int pos) { state ^= 1<<pos; } /* Xor₁: 'different' between two and 
+    toggles one; I․𝘦 'abstract` ⟷ Xor. */
   
   __builtin_uint_t anset() { /* Xor₂: Toggles ∧ identifies 'change' simultaneously. */
      __builtin_uint_t cnt = TrailingZeros(state);
@@ -361,15 +377,7 @@ struct Bitsetˢᵘᵖ { /* A․𝘬․a `Capped-ET-Bitset`. */
   
 }; /* For --<🥽 Memclone.cpp> ∧ --<🥽 Bookshelf.cpp>. */
 
-#pragma mark Asynchronous file copying and file mapping
-
-void *
-mapfileʳᵚ(
-  Unicodes canonicalRegularOrLinkpathᵚ,
-  __builtin_int_t pagesOffset,
-  __builtin_int_t pagesCountOrZero,
-  __builtin_int_t * bytesActual
-);
+#pragma mark Asynchronous File Copying
 
 int
 OptimisticAsync8Copy(
@@ -381,7 +389,7 @@ OptimisticAsync8Copy(
   void (^error)(), void (^complete)()
 ); /* 𝘈․𝘬․a `Copy8Async`, `BasicTransfer`. */
 
-#pragma mark Dispatch, priorities and interrupts
+#pragma mark Dispatch, Priorities and Interrupts
 
 typedef void (^AsyncJob)(); /* 𝘈․𝘬․a `CHandler` and 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀. */
 
