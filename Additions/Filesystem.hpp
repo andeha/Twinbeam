@@ -5,11 +5,11 @@
 MACRO
 bool
 FileSystemItemExists(
-  int tetras,
-  const char32_t * canonicalᵚ /* A․k․a `pathᵚ` */
+  int 𝘁𝗲𝘁𝗿𝗮𝘀,
+  const char32_t * 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․k․a `pathᵚ` */
 )
-{  struct stat st; bool invalid=false;
-    __builtin_uint_t Maxpathᴮʸᵗᵉˢ = Utf8BytesIncludingNull(tetras<<2, canonicalᵚ, invalid);
+{  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
+      Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
     if (invalid) return false;
     char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
     if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b)) { return false; }
@@ -19,11 +19,11 @@ FileSystemItemExists(
 MACRO
 bool
 IsRegularFile(
-  int tetras,
-  const char32_t * canonicalᵚ /* A․𝘬․a `pathᵚ` */
+  int 𝘁𝗲𝘁𝗿𝗮𝘀,
+  const char32_t * 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
 )
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
-      Utf8BytesIncludingNull(tetras<<2, canonicalᵚ, invalid);
+      Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
     if (invalid) return false;
     char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
     if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b)) { return false; }
@@ -33,11 +33,11 @@ IsRegularFile(
 
 __builtin_int_t
 RegularOrLinkFileLength(
-  int tetras,
-  const char32_t * canonicalᵚ /* A․𝘬․a `pathᵚ` */
+  int 𝘁𝗲𝘁𝗿𝗮𝘀,
+  const char32_t * 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
 )
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ =
-    Utf8BytesIncludingNull(tetras<<2, canonicalᵚ, invalid);
+    Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
     if (invalid) return -1;
     char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
     if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b)) { return -2; }
@@ -48,11 +48,11 @@ RegularOrLinkFileLength(
 MACRO
 bool
 IsDirectory(
-  int tetras,
-  const char32_t * canonicalᵚ /* A․𝘬․a `pathᵚ` */
+  int 𝘁𝗲𝘁𝗿𝗮𝘀,
+  const char32_t * 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
 )
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
-      Utf8BytesIncludingNull(tetras<<2, canonicalᵚ, invalid);
+      Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
     if (invalid) return false;
     char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
     if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b)) { return false; }
@@ -63,11 +63,11 @@ IsDirectory(
 MACRO
 bool
 IsSymbolicLink(
-  int tetras,
-  const char32_t * canonicalᵚ /* A․𝘬․a `pathᵚ` */
+  int 𝘁𝗲𝘁𝗿𝗮𝘀,
+  const char32_t * 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
 )
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
-      Utf8BytesIncludingNull(tetras<<2, canonicalᵚ, invalid);
+      Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
     if (invalid) return false;
     char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
     if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b)) { return false; }
