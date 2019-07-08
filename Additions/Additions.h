@@ -312,7 +312,7 @@ Tokenize(
   Inputcontrol (^token)(char32_t * unicodes, __builtin_int_t count)
 ); /* `Tokenize` - `ReadUnicode` = Opt<𝑓𝑢𝑡𝑢𝑟𝑒 𝑡𝑒𝑛𝑠𝑒> */
 
-#pragma mark F̲irst i̲n f̲irst o̲ut: Easy-bounded `Vector` …possibly `VM-realloc`
+#pragma mark F̲irst i̲n f̲irst o̲ut: Easy-bounded `Vector` …ancient: `VM-realloc`
 
 template <typename E>
 struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
@@ -321,10 +321,14 @@ struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
    void include(E * ref) { content[brk] = ref; extern void Include(int depth, 
      int * brk, int * count); Include(depth, &brk, &count); }
  /* private */ int physical(unsigned 𝛥) const { extern int Physical(unsigned 
-     nowdelta /* 𝘢․𝘬․𝘢 `prevrelativehead` */, int brk, int depth);
+     nowdelta /* A․𝘬․𝘢 `prevrelativehead` */, int brk, int depth);
     return Physical(𝛥, brk, depth); }
    enum Flavor { allinorder, latest };
-};
+}; /* Note also that three areas where one 'precomputed 'area always separates the 
+  'producer' from the 'consumer' enables a 'stable external projection' without 
+  visible fluctuations a.k.a 'flickering'; whereas two areas lead to the need 
+  to induce 'lock' as well as the other contratranquistimulantic constraints. 
+  'efterhandskonstruktion'/hack. (ret-ro-spect = [stimulu-tranqui-jello]). */
 
 /*
  
@@ -336,7 +340,7 @@ struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
  
   yᵢ₊₁ = yᵢ₋₁ + h (uᵢ₊₁ + 4uᵢ + uᵢ₋₁)/3
  
- See --<🥽 Romberg.cpp> for a ∫-metod that is not on-line.
+ See --<🥽 Romberg.cpp> for a ∫-method that is not on-line.
  
  */
 
