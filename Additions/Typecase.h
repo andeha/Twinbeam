@@ -1,34 +1,40 @@
-// Acceptable and Enclavable Platform Base ✁ until ✂️
-
-/**
-    
-    Utf-8 Non-regulars: .*․｟｠ ⃦ ('Combining double vertical stroke overlay' or
-      'fat-pipe') ✚ ★ ‽ ⸺ \ 𐤟 (PHOENICIAN WORD SEPARATOR) ↩︎ ↹
-    Example: ｟↹↩︎｠★
+/**  Acceptable and Enclavable Platform ✁ until ✂️
+                                                                             
+    ■ = 1, □ = 0, ⬚ = Unknown                                                
     Logic and one-liners: ≅ ≠ ⋍ ~ ⟶ ⟷ ⊂⊄⊆⊈ ⊃ (Małuszyński inclusion) ∩∪ ∈∉
       ¬∧∨ ≤≥ ≰ ≱ ∞ ∀∃∄ ⊨ ∅ 𝜖 √ ∑∏ ∂∆ ∇𝛻 ∫∬∭ ℕℤℂℍℝ ℚ ¶ ⌈⌉ ⌊⌋
       𝘦․𝘨 𝐊 (ᵃ𝑛/ᵇ𝑛), where n∈[1,∞) = a₁/(b₁ + a₂/(b₂ + …)
+    Unicodes and utf-8: .*․｟｠ ⃦ ('Combining double vertical stroke overlay') ✚
+      ★ 𐤟 (PHOENICIAN WORD SEPARATOR) ↹ ↩︎ ¶
     Greek: 𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲𝛳𝛴𝛵𝛶𝛷𝛸𝛹𝛺 𝛼𝛽𝛾𝛿𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜎𝜏𝜐𝜑𝜒𝜓𝜔 𝜙𝜛
     Mathematics 𝐼𝑡𝑎𝑙𝑖cs: 𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐾𝐽𝐿𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍 𝑎𝑏𝑐𝑑𝑒𝑓𝑔ℎ𝑖𝚤𝑗𝚥𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧
-    Maths. 𝑩𝒐𝒍𝒅 Italics: 𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿𝒀𝒁 𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛
-    Maths. Sans-serif: 𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹 𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓 𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿
-    Maths. Sans-serif B𝗼𝗹𝗱: 𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭 𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵 𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇
-    Maths. 𝙏𝙝𝙧𝙚𝙚: 𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕 𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯
-    Maths. Sans-serif (non-Bold) 𝘐𝘵𝘢𝘭𝘪𝘤: 𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡 𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻
-    Mathematics 𝙼𝚘𝚗𝚘space: 𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿 𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉 𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣
-    Models and Mathematics: ⊏ ⊑ ⊢ ⊨ ⊿ ª0 + … + ªn₋1 n₍2k₊1₎ ª1⋯ªk ∴ (tf) ∵ (b) ∎ ⇀↽
-    Parenthesis: ⎛⎜⎝   ⎞⎟⎠ ⁻⁺⁽¹ˣ⁾⁼ⁱⁿ ᵢᵣᵤᵥᵦᵧᵨᵩᵪ₊₋₌₍₎⨧ₐₑₒₓₔⱼ ᵃⁿᵈᵉʰᵊᵇⁱʲˡˢᵋᵌᵍᵎᵏᵐⁿᵒᵖʳᵗᵘᵙᵚᵛˣʸᴬᴮᴴᴵᴺᵅᵝᵞᵟᵋᶿᵠᵡ
-    Matrices and Conditionals: ⎡⎢⎣ ⋱ ⋰ ⋮ ⎤⎥⎦  ⎧⎨⎩  ⎫⎬⎭  ⎪
-    Temporals: ◯ ♢ ▢
-    ^-Graphemes: ␁ ␂ ␚
-    Signals: ⎍ ⎎ ⊕ ⏚ ㊉㊀ ㎽ ㎮ ㎯
+     𝑩𝒐𝒍𝒅 Italics: 𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿𝒀𝒁 𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛
+     Sans-serif: 𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹 𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓 𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿
+     Sans-serif B𝗼𝗹𝗱: 𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭 𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵 𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇
+     𝙏𝙝𝙧𝙚𝙚: 𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕 𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯
+     Sans-serif (non-Bold) 𝘐𝘵𝘢𝘭𝘪𝘤: 𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡 𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻
+     𝙼𝚘𝚗𝚘space: 𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿 𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉 𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣
+    Models and mathematics: ⊏ ⊑ ⊢ ⊨ ⊿ ª0 + … + ªn₋1 n₍2k₊1₎ ª1⋯ªk ∴ (tf) ∵ (b) ∎ ⇀↽
+    Parentheses and temporals: ⎛⎜⎝   ⎞⎟⎠        ◯ ♢ ▢
+    Sub/super: ⁻⁺⁽¹ˣ⁾⁼ⁱⁿ ᵢᵣᵤᵥᵦᵧᵨᵩᵪ₊₋₌₍₎⨧ₐₑₒₓₔⱼ ᵃⁿᵈᵉʰᵊᵇⁱʲˡˢᵋᵌᵍᵎᵏᵐⁿᵒᵖʳᵗᵘᵙᵚᵛˣʸᴬᴮᴴᴵᴺᵅᵝᵞᵟᵋᶿᵠᵡ
+    Matrices and conditionals: ⎡⎢⎣ ⋱ ⋰ ⋮ ⎤⎥⎦  ⎧⎨⎩  ⎫⎬⎭  ⎪
     Chemistry Hobbyist: ⇾ ₀₁₂₃₄₅₆₇₈₉
-    Alt. Math: ± ∓ ∔ ×
-    Big No-no: ≈ ≣ ≡ --<'', '' (Slanted dowsing.)
-    Misc¹: ℃ ℉ ® © ™ № ºª µ Ω ℊ ϵε϶— ∁ ≙ ⋈ ⫝ ⦣⧄⧅⧆⧇ ⧈ ⧉ ╳ ☩ ₧ ₥
-    Misc²: ª º ✓ ✔︎ ☑︎☒ ✕ ✖︎ ✗ ✘ ▲◇□▪︎ △□◇▷▽ ○◦●∙⦁
+    Math Additionals: ± ∓ ∔ ×
+    
+    print "The brown ⬚ jumped over the lazy ⬚\n", ﹟s("fox"), ﹟s("dog")
+      ﹟d(__builtin_int_t d)                     ﹟b(__builtin_uint_t b)
+      ﹟S(int tetras, const char32_t * uc)       ﹟s(const char * utf8)
+      ﹟reᵍ(__builtin_int_t r)
+                                                                             
+    Also: U (__uint128_t U), x(__builtin_uint_t x), c(char c), C(char32_t C),
+      I(__int128_t I)
+                                                                             
+    Big no-no: ≈ ≣ ≡ --<'', '' (Slanted dowsing.)
+    Signals: ⎍ ⎎ ⊕ ⏚ ㊉㊀ ㎽ ㎮ ㎯
+    Misc²: ª º ✓ ✔︎✓ ☑︎☒ ✕ ✖︎ ✗ ✘ ▲◇□▪︎ △□◇▷▽ ○◦●∙⦁
      à ⬷ The letter 'a' + 'COMBINING GRAVE ACCENT'. See ACUTE and CIRCUMFLEX.
-    a͟͞z͟͞ ⬷ 'Combining double-macaron' or the 'Bitfields' macraron'.
+     A̲ ⬷ …and 'A' + 'COMBINING LOW LINE'
+    a͟͞z͟͞ ⬷ 'Combining double-macaron' or the 'Bitfields' macraron'
      L̵ ⬷ L and 'Combining short stroke overlay'
     a⃝ ⬷ The letter 'a' + 'COMBINING ENCLOSING CIRCLE'
      ℹ︎ ⬷ 'Information source'
@@ -41,10 +47,11 @@
    
      ╮  ╯ ╭ ╰ ╱ ╲ ╳     ┤ ┌ ├ ┼ ┘ └ ┐ ─ │ ┴ ┬    ╶╵╷╴
    
-      Key   Value   ∃
-     ├───┼─────────┼─┤           ⌏  ⌎   ⌜  ⌝  ⌖
-     ╎k₁ ┊         ┆✓╎           ⌍  ⌌   ⌞  ⌟  ‖
-     └───┴─────────┴─┘
+   
+       Key    Description   ∃
+     ├─────┼───────────────┼─┤           ⌏  ⌎   ⌜  ⌝  ⌖
+     ╎     ┊               ┆ ╎           ⌍  ⌌   ⌞  ⌟  ‖
+     └─────┴───────────────┴─┘
    
           ┌def┐
           │   │                     ╭─ Leaf 1 ──╮           
@@ -59,31 +66,33 @@
       ⌡              /͟                                                      
      -∞             k=1                                                     
    
-      ⎡n₁₁     ⎤    ⎧ ⎫    ⎛   ⎞      ⸑      
-      ⎢        ⎥    ⎨ ⎬    ⎜   ⎟     ⎸    ⎲ 
-      ⎣     nᵤᵥ⎦    ⎩ ⎭    ⎝   ⎠    ⎷    ⎳ 
+      ⎡n₁₁     ⎤    ⎧ ⎫    ⎛   ⎞      ⸑                                
+      ⎢        ⎥    ⎨ ⎬    ⎜   ⎟     ⎸    ⎲                           
+      ⎣     nᵤᵥ⎦    ⎩ ⎭    ⎝   ⎠    ⎷    ⎳                            
    
    Further, consider:
    
    Dashes: ‒ Figure Dash, – En Dash, — Em Dash, ⁓ Swung Dash, ⸺ Two-em Dash,
         ⸻ Three-em Dash, 〰 Wavy Dash, - Hyphen Minus.
-   
+     
+     ˥ ˦ ˧ ˨ ˩ (Tone letters)
+     ⎔⃚ (Combining anticlockwise ring overlay)
+     ⬚ Placemark for `print`
+     ﹟ 'Number-of' in 𝘦․𝘨 variable names
+     
    Arrows: ⇽ ⇾ ⟲⟳ ↗︎↘︎↙︎↖︎ ⸔⸕ ⤡⤢ ⤺⤻ ↰↱↲↳ ↴ ↩︎ ↵  ⮐ ↹ ←↑→↓
      ↼ (Leftward harpoon with barb upwards) ↽↾↿⇀⇁⇂⇃⇄⇅⇆⇇⇈⇉⇊⇋⇌⇍⇏⇐⇑⇒⇓⇚⇛⇜⇝⇤⇥⇦⇧
-     ⇨⇩⇪⇵⇶ ⎔ ➔➙➛➜➝➞➟➠⟰⟤⟥ ⤶ ⤷  ↔︎
-     📲📩📈📉🔃➡︎⬅︎⬆︎⬇︎↩︎⤴︎⤵︎⤴⤵ (牮筏)
+     '⇨⇩⇪⇵⇶ ⎔ ➔➙➛➜➝➞➟➠⟰⟤⟥ ⤶ ⤷  ↔︎'
+     '📲📩📈📉🔃➡︎⬅︎⬆︎⬇︎↩︎⤴︎⤵︎⤴⤵ (牮筏)'
      ⬷ ⤐ (Leftwards two-headed triple dash arrow)
-   
+    
    Extensions: ⁌⁍ ⊸ ⫰ ⫱ ⿱⿳⿶  ⃦ a⃮ b⃯ a͍ (Combining left and right arrow below),
      a̫b̫c̫ ⬷ 'Combining inverted double arch below' a⃨b⃨c⃨ a⃩ a⃪
      1゚ (Combining Katakana Sound Mark)
      a ⃫b (Combining long double solidus overlay)
      aᷣ (Combining latin small letter R rotund)
      a⳯b⳰c⳱ (The Coptics)
-     ˥ ˦ ˧ ˨ ˩ (Tone letters)
-     ⎔⃚ (Combining anticlockwise ring overlay)
-     ﹟ 'Number-of' in 𝘦․𝘨 variable names
-   
+    
     Symbol  c-char  Utf-8          Unicode Name
        ␜  "\u241C" 0xE2 0x90 0x9C SYMBOL FOR FILE SEPARATOR
        ␝  "\u241D" 0xE2 0x90 0x9D SYMBOL FOR GROUP SEPARATOR
@@ -103,7 +112,6 @@
      ⇀ ↽ (Punctuation space), ⇀ ↽ (Thin space), ⇀ ↽ (Hair space),
      ⇀​↽ (Zero width space), ⇀ ↽ (Narrow no-break space),
      ⇀ ↽ (Medium mathematical space), ⇀　↽ (Ideographic space), ⇀〿↽
-     (Ideographic half-fill space). ␣ (Knuths' Constant.) ﹇ 
-     (Silver space)
-   
+     (Ideographic half-fill space). ␣ (Knuths' Constant.) ﹇ (Silver space)
+                                                                             
  *␣///}✂️ >> --<shoebox>{Utf-8 Symbols} */

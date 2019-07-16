@@ -6,7 +6,7 @@
 #include <Twinbeam.h>
 
 FOCAL
-__builtin_int_t
+short
 Utf8Followers(uint8_t leadOr8Bit)
 {
     if (leadOr8Bit < 128) { return 0; }
@@ -26,23 +26,23 @@ Utf8Followers(uint8_t leadOr8Bit)
     __builtin_int_t onesUntilZero = clz(~leadOr8Bit);
 #endif
     
-    return onesUntilZero - 1;
+    return (short)onesUntilZero - 1;
 }
 
 FOCAL
 char32_t
 Utf8ToUnicode(
-  const char *p,
+  const uint8_t *p,
   __builtin_int_t bytes
 )
 {
     uint8_t first = *p;
-    if (248 <= first || (128 <= first && first < 192)) return 0xFFFF;
+    if (248 <= first || (128 <= first && first < 192)) return 0x0000FFFF;
     switch (bytes) { case 1: return (char32_t)(uint8_t)*p; case 2: return
     (0b11111&*p) << 6 | (0b111111&(*(p + 1))); case 3: return (0b1111&*p) <<
     12 | (0b111111&(*(p + 1))) << 6 | (0b111111&(*(p + 2))); case 4: return
     (0b111&*p) << 18 | (0b111111&(*(p + 1))) << 12 | (0b111111&(*(p + 2))) <<
-    6 | (0b111111&(*(p + 3))); } return 0xFFFE;
+    6 | (0b111111&(*(p + 3))); } return 0x0000FFFE;
 }
 
 FOCAL
@@ -60,11 +60,11 @@ TokenizeUtf8OrUnicode(
         SemanticPointer<void *> p = content.region->relative(i + content.bytesOffset, base);
         __builtin_int_t charBytes = 4; bool stop = false;
         if (encoding == Encoding::utf8) {
-            const char *c = (const char *)p.pointer;
-            charBytes = Utf8Followers(*(uint8_t *)c) + 1;
-            if (charBytes == -1) return 1; /* Possibly non-utf8 byte. */
+            uint8_t * c = (uint8_t *)p.pointer;
+            charBytes = Utf8Followers(*c) + 1;
+            if (charBytes == -1) return -1; /* Possibly non-utf8 byte. */
             char32_t unicode = Utf8ToUnicode(c, charBytes);
-            if (unicode == 0) return 1;
+            if (unicode == 0xFFFE || unicode == 0xFFFF) { return -2; }
             character(unicode, i, stop);
         } else { character(*(char32_t *)(p.pointer), i, stop); }
         i += charBytes; beam = i;
@@ -110,13 +110,15 @@ UnicodeToUtf8(
     uint8_t target[4];
     
     switch (bytesToWrite) {
-        case 4: target[3] = (uint8_t)((u | byteMark) & byteMask); u >>= 6;
-        case 3: target[2] = (uint8_t)((u | byteMark) & byteMask); u >>= 6;
-        case 2: target[1] = (uint8_t)((u | byteMark) & byteMask); u >>= 6;
-        case 1: target[0] = (uint8_t) (u | firstByteMark[bytesToWrite]);
+      case 4: target[3] = (uint8_t)((u | byteMark) & byteMask); u >>= 6;
+      case 3: target[2] = (uint8_t)((u | byteMark) & byteMask); u >>= 6;
+      case 2: target[1] = (uint8_t)((u | byteMark) & byteMask); u >>= 6;
+      case 1: target[0] = (uint8_t) (u | firstByteMark[bytesToWrite]);
     }
     
     completion(target, bytesToWrite);
     
     return 0;
 }
+
+
