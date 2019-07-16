@@ -107,7 +107,7 @@
      (Ideographic half-fill space). ␣ (Knuths' Constant.) ﹇ (Silver space)
                                                                              
    Switches and Buttons: ⌘ Command (U+2318), ⌥ Option (U+2325), 
-     ⇧ Shift (U+21e7), ⎋ ESC (U+238B), ⇪ Capslock (U+21ea), 
+     ⇧ Shift (U+21e7), ⎋ ESC (U+238b), ⇪ Capslock (U+21ea), 
      ⏎ Return U+23ce), ⌫ Delete/Backspace (U+232b), ⇥ Tab Arrow (U+21e5)
                                                                              
  *␣///}✂️ >> --<shoebox>{Utf-8 Symbols} */
