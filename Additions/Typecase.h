@@ -27,8 +27,7 @@
       ﹟S(int tetras, const char32_t * uc)       ﹟s(const char * utf8)
       ﹟reᵍ(__builtin_int_t r)
                                                                              
-    Also: U (__uint128_t U), x(__builtin_uint_t x), c(char c), C(char32_t C),
-      I(__int128_t I)
+    Also: U(__uint128_t),x(__builtin_uint_t),c(char),C(char32_t),I(__int128_t)
                                                                              
     Big no-no: ≈ ≣ ≡ --<'', '' (Slanted dowsing.)
     Signals: ⎍ ⎎ ⊕ ⏚ ㊉㊀ ㎽ ㎮ ㎯
@@ -45,7 +44,7 @@
       ⃫ ⬷ 'COMBINING LONG SOLIDUS OVERLAY'
     
    Footnotes, references and (enum.) lists: ¹₁²₂³₃⁴₄⁵₅⁶₆⁷₇⁸₈⁹₉⁰₀ •○◦・•⁃⦾⦿‣⁌⁍
-   
+                                                                             
      ╮  ╯ ╭ ╰ ╱ ╲ ╳     ┤ ┌ ├ ┼ ┘ └ ┐ ─ │ ┴ ┬    ╶╵╷╴
    
    
@@ -94,19 +93,11 @@
      aᷣ (Combining latin small letter R rotund)
      a⳯b⳰c⳱ (The Coptics)
     
-    Symbol  c-char  Utf-8          Unicode Name
-       ␜  "\u241C" 0xE2 0x90 0x9C SYMBOL FOR FILE SEPARATOR
-       ␝  "\u241D" 0xE2 0x90 0x9D SYMBOL FOR GROUP SEPARATOR
-       ␞  "\u241E" 0xE2 0x90 0x9E SYMBOL FOR RECORD SEPARATOR
-       ␟  "\u241F" 0xE2 0x90 0x9F SYMBOL FOR UNIT SEPARATOR
-   
-    ␉ ␋ HORZONTAL and VERTICAL TABULATION ⇀↽ ⇀↽ ⇀↽ ⇀↽ "\u001F" - "\u001C",
-    0x1F - 0x1C, INFORMATION SEPARATOR ONE/FOUR
-   
-   Buttons: ⌘ Command, &#x2318; – &#8984; ⌥ Option, &#x2325; – &#8997; ⇧ Shift,
-     &#x21E7; – &#8679; ⎋ ESC &#x238B; – &#9099; ⇪ Capslock &#x21ea; – &#8682;
-     ⏎  Return &#x23ce; – &#9166; ⌫ Delete/Backspace, &#x232b; – &#9003;
-     ⇥ Tab Arrow
+    Symbol   c-char    UTF-8            Unicode Name                         
+      ␜    "\u241C" ┆ 0xE2 0x90 0x9C ╎ SYMBOL FOR FILE SEPARATOR
+      ␝    "\u241D" ┆ 0xE2 0x90 0x9D ╎ SYMBOL FOR GROUP SEPARATOR
+      ␞    "\u241E" ┆ 0xE2 0x90 0x9E ╎ SYMBOL FOR RECORD SEPARATOR
+      ␟    "\u241F" ┆ 0xE2 0x90 0x9F ╎ SYMBOL FOR UNIT SEPARATOR
    
    Spaces: ⇀ ↽ (en space), ⇀ ↽ (em space), ⇀ ↽ (Three-per-em space),
      ⇀ ↽ (Four per em-space), ⇀ ↽ (Six-per-em), ⇀ ↽ (Figure space),
@@ -114,5 +105,9 @@
      ⇀​↽ (Zero width space), ⇀ ↽ (Narrow no-break space),
      ⇀ ↽ (Medium mathematical space), ⇀　↽ (Ideographic space), ⇀〿↽
      (Ideographic half-fill space). ␣ (Knuths' Constant.) ﹇ (Silver space)
+                                                                             
+   Switches and Buttons: ⌘ Command (U+2318), ⌥ Option (U+2325), 
+     ⇧ Shift (U+21e7), ⎋ ESC (U+238B), ⇪ Capslock (U+21ea), 
+     ⏎ Return U+23ce), ⌫ Delete/Backspace (U+232b), ⇥ Tab Arrow (U+21e5)
                                                                              
  *␣///}✂️ >> --<shoebox>{Utf-8 Symbols} */
