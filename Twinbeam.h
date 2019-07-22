@@ -138,13 +138,15 @@ template <typename T> struct Opt : public SharedOptional { explicit Opt(const
   const Opt<T>& other) { populated = other.populated; if (populated) { new
   (content) T((const T&)(other.content)); } } ~Opt() { reinterpret_cast<T *>(
   content)->~T(); } alignas(T) uint8_t content[sizeof(T)]; T& operator*() const
-  { return (T&)content; } T * operator->() const { return &(**this); } static Opt no() { return Opt(); } };
+  { return (T&)content; } T& operator->() const { return (T&)content; } static Opt no() { return Opt(); } };
+  // { return (T&)content; } T * operator->() const { return &(**this); } static Opt no() { return Opt(); } };
 template <typename T> struct Opt<T&> : public SharedOptional { explicit Opt(
   const T& v) { new (content) T(v); populated = true; } explicit Opt() = default;
   Opt(const Opt<T>& other) { populated = other.populated; if (populated) { new
   (content) T((const T&)(other.content)); } } ~Opt() { reinterpret_cast<T *>(
   content)->~T(); } alignas(T) uint8_t content[sizeof(T)]; T& operator*() const
-  { return (T&)content; } T * operator->() const { return &(**this); } static Opt no() { return Opt(); } };
+  { return (T&)content; } T& operator->() const { return (T&)content; } static Opt no() { return Opt(); } };
+  // { return (T&)content; } T * operator->() const { return &(**this); } static Opt no() { return Opt(); } };
 template <class... Ts> struct Tuple {}; template <class T, class... Ts>
   struct Tuple<T, Ts...> : Tuple<Ts...> { Tuple(T t, Ts... ts) : Tuple<Ts...>
   (ts...), tail(t) {} T tail; };
@@ -193,12 +195,12 @@ struct Argᴾ { union { __builtin_int_t d; __builtin_uint_t x, b; const char * u
   struct /* Unicodes */ { const char32_t * unicodes; int tetras; } ucs; char c; 
   char32_t uc; double f₁; float f₂; /* And space for 'user-defined' types: Q567 q567; */ 
   uint8_t bytes[16]; __uint128_t U; __int128_t I; uint64_t pair[2]; } value; 
-  int kind; }; Argᴾ Pʳⁱⁿᵗd(__builtin_int_t d); Argᴾ Pʳⁱⁿᵗreᵍ(__builtin_int_t r);
-Argᴾ Pʳⁱⁿᵗx(__builtin_uint_t x); Argᴾ Pʳⁱⁿᵗb(__builtin_uint_t b);
-Argᴾ Pʳⁱⁿᵗs(const char * utf8); Argᴾ PʳⁱⁿᵗS(int tetras, const char32_t * uc);
-Argᴾ Pʳⁱⁿᵗc(char c); Argᴾ PʳⁱⁿᵗC(char32_t C);
-MACRO Argᴾ PʳⁱⁿᵗU(__uint128_t U) { return Argᴾ { .value.U=U, 11 }; }
-MACRO Argᴾ PʳⁱⁿᵗI(__int128_t I) { return Argᴾ { .value.I=I, 10 }; }
+  int kind; }; Argᴾ ﹟d(__builtin_int_t d); Argᴾ ﹟reᵍ(__builtin_int_t r);
+Argᴾ ﹟x(__builtin_uint_t x); Argᴾ ﹟b(__builtin_uint_t b);
+Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(int tetras, const char32_t * uc);
+Argᴾ ﹟c(char c); Argᴾ ﹟C(char32_t C);
+MACRO Argᴾ ﹟U(__uint128_t U) { return Argᴾ { .value.U=U, 11 }; }
+MACRO Argᴾ ﹟I(__int128_t I) { return Argᴾ { .value.I=I, 10 }; }
 extern "C" { int atexit(void(*func)(void)); void exit(int); }
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
 extern "C" { void * malloc(size_t); void free(void *); }
@@ -208,11 +210,8 @@ FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memor
   ByteAlignedRef dst, /* const */ ByteAlignedRef src, __builtin_int_t bytes) {
   ByteAlignedRef org = dst; __asm__ __volatile__ ("rep movsb" : "+D"(dst),
   "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* A․𝘬․a 𝚖𝚎𝚖𝚌𝚙𝚢. */
-  #include <xmmintrin.h>  // ≥ SSE 4.2
-  #include <immintrin.h>  // `blend` from smmintrin.h and AVX/AVX2 from avxintrin.h and avx2intrin.h
-FOCAL int  /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ __attribute__((
-  target("sse4.2"))) Compare8Memory(ByteAlignedRef p₁, ByteAlignedRef p₂,
-  __builtin_uint_t bytes);
+FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(ByteAlignedRef 
+  p₁, ByteAlignedRef p₂, __builtin_uint_t bytes);
 #define MEASURE_START(prefix) int64_t prefix##Start = __rdtsc(); /* 𝚜𝚒𝚐𝚗𝚎𝚍 ⟵ Comparision */
 #define MEASURE_END(prefix)                                                  \
   int64_t prefix##End = __rdtsc();                                           \
@@ -278,17 +277,13 @@ MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
 /* template <typename T> T abs(T x) { return x < 0 ? -x : x; } */
 #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error")))
 /* #define STRANGE_MAIN void _Noreturn main */
-#ifdef __x86_64__
-/* #define BEFORE_CTXSWITCH __attribute__ ((preserve_all))
- #define HOT_PATH __attribute__ ((preserve_most)) */
-#define READONLY __attribute__ ((section(".rodata,.rodata")))
-#define LEAF __attribute__ ((no_caller_saved_registers))
-#elif defined __mips__
-// void __attribute__ ((interrupt /*, leaf */)) v1 ();
-#define READONLY __attribute__ ((section(".rodata")))
 #define LEAF
-#endif
 #define /* Do not follow. (That sometimes occurs…) */ LEAFLING
+#ifdef __x86_64__
+#define READONLY __attribute__ ((section(".rodata,.rodata")))
+#elif defined __mips__
+#define READONLY __attribute__ ((section(".rodata")))
+#endif
 #define IsOdd(x) ((x) & 0b1) /* For int32_t|int64_t. */
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
@@ -365,11 +360,13 @@ struct Octa { uint32_t l, h; };
 
 #ifdef __x86_64__
 typedef __int128_t __builtin_treeint_t;
+#include <xmmintrin.h>  // ≥ SSE 4.2
+#include <immintrin.h>  // `blend` from smmintrin.h and AVX/AVX2 from avxintrin.h and avx2intrin.h
 #elif defined __mips__
 typedef int64_t __builtin_treeint_t; /* Note signed! */
 #endif
 
-void * Insert(void *opaque, __builtin_treeint_t data, void * ref, void * node); /* Consider __builtin_treeint_t as ref. See 𝚄𝚗𝚒𝚝𝚝𝚎𝚜𝚝𝚜 for details. */
+void * Insert(void *opaque, __builtin_treeint_t data, void * ref, void * node); /* Consider __builtin_treeint_t as ref. See `Unittests` for details. */
 void Forall(void *opaque, void (^dfs)(void * ref, bool& stop,
   __builtin_treeint_t mask, void *node));
 void * Lookup(const void *opaque, const __builtin_treeint_t target);
@@ -533,8 +530,9 @@ atomic, yet consistent and gracefully failing indicated through a non-zero retur
 #define 🔓(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, JustSwap);
 struct Bitfield { const char32_t * ident; __builtin_uint_t mask; 
   const char32_t * text; }; typedef Bitfield Register[];
-struct AnnotatedRegister { const char32_t * header; int regcnt;
-  const Bitfield * regs; __builtin_uint_t init; const char32_t * footnote; };
+struct AnnotatedRegister { const char32_t * header; int regcnt; const 
+  Bitfield * regs; __builtin_uint_t init; const char32_t * footnote; };
+void Present(Utf8Terminal &term, const AnnotatedRegister& ar, __builtin_uint_t value);
 #ifdef __x86_64__
 #define POSIX_FIBER
 #elif defined __mips__
@@ -605,6 +603,7 @@ namespace Fiber {
     
 }
 
+#define STRINGIFY(str) #str
 #define va_prologue(symbol)                                                 \
   __builtin_va_list __arg;                                                  \
   __builtin_va_start(__arg, symbol);
@@ -646,7 +645,8 @@ struct Chronology {
     Instant
     addSeconds(
       Instant instant,
-      uint32_t seconds
+      uint32_t seconds,
+      UQ32 frac
     ) const;
     
     /**  Only for unperturbed chronologies. For non-reversable chronologies,
@@ -702,6 +702,14 @@ Chronology& ComputationalChronology(); /* 𝖤.𝘨 for chronometers. */
 
 Chronology& SystemCalendricChronology(); /* Irreversible, conclusive mass; Consider 𝑒𝑎𝑠𝑒-𝑖𝑛․ */
 
-typedef uint8_t uchar; typedef uint32_t uint32;
+/**  Correlative-relative: xʳ∈[-1/2₋𝜀, +1/2₊𝜀]. */
+
+typedef float floatʳ; typedef double doubleʳ;
+
+/**  Additive-relative: x⁺ʳ∈[0₋𝜀, 1₊𝜀). */
+
+typedef float float⁺ʳ; typedef double double⁺ʳ;
+
+typedef uint8_t uchar; typedef uint32_t uint32; typedef uint8_t byte;
 
 #endif
