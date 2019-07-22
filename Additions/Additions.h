@@ -219,9 +219,10 @@ void Present(Utf8Terminal &term, double value);
 void Present(Utf8Terminal &term, char32_t unicode);
 void Present(Utf8Terminal &term, const char * utf8, __builtin_int_t maxbytes=BUILTIN_INT_MAX);
 /* Struct assignment ⟶ Memory copy. */
-void Present(Utf8Terminal &term, const Intervallic & ds);
+void Present(Utf8Terminal &term, const Ornaments & ds);
 /* void Present(Utf8Terminal &term, UnicodeBlock location); */
 /* enum Register { rtcc, dma0, … }; void Present(Utf8Terminal &term, Register reg); */
+void Present(Utf8Terminal &term, const AnnotatedRegister& ar, __builtin_uint_t value);
 
 #pragma mark - Conveniences for Small Clients
 
