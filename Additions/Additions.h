@@ -47,10 +47,10 @@ MACRO bool isexactlyzero(double x) { octa o; o.base₂ = x; return o.bits ==
 MACRO double abs64d(double x) { octa o; o.base₂ = x; o.bits &= ~SIGNBIT_INT64; 
   return o.base₂; }
 
-MACRO Argᴾ PʳⁱⁿᵗF(double f) { return Argᴾ { .value.f₁=f, 9 }; }
-MACRO Argᴾ PʳⁱⁿᵗF(float r)  { return Argᴾ { .value.f₂=r, 8 }; }
+MACRO Argᴾ ﹟F(double f) { return Argᴾ { .value.f₁=f, 9 }; }
+MACRO Argᴾ ﹟F(float r) { return Argᴾ { .value.f₂=r, 8 }; }
 
-#pragma mark - In-cases of an High-precision IEEE754
+#pragma mark - In-cases of an high-precision IEEE754
 
 typedef long double ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾; /* 2⁻¹⁶³⁸² ≈ 
   3.3621 × 10⁻⁴⁹³² - 2⁻¹⁶³⁸⁴ − 2⁻¹⁶²⁷¹ ≈ 1.1897 × 10⁻⁴⁹³² */
@@ -115,7 +115,7 @@ auto utf8ToUnicode = ^(const char * utf8, char32_t unicodes[]) {            \
    __builtin_int_t followers, incr; int ⁸b=0, tetra /* 𝘈․𝘬․a ³²b */ = 0;    \
    char32_t uc;                                                             \
 again:                                                                      \
-   const char *leadOr8Bit = (const char *)utf8 + ⁸b;                        \
+   const char * leadOr8Bit = (const char *)utf8 + ⁸b;                       \
    if (*leadOr8Bit == 0x0) { goto unagain; }                                \
    followers = Utf8Followers(*leadOr8Bit);                                  \
    if (followers < 0) { return -2; }                                        \
@@ -132,7 +132,7 @@ unagain:                                                                    \
    return 0;                                                                \
 }(U8,UCS) /* Implicits in lambda statement: None. */
 
-#pragma mark - Decoration in Procrastinative Style
+#pragma mark Fine print for well-versed readers:
 
 typedef struct UnicodeIntervalAnd𝑂𝑟Location {
   __builtin_int_t tetrasRelativeFirst, tetrasRelativeLast;
@@ -145,36 +145,42 @@ typedef struct UnicodeBlock {
 #include <Additions/Knot₂.hpp>
 #include <Additions/Map.hpp>
 
-FINAL struct Intervallic {
+FINAL struct Ornaments { /* A․𝘬․a 'Spatialintervals' and `Intervallic`. ⇜ Also 
+  suffixially pitch-associative in music. */
     /*   ⎡      😐≅        ⎤
         ♢⎢    😐?😐≅😐    ⎥
          ⎣ 😐?😐≅😐?😐?😐?⎦   */
     
-    Intervallic(const char32_t *nativeEndianUnicodes,
+    Ornaments(const char32_t *nativeEndianUnicodes,
       __builtin_int_t tetras, bool readonly);
     
-    Intervallic() = delete;
+    Ornaments() = delete;
     
-    Knot¹ᵈ<Utf8Artifact> original;
-    
-    Knot¹ᵈ<UnicodeIntervalAnd𝑂𝑟Location> parsed;
-    
-    Knot¹ᵈ<UnicodeBlock> rendered;
-    
-    typedef __builtin_int_t Parsedᴵᵈˣ;
-    
-    Map<const char32_t *, Parsedᴵᵈˣ> namedruns₁;
-    
-    Map<const char *, Parsedᴵᵈˣ> namedruns₂;
-    
-    /* kdTreeMap<UnicodeInterval…
-      void *namedruns; Hashed const char32_t * × UnicodeArtifact
-      void *formatting; Hashed const char32_t * × UnicodeBlock
-      Map<const char *, UnicodeBlock> formatting; */
+    struct {
+      
+      Knot¹ᵈ<Utf8Artifact> original;
+      
+      Knot¹ᵈ<UnicodeIntervalAnd𝑂𝑟Location> parsed;
+      
+      Knot¹ᵈ<UnicodeBlock> rendered;
+      
+      typedef __builtin_int_t Parsedᴵᵈˣ;
+      
+      Map<const char32_t *, Parsedᴵᵈˣ> namedruns₁;
+      
+      Map<const char *, Parsedᴵᵈˣ> namedruns₂;
+      
+      struct {
+        
+        /* 𝟺𝚔𝚋Quadtreenode * quadtrees; */
+        
+      } elucidation;
+      
+    } cache;
     
     Unicodes unicodes() const;
     
-😐; /* A․𝘬․a `DecoratedString` and `Recording`. */
+😐; /* A․𝘬․a `SpatialIntervals`, `DecoratedString` and `Recording`. */
 
 /* #include <Additions/Color.hpp>
 #include <Additions/Typesetting.hpp> */
@@ -282,7 +288,7 @@ Guid NewGuid();
 void GuidToText(const Guid& guid, void (^out)(char digitOrHyphen));
 
 void Present(Utf8Terminal &term, const Guid& ds);
-/* …and not MACRO Argᴾ PʳⁱⁿᵗRef(Guid& g) { ⟶⟵ } */
+/* …and not MACRO Argᴾ ﹟Ref(Guid& g) { ⟶⟵ } */
 
 #pragma mark - Input Feeding in Practice
 
@@ -395,13 +401,11 @@ OptimisticAsync8Copy(
 
 #pragma mark Dispatch, Priorities and Interrupts
 
-typedef void (^AsyncJob)(); /* 𝘈․𝘬․a `CHandler` and 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀. */
+typedef void (^AsyncJob)(); /* A․𝘬․a `CHandler` and 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀. */
 
 #pragma mark Language Translation
 
 enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
-
-/* enum { ■ = 1, □ = 0, ⬚ = TriboolUnknown }; */
 
 /* int Parse(const char *utf8, void (^untangle)(char32_t unicode, 
   const Vector<int>& ss, Map<char32_t *, __builtin_uint_t>& stab,
