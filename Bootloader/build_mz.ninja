@@ -1,0 +1,25 @@
+# build_mz.ninja — Building the MIPS/PIC32 bootloader.
+
+optflags   = -g
+progname   = bootloader_mz
+loadscript = ./pic32mz.ld
+platflags  = -D__MZ__
+
+objsdir = ./.objs/7703a312-5599-44ab-A9A2-eabcf7f87663_$progname
+sha1git = `git log -1 '--pretty=format:%h'`
+flags = $optflags -target mipsel -mips32r2 -fno-rtti -fno-exceptions -fblocks $platflags
+include ../tools.ninja
+
+rule asm
+    command = $tools/clang-8 $flags -c $in -o $out
+
+# The last line (:00000001FF) is not emitted since no -b flag is 
+# given when llvm2pic32.
+rule link
+    command = $tools/ld.lld -T $loadscript -o $out $in;                      $
+    $tools/llvm2pic32 $progname > Releases/$progname\_$sha1git.hex;          $
+    printf $sha1git
+
+build $progname: link $objsdir/bootloader.o
+build $objsdir/bootloader.o: asm bootloader.S
+default $progname
