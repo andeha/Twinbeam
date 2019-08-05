@@ -78,7 +78,7 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․k․a `Di
   s, __FUNCTION__, __FILE__, __LINE__); exit(-1); }
 #define ENSURE(c,s) { if (!(c)) { Panic(Testlog, s); } }
 #define FINAL /*  …or DO_NOT_DESTABBILIZE */
-#define LONGTOOTH /* __attribute__((deprecated("Marked LONGTOOTH."))) */
+#define LONGTOOTH /* __attribute__ ((deprecated("Marked LONGTOOTH."))) */
 #define FOCAL
 #define Si_FOCAL
 #define OPT_Si_FOCAL
@@ -97,9 +97,14 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․k․a `Di
 #define EVENTUALRETROSPECTIVE
 #define ROTATIONAL
 #define IRREVERSIb /* IRREVERSI♭ */
-#define TRAJECTORAL
+#define TRAJECTORAL /* Also: TRAJECTORAL🝑 */
 #define INITIALPROJECTIVE
-#define IRREPABEL /* In German: `reparierbar`. */
+#define IRREPABEL /* In German: 'reparierbar'. */
+#define AMBIVALENT /* Native: 'contra-polarisative'. */
+#define DEFLECTIVE
+#define VERYLOGARITHMIC
+#define ANTIPOLARISATIVE
+#define DUALREFLECTIVE
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -275,7 +280,8 @@ FOCAL void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short
 MACRO int64_t abs64i(int64_t x) { return x & ~SIGNBIT_INT64; }
 MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
 /* template <typename T> T abs(T x) { return x < 0 ? -x : x; } */
-#define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error")))
+#define /* PROVOCATIVE */ ASSEMBLER __attribute__((naked)) /* A․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN, NEITHER_PROLOGUE_NOR_EPILOGUE. */
+/* #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error"))) */
 /* #define STRANGE_MAIN void _Noreturn main */
 #define LEAF
 #define /* Do not follow. (That sometimes occurs…) */ LEAFLING
@@ -380,8 +386,9 @@ typedef union {
 #elif defined __mips__
 #endif
   __uint128_t bits;
-  struct { octa lso; octa mso; } little_endian;
-  struct { octa mso; octa lso; } big_endian;
+  struct { octa lso, mso; } little_endian;
+  struct { octa mso, lso; } big_endian;
+  struct { octa l, h; } parts;
 } sexdeca;
 
 typedef union {
@@ -520,7 +527,7 @@ int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 #pragma mark - 😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
 #define va_epilogue __builtin_va_end(__arg);
-extern "C" void Sheriff();
+extern "C" void ASSEMBLER Sheriff();
 /* #define ⭐️ Sheriff();  After delivery, a non-inquisitorial system is assumed. */
 enum Impediment { MustBeOrdered, JustSwap };
 int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂, Impediment it); /* Non-
@@ -571,6 +578,7 @@ namespace Fiber {
 #ifdef __x86_64__
     register __builtin_uint_t rsp asm("rsp"), rbp asm("rbp");
 #endif
+    
     typedef Peel fiber_t;
     
     /* __attribute__ ((callback (ufnc, uctx))) */
