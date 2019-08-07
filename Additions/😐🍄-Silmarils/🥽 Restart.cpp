@@ -1,9 +1,9 @@
 /*  Restart.cpp | 'Restarting all this?' */
 
 #include <Twinbeam.h>
-#include <mips.hpp>
-#include <pic32mz.hpp>
-#include <pic32mzda.hpp>
+#include <pic32rt/mips.hpp>
+#include <pic32rt/pic32mz.hpp>
+#include <pic32rt/pic32mzda.hpp>
 
 /* Compile with './artᵐⁱᵖˢ.ksh Restart' */
 
@@ -15,7 +15,7 @@ main(
 {
     __builtin_uint_t rcon = 🔎𝑀𝑍𝐷𝐴(RCON);
     if (🐛𝑀𝑍𝐷𝐴(rcon,HVD1V8R)) { print("VDDR1V8 (DDR2) High Voltage Detect\n"); }
-    if (🐛𝑀𝑍𝐷𝐴(rcon,BCFGFAIL)) { print("Primary Configuration Registers Error\n"); }
+    if (🐛𝑀𝑍𝐷𝐴(rcon,BCFGERR)) { print("Primary Configuration Registers Error\n"); }
     if (🐛𝑀𝑍𝐷𝐴(rcon,BCFGFAIL)) { print("Primary/Secondary Configuration Registers Error\n"); }
     if (🐛𝑀𝑍𝐷𝐴(rcon,VBPOR)) { print("VBPOR Mode\n"); }
     if (🐛𝑀𝑍𝐷𝐴(rcon,VBAT)) { print("VBAT Mode\n"); }

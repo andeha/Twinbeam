@@ -62,7 +62,7 @@ BITMASK (uint32_t) { /* UxSTA */
 #define 🔧ᵗᵍᵍˡ𝑀𝑍(symbol,msk) 🔧(PIC32MZ_##symbol##INV) = PIC32MZ_##symbol##_##msk
 #define 🔧0𝑀𝑍(symbol,msk) 🔧(PIC32MZ_##symbol##CLR) = PIC32MZ_##symbol##_##msk
 #define 🔧1𝑀𝑍(symbol,msk) 🔧(PIC32MZ_##symbol##SET) = PIC32MZ_##symbol##_##msk
-#define 🐛𝑀𝑍(i,m) ((i)&PIC32MZ_##i##_##m)
+#define 🐛𝑀𝑍(symbol,msk) ((i)&PIC32MZ_##symbol##_##msk)
 
 enum Interrupt { Coretimer=0, Coresoftware0=1, Coresoftware1=2, ExternalInt0=3,
   Timer1=4, InputCapture1Error=5, InputCapture1=6, OutputCompare1=7, Timer2=9, OutputCompare2=12,
@@ -75,8 +75,8 @@ enum Interrupt { Coretimer=0, Coresoftware0=1, Coresoftware1=2, ExternalInt0=3,
   ADCEndOfScan=196, ADCAnalogCircuitReady=197, ADCUpdateReady=198, ADC0Early=199, 
   ADCGroupEarly=205, ADC0Warm=207, MPLLFault=215 };
 
-BITMASK (uint32_t) { // INTSTAT
-  PIC32MZ_INTSTAT_SIRQ_8̄ = 0b00011111111 // Interrupt vector
+BITMASK (uint32_t) { /* INTSTAT */
+  PIC32MZ_INTSTAT_SIRQ_8̄ = 0b00011111111 /* Interrupt vector. */
 };
 
 MACRO Interrupt 🔎IRQ() { return Interrupt(PIC32MZ_INTSTAT_SIRQ_8̄ & 🔎𝑀𝑍(INTSTAT)); }
