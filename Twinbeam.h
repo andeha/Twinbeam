@@ -280,7 +280,7 @@ FOCAL void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short
 MACRO int64_t abs64i(int64_t x) { return x & ~SIGNBIT_INT64; }
 MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
 /* template <typename T> T abs(T x) { return x < 0 ? -x : x; } */
-#define /* PROVOCATIVE */ ASSEMBLER __attribute__((naked)) /* A․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN, NEITHER_PROLOGUE_NOR_EPILOGUE. */
+#define /* PROVOCATIVE */ ASSEMBLERONLY __attribute__((naked)) /* A․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN, NEITHER_PROLOGUE_NOR_EPILOGUE. */
 /* #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error"))) */
 /* #define STRANGE_MAIN void _Noreturn main */
 #define LEAF
@@ -527,7 +527,7 @@ int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 #pragma mark - 😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
 #define va_epilogue __builtin_va_end(__arg);
-extern "C" void ASSEMBLER Sheriff();
+extern "C" void ASSEMBLERONLY Sheriff();
 /* #define ⭐️ Sheriff();  After delivery, a non-inquisitorial system is assumed. */
 enum Impediment { MustBeOrdered, JustSwap };
 int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂, Impediment it); /* Non-
