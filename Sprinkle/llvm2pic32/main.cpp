@@ -98,7 +98,7 @@ again:
     if (*s != 0 && *p == 0) { return *s; }  /* All characters in `prefix` equal to `string`. */
     /* *p != 0 && *s != 0 */
     char diff = *s - *p;
-    if (diff) { return diff; }
+    if (diff) { return 0; }
     s++, p++;
     goto again;
 }
