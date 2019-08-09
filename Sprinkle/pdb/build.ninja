@@ -3,27 +3,21 @@ optflags   = -g
 progname   = pdb
 include ../../tools.ninja
 platflags  = -I $host/.. -I $additions
-libtwinbeam = ../../Source/Releases/libTwinbeam_macOS.a
+# libtwinbeam = ../../Source/Releases/libTwinbeam_macOS.a
 objsdir = ./.objs/7703a322-55A9-44ca-b218-eabcf7f87663_$progname
 flags = $optflags $macoscflags_withoutxcode $platflags
 
 include $host/macbook.ninja
 
 rule link
-    command = xcrun ld -macosx_version_min 10.14.0 -lSystem -lc++ -o $out   $
-      $libtwinbeam $in
+    command = xcrun ld -macosx_version_min 10.14.0 -lSystem -lc++ -o $out $in
 
 build $progname: link $objsdir/main.o $objsdir/mips.o $objsdir/mzda.o       $
-  $objsdir/Additions.o $objsdir/Automata.o $objsdir/Streams.o               $
-  $objsdir/Utf8Terminal.o $objsdir/Presentᵃᵘˣ.o $objsdir/llvmʳᵗ³.o
+   $objsdir/Presentʳᵉᵍ.o $objsdir/rtᵖᵈᵇ.o
 build $objsdir/mips.o: cc mips.cpp
 build $objsdir/mzda.o: cc mzda.cpp
 build $objsdir/main.o: cc main.cpp
-build $objsdir/Additions.o: cc ../../Additions/Additions.cpp
-build $objsdir/Automata.o: cc ../../Additions/Automata.cpp
-build $objsdir/Streams.o: cc ../../Additions/Streams.cpp
-build $objsdir/Utf8Terminal.o: cc ../../Additions/Utf8Terminal.cpp
-build $objsdir/Presentᵃᵘˣ.o: cc ../../Additions/Presentᵃᵘˣ.cpp
-build $objsdir/llvmʳᵗ³.o: cc ../../Source/llvmʳᵗ³.cpp
+build $objsdir/Presentʳᵉᵍ.o: cc Presentʳᵉᵍ.cpp
+build $objsdir/rtᵖᵈᵇ.o: cc rtᵖᵈᵇ.cpp
 default $progname
 
