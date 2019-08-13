@@ -9,40 +9,43 @@
 
 const char *hexfile=NULL, *device_default="PIC32MZ2064DAB288" /*"PIC32MZ2064DAH169"*/, 
   *mdbpath_default="/Applications/microchip/mplabx/v5.20/mplab_platform/bin/mdb.sh";
-
+bool hw=true;
 char * stpcpy(char * dst, const char * src) { while ((*dst++ = *src++)){} return --dst; } LONGTOOTH
 
 inexorable
 void
 userkeysToMdb(
   const char *pdb, /* ⬷ Text keyed by the user. */
-  char *mdb
+  char * mdb
 )
 {
     if (IsPrefixOrEqual(pdb, "init")) {
         const char *device = device_default, *deviceᵉⁿᵛ = getenv("PIC32DEVICE");
         if (deviceᵉⁿᵛ) device = deviceᵉⁿᵛ;
         fprintf(stderr, "pdb: starts initing device %s\n", device);
-        char * end=stpcpy(mdb, "device "); end=stpcpy(end, device); end=stpcpy(end, "\n"); 
-        end=stpcpy(end, "hwtool SK\n");
+        char * end=stpcpy(mdb, "device "); end=stpcpy(end, device); end=stpcpy(end, "\n");
+        fprintf(stderr, "pdb: selecting %s\n", hw ? "hardware target" : "software simulator");
+        if (hw) { end=stpcpy(end, "hwtool SK\n"); } else { end=stpcpy(end, "hwtool SIM\n"); }
         if (hexfile) {
+          fprintf(stderr, "Programming %s\n", hexfile);
           end=stpcpy(end, "program '"); end=stpcpy(end, hexfile); end=stpcpy(end, "'\n");
         }
+        fprintf(stderr, "Resetting\n");
         end=stpcpy(end, "reset MCLR\n");
-    } /* On append, change, delete, see also --<🥽 McIlroy.cpp>. */
+    } /* On Unicode 'append', 'change', 'delete', see also --<🥽 McIlroy.cpp> and 
+        --<🥽 Author.cpp>. */
 /* auto whitespace = ^(char32_t u) { return u == " "; }; // IsTerminatedBy */
 /* Mips */
-    else if (IsPrefixOrEqual(pdb, "cause")) stpcpy(mdb, "print /x Cause\n");
-/* Pic32 */
-    else if (IsPrefixOrEqual(pdb, "rcon")) stpcpy(mdb, "print /x rcon\n");
-/* Default */
+    else if (IsPrefixOrEqual(pdb, "index")) stpcpy(mdb, "print /d Index\n");
+#include "input.cxx"
+    else if (IsPrefixOrEqual(pdb, "cfgmpll")) stpcpy(mdb, "print /d cfgmpll\n");
     else stpcpy(mdb, pdb);
 }
 
 inexorable
 void
 mdbToUserscreen(
-  char *mdb /* ⬷ Text emitted from mdb. */
+  char * mdb /* ⬷ Text emitted from mdb. */
 )
 { 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 char *text=mdb; 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 bool virgin = true; 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 int si = 0;
     auto feeder = ^(unsigned short& digit) {
@@ -57,36 +60,44 @@ mdbToUserscreen(
         CastToIntOpinion::commit;
       return CastToIntOpinion::rejecting; };
     
-    auto strlen = ^(const char *s) { const char *p = s; while (*s) ++s; return s - p; }; // todo: change to utf8
+    auto strlen = ^(const char *s) { const char *p = s; while (*s) ++s; return s - p; }; 
+    /* todo: change to UTF8. */
     auto out = ^(const char * prefix, const AnnotatedRegister& reg) {
         int len = strlen(prefix); text += len;
         Opt<__builtin_int_t> regOpt = CastᵗˣᵗToInt(feeder);
-        if (regOpt) {
-           Present(Termlog, reg, *regOpt);
-        } else { fprintf(stderr, "Error presenting `%s`\n", prefix); }
+        if (regOpt) { Present(Termlog, reg, *regOpt); }
+        else { fprintf(stderr, "Error presenting `%s`\n", prefix); }
     };
-    
-    extern AnnotatedRegister AR_Mips_Cause;
-    extern AnnotatedRegister AR_Microchip_RCON;
+
+    extern AnnotatedRegister AR_Mips_Index;
+#include "output₁.cxx"
+    extern AnnotatedRegister AR_Mips_DSPControl;
     AnnotatedRegister AR_MipsOrMicrochip_LAST;
     
     struct Prefix { const char * prefix; const AnnotatedRegister& reg; } prefixes[] = {
-      { "Cause=", AR_Mips_Cause },
-      { "rcon=", AR_Microchip_RCON },
+      { "Index=", AR_Mips_Index },         { "Random=", AR_Mips_Random },
+#include "output₂.cxx"
+      { "devid=", AR_Microchip_DEVID },
       { NULL, AR_MipsOrMicrochip_LAST } };
     
     for (int i = 0; ; i++) {
-     if (prefixes[i].prefix == NULL) { fprintf(stderr, "%s", text); return; }
-     if (IsPrefixOrEqual(text, prefixes[i].prefix)) { out(prefixes[i].prefix, prefixes[i].reg); }
+      if (prefixes[i].prefix == NULL) { fprintf(stderr, "%s", text); return; }
+      if (IsPrefixOrEqual(text, prefixes[i].prefix)) { out(prefixes[i].prefix, prefixes[i].reg); }
     }
 }
 
 #define ⁺⁼ProcessCommandline()                                              \
-auto process_command_line = ^{ int j;                                       \
-  for (j = 1; j < argc - 1 && argv[j][0] == '-'; j++) { fprintf(stderr,     \
-    "Usage: %s %s\n", argv[0], "[ program.hex ]"); exit(1); }               \
-  if (j != argc - 1) { hexfile = argv[j]; }                                 \
-}; process_command_line(); /* Implicits in lambda expression: `hexfile`, `argc` and `argv`. */
+auto process_commandline = ^{ int j;                                        \
+  for (j = 1; j < argc && argv[j][0] == '-'; j++) {                         \
+    switch (argv[j][1]) {                                                   \
+    case 'h': fprintf(stderr, "Usage: %s [ -s ] %s\n", argv[0],             \
+                "[ program.hex ]"); exit(1);                                \
+    case 's': hw=false; break;                                              \
+    default: fprintf(stderr, "Unknown command-line argument\n"); exit(2);   \
+    }                                                                       \
+  }                                                                         \
+  if (j == argc - 1) { hexfile = argv[j]; }                                 \
+}; process_commandline(); /* Implicits in lambda expression: `hexfile`, `argc` and `argv`. */
 
 int
 main(
@@ -104,7 +115,7 @@ main(
     if (pid == -1) { fprintf(stderr, "pdb: Error when fork\n"); exit(1); }
     if (pid) { int len; /* Parent */
         close(fd_p2c[0]); close(fd_c2p[1]);
-        pid_t pid₂ = fork(); // Fiber instead.
+        pid_t pid₂ = fork(); /* Fiber instead. */
         if (pid₂ == -1) { fprintf(stderr, "pdb: Error when child forks\n"); exit(1); }
 /* Parent */ if (pid₂) { char output[maxline]; /* Reading text emitted on mdb's stdout */ 
            for (;;) {
@@ -112,7 +123,7 @@ main(
                 stderr, "pdb: Error when reading mdb\n"); exit(1); }
               output[len] = '\x0'; mdbToUserscreen(output);
            }
-/* Child */ } else { char keyput[maxline]; /* Collecting keyputs on stdin */
+/* Child */ } else { char keyput[maxline]; /* Collecting keyputs on stdin. */
             while ((len = read(STDIN_FILENO, &keyput, maxline)) > 0) {
                 keyput[len] = '\x0'; char mdbline[maxline];
                 userkeysToMdb(keyput, mdbline);
