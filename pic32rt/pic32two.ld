@@ -13,8 +13,8 @@
                                                                              
                                                                              
     See also --<pic32one.ld> for a linker file with a scalar program memory  
-    interval suitable for one image following directly after a short         
-    software configuration section containing a non-used `PFSWAP` bit        
+    interval suitable for one image following directly after an optional     
+    software configuration section containing a (non-used?) `PFSWAP` bit     
     configuration.                                                           
                                                                              
                                                                              
