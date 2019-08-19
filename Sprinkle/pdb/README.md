@@ -51,3 +51,5 @@ GLCD_MODE_FORCEBLANK ␣␣␣␣|␣␣␣␣|␣␣␣␣|0␣␣␣|␣␣␣
 
 >
 ```
+
+Note that a well-written `pdb` also may be started with `-s` and appears to be a source of knowledge in a varienty of matters.
