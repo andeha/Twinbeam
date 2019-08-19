@@ -44,15 +44,15 @@ SECTIONS
    
    TB1PGMCFG0: TWINBEAM CONFIGURATION WORD 0
    
-   TB1_CPFSWAP ␣00␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|Current PFSWAP (10=PFSWAP=0,
-     01=PFSWAP=1,00=uninited,11=notused)
+   TB1PGMCFG0_CPFSWAP ␣00␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|Current PFSWAP 
+     (10=PFSWAP=0, 01=PFSWAP=1,00=uninited,11=notused)
    
    */
   
-  .conf : { LONG(0xFFFFFFFF) } > TB1PGMCFG3
-  .conf : { LONG(0xFFFFFFFF) } > TB1PGMCFG2
-  .conf : { LONG(0xFFFFFFFF) } > TB1PGMCFG1
-  .conf : { LONG(0xF9FFFFFF) } > TB1PGMCFG0
+  .conf : { LONG(0x5457494e) } > TB1PGMCFG3 /* Based on Twinbeam. */
+  .conf : { LONG(0x4d555845) } > TB1PGMCFG2 /* Revision 'MUXE' */
+  .conf : { LONG(0xFFFFFFFF) } > TB1PGMCFG1 /* Application settings */
+  .conf : { LONG(0xF9FFFFFF) } > TB1PGMCFG0 /* See above */
   .text : { * (.text .ctors .dtors) } > kseg1_program_flash_current_aka_upper
   .rodata : { *(.rodata) _etext = .; } > kseg1_program_flash_current_aka_upper
   .data : { _data_begin = .; *(.data) _data_end = .; } > kseg1_ram AT > kseg1_program_flash_current_aka_upper
