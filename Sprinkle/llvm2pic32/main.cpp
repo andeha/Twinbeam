@@ -1,7 +1,7 @@
 /*  llvm2pic32 | Executable and Linkable Format (.elf) to .hex. */
 
-/* clang++ -o llvm2pic32₂ -DSHA1GIT=`git log -1 '--pretty=format:%h'` \
-     -std=c++2a main.cpp */
+/* clang++ -o llvm2pic32 -DSHA1GIT=`git log -1 '--pretty=format:%h'` \
+     -std=c++2a -g main.cpp */
 
 #ifdef __x86_64__
 typedef unsigned int        uint32_t;
@@ -115,9 +115,9 @@ isLoadable(
     const char * loadables[] = { ".text", ".rodata", ".data", ".conf",
  /* the 4ᵗʰ: */ ".boot", ".start", ".tlb", ".cache", ".special", NULL };
     if (inclMipsSects) { loadables[4] = NULL; } int i; const char * sct;
-    for (i = 0, sct = loadables[i]; sct; i++) {
-       if (IsPrefixOrEqual(sectname, sct) == 0) { return true; } /* Includes 
-  prefixes '.text,.' and '.data,.'. */
+    for (i = 0; (sct = loadables[i]); i++) {
+       if (IsPrefixOrEqual(sectname, sct)) { return true; } /* Includes `loadables` as well 
+  as prefixes '.text,.' and '.data,.'. */
     }
     return false;
 }
@@ -131,6 +131,7 @@ static uint32_t AsPhysical(addr32 vAddr) { return vAddr & 0x1FFFFFFF; }
 #include <stdio.h> /* ...and `fprintf`, `FILE`, `fopen`, `fread`, `fseek`, 
  `fclose`, `SEEK_SET`, `stdout` and `stderr`… */
 #include <stdlib.h> /* …together with `malloc` and `exit`. */
+#include <wordexp.h> /* And of course: Bootloader path ~ expansion. */
 
  /*
   
@@ -162,16 +163,15 @@ auto process_commandline = ^(const char * argv[]) {                             
     switch (*arg) {                                                             \
     case 'h': fprintf(stderr, "Usage: %s [-b <bootloader.hex file>] [-s] "      \
       "<elf32 file>\n", argv[0]); exit(1);                                      \
-    case 'b': open_bootloader_file(*ca++); return;                              \
+    case 'b': ca++; if (ca) { open_bootloader_file(*ca); } else { exit(2); } return; \
     case 's': inclMipsSects = true; return;                                     \
     case 'v': fprintf(stderr, "%s version: %s\n", argv[0], QUOTE(SHA1GIT));     \
-      exit(2);                                                                  \
-    default: fprintf(stderr, "Unknown command-line argument\n"); exit(3); }     \
+      exit(3);                                                                  \
+    default: fprintf(stderr, "Unknown command-line argument\n"); exit(4); }     \
   }; /* argv[argc] == NULL, so: */                                              \
   for (ca = argv + 1; *ca && (*ca)[0] == '-'; ca++) scan_option(1 + *ca);       \
   if (!*ca) scan_option("h"); /* 'No args' ∧ 'ends with argument'. */           \
-}; process_commandline(ARGV) /* Implicits in lambda expression: `ca`, 
-  `inclMipsSects` and `SHA1GIT`. */
+}; process_commandline(ARGV) /* Implicits in lambda expression: `ca`, `inclMipsSects` and `SHA1GIT`. */
 
 int
 main(
@@ -182,25 +182,27 @@ main(
     __block const char **ca;
 #define elf32_filenameOrNULL *ca
     auto open_bootloader_file = ^(const char *utf8path𝘖𝘳𝙽𝚄𝙻𝙻) {
-      boot = fopen(utf8path𝘖𝘳𝙽𝚄𝙻𝙻, "r");
+      wordexp_t expansion₁; wordexp(utf8path𝘖𝘳𝙽𝚄𝙻𝙻, &expansion₁, 0); /* Enter 'prompt% man wordexp' for details. */
+      boot = fopen(expansion₁.we_wordv[0], "r");
       if (boot == NULL) { fprintf(stderr, "Unable to open bootloader file\n");
         exit(3); } };
     ⁺⁼ProcessCommandline(argv);
     if (boot) { char c; while (fread(&c, 1, 1, boot)) { fprintf(stdout, "%c", c); }
       fclose(boot); } /* ⬷ 𝖨․𝘦 pasting the content of the boot file as a prefix to the elf32 file. */
-    __block FILE * in = fopen(elf32_filenameOrNULL, "rb");
     if (!elf32_filenameOrNULL) { fprintf(stderr, "No elf32 file given at your command line\n"); exit(5); }
-    if (!in) { fprintf(stderr, "Unable to open elf32 file\n"); exit(4); }
+    __block FILE * in = fopen(elf32_filenameOrNULL, "rb");
+    if (!in) { fprintf(stderr, "Unable to open elf32 file '%s'\n", elf32_filenameOrNULL); exit(6); }
     /* Parse open file */
-#define EXIT_INVALID_FILE 7
+#define EXIT_INVALID_FILE 8
     auto fixElf32 = ^(long offset) { if (fseek(in, offset, SEEK_SET)) { exit(EXIT_INVALID_FILE); } };
-    auto readElf32 = ^(void * __restrict p, size_t bytes, size_t nitems) {
-      size_t actual = fread(p, bytes, nitems, in); if (bytes * nitems != actual) {
-      fprintf(stderr, "Read error\n"); exit(6); } };
+    auto readElf32 = ^(void * __restrict buf, size_t bytes, size_t count) {
+      size_t actual = fread(buf, bytes, count, in); if (count != actual) {
+      fprintf(stderr, "Read error where bytes=%zd, count=%zd, actual=%zd\n", 
+      bytes, count, actual); exit(7); } };
 /* 1 */ Elf32_Ehdr elfHeader;
     readElf32(&elfHeader, sizeof(Elf32_Ehdr), 1);
-    /* offset32 pgmheaderOffset = elfHeader.e_phoff;
-    uint16_t pgmheaderSize = elfHeader.e_phentsize; */
+    /* offset32 pgmheaderOffset = elfHeader.phoff;
+    uint16_t pgmheaderSize = elfHeader.phentsize; */
     offset32 offsetSectHeader = elfHeader.shoff;
     uint16_t bytesSectHeader = elfHeader.shentsize;
     if (elfHeader.type != ET_EXEC) { fprintf(stderr, "Input file is not an executable\n"); exit(EXIT_INVALID_FILE); }
@@ -214,16 +216,12 @@ main(
     const char * sectionnames = (const char *)malloc(SectionNames.size);
     readElf32((void *)sectionnames, 1, SectionNames.size);
     
-    /* fprintf(stderr, "index name offset bytes linaddr type\n"); */
-    
     for (int i = 0; i < elfHeader.shnum; i++) {
 /* N */ Elf32_Shdr sectionHeader;
         fixElf32(offsetSectHeader + i*bytesSectHeader);
         readElf32(&sectionHeader, sizeof(Elf32_Shdr), 1);
         const char * name = sectionnames + sectionHeader.name;
         if (sectionHeader.size != 0 && isLoadable(name, inclMipsSects)) {
-         /* fprintf(stderr, "%d\t%s\t%x\t%x\t%x\t%x\n", i, name, sectionHeader.sh_offset,
-              sectionHeader.sh_size, sectionHeader.sh_addr, sectionHeader.sh_type); */
             uint64_t bytesleft = sectionHeader.size;
             uint8_t * sectcontent = (uint8_t *)malloc(bytesleft);
 /* N+1 */   fixElf32(sectionHeader.offset);
@@ -232,9 +230,10 @@ main(
             /* Elf32_Phdr programHeader;
                setElf32Pos(pgmheaderOffset + i*pgmheaderSize);
                fread(&programHeader, sizeof(Elf32_Phdr), 1, in);
-               fprintf(stderr, "LMA for %s is %x, VMA is %x sectionHeader is %x\n", name, programHeader.p_paddr, programHeader.p_vaddr, sectionHeader.sh_addr);
-               programHeader.p_paddr = AsPhysical(programHeader.p_paddr);
-               uint8_t msb, lsb; parts(programHeader.p_paddr, msb, lsb); */
+               fprintf(stderr, "LMA for %s is %x, VMA is %x sectionHeader is %x\n", name, 
+                 programHeader.paddr, programHeader.vaddr, sectionHeader.addr);
+               programHeader.paddr = AsPhysical(programHeader.paddr);
+               uint8_t msb, lsb; parts(programHeader.paddr, msb, lsb); */
             addr32 vAddr = sectionHeader.addr;
             uint32_t paddr = AsPhysical(vAddr);
         again:
@@ -249,9 +248,9 @@ main(
             checksum += 0xff&address; checksum += 0xff&(address>>8);
             Hex(0, 2, ^(char s) { fprintf(stdout, "%c", s); } ); /* Content follows */
             for (int i = 0; i < bytesOnline; i++) {
-                uint8_t data = *(sectcontent + (i + sectionHeader.size - bytesleft));
-                Hex(data, 2, ^(char s) { fprintf(stdout, "%c", s); } );
-                checksum += data;
+               uint8_t data = *(sectcontent + (i + sectionHeader.size - bytesleft));
+               Hex(data, 2, ^(char s) { fprintf(stdout, "%c", s); } );
+               checksum += data;
             }
             Hex(-checksum, 2, ^(char s) { fprintf(stdout, "%c", s); } );
             fprintf(stdout, "\x0d\x0a"); /* ...and again. */
