@@ -19,7 +19,7 @@ main(
     if (🐛𝑀𝑍𝐷𝐴(nvmcon,PFSWAP)) { print("lower='Program Flash Bank 2', upper='Program Flash Bank 1'\n"); }
     else { print("lower='Program Flash Bank 1', upper='Program Flash Bank 2'\n"); }
     
-	🔧0𝑀𝑍𝐷𝐴(NVMCON,WREN);
+    🔧0𝑀𝑍𝐷𝐴(NVMCON,WREN);
     SwapProgram1And2();
     
     return 0;
