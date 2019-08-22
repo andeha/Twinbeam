@@ -8,27 +8,29 @@
   available from http://ninja-build.org.) */
 
 const char *hexfile=NULL, *device_default="PIC32MZ2064DAB288" /*"PIC32MZ2064DAH169"*/, 
-  *mdbpath_default="/Applications/microchip/mplabx/v5.20/mplab_platform/bin/mdb.sh";
+  *mdbpath_default="/Applications/microchip/mplabx/v5.25/mplab_platform/bin/mdb.sh";
 bool hw=true;
 char * stpcpy(char * dst, const char * src) { while ((*dst++ = *src++)){} return --dst; } LONGTOOTH
+void Present(Utf8Terminal &term, const AnnotatedRegister& ar, __builtin_uint_t value);
 
 inexorable
 void
 userkeysToMdb(
   const char *pdb, /* ⬷ Text keyed by the user. */
-  char * mdb
+  char *mdb
 )
 {
     if (IsPrefixOrEqual(pdb, "init")) {
-        const char *device = device_default, *deviceᵉⁿᵛ = getenv("PIC32DEVICE");
+        const char * device = device_default, *deviceᵉⁿᵛ = getenv("PIC32DEVICE");
         if (deviceᵉⁿᵛ) device = deviceᵉⁿᵛ;
         fprintf(stderr, "pdb: starts initing device %s\n", device);
         char * end=stpcpy(mdb, "device "); end=stpcpy(end, device); end=stpcpy(end, "\n");
         fprintf(stderr, "pdb: selecting %s\n", hw ? "hardware target" : "software simulator");
         if (hw) { end=stpcpy(end, "hwtool SK\n"); } else { end=stpcpy(end, "hwtool SIM\n"); }
         if (hexfile) {
-          fprintf(stderr, "Programming %s\n", hexfile);
-          end=stpcpy(end, "program '"); end=stpcpy(end, hexfile); end=stpcpy(end, "'\n");
+//          fprintf(stderr, "Programming %s\n", hexfile); end=stpcpy(end, "wait 9000");
+//          end=stpcpy(end, "program '"); end=stpcpy(end, hexfile); end=stpcpy(end, "'\n");
+           fprintf(stderr, "To program, enter program %s\n", hexfile);
         }
         fprintf(stderr, "Resetting\n");
         end=stpcpy(end, "reset MCLR\n");
@@ -63,12 +65,12 @@ mdbToUserscreen(
     auto strlen = ^(const char *s) { const char *p = s; while (*s) ++s; return s - p; }; 
     /* todo: change to UTF8. */
     auto out = ^(const char * prefix, const AnnotatedRegister& reg) {
-        int len = strlen(prefix); text += len;
-        Opt<__builtin_int_t> regOpt = CastᵗˣᵗToInt(feeder);
-        if (regOpt) { Present(Termlog, reg, *regOpt); }
-        else { fprintf(stderr, "Error presenting `%s`\n", prefix); }
+       int len = strlen(prefix); text += len;
+       Opt<__builtin_int_t> regOpt = CastᵗˣᵗToInt(feeder);
+       if (regOpt) { Present(Termlog, reg, *regOpt); }
+       else { fprintf(stderr, "Error presenting `%s`\n", prefix); }
     };
-
+    
     extern AnnotatedRegister AR_Mips_Index;
 #include "output₁.cxx"
     extern AnnotatedRegister AR_Mips_DSPControl;
@@ -91,7 +93,7 @@ auto process_commandline = ^{ int j;                                        \
   for (j = 1; j < argc && argv[j][0] == '-'; j++) {                         \
     switch (argv[j][1]) {                                                   \
     case 'h': fprintf(stderr, "Usage: %s [ -s ] %s\n", argv[0],             \
-                "[ program.hex ]"); exit(1);                                \
+      "[ program.hex ]"); exit(1);                                          \
     case 's': hw=false; break;                                              \
     default: fprintf(stderr, "Unknown command-line argument\n"); exit(2);   \
     }                                                                       \
