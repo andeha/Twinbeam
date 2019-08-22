@@ -114,24 +114,23 @@ isLoadable(
 {
     const char * loadables[] = { ".text", ".rodata", ".data", ".conf",
  /* the 4ᵗʰ: */ ".boot", ".start", ".tlb", ".cache", ".special", NULL };
-    if (inclMipsSects) { loadables[4] = NULL; } int i; const char * sct;
-    for (i = 0; (sct = loadables[i]); i++) {
-       if (IsPrefixOrEqual(sectname, sct)) { return true; } /* Includes `loadables` as well 
-  as prefixes '.text,.' and '.data,.'. */
-    }
+    if (inclMipsSects) { loadables[4] = NULL; } int i=0;
+    /* Include `loadables` as well as prefixes '.text,.' and '.data,.'. */
+    while (const char * sct = loadables[i]) { if (IsPrefixOrEqual(sectname, 
+      sct)) { return true; } i++; }
     return false;
 }
-
-template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
-static uint32_t AsPhysical(addr32 vAddr) { return vAddr & 0x1FFFFFFF; }
-#define STRINGIFY(s) #s
-#define QUOTE(s) STRINGIFY(s) /* ☜😐: ! */
 
 #include <stddef.h> /* For `size_t`… */
 #include <stdio.h> /* ...and `fprintf`, `FILE`, `fopen`, `fread`, `fseek`, 
  `fclose`, `SEEK_SET`, `stdout` and `stderr`… */
 #include <stdlib.h> /* …together with `malloc` and `exit`. */
 #include <wordexp.h> /* And of course: Bootloader path ~ expansion. */
+
+template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
+static uint32_t AsPhysical(addr32 vAddr) { return vAddr & 0x1FFFFFFF; }
+#define STRINGIFY(s) #s
+#define QUOTE(s) STRINGIFY(s) /* ☜😐: ! */
 
  /*
   
@@ -162,12 +161,12 @@ auto process_commandline = ^(const char * argv[]) {                             
   auto scan_option = ^(const char * arg) {                                      \
     switch (*arg) {                                                             \
     case 'h': fprintf(stderr, "Usage: %s [-b <bootloader.hex file>] [-s] "      \
-      "<elf32 file>\n", argv[0]); exit(1);                                      \
-    case 'b': ca++; if (ca) { open_bootloader_file(*ca); } else { exit(2); } return; \
+      "<elf32 file>\n", argv[0]); exit(2);                                      \
+    case 'b': ca++; if (ca) { open_bootloader_file(*ca); } else { exit(3); } return; \
     case 's': inclMipsSects = true; return;                                     \
     case 'v': fprintf(stderr, "%s version: %s\n", argv[0], QUOTE(SHA1GIT));     \
-      exit(3);                                                                  \
-    default: fprintf(stderr, "Unknown command-line argument\n"); exit(4); }     \
+      exit(4);                                                                  \
+    default: fprintf(stderr, "Unknown command-line argument\n"); exit(5); }     \
   }; /* argv[argc] == NULL, so: */                                              \
   for (ca = argv + 1; *ca && (*ca)[0] == '-'; ca++) scan_option(1 + *ca);       \
   if (!*ca) scan_option("h"); /* 'No args' ∧ 'ends with argument'. */           \
@@ -182,32 +181,31 @@ main(
     __block const char **ca;
 #define elf32_filenameOrNULL *ca
     auto open_bootloader_file = ^(const char *utf8path𝘖𝘳𝙽𝚄𝙻𝙻) {
+      /* Expand ~ in e.g `~/myshoebox/mybootloader.hex` */
       wordexp_t expansion₁; wordexp(utf8path𝘖𝘳𝙽𝚄𝙻𝙻, &expansion₁, 0); /* Enter 'prompt% man wordexp' for details. */
       boot = fopen(expansion₁.we_wordv[0], "r");
       if (boot == NULL) { fprintf(stderr, "Unable to open bootloader file\n");
-        exit(3); } };
+        exit(1); } };
     ⁺⁼ProcessCommandline(argv);
     if (boot) { char c; while (fread(&c, 1, 1, boot)) { fprintf(stdout, "%c", c); }
       fclose(boot); } /* ⬷ 𝖨․𝘦 pasting the content of the boot file as a prefix to the elf32 file. */
-    if (!elf32_filenameOrNULL) { fprintf(stderr, "No elf32 file given at your command line\n"); exit(5); }
+    if (!elf32_filenameOrNULL) { fprintf(stderr, "No elf32 file given at your command line\n"); exit(6); }
     __block FILE * in = fopen(elf32_filenameOrNULL, "rb");
-    if (!in) { fprintf(stderr, "Unable to open elf32 file '%s'\n", elf32_filenameOrNULL); exit(6); }
+    if (!in) { fprintf(stderr, "Unable to open elf32 file '%s'\n", elf32_filenameOrNULL); exit(7); }
     /* Parse open file */
-#define EXIT_INVALID_FILE 8
-    auto fixElf32 = ^(long offset) { if (fseek(in, offset, SEEK_SET)) { exit(EXIT_INVALID_FILE); } };
+    auto fixElf32 = ^(long offset) { if (fseek(in, offset, SEEK_SET)) { exit(8); } };
     auto readElf32 = ^(void * __restrict buf, size_t bytes, size_t count) {
       size_t actual = fread(buf, bytes, count, in); if (count != actual) {
-      fprintf(stderr, "Read error where bytes=%zd, count=%zd, actual=%zd\n", 
-      bytes, count, actual); exit(7); } };
+      fprintf(stderr, "Read error\n"); exit(9); } };
 /* 1 */ Elf32_Ehdr elfHeader;
     readElf32(&elfHeader, sizeof(Elf32_Ehdr), 1);
     /* offset32 pgmheaderOffset = elfHeader.phoff;
     uint16_t pgmheaderSize = elfHeader.phentsize; */
     offset32 offsetSectHeader = elfHeader.shoff;
     uint16_t bytesSectHeader = elfHeader.shentsize;
-    if (elfHeader.type != ET_EXEC) { fprintf(stderr, "Input file is not an executable\n"); exit(EXIT_INVALID_FILE); }
-    if (bytesSectHeader != sizeof(Elf32_Shdr)) { fprintf(stderr, "Invalid section header table size\n"); exit(EXIT_INVALID_FILE); }
-    /* Now, read the section name string table. */
+    if (elfHeader.type != ET_EXEC) { fprintf(stderr, "Input file is not an executable\n"); exit(10); }
+    if (bytesSectHeader != sizeof(Elf32_Shdr)) { fprintf(stderr, "Invalid section header table size\n"); exit(11); }
+    /* Now, time to read the section name string table. */
 /* 2 */ Elf32_Shdr SectionNames;
     long offsetSectnames = offsetSectHeader + bytesSectHeader*elfHeader.shstrndx;
     fixElf32(offsetSectnames);
@@ -222,6 +220,10 @@ main(
         readElf32(&sectionHeader, sizeof(Elf32_Shdr), 1);
         const char * name = sectionnames + sectionHeader.name;
         if (sectionHeader.size != 0 && isLoadable(name, inclMipsSects)) {
+            /* if (trace && i == 0) { fprintf(stderr, "index name offset bytes linaddr type\n"); }
+             if (trace) { fprintf(stderr, "%d\t%s\t%x\t%x\t%x\t%x\n", i, name, 
+              sectionHeader.offset, sectionHeader.size, sectionHeader.addr, 
+              sectionHeader.type); } */
             uint64_t bytesleft = sectionHeader.size;
             uint8_t * sectcontent = (uint8_t *)malloc(bytesleft);
 /* N+1 */   fixElf32(sectionHeader.offset);
