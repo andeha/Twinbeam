@@ -46,7 +46,7 @@ ParseIntelHex(
   void (^endoffile)()
 )
 {  int __block idx=-4, bytes, addrhi, addrlo, type;
-    uint8_t buf₁[256]; __block uint8_t accCRC=0; uint8_t *buf₂=buf₁;
+    uint8_t buf₁[256]; 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 uint8_t accCRC=0; uint8_t *buf₂=buf₁;
     auto crcneq = ^(uint8_t crc) { uint8_t acc=((-accCRC)&0xff); return acc != crc; };
     int err = ParseIntelHex(utf8text, ^(uint8_t byte, bool& stop) {
       switch (idx) {
