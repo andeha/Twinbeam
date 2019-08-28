@@ -1,12 +1,12 @@
-/*  𝙿𝚛𝚒𝚗𝚝⁺.cpp | 🗞 - Printing and no escapes. */
+/*  𝙋𝙧𝙞𝙣𝙩⁺.cpp | 🗞 - Printing and no escapes. */
 
 #include <Twinbeam.h>
 
-/* Compile with xcrun clang @ccargs_macosᵧ -o Print⁺ '🥽 ᷣ𝙿𝚛𝚒𝚗𝚝⁺.cpp'   \
+/* Compile with xcrun clang @ccargs_macosᵧ -o Print⁺ '🥽 𝙋𝙧𝙞𝙣𝙩⁺.cpp'   \
   ../../Source/Releases/libTwinbeam_macOS.a ../../Source/llvmʳᵗ³.cpp */
 
 /* clang++ -g -o Print⁺ -I ../../ -fno-rtti -fblocks -fno-exceptions   \
-    -std=c++2a '🥽 ᷣ𝙿𝚛𝚒𝚗𝚝⁺.cpp' ../../Source/llvmʳᵗ³.cpp ../../Source/Utf8.cpp \
+    -std=c++2a '🥽 𝙋𝙧𝙞𝙣𝙩⁺.cpp' ../../Source/llvmʳᵗ³.cpp ../../Source/Utf8.cpp \
     ../../Source/System.cpp */
 
 DISORDERABLE extern void CastᵈᵇˡToText(double value,
