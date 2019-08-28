@@ -2,11 +2,11 @@
 
 #include <Twinbeam.h>
 
-/* Compile with xcrun clang @ccargs_macosᵧ -o Print⁺ '🥽 𝙋𝙧𝙞𝙣𝙩⁺.cpp'   \
+/* Compile with xcrun clang @ccargs_macosᵧ -o Print⁺ '🥽 ᷣ𝙋𝙧𝙞𝙣𝙩⁺.cpp'   \
   ../../Source/Releases/libTwinbeam_macOS.a ../../Source/llvmʳᵗ³.cpp */
 
 /* clang++ -g -o Print⁺ -I ../../ -fno-rtti -fblocks -fno-exceptions   \
-    -std=c++2a '🥽 𝙋𝙧𝙞𝙣𝙩⁺.cpp' ../../Source/llvmʳᵗ³.cpp ../../Source/Utf8.cpp \
+    -std=c++2a '🥽 ᷣ𝙋𝙧𝙞𝙣𝙩⁺.cpp' ../../Source/llvmʳᵗ³.cpp ../../Source/Utf8.cpp \
     ../../Source/System.cpp */
 
 DISORDERABLE extern void CastᵈᵇˡToText(double value,
@@ -202,13 +202,6 @@ main(
     
     auto Putₒ2 = ^(uint8_t * utf8s, uint16_t bytes) { write(1, (const void *)utf8s, bytes); };
     print⁺⁺(Putₒ2, "Welcome to print: ⬚ ⬚ ⬚\n", ﹟d(12), ﹟x(12), ﹟F(12.1));
-    
-    /* …also consider 𐤟 (PHOENICIAN WORD SEPARATOR) when literal ∨ utf8…
-      print⁺("Welcome to print⁺ "_🧬, ToString(199), 0); */
-    
-    /* and Unicode for detail-popover, margin note and pdf|png|canvas. */
-    
-    /* …also 'linebreak+open run' and 'forward run'. */
     
     __uint128_t x₁ = 100; __int128_t x₂ = -100;
     print⁺⁺(Putₒ2, "Size of x₁ is ⬚ value is 0x⬚\n", ﹟d(sizeof(x₁)), ﹟U(x₁));
