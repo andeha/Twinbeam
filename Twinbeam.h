@@ -195,17 +195,16 @@ MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   shifted = orig>>shift; if (update) update(shifted); __builtin_uint_t fresh =
   (shifted<<shift)&mask; *symbol = (word & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL
 int print(const char *utf8format, ...); /* Note that a character literal prefixed 
-  with the letter `U` does not neccessarily ends with for example `NULL` */
+  with the letter `U` does not neccessarily ends with for example `NULL`. */
 struct Argᴾ { union { __builtin_int_t d; __builtin_uint_t x, b; const char * utf8;
   struct /* Unicodes */ { const char32_t * unicodes; int tetras; } ucs; char c; 
-  char32_t uc; double f₁; float f₂; /* And space for 'user-defined' types: Q567 q567; */ 
-  uint8_t bytes[16]; __uint128_t U; __int128_t I; uint64_t pair[2]; } value; 
-  int kind; }; Argᴾ ﹟d(__builtin_int_t d); Argᴾ ﹟reᵍ(__builtin_int_t r);
-Argᴾ ﹟x(__builtin_uint_t x); Argᴾ ﹟b(__builtin_uint_t b);
-Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(int tetras, const char32_t * uc);
-Argᴾ ﹟c(char c); Argᴾ ﹟C(char32_t C);
-MACRO Argᴾ ﹟U(__uint128_t U) { return Argᴾ { .value.U=U, 11 }; }
-MACRO Argᴾ ﹟I(__int128_t I) { return Argᴾ { .value.I=I, 10 }; }
+  char32_t uc; double f₁; float f₂; /* And space for the 'user-defined' types `Q567` 
+  and `q567`: */ uint8_t bytes[16]; __uint128_t U; __int128_t I; uint64_t pair[2]; 
+  } value; int kind; };
+Argᴾ ﹟d(__builtin_int_t d); Argᴾ ﹟x(__builtin_uint_t x); Argᴾ ﹟b(__builtin_uint_t 
+b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(int tetras, const char32_t * uc); Argᴾ ﹟c(
+char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
+Argᴾ ﹟reᵍ(__builtin_int_t r); 
 extern "C" { int atexit(void(*func)(void)); void exit(int); }
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
 extern "C" { void * malloc(size_t); void free(void *); }
@@ -215,8 +214,8 @@ FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memor
   ByteAlignedRef dst, /* const */ ByteAlignedRef src, __builtin_int_t bytes) {
   ByteAlignedRef org = dst; __asm__ __volatile__ ("rep movsb" : "+D"(dst),
   "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* A․𝘬․a 𝚖𝚎𝚖𝚌𝚙𝚢. */
-FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(ByteAlignedRef 
-  p₁, ByteAlignedRef p₂, __builtin_uint_t bytes);
+FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
+  ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uint_t bytes);
 #define MEASURE_START(prefix) int64_t prefix##Start = __rdtsc(); /* 𝚜𝚒𝚐𝚗𝚎𝚍 ⟵ Comparision */
 #define MEASURE_END(prefix)                                                  \
   int64_t prefix##End = __rdtsc();                                           \
