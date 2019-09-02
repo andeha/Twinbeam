@@ -187,8 +187,9 @@ MACRO __builtin_uint_t 🔎(__builtin_uint_t var) { return *((__builtin_uint_t
 MACRO __builtin_uint_t&  🔧(__builtin_uint_t var) { return (__builtin_uint_t&)
   *(__builtin_uint_t /* volatile */ *)var; }
 MACRO __builtin_uint_t TrailingZeros(__builtin_uint_t x) { if (x == 0) { return
-  8*sizeof(x); } return ((x-1)^x)-1; /* dst=(a-1) xor a (or on x64 `_blsmsk_u64`) */ }
-/* And for contemplative consumption of abstraction, 𝑃𝑖𝑛𝑐𝑒 𝑎𝑏𝑠𝑡𝑟𝑎𝑖𝑡: */
+  8*sizeof(x); } x=(x^(x-1))>>1; int c=0; for (; x; c++) { x >>= 1; } return c; }
+/* ⬷ Not `__builtin_clzl` for Mips and `__builtin_clz` for Intel.  And for 
+  contemplative consumption of abstraction, 𝑃𝑖𝑛𝑐𝑒 𝑎𝑏𝑠𝑡𝑟𝑎𝑖𝑡: */
 MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   void (^update)(__builtin_uint_t& shifted) = ^(__builtin_uint_t&) { } ) {
   __builtin_uint_t word = *symbol, shift = TrailingZeros(mask), orig = mask & word,
@@ -204,7 +205,7 @@ struct Argᴾ { union { __builtin_int_t d; __builtin_uint_t x, b; const char * u
 Argᴾ ﹟d(__builtin_int_t d); Argᴾ ﹟x(__builtin_uint_t x); Argᴾ ﹟b(__builtin_uint_t 
 b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(int tetras, const char32_t * uc); Argᴾ ﹟c(
 char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
-Argᴾ ﹟reᵍ(__builtin_int_t r); 
+Argᴾ ﹟reᵍs(__builtin_uint_t mask);
 extern "C" { int atexit(void(*func)(void)); void exit(int); }
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
 extern "C" { void * malloc(size_t); void free(void *); }
@@ -221,6 +222,7 @@ FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
   int64_t prefix##End = __rdtsc();                                           \
   int64_t prefix##Nanos = prefix##End - prefix##Start;                       \
   printf(#prefix " measures %lld ns\n",  prefix##Nanos);
+#define 🎭𝑋𝟾𝟼(storage,symmsk,...) 🎭((__builtin_uint_t *)(storage), INTEL_##symmsk __VA_OPT__(,) __VA_ARGS__)
 #elif defined __mips__
 FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef
   dst, ByteAlignedRef src, __builtin_int_t bytes);
@@ -640,7 +642,7 @@ struct Chronology {
      @param parts  Contains year, month (1-12), day (1-31), hour (0-23),
        minutes (0-59) and seconds (0-59)
      
-     @param frac The number of 232 ps intervals to add. Note TS(.../
+     @param frac  The number of ≈232.83 ps intervals to add
      
      */
     
@@ -678,6 +680,18 @@ InstantToText(
   void (^out)(char digitHyphenColonPeriodOrSpace)
 );
 
+/*
+   
+   A correct abbreviation for the unit of time and also the measurements of 
+   duration is 's'. It is not 'S' which stands for Siemens and admittance.
+  
+   Assuming GMT — where 60×60×24 seconds is a 'day' — and while neglecting the 
+   concept of a leap year, a wrap-around occurs approximately every 136 years.
+   
+   At the equator, GMT and UTC must never differ by more than 0․9s. 
+   
+ */
+
 Opt<Chronology::Instant>
 TS( /* E.𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232 */
   Encoding encoding,
@@ -702,9 +716,11 @@ typedef Chronology Chronology🦠; /* With 2⁻⁶⁵ 𝘢․𝘬․𝘢 `UQ65`;
 
 /**  The unperturbed — yet based on ¹³³Caesium — chronology. */
 
-Chronology& ComputationalChronology(); /* 𝖤.𝘨 for chronometers. */
+Chronology& ComputationalChronology(); /* 𝖤․𝘨 for chronometers. A․𝘬․a `GMT` (therefore 
+  60×60×24 seconds per day), without leap seconds/years and no summer time correction. */
 
-/**  The chronology of the users' choice. */
+/**  The chronology of the users' choice. A․𝘬․a `UTC` (therefore an exact multiple of 
+  SI seconds, with leap seconds as well as summer time). */
 
 Chronology& SystemCalendricChronology(); /* Irreversible, conclusive mass; Consider 𝑒𝑎𝑠𝑒-𝑖𝑛․ */
 
