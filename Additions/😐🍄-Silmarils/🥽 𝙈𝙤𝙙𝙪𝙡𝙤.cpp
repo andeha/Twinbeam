@@ -51,7 +51,7 @@ int
 
 BITMASK (uint32_t) { /* x87 FPU Control */
   INTEL_FCW_X = 0b1<<12,   // Infinity Control
-  INTEL_FCW_RC = 0b11<<10, /* IEE754 Rounding Control: 0b01='Round towards -∞', 
+  INTEL_FCW_RC = 0b11<<10, /* IEEE754 Rounding Control: 0b01='Round towards -∞', 
     default 0b00='Round to nearest'. */
   INTEL_FCW_PC = 0b11<<8,  // Precision Control
   INTEL_FCW_PM = 0b1<<5,   // Precision
@@ -128,7 +128,7 @@ AnnotatedRegister AR_Intel_x87FSW = {
 
 BITMASK (uint32_t) { // MXCSR
   INTEL_MXCSR_FZ  = 0b1<<15, // Flush to Zero
-  INTEL_MXCSR_RC  = 0b11<<13, /* IEE754 Rounding Control: 0b01='Round towards -∞', 
+  INTEL_MXCSR_RC  = 0b11<<13, /* IEEE754 Rounding Control: 0b01='Round towards -∞', 
     default 0b00='Round to nearest'. */
   INTEL_MXCSR_PM  = 0b1<<12, // Precision Mask
   INTEL_MXCSR_UM  = 0b1<<11, // Underflow Mask
