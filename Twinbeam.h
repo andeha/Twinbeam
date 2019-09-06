@@ -195,8 +195,9 @@ MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   __builtin_uint_t word = *symbol, shift = TrailingZeros(mask), orig = mask & word,
   shifted = orig>>shift; if (update) update(shifted); __builtin_uint_t fresh =
   (shifted<<shift)&mask; *symbol = (word & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL
-int print(const char *utf8format, ...); /* Note that a character literal prefixed 
-  with the letter `U` does not neccessarily ends with for example `NULL`. */
+int print(const char *utf8format, ...); int print(void (^out)(uint8_t * utf8s, 
+  short unsigned bytes), const char *utf8format, ...); /* Character literals 
+  prefixed with the letter `U` does not neccessarily ends with for example `NULL`. */
 struct Argᴾ { union { __builtin_int_t d; __builtin_uint_t x, b; const char * utf8;
   struct /* Unicodes */ { const char32_t * unicodes; int tetras; } ucs; char c; 
   char32_t uc; double f₁; float f₂; /* And space for the 'user-defined' types `Q567` 
@@ -280,7 +281,7 @@ FOCAL void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short
 #define SIGNBIT_INT64 0x8000000000000000
 MACRO int64_t abs64i(int64_t x) { return x & ~SIGNBIT_INT64; }
 MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
-/* template <typename T> T abs(T x) { return x < 0 ? -x : x; } */
+/* template <typename T> T abs(T x) { return x < +0 ? -x : x; } */
 #define /* PROVOCATIVE */ ASSEMBLERONLY __attribute__((naked)) /* A․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN, NEITHER_PROLOGUE_NOR_EPILOGUE. */
 /* #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error"))) */
 /* #define STRANGE_MAIN void _Noreturn main */
@@ -644,6 +645,9 @@ struct Chronology {
      
      @param frac  The number of ≈232.83 ps intervals to add
      
+     A correct abbreviation for the unit of time and also the measurements of 
+     duration is 's'. It is not 'S' which stands for Siemens and admittance.
+     
      */
     
     Opt<Chronology::Instant> timestamp(int32_t parts[6], UQ32 frac = 0) const;
@@ -682,18 +686,15 @@ InstantToText(
 
 /*
    
-   A correct abbreviation for the unit of time and also the measurements of 
-   duration is 's'. It is not 'S' which stands for Siemens and admittance.
-  
-   Assuming GMT — where 60×60×24 seconds is a 'day' — and while neglecting the 
-   concept of a leap year, a wrap-around occurs approximately every 136 years.
-   
-   At the equator, GMT and UTC must never differ by more than 0․9s. 
+   The NTP defines epoch starting at the year 1900 at midnight before 
+   sunrise January the 1ˢᵗ and with a 32-bit unsigned integer track 0 to 
+   2³² - 1 = 4.294,967,295 seconds (approximately 136 earth years) until 
+   a wrap occur.
    
  */
 
 Opt<Chronology::Instant>
-TS( /* E.𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232 */
+TS( /* E.𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232. */
   Encoding encoding,
   Chronology chronology,
   Memoryview datetime
