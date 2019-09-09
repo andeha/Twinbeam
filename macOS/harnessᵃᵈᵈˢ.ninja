@@ -70,5 +70,5 @@ build $objs/tanh.o: cc $adds/math/tanh.cpp
 build $objs/⌊𝑥⌋+nearest.o: cc $adds/math/⌊𝑥⌋+nearest.cpp
 build $objs/Utf8Terminal.o: cc $adds/Utf8Terminal.cpp
 build $objs/x87math.o: ccms $adds/x87math.cpp
-build $objs/harness.o: cc harness.cpp
+build $objs/harness.o: cc main.cpp
 default $progname

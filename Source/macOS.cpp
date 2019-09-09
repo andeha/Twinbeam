@@ -116,17 +116,4 @@ Symbols(
     }
 }
 
-void
-RunUnitTests(
-  const char * filepath,
-  void (^out)(const char *s)
-)
-{
-    Symbols(filepath, ^(const char * sym, uint64_t addr, bool& stop) {
-        if (addr && IsPrefixOrEqual((char *)sym, (char *)"_Unittest_")) {
-            out("\nRunning "); out(sym); out("\n");
-            typedef void (*Testcase)(); void (*testcase)() = (Testcase)addr;
-            testcase();
-        }
-    });
-}
+
