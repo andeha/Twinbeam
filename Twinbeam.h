@@ -74,8 +74,8 @@ struct InnerFrame {
 template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․k․a `DisjunctPointer`. */
 #define VISITISR(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + call */
 #define UNITTEST(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
-#define Panic(log,s) { printf("\n\n'%s'\nPanicking at %s in %s:%d\n",        \
-  s, __FUNCTION__, __FILE__, __LINE__); exit(-1); }
+#define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",          \
+  ﹟s(s), ﹟s(__FUNCTION__), ﹟s(__FILE__), ﹟d(__LINE__)); exit(-1); }
 #define ENSURE(c,s) { if (!(c)) { Panic(Testlog, s); } }
 #define FINAL /*  …or DO_NOT_DESTABBILIZE */
 #define LONGTOOTH /* __attribute__ ((deprecated("Marked LONGTOOTH."))) */
