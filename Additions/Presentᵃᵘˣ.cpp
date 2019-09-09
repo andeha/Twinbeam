@@ -172,7 +172,7 @@ AnnotatedRegister AR_Binary64ˡᵒ = {
   U""
 };
 
-void 
+void
 Presentᵧ(
   Utf8Terminal &term,
   double val
