@@ -655,7 +655,7 @@ struct Chronology {
     /**  Return a future instant.  The NTP defines epoch starting at the year 
       1900 at midnight before sunrise January the 1ˢᵗ and with a 32-bit unsigned 
       integer track 0 to 2³² - 1 = 4.294,967,295 seconds (approximately 136 earth 
-      years) until a wrap occur.*/
+      years) until a wrap occurs. */
     
     Instant
     addSeconds(
