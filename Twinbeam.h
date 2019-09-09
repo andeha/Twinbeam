@@ -57,7 +57,7 @@ void divide_bignum(bignum *a, bignum *b, bignum *c);
 #ifdef  __mips__
 #define Mips __asm__ __volatile__ (/* ".set noat   \n" */ ".set noreorder  \n" ".set nomacro    \n"
 #elif defined __x86_64__
-#define Intel👈 __asm { .intel_syntax noprefix
+#define Intel👈 __asm { .intel_syntax noprefix /* Requires -fms-extensions */
 #define IntelPlusATT👉 asm { .att_syntax .text
 #endif
 template<typename T>
@@ -101,7 +101,7 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․k․a `Di
 #define INITIALPROJECTIVE
 #define IRREPABEL /* In German: 'reparierbar'. */
 #define AMBIVALENT /* Native: 'contra-polarisative'. */
-#define DEFLECTIVE
+#define DEFLECTIVE /* E․g `Auntie`. */
 #define VERYLOGARITHMIC
 #define ANTIPOLARISATIVE
 #define DUALREFLECTIVE
@@ -537,10 +537,10 @@ atomic, yet consistent and gracefully failing indicated through a non-zero retur
 /* struct Peekey { __builtin_int_t 🥈 ⬚=2, 🗝=1; __builtin_int_t board₁, palm₂; }; */
 #define 🔒(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, MustBeOrdered)
 #define 🔓(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, JustSwap);
-struct Bitfield { const char32_t * ident; __builtin_uint_t mask; 
+struct Bitfield { const char32_t * ident; uint32_t mask; 
   const char32_t * text; }; typedef Bitfield Register[];
 struct AnnotatedRegister { const char32_t * header; int regcnt; const 
-  Bitfield * regs; __builtin_uint_t init; const char32_t * footnote; };
+  Bitfield * regs; uint32_t init; const char32_t * footnote; };
 #ifdef __x86_64__
 #define POSIX_FIBER
 #elif defined __mips__
@@ -652,7 +652,10 @@ struct Chronology {
     
     Opt<Chronology::Instant> timestamp(int32_t parts[6], UQ32 frac = 0) const;
     
-    /**  Return a future instant. */
+    /**  Return a future instant.  The NTP defines epoch starting at the year 
+      1900 at midnight before sunrise January the 1ˢᵗ and with a 32-bit unsigned 
+      integer track 0 to 2³² - 1 = 4.294,967,295 seconds (approximately 136 earth 
+      years) until a wrap occur.*/
     
     Instant
     addSeconds(
@@ -684,15 +687,6 @@ InstantToText(
   void (^out)(char digitHyphenColonPeriodOrSpace)
 );
 
-/*
-   
-   The NTP defines epoch starting at the year 1900 at midnight before 
-   sunrise January the 1ˢᵗ and with a 32-bit unsigned integer track 0 to 
-   2³² - 1 = 4.294,967,295 seconds (approximately 136 earth years) until 
-   a wrap occur.
-   
- */
-
 Opt<Chronology::Instant>
 TS( /* E.𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232. */
   Encoding encoding,
@@ -718,10 +712,10 @@ typedef Chronology Chronology🦠; /* With 2⁻⁶⁵ 𝘢․𝘬․𝘢 `UQ65`;
 /**  The unperturbed — yet based on ¹³³Caesium — chronology. */
 
 Chronology& ComputationalChronology(); /* 𝖤․𝘨 for chronometers. A․𝘬․a `GMT` (therefore 
-  60×60×24 seconds per day), without leap seconds/years and no summer time correction. */
+  60×60×24 seconds per day), without leap seconds/years and no summertime correction. */
 
 /**  The chronology of the users' choice. A․𝘬․a `UTC` (therefore an exact multiple of 
-  SI seconds, with leap seconds as well as summer time). */
+  SI seconds, with leap seconds as well as summertime). */
 
 Chronology& SystemCalendricChronology(); /* Irreversible, conclusive mass; Consider 𝑒𝑎𝑠𝑒-𝑖𝑛․ */
 

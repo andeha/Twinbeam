@@ -6,6 +6,11 @@ void * __gxx_personality_v0;
 void * _NSConcreteStackBlock[32];
 void * _NSConcreteGlobalBlock[32];
 
+extern "C" void __cxa_pure_virtual() { BLURT("Pure virtual function called"); while (1); }
+struct { __builtin_int_t board₁, palm₂; } cxaGuard;
+extern "C" int __cxa_guard_acquire() { return 🔒(cxaGuard); }
+extern "C" void __cxa_guard_release() { 🔓(cxaGuard); }
+
 auto Alloc = ^(__builtin_int_t bytes) { return malloc(bytes); };
 auto Fallow = ^(void * p) { free(p); };
 
@@ -16,11 +21,11 @@ extern "C" void * memcpy(void *dst, const void *src, size_t n)
 { return (void *)Copy8Memory((ByteAlignedRef)dst, (ByteAlignedRef)src, (__builtin_int_t)n); }
 extern "C" void * memset(void *b, int c, size_t len)
 { return (void *)Overwrite8Memory((ByteAlignedRef)b, (uint8_t)c, (__builtin_int_t)len); }
-/* void * memmove(void *dst_void, const void* src_void, size_t length)
+/* void * memmove(void *dst_void, const void * src_void, size_t length)
 { return (void *)Copy8Memory((ByteAlignedRef)dst0, (ByteAlignedRef)src0, (__builtin_int_t)len0); } */
-
+/* See also the implementations from Imagination technologies. */
 #ifdef __x86_64__
-extern "C" int write(int fd, const void *s, short unsigned b);
+extern "C" int write(int fd, const void * s, short unsigned b);
 DISORDERABLE auto Putₒ = ^(uint8_t * utf8s, uint16_t bytes) {
   write(1, (const void *)utf8s, bytes); };
 #include <wchar.h>
@@ -38,8 +43,9 @@ DISORDERABLE auto WaitTerminal = ^(int periods𝘖𝘳Zero, int
   ᵗᵉⁿᵗʰseconds, void (^ping)(bool &stop), char32_t * uc) {
 #ifdef __mips__
   
-  /* See --<🥽 Keyput.cpp> for details on:
+  /*
    
+   See --<🥽 Keyput.cpp> for details on:
    H₁ Call `uint8_t getutf8()` and wait as in uint8_t utf8 = getutf8();
    H₂ Intermingle with Timer1-Timer9 
    

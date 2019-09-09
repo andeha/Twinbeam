@@ -3,7 +3,7 @@
 #include <Twinbeam.h>
 #include <Additions/Additions.h>
 
-const char *bright="\x1B[1m", *dim="\x1B[2m", *fgBlue="\x1B[34m",
+const char *bright="\x1B[1m", *dim="\x1B[2m", *fgBlue="\x1B[34m", 
   *fgRed="\x1B[31m", *reset="\x1B[0m", *reverse="\x1B[7m";
 
 #include <stdio.h>
@@ -27,8 +27,8 @@ void
 Present(
   Utf8Terminal &term,
   const Bitfield& field,
-  __builtin_uint_t value,
-  __builtin_uint_t init,
+  uint32_t value,
+  uint32_t init,
   __builtin_int_t maxwidth
 )
 {
@@ -45,7 +45,7 @@ Present(
         
         if (masking && 𝟶to𝟿 == '0') { masking = false; }
         
-        if (masking) { fprintf(stderr, value & field.mask ? "1" : "0"); }
+        if (masking) { fprintf(stderr, value & (0b1<<pos) ? "1" : "0"); }
         else { fprintf(stderr, "␣"); }
         
         if (pos % 4 == 0) fprintf(stderr, "|"); pos--;
@@ -61,11 +61,11 @@ void
 Present(
   Utf8Terminal &term,
   const AnnotatedRegister& ar,
-  __builtin_uint_t value
+  uint32_t value
 )
 {
-    auto present = ^(int count, const Bitfield * regs, __builtin_uint_t value, 
-         __builtin_uint_t init) { int maxwidth=0;
+    auto present = ^(int count, const Bitfield * regs, uint32_t value, 
+         uint32_t init) { int maxwidth=0;
        for (int i = 0; i < count; i++) {
           const Bitfield * reg = regs + i; maxwidth = max(maxwidth, 
            (int)UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(reg->ident, BUILTIN_INT_MAX));
