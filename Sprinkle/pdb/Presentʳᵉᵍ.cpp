@@ -29,6 +29,7 @@ Present(
   const Bitfield& field,
   uint32_t value,
   uint32_t init,
+  bool 𝟷𝟼bits,
   __builtin_int_t maxwidth
 )
 {
@@ -41,12 +42,15 @@ Present(
     __block bool masking = false; __block unsigned pos = 31;
     Base𝕟((__builtin_uint_t)(field.mask), 2, 32, ^(char 𝟶to𝟿) {
         
-        if (𝟶to𝟿 == '1' && !masking) { masking = true; }
+        if (𝟷𝟼bits && pos > 15) { fprintf(stderr, "⌗"); }
         
-        if (masking && 𝟶to𝟿 == '0') { masking = false; }
+        if (!𝟷𝟼bits && 𝟶to𝟿 == '1' && !masking) { masking = true; }
         
-        if (masking) { fprintf(stderr, value & (0b1<<pos) ? "1" : "0"); }
-        else { fprintf(stderr, "␣"); }
+        if (!𝟷𝟼bits && masking && 𝟶to𝟿 == '0') { masking = false; }
+        
+        if (!𝟷𝟼bits && masking) { fprintf(stderr, value & (0b1<<pos) ? "1" : "0"); }
+        
+        if (!𝟷𝟼bits && !masking) { fprintf(stderr, "␣"); }
         
         if (pos % 4 == 0) fprintf(stderr, "|"); pos--;
         
@@ -61,7 +65,8 @@ void
 Present(
   Utf8Terminal &term,
   const AnnotatedRegister& ar,
-  uint32_t value
+  uint32_t value,
+  bool 𝟷𝟼bits
 )
 {
     auto present = ^(int count, const Bitfield * regs, uint32_t value, 
@@ -71,7 +76,7 @@ Present(
            (int)UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(reg->ident, BUILTIN_INT_MAX));
        }
        for (int i = 0; i < count; i++) {
-          Present(term, *(regs + i), value, init, maxwidth);
+          Present(term, *(regs + i), value, init, 𝟷𝟼bits, maxwidth);
        }
     };
     fprintf(stderr, "%s\n", bright);

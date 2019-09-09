@@ -6,11 +6,12 @@
 const char *bright="\x1B[1m", *dim="\x1B[2m", *fgBlue="\x1B[34m", 
   *fgRed="\x1B[31m", *reset="\x1B[0m", *reverse="\x1B[7m";
 
-extern int print﹟s(void (^out)(uint8_t * utf8s, short unsigned bytes), const char * utf8format, __builtin_va_list arg);
 DISORDERABLE extern void (^Putₒ)(uint8_t * utf8s, uint16_t bytes);
 #ifdef __x86_64__
 extern "C" ssize_t write(int fd, const void *s, size_t b);
 #endif
+extern int print﹟(void (^out)(uint8_t * utf8s, short unsigned bytes), const 
+  char * utf8format, __builtin_va_list arg);
 
 int
 mfprint(
@@ -29,7 +30,7 @@ mfprint(
  #elif defined __mips__
     auto out = ^(uint8_t * utf8s, uint16_t bytes) { Putₒ(utf8s, bytes); };
 #endif
-    y = print﹟s(out, utf8format, __arg);
+    y = print﹟(out, utf8format, __arg);
     va_epilogue
     return y;
 }
@@ -57,6 +58,7 @@ Present(
   const Bitfield& field,
   uint32_t value,
   uint32_t init,
+  bool 𝟷𝟼bits,
   int maxwidth
 )
 {
@@ -69,12 +71,15 @@ Present(
     __block bool masking = false; __block unsigned pos = 31;
     Base𝕟((__builtin_uint_t)(field.mask), 2, 32, ^(char 𝟶to𝟿) {
         
-        if (𝟶to𝟿 == '1' && !masking) { masking = true; }
+        if (𝟷𝟼bits && pos > 15) { mfprint("⌗"); }
         
-        if (masking && 𝟶to𝟿 == '0') { masking = false; }
+        if (!𝟷𝟼bits && 𝟶to𝟿 == '1' && !masking) { masking = true; }
         
-        if (masking) { mfprint(value & (0b1<<pos) ? "1" : "0"); }
-        else { mfprint("␣"); }
+        if (!𝟷𝟼bits && masking && 𝟶to𝟿 == '0') { masking = false; }
+        
+        if (!𝟷𝟼bits && masking) { mfprint(value & (0b1<<pos) ? "1" : "0"); }
+        
+        if (!𝟷𝟼bits && !masking) { mfprint("␣"); }
         
         if (pos % 4 == 0) mfprint("|"); pos--;
         
@@ -89,7 +94,8 @@ void
 Present(
   Utf8Terminal &term,
   const AnnotatedRegister& ar,
-  uint32_t value
+  uint32_t value,
+  bool 𝟷𝟼bits
 )
 {
     auto present = ^(int count, const Bitfield * regs, uint32_t val, 
@@ -99,7 +105,7 @@ Present(
            (int)UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(reg->ident, BUILTIN_INT_MAX));
        }
        for (int i = 0; i < count; i++) {
-          Present(term, *(regs + i), val, init, maxwidth);
+          Present(term, *(regs + i), val, init, 𝟷𝟼bits, maxwidth);
        }
     };
     mfprint("⬚\n", ﹟s(bright));

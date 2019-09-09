@@ -31,7 +31,7 @@ CastᵈᵇˡToText(
 *** ⟤⟥: 'Big-Endian Ieee 754 Base-2 double with double-Zero (-1)ˢ(1+m*2⁻⁵²)×2ˣ⁻¹⁰²³ ***
                                                                              
 Binary64_SGN x␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|
-            |␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣| Sign bit
+            |␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣| Sign bit               
                                                                              
 Binary64_EXP ␣xxx|xxxx|xxxx|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣³²|
             |␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣| Signed exponent -1024 to 1024 (11 bits)
@@ -47,7 +47,7 @@ Binary32_MAN ␣␣␣␣|␣␣␣␣|␣xxx|xxxx|xxxx|xxxx|xxxx|xxxx| Fraction
                                                                              
 */
 
-#define IEEE754BASE2_64BIT_PZERO  0x0000000000000000L
+#define IEEE754BASE2_64BIT_PZERO  0x0000000000000000L /* ⬷ Big endian. */
 #define IEEE754BASE2_64BIT_NZERO  0x8000000000000000L
 #define IEEE754BASE2_64BIT_SNAN   0x7FF0000000000001L /* Signalling */
 #define IEEE754BASE2_64BIT_PINF   0x7FF0000000000000L /* Positive */
@@ -248,7 +248,7 @@ void Present(Utf8Terminal &term, const char * utf8, __builtin_int_t maxbytes=BUI
 void Present(Utf8Terminal &term, const Ornaments & ds);
 /* void Present(Utf8Terminal &term, UnicodeBlock location); */
 /* enum Register { rtcc, dma0, … }; void Present(Utf8Terminal &term, Register reg); */
-void Present(Utf8Terminal &term, const AnnotatedRegister& ar, uint32_t value);
+void Present(Utf8Terminal &term, const AnnotatedRegister& ar, uint32_t value, bool 𝟷𝟼bits=false);
 void Presentᵧ(Utf8Terminal &term, double value);
 void Presentᵧ(Utf8Terminal &term, float value);
 
@@ -406,7 +406,7 @@ struct Bitsetˢᵘᵖ { /* A․𝘬․a `Capped-ET-Bitset`. */
   __builtin_uint_t state;
   
   void toggle(int pos) { state ^= 1<<pos; } /* Xor₁: 'different' between two and 
-    toggles one; I․𝘦 'abstract` ⟷ Xor. */
+    toggles one; I․𝘦 'abstract` ⟷ Xor. A․𝘬․a `alternate`. */
   
   __builtin_uint_t anset() { /* Xor₂: Toggles ∧ identifies 'change' simultaneously. */
      __builtin_uint_t cnt = TrailingZeros(state);

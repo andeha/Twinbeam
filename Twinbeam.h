@@ -723,7 +723,7 @@ Chronology& SystemCalendricChronology(); /* Irreversible, conclusive mass; Consi
 
 typedef float floatʳ; typedef double doubleʳ;
 
-/**  Additive-relative: x⁺ʳ∈[0₋𝜀, 1₊𝜀). */
+/**  Subtractive-relative: x⁺ʳ∈[0₋𝜀, 1₊𝜀). */
 
 typedef float float⁺ʳ; typedef double double⁺ʳ;
 
