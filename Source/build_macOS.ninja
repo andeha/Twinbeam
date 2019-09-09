@@ -9,17 +9,18 @@ flags = $optflags $macoscflags $platflags
 include ../macOS/macbook.ninja
 
 rule lib
-    command = xcrun ar rcs Releases/$out\_$sha1git.a $in; printf $sha1git
+    command = xcrun ar rcs Releases/$out\_$sha1git.a $in;                   $
+      ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
 
 build $progroot: lib $objsdir/Utf8.o $objsdir/Tree.o $objsdir/Memory.o      $
   $objsdir/Chronology.o $objsdir/bignum.o $objsdir/sha256.o                 $
-  $objsdir/macOS.o $objsdir/printf.o $objsdir/Fiber.o                       $
+  $objsdir/macOS.o $objsdir/Print.o $objsdir/Fiber.o                        $
   $objsdir/exception.o $objsdir/System.o
 build $objsdir/bignum.o: cc ../Source/bignum.cpp
 build $objsdir/Chronology.o: cc ../Source/Chronology.cpp
 build $objsdir/macOS.o: cc ../Source/macOS.cpp
 build $objsdir/Memory.o: cc ../Source/Memory.cpp
-build $objsdir/printf.o: cc ../Source/printf.cpp
+build $objsdir/Print.o: cc ../Source/Print.cpp
 build $objsdir/sha256.o: cc ../Source/sha256.cpp
 build $objsdir/System.o: cc ../Source/System.cpp
 build $objsdir/Tree.o: cc ../Source/Tree.cpp

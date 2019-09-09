@@ -15,12 +15,14 @@ rule emitcontent
     command = $tools/llvm-ar t $progname.a
 
 rule lib
-    command = $tools/llvm-ar rcs Releases/$out\_$sha1git.a $in; printf $sha1git
+    command = $tools/llvm-ar rcs Releases/$out\_$sha1git.a $in;             $
+    ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
 
 build $stem: lib $objsdir/Utf8.o $objsdir/Tree.o $objsdir/Memory.o          $
   $objsdir/Chronology.o $objsdir/bignum.o $objsdir/sha256.o                 $
-  $objsdir/pic32mz.o $objsdir/printf.o $objsdir/Fiber.o                     $
-  $objsdir/exception.o $objsdir/System.o
+  $objsdir/pic32mz.o $objsdir/Print.o $objsdir/Fiber.o                      $
+  $objsdir/exception.o $objsdir/Paging.o $objsdir/System.o                  $
+  $objsdir/Sheriff.o
 build $objsdir/Fiber.o: cc Fiber.cpp
 build $objsdir/Utf8.o: cc Utf8.cpp
 build $objsdir/Tree.o: cc Tree.cpp
@@ -28,8 +30,10 @@ build $objsdir/Memory.o: cc Memory.cpp
 build $objsdir/Chronology.o: cc Chronology.cpp
 build $objsdir/bignum.o: cc bignum.cpp
 build $objsdir/sha256.o: cc sha256.cpp
-build $objsdir/printf.o: cc printf.cpp
+build $objsdir/Print.o: cc Print.cpp
 build $objsdir/pic32mz.o: cc pic32mz.cpp
 build $objsdir/exception.o: asm exception.S
+build $objsdir/Paging.o: asm Paging.S
 build $objsdir/System.o: cc System.cpp
+build $objsdir/Sheriff.o: cc ../pic32rt/Sheriff.cpp
 default $stem
