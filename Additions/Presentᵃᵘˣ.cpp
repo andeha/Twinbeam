@@ -136,7 +136,7 @@ AnnotatedRegister AR_Binary32 = {
 
 BITMASK (uint32_t) { // IEEE754 hi-`double`
   Binary64_SGN = 0x80000000, // Sign bit
-  Binary64_EXP = 0b11111111111<<20, // Signed exponent -126 to 127
+  Binary64_EXP = 0b11111111111<<20, // Signed exponent -1024 to 1023
   Binary64_MANʰⁱ = 0xFffff, // Most significant fraction/mantissa/significand
 };
 
@@ -146,7 +146,7 @@ BITMASK (uint32_t) { // IEEE754 lo-`double`
 
 Register Binary64ʰⁱ = {
   { U"Binary64_SGN", Binary64_SGN, U"Sign bit" },
-  { U"Binary64_EXP", Binary64_EXP, U"Signed exponent -126 to 127" },
+  { U"Binary64_EXP", Binary64_EXP, U"Signed exponent -1024 to 1023" },
   { U"Binary64_MANʰⁱ", Binary64_MANʰⁱ, U"MSB's fract/mantissa/significand" }
 };
 
