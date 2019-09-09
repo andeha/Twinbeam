@@ -15,7 +15,7 @@ Utf8Followers(uint8_t leadOr8Bit)
     
 #ifdef __mips__ /* clz $a0, $v0,   ⃨  possibly clo. */
     __builtin_int_t onesUntilZero = __builtin_clz(~((uint32_t)leadOr8Bit<<24));
-#elif defined __x86_64__ /* BSF, BSR, LZCNT, TZCNT, __lzcnt64 on Win64 */
+#elif defined __x86_64__ /* BSF, BSR, LZCNT, TZCNT, __lzcnt64 on Win64. */
     __builtin_int_t onesUntilZero = __builtin_clzll(~((uint64_t)leadOr8Bit<<56));
 #else
     auto clz = ^(uint8_t x) {
