@@ -19,7 +19,7 @@ extern "C" void * memcpy(void *dst, const void *src, size_t n)
 extern "C" void * memset(void *b, int c, size_t len)
 { return (void *)Overwrite8Memory((ByteAlignedRef)b, (uint8_t)c, (__builtin_int_t)len); }
 /* void * memmove(void * dst𝘖𝘳Void, const void * src𝘖𝘳Void, size_t length)
-{ return (void *)Copy8Memory((ByteAlignedRef)dst0, (ByteAlignedRef)src0, (__builtin_int_t)len0); } */
+{ return (void *)Copy8Memory((ByteAlignedRef)dst𝘖𝘳Void, (ByteAlignedRef)src𝘖𝘳Void, (__builtin_int_t)len); } */
 /* See also: Implementations inside Imagination technologies. */
 #ifdef __x86_64__
 extern "C" int write(int fd, const void * s, short unsigned b);
@@ -44,7 +44,7 @@ DISORDERABLE auto WaitTerminal = ^(int periods𝘖𝘳Zero, int
    
    See --<🥽 Keyput.cpp> for details on:
    H₁ Call `uint8_t getutf8()` and wait as in uint8_t utf8 = getutf8();
-   H₂ Intermingle with Timer1-Timer9 
+   H₂ Intermingle with Timer1-Timer9
    
    */
   
@@ -56,26 +56,8 @@ DISORDERABLE auto WaitTerminal = ^(int periods𝘖𝘳Zero, int
 
 /* See --<Fossilate.h|cpp> for additional prepacked lambdas. */
 
-void _Block_object_assign(void * dst, const void * obj, const int flags)
-{
-}
+enum { BLOCK_IS_FLUCTUANT=8, BLOCK_IS_WEAK=16, BLOCK_IS_ANOTHERBLOCK=7 };
 
-void _Block_object_dispose(const void * obj, const int flags)
-{
-#ifdef XXX
-    if (flags & BLOCK_FIELD_IS_BYREF)  {
-       // get rid of the __block data structure held in a Block
-       _Block_byref_release(object);
-    }
-    else if ((flags & (BLOCK_FIELD_IS_BLOCK|BLOCK_BYREF_CALLER)) == BLOCK_FIELD_IS_BLOCK) {
-       // get rid of a referenced Block held by this Block
-       // (ignore __block Block variables, compiler doesn't need to call us)
-       _Block_destroy(object);
-    }
-    else if ((flags & (BLOCK_FIELD_IS_WEAK|BLOCK_FIELD_IS_BLOCK|BLOCK_BYREF_CALLER)) == BLOCK_FIELD_IS_OBJECT) {
-       // get rid of a referenced object held by this Block
-       // (ignore __block object variables, compiler doesn't need to call us)
-       _Block_release_object(object);
-    }
-#endif
-}
+void _Block_object_assign(void * dst, const void * obj, const int flags) {}
+
+void _Block_object_dispose(const void * obj, const int flags) {}
