@@ -11,7 +11,6 @@ const char *hexfile=NULL, *device_default="PIC32MZ2064DAB288" /*"PIC32MZ2064DAH1
   *mdbpath_default="/Applications/microchip/mplabx/v5.25/mplab_platform/bin/mdb.sh";
 bool hw=true;
 char * stpcpy(char * dst, const char * src) { while ((*dst++ = *src++)){} return --dst; } LONGTOOTH
-void Present(Utf8Terminal &term, const AnnotatedRegister& ar, __builtin_uint_t value);
 
 inexorable
 void
@@ -28,9 +27,9 @@ userkeysToMdb(
         fprintf(stderr, "pdb: selecting %s\n", hw ? "hardware target" : "software simulator");
         if (hw) { end=stpcpy(end, "hwtool SK\n"); } else { end=stpcpy(end, "hwtool SIM\n"); }
         if (hexfile) {
-//          fprintf(stderr, "Programming %s\n", hexfile); end=stpcpy(end, "wait 9000");
-//          end=stpcpy(end, "program '"); end=stpcpy(end, hexfile); end=stpcpy(end, "'\n");
-           fprintf(stderr, "To program, enter program %s\n", hexfile);
+          /* fprintf(stderr, "Programming %s\n", hexfile); end=stpcpy(end, "sleep 9000");
+          end=stpcpy(end, "program '"); end=stpcpy(end, hexfile); end=stpcpy(end, "'\n"); */
+          fprintf(stderr, "To program, enter program %s\n", hexfile);
         }
         fprintf(stderr, "Resetting\n");
         end=stpcpy(end, "reset MCLR\n");
