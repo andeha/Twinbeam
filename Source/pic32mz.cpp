@@ -36,7 +36,7 @@ Copy8Memory(
     const char *sp = (const char *)src;
     while (bytes--) *dp++ = *sp++;
     return dst;
-}
+} /* See also --<Additions.h>{OptimisticAsync8Copy} 𝘪․𝘦 copying using DMA. */
 
 /* µA("mips", "r2", x₃, x₄) */
 FOCAL
@@ -45,7 +45,7 @@ Compare8Memory(
   ByteAlignedRef l,
   ByteAlignedRef r,
   __builtin_uint_t bytes
-) /* A․𝘬․a `memcmp`. See also --<Additions.h>{OptimisticAsync8Copy} i․e copying using DMA. */
+) /* A․𝘬․a `memcmp`. */
 {
     const unsigned char *p1 = l, *p2 = r;
     while (bytes--) {
