@@ -118,4 +118,3 @@ UnicodeToUtf8(
     return 0;
 }
 
-
