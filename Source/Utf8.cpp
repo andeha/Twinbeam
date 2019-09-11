@@ -1,4 +1,4 @@
-/*  𝙐𝙩𝙛𝟴.cpp | Streams and Unicode. */
+/*  𝙐𝙩𝙛𝟴.cpp | Unicode and streams. */
 
 #include <Twinbeam.h>
 
