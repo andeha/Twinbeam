@@ -13,15 +13,15 @@ DISORDERABLE extern void reᵍsPrint(__builtin_uint_t mask) { }
   switch (a.kind) {                                                         \
   case 1: out𝕫(a.value.d); break;                                           \
   case 2: out𝕟(a.value.x); break;                                           \
-  case 3: ᵇⁱⁿᵃʳʸout(a.value.b); break;                                        \
+  case 3: ¹⁰¹¹⁰out(a.value.b); break;                                       \
   case 4: streamout_utf8(a.value.utf8); break;                              \
   case 5: streamout_unicodes(a.value.ucs.tetras, a.value.ucs.unicodes); break; \
   case 6: streamout_char(a.value.c); break;                                 \
   case 7: streamout_unicode(a.value.uc); break;                             \
-  case 9: out𝕕(a.value.f₁); break;                                          \
   case 8: out𝕕(double(a.value.f₂)); break;                                  \
-  case 11: out¹²⁸𝕫(a.value.d); break;                                       \
-  case 12: out¹²⁸𝕟(a.value.d); break;                                       \
+  case 9: out𝕕(a.value.f₁); break;                                          \
+  case 11: out¹²⁸𝕟(a.value.U); break;                                       \
+  case 12: out¹²⁸𝕫(a.value.I); break;                                       \
   case 13: reᵍsPrint(a.value.x); break;                                     \
   default: /* if (a.kind >= 0) imprint[a.kind](a); else */                  \
     streamout_unicode(U'?'); break; }
@@ -33,8 +33,8 @@ Argᴾ ﹟s(const char * utf8) { return Argᴾ { .value.utf8=utf8, 4 }; }
 Argᴾ ﹟S(int tetras, const char32_t * uc) { return Argᴾ { .value.ucs={uc,tetras}, 5 }; }
 Argᴾ ﹟c(char c) { return Argᴾ { .value.c=c, 6 }; }
 Argᴾ ﹟C(char32_t C) { return Argᴾ { .value.uc=C, 7 }; }
-MACRO Argᴾ ﹟U(__uint128_t U) { return Argᴾ { .value.U=U, 11 }; }
-MACRO Argᴾ ﹟I(__int128_t I) { return Argᴾ { .value.I=I, 12 }; }
+Argᴾ ﹟U(__uint128_t U) { return Argᴾ { .value.U=U, 11 }; }
+Argᴾ ﹟I(__int128_t I) { return Argᴾ { .value.I=I, 12 }; }
 Argᴾ ﹟reᵍs(__builtin_uint_t mask) { return Argᴾ { .value.x=mask, 13 }; } /* Print between 0 and 31 non-high-volatile registers. */
 
 inexorable
@@ -90,7 +90,7 @@ print﹟(
        8
 #endif
       , ^(char s) { out₂(&s, 1); }); };
-    auto ᵇⁱⁿᵃʳʸout = ^(__builtin_uint_t b) { Base𝕟(b, 2,
+    auto ¹⁰¹¹⁰out = ^(__builtin_uint_t b) { Base𝕟(b, 2,
 #ifdef __x86_64__
        64
 #elif defined __mips__
