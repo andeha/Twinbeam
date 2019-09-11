@@ -58,6 +58,6 @@ DISORDERABLE auto WaitTerminal = ^(int periods𝘖𝘳Zero, int
 
 enum { BLOCK_IS_FLUCTUANT=8, BLOCK_IS_WEAK=16, BLOCK_IS_ANOTHERBLOCK=7 };
 
-void _Block_object_assign(void * dst, const void * obj, const int flags) {}
+void _Block_object_assign(void * dst, const void * obj, const int flags) { }
 
-void _Block_object_dispose(const void * obj, const int flags) {}
+void _Block_object_dispose(const void * obj, const int flags) { }
