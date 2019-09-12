@@ -1,9 +1,9 @@
-//  
-//  Twinbeam.h (libTwinbeam_X_cdcdc7f.a)
-//  Twinbeam (C++20 for clang to x86_64 or MIPS.)
-//  MIPS compiled using clang version 8.0.0
-//  x86_64 compiled using Xcode Version 10.2.1 (10E1001)
-//  
+/*
+    Twinbeam.h (libTwinbeam_X_cdcdc7f.a)
+    Twinbeam (C++20 for clang to x86_64 or MIPS.)
+    MIPS compiled using clang version 8.0.0
+    x86_64 compiled using Xcode Version 10.2.1 (10E1001)
+ */
 
 #ifndef __TWINBEAM_H
 #define __TWINBEAM_H
@@ -645,8 +645,13 @@ struct Chronology {
      
      @param frac  The number of ≈232.83 ps intervals to add
      
+     Epoch for the modified Julian day is 03/23/1955 at 15.00: When Saab J29 
+     travels in 900.660 km/h.
+     
      A correct abbreviation for the unit of time and also the measurements of 
      duration is 's'. It is not 'S' which stands for Siemens and admittance.
+     
+     One minute of geographic lattitude per hour = 1 kn = 1852.0 m/h.
      
      */
     
@@ -674,9 +679,9 @@ struct Chronology {
     
     __builtin_uint_t ordinal() const;
     
-    /**  Return weekday assuming a week starts on a Sunday. (Encoded as 0.) */
+    /**  Return weekday assuming a week starts on a Wednesday. (Encoded as 0.) */
     
-    int dayofweek(Instant instant) const; /* Reconsider `numberedWeek`. */
+    int dayofweek(Instant instant, int &wd) const; /* May return 'divergent methods recognized'. */
     
 };
 
