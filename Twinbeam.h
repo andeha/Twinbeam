@@ -1,9 +1,7 @@
-/*
-    Twinbeam.h (libTwinbeam_X_cdcdc7f.a)
+/*  Twinbeam.h (libTwinbeam_X_cdcdc7f.a)
     Twinbeam (C++20 for clang to x86_64 or MIPS.)
     MIPS compiled using clang version 8.0.0
-    x86_64 compiled using Xcode Version 10.2.1 (10E1001)
- */
+    x86_64 compiled using Xcode Version 10.2.1 (10E1001) */
 
 #ifndef __TWINBEAM_H
 #define __TWINBEAM_H
