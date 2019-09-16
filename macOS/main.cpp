@@ -1,4 +1,4 @@
-/*  harness.cpp | Running unit tests on a macOS machine. */
+/*  Harness.cpp | Running unit tests on a macOS machine. */
 
 #include <Twinbeam.h>
 
@@ -12,7 +12,7 @@ inexorable
 void
 printGreetings()
 {
-    print("\nTest harness or 𝘌𝘯𝘤𝘭𝘢𝘷𝘦 𝘤𝘰𝘭𝘭𝘦𝘤𝘵𝘪𝘰𝘯 for Twinbeam, release "
+    print("\nTest harness and Enclave collection for Twinbeam, release "
       "⬚\n⬚\n\n", ﹟s(SHA1GIT), ﹟s(BUILDINFO_COPYRIGHT_MESSAGE));
    /* << "Log file (\u0001F648) at: '" << TestlogPath << "'"  << eol */
 }
@@ -36,17 +36,13 @@ void
 lastChance()
 {
 #if _DEBUG
-    print("\nThe binary is a debug build\n");
+    print("\nThe binary is a debug build.\n\n");
 #else
-    print("\nThe binary is a release build\n");
+    print("\nThe binary is a release build.\n\n");
 #endif
 }
 
 #pragma mark Glue and Boilerplate
-
-extern "C" int write(int fd, const void * s, short unsigned b);
-DISORDERABLE auto Putₒ = ^(uint8_t * utf8s, uint16_t bytes) {
-  write(1, (const void *)utf8s, bytes); };
 
 __builtin_int_t
 RunUnitTests(
@@ -57,7 +53,7 @@ RunUnitTests(
   int64_t * timetotal
 )
 {
-    __block __builtin_int_t count = 0;
+    __builtin_int_t 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 count = 0;
     
     extern void Symbols(const char * utf8exepath, void (^callback)(const
       char *, uint64_t, bool&));
@@ -69,7 +65,7 @@ RunUnitTests(
             
             runUnitTest((void *)addr, sym, ^(const char * symbol, uint64_t dt) {
                 print("\n\nEND ");
-                Base𝕟(dt, 10, 0,^(char 𝟶to𝟿) { Putₒ((uint8_t *)&𝟶to𝟿, 1); });
+                Base𝕟(dt, 10, 0,^(char 𝟶to𝟿) { print("⬚", ﹟c(𝟶to𝟿)); });
                 print(" ns when running ⬚\n", ﹟s(symbol));
                 *timetotal += dt;
             });
@@ -94,9 +90,10 @@ main(
     
     atexit(lastChance);
     
-    print("\nUnit(s): ⬚\nTotal: ⬚ 𝑛s\n\n", ﹟d(units), ﹟d(nanosecs));
+    print("\nUnit(s): ⬚\nTotal: ⬚ ns\n\n", ﹟d(units), ﹟d(nanosecs));
     
-    print("'𝙰𝚞𝚝𝚘𝚖𝚊𝚝𝚎𝚍 𝚞𝚗𝚒𝚝 𝚝𝚎𝚜𝚝𝚜 𝚍𝚒𝚍 𝚗𝚘𝚝 𝚏𝚒𝚗𝚍 𝚊𝚗𝚢 𝚎𝚛𝚛𝚘𝚛𝚜' 😐 \n\n");
+    print("𝐴𝑢𝑡𝑜𝑚𝑎𝑡𝑒𝑑 𝑡𝑒𝑠𝑡𝑠 𝑑𝑖𝑑 𝑛𝑜𝑡 𝑓𝑖𝑛𝑑 𝑎𝑛𝑦 𝑒𝑟𝑟𝑜𝑟𝑠 😐 \n");
     
     return 0;
 }
+
