@@ -116,8 +116,8 @@ print﹟(
     auto streamout_unicodes = ^(int tetras, const char32_t 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 * unicodes) { __builtin_int_t 
       beam=0; while (beam < tetras) { char32_t uc = *(unicodes + beam); streamout_unicode(uc); 
       ++beam; } }; /* { int, (bytes, symbols) } */
-    auto out¹²⁸𝕫 = ^(__int128_t I) { Base𝕫(I, 10, 0, ^(char 𝟶to𝟿) { out₂(&𝟶to𝟿, 1); }); };
-    auto out¹²⁸𝕟 = ^(__uint128_t U) { Base𝕟(U, 16, 0, ^(char 𝟶to𝟿and₋) { out₂(&𝟶to𝟿and₋, 1); }); };
+    auto out¹²⁸𝕫 = ^(__int128_t I) { Base𝕫(I, 16, 0, ^(char 𝟶to𝟿) { out₂(&𝟶to𝟿, 1); }); };
+    auto out¹²⁸𝕟 = ^(__uint128_t U) { Base𝕟(U, 10, 0, ^(char 𝟶to𝟿and₋) { out₂(&𝟶to𝟿and₋, 1); }); };
 again:
     auto leadOr8Bit = (uint8_t *)utf8format + i;
     if (*leadOr8Bit == 0x0) { goto unagain; }
