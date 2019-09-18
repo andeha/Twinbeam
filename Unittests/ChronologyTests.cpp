@@ -1,22 +1,19 @@
-//
-//  ChronologyTests.cpp
-//  Twinbeam Tests
-//
+/*  ChronologyTests.cpp | Twinbeam Tests. */
 
 #include <Twinbeam.h>
+#include <Additions/Additions.h>
 
 #ifdef __x86_64__
-#include <stdio.h>
 #include <time.h>
 auto LocalNow = ^{
   time_t now = time(NULL);
-  // The number of seconds between the NTP Epoch 1 January 1900,
-  // 00:00:00 and 00:00:00 Coordinated Universal Time (UTC), Thursday, 1
-  // January 1970.
+  /* The number of seconds between the NTP Epoch 1 January 1900,
+   00:00:00 and 00:00:00 Coordinated Universal Time (UTC), Thursday, 1
+   January 1970. */
   const uint32_t NTPToUnixConversion = 2208988800U;
   uint32_t ta = uint32_t(now + NTPToUnixConversion);
-  Chronology::Instant res; res.octa = uint64_t(ta)<<32; // NTPTimestamp { ta, 0 }.bits;
-  return res;
+  Chronology::Instant y; y.bits = uint64_t(ta)<<32; // NTPTimestamp { ta, 0 }.bits;
+  return y;
 };
 #elif defined __mips__
 #include <rtcc.hpp>
@@ -32,96 +29,89 @@ auto LocalNow = ^{ OptInitRTCC(false, ^(unsigned& y, unsigned& M, unsigned& d,
 
 UNITTEST(Chronology_localNow)
 {
-    Chronology chronology = SystemCalendricChronology();
-	Chronology::Instant instant = LocalNow();
-    if (InstantToText(chronology, instant, false, ^(char c) {
-        printf("%c", c); } ))
-    { ENSURE(false, "Error when ToString"); }
-    ENSURE(instant.unsigned_little_endian.mst != 0 &&
-      instant.unsigned_little_endian.lst != 0, "Error in LocalNow");
+   Chronology chronology = SystemCalendricChronology();
+   Chronology::Instant instant = LocalNow();
+   if (InstantToText(chronology, instant, false, ^(char c) {
+      print("⬚", ﹟c(c)); } ))
+   { ENSURE(false, "Error when ToString"); }
+   ENSURE(instant.unsigned_little_endian.mst != 0 &&
+     instant.unsigned_little_endian.lst != 0, "Error in LocalNow");
 }
 
 UNITTEST(Chronology_midnight)
 {
-    Chronology chronology = SystemCalendricChronology();
-    int32_t parts[6] = { 1997, 1, 1, 12, 31, 32 };
-    Opt<Chronology::Instant> instantOpt = chronology.timestamp(parts, 1);
-    if (!instantOpt) { ENSURE(false, "Error when timestamp"); }
-    Chronology::Instant instant = *instantOpt;
-    printf("Timestamp is %lld and textually ", instant.octa);
-    if (InstantToText(chronology, instant, false, ^(char c) {
-        printf("%c", c);
-    })) { ENSURE(false, "Error when TimestampToString"); } printf("\n");
-    Tuple<int32_t, int32_t, int32_t, uint32_t> day =
-      chronology.sinceMidnight(instant);
-    printf("Since midnight is %lld, %lld, %lld. %lld\n",
-      (__builtin_int_t)get<0>(day), (__builtin_int_t)get<1>(day),
-      (__builtin_int_t)get<2>(day), (__builtin_int_t)get<3>(day));
+   Chronology chronology = SystemCalendricChronology();
+   int32_t parts[6] = { 1997, 1, 1, 12, 31, 32 };
+   Opt<Chronology::Instant> instantOpt = chronology.timestamp(parts, 1);
+   if (!instantOpt) { ENSURE(false, "Error when timestamp"); }
+   Chronology::Instant instant = *instantOpt;
+   print("Timestamp is %lld and textually ", instant.bits);
+   if (InstantToText(chronology, instant, false, ^(char c) {
+      print("⬚", ﹟c(c));
+   })) { ENSURE(false, "Error when TimestampToString"); } print("\n");
+   Tuple<int32_t, int32_t, int32_t, uint32_t> day =
+     chronology.sinceMidnight(instant);
+   print("Since midnight is ⬚, ⬚, ⬚, ⬚\n", ﹟d(get<0>(day)), ﹟d(get<1>(day)), 
+    ﹟d(get<2>(day)), ﹟d(get<3>(day)));
 }
 
 UNITTEST(Chronology_increment)
 {
-    Chronology chronology = SystemCalendricChronology();
-    int32_t parts[6] = { 1997, 1, 1, 12, 31, 32 };
-    Opt<Chronology::Instant> instantOpt = chronology.timestamp(parts, 1);
-    if (!instantOpt) { ENSURE(false, "Error when timestamp"); }
-    Chronology::Instant instant = *instantOpt;
-    printf("Timestamp is %lld and textually ", instant.octa);
-    if (InstantToText(chronology, instant, false, ^(char c) {
-        printf("%c", c);
-    })) { ENSURE(false, "Error when TimestampToString"); } printf("\n");
-    Chronology::Instant later = chronology.addSeconds(instant, 17);
-    printf("Later is %lld and textually ", later.octa);
-    if (InstantToText(chronology, later, false, ^(char c) {
-        printf("%c", c);
-    })) { ENSURE(false, "Error when TimestampToString"); } printf("\n");
-    ENSURE(instant.octa != later.octa, "Error in addSeconds");
+   Chronology chronology = SystemCalendricChronology();
+   int32_t parts[6] = { 1997, 1, 1, 12, 31, 32 };
+   Opt<Chronology::Instant> instantOpt = chronology.timestamp(parts, 1);
+   if (!instantOpt) { ENSURE(false, "Error when timestamp"); }
+   Chronology::Instant instant = *instantOpt;
+   print("Timestamp is ⬚ and textually ", ﹟d(instant.bits));
+   if (InstantToText(chronology, instant, false, ^(char c) {
+     print("⬚", ﹟c(c));
+   })) { ENSURE(false, "Error when TimestampToString"); } print("\n");
+   Chronology::UQ32 frac = 0b101; /* = 1×1/2 + 0×1/4 + 1×1/8 = 5/8. */
+   Chronology::Instant later = chronology.addSeconds(instant, 17, frac);
+   print("Later is ⬚ and textually ", ﹟d(later.bits));
+   if (InstantToText(chronology, later, false, ^(char c) {
+     print("⬚", ﹟c(c));
+   })) { ENSURE(false, "Error when TimestampToString"); } print("\n");
+   ENSURE(instant.bits != later.bits, "Error in addSeconds");
 }
 
-UNITTEST(Chronology_dayOfWeek)
+UNITTEST(Chronology_dayofweek)
 {
-    Chronology chronology = SystemCalendricChronology();
-    Chronology::Instant instant = LocalNow();
-    int weekday = chronology.dayofweek(instant);
-    printf("Weekday is %lld", (__builtin_uint_t)weekday);
-    auto weeknoToWeekday = ^(int weekday) {
-        switch (weekday) {
-            case 0: return "Sunday";
-            case 1: return "Monday";
-            case 2: return "Tuesday";
-            case 3: return "Wednesday";
-            case 4: return "Thursday";
-            case 5: return "Friday";
-            case 6: return "Saturday";
-        }
-        return "Unknown";
-    };
-    printf(" ...and in text %s.\n", weeknoToWeekday(weekday));
-    ENSURE(weekday > 0 && weekday < 7, "Error in dayOfWeek");
+   Chronology chronology = SystemCalendricChronology();
+   Chronology::Instant instant = LocalNow();
+   int weekday; if (chronology.dayofweek(instant, weekday)) { print("error"); }
+   print("Weekday is ⬚", ﹟d(weekday));
+   auto universalToWeekday = ^(int weekday) { switch (weekday) { case 0: 
+     return "Sunday"; case 1: return "Monday"; case 2: return "Tuesday"; 
+     case 3: return "Wednesday"; case 4: return "Thursday"; case 5: return 
+     "Friday"; case 6: return "Saturday"; } return "Unknown"; };
+   print(" ...and in text ⬚.\n", ﹟s(universalToWeekday(weekday)));
+   ENSURE(weekday > 0 && weekday < 7, "Error in dayofweek");
 }
 
 UNITTEST(Chronology_TSAndBack)
 {
-    const char32_t *ts = U" 2012-01-24 12:00:00  ";
-    __builtin_int_t tetras = UnicodesUntilNull(ts, BUILTIN_INT_MAX);
-    Memoryregion region { (void *)ts, tetras<<2 };
-    Memoryview datetime { &region, 0, region.bytes() };
-    
-    Chronology chronology = SystemCalendricChronology();
-    if (Opt<Chronology::Instant> ts = TS(chronology, datetime)) {
-        InstantToText(chronology, *ts, false, ^(char c) { printf("%c", c); });
-    }
+   const char32_t *ts = U" 2012-01-24 12:00:00  ";
+   
+   __builtin_int_t tetras = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(ts, BUILTIN_INT_MAX);
+   Memoryregion region { (void *)ts, tetras<<2 };
+   Memoryview datetime { &region, 0, region.bytes() };
+   
+   Chronology chronology = SystemCalendricChronology();
+   if (Opt<Chronology::Instant> ts = TS(Encoding::unicode, chronology, datetime)) {
+     InstantToText(chronology, *ts, false, ^(char c) { print("⬚", ﹟c(c)); });
+   } else { ENSURE(false, "Error in Chronology_TSAndBack"); }
 }
 
 UNITTEST(Chronology_TS_withFrac_AndBack)
 {
-    const char32_t *ts = U" 2012-01-24 12:00:00.121  ";
-    __builtin_int_t tetras = UnicodesUntilNull(ts, BUILTIN_INT_MAX);
-    Memoryregion region { (void *)ts, tetras<<2 };
-    Memoryview datetime { &region, 0, region.bytes() };
-    
-    Chronology chronology = SystemCalendricChronology();
-    if (Opt<Chronology::Instant> ts = TS(chronology, datetime)) {
-        InstantToText(chronology, *ts, true, ^(char c) { printf("%c", c); });
-    }
+   const char32_t *ts = U" 2012-01-24 12:00:00.121  ";
+   __builtin_int_t tetras = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(ts, BUILTIN_INT_MAX);
+   Memoryregion region { (void *)ts, tetras<<2 };
+   Memoryview datetime { &region, 0, region.bytes() };
+   
+   Chronology chronology = SystemCalendricChronology();
+   if (Opt<Chronology::Instant> ts = TS(Encoding::unicode, chronology, datetime)) {
+     InstantToText(chronology, *ts, true, ^(char c) { print("⬚", ﹟c(c)); });
+   }
 }

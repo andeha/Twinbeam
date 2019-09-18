@@ -1,5 +1,5 @@
 /*  Twinbeam.h (libTwinbeam_X_cdcdc7f.a)
-    Twinbeam (C++20 for clang to x86_64 or MIPS.)
+    C++20 for clang to x86_64 or MIPS
     MIPS compiled using clang version 8.0.0
     x86_64 compiled using Xcode Version 10.2.1 (10E1001) */
 
@@ -141,15 +141,15 @@ template <typename T> struct Opt : public SharedOptional { explicit Opt(const
   const Opt<T>& other) { populated = other.populated; if (populated) { new
   (content) T((const T&)(other.content)); } } ~Opt() { reinterpret_cast<T *>(
   content)->~T(); } alignas(T) uint8_t content[sizeof(T)]; T& operator*() const
-  { return (T&)content; } T& operator->() const { return (T&)content; } static Opt no() { return Opt(); } };
-  // { return (T&)content; } T * operator->() const { return &(**this); } static Opt no() { return Opt(); } };
+  { return (T&)content; } /* T& operator->() const { return (T&)content; } */
+  static Opt no() { return Opt(); } };
 template <typename T> struct Opt<T&> : public SharedOptional { explicit Opt(
   const T& v) { new (content) T(v); populated = true; } explicit Opt() = default;
   Opt(const Opt<T>& other) { populated = other.populated; if (populated) { new
   (content) T((const T&)(other.content)); } } ~Opt() { reinterpret_cast<T *>(
   content)->~T(); } alignas(T) uint8_t content[sizeof(T)]; T& operator*() const
-  { return (T&)content; } T& operator->() const { return (T&)content; } static Opt no() { return Opt(); } };
-  // { return (T&)content; } T * operator->() const { return &(**this); } static Opt no() { return Opt(); } };
+  { return (T&)content; } /* T& operator->() const { return (T&)content; } */
+  static Opt no() { return Opt(); } };
 template <class... Ts> struct Tuple {}; template <class T, class... Ts>
   struct Tuple<T, Ts...> : Tuple<Ts...> { Tuple(T t, Ts... ts) : Tuple<Ts...>
   (ts...), tail(t) {} T tail; };
@@ -220,7 +220,7 @@ FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
 #define MEASURE_END(prefix)                                                  \
   int64_t prefix##End = __rdtsc();                                           \
   int64_t prefix##Nanos = prefix##End - prefix##Start;                       \
-  printf(#prefix " measures %lld ns\n",  prefix##Nanos);
+  print(#prefix " measures ⬚ ns\n", ﹟d(prefix##Nanos));
 #define 🎭𝑋𝟾𝟼(storage,symmsk,...) 🎭((__builtin_uint_t *)(storage), INTEL_##symmsk __VA_OPT__(,) __VA_ARGS__)
 #elif defined __mips__
 FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef
@@ -271,7 +271,7 @@ typedef x86_64_context jmp_buf2;
 FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned
   short base, unsigned short digitsOr0, /* Not more than 32 or 64 digits
   depending on word size! (Or set to `0` to skip leading zeros.) */ void
-  (^out)(char 𝟶to𝟿)); /* See --<𝙿𝚛𝚒𝚗𝚝𝚏₂.cpp> for a 128-bit version. */
+  (^out)(char 𝟶to𝟿)); /* See --<Print.cpp> for a 128-bit version. */
 FOCAL void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short
   digitsOr0, void (^out)(char 𝟶to𝟿and₋));
 #define OVERLOADABLE __attribute__ ((overloadable))
@@ -649,7 +649,7 @@ struct Chronology {
      A correct abbreviation for the unit of time and also the measurements of 
      duration is 's'. It is not 'S' which stands for Siemens and admittance.
      
-     One minute of geographic lattitude per hour = 1 kn = 1852.0 m/h.
+     One minute of geographic lattitude per hour = 1 kn = 1852.0 m/h. (Knot)
      
      */
     
@@ -686,7 +686,7 @@ struct Chronology {
 int
 InstantToText(
   Chronology chronology,
-  Chronology::Instant ts, /* bool inclFrac, */
+  Chronology::Instant ts, bool inclFrac,
   void (^out)(char digitHyphenColonPeriodOrSpace)
 );
 
