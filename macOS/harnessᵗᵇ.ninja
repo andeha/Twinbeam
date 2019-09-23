@@ -10,7 +10,7 @@ objs = ./.objs/7703a312-55B9-44da-A792-ebbcf9f87663_$progname
 platflags = -I ..
 include ../tools.ninja
 flags = $optflags $macoscflags $platflags
-include macbook.ninja
+include laptop.ninja
 
 rule link
     command = xcrun ld -macosx_version_min 10.14.0 -lSystem -lc++ -o $out   $
@@ -18,23 +18,22 @@ rule link
 
 # Consider x87math ⟷ bignum and ∩- exception.o
 build TwinbeamUnits: link $objs/harness.o $objs/llvmʳᵗ³.o $objs/exception.o $
-   $objs/Chronology.o $objs/Tree.o $objs/x87math.o $objs/bignum.o           $
-   $objs/Utf8.o $objs/System.o $objs/macOS.o $objs/sha256.o $objs/Print.o   $
-   $objs/Memory.o $objs/Fiber.o                                             $
+  $objs/Chronology.o $objs/Tree.o $objs/x87math.o $objs/bignum.o            $
+  $objs/Utf8.o $objs/System.o $objs/macOS.o $objs/sha256.o $objs/Print.o    $
+  $objs/Memory.o $objs/Fiber.o                                              $
                                                                             $
-  $objs/BaseTests.o $objs/PagesizeTests.o $objs/OptionalTests.o             $
-  $objs/Utf8Tests.o $objs/BignumTests.o $objs/MallocTests.o $objs/ChronologyTests.o
+  $objs/BaseTests.o $objs/BignumTests.o $objs/ChronoTests.o                 $
+  $objs/MallocTests.o $objs/RegionTests.o $objs/MemTests.o                  $
+  $objs/OptTests.o $objs/Utf8Tests.o                                        $
 
-build $objs/BaseTests.o: cc $cases/BaseTests.cpp
-build $objs/PagesizeTests.o: cc $cases/PagesizeTests.cpp
-build $objs/Utf8Tests.o: cc $cases/Utf8Tests.cpp
-build $objs/OptionalTests.o: cc $cases/OptionalTests.cpp
-build $objs/BignumTests.o: cc $cases/BignumTests.cpp
-build $objs/MallocTests.o: cc $cases/MallocTests.cpp
-build $objs/ChronologyTests.o: cc $cases/ChronologyTests.cpp
-#build $objs/MemoryTests.o: cc $cases/MemoryTests.cpp
-#build $objs/MemTests.o: cc $cases/MemTests.cpp
-#build $objs/TwinbeamTests.o: cc $cases/TwinbeamTests.cpp
+build $objs/BaseTests.o: cc $cases/ˢBaseTests.cpp
+build $objs/BignumTests.o: cc $cases/ˢBignumTests.cpp
+build $objs/ChronoTests.o: cc $cases/ˢChronoTests.cpp
+build $objs/MallocTests.o: cc $cases/ˢMallocTests.cpp
+build $objs/RegionTests.o: cc $cases/ˢRegionTests.cpp
+build $objs/MemTests.o: cc $cases/ˢMemTests.cpp
+build $objs/OptTests.o: cc $cases/ˢOptTests.cpp
+build $objs/Utf8Tests.o: cc $cases/ˢUtf8Tests.cpp
 
 build $objs/Tree.o: cc $src/Tree.cpp
 build $objs/Utf8.o: cc $src/Utf8.cpp

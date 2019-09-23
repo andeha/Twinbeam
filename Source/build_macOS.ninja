@@ -6,7 +6,7 @@ objsdir = ./.objs/7703a312-55A9-44da-A892-ebbcf8f87663_$progroot
 platflags = -I ..
 include ../tools.ninja
 flags = $optflags $macoscflags $platflags
-include ../macOS/macbook.ninja
+include ../macOS/laptop.ninja
 
 rule lib
     command = xcrun ar rcs Releases/$out\_$sha1git.a $in;                   $

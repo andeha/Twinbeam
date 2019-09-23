@@ -1,0 +1,49 @@
+# build.ninja - Building traditional additions for MIPS/Pic32Mz.
+
+optflags = -g -D__MZDAStarterBoard__
+libroot = libAdditions_pic32mz
+include ../tools.ninja
+platflags = -D__MZ__ -I $runtime/.. -I $additions -I $runtime
+objsdir = ./.objs/7703a312-559A-42ca-A992-eabcf7f87663_$libroot
+flags = $optflags $pic32cflags $platflags
+progname = $libroot\_$sha1git.a
+include $runtime/commands.ninja
+
+rule emitcontent
+    command = $tools/llvm-ar t $progname
+
+rule lib
+    command = $tools/llvm-ar rcs Releases/$out\_$sha1git.a $in;             $
+      ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
+
+build $libroot: lib $objsdir/Additions.o $objsdir/Ieee754₆₄bits.o           $
+  $objsdir/Random.o $objsdir/Guid.o $objsdir/Utf8Terminal.o                 $
+  $objsdir/Automata.o $objsdir/Ornaments.o $objsdir/Streams.o               $
+  $objsdir/⌊𝑥⌋+nearest.o $objsdir/arctan.o $objsdir/atan₂.o                  $
+  $objsdir/cherry.o $objsdir/ℯ🔭².o $objsdir/logₑ.o $objsdir/mod.o          $
+  $objsdir/sincos.o $objsdir/tan.o $objsdir/tanh.o $objsdir/Presentᵃᵘˣ.o     $
+  $objsdir/Present.o
+ 
+build $objsdir/Additions.o: cc Additions.cpp
+build $objsdir/Ieee754₆₄bits.o: cc Ieee754₆₄bits.cpp
+build $objsdir/Random.o: cc Random.cpp
+build $objsdir/Guid.o: cc Guid.cpp
+build $objsdir/Utf8Terminal.o: cc Utf8Terminal.cpp
+build $objsdir/Automata.o: cc Automata.cpp
+build $objsdir/Ornaments.o: cc Ornaments.cpp
+build $objsdir/Streams.o: cc Streams.cpp
+build $objsdir/⌊𝑥⌋+nearest.o: cc math/⌊𝑥⌋+nearest.cpp
+build $objsdir/arctan.o: cc math/arctan.cpp
+build $objsdir/atan₂.o: cc math/atan₂.cpp
+build $objsdir/cherry.o: cc math/cherry.cpp
+build $objsdir/ℯ🔭².o: cc math/ℯ🔭².cpp
+build $objsdir/logₑ.o: cc math/logₑ.cpp
+build $objsdir/mod.o: cc math/mod.cpp
+build $objsdir/sincos.o: cc math/sincos.cpp
+build $objsdir/tan.o: cc math/tan.cpp
+build $objsdir/tanh.o: cc math/tanh.cpp
+# …and more non-math folders:
+build $objsdir/Presentᵃᵘˣ.o: cc Presentᵃᵘˣ.cpp
+build $objsdir/Present.o: cc Present.cpp
+build content: emitcontent
+default $libroot
