@@ -1,7 +1,6 @@
 /*  ChronologyTests.cpp | Twinbeam Tests. */
 
 #include <Twinbeam.h>
-#include <Additions/Additions.h>
 
 #ifdef __x86_64__
 #include <time.h>
@@ -89,29 +88,3 @@ UNITTEST(Chronology_dayofweek)
    ENSURE(weekday > 0 && weekday < 7, "Error in dayofweek");
 }
 
-UNITTEST(Chronology_TSAndBack)
-{
-   const char32_t *ts = U" 2012-01-24 12:00:00  ";
-   
-   __builtin_int_t tetras = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(ts, BUILTIN_INT_MAX);
-   Memoryregion region { (void *)ts, tetras<<2 };
-   Memoryview datetime { &region, 0, region.bytes() };
-   
-   Chronology chronology = SystemCalendricChronology();
-   if (Opt<Chronology::Instant> ts = TS(Encoding::unicode, chronology, datetime)) {
-     InstantToText(chronology, *ts, false, ^(char c) { print("⬚", ﹟c(c)); });
-   } else { ENSURE(false, "Error in Chronology_TSAndBack"); }
-}
-
-UNITTEST(Chronology_TS_withFrac_AndBack)
-{
-   const char32_t *ts = U" 2012-01-24 12:00:00.121  ";
-   __builtin_int_t tetras = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(ts, BUILTIN_INT_MAX);
-   Memoryregion region { (void *)ts, tetras<<2 };
-   Memoryview datetime { &region, 0, region.bytes() };
-   
-   Chronology chronology = SystemCalendricChronology();
-   if (Opt<Chronology::Instant> ts = TS(Encoding::unicode, chronology, datetime)) {
-     InstantToText(chronology, *ts, true, ^(char c) { print("⬚", ﹟c(c)); });
-   }
-}
