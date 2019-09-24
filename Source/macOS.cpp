@@ -1,7 +1,4 @@
-//
-//  macOS.cpp
-//  Twinbeam
-//
+/* macOS.cpp | Specializations and unique. */
 
 #include <Twinbeam.h>
 #include "malloc.cxx"
@@ -40,7 +37,7 @@ Compare8Memory(
 
 void *
 mapfileʳᵚ( /* A․𝘬․a `findAndmap`, `mapregularfile`, `mapfileʳᵚ₊₀`. */
-  const char * canonicalRegularOrLinkpathᵘᵗf⁸, /* A․𝘬․a `canonicalRegularOrLinkpathᵚ` */
+  const char * canonicalRegularOrLinkpathᵘᵗf⁸, /* A․𝘬․a `canonicalRegularOrLinkpathᵚ`. */
   __builtin_int_t pagesOffset,
   __builtin_int_t pagesCountOrZero,
   __builtin_int_t * bytesActual,
@@ -103,7 +100,8 @@ Symbols(
            for (int i = 0; i < symtab->nsyms; i++) {
               struct nlist_64 *entry = ns + i;
               uint32_t idx = entry->n_un.n_strx;
-              callback(strtable + idx, entry->n_value, outerStop);
+              if ((entry->n_type & N_TYPE) == N_SECT) { callback(strtable + idx, 
+                entry->n_value, outerStop); }
               if (outerStop) { return; }
            }
         } else if (lc->cmd == LC_SEGMENT) {
@@ -115,5 +113,4 @@ Symbols(
         } else { obj_p += lc->cmdsize; }
     }
 }
-
 
