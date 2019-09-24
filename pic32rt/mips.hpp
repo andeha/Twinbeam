@@ -1,7 +1,4 @@
-//
-//  mips.hpp
-//  pic32rt
-//
+/*  mips.hpp | pic32rt. */
 
 MACRO __builtin_uint_t 🔎Count() { __builtin_uint_t val; asm 
   volatile("mfc0 %0, $9, 0; nop" : "=r" (val)); return val; }
@@ -54,25 +51,31 @@ MACRO __builtin_uint_t 🔎Desave() { __builtin_uint_t val; asm
 MACRO void 🔧Desave(uint32_t value) { asm
   volatile("mtc0 %0, $31, 0; nop" : : "r" (value)); }
 
-BITMASK (uint32_t) { // MIPS Status
-  MIPS_Status_IE  = 0b1 <<  0, // Interrupt Enable
-  MIPS_Status_EXL = 0b1 <<  1, // Exception Level
-  MIPS_Status_ERL = 0b1 <<  2, // Error Level 
-  MIPS_Status_UM  = 0b1 <<  4, // User Mode
-  MIPS_Status_SR  = 0b1 << 20, // Soft Reset
-  MIPS_Status_BEV = 0b1 << 22, // Bootstrap Exception Vector Control. (Location of Exception vector: 1 = Bootstrap, 0 = Normal)
-  MIPS_Status_RP  = 0b1 << 22, // Reduced Power
+BITMASK (uint32_t) { /* MIPS Status. */
+  MIPS_Status_IE  = 0b1 << 0, /* Interrupt Enable */
+  MIPS_Status_EXL = 0b1 << 1, /* Exception Level */
+  MIPS_Status_ERL = 0b1 << 2, /* Error Level */
+  MIPS_Status_UM  = 0b1 << 4, /* User Mode */
+  MIPS_Status_SR = 0b1 << 20, /* Soft Reset */
+  PIC32_Status_TS = 0b1 << 21, // TLB Shutdown Control
+  MIPS_Status_BEV = 0b1 << 22, /* Bootstrap Exception Vector Control. (Location of Exception vector: 1 = Bootstrap, 0 = Normal.) */
+  OPTMIPS_Status_MX = 0b1 << 24, /* MIPS DSP Resource Enable */
+  MIPS_Status_RP  = 0b1 << 27, /* Reduced Power */
+};
+
+BITMASK (uint32_t) { // MIPS Cause
+  MIPS_Cause_DSPDis = 0x1a // DSP Module State Disabled Exception [see 'MIPS® Architecture for Programmers Volume IV-e: MIPS® DSP Module for MIPS32TM Architecture'.]
 };
 
 BITMASK (uint32_t) { // MIPS Debug
-  MIPS_Status_DM  = 0b1 << 0,
+  MIPS_Status_DM = 0b1 << 0,
 };
 
 #define debug_break(code) asm ("sdbbp " #code)
 #define break(code)       asm ("break " #code)
 #define wait              asm ("wait")
 
-#define di  asm volatile ("di")
-#define ei  asm volatile ("ei")
+#define di asm volatile ("di")
+#define ei asm volatile ("ei")
 #define ehb asm volatile ("ehb")
 

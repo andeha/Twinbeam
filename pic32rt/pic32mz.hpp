@@ -81,4 +81,3 @@ BITMASK (uint32_t) { /* INTSTAT */
 
 MACRO Interrupt 🔎IRQ() { return Interrupt(PIC32MZ_INTSTAT_SIRQ_8̄ & 🔎𝑀𝑍(INTSTAT)); }
 
-
