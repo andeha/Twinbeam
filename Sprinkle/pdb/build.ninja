@@ -20,4 +20,3 @@ build $objsdir/main.o: cc main.cpp
 build $objsdir/Presentʳᵉᵍ.o: cc Presentʳᵉᵍ.cpp
 build $objsdir/rtᵖᵈᵇ.o: cc rtᵖᵈᵇ.cpp
 default $progname
-
