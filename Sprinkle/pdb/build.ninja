@@ -3,7 +3,7 @@ optflags   = -g
 progname   = pdb
 include ../../tools.ninja
 platflags  = -I $host/.. -I $additions
-# libtwinbeam = ../../Source/Releases/libTwinbeam_macOS.a
+# No libtwinbeam = ../../Source/Releases/libTwinbeam_macOS.a required.
 objsdir = ./.objs/7703a322-55A9-44ca-b218-eabcf7f87663_$progname
 flags = $optflags $macoscflags_withoutxcode $platflags
 
