@@ -1,33 +1,37 @@
-/* exception.S | Twinbeam. */
+/*  exception.S | For Unicode parsers and product-related matters. */
 
 #ifdef __mips__
 
-#define v0   $2 /* The return value in function calls */
-#define a0   $4 /* Argument registers. Pass 64-bit values in a register pair. For little-endian: a1:a0 and a3:a2. */
-#define a1   $5
-#define t0   $8 /* Caller saved register */
-#define s0  $16 /* Function variable 0; must be preserved. */
-#define s1  $17
-#define s2  $18
+#define v0   $2   /* The 'returned value' of a subroutine. Also in v1 when two words are required. */
+#define a0   $4   /* Integer argument register: Pass 64-bit values in a register pair. For little-endian: a1:a0 and a3:a2. */
+#define a1   $5   /* Second argument. The first four arguments are passed in registers.
+#define t0   $8   /* Temporary register that must not be preserved. */
+#define s0  $16   /* Saved registers, 𝘪․𝘦 function prologue copies …*/
+#define s1  $17   /* the register value to the stack frame and the …*/
+#define s2  $18   /* function epilogue copies the values back to the register. */
 #define s3  $19
 #define s4  $20
 #define s5  $21
 #define s6  $22
 #define s7  $23
 #define s8  $24
-#define sp  $29
-#define ra  $31 /* Return address */
-
+#define sp  $29   /* The last pushed argument on the stack. */
+#define ra  $31   /* The address to return to when inside a function. */
+/* See [Wiki]--<🔬 Twinbeam Intricacies> for more info. */ 
+    
+    
     .text
     .set noreorder
     
- /*
-  * int setjmp2(jmp_buf jb)
-  *
-  * Save the current state so we can return again from the call later
-  * if/when longjmp is called. (If the function that called setjmp
-  * returns before longjmp is called, the results are undefined. We
-  * only need to save registers, not the whole contents of the stack.)
+ /*  
+  *  int setjmp2(jmp_buf jb)
+  *  
+  *  Persists a processor context in a `jmp_buf` for reinitation 
+  *  if/when a `longjmp2` is called.  Saves the current state so 
+  *  a thread can return again from the call later.
+  *  
+  *  A `longjmp2` before a finalized `setjmp2` results in an
+  *  undefined behavior.
   */
     
     .globl setjmp2
@@ -36,12 +40,12 @@
     
 setjmp2:
     
- /*
-  * jmp_buf is in a0. We need to save s0-s8, sp, and ra in it.
-  * Do not store more registers without adjusting machine/setjmp.h.
-  */
+   /*  The argument `jmp_buf` is referenced in register `a0`.  We 
+      must save s0-s8, sp, and ra. To store more registers, adjust 
+      the definition of --<Twinbeam.h>{`jmp_buf2`}.  Let's save 
+      registers: */
     
-    sw sp, 0(a0)        /* save registers */
+    sw sp, 0(a0)        /*  Save registers. */
     sw ra, 4(a0)
     sw s0, 8(a0)
     sw s1, 12(a0)
@@ -53,14 +57,17 @@ setjmp2:
     sw s7, 36(a0)
     sw s8, 40(a0)
     
-    j ra            /* done */
-    li v0, 0        /* return 0 (in delay slot) */
+    j ra                /*  Return to caller. */
+    li v0, 0            /*  Return 0 (via the 'delay slot'). */
+    
 .end setjmp2
   
   
- /*
-  * void longjmp(jmp_buf jb, int code)
-  *  (Code updated to `__builtin_int_t`)
+ /*                         (Code updated to `__builtin_int_t`)
+  *  
+  *  void longjmp2(jmp_buf jb, int code)
+  *  
+  *  Return to the location specified by a former `setjmp2`.
   */
     
     .globl longjmp2
@@ -69,16 +76,15 @@ setjmp2:
     
 longjmp2:
     
- /*
-  * jmp_buf is in a0. Return code is in a1.
-  * We need to restore s0-s8, sp, and ra from the jmp_buf.
-  * The return code is forced to 1 if 0 is passed in.
-  */
+   /*  Once again, `jmp_buf` is pointed out in a0, this time 
+     the return code to be read from `setjmp2` is in a1.  We have 
+     to restore s0-s8, sp, and ra from the jmp_buf.  The return 
+     code is forced to 1 if 0 is passed in. */
     
-    sltiu t0, a1, 1    /* set t0 to 1 if return code is 0... otherwise 0 */
-    addu a1, a1, t0    /* update the return code */
+    sltiu t0, a1, 1    /*  Set t0 to 1 if return code is 0... otherwise 0 */
+    addu a1, a1, t0    /*  Update the return code. */
     
-    lw sp, 0(a0)       /* restore registers */
+    lw sp, 0(a0)       /*  Restore registers. */
     lw ra, 4(a0)
     lw s0, 8(a0)
     lw s1, 12(a0)
@@ -90,15 +96,18 @@ longjmp2:
     lw s7, 36(a0)
     lw s8, 40(a0)
     
-    j ra              /* return, to where setjmp was called from */
-    move v0, a1       /* set return value */
+    j ra              /*  Return to where `setjmp2` was called from. */
+    move v0, a1       /*  Set return value. */
+    
 .end longjmp2
 
 #elif defined __x86_64__
 
- /*
-  * int setjmp2(jmp_buf jb);
-  */
+ /***
+  
+  int setjmp2(jmp_buf jb);
+  
+  ***/
     
     .text
     .global _setjmp2
@@ -122,9 +131,11 @@ _setjmp2:
     
     ret
     
- /*
-  * void longjmp(jmp_buf jb, int code);
-  */
+ /***
+  
+  void longjmp2(jmp_buf jb, int code);
+  
+  ***/
     
     .global _longjmp2
     
