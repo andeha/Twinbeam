@@ -7,7 +7,7 @@ platflags  = -I $host/.. -I $additions
 objsdir = ./.objs/7703a322-55A9-44ca-b218-eabcf7f87663_$progname
 flags = $optflags $macoscflags_withoutxcode $platflags
 
-include $host/macbook.ninja
+include $host/laptop.ninja
 
 rule link
     command = xcrun ld -macosx_version_min 10.14.0 -lSystem -lc++ -o $out $in

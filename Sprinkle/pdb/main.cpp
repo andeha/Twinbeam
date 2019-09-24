@@ -14,7 +14,7 @@ char * stpcpy(char * dst, const char * src) { while ((*dst++ = *src++)){} return
 
 inexorable
 void
-userkeysToMdb(
+UserkeysToMdb(
   const char *pdb, /* ⬷ Text keyed by the user. */
   char *mdb
 )
@@ -45,7 +45,7 @@ userkeysToMdb(
 
 inexorable
 void
-mdbToUserscreen(
+MdbToUserscreen(
   char * mdb /* ⬷ Text emitted from mdb. */
 )
 { 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 char *text=mdb; 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 bool virgin = true; 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 int si = 0;
@@ -122,12 +122,12 @@ main(
            for (;;) {
               if ((len = read(fd_c2p[0], output, maxline)) < 0) { fprintf(
                 stderr, "pdb: Error when reading mdb\n"); exit(1); }
-              output[len] = '\x0'; mdbToUserscreen(output);
+              output[len] = '\x0'; MdbToUserscreen(output);
            }
 /* Child */ } else { char keyput[maxline]; /* Collecting keyputs on stdin. */
             while ((len = read(STDIN_FILENO, &keyput, maxline)) > 0) {
                 keyput[len] = '\x0'; char mdbline[maxline];
-                userkeysToMdb(keyput, mdbline);
+                UserkeysToMdb(keyput, mdbline);
                 auto send = ^(int fd, char *s) {
                     int len = Utf8BytesUntilNull(s, BUILTIN_INT_MAX);
                     if (write(fd, s, len) != len) {
