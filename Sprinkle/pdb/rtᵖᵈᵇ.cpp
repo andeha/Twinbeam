@@ -26,7 +26,7 @@ Base𝕟( /* TeX §64, §65 and §67. */
       output); } } else { k = 63; while (cycle[k] == 0 && k > 0) { k--; }
        for (; k >= 0; k--) { 𝟶to𝙵(cycle[k], output); }
     }
-} /* See also --<𝙿𝚛𝚒𝚗𝚝𝚏₂.cpp>. */
+} /* See also --<🥽 𝙋𝙧𝙞𝙣𝙩⁺.cpp>. */
 
 int
 IsPrefixOrEqual(
@@ -232,3 +232,4 @@ int Utf8Terminal::write(const uint8_t * utf8s, __builtin_int_t bytes) const /* N
   that `interaction` requires tranquility sans `write` to avoid muxing 
   input and output. */
 { return impl_->o.write(utf8s, bytes); }
+
