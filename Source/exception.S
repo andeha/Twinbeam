@@ -4,7 +4,7 @@
 
 #define v0   $2   /* The 'returned value' of a subroutine. Also in v1 when two words are required. */
 #define a0   $4   /* Integer argument register: Pass 64-bit values in a register pair. For little-endian: a1:a0 and a3:a2. */
-#define a1   $5   /* Second argument. The first four arguments are passed in registers.
+#define a1   $5   /* Second argument. The first four args are passed in regs. */
 #define t0   $8   /* Temporary register that must not be preserved. */
 #define s0  $16   /* Saved registers, 𝘪․𝘦 function prologue copies …*/
 #define s1  $17   /* the register value to the stack frame and the …*/
