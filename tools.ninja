@@ -7,4 +7,3 @@ macoscflags_withoutxcode = $gencdflags -mmacosx-version-min=10.14
 # Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git reset --hard HEAD^'.
 sha1git = `git log -1 '--pretty=format:%h'`
 host = /Users/<User- or project name>/macOS
-
