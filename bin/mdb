@@ -1,4 +1,5 @@
 #!/bin/sh
 # /Applications/microchip/mplabx/v4.15/mplab_ide.app/Contents/Resources/mplab_ide/bin/mdb.sh $*
 # /Applications/microchip/mplabx/v4.20/mplab_platform/bin/mdb.sh $*
-/Applications/microchip/mplabx/v5.20/mplab_platform/bin/mdb.sh $*
+#/Applications/microchip/mplabx/v5.20/mplab_platform/bin/mdb.sh $*
+/Applications/microchip/mplabx/v5.25/mplab_platform/bin/mdb.sh $*
