@@ -28,7 +28,7 @@ build $objsdir/Additions.o: cc Additions.cpp
 build $objsdir/Ieee754₆₄bits.o: cc Ieee754₆₄bits.cpp
 build $objsdir/Random.o: cc Random.cpp
 build $objsdir/Guid.o: cc Guid.cpp
-build $objsdir/Utf8Terminal.o: cc Utf8Terminal.cpp
+build $objsdir/Utf8Terminal.o: cc Terminal.cpp
 build $objsdir/Automata.o: cc Automata.cpp
 build $objsdir/Ornaments.o: cc Ornaments.cpp
 build $objsdir/Streams.o: cc Streams.cpp
