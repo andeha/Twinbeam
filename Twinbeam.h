@@ -1,6 +1,6 @@
 /*  Twinbeam.h (libTwinbeam_X_cdcdc7f.a)
-    C++20 for clang to x86_64 or MIPS
-    MIPS compiled using clang version 8.0.0
+    C++20 for clang to x86_64 and MIPS
+    MIPS compiled using clang version 9.0.0
     x86_64 compiled using Xcode Version 10.2.1 (10E1001) */
 
 #ifndef __TWINBEAM_H
@@ -227,7 +227,7 @@ FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
 FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef
   dst, ByteAlignedRef src, __builtin_int_t bytes);
 FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁,
-  ByteAlignedRef p₂, __builtin_uint_t bytes); /* A․𝘬․a 𝚖𝚎𝚖𝚌𝚖𝚙. */
+  ByteAlignedRef p₂, __builtin_uint_t bytes); /* A․𝘬․a `memcmp`. */
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
   constexpr uint32_t PIC32##serie##_##symbol = vaddr;                        \
   constexpr uint32_t PIC32##serie##_##symbol##CLR = (vaddr + 0x4);           \
@@ -353,9 +353,9 @@ typedef union {
       unsigned mantissah : 20;
       unsigned exponent  : 11;
       unsigned sign      :  1;
-   } ieee754b2₂;
-   /* struct { … } ieee754b2₁;
-   struct {
+   } binary64; /* A․𝘬․a `ieee754b2₂`. */
+   /* struct { … } ieee754b2₁; A․𝘬․a `decimal64`. */
+   /* struct {
       unsigned absolute  : 31;
       unsigned sign      :  1;
    } sgned; */
@@ -425,8 +425,8 @@ typedef union {
      unsigned mantissa : 23;
      unsigned exponent :  8;
      unsigned sign     :  1;
-   } ieee754₂;
-   struct { /* ⫝ */ } ieee754_2008₁₀;
+   } binary32; /* A․𝘬․a `ieee754₂`. */
+   struct { /* ⫝ */ } ieee754_2008₁₀; /* A․𝘬․a `decimal32`. */
    uint32_t bits;
    int32_t sgned;
 } tetra;
@@ -498,10 +498,14 @@ struct Memoryregion {
       delegate = NULL, bool allowWrites = true, void *(^alloc)(
       __builtin_int_t bytes) = Alloc);
     
-    static Opt<Memoryregion> reflect(const char * utf8Filepath,
+    static Opt<Memoryregion> reflect⁻ᵚ(const char * utf8Filepath,
       __builtin_int_t pagesOffset = 0, __builtin_int_t pagesLength = 0,
-      MemoryDelegate *delegate = NULL, bool allowWrites = false,
-      void *(^alloc)(__builtin_int_t bytes) = Alloc);
+      MemoryDelegate * delegate = NULL);
+    
+    static Opt<Memoryregion> reflectʳᵚ(const char * utf8Filepath,
+      __builtin_int_t pagesOffset = 0, __builtin_int_t pagesLength = 0,
+      MemoryDelegate * delegate = NULL, void * (^alloc)(__builtin_int_t 
+      bytes) = Alloc);
     
 #pragma mark Implicits
     
@@ -515,7 +519,8 @@ void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
   __builtin_int_t (^cmp)(const void *key, const void *elt));
 
 template <typename T> T * materialize(Memoryview * view) {
-  extern void * 💫(void *); return (T *)💫((void *)view); } // ...may require `Alloc`․
+  extern void * 💫(void *); return (T *)💫((void *)view); } 
+  /* Requires `Alloc` ∨ `Acquire`. */
 
 /* template <> Unicodestring materialize(Memoryview * view) {
   return Unicodestring(Endianness::Native, 💫(view), view.bytesCount,
