@@ -29,7 +29,8 @@ main(
   const char * argv[]
 )
 {
-    __uint128_t x₁ =  0x1234; __int128_t x₂ = -100;
+    /* __uint128_t x₁ =  0x1234; */ __int128_t x₂ = -100;
+    __uint128_t x₁ = __uint128_t(0x8000000000000000)<<64 | 0x7000000000000001;
     print("Size of x₁ is ⬚ value is 0x⬚\n", ﹟d(sizeof(x₁)), ﹟U(x₁));
     print("Size of x₂ is ⬚ value is ⬚\n", ﹟d(sizeof(x₂)), ﹟I(x₂));
     return 0;
