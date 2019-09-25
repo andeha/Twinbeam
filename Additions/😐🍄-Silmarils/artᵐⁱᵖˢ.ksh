@@ -70,14 +70,15 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-tools=~/Projects/mips-tools/8.0.0/
+tools=~/Projects/mips-tools/9.0.0/
 glue=~/Projects/mips-tools
 MDBPATH=/Applications/microchip/mplabx/v5.20/mplab_platform/bin/
 PIC32DEVICE=PIC32MZ2064DAB288
 pdb=../../Sprinkle/pdb/pdb
-script=../../pic32rt/pic32.ld
+script=../../pic32rt/pic32one.ld
 lib=../../Source/Releases/libTwinbeam_pic32mz.a
 rt=../../Source/llvmʳᵗ³.cpp
+cc=$tools/clang-9
 
 # echo $fullfilename
 # echo $fname
@@ -88,11 +89,11 @@ if [[ -n "$verbose" ]]; then
 fi
 
 objectfile="${fname}.o"
-$tools/clang-8 @ccargs_mz -o $objectfile -c "${fullfilename}"
-$tools/clang-8 @ccargs_mz -o llvmʳᵗ³.o -c $rt
+$cc @ccargs_mz -o $objectfile -c "${fullfilename}"
+$cc @ccargs_mz -o llvmʳᵗ³.o -c $rt
 $tools/ld.lld -T $script -o $fname $objectfile llvmʳᵗ³.o $lib
 
-$glue/llvm2pic32₂ -b pic32mz.hex $fname # [-s] not used
+$glue/llvm2pic32 -b pic32mz.hex $fname # [-s] not used
 
 if [[ -n "$dryrun" ]]; then
   exit 0
