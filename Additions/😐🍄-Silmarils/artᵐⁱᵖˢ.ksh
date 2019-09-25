@@ -93,13 +93,15 @@ $cc @ccargs_mz -o $objectfile -c "${fullfilename}"
 $cc @ccargs_mz -o llvmʳᵗ³.o -c $rt
 $tools/ld.lld -T $script -o $fname $objectfile llvmʳᵗ³.o $lib
 
-$glue/llvm2pic32 -b pic32mz.hex $fname # [-s] not used
+$glue/llvm2pic32 -b pic32mz.hex $fname 
+# [-s] not used
 
 if [[ -n "$dryrun" ]]; then
   exit 0
 fi
 
-function debug() # %prompt> pdb myprogram.hex
+# %prompt> pdb myprogram.hex
+function debug
 {
   if [[ -n "$simulator" ]]; then
     $pdb -s "$filename" ".hex"
