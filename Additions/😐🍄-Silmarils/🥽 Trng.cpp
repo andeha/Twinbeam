@@ -1,4 +1,4 @@
-/*  Trng.cpp | 🎲 - Same size as RDRAND! (CONSIDER-A-COPY) */
+/*  Trng.cpp | 🎲 - Same size as RDRAND! */
 
 #include <Twinbeam.h>
 #include <Additions/Additions.h>
@@ -19,7 +19,7 @@ BITMASK (uint32_t) { /* RNGCON */
   PIC32MZDA_RNGCON_CONT = 0b1<<10, /* PRNG number shift enable */
   PIC32MZDA_RNGCON_PRNGEN = 0b1<<9, /* PRNG operation enable */
   PIC32MZDA_RNGCON_TRNGEN = 0b1<<8, /* TRNG operation enable */
-  PIC32MZDA_RNGCON_PLEN = 0b11111111<<0, /* PRNG polynomial length */
+  PIC32MZDA_RNGCON_PLEN = 0b11111111<<0 /* PRNG polynomial length */
 }; /* From --[pdb]>--<mzda.cpp>. */
 
 /* Compile with: ./artᵐⁱᵖˢ.ksh Trng */
