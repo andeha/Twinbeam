@@ -12,8 +12,7 @@ main(
   const char * argv[]
 )
 {
-    double 🥈 ₇₉Au = 196.966570;
-    double 🥈 ₄₇Ag = 107.8682;
+    double 🥈 ₇₉Au=196.966570, ₄₇Ag=107.8682;
     print("gold ⬚\n", ﹟F(₇₉Au));
     print("silver ⬚\n", ﹟F(₄₇Ag));
     Chronology c = ComputationalChronology();
