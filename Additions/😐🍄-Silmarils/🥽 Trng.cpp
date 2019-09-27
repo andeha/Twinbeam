@@ -43,7 +43,7 @@ main(
     /* pdb: 'w /mx rngcon 0x140'. */
     🔧1𝑀𝑍𝐷𝐴(RNGCON,TRNGEN);
     
-    while (🔎𝑀𝑍𝐷𝐴(RNGCNT) < 32) { ; } /* Wait until 32 random bits. */
+    while (🔎𝑀𝑍𝐷𝐴(RNGCNT) < 32) { ; } /* Wait until 32 bits are random. */
     
     /* RNGNUMGEN2 must be read before RNGNUMGEN1. */
     uint32_t n₂ = 🔎𝑀𝑍𝐷𝐴(RNGNUMGEN2), n₁ = 🔎𝑀𝑍𝐷𝐴(RNGNUMGEN1);
