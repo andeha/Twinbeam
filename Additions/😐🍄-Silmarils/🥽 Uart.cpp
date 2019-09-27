@@ -15,7 +15,7 @@ main(
   const char * argv[]
 )
 {  InitMZDAStarterBoard();
-    print("Hello on the other side! 🖋😐\n");
+    print("Hello from inside on the other side! 🖋😐\n");
     /* See --<Additions>--<Fossilate.h>{WaitTerminal} for details on:
       auto ping = ^(bool &stop) { print("."); };
 again:
@@ -28,3 +28,4 @@ unagain:
     return 0;
 }
 
+/* 🏁 ⚑ */
