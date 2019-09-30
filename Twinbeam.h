@@ -207,7 +207,8 @@ b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(int tetras, const char32_t * uc)
 char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
 Argᴾ ﹟reᵍs(__builtin_uint_t mask);
 extern "C" { int atexit(void(*func)(void)); void exit(int); }
-extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
+extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *); int 
+Acquire(unsigned ﹟frames, void (^each)(void * frame)); int Release(void * frame);
 extern "C" { void * malloc(size_t); void free(void *); }
 typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
 #ifdef __x86_64__
@@ -460,7 +461,7 @@ typedef __builtin_uint_t metaaddress;
 
 struct MemoryDelegate { struct Memoryregion; virtual void statistics() = 0; };
 
-struct Memoryregion {
+struct Memoryregion { /* Two levels, may avail `Acquire` and `Release`. */
     
     Memoryregion(MemoryDelegate * delegate);
     
@@ -476,6 +477,8 @@ struct Memoryregion {
     int exclude(metaaddress start, __builtin_int_t bytes);
     
     int takeover(Memoryregion& virtue, metaaddress loc);
+    
+    int augment(unsigned ﹟frames);
     
     SemanticPointer<void *> start() const;
     
@@ -727,6 +730,8 @@ Chronology& ComputationalChronology(); /* 𝖤․𝘨 for chronometers. A․𝘬
   SI seconds, with leap seconds as well as summertime). */
 
 Chronology& SystemCalendricChronology(); /* Irreversible, conclusive mass; Consider 𝑒𝑎𝑠𝑒-𝑖𝑛․ */
+
+/* See --<Additions>--<Framewrk.h> for details on `Trap` and `Indicate`. */
 
 /**  Correlative-relative: xʳ∈[-1/2₋𝜀, +1/2₊𝜀]. */
 
