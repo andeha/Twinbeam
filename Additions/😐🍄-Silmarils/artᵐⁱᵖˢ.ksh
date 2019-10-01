@@ -2,7 +2,8 @@
 
 # The script is 'read' by 'a shell' and a binary is 'loaded' followed by 
 # 'executed'. Following Unix, for details on execution, enter 'man dyld' at 
-# prompt for details.
+# prompt for details. Also reconsider the abstraction `bee-keeper`. Time 
+# while in run; relative time in model.
 
 dryrun=""
 verbose=""
@@ -55,16 +56,7 @@ while [ $# -gt 0 ]; do
       ;;
     * )
       fullfilename="🥽 $1.cpp"
-      if [[ -s $fullfilename ]]; then
-        # `printf` and UTF-8/Unicode broken in 'printf $fullfilename'
-        # `basename` and UTF-8/Unicode broken in 'filename=$(basename "$fullfilename")'
-        fname="${filename%.*}"
-        ext="${filename##*.}"
-      else
-        echo "unknown option or file: $1"
-        usage
-        exit 1
-      fi
+      fname="$1"
       ;;
   esac
   shift
@@ -78,36 +70,41 @@ pdb=../../Sprinkle/pdb/pdb
 script=../../pic32rt/pic32one.ld
 lib=../../Source/Releases/libTwinbeam_pic32mz.a
 rt=../../Source/llvmʳᵗ³.cpp
+boot=../../Bootloader/Releases/bootloader_mz_39e78938.hex
 cc=$tools/clang-9
-
-# echo $fullfilename
-# echo $fname
-# echo $ext
 
 if [[ -n "$verbose" ]]; then
   echo "Compiling $fullfilename"
 fi
 
 objectfile="${fname}.o"
-$cc @ccargs_mz -o $objectfile -c "${fullfilename}"
-$cc @ccargs_mz -o llvmʳᵗ³.o -c $rt
-$tools/ld.lld -T $script -o $fname $objectfile llvmʳᵗ³.o $lib
+binary="${fname}_mzda"
 
-$glue/llvm2pic32 -b pic32mz.hex $fname 
-# [-s] not used
+echo "fullfilename=${fullfilename}"
+echo "fname=${fname}"
+echo "objectfile=${objectfile}"
+echo "binary=${binary}"
+
+$cc @ccargs_mz -o $objectfile -DSHA1GIT=`git log -1 '--pretty=format:%h'` -c "$fullfilename"
+$cc @ccargs_mz -o rtllvm.o -c $rt
+$tools/ld.lld -T $script -o $binary $objectfile rtllvm.o $lib
+$glue/llvm2pic32 -b $boot $binary > "${fname}.hex"
+# 'llvm2pic32 -s' not used.
+rm $binary
 
 if [[ -n "$dryrun" ]]; then
+  echo "Dry-run. No installable created."
   exit 0
 fi
 
-# %prompt> pdb myprogram.hex
+# Start the simulator/debugger with %prompt> pdb myprogram.hex
 function debug
 {
   if [[ -n "$simulator" ]]; then
-    $pdb -s "$filename" ".hex"
+    $pdb -s "${filename}.hex"
 # ~/Projects/Monitor/Apps/bin/mdb setup_mzda_simulator 2>/dev/null
   else
-    $pdb "$filename" ".hex"
+    $pdb "${filename}.hex"
 # ~/Projects/Monitor/Apps/bin/mdb setup_mzda_target 2>/dev/null
   fi
 }
