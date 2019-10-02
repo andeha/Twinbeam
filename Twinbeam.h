@@ -69,7 +69,7 @@ struct InnerFrame {
   struct Internals;                                                          \
   InnerFrame<Internals> impl_;
 #define 😐 APPEND_PIMPL }
-template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․k․a `DisjunctPointer`. */
+template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․𝘬․a `DisjunctPointer`. */
 #define VISITISR(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + call */
 #define UNITTEST(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
 #define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",          \
@@ -206,7 +206,7 @@ Argᴾ ﹟d(__builtin_int_t d); Argᴾ ﹟x(__builtin_uint_t x); Argᴾ ﹟b(__b
 b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(int tetras, const char32_t * uc); Argᴾ ﹟c(
 char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
 Argᴾ ﹟reᵍs(__builtin_uint_t mask);
-extern "C" { int atexit(void(*func)(void)); void exit(int); }
+extern "C" { int atexit(void(*func)(void)); void exit(int); } unsigned MaxFrames();
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *); int 
 Acquire(unsigned ﹟frames, void (^each)(void * frame)); int Release(void * frame);
 extern "C" { void * malloc(size_t); void free(void *); }
@@ -446,14 +446,14 @@ int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content,
 
 int Utf8Sync(uint8_t **p); /* Backs at most 3 bytes to regain sync. */
 
-struct Unicodes { __builtin_int_t tetras; const char32_t * unicodes; };
+struct Unicodes { __builtin_int_t tetras; char32_t * unicodes; };
 
 typedef Unicodes Unicodes⁺ᵃ⁻ᵚ; /*  To use when a sequence of symbols, 
   yet neither the length of the sequence nor its start element, are 
   read from inside an 'erase-first-before-you-program' area (such as 
   𝘦․𝘨 a NOR-flash). Further, keep in mind that a `const struct` must 
-  not - after initialization - programatically change variables. 
-  See also: --<🥽 Cordal.cpp>. */
+  not - after initialization - programatically change framed variables. 
+  See also: --<🥽 Cordal.cpp>. */ typedef Unicodes Unicodes⁻ᵃ⁻ᵚ;
 
 #pragma mark - ”𝑇ℎ𝑒 🧠🧠” 🔍😐
 
@@ -461,24 +461,24 @@ typedef __builtin_uint_t metaaddress;
 
 struct MemoryDelegate { struct Memoryregion; virtual void statistics() = 0; };
 
-struct Memoryregion { /* Two levels, may avail `Acquire` and `Release`. */
+struct Memoryregion { /* ⬷ Two levels! */
     
     Memoryregion(MemoryDelegate * delegate);
     
-    Memoryregion(void *p, __builtin_int_t bytes, MemoryDelegate * delegate = NULL);
+    Memoryregion(void * p, __builtin_int_t bytes, MemoryDelegate * delegate = NULL);
     
-    ~Memoryregion();
+    ~Memoryregion(); /* Exercises `Release`. */
     
-    void incorporate(void *virtue, __builtin_int_t bytes, metaaddress loc);
+    void incorporate(uint8_t * virtue, __builtin_int_t bytes, metaaddress loc);
     
-    int inject(__builtin_int_t index, const Memoryregion& src, void *(^alloc)
+    int inject(__builtin_int_t index, const Memoryregion& src, void * (^alloc) 
       (__builtin_int_t bytes) = Alloc);
     
     int exclude(metaaddress start, __builtin_int_t bytes);
     
     int takeover(Memoryregion& virtue, metaaddress loc);
     
-    int augment(unsigned ﹟frames);
+    int augment(__builtin_int_t ﹟frames); /* Exercises `Acquire`. */
     
     SemanticPointer<void *> start() const;
     
@@ -493,7 +493,8 @@ struct Memoryregion { /* Two levels, may avail `Acquire` and `Release`. */
     /**  TODO: Measure energy consumption while 𝑝𝑢𝑚𝑝𝑖𝑛' 𝑛𝑒𝑡𝑤𝑜𝑟𝑘/𝑛𝑎𝑡𝑖𝑣𝑒. */
     
     void toggleNetworkAndNative(void (^ping)(bool &stop), void /* REQ: O(1). */
-      (^completion)(__builtin_int_t bytes)); /* See also --<OptimisticAsync8Copy>. */
+      (^completion)(__builtin_int_t bytes)); /*  See also `ᵗᵍᵍˡendian` defined below 
+      and --<Additions.h>{OptimisticAsync8Copy}. */
     
 #pragma mark Fields of Capacitors on Two-gates/feedbacked-inverters
     
@@ -514,20 +515,16 @@ struct Memoryregion { /* Two levels, may avail `Acquire` and `Release`. */
     
     Memoryregion() = delete;
     
-    Memoryregion(const Memoryregion& other);
+    Memoryregion(const Memoryregion& other) = delete;
     
 😐; /* Pimpl optional because of opaque, mandatory since `alsoAtDealloc`. */
 
 void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
   __builtin_int_t (^cmp)(const void *key, const void *elt));
 
-template <typename T> T * materialize(Memoryview * view) {
-  extern void * 💫(void *); return (T *)💫((void *)view); } 
-  /* Requires `Alloc` ∨ `Acquire`. */
-
-/* template <> Unicodestring materialize(Memoryview * view) {
-  return Unicodestring(Endianness::Native, 💫(view), view.bytesCount,
-  true); } */
+template <typename T> T * Snapshot(Memoryview * view) { extern void * 💫(void *); 
+  return (T *)💫((void *)view); } /* A․𝘬․a `materialize` and `Fullcircle`. E․𝘨 
+  Unicodes uc = Snapshot(myView); */ /* a․𝘬․a `SymbolicPrint` and `𝚇𝚎𝚛𝚘𝚡`. */
 
 int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 /* Returns `int` indicating difference at branch, -1 if equal and `0` when string contains
@@ -548,7 +545,9 @@ struct Bitfield { const char32_t * ident; uint32_t mask;
   const char32_t * text; }; typedef Bitfield Register[];
 struct AnnotatedRegister { const char32_t * header; int regcnt; const 
   Bitfield * regs; uint32_t init; const char32_t * footnote; };
+inline uint32_t ᵗᵍᵍˡendian(uint32_t x) { return __builtin_bswap32(x); }
 #ifdef __x86_64__
+inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
 #define POSIX_FIBER
 #elif defined __mips__
 #define MIPS_VIRTUAL_MULTITHREADED
