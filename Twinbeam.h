@@ -469,7 +469,7 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     ~Memoryregion(); /* Exercises `Release`. */
     
-    void incorporate(uint8_t * virtue, __builtin_int_t bytes, metaaddress loc);
+    int incorporate(uint8_t * virtue, __builtin_int_t bytes, metaaddress loc);
     
     int inject(__builtin_int_t index, const Memoryregion& src, void * (^alloc) 
       (__builtin_int_t bytes) = Alloc);
@@ -523,12 +523,12 @@ void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
   __builtin_int_t (^cmp)(const void *key, const void *elt));
 
 template <typename T> T * Snapshot(Memoryview * view) { extern void * 💫(void *); 
-  return (T *)💫((void *)view); } /* A․𝘬․a `materialize` and `Fullcircle`. E․𝘨 
-  Unicodes uc = Snapshot(myView); */ /* a․𝘬․a `SymbolicPrint` and `𝚇𝚎𝚛𝚘𝚡`. */
+  return (T *)💫((void *)view); } /* A․𝘬․a `Materialize`, `Fullcircle`, 
+  `SymbolicPrint` and `𝚇𝚎𝚛𝚘𝚡`; E․𝘨 Unicodes uc = Snapshot(myView); */
 
 int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
-/* Returns `int` indicating difference at branch, -1 if equal and `0` when string contains
-  neither prefix nor is equal. */
+/* Returns `int` indicating difference at branch, -1 if equal and `0` when string 
+    contains neither prefix nor is equal. */
 
 #pragma mark - 😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
