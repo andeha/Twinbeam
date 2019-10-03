@@ -38,7 +38,7 @@ main(
         vel[1] = vel₀[1] + acc[1] * t;
         pos[0] = pos₀[0] + (vel₀[0] + 0.5 * acc[0] * t) * t;
         pos[1] = pos₀[1] + (vel₀[1] + 0.5 * acc[1] * t) * t;
-        auto ﹟F₂(double x) { return ﹟F(x, NumberFormat::CForm); };
+        auto ﹟F₂ = ^(double x) { return ﹟F(x, NumberFormat::CForm); };
         print("⬚, ⬚, ⬚, ⬚, ⬚\n", ﹟F₂(t), ﹟F₂(pos[0]), ﹟F₂(pos[1]), ﹟F₂(vel[0]), ﹟F₂(vel[1]));
         if (pos[1] < 0.0) { impact = 1; /* ⬷ Shutdown simulation. */
            impactTime = (- vel₀[1] - sqrt(vel₀[1] * vel₀[1] - 2.0*pos₀[1])) / -9.81;
