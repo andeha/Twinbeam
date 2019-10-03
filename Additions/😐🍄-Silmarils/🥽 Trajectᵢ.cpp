@@ -1,4 +1,4 @@
-/*  Trajectᵢ.cpp | Ballistic and canon in a constant gravitational force. (DO-NOT-COPY) */
+/*  𝙏𝙧𝙖𝙟𝙚𝙘𝙩ᵢ.cpp | Ballistic and cannon in a constant gravitational force. (DO-NOT-COPY) */
 
 #include <Twinbeam.h>
 #include <Additions/Additions.h>
@@ -8,6 +8,7 @@
      ../../Source/llvmʳᵗ³.cpp */
 
 namespace Naturals { auto 🥈 π = 3.141592653589793238462643383279502887169; }
+auto ﹟F₂ = ^(double x) { return ﹟F(x, NumberFormat::CForm); };
 
 MACRO double ˚2ᴿ(double 𝑑𝑒𝑔) { return (Naturals::π/180)*𝑑𝑒𝑔; }
 MACRO double ᴿ2˚(double 𝑟𝑎𝑑) { return (180/Naturals::π)*𝑟𝑎𝑑; }
@@ -24,7 +25,7 @@ main(
       therefore v𝑦(t) = ∫ ℊ dt = ℊ*t + v₀ and position p𝑦(t) = ℊ*t²/2 + v₀*t + pos₀. */
     
     /* Initialize ½-d and 2ᵈ values: */
-    time=0.0; pos={ 0.0, 0.0 }; vel={ 0.0, 0.0 };
+    t=0.0; pos={ 0.0, 0.0 }; vel={ 0.0, 0.0 };
     acc={ 0.0, -9.81 };
     𝛳₀=˚2ᴿ(ᴿ2˚(Naturals::π/6.0)) /* rad */; v̅₀=50.0 /* m/s */;
     
@@ -38,7 +39,6 @@ main(
         vel[1] = vel₀[1] + acc[1] * t;
         pos[0] = pos₀[0] + (vel₀[0] + 0.5 * acc[0] * t) * t;
         pos[1] = pos₀[1] + (vel₀[1] + 0.5 * acc[1] * t) * t;
-        auto ﹟F₂ = ^(double x) { return ﹟F(x, NumberFormat::CForm); };
         print("⬚, ⬚, ⬚, ⬚, ⬚\n", ﹟F₂(t), ﹟F₂(pos[0]), ﹟F₂(pos[1]), ﹟F₂(vel[0]), ﹟F₂(vel[1]));
         if (pos[1] < 0.0) { impact = 1; /* ⬷ Shutdown simulation. */
            impactTime = (- vel₀[1] - sqrt(vel₀[1] * vel₀[1] - 2.0*pos₀[1])) / -9.81;
