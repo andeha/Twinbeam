@@ -35,5 +35,5 @@ build $objsdir/pic32mz.o: cc pic32mz.cpp
 build $objsdir/exception.o: asm exception.S
 build $objsdir/Paging.o: asm Paging.S
 build $objsdir/System.o: cc System.cpp
-build $objsdir/Sheriff.o: cc ../pic32rt/Sheriff.cpp
+build $objsdir/Sheriff.o: cc ../pic32rt/⭐️.cpp
 default $stem
