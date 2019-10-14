@@ -3,10 +3,10 @@
 #include <sys/stat.h>
 
 MACRO
-bool
+int
 FileSystemItemExists(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
-  const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․k․a `pathᵚ` */
+  char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․k․a `pathᵚ` */
 )
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
       Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
@@ -17,10 +17,10 @@ FileSystemItemExists(
 }
 
 MACRO
-bool
+int
 IsRegularFile(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
-  const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
+  char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
 )
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
       Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
@@ -34,7 +34,7 @@ IsRegularFile(
 __builtin_int_t
 RegularOrLinkFileLength(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
-  const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
+  char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
 )
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ =
     Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
@@ -46,10 +46,10 @@ RegularOrLinkFileLength(
 } /* A․𝘬․a `RegularFileLength`. */
 
 MACRO
-bool
+int
 IsDirectory(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
-  const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
+  char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
 )
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
       Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
@@ -61,10 +61,10 @@ IsDirectory(
 }
 
 MACRO
-bool
+int
 IsSymbolicLink(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
-  const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
+  char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
 )
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
       Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
@@ -74,4 +74,6 @@ IsSymbolicLink(
     if (stat((const char *)buffer, &st)) { return false; }
     return S_ISLNK(st.st_mode);
 }
+
+/* Also 𝘥𝘪𝘴𝘫𝘶𝘯𝘤𝘵𝘪𝘰𝘯: `IsHardlink`, `MayIntroduceInconsistencyAtRemoval` and `IsDisjunct`. */
 
