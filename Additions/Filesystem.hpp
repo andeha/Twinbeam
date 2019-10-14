@@ -1,4 +1,4 @@
-/*  Filesystem.hpp */
+/*  Filesystem.hpp | Files with Unix. */
 
 #include <sys/stat.h>
 
@@ -6,7 +6,7 @@ MACRO
 bool
 FileSystemItemExists(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
-  const char32_t * 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․k․a `pathᵚ` */
+  const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․k․a `pathᵚ` */
 )
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
       Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
@@ -20,7 +20,7 @@ MACRO
 bool
 IsRegularFile(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
-  const char32_t * 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
+  const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
 )
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
       Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
@@ -34,7 +34,7 @@ IsRegularFile(
 __builtin_int_t
 RegularOrLinkFileLength(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
-  const char32_t * 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
+  const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
 )
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ =
     Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
@@ -49,7 +49,7 @@ MACRO
 bool
 IsDirectory(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
-  const char32_t * 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
+  const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
 )
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
       Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
@@ -64,7 +64,7 @@ MACRO
 bool
 IsSymbolicLink(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
-  const char32_t * 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
+  const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
 )
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
       Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
