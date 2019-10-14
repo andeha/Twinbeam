@@ -3,7 +3,7 @@
 #include <sys/stat.h>
 
 MACRO
-bool
+int
 FileSystemItemExists(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
   const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․k․a `pathᵚ` */
@@ -17,7 +17,7 @@ FileSystemItemExists(
 }
 
 MACRO
-bool
+int
 IsRegularFile(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
   const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
@@ -46,7 +46,7 @@ RegularOrLinkFileLength(
 } /* A․𝘬․a `RegularFileLength`. */
 
 MACRO
-bool
+int
 IsDirectory(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
   const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
@@ -61,7 +61,7 @@ IsDirectory(
 }
 
 MACRO
-bool
+int
 IsSymbolicLink(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
   const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
