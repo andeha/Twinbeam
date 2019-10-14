@@ -3,7 +3,7 @@
 #include <sys/stat.h>
 
 MACRO
-int
+bool
 FileSystemItemExists(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
   const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․k․a `pathᵚ` */
@@ -12,12 +12,12 @@ FileSystemItemExists(
       Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
     if (invalid) return false;
     char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
-    if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b)) { return false; }
+    if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b, 𝘁𝗲𝘁𝗿𝗮𝘀, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ)) { return false; }
     return stat((const char *)buffer, &st) == 0;
 }
 
 MACRO
-int
+bool
 IsRegularFile(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
   const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
@@ -26,7 +26,7 @@ IsRegularFile(
       Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
     if (invalid) return false;
     char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
-    if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b)) { return false; }
+    if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b, 𝘁𝗲𝘁𝗿𝗮𝘀, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ)) { return false; }
     if (stat((const char *)buffer, &st)) { return false; }
     return S_ISREG(st.st_mode);
 }
@@ -40,13 +40,13 @@ RegularOrLinkFileLength(
     Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
     if (invalid) return -1;
     char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
-    if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b)) { return -2; }
+    if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b, 𝘁𝗲𝘁𝗿𝗮𝘀, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ)) { return -2; }
     if (stat((const char *)buffer, &st)) { return -3; }
     return st.st_size;
 } /* A․𝘬․a `RegularFileLength`. */
 
 MACRO
-int
+bool
 IsDirectory(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
   const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
@@ -55,13 +55,13 @@ IsDirectory(
       Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
     if (invalid) return false;
     char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
-    if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b)) { return false; }
+    if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b, 𝘁𝗲𝘁𝗿𝗮𝘀, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ)) { return false; }
     if (stat((const char *)buffer, &st)) { return false; }
     return S_ISDIR(st.st_mode);
 }
 
 MACRO
-int
+bool
 IsSymbolicLink(
   int 𝘁𝗲𝘁𝗿𝗮𝘀,
   const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ /* A․𝘬․a `pathᵚ` */
@@ -70,7 +70,7 @@ IsSymbolicLink(
       Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
     if (invalid) return false;
     char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
-    if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b)) { return false; }
+    if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b, 𝘁𝗲𝘁𝗿𝗮𝘀, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ)) { return false; }
     if (stat((const char *)buffer, &st)) { return false; }
     return S_ISLNK(st.st_mode);
 }
