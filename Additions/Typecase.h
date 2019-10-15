@@ -2,7 +2,7 @@
                                                                              
     ■ = 1, □ = 0, ⬚ = Unknown                                                
     Logic and one-liners: ≅ ≠ ⋍ ~ ⟶ ⟷ ⊂⊄⊆⊈ ⊃ (Małuszyński inclusion) ∩∪ ∈∉
-      ¬∧∨ ≤≥ ≰ ≱ ∞ ∀∃∄ ⊨ ∅ 𝜖 √ ∑∏ ∂∆ ∇𝛻 ∫∬∭ ℕℤℂℍℝ ℚ ¶ ⌈⌉ ⌊⌋
+      ¬∧∨ ≤≥ ≰ ≱ ∞ ∀∃∄ ⊨ ∅ 𝟄 √ ∑∏ ∂∆ ∇𝛻 ∫∬∭ ℕℤℂℍℝ ℚ ¶ ⌈⌉ ⌊⌋
       𝘦․𝘨 𝐊 (ᵃ𝑛/ᵇ𝑛), where n∈[1,∞) = a₁/(b₁ + a₂/(b₂ + …)
     Unicodes and utf-8: .*․｟｠ ⃦ ('Combining double vertical stroke overlay') ✚
       ★ 𐤟 (PHOENICIAN WORD SEPARATOR) ↹ ↩︎ ¶
@@ -50,7 +50,7 @@
    
        Key    Description   ∃
      ├─────┼───────────────┼─┤           ⌏  ⌎   ⌜  ⌝  ⌖
-     ╎     ┊               ┆ ╎           ⌍  ⌌   ⌞  ⌟  ‖
+     ╎     ┊              ┆ ╎          ⌍  ⌌   ⌞  ⌟  ‖
      └─────┴───────────────┴─┘
    
           ┌def┐
@@ -62,7 +62,7 @@
    
       ∞              ∞                                                      
       ⌠  🔍😐        \̅                                                      
-      ⎮ 𝘦⁻ˣ 𝘥𝑥 ≅ √𝘹 + › ⁣1/k² ≅ @w Sum[, … ∈ ℝ (DOUBLE-STRUCK CAPITAL R)    (0)
+      ⎮ 𝘦⁻ˣ 𝘥𝑥 ≅ √𝘹 + › ⁣1/k² ≅ @w Sum[, … ∈ ℝ (DOUBLE-STRUCK CAPITAL R)   (0)
       ⌡              /͟                                                      
      -∞             k=1                                                     
    
