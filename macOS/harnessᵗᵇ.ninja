@@ -23,16 +23,19 @@ build TwinbeamUnits: link $objs/harness.o $objs/llvmʳᵗ³.o $objs/exception.o 
   $objs/Memory.o $objs/Fiber.o                                              $
                                                                             $
   $objs/BaseTests.o $objs/BignumTests.o $objs/ChronoTests.o                 $
-  $objs/MallocTests.o $objs/RegionTests.o $objs/MemTests.o                  $
-  $objs/OptTests.o $objs/Utf8Tests.o                                        $
+  $objs/ExceptTests.o $objs/MallocTests.o $objs/MemTests.o                  $
+  $objs/MiscTests.o $objs/OptTests.o $objs/RegionTests.o                    $
+  $objs/Utf8Tests.o
 
 build $objs/BaseTests.o: cc $cases/ˢBaseTests.cpp
 build $objs/BignumTests.o: cc $cases/ˢBignumTests.cpp
 build $objs/ChronoTests.o: cc $cases/ˢChronoTests.cpp
+build $objs/ExceptTests.o: cc $cases/ˢExceptTests.cpp
 build $objs/MallocTests.o: cc $cases/ˢMallocTests.cpp
-build $objs/RegionTests.o: cc $cases/ˢRegionTests.cpp
 build $objs/MemTests.o: cc $cases/ˢMemTests.cpp
+build $objs/MiscTests.o: cc $cases/ˢMiscTests.cpp
 build $objs/OptTests.o: cc $cases/ˢOptTests.cpp
+build $objs/RegionTests.o: cc $cases/ˢRegionTests.cpp
 build $objs/Utf8Tests.o: cc $cases/ˢUtf8Tests.cpp
 
 build $objs/Tree.o: cc $src/Tree.cpp

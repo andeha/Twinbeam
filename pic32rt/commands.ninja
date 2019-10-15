@@ -1,4 +1,4 @@
-# commands.ninja — Essentials for embedded.
+# commands.ninja — Targeting the many-legged.
 
 rule emitsyms
     command = $tools/llvm-nm $progname
@@ -22,15 +22,15 @@ rule emitsource
 build source: emitsource
 
 rule cc
-    command = $tools/clang-8 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags --std=c++2a -c $in -o $out
+    command = $tools/clang-9 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags --std=c++2a -c $in -o $out
     depfile = $out.d
     deps = gcc
 
 rule c
-    command = $tools/clang-8 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
+    command = $tools/clang-9 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
     depfile = $out.d
     deps = gcc
 
 rule asm
-    command = $tools/clang-8 $flags -c $in -o $out
+    command = $tools/clang-9 $flags -c $in -o $out
 
