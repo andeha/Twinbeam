@@ -120,10 +120,10 @@ Present(
 
 #pragma mark - Visualizing `float` and `double's
 
-BITMASK (uint32_t) { // float
-  Binary32_SGN = 0x80000000, // Sign bit
-  Binary32_EXP = 0b11111111<<23, // Signed exponent -126 to 127
-  Binary32_MAN = 0x7fffff, // Fraction/mantissa/significand
+BITMASK (uint32_t) { /* The `float`. */
+  Binary32_SGN = 0x80000000, /* Sign bit */
+  Binary32_EXP = 0b11111111<<23, /* Signed exponent -126 to 127. */
+  Binary32_MAN = 0x7fffff, /* Fraction/mantissa/significand */
 };
 
 Register Binary32 = {
@@ -140,14 +140,14 @@ AnnotatedRegister AR_Binary32 = {
 
 #pragma mark ...and the 64-bit double type:
 
-BITMASK (uint32_t) { // IEEE754 hi-`double`
-  Binary64_SGN = 0x80000000, // Sign bit
-  Binary64_EXP = 0b11111111111<<20, // Signed exponent -1024 to 1023
-  Binary64_MANʰⁱ = 0xFffff, // Most significant fraction/mantissa/significand
+BITMASK (uint32_t) { /* IEEE754 hi-`double`. */
+  Binary64_SGN = 0x80000000, /* Sign bit */
+  Binary64_EXP = 0b11111111111<<20, /* Signed exponent -1024 to 1023. */
+  Binary64_MANʰⁱ = 0xFffff, /* MSB's fraction/mantissa/significand */
 };
 
-BITMASK (uint32_t) { // IEEE754 lo-`double`
-  Binary64_MANˡᵒ = 0xFFFFffff, // Least significant fraction/mantissa/significand
+BITMASK (uint32_t) { /* IEEE754 lo-`double`. */
+  Binary64_MANˡᵒ = 0xFFFFffff, /* LSB's fraction/mantissa/significand */
 };
 
 Register Binary64ʰⁱ = {
@@ -172,7 +172,7 @@ AnnotatedRegister AR_Binary64ˡᵒ = {
   U""
 };
 
-void
+void 
 Presentᵧ(
   Utf8Terminal &term,
   double val
@@ -191,4 +191,12 @@ Presentᵧ(
     Present(term, AR_Binary32, bits);
 }
 
+#pragma mark - Introspection
+
+DISORDERABLE extern void reᵍsPrint(__builtin_uint_t mask)
+{
+#ifdef __x86_64__
+#elif defined __mips__
+#endif
+} /* Print at least 0 to 31 non high-volatile registers. */
 

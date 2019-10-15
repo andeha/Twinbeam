@@ -51,7 +51,7 @@ typedef Utf8Interval SourceLocation;
  */
 
  FOCAL
- int ParseTextAsTree(const char *utf8, void (^error)(SourceLocation loc,
+ int ParseTextAsTree(const char *utf8text, void (^error)(SourceLocation loc,
   PreservationError error), void (^out)(Unicodes item, bool lexFirst, 
     int nestings, int section[], bool lexLast, Utf8Interval itemLocation, 
     bool& stop));
@@ -70,7 +70,7 @@ typedef Utf8Interval SourceLocation;
  */
  
  FOCAL
- int ParseTextAsMatrix(const char *utf8, void (^error)(SourceLocation loc, 
+ int ParseTextAsMatrix(const char *utf8text, void (^error)(SourceLocation loc, 
    PreservationError error), void (^out)(Unicodes item, bool firstRow, 
    bool firstCol, __builtin_uint_t row, __builtin_uint_t col, bool 
    lastColumn, bool lastRow, Utf8Interval itemLocation, bool& stop));
@@ -96,7 +96,7 @@ typedef Utf8Interval SourceLocation;
  */
 
  FOCAL
- int ParseTextAsKVF(const char *utf8, void (^error)(SourceLocation loc,
+ int ParseTextAsKVF(const char *utf8text, void (^error)(SourceLocation loc,
    PreservationError error), void (^out)(Unicodes key, int index, bool 
    first, Unicodes value, bool last, bool& stop)
  );
