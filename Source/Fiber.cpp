@@ -41,18 +41,18 @@ Recall(
 #elif defined __mips__
    
    Mips
-     lw  $16, 72($4)              /* Restore register values: */
-     lw  $17, 76($4)
-     lw  $18, 80($4)
-     lw  $19, 84($4)
-     lw  $20, 88($4)
-     lw  $21, 92($4)
-     lw  $22, 96($4)
-     lw  $23, 100($4)
+ "    lw  $16, 72($4)       \n"       /* Restore register values: */
+ "    lw  $17, 76($4)       \n"
+ "    lw  $18, 80($4)       \n"
+ "    lw  $19, 84($4)       \n"
+ "    lw  $20, 88($4)       \n"
+ "    lw  $21, 92($4)       \n"
+ "    lw  $22, 96($4)       \n"
+ "    lw  $23, 100($4)      \n"
      
-     lw  $28, 120($4)          /* $28 = gp = Global pointer. */
-     lw  $29, 124($4)          /* $29 = sp = Stack pointer.  */
-     lw  $30, 128($4)          /* $30 = fp = Frame pointer.  */
+ "    lw  $28, 120($4)      \n"     /* $28 = gp = Global pointer. */
+ "    lw  $29, 124($4)      \n"     /* $29 = sp = Stack pointer.  */
+ "    lw  $30, 128($4)      \n"     /* $30 = fp = Frame pointer.  */
      
     /*
        
@@ -61,22 +61,22 @@ Recall(
        
      */
      
-     lw  $8, 132($4)            /* $8 = ra = Return address. */
+ "    lw  $8, 132($4)       \n"     /* $8 = ra = Return address. */
      
      /*  Bug: not setting the pc causes a bus error. */
-     lw  $25, 132($4)           /* $25 = pc = Program counter. */
+ "    lw  $25, 132($4)      \n"    /* $25 = pc = Program counter. */
      
-     lw  $5, 28($4)
-     lw  $6, 32($4)
-     lw  $7, 36($4)
-     lw  $4, 24($4)
+ "    lw  $5, 28($4)        \n"
+ "    lw  $6, 32($4)        \n"
+ "    lw  $7, 36($4)        \n"
+ "    lw  $4, 24($4)        \n"
      
-     j  $8
-     nop
-   }
-   
+ "    j  $8                 \n"
+ "    nop                   \n"
+   );
+    
+#else
 #error "Unsupported platform. Kindly improve behaviour while continue prototyping."
-   
 #endif
    
    return 0;
@@ -126,35 +126,35 @@ Snapshot(
 #elif defined __mips__
     
   Mips
-    sw  $4, 24($4)     /* Branch state into non-volatile memory. */
-    sw  $5, 28($4)
-    sw  $6, 32($4)
-    sw  $7, 36($4)
+ "   sw  $4, 24($4)         \n"       /* Branch state into non-volatile memory. */
+ "   sw  $5, 28($4)         \n"
+ "   sw  $6, 32($4)         \n"
+ "   sw  $7, 36($4)         \n"
     
-    sw  $16, 72($4)
-    sw  $17, 76($4)
-    sw  $18, 80($4)
-    sw  $19, 84($4)
-    sw  $20, 88($4)
-    sw  $21, 92($4)
-    sw  $22, 96($4)
-    sw  $23, 100($4)
+ "   sw  $16, 72($4)        \n"
+ "   sw  $17, 76($4)        \n"
+ "   sw  $18, 80($4)        \n"
+ "   sw  $19, 84($4)        \n"
+ "   sw  $20, 88($4)        \n"
+ "   sw  $21, 92($4)        \n"
+ "   sw  $22, 96($4)        \n"
+ "   sw  $23, 100($4)       \n"
     
-    sw  $28, 120($4)    /* Global pointer */
-    sw  $29, 124($4)    /* Stack pointer */
-    sw  $30, 128($4)    /* Frame pointer */
-    sw  $31, 132($4)    /* Return address */
+ "   sw  $28, 120($4)       \n"      /* Global pointer */
+ "   sw  $29, 124($4)       \n"      /* Stack pointer */
+ "   sw  $30, 128($4)       \n"      /* Frame pointer */
+ "   sw  $31, 132($4)       \n"      /* Return address */
     
-    xor $2, $2, $2      /* Clear $2 */
-    j   $31
-    nop
-  }
+ "   xor $2, $2, $2         \n"      /* Clear $2 */
+ "   j   $31                \n"
+ "   nop                    \n"
+  );
     
+#else
 #error "Unsupported platform. Please stand by whilest other hearken."
-    
 #endif
     
-  return 0;
+   return 0;
     
 }
 
@@ -162,7 +162,7 @@ void
 Incubate(
   Peel *ucp,
   void (*ufnc)(...), int argc, ...
-/* ...and not `fuContext *ctx, void(^job)(void * ctx₂)` since we're initially
+/* …and not `fuContext *ctx, void(^job)(void * ctx₂)` since we're initially
   doing cooperative multitask. (`Peel` nowdays.) */
 )
 {
