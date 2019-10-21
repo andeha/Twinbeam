@@ -99,10 +99,11 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․𝘬․a 
 #define INITIALPROJECTIVE
 #define IRREPABEL /* In German: 'reparierbar'. */
 #define AMBIVALENT /* Native: 'contra-polarisative'. */
-#define DEFLECTIVE /* E․g `Auntie`. */
+#define DEFLECTIVE /* E․𝘨 `Auntie`. */
 #define VERYLOGARITHMIC
 #define ANTIPOLARISATIVE
 #define DUALREFLECTIVE
+#define CEDILLEINDUCTIVE
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -137,20 +138,18 @@ void * operator new(unsigned int size, void * here) noexcept;
 typedef unsigned long size_t;
 void * operator new(unsigned long size, void * here) noexcept;
 #endif /* On `Opt` minus `void *`: See 𝐶𝑟𝑎𝑠ℎ 𝑓𝑟𝑒𝑞𝑢𝑒𝑛𝑛𝑐𝑦, 𝑐𝑜𝑝𝑦/𝑝𝑎𝑠𝑡𝑒 and 𝑒𝑥𝑝𝑙𝑜𝑖𝑡𝑖𝚤𝑛𝑔 𝑢𝑛𝑖𝑛𝑖𝑡𝑖𝑎𝑙𝑖𝑧𝑒𝑑. */
-template <typename T> struct Opt : public SharedOptional { explicit Opt(const
-  T& v) { new (content) T(v); populated = true; } explicit Opt() = default; Opt(
-  const Opt<T>& other) { populated = other.populated; if (populated) { new
-  (content) T((const T&)(other.content)); } } ~Opt() { reinterpret_cast<T *>(
-  content)->~T(); } alignas(T) uint8_t content[sizeof(T)]; T& operator*() const
-  { return (T&)content; } /* T& operator->() const { return (T&)content; } */
-  static Opt no() { return Opt(); } };
-template <typename T> struct Opt<T&> : public SharedOptional { explicit Opt(
-  const T& v) { new (content) T(v); populated = true; } explicit Opt() = default;
-  Opt(const Opt<T>& other) { populated = other.populated; if (populated) { new
-  (content) T((const T&)(other.content)); } } ~Opt() { reinterpret_cast<T *>(
-  content)->~T(); } alignas(T) uint8_t content[sizeof(T)]; T& operator*() const
-  { return (T&)content; } /* T& operator->() const { return (T&)content; } */
-  static Opt no() { return Opt(); } };
+template <typename T> struct Opt : public SharedOptional { explicit Opt() = 
+  default; template <typename...A> constexpr Opt(A&&... args) { new (content) 
+  T(args...); populated = true; } Opt(const Opt<T>& other) { populated = other.
+  populated; if (populated) { new (content) T((const T&)(other.content)); } }
+  ~Opt() { ((T *)content)->~T(); } alignas(T) uint8_t content[sizeof(T)]; T& 
+  operator*() const { return (T&)content; } static Opt no() { return Opt(); } };
+template <typename T> struct Opt<T&> : public SharedOptional { explicit Opt() 
+  = default; template <typename...A> constexpr Opt(A&&... args) { new (content) 
+  T(args...); populated = true; } Opt(const Opt<T>& other) { populated = 
+  other.populated; if (populated) { new (content) T((const T&)(other.content)); 
+  } } ~Opt() { ((T *)content)->~T(); } alignas(T) uint8_t content[sizeof(T)]; T& 
+  operator*() const { return (T&)content; } static Opt no() { return Opt(); } };
 template <class... Ts> struct Tuple {}; template <class T, class... Ts>
   struct Tuple<T, Ts...> : Tuple<Ts...> { Tuple(T t, Ts... ts) : Tuple<Ts...>
   (ts...), tail(t) {} T tail; };
@@ -197,13 +196,14 @@ MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
 int print(const char *utf8format, ...); int print(void (^out)(uint8_t * utf8s, 
   short unsigned bytes), const char *utf8format, ...); /* Character literals 
   prefixed with the letter `U` does not neccessarily ends with for example `NULL`. */
-struct Argᴾ { union { __builtin_int_t d; __builtin_uint_t x, b; const char * utf8;
-  struct /* Unicodes */ { const char32_t * unicodes; int tetras; } ucs; char c; 
-  char32_t uc; double f₁; float f₂; /* And space for the 'user-defined' types `Q567` 
-  and `q567`: */ uint8_t bytes[16]; __uint128_t U; __int128_t I; uint64_t pair[2]; 
-  } value; int kind; };
+struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, void * context); 
+  typedef void (^Output)(Unicode set, void * context); union { __builtin_int_t d; 
+  __builtin_uint_t x, b; const char * utf8; struct /* Unicodes */ { char32_t * 
+  unicodes; int tetras; } ucs; char c; char32_t uc; double f₁; float f₂; uint8_t 
+  bytes[16]; __uint128_t U; __int128_t I; uint64_t pair[2]; struct { Output scalar; 
+  void * context; } λ; } value; int kind; };
 Argᴾ ﹟d(__builtin_int_t d); Argᴾ ﹟x(__builtin_uint_t x); Argᴾ ﹟b(__builtin_uint_t 
-b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(int tetras, const char32_t * uc); Argᴾ ﹟c(
+b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(int tetras, char32_t * uc); Argᴾ ﹟c(
 char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
 Argᴾ ﹟reᵍs(__builtin_uint_t mask);
 extern "C" { int atexit(void(*func)(void)); void exit(int); } unsigned MaxFrames();
@@ -215,7 +215,7 @@ typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
 FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memory(
   ByteAlignedRef dst, /* const */ ByteAlignedRef src, __builtin_int_t bytes) {
   ByteAlignedRef org = dst; __asm__ __volatile__ ("rep movsb" : "+D"(dst),
-  "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* A․𝘬․a 𝚖𝚎𝚖𝚌𝚙𝚢. */
+  "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* A․𝘬․a `memcopy`. */
 FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
   ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uint_t bytes);
 #define MEASURE_START(prefix) int64_t prefix##Start = __rdtsc(); /* 𝚜𝚒𝚐𝚗𝚎𝚍 ⟵ Comparision */
@@ -281,7 +281,7 @@ FOCAL void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short
 #define SIGNBIT_INT64 0x8000000000000000
 MACRO int64_t abs64i(int64_t x) { return x & ~SIGNBIT_INT64; }
 MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
-/* template <typename T> T abs(T x) { return x < +0 ? -x : x; } */
+/* template <typename T> T abs(T x) { return x < -0 ? -x : x; } yet (specialization, ±0.0 and optimization). */
 #define /* PROVOCATIVE */ ASSEMBLERONLY __attribute__((naked)) /* A․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN, NEITHER_PROLOGUE_NOR_EPILOGUE. */
 /* #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error"))) */
 /* #define STRANGE_MAIN void _Noreturn main */
@@ -296,11 +296,11 @@ MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
 namespace Relative {
-template <typename T> T arithmeticBetween(T x₁, T x₂) { return (x₁ + x₂) / 2; }
-/* template <typename T> T geometricBetween(T x₁, T acc) { return ⁿ√(x₁ * acc); } 𝘚𝘦𝘦: 𝚂𝚎𝚊𝚛𝚌𝚑 ☜😐: ⌨️ MMCLXVII, XXX, ⅳ */
-/* template <typename T> T harmonicBetween(T x₁, T acc) { return 1/(1/x₁ + … + 1/xₒ₊𝜀); } 𝘚𝘦𝘦: 𝑃𝑎𝑑é (acute) ☜😐: ⌨️ 🐚, 🐇 */
-template <typename T> T leftChange(T x₁, T x₂) { return (x₁ - x₂) / x₂; } // ∈ [0, 1]
-template <typename T> T rightChange(T x₁, T x₂) { return (x₂ - x₁) / x₁; } // ∉ [0, 1]
+template <typename T> T arithmetic(T x₁, T x₂) { return (x₁ + x₂) / 2; }
+/* template <typename T> T geometric(T x₁, T acc) { return ⁿ√(x₁ * acc) = ⁿ√x₁ * ⁿ√acc) = (x₁ * acc)^(1/n); } 𝘚𝘦𝘦: 𝚂𝚎𝚊𝚛𝚌𝚑. 😐: MMCLXVII, XXX, ⅳ. */
+/* template <typename T> T harmonic(T x₁, T acc) { return 1/(1/x₁ + … + 1/xₒ₊𝜀); } 𝘚𝘦𝘦: 𝑃𝑎𝑑é (acute). 😐: 🐚. */
+template <typename T> T ˡᵊfᵗChange(T x₁, T x₂) { return (x₁ - x₂) / x₂; } /* ∈[0,1] */
+template <typename T> T ʳⁱℊʰᵗChange(T x₁, T x₂) { return (x₂ - x₁) / x₁; } /* ∉[0,1] */
 // Norm == Sequence<T>|AccumulativeSequence<T> S, AlgebraicCategory<T> C
 template <typename T> T diff(T x₁, T x₂) { return x₁ - x₂; }
 template <typename T> T dist(T x₁, T x₂, T (^N)(T x, T y)) { return N(x₁, x₂); }
@@ -318,13 +318,13 @@ template <typename T> bool eqeql(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 🥇 NOT_EVERYTIME
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
 #define 🥈 WHEN_COMPILING /* Must be assigned to a `const` and no inline assembler. */
-#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․a `__block` and 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎. */
+#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎. */
 
 #pragma mark Utf-8
 
 int UnicodeToUtf8(char32_t uc, void (^sometimes)(const uint8_t *p, int bytes));
 
-short Utf8Followers(uint8_t leadOr8Bit); /* See also `char8_t` and `uchar`. */
+short Utf8Followers(uint8_t leadOr8Bit); /* See also modern `char8_t` and the later `uchar`. */
 
 char32_t Utf8ToUnicode(const uint8_t *p, __builtin_int_t bytes);
 
@@ -339,7 +339,7 @@ struct Utf8Interval { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast,
 
 struct Utf8Artifact { __builtin_int_t line, bytesOffset, count; };
 
-enum { END_OF_TRANSMISSION = U'\u0004' }; /* A․|incorrectly/𝘬․a '\x4', '\x41', '\x42', … */
+enum { END_OF_TRANSMISSION = U'\u0004' }; /* ⬷ hex ∧ dec; Also A․|incorrectly/𝘬․a '\x4', '\x41', '\x42', … */
 
 #pragma mark - 🌱
 
@@ -367,20 +367,19 @@ typedef union {
 struct Octa { uint32_t l, h; };
 
 #ifdef __x86_64__
-typedef __int128_t __builtin_treeint_t;
-#include <xmmintrin.h>  // ≥ SSE 4.2
-#include <immintrin.h>  // `blend` from smmintrin.h and AVX/AVX2 from avxintrin.h and avx2intrin.h
+union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits; };
+#include <xmmintrin.h>  /* ≥ SSE 4.2 */
+#include <immintrin.h>  /* `blend` from smmintrin.h and AVX1∧2 from avxintrin.h and avx2intrin.h */
 #elif defined __mips__
-typedef int64_t __builtin_treeint_t; /* Note signed! */
-#endif
+union Treeint { struct { int32_t key; uint32_t val; } keyvalue; uint64_t bits; };
+#endif /* A․𝘬․a `Autumn` and `Treeℤ`. */
 
-void * Insert(void *opaque, __builtin_treeint_t data, void * ref, void * node); /* Consider __builtin_treeint_t as ref. See `Unittests` for details. */
-void Forall(void *opaque, void (^dfs)(void * ref, bool& stop,
-  __builtin_treeint_t mask, void *node));
-void * Lookup(const void *opaque, const __builtin_treeint_t target);
-short unsigned TreenodeBytes();
+void * Insert(void * opaque, Treeint data, void * (^alloc)(int bytes));
+void Forall(void * opaque, void (^dfs)(Treeint data, bool& stop));
+void * Lookup(const void * opaque, Treeint target);
+/* #define *ᶿ const * */
 
-/* Big endian=most significant first, little endian=least sigificant first. */
+/*  Big endian ⟷ 'most significant first', little endian ⟷ 'least sigificant first'. */
 
 typedef union {
 #ifdef __x86_64__
@@ -404,7 +403,7 @@ typedef union {
   struct { sexdeca mss; sexdeca lss; } big_endian;
 } ditriaconta;
 
-/**  Computes a cryptographic hash value similar to NIST FIPS PUB 180-4:
+/**  Computes a cryptographic hash value similar to NIST FIPS PUB 180-4: 
   "Secure Hash Standard (SHS)", August 2015. */
 
 int Hash(uint8_t *p, __builtin_int_t bytes, void (^ping)(bool &stop), void
@@ -440,9 +439,8 @@ enum class Endianness { Native, Network };
 
 enum class Encoding { utf8, unicode };
 
-int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content,
-  __builtin_int_t& beam, void (^several)(char32_t unicode, __builtin_int_t
-  byteOffset, bool& stop));
+int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content, __builtin_int_t& 
+  beam, void (^several)(char32_t unicode, __builtin_int_t byteOffset, bool& stop));
 
 int Utf8Sync(uint8_t **p); /* Backs at most 3 bytes to regain sync. */
 
@@ -452,8 +450,8 @@ typedef Unicodes Unicodes⁺ᵃ⁻ᵚ; /*  To use when a sequence of symbols,
   yet neither the length of the sequence nor its start element, are 
   read from inside an 'erase-first-before-you-program' area (such as 
   𝘦․𝘨 a NOR-flash). Further, keep in mind that a `const struct` must 
-  not - after initialization - programatically change framed variables. 
-  See also: --<🥽 Cordal.cpp>. */ typedef Unicodes Unicodes⁻ᵃ⁻ᵚ;
+  not - after initialization - programmatically change framed variables. 
+  See also: --<🥽 Cordal.cpp>. */ typedef Unicodes Unicodes⁻ᵃ⁻ᵚ; /* ⬷ A․𝘬․a 'Literal unicode'. */
 
 #pragma mark - ”𝑇ℎ𝑒 🧠🧠” 🔍😐
 
@@ -469,16 +467,16 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     ~Memoryregion(); /* Exercises `Release`. */
     
-    int incorporate(uint8_t * virtue, __builtin_int_t bytes, metaaddress loc);
+    /* */ int incorporate(void * virtue, __builtin_int_t bytes, metaaddress loc);
     
     int inject(__builtin_int_t index, const Memoryregion& src, void * (^alloc) 
       (__builtin_int_t bytes) = Alloc);
     
     int exclude(metaaddress start, __builtin_int_t bytes);
     
-    int takeover(Memoryregion& virtue, metaaddress loc);
+    int takeover(Memoryregion& virtue, metaaddress loc); /* */
     
-    int augment(__builtin_int_t ﹟frames); /* Exercises `Acquire`. */
+    int augment(__builtin_int_t bytes, void (^frame)(void * page)); /* Exercises `Acquire`. */
     
     SemanticPointer<void *> start() const;
     
@@ -522,9 +520,10 @@ struct Memoryregion { /* ⬷ Two levels! */
 void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
   __builtin_int_t (^cmp)(const void *key, const void *elt));
 
-template <typename T> T * Snapshot(Memoryview * view) { extern void * 💫(void *); 
-  return (T *)💫((void *)view); } /* A․𝘬․a `Materialize`, `Fullcircle`, 
-  `SymbolicPrint` and `𝚇𝚎𝚛𝚘𝚡`; E․𝘨 Unicodes uc = Snapshot(myView); */
+template <typename T> T * ᵟBranch(Memoryview * view, int (^dyncast)(Memoryview view, T & y)) { 
+  extern void * 💫(void *); return (T *)💫((void *)view); } /* A․𝘬․a `Materialize`, 
+  `Fullcircle`, `SymbolicPrint`, `Snapshot`, `Xerox` and `∂ranch`; E․𝘨 Unicodes uc = 
+  Snapshot(myView); Also primary/non-volatile distinction in `Snapshot` vs. `ᵟBranch`. */
 
 int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 /* Returns `int` indicating difference at branch, -1 if equal and `0` when string 
@@ -546,7 +545,7 @@ struct Bitfield { const char32_t * ident; uint32_t mask;
 struct AnnotatedRegister { const char32_t * header; int regcnt; const 
   Bitfield * regs; uint32_t init; const char32_t * footnote; };
 inline uint32_t ᵗᵍᵍˡendian(uint32_t x) { return __builtin_bswap32(x); }
-#ifdef __x86_64__
+#ifdef __x86_64__ /* ⇇ A․𝘬․a `toggleNetworkAndNative`. */
 inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
 #define POSIX_FIBER
 #elif defined __mips__
