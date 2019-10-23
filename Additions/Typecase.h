@@ -1,6 +1,6 @@
 /**  Acceptable and Enclavable Platform ✁ until ✂️
                                                                              
-    ■ = 1, □ = 0, ⬚ = Unknown                                                
+    ■ = 1, □ = 0, ⬚ = Unknown, Ɀ = Sampled/dereferenced, Ç=Reconciled        
     Logic and one-liners: ≅ ≠ ⋍ ~ ⟶ ⟷ ⊂⊄⊆⊈ ⊃ (Małuszyński inclusion) ∩∪ ∈∉
       ¬∧∨ ≤≥ ≰ ≱ ∞ ∀∃∄ ⊨ ∅ 𝟄 √ ∑∏ ∂∆ ∇𝛻 ∫∬∭ ℕℤℂℍℝ ℚ ¶ ⌈⌉ ⌊⌋
       𝘦․𝘨 𝐊 (ᵃ𝑛/ᵇ𝑛), where n∈[1,∞) = a₁/(b₁ + a₂/(b₂ + …)
@@ -25,9 +25,11 @@
     print "The brown ⬚ jumped over the lazy ⬚\n", ﹟s("fox"), ﹟s("dog")
       ﹟d(__builtin_int_t d)                     ﹟b(__builtin_uint_t b)
       ﹟S(int tetras, const char32_t * uc)       ﹟s(const char * utf8)
-      ﹟reᵍ(__builtin_int_t r)
+      ﹟reᵍ(__builtin_int_t r) ﹟λ(Argᴾ::Output scalar, void * context)
                                                                              
-    Also: U(__uint128_t),x(__builtin_uint_t),c(char),C(char32_t),I(__int128_t)
+   Also: U(__uint128_t),x(__builtin_uint_t),c(char),C(char32_t),I(__int128_t)
+                                                                             
+    E․𝘨: auto set💰 = ^(Argᴾ::Unicode set, void * context) { … };
                                                                              
     Big no-no: ≈ ≣ ≡ --<'', '' (Slanted dowsing.)
     Signals: ⎍ ⎎ ⊕ ⏚ ㊉㊀ ㎽ ㎮ ㎯
@@ -50,7 +52,7 @@
    
        Key    Description   ∃
      ├─────┼───────────────┼─┤           ⌏  ⌎   ⌜  ⌝  ⌖
-     ╎     ┊              ┆ ╎          ⌍  ⌌   ⌞  ⌟  ‖
+     ╎     ┊               ┆ ╎          ⌍  ⌌   ⌞  ⌟  ‖
      └─────┴───────────────┴─┘
    
           ┌def┐
