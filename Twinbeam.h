@@ -103,6 +103,7 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․𝘬․a 
 #define VERYLOGARITHMIC
 #define ANTIPOLARISATIVE
 #define DUALREFLECTIVE
+#define CEDILLEDISPOSITIVE
 #define CEDILLEINDUCTIVE
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
@@ -205,7 +206,7 @@ struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮�
 Argᴾ ﹟d(__builtin_int_t d); Argᴾ ﹟x(__builtin_uint_t x); Argᴾ ﹟b(__builtin_uint_t 
 b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(int tetras, char32_t * uc); Argᴾ ﹟c(
 char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
-Argᴾ ﹟reᵍs(__builtin_uint_t mask);
+Argᴾ ﹟reᵍs(__builtin_uint_t mask); Argᴾ ﹟λ(Argᴾ::Output scalar, void * context);
 extern "C" { int atexit(void(*func)(void)); void exit(int); } unsigned MaxFrames();
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *); int 
 Acquire(unsigned ﹟frames, void (^each)(void * frame)); int Release(void * frame);
@@ -281,7 +282,7 @@ FOCAL void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short
 #define SIGNBIT_INT64 0x8000000000000000
 MACRO int64_t abs64i(int64_t x) { return x & ~SIGNBIT_INT64; }
 MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
-/* template <typename T> T abs(T x) { return x < -0 ? -x : x; } yet (specialization, ±0.0 and optimization). */
+/* template <typename T> T abs(T x) { return x < -0 ? -x : x; } yet (specialization, ±0.0, ±0 and optimization). */
 #define /* PROVOCATIVE */ ASSEMBLERONLY __attribute__((naked)) /* A․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN, NEITHER_PROLOGUE_NOR_EPILOGUE. */
 /* #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error"))) */
 /* #define STRANGE_MAIN void _Noreturn main */
@@ -301,7 +302,7 @@ template <typename T> T arithmetic(T x₁, T x₂) { return (x₁ + x₂) / 2; }
 /* template <typename T> T harmonic(T x₁, T acc) { return 1/(1/x₁ + … + 1/xₒ₊𝜀); } 𝘚𝘦𝘦: 𝑃𝑎𝑑é (acute). 😐: 🐚. */
 template <typename T> T ˡᵊfᵗChange(T x₁, T x₂) { return (x₁ - x₂) / x₂; } /* ∈[0,1] */
 template <typename T> T ʳⁱℊʰᵗChange(T x₁, T x₂) { return (x₂ - x₁) / x₁; } /* ∉[0,1] */
-// Norm == Sequence<T>|AccumulativeSequence<T> S, AlgebraicCategory<T> C
+/* Norm == Sequence<T>|AccumulativeSequence<T> S, AlgebraicCategory<T> C */
 template <typename T> T diff(T x₁, T x₂) { return x₁ - x₂; }
 template <typename T> T dist(T x₁, T x₂, T (^N)(T x, T y)) { return N(x₁, x₂); }
 template <typename T> bool eqrel(T x₁, T x₂) { return !(x₁ < x₂ || x₂ < x₁); }
@@ -318,13 +319,15 @@ template <typename T> bool eqeql(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 🥇 NOT_EVERYTIME
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
 #define 🥈 WHEN_COMPILING /* Must be assigned to a `const` and no inline assembler. */
-#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎. */
+#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧. Scandinavian 'jurid'. */
+template <typename T> T * Critic(const T * x) { return const_cast<T *>(x); } /* A․𝘬․a "Away 𝙘𝙤𝙣𝙨𝙩 evil". */
+#define ᶿ﹡ const * /* #define *⥃ const char *, a․𝘬․𝘢 `*⥆` and `*⫩`. */
 
 #pragma mark Utf-8
 
 int UnicodeToUtf8(char32_t uc, void (^sometimes)(const uint8_t *p, int bytes));
 
-short Utf8Followers(uint8_t leadOr8Bit); /* See also modern `char8_t` and the later `uchar`. */
+short Utf8Followers(uint8_t leadOr8Bit); /*  See also modern `char8_t` and a later `uchar`. */
 
 char32_t Utf8ToUnicode(const uint8_t *p, __builtin_int_t bytes);
 
@@ -369,15 +372,14 @@ struct Octa { uint32_t l, h; };
 #ifdef __x86_64__
 union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits; };
 #include <xmmintrin.h>  /* ≥ SSE 4.2 */
-#include <immintrin.h>  /* `blend` from smmintrin.h and AVX1∧2 from avxintrin.h and avx2intrin.h */
+#include <immintrin.h>  /* The `blend` intrinsic in smmintrin.h and AVX/AVX2 from avxintrin.h and avx2intrin.h */
 #elif defined __mips__
 union Treeint { struct { int32_t key; uint32_t val; } keyvalue; uint64_t bits; };
 #endif /* A․𝘬․a `Autumn` and `Treeℤ`. */
 
 void * Insert(void * opaque, Treeint data, void * (^alloc)(int bytes));
-void Forall(void * opaque, void (^dfs)(Treeint data, bool& stop));
-void * Lookup(const void * opaque, Treeint target);
-/* #define *ᶿ const * */
+void Forall(void ᶿ﹡ opaque, void (^dfs)(Treeint data, bool& stop));
+void * Lookup(void ᶿ﹡ opaque, Treeint target);
 
 /*  Big endian ⟷ 'most significant first', little endian ⟷ 'least sigificant first'. */
 
@@ -428,7 +430,6 @@ typedef union {
    } binary32; /* A․𝘬․a `ieee754₂`. */
    struct { /* ⫝ */ } ieee754_2008₁₀; /* A․𝘬․a `decimal32`. */
    uint32_t bits;
-   int32_t sgned;
 } tetra;
 
 typedef uint32_t Tetra;
@@ -444,14 +445,14 @@ int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content, __builtin_int_t
 
 int Utf8Sync(uint8_t **p); /* Backs at most 3 bytes to regain sync. */
 
-struct Unicodes { __builtin_int_t tetras; char32_t * unicodes; };
+struct Unicodes { int tetras; char32_t * unicodes; };
 
 typedef Unicodes Unicodes⁺ᵃ⁻ᵚ; /*  To use when a sequence of symbols, 
   yet neither the length of the sequence nor its start element, are 
   read from inside an 'erase-first-before-you-program' area (such as 
   𝘦․𝘨 a NOR-flash). Further, keep in mind that a `const struct` must 
   not - after initialization - programmatically change framed variables. 
-  See also: --<🥽 Cordal.cpp>. */ typedef Unicodes Unicodes⁻ᵃ⁻ᵚ; /* ⬷ A․𝘬․a 'Literal unicode'. */
+  See also: --<🥽 Cordal.cpp>. */ typedef Unicodes Unicodes⁻ᵃ⁻ᵚ;
 
 #pragma mark - ”𝑇ℎ𝑒 🧠🧠” 🔍😐
 

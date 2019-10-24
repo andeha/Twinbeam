@@ -65,12 +65,11 @@ MACRO bool isnan(double x) { octa o; o.base₂ = x; return (o.binary64.mantissah
 MACRO bool isexactlyzero(double x) { octa o; o.base₂ = x; return o.bits == 
   IEEE754BASE2_64BIT_PZERO || o.bits == IEEE754BASE2_64BIT_NZERO; }
 
-MACRO double abs64d(double x) { return x < +0.0 ? -x : x; }
+MACRO double abs64d(double x) { return x < +0.0 ? -x : x; } /* …and for the mathematically inclined '-0.0'. */
 
 namespace NumberFormat { enum { CForm, Monetary, Interval }; }
 MACRO Argᴾ ﹟F(double f, int format=NumberFormat::CForm) { return Argᴾ { .value.f₁=f, 9 }; }
 MACRO Argᴾ ﹟F(float r, int format=NumberFormat::CForm) { return Argᴾ { .value.f₂=r, 8 }; }
-MACRO Argᴾ ﹟λ(Argᴾ::Output scalar, void * context) { return Argᴾ { .value.λ={ scalar, context }, 10 }; }
 
 #pragma mark - In-cases of an high-precision IEEE754
 
@@ -97,10 +96,10 @@ MACRO void Khinchin(double z, double (^A)(double k, double z), double (^B)(
 /* auto A𝜋 = ^(double k) { return (2*k-1)*(2*k-1); }, B𝜋 = ^(double k) { return 6.0; }; */
 /* To retrieve coefficients for continued fractions, see Hardy and Wright. */
 
-MACRO bool Similar(double x, double y, double 𝜀) { if (isinf(x) &&
+MACRO bool Similar(double x, double y, double eps) { if (isinf(x) &&
   isinf(y)) return true; if (isnan(x) && isnan(y)) return true; if (
   isexactlyzero(x) && isexactlyzero(y)) return true; double diff =
-  abs64d(x - y); return diff < 𝜀; }
+  abs64d(x - y); return diff < eps; }
 
 /**  Output integer possibly in compliance with Mediterranean laws. */
 
@@ -136,27 +135,27 @@ unagain:                                                                    \
 }(Buffer,³²B,⁸B,T,UCS) /* Implicits in block expression: none. */
 
 #define ⁺⁼Utf8ToUnicode(U8,UCS,T,MAX,TETRA)                                 \
-auto utf8ToUnicode = ^(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, char32_t unicodes[],      \
+auto utf8ToUnicode = ^(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, char32_t unicodes[],        \
   bool prune, __builtin_uint_t maxUCs, __builtin_uint_t * tetra) {          \
-   __builtin_int_t followers, incr; int ⁸b=0; __builtin_uint_t deref;       \
+   __builtin_int_t followers, incr; int ⁸b=0; __builtin_uint_t Ɀtetra;      \
   char32_t uc; *tetra /* 𝘈․𝘬․a ³²b */ = 0;                                  \
 again:                                                                      \
    const uint8_t * leadOr8Bit = (const uint8_t *)utf8 + ⁸b;                 \
    if (*leadOr8Bit == 0x0) { goto unagain; }                                \
-   /*⏘*/deref = *tetra; /* ⬷ Sampled tetra! (A․𝘬․a `⁑deref`, `𐂚` and `🥉tetra`) */  \
-   if (!prune && maxUCs < /*⏘*/deref) { return -1; }                        \
-   if (prune && maxUCs < /*⏘*/deref) { goto unagain; }                      \
+   Ɀtetra = *tetra; /* ⬷ Sampled tetra! (A․𝘬․a `⁑deref`, `𐂚` , `𝛶`, `⏘deref`, and `🥉tetra`) */  \
+   if (!prune && maxUCs < Ɀtetra) { return -1; }                            \
+   if (prune && maxUCs < Ɀtetra) { goto unagain; }                          \
    followers = Utf8Followers(*leadOr8Bit);                                  \
    if (followers < 0) { return -2; }                                        \
    incr = followers + 1;                                                    \
    uc = Utf8ToUnicode(leadOr8Bit, incr);                                    \
    if (uc == 0xFFFE || uc == 0xFFFF) { return -3; }                         \
-   unicodes[/*⏘*/deref] = uc; *tetra = /*⏘*/deref + 1; ⁸b += incr;          \
+   unicodes[Ɀtetra] = uc; *tetra = Ɀtetra + 1; ⁸b += incr;                  \
    goto again;                                                              \
 unagain:                                                                    \
-   unicodes[/*⏘*/deref] = END_OF_TRANSMISSION;                              \
+   unicodes[Ɀtetra] = END_OF_TRANSMISSION;                                  \
    return 0;                                                                \
-}(U8,UCS,T,MAX,TETRA) /* Implicits in block statement: None. */
+}(U8,UCS,T,MAX,TETRA) /* Implicits in block statement: none. */
 
 inline
 int
@@ -202,7 +201,6 @@ typedef struct UnicodeBlock {
 } UnicodeBlock; /* See also --<Preserves.h>{Utf8Interval} */
 
 #include <Additions/Knot₂.hpp>
-#include <Additions/Map.hpp>
 
 FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …       
                                                                              
@@ -223,11 +221,11 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
       
       Knot¹ᵈ<UnicodeBlock> rendered;
       
-      typedef __builtin_int_t Parsedᴵᵈˣ;
+      /* typedef __builtin_int_t Parsedᴵᵈˣ; */
       
-      Map<const char32_t *, Parsedᴵᵈˣ> namedruns₁;
+      void * namedruns₁; /* A.k.a Map<const char32_t *, Parsedᴵᵈˣ> */
       
-      Map<const char *, Parsedᴵᵈˣ> namedruns₂;
+      void * namedruns₂; /* A.k.a Map<const char *, Parsedᴵᵈˣ> */
       
       struct {
         
@@ -248,6 +246,8 @@ enum class Unit { thou, mm, in, pc, pt, px }; /* ...and to place your copy:
 int Width(const Ornaments& o, Unit unit, double &width, double &kerning) WESTERN;
 int Width(const Unicodes& uc, Unit unit, double &width, double &kerning) WESTERN; */
 /* 1 thou = 1/100'th inch; 1pc = 1/6 inch, 1/12pc = 1pt. */
+/* Wikipedia: '…one twentieth of a pound or twelve pence.' */
+/* 1 shilling ⟷ 1/12 pound ∧ 1 shilling ⟷ 12 pence. (DE-MORGAN's law) */
 
 #pragma mark - The Terminal
 
