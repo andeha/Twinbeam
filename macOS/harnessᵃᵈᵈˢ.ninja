@@ -46,12 +46,12 @@ build $objs/Additions.o: cc $adds/Additions.cpp
 build $objs/Automata.o: cc $adds/Automata.cpp
 build $objs/Guid.o: cc $adds/Guid.cpp
 build $objs/Ieee754₆₄bits.o: cc $adds/Ieee754₆₄bits.cpp
-build $objs/Ornaments.o: cc $adds/Ornaments.cpp
+build $objs/Ornaments.o: cc $adds/Ornament.cpp
 build $objs/Present.o: cc $adds/Present.cpp
 build $objs/Presentᵃᵘˣ.o: cc $adds/Presentᵃᵘˣ.cpp
-build $objs/Random.o: cc $adds/Random.cpp
+build $objs/Random.o: ccms $adds/Random.cpp
 build $objs/Streams.o: cc $adds/Streams.cpp
-build $objs/Utf8Terminal.o: cc $adds/Utf8Terminal.cpp
+build $objs/Utf8Terminal.o: cc $adds/Terminal.cpp
 
 build $objs/⌊𝑥⌋+nearest.o: cc $adds/math/⌊𝑥⌋+nearest.cpp
 build $objs/arctan.o: cc $adds/math/arctan.cpp
