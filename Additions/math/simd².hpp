@@ -65,3 +65,4 @@ union double⁴ {
 #endif
   short unsigned 🥈 count = 4;
 }; /* See also --<Additions>--<Esoterics.h>{`Q31ToFloat`}. */
+
