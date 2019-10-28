@@ -11,9 +11,9 @@ typedef v2f64 simd_tᵦ;
 
 #ifdef __mips__
 extern v2f64 __builtin_msa_cast_to_vector_double(double);
-/* ... */
+/* … */
 #elif defined __x86_64__
-/* ... */
+/* … */
 #include <Additions/math/𝚏⟷𝚒.hpp>
 
 inline

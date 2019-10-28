@@ -1,7 +1,7 @@
 /**  simdⁱ.hpp - Byte-sized and `short`/32-bit integer SIMD. */
 
 #ifdef __x86_64__
-typedef __m128i simd_tᵥ; typedef __m128i simd_tₐ; typedef __m128i simd_tᵢₐ; 
+typedef __m128i simd_tᵥ; typedef __m128i simd_tₐ; typedef __m128i simd_tᵢₐ;
 /* typedef __m128i simd_tₒ; */
 #elif defined __mips__
 typedef signed char v16i8 __attribute__((vector_size(16), aligned(16)));
