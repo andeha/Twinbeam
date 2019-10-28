@@ -1,4 +1,4 @@
-/**  simd².hpp - Two accurate 52-bit significands concurrently. */
+/**  simd².hpp - Two accurate and concurrent with 52-bit significands. */
 
 #ifdef __x86_64__
 typedef __m128d simd_tᵦ;
@@ -11,9 +11,11 @@ typedef v2f64 simd_tᵦ;
 
 #ifdef __mips__
 extern v2f64 __builtin_msa_cast_to_vector_double(double);
+#define simd_initᵦ __builtin_msa_cast_to_vector_double
 /* … */
 #elif defined __x86_64__
 /* … */
+
 #include <Additions/math/𝚏⟷𝚒.hpp>
 
 inline
@@ -25,7 +27,7 @@ intel_fexp2_pd(
   __m128i ipart = double_to_uint64(i);
   __m128i 🥇 𝟷𝟶𝟸𝟹 = _mm_set1_epi32(1023); /* { 1023, 1023 } 0b1111 1111 11 */
   __m128i ipart_plus_1023 = _mm_add_epi32(ipart, 𝟷𝟶𝟸𝟹);
-  __m128i shifted = _mm_slli_epi64(ipart_plus_1023, 52); /* Mantissa is 52 bits on IEEE754, 64 bits. */
+  __m128i shifted = _mm_slli_epi64(ipart_plus_1023, 52); /* Mantissa is 52 bits in 64 bits IEEE754. */
   return  _mm_castsi128_pd(shifted); /* Cast 128-bit integer to double² */
 }
 
@@ -63,5 +65,3 @@ union double⁴ {
 #endif
   short unsigned 🥈 count = 4;
 }; /* See also --<Additions>--<Esoterics.h>{`Q31ToFloat`}. */
-
-
