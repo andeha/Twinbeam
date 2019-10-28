@@ -36,7 +36,6 @@ MACRO double simd_scalarᵦ(simd_tᵦ 𝒙) {
 #ifdef __mips__
    extern double __builtin_msa_cast_to_scalar_double(v2f64);
    return __builtin_msa_cast_to_scalar_double(𝒙);
-   /* auto 𝒙₂ = Shim { .bits = __builtin_msa_copy_s_d(𝒙, 0) }; */
 #elif defined __x86_64__
    Shim 𝒙₂ { .bits = _mm_extract_epi64(𝒙, 0) }; /* VPEXTRQ / PEXTRQ */
    /* return 𝒙[0]; */
@@ -64,3 +63,5 @@ union double⁴ {
 #endif
   short unsigned 🥈 count = 4;
 }; /* See also --<Additions>--<Esoterics.h>{`Q31ToFloat`}. */
+
+
