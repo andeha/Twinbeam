@@ -18,7 +18,7 @@ struct History { /* Consideration */
       double singleReal;                                             /*  1 */
       struct { float starboard; float port; } doubleReal;            /*  2 */
       half pythagoreans[4];                                          /*  4 */
-      union { Q7 q7s[8]; Q15 q15s[4]; } relatives;                   /*  3 */
+      union { Q7 q7s[8]; Q15 q15s[4]; Q31 q31s[2]; } relatives;      /*  3 */
       __builtin_int_t machinesigned;                                 /* 13 */
 #ifdef __x86_64__
       /* 💊 ditriaconta avx2machine;                                     6
@@ -26,12 +26,11 @@ struct History { /* Consideration */
 #endif
       typedef bignum * Bignum; Bignum big;                           /* 11 */
       struct { Bignum right; Bignum left; } doublebig;               /* 12 */
-      /* struct { Mixedradix right; Mixedradix left } --<Arith⁺⁺.cpp>   17 */
-    }; /* Sometimes 64 bits, sometimes 2*32 bits. */
+      struct { Mixedradix right; Mixedradix left; } detailing;       /* 17 */
+    }; /* Sometimes 64 bits, sometimes 2*32 bits. See --<Arith⁺⁺.cpp>. */
     
-    typedef const char32_t * Key;
-    typedef const char * Reference;
-    Timeserie<Key, Pod, Reference> serie;
+    typedef const char * ⁸Bitref; typedef Unicodes Key;
+    Timeserie<Key, Pod, ⁸Bitref> serie;
     Kind kind;
     
     static History::Pod (^add)(History::Pod& left, History::Pod& right,
@@ -53,7 +52,7 @@ struct ComputationalIndex {
     
     explicit ComputationalIndex() noexcept;
     
-    typedef const char32_t * Serie;
+    typedef Unicodes Serie; /* A․𝘬․a `Name`. */
     
     typedef Fossilate Arguments[4];
     
