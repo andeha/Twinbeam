@@ -24,8 +24,9 @@ struct History { /* Consideration */
       /* 💊 ditriaconta avx2machine;                                     6
       ditriaconta avx512machine[2];                                      7 */
 #endif
-      typedef bignum * Bignum; Bignum big;                           /* 11 */
-      struct { Bignum right; Bignum left; } doublebig;               /* 12 */
+      Chronology::UQ32 relativretrospectat                           /*  9 */
+      /* typedef bignum * Bignum; Bignum big;                           11
+      struct { Bignum right; Bignum left; } doublebig;                  12 */
       struct { Mixedradix right; Mixedradix left; } detailing;       /* 17 */
     }; /* Sometimes 64 bits, sometimes 2*32 bits. See --<Arith⁺⁺.cpp>. */
     
