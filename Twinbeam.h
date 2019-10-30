@@ -50,7 +50,7 @@ int compare_bignum(bignum *a, bignum *b);
 void digit_shift(bignum *n, __builtin_int_t d); /* Multiply n by 10ᵈ. */
 void multiply_bignum(bignum *a, bignum *b, bignum *c);
 void divide_bignum(bignum *a, bignum *b, bignum *c);
-
+struct Mixedradix { double small; __builtin_int_t 𝟷𝟶ᵐ; };
 #define BITMASK(type) enum : type
 #ifdef  __mips__
 #define Mips __asm__ __volatile__ (/* ".set noat   \n" */ ".set noreorder  \n" ".set nomacro    \n"
@@ -130,7 +130,7 @@ extern "C" { int setjmp2(jmp_buf2 env); void longjmp2(jmp_buf2 env,
 #define END_TRY } }
 #define BLURT💡(x) ++x /* ⬷ todo: Add atomic enclosure. */
 extern "C" jmp_buf2 * /* volatile */ JmpBuf(); /* ⬷ A great symbol for a project break! */
-struct SharedOptional { bool populated; explicit SharedOptional() : populated(
+structᵢ SharedOptional { bool populated; explicit SharedOptional() : populated(
   false) { } explicit operator bool() const { return populated; } };
 #ifdef  __mips__
 typedef unsigned int size_t;
@@ -153,19 +153,17 @@ template <typename T> struct Opt<T&> : public SharedOptional { explicit Opt()
   operator*() const { return (T&)content; } static Opt no() { return Opt(); } };
 template <class... Ts> struct Tuple {}; template <class T, class... Ts>
   struct Tuple<T, Ts...> : Tuple<Ts...> { Tuple(T t, Ts... ts) : Tuple<Ts...>
-  (ts...), tail(t) {} T tail; };
-  template <__builtin_uint_t, class> struct elem_type_holder; template <class T,
-  class... Ts> struct elem_type_holder<0, Tuple<T, Ts...>> { typedef T type; };
-  template <__builtin_uint_t k, class T, class... Ts>
-  struct elem_type_holder<k, Tuple<T, Ts...>> { typedef typename
-  elem_type_holder <k - 1, Tuple<Ts...>>::type type; };
-  template <bool, typename T = void> struct std__enable_if { };
-  template <typename T> struct std__enable_if<true, T> { typedef T type; };
-  template <__builtin_uint_t k, class... Ts>
-  typename std__enable_if<k == 0, typename elem_type_holder<0, Tuple<Ts...>>::
-  type&>::type get(Tuple<Ts...>& t) { return t.tail; }
-  template <__builtin_uint_t k, class T, class... Ts> typename std__enable_if<k
-  != 0, typename elem_type_holder<k, Tuple<T, Ts...>>::type&>::type
+  (ts...), tail(t) {} T tail; }; template <__builtin_uint_t, class> struct 
+  elem_type_holder; template <class T, class... Ts> struct elem_type_holder<0, 
+  Tuple<T, Ts...>> { typedef T type; }; template <__builtin_uint_t k, class T, 
+  class... Ts> struct elem_type_holder<k, Tuple<T, Ts...>> { typedef typename
+  elem_type_holder <k - 1, Tuple<Ts...>>::type type; }; template <bool, 
+  typename T = void> struct std__enable_if { }; template <typename T> struct 
+  std__enable_if<true, T> { typedef T type; }; template <__builtin_uint_t k, 
+  class... Ts> typename std__enable_if<k == 0, typename elem_type_holder<0, 
+  Tuple<Ts...>>::type&>::type get(Tuple<Ts...>& t) { return t.tail; }
+  template <__builtin_uint_t k, class T, class... Ts> typename std__enable_if<
+  k != 0, typename elem_type_holder<k, Tuple<T, Ts...>>::type&>::type
   get(Tuple<T, Ts...>& t) { Tuple<Ts...> &base = t; return get<k-1>(base); }
 template <class ...T> Tuple<T...> Tie(T... t) { return Tuple<T...>(t...); }      /* ☜😐: 🔅 ⬷ 𝘋𝘰 𝑛𝑜𝑡 move sun. (146) */
 namespace std { /* The Standard Residual */ typedef ::size_t size_t;
@@ -218,7 +216,7 @@ FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memor
   ByteAlignedRef org = dst; __asm__ __volatile__ ("rep movsb" : "+D"(dst),
   "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* A․𝘬․a `memcopy`. */
 FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
-  ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uint_t bytes);
+  ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uint_t bytes); /* ⏱😐🏁 */
 #define MEASURE_START(prefix) int64_t prefix##Start = __rdtsc(); /* 𝚜𝚒𝚐𝚗𝚎𝚍 ⟵ Comparision */
 #define MEASURE_END(prefix)                                                  \
   int64_t prefix##End = __rdtsc();                                           \
@@ -293,7 +291,7 @@ MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
 #elif defined __mips__
 #define READONLY __attribute__ ((section(".rodata")))
 #endif
-#define IsOdd(x) ((x) & 0b1) /* For int32_t|int64_t. */
+#define IsOdd(x) ((x) & 0b1) /* For int32_t|int64_t. H: x & 0b010 ⟷̸ ◻️⃞. See also --<math>--<erf.cpp>{⁽₋1⁾ᵏ|alt}. */
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
 namespace Relative {
@@ -357,8 +355,8 @@ typedef union {
       unsigned mantissah : 20;
       unsigned exponent  : 11;
       unsigned sign      :  1;
-   } binary64; /* A․𝘬․a `ieee754b2₂`. */
-   /* struct { … } ieee754b2₁; A․𝘬․a `decimal64`. */
+   } binary64; /* A․𝘬․a `ieee754b₂`. */
+   /* struct { … } ieee754b₁₀; A․𝘬․a `decimal64`. */
    /* struct {
       unsigned absolute  : 31;
       unsigned sign      :  1;
@@ -391,7 +389,7 @@ typedef union {
   __uint128_t bits;
   struct { octa lso, mso; } little_endian;
   struct { octa mso, lso; } big_endian;
-  struct { octa l, h; } parts;
+  struct { Octa l, h; } parts;
 } sexdeca;
 
 typedef union {
@@ -445,7 +443,8 @@ int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content, __builtin_int_t
 
 int Utf8Sync(uint8_t **p); /* Backs at most 3 bytes to regain sync. */
 
-struct Unicodes { int tetras; char32_t * unicodes; };
+struct Unicodes { __builtin_int_t tetras; char32_t * unicodes; };
+/* See `ᵊ` in --<Additions.h> */
 
 typedef Unicodes Unicodes⁺ᵃ⁻ᵚ; /*  To use when a sequence of symbols, 
   yet neither the length of the sequence nor its start element, are 
