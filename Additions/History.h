@@ -1,12 +1,9 @@
-//
-//  History.h
-//  Additions
-//
+/*  History.h | Additions. */
 
 #ifndef __HISTORY_H
 #define __HISTORY_H
 
-#include <Additions/System.h>
+#include <Twinbeam.h>
 #include <Additions/Timeserie.hpp>
 
 struct History { /* Consideration */
@@ -29,6 +26,7 @@ struct History { /* Consideration */
 #endif
       typedef bignum * Bignum; Bignum big;                           /* 11 */
       struct { Bignum right; Bignum left; } doublebig;               /* 12 */
+      /* struct { Mixedradix right; Mixedradix left } --<Arith⁺⁺.cpp>   17 */
     }; /* Sometimes 64 bits, sometimes 2*32 bits. */
     
     typedef const char32_t * Key;
@@ -39,9 +37,9 @@ struct History { /* Consideration */
     static History::Pod (^add)(History::Pod& left, History::Pod& right,
       void *ctx); /* History::Kind */
     
-    int cloneAndPersist(const char *utf8path, void(^completion)());
+#pragma mark - Querying
+    
     void hypothesis(History::Pod probe, void (^evaluable)());
-    static Opt<History> reflect(const char * utf8path);
     
 #pragma mark Implicits
     
@@ -70,11 +68,14 @@ struct ComputationalIndex {
     
     void rollback();
     
-#pragma mark Preservation
-    
-    int cloneAndPersist(const char *utf8path, void(^completion)());
-    
-    static Opt<ComputationalIndex> reflect(const char * utf8path);
+#pragma mark - Refreshing the non-volatile memory
+  
+  FOCAL int
+    reconcile(
+      Opt<Unicodes> pathᵚ, 
+      void (^ping)(double⁺ʳ percent, bool& stop), 
+      void (^completion)(int bytes)
+    ); /* A․𝘬․a `preserve`. */
     
 #pragma mark Time and Space
     
@@ -92,13 +93,24 @@ void Present(Utf8Terminal &term, const History& history);
 void Present(Utf8Terminal &term, const History::Pod& pod,
   const History::Kind kind);
 
-union Twinpod {
-  simd_tᵦ doubleDouble;                                           /* 1 */
-  simd_t quadFloat;                                               /* 2 */
-  simd_tᵥ sixteenVideo;                                           /* 3 */
-  simd_tₐ eightAudio;                                             /* 4 */
-  simd_tᵢₐ fourThirtytwo;                                         /* 5 */
-  simd_tₒ twoSixtyfour;                                           /* 6 */
+union Twinpod {                                                              
+  simd_tᵦ doubleDouble;                                              /* 1 */
+  simd_t quadFloat;                                                  /* 2 */
+  simd_tᵥ sixteenVideo;                                              /* 3 */
+  simd_tₐ eightAudio;                                                /* 4 */
+  simd_tᵢₐ fourThirtytwo;                                            /* 5 */
+  simd_tₒ twoSixtyfour;                                              /* 6 */
 };
+
+#pragma mark - Preservation
+
+FOCAL
+Opt<ComputationalIndex>
+ᵟBranch(
+  Unicodes pathᵚ, 
+  int (^dyncast)(Memoryview view, ComputationalIndex & y), 
+  void (^ping)(double⁺ʳ percent, bool& stop), 
+  void (^completion)(int bytes)
+); /* A․𝘬․a `Reflect`, `Materialize`. */
 
 #endif
