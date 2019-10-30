@@ -11,7 +11,7 @@ struct History { /* Consideration */
     explicit History(Version& revision) noexcept;
     
     enum Kind { machineunsigned, singleReal, doubleReal, 𝟺𝚑𝚊𝚕𝚏s=4, 𝟾Q7=3,
-      𝟺Q15=5, machinesigned };
+      𝟺Q15=5, 𝟸Q31=8, 𝛥𝘵=9, /* ⟤⟥ */ machinesigned=23 };
     
     union Pod {
       __builtin_uint_t machineunsigned;                              /*  0 */
@@ -19,7 +19,7 @@ struct History { /* Consideration */
       struct { float starboard; float port; } doubleReal;            /*  2 */
       half pythagoreans[4];                                          /*  4 */
       union { Q7 q7s[8]; Q15 q15s[4]; Q31 q31s[2]; } relatives;      /*  3 */
-      __builtin_int_t machinesigned;                                 /* 13 */
+      __builtin_int_t machinesigned;                                 /* 23 */
 #ifdef __x86_64__
       /* 💊 ditriaconta avx2machine;                                     6
       ditriaconta avx512machine[2];                                      7 */
