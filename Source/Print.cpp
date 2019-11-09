@@ -2,13 +2,17 @@
 
 #include <Twinbeam.h>
 
-DISORDERABLE extern void CastᵈᵇˡToText(double value,
-  void (^digits)(bool neg, int e, const char *𝟶to𝟿s),
-  void (^zero)(), void (^inf)(), void (^nan)()) { zero(); }
+DISORDERABLE extern void CastᵈᵇˡToText(double value, void (^digits)(bool neg, 
+  int e, const char *𝟶to𝟿s), void (^zero)(), void (^inf)(), void (^nan)()) { 
+  zero(); }
 
-DISORDERABLE extern void reᵍsPrint(__builtin_uint_t mask) { }
+DISORDERABLE extern void Anfang(char32_t prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, uint8_t * image) { 
+  print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); } /* See --<🥢 𝙎𝙪𝙨𝙝𝙞 𝘾𝙝𝙚́𝙛.cpp> for details 
+  on PNG::IHDR. */
 
-#define ⁺⁼PrintArgAndPop /* DISORDERABLE */                                 \
+DISORDERABLE extern void reᵍsPrint(__builtin_uint_t mask) { print("∎"); }
+
+#define ⁺⁼PrintArgAndPop /* DISORDERABLE OVERLOADED */                      \
   const Argᴾ a = __builtin_va_arg(arg, Argᴾ);                               \
   switch (a.kind) {                                                         \
   case 1: out𝕫(a.value.d); break;                                           \
@@ -20,6 +24,10 @@ DISORDERABLE extern void reᵍsPrint(__builtin_uint_t mask) { }
   case 7: streamout_unicode(a.value.uc); break;                             \
   case 8: out𝕕(double(a.value.f₂)); break;                                  \
   case 9: out𝕕(a.value.f₁); break;                                          \
+  case 10: { Argᴾ::Unicode set = ^(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, \
+    void * context) { if (!anfang) { print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); }   \
+    else { Anfang(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, NULL); } }; a.value.λ.scalar(set,       \
+    a.value.λ.context); break; }                                            \
   case 11: out¹²⁸𝕟(a.value.U); break;                                       \
   case 12: out¹²⁸𝕫(a.value.I); break;                                       \
   case 13: reᵍsPrint(a.value.x); break;                                     \
@@ -30,12 +38,14 @@ Argᴾ ﹟d(__builtin_int_t d) { return Argᴾ { .value.d=d, 1 }; }
 Argᴾ ﹟x(__builtin_uint_t x) { return Argᴾ { .value.x=x, 2 }; }
 Argᴾ ﹟b(__builtin_uint_t b) { return Argᴾ { .value.b=b, 3 }; }
 Argᴾ ﹟s(const char * utf8) { return Argᴾ { .value.utf8=utf8, 4 }; }
-Argᴾ ﹟S(int tetras, const char32_t * uc) { return Argᴾ { .value.ucs={uc,tetras}, 5 }; }
+Argᴾ ﹟S(int tetras, char32_t * uc) { return Argᴾ { .value.ucs={uc,tetras}, 5 }; }
+Argᴾ ﹟S(int tetras, const char32_t * uc) { return Argᴾ { .value.ucs={(char32_t *)uc,tetras}, 5 }; }
 Argᴾ ﹟c(char c) { return Argᴾ { .value.c=c, 6 }; }
 Argᴾ ﹟C(char32_t C) { return Argᴾ { .value.uc=C, 7 }; }
 Argᴾ ﹟U(__uint128_t U) { return Argᴾ { .value.U=U, 11 }; }
 Argᴾ ﹟I(__int128_t I) { return Argᴾ { .value.I=I, 12 }; }
 Argᴾ ﹟reᵍs(__builtin_uint_t mask) { return Argᴾ { .value.x=mask, 13 }; } /* Print between 0 and 31 non-high-volatile registers. */
+Argᴾ ﹟λ(Argᴾ::Output scalar, void * context) { return Argᴾ { .value.λ={ scalar, context }, 10 }; }
 
 inexorable
 void
@@ -66,10 +76,10 @@ Base𝕟(
     else { k = 127; while (cycle[k] == 0 && k > 0) { k--; }
        for (; k >= 0; k--) { 𝟶to𝖥(cycle[k], out); }
     }
-}
+} /* Requires 128-bits-`fractions`, { `__umodti3`, `__udivti3` }, `__udivmodti4`. */
 
 inexorable void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short 
-  digitsOr0, void (^out)(char 𝟶to𝟿and₋)) { if (ℤ < 0) { out('-'); ℤ = -ℤ; }
+  digitsOr0, void (^out)(char 𝟶to𝟿and₋)) { if (ℤ < +0) { out('-'); ℤ = -ℤ; }
   Base𝕟((__builtin_uint_t)ℤ, base, digitsOr0, out); };
 
 FOCAL
@@ -80,8 +90,8 @@ print﹟(
   __builtin_va_list arg
 )
 {  __builtin_int_t i=0, incr; short followers; char32_t uc;
-    int 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 printedSymbolsExcept0=0; /* bool may𝘖𝘳DidEscape=false; */
-    auto out₂ = ^(const char * utf8s, uint16_t bytes) { out((uint8_t *)utf8s, bytes); printedSymbolsExcept0 += bytes; };
+    int 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 printedBytesExcept0=0; /* bool may𝘖𝘳DidEscape=false; */
+    auto out₂ = ^(const char * utf8s, uint16_t bytes) { out((uint8_t *)utf8s, bytes); printedBytesExcept0 += bytes; };
     auto out𝕫 = ^(__builtin_int_t x) { Base𝕫(x, 10, 0, ^(char s) { out₂(&s, 1);  }); };
     auto out𝕟 = ^(__builtin_uint_t x) { Base𝕟(x, 16,
 #ifdef __x86_64__
@@ -113,11 +123,11 @@ print﹟(
     auto streamout_unicode = ^(char32_t u) { UnicodeToUtf8(u, ^(const uint8_t *p, 
       int bytes) { out₂((const char *)p, bytes); }); };
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
-    auto streamout_unicodes = ^(int tetras, const char32_t 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 * unicodes) { __builtin_int_t 
+    auto streamout_unicodes = ^(int tetras, char32_t 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 * unicodes) { __builtin_int_t 
       beam=0; while (beam < tetras) { char32_t uc = *(unicodes + beam); streamout_unicode(uc); 
       ++beam; } }; /* { int, (bytes, symbols) } */
-    auto out¹²⁸𝕫 = ^(__int128_t I) { Base𝕫(I, 16, 0, ^(char 𝟶to𝟿) { out₂(&𝟶to𝟿, 1); }); };
-    auto out¹²⁸𝕟 = ^(__uint128_t U) { Base𝕟(U, 10, 0, ^(char 𝟶to𝟿and₋) { out₂(&𝟶to𝟿and₋, 1); }); };
+    auto out¹²⁸𝕫 = ^(__int128_t I) { Base𝕫(I, 10, 0, ^(char 𝟶to𝟿) { out₂(&𝟶to𝟿, 1); }); };
+    auto out¹²⁸𝕟 = ^(__uint128_t U) { Base𝕟(U, 16, 0, ^(char 𝟶to𝟿and₋) { out₂(&𝟶to𝟿and₋, 1); }); };
 again:
     auto leadOr8Bit = (uint8_t *)utf8format + i;
     if (*leadOr8Bit == 0x0) { goto unagain; }
@@ -130,7 +140,7 @@ again:
     else { ⁺⁼PrintArgAndPop }
     i += incr; goto again;
 unagain:
-    return printedSymbolsExcept0;
+    return printedBytesExcept0;
 }
 
 FOCAL

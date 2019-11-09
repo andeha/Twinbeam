@@ -1,19 +1,21 @@
-/*  llvmʳᵗ³.cpp - When blocks, dynamic memory and an UART are required. */
+/*  llvmʳᵗ³.cpp - With blocks dynamic memory and an UART are required. */
 
 #include <Twinbeam.h>
 
 void * __gxx_personality_v0;
 void * _NSConcreteStackBlock[32];
 void * _NSConcreteGlobalBlock[32];
-extern "C" void __cxa_pure_virtual() { print("Pure virtual function called\n"); while (1); }
-extern "C" int __cxa_atexit(void (* fn)(void *), void * arg, void * dso_handle) { return 0; }
 struct { __builtin_int_t board₁, palm₂; } cxaGuard;
 extern "C" int __cxa_guard_acquire() { return 🔒(cxaGuard); }
 extern "C" void __cxa_guard_release() { 🔓(cxaGuard); }
+extern "C" int __cxa_atexit(void (* fn)(void *), void * arg, void * dso_handle) { return 0; }
+extern "C" void __cxa_pure_virtual() { print("Pure virtual function called\n"); while (1); } /* `BLURT` unpossible since one error allowed. */
+#pragma clang diagnostic ignored "-Wunused-value"
+void * operator new(size_t size) { return Alloc(size); }
+void operator delete(void * p) throw() { Fallow(p); }
 auto Alloc = ^(__builtin_int_t bytes) { return malloc(bytes); };
 auto Fallow = ^(void * p) { free(p); };
-void * operator new(size_t size) { return Alloc(size); }
-void operator delete(void * p) { Fallow(p); }
+/* To access primitive, include 'extern void * (^Alloc)(__builtin_int_t);' inside your .cpp file. */
 extern "C" void * memcpy(void *dst, const void *src, size_t n)
 { return (void *)Copy8Memory((ByteAlignedRef)dst, (ByteAlignedRef)src, (__builtin_int_t)n); }
 extern "C" void * memset(void *b, int c, size_t len)
@@ -62,28 +64,29 @@ extern "C" void _Block_object_assign(void * dst, const void * obj, const int fla
 {}
 
 extern "C" void _Block_object_dispose(const void * obj, const int flags)
-{
+{ /* May utilize `Acquire` and `Release`. */
 #ifdef XXX
     if (flags & BLOCK_FIELD_IS_BYREF)  {
-       /* Get rid of the fluctuant data structure held in a Block. */
+       /* Get rid of the fluctuant data structure held in a block. */
        _Block_byref_release(object);
     }
     else if ((flags & (BLOCK_FIELD_IS_BLOCK|BLOCK_BYREF_CALLER)) == BLOCK_FIELD_IS_BLOCK) {
-       /* Get rid of a referenced Block held by this Block. (Ignore fluctuant 
-         Block variables, compiler doesn't need to call us.) */
+       /* Get rid of a referenced block held by this block. (Ignore fluctuant 
+         block variables, compiler does not need to call us.) */
        _Block_destroy(object);
     }
     else if ((flags & (BLOCK_FIELD_IS_WEAK|BLOCK_FIELD_IS_BLOCK|BLOCK_BYREF_CALLER)) == BLOCK_FIELD_IS_OBJECT) {
-       /* Get rid of a referenced object held by this Block. (Ignore fluctuant object 
-        variables, compiler doesn't need to call us.) */
+       /* Get rid of a referenced object held by this block. (Ignore fluctuant object 
+        variables, compiler does not need to call us.) */
        _Block_release_object(object);
     }
 #endif
 }
+
+#ifdef __mips__
 extern int fractions(__uint128_t num, __uint128_t denom, __uint128_t &ℕ, __uint128_t &modula);
 extern "C" __uint128_t __udivmodti4(__uint128_t a, __uint128_t b, __uint128_t * rem) {
   __uint128_t ℕ; int y = fractions(a, b, ℕ, (__uint128_t&)rem); return ℕ; } /* Returns 'a/b' and 'a mod b'. */
 extern "C" __uint128_t __umodti3(__uint128_t a, __uint128_t b) { __uint128_t r; __udivmodti4(a, b, &r); return r; }
 extern "C" __uint128_t __udivti3(__uint128_t a, __uint128_t b) { __uint128_t r, d; d = __udivmodti4(a, b, &r); return d; }
-
-
+#endif
