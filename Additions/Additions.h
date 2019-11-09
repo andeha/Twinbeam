@@ -105,14 +105,15 @@ MACRO bool Similar(double x, double y, double eps) { if (isinf(x) &&
 
 int Roman(__builtin_int_t n, void (^out)(char numeral));
 
-#pragma mark Conversions for --<Additions>--<Filesystem.hpp>
+#pragma mark Conversions from --<Additions>--<Filesystem.hpp>
 
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
 __builtin_uint_t Utf8BytesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t 
   maxᵘᵗfbytes); /* Returns `maxᵘᵗfbytes` in-case NULL is not earlier found. */
 __builtin_uint_t Utf8BytesIncludingANull(__builtin_int_t ³²bytes, char32_t * 
   𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, bool &traversedUndefinedCodepoint);
-int UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, int maxtetras);
+__builtin_int_t UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, 
+  __builtin_int_t maxtetras𝘖𝘳₋𝟷);
 __builtin_uint_t UnicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t 
   maxᵘᵗfbytes); /* ...also returns `maxᵘᵗfbytes` when NULL can not be found. */
 
@@ -187,8 +188,8 @@ UnicodeToUtf8(
     return 0;
 }
 
-MACRO Unicodes ᵊ(const char32_t * ucs) { int c = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(
-  (char32_t *)ucs, ~0>>1); return Unicodes { c, ucs }; }
+MACRO Unicodes ᵊ(const char32_t * ucs) { char32_t * uc = Critic(ucs); 
+  int c = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(uc, ~0>>1); return Unicodes { c, uc }; }
 
 #pragma mark Fine print for well-versed readers:
 
@@ -223,9 +224,9 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
       
       /* typedef __builtin_int_t Parsedᴵᵈˣ; */
       
-      void * namedruns₁; /* A.k.a Map<const char32_t *, Parsedᴵᵈˣ> */
+      void * namedruns₁; /* A․𝘬․a Map<const char32_t *, Parsedᴵᵈˣ>. */
       
-      void * namedruns₂; /* A.k.a Map<const char *, Parsedᴵᵈˣ> */
+      void * namedruns₂; /* A․𝘬․a Map<const char *, Parsedᴵᵈˣ>. */
       
       struct {
         

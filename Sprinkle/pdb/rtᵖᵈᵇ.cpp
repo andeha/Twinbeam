@@ -139,15 +139,16 @@ again:
     goto again;
 } /* Note that this function is not equivalent to `strlen`. */
 
-__builtin_uint_t
-UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(
-  const char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodesOrEOT,
-  __builtin_int_t maxtetras
+__builtin_int_t
+UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(
+  char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodesOrEOT,
+  __builtin_int_t maxtetras𝘖𝘳₋𝟷
 )
-{  __builtin_int_t i = 0;
+{  int i = 0;
 again:
+    if (*(nativeEndianUnicodesOrEOT + i) == END_OF_TRANSMISSION) { return i; }
     if (*(nativeEndianUnicodesOrEOT + i) == 0x0000) { return i; }
-    i++; if (i >= maxtetras) { return maxtetras; }
+    i++; if (maxtetras𝘖𝘳₋𝟷 >= 0 && i >= maxtetras𝘖𝘳₋𝟷) { return maxtetras𝘖𝘳₋𝟷; }
     goto again;
 } /* Formerly named `UnicodesUntilExplicit𝙴𝙾𝚃` when comparing against `END_OF_TRANSMISSION`. */
 

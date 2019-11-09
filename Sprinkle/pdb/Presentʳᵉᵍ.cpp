@@ -1,4 +1,4 @@
-/*  Presentʳᵉᵍ.cpp */
+/*  𝙋resentʳᵉᵍ.cpp | Similar to ᵃᵘˣ but erroneous. */
 
 #include <Twinbeam.h>
 #include <Additions/Additions.h>
@@ -7,7 +7,7 @@ const char *bright="\x1B[1m", *dim="\x1B[2m", *fgBlue="\x1B[34m",
   *fgRed="\x1B[31m", *reset="\x1B[0m", *reverse="\x1B[7m";
 
 #include <stdio.h>
-  
+
 auto emitUnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶 = ^(const char32_t * unicodes) {
   int i=0;
 again:
@@ -33,7 +33,7 @@ Present(
   __builtin_int_t maxwidth
 )
 {
-    unsigned spaces = maxwidth - UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(field.ident, BUILTIN_INT_MAX);
+    unsigned spaces = maxwidth - UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳((char32_t * _Nonnull)Critic(field.ident), BUILTIN_INT_MAX);
     while (spaces--) { fprintf(stderr, " "); }
     
     emitUnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(field.ident);
@@ -42,7 +42,7 @@ Present(
     __block bool masking = false; __block unsigned pos = 31;
     Base𝕟((__builtin_uint_t)(field.mask), 2, 32, ^(char 𝟶to𝟿) {
         
-        if (𝟷𝟼bits && pos > 15) { fprintf(stderr, "⌗"); }
+        if (𝟷𝟼bits && pos > 15) { fprintf(stderr, "﹟"); }
         
         if (!𝟷𝟼bits && 𝟶to𝟿 == '1' && !masking) { masking = true; }
         
@@ -73,7 +73,7 @@ Present(
          uint32_t init) { int maxwidth=0;
        for (int i = 0; i < count; i++) {
           const Bitfield * reg = regs + i; maxwidth = max(maxwidth, 
-           (int)UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(reg->ident, BUILTIN_INT_MAX));
+           (int)UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳((char32_t * _Nonnull)Critic(reg->ident), BUILTIN_INT_MAX));
        }
        for (int i = 0; i < count; i++) {
           Present(term, *(regs + i), value, init, 𝟷𝟼bits, maxwidth);
