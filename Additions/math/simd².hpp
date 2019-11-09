@@ -1,6 +1,10 @@
 /**  simd².hpp - Two accurate and concurrent with 52-bit significands. */
 
-#ifdef __x86_64__
+#ifdef NON₋SIMD
+typedef __uint128_t simd_tᵦ;
+union 𝛽₋simd { double doubles[2]; simd_tᵦ simd; };
+#include <Additions/math/simd𝟶.hpp>
+#elif defined __x86_64__
 typedef __m128d simd_tᵦ;
 #elif defined __mips__
 typedef unsigned char v16u8 __attribute__((vector_size(16), aligned(16)));
@@ -9,11 +13,12 @@ typedef long long v2i64 __attribute__((vector_size(16), aligned(16)));
 typedef v2f64 simd_tᵦ;
 #endif
 
-#ifdef __mips__
+#if defined __mips__ && !defined(NON₋SIMD)
 extern v2f64 __builtin_msa_cast_to_vector_double(double);
 #define simd_initᵦ __builtin_msa_cast_to_vector_double
 /* … */
-#elif defined __x86_64__
+#elif defined __x86_64__ && !defined(NON₋SIMD)
+#define simd_initᵦ _mm_set1_pd
 /* … */
 
 #include <Additions/math/𝚏⟷𝚒.hpp>
