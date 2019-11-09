@@ -50,7 +50,7 @@ int compare_bignum(bignum *a, bignum *b);
 void digit_shift(bignum *n, __builtin_int_t d); /* Multiply n by 10ᵈ. */
 void multiply_bignum(bignum *a, bignum *b, bignum *c);
 void divide_bignum(bignum *a, bignum *b, bignum *c);
-struct Mixedradix { double small; __builtin_int_t 𝟷𝟶ᵐ; };
+
 #define BITMASK(type) enum : type
 #ifdef  __mips__
 #define Mips __asm__ __volatile__ (/* ".set noat   \n" */ ".set noreorder  \n" ".set nomacro    \n"
@@ -105,6 +105,7 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․𝘬․a 
 #define DUALREFLECTIVE
 #define CEDILLEDISPOSITIVE
 #define CEDILLEINDUCTIVE
+#define EVENTUALMACHINAL
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -523,7 +524,7 @@ void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
 template <typename T> T * ᵟBranch(Memoryview * view, int (^dyncast)(Memoryview view, T & y)) { 
   extern void * 💫(void *); return (T *)💫((void *)view); } /* A․𝘬․a `Materialize`, 
   `Fullcircle`, `SymbolicPrint`, `Snapshot`, `Xerox` and `∂ranch`; E․𝘨 Unicodes uc = 
-  Snapshot(myView); Also primary/non-volatile distinction in `Snapshot` vs. `ᵟBranch`. */
+  Snapshot(myView); Also --<History.h>. */
 
 int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 /* Returns `int` indicating difference at branch, -1 if equal and `0` when string 
@@ -731,11 +732,11 @@ Chronology& SystemCalendricChronology(); /* Irreversible, conclusive mass; Consi
 
 /* See --<Additions>--<Framewrk.h> for details on `Trap` and `Indicate`. */
 
-/**  Correlative-relative: xʳ∈[-1/2₋𝜀, +1/2₊𝜀]. */
+/**  Correlative-relative: xʳ∈[-1/2₋𝜀, +1/2₊𝜀] and xʳ∈[-π₊𝜀, +π₋𝜀]. */
 
 typedef float floatʳ; typedef double doubleʳ;
 
-/**  Subtractive-relative: x⁺ʳ∈[0₋𝜀, 1₊𝜀). */
+/**  Subtractive-relative: x⁺ʳ∈[0₋𝜀, 1₊𝜀) and x⁺ʳ∈[0₊𝜀, π₋𝜀). */
 
 typedef float float⁺ʳ; typedef double double⁺ʳ;
 
