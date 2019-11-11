@@ -1,0 +1,2 @@
+extern AnnotatedRegister AR_Mips_Random;
+extern AnnotatedRegister AR_Microchip_CFGCON2;
