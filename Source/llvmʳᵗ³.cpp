@@ -9,7 +9,7 @@ struct { __builtin_int_t board₁, palm₂; } cxaGuard;
 extern "C" int __cxa_guard_acquire() { return 🔒(cxaGuard); }
 extern "C" void __cxa_guard_release() { 🔓(cxaGuard); }
 extern "C" int __cxa_atexit(void (* fn)(void *), void * arg, void * dso_handle) { return 0; }
-extern "C" void __cxa_pure_virtual() { print("Pure virtual function called\n"); while (1); } /* `BLURT` unpossible since one error allowed. */
+extern "C" void __cxa_pure_virtual() { /* print("Pure virtual function called\n"); */ while (1); } /* `BLURT` unpossible since one error allowed. */
 #pragma clang diagnostic ignored "-Wunused-value"
 void * operator new(size_t size) { return Alloc(size); }
 void operator delete(void * p) throw() { Fallow(p); }

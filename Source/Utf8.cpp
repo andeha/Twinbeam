@@ -44,34 +44,6 @@ Utf8ToUnicode(
 
 FOCAL
 int
-TokenizeUtf8OrUnicode(
-  Encoding encoding,
-  Memoryview content,
-  __builtin_int_t& beam,
-  void (^/*several-*/character)(char32_t unicode, __builtin_int_t byteOffset, bool& stop)
-)
-{
-    __builtin_int_t bytes = content.byteCount, i = beam;
-    SemanticPointer<void *> base = content.region->start();
-    while (i < bytes) {
-        SemanticPointer<void *> p = content.region->relative(i + content.bytesOffset, base);
-        __builtin_int_t charBytes = 4; bool stop = false;
-        if (encoding == Encoding::utf8) {
-            uint8_t * c = (uint8_t *)p.pointer;
-            charBytes = Utf8Followers(*c) + 1;
-            if (charBytes == -1) return -1; /* Possibly non-utf8 byte. */
-            char32_t unicode = Utf8ToUnicode(c, charBytes);
-            if (unicode == 0xFFFE || unicode == 0xFFFF) { return -2; }
-            character(unicode, i, stop);
-        } else { character(*(char32_t *)(p.pointer), i, stop); }
-        i += charBytes; beam = i;
-        if (stop) break;
-    }
-    return 0;
-}
-
-FOCAL
-int
 Utf8Sync(
   uint8_t **p
 ) /* Backs at most 3 bytes to regain sync. */

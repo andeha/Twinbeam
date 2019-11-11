@@ -15,14 +15,14 @@ include laptop.ninja
 
 rule link
     command = xcrun ld -macosx_version_min 10.14.0 -lSystem -lc++ -o $out   $
-      $libtwinbeam ../Thirdparty/libfreetype_macOS.a $in
+      $libtwinbeam $in
 
 build AdditionsUnits: link $objs/harness.o $objs/x87math.o $objs/llvmʳᵗ³.o  $
   $objs/Additions.o $objs/Automata.o $objs/Ieee754₆₄bits.o $objs/Random.o   $
   $objs/Guid.o $objs/Streams.o $objs/Present.o $objs/Utf8Terminal.o         $
-  $objs/Ornaments.o $objs/Roman.o $objs/Presentᵃᵘˣ.o                         $
+  $objs/Ornaments.o $objs/Roman.o $objs/Presentᵃᵘˣ.o                        $
                                                                             $
-  $objs/⌊𝑥⌋+nearest.o $objs/arctan.o $objs/atan₂.o $objs/cherry.o            $
+  $objs/⌊𝑥⌋+nearest.o $objs/arctan.o $objs/atan₂.o $objs/cherry.o           $
   $objs/ℯ🔭².o $objs/logₑ.o $objs/mod.o $objs/sincos.o $objs/tan.o          $
   $objs/tanh.o                                                              $
                                                                             $

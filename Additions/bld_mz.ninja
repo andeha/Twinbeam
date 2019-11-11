@@ -19,10 +19,10 @@ rule lib
 build $libroot: lib $objsdir/Additions.o $objsdir/Ieee754₆₄bits.o           $
   $objsdir/Random.o $objsdir/Guid.o $objsdir/Utf8Terminal.o                 $
   $objsdir/Automata.o $objsdir/Ornaments.o $objsdir/Streams.o               $
-  $objsdir/⌊𝑥⌋+nearest.o $objsdir/arctan.o $objsdir/atan₂.o                  $
-  $objsdir/cherry.o $objsdir/ℯ🔭².o $objsdir/logₑ.o $objsdir/mod.o          $
-  $objsdir/sincos.o $objsdir/tan.o $objsdir/tanh.o $objsdir/Presentᵃᵘˣ.o     $
-  $objsdir/Present.o
+  $objsdir/⌊𝑥⌋+nearest.o $objsdir/arctan.o $objsdir/atan₂.o                 $
+  $objsdir/cherry.o $objsdir/ℯ🔭².o $objsdir/Erf.o $objsdir/logₑ.o          $
+  $objsdir/log𝛤.o $objsdir/mod.o $objsdir/sincos.o $objsdir/tan.o           $
+  $objsdir/tanh.o $objsdir/Presentᵃᵘˣ.o $objsdir/Present.o
  
 build $objsdir/Additions.o: cc Additions.cpp
 build $objsdir/Ieee754₆₄bits.o: cc Ieee754₆₄bits.cpp
@@ -30,14 +30,16 @@ build $objsdir/Random.o: cc Random.cpp
 build $objsdir/Guid.o: cc Guid.cpp
 build $objsdir/Utf8Terminal.o: cc Terminal.cpp
 build $objsdir/Automata.o: cc Automata.cpp
-build $objsdir/Ornaments.o: cc Ornaments.cpp
+build $objsdir/Ornaments.o: cc Ornament.cpp
 build $objsdir/Streams.o: cc Streams.cpp
 build $objsdir/⌊𝑥⌋+nearest.o: cc math/⌊𝑥⌋+nearest.cpp
 build $objsdir/arctan.o: cc math/arctan.cpp
 build $objsdir/atan₂.o: cc math/atan₂.cpp
 build $objsdir/cherry.o: cc math/cherry.cpp
 build $objsdir/ℯ🔭².o: cc math/ℯ🔭².cpp
+build $objsdir/Erf.o: cc math/erf.cpp
 build $objsdir/logₑ.o: cc math/logₑ.cpp
+build $objsdir/log𝛤.o: cc math/log𝛤.cpp
 build $objsdir/mod.o: cc math/mod.cpp
 build $objsdir/sincos.o: cc math/sincos.cpp
 build $objsdir/tan.o: cc math/tan.cpp

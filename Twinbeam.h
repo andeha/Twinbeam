@@ -330,18 +330,10 @@ short Utf8Followers(uint8_t leadOr8Bit); /*  See also modern `char8_t` and a lat
 
 char32_t Utf8ToUnicode(const uint8_t *p, __builtin_int_t bytes);
 
-inline char32_t Superscript(short 𝟶to𝟿) { const uint8_t s[] = "⁰";
-  char32_t u = Utf8ToUnicode(s, 3); return u + 𝟶to𝟿; } /* ⁰¹⋯⁹ */
-
-inline char32_t Subscript(short 𝟶to𝟿) { const uint8_t s[] = "₀";
-  char32_t u = Utf8ToUnicode(s, 3); return u + 𝟶to𝟿; } /* ₀₁…₉; ⬷ For the computational chemistry inclined. */
-
 struct Utf8Interval { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast, 
   bytesOffsetInclLast; };
 
 struct Utf8Artifact { __builtin_int_t line, bytesOffset, count; };
-
-enum { END_OF_TRANSMISSION = U'\u0004' }; /* ⬷ hex ∧ dec; Also A․|incorrectly/𝘬․a '\x4', '\x41', '\x42', … */
 
 #pragma mark - 🌱
 
@@ -358,7 +350,7 @@ typedef union {
       unsigned sign      :  1;
    } binary64; /* A․𝘬․a `ieee754b₂`. */
    /* struct { … } ieee754b₁₀; A․𝘬․a `decimal64`. */
-   /* struct {
+   /* struct { 
       unsigned absolute  : 31;
       unsigned sign      :  1;
    } sgned; */
@@ -437,12 +429,13 @@ enum class Endianness { Native, Network };
 
 #pragma mark - 📖😐 ”𝑈𝑛𝑖𝑐𝑜𝑑𝑒”
 
-enum class Encoding { utf8, unicode };
-
-int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content, __builtin_int_t& 
-  beam, void (^several)(char32_t unicode, __builtin_int_t byteOffset, bool& stop));
-
 int Utf8Sync(uint8_t **p); /* Backs at most 3 bytes to regain sync. */
+
+inline char32_t Superscript(short 𝟶to𝟿) { const uint8_t s[] = "⁰";
+  char32_t u = Utf8ToUnicode(s, 3); return u + 𝟶to𝟿; } /* ⁰¹⋯⁹ */
+
+inline char32_t Subscript(short 𝟶to𝟿) { const uint8_t s[] = "₀";
+  char32_t u = Utf8ToUnicode(s, 3); return u + 𝟶to𝟿; } /* ₀₁…₉; ⬷ For the computational chemistry inclined. */
 
 struct Unicodes { __builtin_int_t tetras; char32_t * unicodes; };
 /* See `ᵊ` in --<Additions.h> */
@@ -453,6 +446,8 @@ typedef Unicodes Unicodes⁺ᵃ⁻ᵚ; /*  To use when a sequence of symbols,
   𝘦․𝘨 a NOR-flash). Further, keep in mind that a `const struct` must 
   not - after initialization - programmatically change framed variables. 
   See also: --<🥽 Cordal.cpp>. */ typedef Unicodes Unicodes⁻ᵃ⁻ᵚ;
+
+enum { END_OF_TRANSMISSION = U'\u0004' }; /* ⬷ hex ∧ dec; Also A․|incorrectly/𝘬․a '\x4', '\x41', '\x42', … */
 
 #pragma mark - ”𝑇ℎ𝑒 🧠🧠” 🔍😐
 
@@ -521,10 +516,12 @@ struct Memoryregion { /* ⬷ Two levels! */
 void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
   __builtin_int_t (^cmp)(const void *key, const void *elt));
 
-template <typename T> T * ᵟBranch(Memoryview * view, int (^dyncast)(Memoryview view, T & y)) { 
-  extern void * 💫(void *); return (T *)💫((void *)view); } /* A․𝘬․a `Materialize`, 
+template <typename T> T * ᵟBranch(Memoryview * stem, void * (^alloc)(int bytes), int 
+  (^dyncast)(Memoryview shoot)) { struct X { Memoryview * stem; void * (^alloc)(
+  int bytes); int (^dyncast)(Memoryview shoot); } x = { stem, alloc, dyncast }; 
+  extern void * 💫(void *); return (T *)💫((void *)&x); } /* A․𝘬․a `Materialize`, 
   `Fullcircle`, `SymbolicPrint`, `Snapshot`, `Xerox` and `∂ranch`; E․𝘨 Unicodes uc = 
-  Snapshot(myView); Also --<History.h>. */
+  Snapshot(myView); Also --<History.h>. Yet not hierarchial but useful when deserializing. */
 
 int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 /* Returns `int` indicating difference at branch, -1 if equal and `0` when string 
@@ -698,13 +695,6 @@ InstantToText(
   void (^out)(char digitHyphenColonPeriodOrSpace)
 );
 
-Opt<Chronology::Instant>
-TS( /* E.𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232. */
-  Encoding encoding,
-  Chronology chronology,
-  Memoryview datetime
-) NEVERBLURTS;
-
  /*
   
   Mars got five days a week and five seasons per year:
@@ -728,7 +718,7 @@ Chronology& ComputationalChronology(); /* 𝖤․𝘨 for chronometers. A․𝘬
 /**  The chronology of the users' choice. A․𝘬․a `UTC` (therefore an exact multiple of 
   SI seconds, with leap seconds as well as summertime). */
 
-Chronology& SystemCalendricChronology(); /* Irreversible, conclusive mass; Consider 𝑒𝑎𝑠𝑒-𝑖𝑛․ */
+Chronology& SystemCalendricChronology();
 
 /* See --<Additions>--<Framewrk.h> for details on `Trap` and `Indicate`. */
 

@@ -389,7 +389,7 @@ Tokenize(
   Inputcontrol (^token)(char32_t * unicodes, __builtin_int_t count)
 ); /* `Tokenize` - `ReadUnicode` = Opt<𝑓𝑢𝑡𝑢𝑟𝑒 𝑡𝑒𝑛𝑠𝑒> */
 
-#pragma mark F̲irst i̲n f̲irst o̲ut: Easy-bounded `Vector` …ancient: `VM-realloc`
+#pragma mark - F̲irst i̲n f̲irst o̲ut: Easy-bounded `Vector` …ancient: `VM-realloc`
 
 template <typename E>
 struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
@@ -449,7 +449,7 @@ Retrospect(
 /* See also --<System.h>{Actual} where two queues and interpolation 
   results in a `simd_tᵦ`. */
 
-#pragma mark Recollection and Associativity
+#pragma mark - Recollection and Associativity
 
 struct Bitsetˢᵘᵖ { /* A․𝘬․a `Capped-ET-Bitset`. */
   
@@ -466,7 +466,7 @@ struct Bitsetˢᵘᵖ { /* A․𝘬․a `Capped-ET-Bitset`. */
   
 }; /* For --<🥽 Memclone.cpp> ∧ --<🥽 Bookshelf.cpp>. */
 
-#pragma mark Volatile memory copying (asynchronous)
+#pragma mark - Volatile memory copying (asynchronous)
 
 int
 OptimisticAsync8Copy(
@@ -478,17 +478,29 @@ OptimisticAsync8Copy(
   void (^error)(), void (^complete)()
 ); /* 𝘈․𝘬․a `Copy8Async` and `BasicTransfer`. */
 
-#pragma mark Dispatch, Priorities and Interrupts
+#pragma mark - Dispatch, Priorities and Interrupts
 
 typedef void (^AsyncJob)(); /* A․𝘬․a 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀 and `CHandler`. */
 
-#pragma mark Language Translation
+#pragma mark - Language Translation --<Automata.cpp>
 
 enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
 
 /* int Parse(const char *utf8, void (^untangle)(char32_t unicode, 
   const Vector<int>& ss, Map<char32_t *, __builtin_uint_t>& stab,
   __builtin_int_t byteoffset, bool edge₁, bool& stop)); */
+
+enum class Encoding { utf8, unicode };
+
+int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content, __builtin_int_t& 
+  beam, void (^several)(char32_t unicode, __builtin_int_t byteOffset, bool& stop));
+
+Opt<Chronology::Instant>
+TS( /* E.𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232. */
+  Encoding encoding,
+  Chronology chronology,
+  Memoryview datetime
+) NEVERBLURTS;
 
 #pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
 

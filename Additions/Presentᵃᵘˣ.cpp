@@ -25,8 +25,8 @@ mfprint(
     /* FILE 🥇 * restrict stream = original ? stderr : stdout;
       y = vfprintf(stream, utf8format, __arg); */
     int 🥇 descript = original ? 1 /* stdout */ : 2 /* stderr */;
-    auto Putₒ₂ = ^(uint8_t * utf8s, uint16_t bytes) { write(descript, (const void *)utf8s, bytes); };
-    auto out = ^(uint8_t * utf8s, uint16_t bytes) { Putₒ₂(utf8s, bytes); };
+    auto Putₒᵃᵍᵃⁱⁿ = ^(uint8_t * utf8s, uint16_t bytes) { write(descript, (const void *)utf8s, bytes); };
+    auto out = ^(uint8_t * utf8s, uint16_t bytes) { Putₒᵃᵍᵃⁱⁿ(utf8s, bytes); };
  #elif defined __mips__
     auto out = ^(uint8_t * utf8s, uint16_t bytes) { Putₒ(utf8s, bytes); };
 #endif
@@ -62,7 +62,7 @@ Present(
   int maxwidth
 )
 {
-    unsigned spaces = maxwidth - UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(field.ident, BUILTIN_INT_MAX);
+    unsigned spaces = maxwidth - UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(Critic(field.ident), -1);
     while (spaces--) { mfprint(" "); }
     
     emitUnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(field.ident);
@@ -71,7 +71,7 @@ Present(
     __block bool masking = false; __block unsigned pos = 31;
     Base𝕟((__builtin_uint_t)(field.mask), 2, 32, ^(char 𝟶to𝟿) {
         
-        if (𝟷𝟼bits && pos > 15) { mfprint("⌗"); }
+        if (𝟷𝟼bits && pos > 15) { mfprint("﹟"); }
         
         if (!𝟷𝟼bits && 𝟶to𝟿 == '1' && !masking) { masking = true; }
         
@@ -102,7 +102,7 @@ Present(
          uint32_t init) { int maxwidth=0;
        for (int i = 0; i < count; i++) {
           const Bitfield * reg = regs + i; maxwidth = max(maxwidth, 
-           (int)UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(reg->ident, BUILTIN_INT_MAX));
+           (int)UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(Critic(reg->ident), -1));
        }
        for (int i = 0; i < count; i++) {
           Present(term, *(regs + i), val, init, 𝟷𝟼bits, maxwidth);
