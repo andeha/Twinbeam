@@ -15,7 +15,6 @@ DISORDERABLE extern void CastᵈᵇˡToText(double value, void (^digits)(bool ne
   zero(); }
 
 DISORDERABLE extern void Anfang(char32_t prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, uint8_t * img) { }
-/* See --<🥢 𝙎𝙪𝙨𝙝𝙞 𝘾𝙝𝙚́𝙛.cpp> for details on PNG::IHDR. */
 
 DISORDERABLE extern void reᵍsPrint(__builtin_uint_t mask) { } /* Print at 
   least 0 to 31 non-high-volatile registers. */
@@ -216,15 +215,8 @@ main(
 {
     /* Here with the introduction of Unicode `%` becomes redundant, 
       formatting is on the outside and types are checked by the compiler 
-      instead of 'reported' at runtime. */
+      instead of reported at runtime. */
     print⁺⁺("Welcome to print: ⬚ ⬚ ⬚\n", ﹟d(12), ﹟x(12), ﹟F(12.1));
-    
-    /* …also consider 𐤟 (PHOENICIAN WORD SEPARATOR) when literal ∨ utf8…
-      print⁺("Welcome to print⁺ "_🧬, ToString(199), 0); */
-    
-    /* and Unicode for detail-popover, margin note and pdf|png|canvas. */
-    
-    /* …also 'linebreak+open run' and 'forward run'. */
     
     __uint128_t x₁=0x4321432143214321; __int128_t x₂=-100;
     print⁺⁺("Size of x₁ is ⬚ value is 0x⬚\n", ﹟d(sizeof(x₁)), ﹟U(x₁));
@@ -241,3 +233,22 @@ main(
     return 0;
 }
 
+#pragma mark - Custom types
+
+/* Copy in --<Fossilate.h>
+Argᴾ ﹟🔗ᵘᵗf⁸(int tetras, const char32_t * pathFileCanonicalᵚ) { 
+  return AArgᴾ { .value.ucs={pathFileCanonicalᵚ,tetras}, 13 }; }
+#include <Additions/😐🍄-Silmarils/💸.hpp>
+Argᴾ ﹟💰(Q567 q) { return Argᴾ { .value.q567=q, 14 }; }
+#include <Additions/Fractions.hpp>
+Argᴾ ﹟Q31(Q31 q) { return Argᴾ { .value.q31=q, 15 }; }
+Argᴾ ﹟Q15(Q15 q) { return Argᴾ { .value.q15=q, 16 }; }
+Argᴾ ﹟Q7(Q7 q) { return Argᴾ { .value.q7=q, 17 }; }
+#include <Additions/Half.hpp>
+Argᴾ ﹟h(half h) { return Argᴾ { .value.h=h, 18 }; }
+#include <Additions/temporal.hpp>
+Argᴾ ﹟U(Q79 U) { return Argᴾ { .value.U=U, 19 }; }
+Argᴾ ﹟U(Q1516 U) { return Argᴾ { .value.U=U, 20 }; }
+Argᴾ ﹟🔗ᵚ(int tetras, const char32_t * pathFileCanonicalᵚ) { 
+  return Argᴾ { .value.ucs={pathFileCanonicalᵚ,tetras}, 21 }; }
+ Copy in --<Fossilate.h> */
