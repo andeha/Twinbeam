@@ -16,18 +16,18 @@ DISORDERABLE extern void Format(double ℝ, void (^out)(char32_t uc)) {
   auto strlen⁷ᵇⁱᵗ = ^(const char * s) { const char * p; for (p=s; *p; ++p) { } return (int)(p - s); };
   auto stream_𝟾bits = ^(const char * s, int n) { for (int i=0; i<n; i++) { out((char32_t)*(s+i)); } };
   auto out𝕫 = ^(__builtin_int_t x) { Base𝕫(x, 10, 0, ^(char s) { out((char32_t)s); }); };
-  auto UnicodesUntilNULL = ^(const char32_t * ucs) { char32_t * ucs₂ = Critic(ucs); 
+  auto UcsUntilNULL = ^(const char32_t * ucs) { char32_t * ucs₂ = Critic(ucs); 
     again: char32_t uc = *ucs₂; if (!uc) { return; } out(uc); ucs₂++; goto again; };
-  auto zeros = ^(int n) { for (int i=0; i<n; i++) { UnicodesUntilNULL(zero); } };
+  auto zeros = ^(int n) { for (int i=0; i<n; i++) { UcsUntilNULL(zero); } };
   auto 𝟾bitsUntilNULL = ^(const char * s) { char * p = Critic(s); again: 
     char c = *p; if (!c) { return; } out((char32_t)c); p++; goto again; };
   CastᵈᵇˡToText(ℝ, ^(bool neg, int e, const char * 𝟶to𝟿s) { 
-    if (neg) { UnicodesUntilNULL(minus); } int bytesExcptNULL = strlen⁷ᵇⁱᵗ(𝟶to𝟿s);
-    if (e > 17 || e < bytesExcptNULL - 17) { stream_𝟾bits(𝟶to𝟿s, 1); if (𝟶to𝟿s[1]) { UnicodesUntilNULL(decimal); } 𝟾bitsUntilNULL(𝟶to𝟿s+1); UnicodesUntilNULL(expo); out𝕫(e-1); }
-    else if (e < 0) { UnicodesUntilNULL(decimal); zeros(-e); 𝟾bitsUntilNULL(𝟶to𝟿s); }
-    else if (bytesExcptNULL >= e) { stream_𝟾bits(𝟶to𝟿s, e); UnicodesUntilNULL(decimal); 𝟾bitsUntilNULL(𝟶to𝟿s + e); }
-    else { 𝟾bitsUntilNULL(𝟶to𝟿s); zeros(e - bytesExcptNULL); UnicodesUntilNULL(decimal); }
-  }, ^{ UnicodesUntilNULL(zero); }, ^{ UnicodesUntilNULL(inf); }, ^{ UnicodesUntilNULL(nan); });
+    if (neg) { UcsUntilNULL(minus); } int bytesExcptNULL = strlen⁷ᵇⁱᵗ(𝟶to𝟿s);
+    if (e > 17 || e < bytesExcptNULL - 17) { stream_𝟾bits(𝟶to𝟿s, 1); if (𝟶to𝟿s[1]) { UcsUntilNULL(decimal); } 𝟾bitsUntilNULL(𝟶to𝟿s+1); UcsUntilNULL(expo); out𝕫(e-1); }
+    else if (e < 0) { UcsUntilNULL(decimal); zeros(-e); 𝟾bitsUntilNULL(𝟶to𝟿s); }
+    else if (bytesExcptNULL >= e) { stream_𝟾bits(𝟶to𝟿s, e); UcsUntilNULL(decimal); 𝟾bitsUntilNULL(𝟶to𝟿s + e); }
+    else { 𝟾bitsUntilNULL(𝟶to𝟿s); zeros(e - bytesExcptNULL); UcsUntilNULL(decimal); }
+  }, ^{ UcsUntilNULL(zero); }, ^{ UcsUntilNULL(inf); }, ^{ UcsUntilNULL(nan); });
 } /* MMMIX-ARITH § 67. */
 
 #define ⁺⁼PrintArgAndPop /* DISORDERABLE OVERLOADED */                      \
