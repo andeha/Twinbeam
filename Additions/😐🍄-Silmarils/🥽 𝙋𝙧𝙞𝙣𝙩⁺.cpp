@@ -16,8 +16,11 @@ DISORDERABLE extern void CastᵈᵇˡToText(double value, void (^digits)(bool ne
 
 DISORDERABLE extern void Anfang(char32_t prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, uint8_t * img) { }
 
-DISORDERABLE extern void reᵍsPrint(__builtin_uint_t mask) { } /* Print at 
+DISORDERABLE extern void ReᵍsPrint(__builtin_uint_t mask) { } /* Print at 
   least 0 to 31 non-high-volatile registers. */
+
+DISORDERABLE extern void Format(double ℝ, void (^out)(char32_t uc)) { 
+  CastᵈᵇˡToText(ℝ, ^(bool neg, int e, const char *𝟶to𝟿s) { }, ^{ }, ^{ }, ^{ }); }
 
 int print⁺⁺(void (^out)(uint8_t * utf8s, short unsigned bytes), const char * 
   utf8format, ...);
@@ -40,7 +43,7 @@ int print⁺⁺(void (^out)(uint8_t * utf8s, short unsigned bytes), const char *
     a.value.λ.context); break; }                                            \
   case 11: out¹²⁸𝕟(a.value.U); break;                                       \
   case 12: out¹²⁸𝕫(a.value.I); break;                                       \
-  case 13: reᵍsPrint(a.value.x); break;                                     \
+  case 13: ReᵍsPrint(a.value.x); break;                                     \
   default: /* if (a.kind >= 0) imprint[a.kind](a); else */                  \
     streamout_unicode(U'?'); break; }
 
@@ -130,19 +133,11 @@ print⁺⁺(
       , ^(char s) { out₂(&s, 1); }); };
     auto streamout_char = ^(char c) { out₂(&c, 1); };
     auto streamout_utf8 = ^(const char * utf8) { char *p=(char *)(utf8); while (*p) { out₂(p++, 1); } }; /* for (char * p=(char *)utf8; *p; p++) { out₂(p, 1); } */
-    /* #ifndef AVOID_IEEE754 */
-    auto out𝕕 = ^(double ℝ) { const char *zero="0", *inf="∞", *nan="NaN", 
-      *minus="-", *decimal="."; 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 int count=0;
-      CastᵈᵇˡToText(ℝ, ^(bool neg, int e, const char * 𝟶to𝟿s) {
-         auto strlen⁷ᵇⁱᵗ = ^(const char * s) { const char * p; 
-           for (p = s; *p; ++p) { } return p - s; };
-         if (neg) { out₂(minus, 1); }
-         if (count == e) { out₂(decimal, 1); }
-         int bytes = strlen⁷ᵇⁱᵗ(𝟶to𝟿s); out₂(𝟶to𝟿s, bytes); count++; }, 
-      ^{ out₂(zero, 1); }, ^{ out₂(inf, 3); }, ^{ out₂(nan, 3); });
-    }; /* #endif */
     auto streamout_unicode = ^(char32_t u) { UnicodeToUtf8(u, ^(const uint8_t *p, 
       int bytes) { out₂((const char *)p, bytes); }); };
+    /* #ifndef AVOID_IEEE754 */
+    auto out𝕕 = ^(double ℝ) { Format(ℝ, ^(char32_t uc) { streamout_unicode(uc); }); };
+    /* #endif */
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
     auto streamout_unicodes = ^(int tetras, char32_t 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 * unicodes) { __builtin_int_t 
       beam=0; while (beam < tetras) { char32_t uc = *(unicodes + beam); streamout_unicode(uc); 
@@ -215,7 +210,7 @@ main(
 {
     /* Here with the introduction of Unicode `%` becomes redundant, 
       formatting is on the outside and types are checked by the compiler 
-      instead of reported at runtime. */
+      instead of 'reported' at runtime. */
     print⁺⁺("Welcome to print: ⬚ ⬚ ⬚\n", ﹟d(12), ﹟x(12), ﹟F(12.1));
     
     __uint128_t x₁=0x4321432143214321; __int128_t x₂=-100;
@@ -235,7 +230,7 @@ main(
 
 #pragma mark - Custom types
 
-/* Copy in --<Fossilate.h>
+/* Copy in --<Fossilate.h> */
 Argᴾ ﹟🔗ᵘᵗf⁸(int tetras, const char32_t * pathFileCanonicalᵚ) { 
   return AArgᴾ { .value.ucs={pathFileCanonicalᵚ,tetras}, 13 }; }
 #include <Additions/😐🍄-Silmarils/💸.hpp>
@@ -251,4 +246,4 @@ Argᴾ ﹟U(Q79 U) { return Argᴾ { .value.U=U, 19 }; }
 Argᴾ ﹟U(Q1516 U) { return Argᴾ { .value.U=U, 20 }; }
 Argᴾ ﹟🔗ᵚ(int tetras, const char32_t * pathFileCanonicalᵚ) { 
   return Argᴾ { .value.ucs={pathFileCanonicalᵚ,tetras}, 21 }; }
- Copy in --<Fossilate.h> */
+/* Copy in --<Fossilate.h> */

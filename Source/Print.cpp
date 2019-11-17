@@ -7,10 +7,28 @@ DISORDERABLE extern void CastᵈᵇˡToText(double value, void (^digits)(bool ne
   zero(); }
 
 DISORDERABLE extern void Anfang(char32_t prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, uint8_t * image) { 
-  print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); } /* See --<🥢 𝙎𝙪𝙨𝙝𝙞 𝘾𝙝𝙚́𝙛.cpp> for details 
-  on PNG::IHDR. */
+  print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); }
 
-DISORDERABLE extern void reᵍsPrint(__builtin_uint_t mask) { print("∎"); }
+DISORDERABLE extern void ReᵍsPrint(__builtin_uint_t mask) { print("∎"); }
+
+DISORDERABLE extern void Format(double ℝ, void (^out)(char32_t uc)) {
+  const char32_t *zero=U"0", *inf=U"∞", *nan=U"NaN", *minus=U"-", *decimal=U".", *expo=U"e";
+  auto strlen⁷ᵇⁱᵗ = ^(const char * s) { const char * p; for (p=s; *p; ++p) { } return (int)(p - s); };
+  auto stream_𝟾bits = ^(const char * s, int n) { for (int i=0; i<n; i++) { out((char32_t)*(s+i)); } };
+  auto out𝕫 = ^(__builtin_int_t x) { Base𝕫(x, 10, 0, ^(char s) { out((char32_t)s); }); };
+  auto UnicodesUntilNULL = ^(const char32_t * ucs) { char32_t * ucs₂ = Critic(ucs); 
+    again: char32_t uc = *ucs₂; if (!uc) { return; } out(uc); ucs₂++; goto again; };
+  auto zeros = ^(int n) { for (int i=0; i<n; i++) { UnicodesUntilNULL(zero); } };
+  auto 𝟾bitsUntilNULL = ^(const char * s) { char * p = Critic(s); again: 
+    char c = *p; if (!c) { return; } out((char32_t)c); p++; goto again; };
+  CastᵈᵇˡToText(ℝ, ^(bool neg, int e, const char * 𝟶to𝟿s) { 
+    if (neg) { UnicodesUntilNULL(minus); } int bytesExcptNULL = strlen⁷ᵇⁱᵗ(𝟶to𝟿s);
+    if (e > 17 || e < bytesExcptNULL - 17) { stream_𝟾bits(𝟶to𝟿s, 1); if (𝟶to𝟿s[1]) { UnicodesUntilNULL(decimal); } 𝟾bitsUntilNULL(𝟶to𝟿s+1); UnicodesUntilNULL(expo); out𝕫(e-1); }
+    else if (e < 0) { UnicodesUntilNULL(decimal); zeros(-e); 𝟾bitsUntilNULL(𝟶to𝟿s); }
+    else if (bytesExcptNULL >= e) { stream_𝟾bits(𝟶to𝟿s, e); UnicodesUntilNULL(decimal); 𝟾bitsUntilNULL(𝟶to𝟿s + e); }
+    else { 𝟾bitsUntilNULL(𝟶to𝟿s); zeros(e - bytesExcptNULL); UnicodesUntilNULL(decimal); }
+  }, ^{ UnicodesUntilNULL(zero); }, ^{ UnicodesUntilNULL(inf); }, ^{ UnicodesUntilNULL(nan); });
+} /* MMMIX-ARITH § 67. */
 
 #define ⁺⁼PrintArgAndPop /* DISORDERABLE OVERLOADED */                      \
   const Argᴾ a = __builtin_va_arg(arg, Argᴾ);                               \
@@ -30,7 +48,7 @@ DISORDERABLE extern void reᵍsPrint(__builtin_uint_t mask) { print("∎"); }
     a.value.λ.context); break; }                                            \
   case 11: out¹²⁸𝕟(a.value.U); break;                                       \
   case 12: out¹²⁸𝕫(a.value.I); break;                                       \
-  case 13: reᵍsPrint(a.value.x); break;                                     \
+  case 13: ReᵍsPrint(a.value.x); break;                                     \
   default: /* if (a.kind >= 0) imprint[a.kind](a); else */                  \
     streamout_unicode(U'?'); break; }
 
@@ -39,7 +57,7 @@ Argᴾ ﹟x(__builtin_uint_t x) { return Argᴾ { .value.x=x, 2 }; }
 Argᴾ ﹟b(__builtin_uint_t b) { return Argᴾ { .value.b=b, 3 }; }
 Argᴾ ﹟s(const char * utf8) { return Argᴾ { .value.utf8=utf8, 4 }; }
 Argᴾ ﹟S(int tetras, char32_t * uc) { return Argᴾ { .value.ucs={uc,tetras}, 5 }; }
-Argᴾ ﹟S(int tetras, const char32_t * uc) { return Argᴾ { .value.ucs={(char32_t *)uc,tetras}, 5 }; }
+Argᴾ ﹟S(int tetras, const char32_t * uc) { return Argᴾ { .value.ucs={Critic(uc),tetras}, 5 }; }
 Argᴾ ﹟c(char c) { return Argᴾ { .value.c=c, 6 }; }
 Argᴾ ﹟C(char32_t C) { return Argᴾ { .value.uc=C, 7 }; }
 Argᴾ ﹟U(__uint128_t U) { return Argᴾ { .value.U=U, 11 }; }
@@ -109,19 +127,11 @@ print﹟(
       , ^(char s) { out₂(&s, 1); }); };
     auto streamout_char = ^(char c) { out₂(&c, 1); };
     auto streamout_utf8 = ^(const char * utf8) { char *p = (char *)(utf8); while (*p) { out₂(p, 1); p++; } };
-    /* #ifndef AVOID_IEEE754 */
-    auto out𝕕 = ^(double ℝ) { const char *zero="0", *inf="∞", *nan="NaN", 
-      *minus="-", *decimal="."; 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 int count=0;
-      CastᵈᵇˡToText(ℝ, ^(bool neg, int e, const char * 𝟶to𝟿s) {
-         auto strlen⁷ᵇⁱᵗ = ^(const char * s) { const char * p; 
-           for (p = s; *p; ++p) { } return p - s; };
-         if (neg) { out₂(minus, 1); }
-         if (count == e) { out₂(decimal, 1); }
-         int bytes = strlen⁷ᵇⁱᵗ(𝟶to𝟿s); out₂(𝟶to𝟿s, bytes); count++; }, 
-      ^{ out₂(zero, 1); }, ^{ out₂(inf, 3); }, ^{ out₂(nan, 3); });
-    }; /* #endif */
     auto streamout_unicode = ^(char32_t u) { UnicodeToUtf8(u, ^(const uint8_t *p, 
       int bytes) { out₂((const char *)p, bytes); }); };
+    /* #ifndef AVOID_IEEE754 */
+    auto out𝕕 = ^(double ℝ) { Format(ℝ, ^(char32_t uc) { streamout_unicode(uc); }); };
+    /* #endif */
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
     auto streamout_unicodes = ^(int tetras, char32_t 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 * unicodes) { __builtin_int_t 
       beam=0; while (beam < tetras) { char32_t uc = *(unicodes + beam); streamout_unicode(uc); 
