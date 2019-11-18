@@ -193,9 +193,9 @@ MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   __builtin_uint_t word = *symbol, shift = TrailingZeros(mask), orig = mask & word,
   shifted = orig>>shift; if (update) update(shifted); __builtin_uint_t fresh =
   (shifted<<shift)&mask; *symbol = (word & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL
-int print(const char *utf8format, ...); int print(void (^out)(uint8_t * utf8s, 
-  short unsigned bytes), const char *utf8format, ...); /* Character literals 
-  prefixed with the letter `U` does not neccessarily ends with for example `NULL`. */
+DISORDERABLE void Format(double ℝ, void (^out)(char32_t uc)); int print(const char 
+  *utf8format, ...); int print(void (^out)(uint8_t * utf8s, short unsigned bytes), 
+  const char *utf8format, ...);
 struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, void * context); 
   typedef void (^Output)(Unicode set, void * context); union { __builtin_int_t d; 
   __builtin_uint_t x, b; const char * utf8; struct /* Unicodes */ { char32_t * 
@@ -521,7 +521,7 @@ template <typename T> T * ᵟBranch(Memoryview * stem, void * (^alloc)(int bytes
   int bytes); int (^dyncast)(Memoryview shoot); } x = { stem, alloc, dyncast }; 
   extern void * 💫(void *); return (T *)💫((void *)&x); } /* A․𝘬․a `Materialize`, 
   `Fullcircle`, `SymbolicPrint`, `Snapshot`, `Xerox` and `∂ranch`; E․𝘨 Unicodes uc = 
-  Snapshot(myView); Also --<History.h>. Yet not hierarchial but useful when deserializing. */
+  Snapshot(myView); Also --<History.h>. */
 
 int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 /* Returns `int` indicating difference at branch, -1 if equal and `0` when string 

@@ -4,30 +4,37 @@
 
 DISORDERABLE extern void CastᵈᵇˡToText(double value, void (^digits)(bool neg, 
   int e, const char *𝟶to𝟿s), void (^zero)(), void (^inf)(), void (^nan)()) { 
-  zero(); }
+  zero(); } /* ⬷ Redefined in --<Additions>--<Ieee754₆₄bits.cpp>. */
 
 DISORDERABLE extern void Anfang(char32_t prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, uint8_t * image) { 
   print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); }
 
 DISORDERABLE extern void ReᵍsPrint(__builtin_uint_t mask) { print("∎"); }
 
-DISORDERABLE extern void Format(double ℝ, void (^out)(char32_t uc)) {
+DISORDERABLE void Format(double ℝ, void (^out)(char32_t uc)) {
   const char32_t *zero=U"0", *inf=U"∞", *nan=U"NaN", *minus=U"-", *decimal=U".", *expo=U"e";
   auto strlen⁷ᵇⁱᵗ = ^(const char * s) { const char * p; for (p=s; *p; ++p) { } return (int)(p - s); };
   auto stream_𝟾bits = ^(const char * s, int n) { for (int i=0; i<n; i++) { out((char32_t)*(s+i)); } };
-  auto out𝕫 = ^(__builtin_int_t x) { Base𝕫(x, 10, 0, ^(char s) { out((char32_t)s); }); };
-  auto UcsUntilNULL = ^(const char32_t * ucs) { char32_t * ucs₂ = Critic(ucs); 
+  auto out𝕫 = ^(__builtin_int_t ℤ) { Base𝕫(ℤ, 10, 0, ^(char c) { out((char32_t)c); }); };
+  auto UcUntil𝖭𝖴𝖫𝖫 = ^(const char32_t * ucs) { char32_t * ucs₂ = Critic(ucs); 
     again: char32_t uc = *ucs₂; if (!uc) { return; } out(uc); ucs₂++; goto again; };
-  auto zeros = ^(int n) { for (int i=0; i<n; i++) { UcsUntilNULL(zero); } };
-  auto 𝟾bitsUntilNULL = ^(const char * s) { char * p = Critic(s); again: 
+  auto zeros = ^(int n) { for (int i=0; i<n; i++) { UcUntil𝖭𝖴𝖫𝖫(zero); } };
+  auto 𝟾bitsUntil𝖭𝖴𝖫𝖫 = ^(const char * s) { char * p = Critic(s); again: 
     char c = *p; if (!c) { return; } out((char32_t)c); p++; goto again; };
+  auto out𝕟sub = ^(__builtin_uint_t ℕ) { Base𝕟(ℕ, 10, 0, ^(char c) { out(Superscript(c - '0')); }); };
+  auto engineering₁ = ^(bool neg, int e, const char * 𝟶to𝟿s, void (^out)(char32_t uc)) { 
+    stream_𝟾bits(𝟶to𝟿s, 1); if (𝟶to𝟿s[1]) { UcUntil𝖭𝖴𝖫𝖫(decimal); } 𝟾bitsUntil𝖭𝖴𝖫𝖫(𝟶to𝟿s+1);
+    out(U'×'); UcUntil𝖭𝖴𝖫𝖫(U"10"); if (e < 0) { out(U'⁻'); } out𝕟sub(e-1); };
+  auto engineering₂ = ^(bool neg, int e, const char * 𝟶to𝟿s, void (^out)(char32_t uc)) { 
+    stream_𝟾bits(𝟶to𝟿s, 1); if (𝟶to𝟿s[1]) { UcUntil𝖭𝖴𝖫𝖫(decimal); } 𝟾bitsUntil𝖭𝖴𝖫𝖫(𝟶to𝟿s+1); 
+    UcUntil𝖭𝖴𝖫𝖫(expo); out𝕫(e-1); };
   CastᵈᵇˡToText(ℝ, ^(bool neg, int e, const char * 𝟶to𝟿s) { 
-    if (neg) { UcsUntilNULL(minus); } int bytesExcptNULL = strlen⁷ᵇⁱᵗ(𝟶to𝟿s);
-    if (e > 17 || e < bytesExcptNULL - 17) { stream_𝟾bits(𝟶to𝟿s, 1); if (𝟶to𝟿s[1]) { UcsUntilNULL(decimal); } 𝟾bitsUntilNULL(𝟶to𝟿s+1); UcsUntilNULL(expo); out𝕫(e-1); }
-    else if (e < 0) { UcsUntilNULL(decimal); zeros(-e); 𝟾bitsUntilNULL(𝟶to𝟿s); }
-    else if (bytesExcptNULL >= e) { stream_𝟾bits(𝟶to𝟿s, e); UcsUntilNULL(decimal); 𝟾bitsUntilNULL(𝟶to𝟿s + e); }
-    else { 𝟾bitsUntilNULL(𝟶to𝟿s); zeros(e - bytesExcptNULL); UcsUntilNULL(decimal); }
-  }, ^{ UcsUntilNULL(zero); }, ^{ UcsUntilNULL(inf); }, ^{ UcsUntilNULL(nan); });
+    if (neg) { UcUntil𝖭𝖴𝖫𝖫(minus); } int bytesExcptNULL=strlen⁷ᵇⁱᵗ(𝟶to𝟿s);
+    if (e > 17 || e < bytesExcptNULL - 17) { engineering₁(neg, e, 𝟶to𝟿s, out); }
+    else if (e < 0) { UcUntil𝖭𝖴𝖫𝖫(decimal); zeros(-e); 𝟾bitsUntil𝖭𝖴𝖫𝖫(𝟶to𝟿s); }
+    else if (bytesExcptNULL >= e) { stream_𝟾bits(𝟶to𝟿s,e); UcUntil𝖭𝖴𝖫𝖫(decimal); 𝟾bitsUntil𝖭𝖴𝖫𝖫(𝟶to𝟿s + e); }
+    else { 𝟾bitsUntil𝖭𝖴𝖫𝖫(𝟶to𝟿s); zeros(e - bytesExcptNULL); UcUntil𝖭𝖴𝖫𝖫(decimal); }
+  }, ^{ UcUntil𝖭𝖴𝖫𝖫(zero); }, ^{ UcUntil𝖭𝖴𝖫𝖫(inf); }, ^{ UcUntil𝖭𝖴𝖫𝖫(nan); });
 } /* MMMIX-ARITH § 67. */
 
 #define ⁺⁼PrintArgAndPop /* DISORDERABLE OVERLOADED */                      \
