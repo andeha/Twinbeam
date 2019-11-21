@@ -193,9 +193,10 @@ MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   __builtin_uint_t word = *symbol, shift = TrailingZeros(mask), orig = mask & word,
   shifted = orig>>shift; if (update) update(shifted); __builtin_uint_t fresh =
   (shifted<<shift)&mask; *symbol = (word & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL
-DISORDERABLE void Format(double ℝ, void (^out)(char32_t uc)); int print(const char 
-  *utf8format, ...); int print(void (^out)(uint8_t * utf8s, short unsigned bytes), 
-  const char *utf8format, ...);
+enum class Ieee754Form { Scientific, Monetary };
+DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc)); 
+int print(const char *utf8format, ...); int print(void (^out)(uint8_t * utf8s, 
+short unsigned bytes), const char *utf8format, ...);
 struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, void * context); 
   typedef void (^Output)(Unicode set, void * context); union { __builtin_int_t d; 
   __builtin_uint_t x, b; const char * utf8; struct /* Unicodes */ { char32_t * 
