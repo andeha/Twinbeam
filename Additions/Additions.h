@@ -12,7 +12,7 @@ void
 CastᵈᵇˡToText(
   double value,
   void (^digits)(bool neg, int e, const char *𝟶to𝟿s),
-  void (^zero)(), void (^inf)(), void (^nan)()
+  void (^zero)(bool neg), void (^inf)(bool neg), void (^nan)()
 ); /* A․𝘬․a `CastToText`. */
 
 /* The next smallest value after `1`. */
@@ -49,11 +49,11 @@ Binary32_MAN ␣␣␣␣|␣␣␣␣|␣xxx|xxxx|xxxx|xxxx|xxxx|xxxx| Fraction
 
 #define IEEE754BASE2_64BIT_PZERO  0x0000000000000000L /* ⬷ Big endian. */
 #define IEEE754BASE2_64BIT_NZERO  0x8000000000000000L
-#define IEEE754BASE2_64BIT_SNAN   0x7FF0000000000001L /* Signalling */
+#define IEEE754BASE2_64BIT_SNAN₂  0x7FF0000000000002L /* Signalling */
 #define IEEE754BASE2_64BIT_PINF   0x7FF0000000000000L /* Positive */
 #define IEEE754BASE2_64BIT_NINF   0xFFF0000000000000L /* Negative */
-#define IEEE754BASE2_64BIT_QNAN   0x7ff8000000000000L /* Quiet */
-#define IEEE754BASE2_32BIT_QNAN   0x7FC00000
+#define IEEE754BASE2_64BIT_QNAN₂  0x7ff8000000000002L /* Quiet */
+#define IEEE754BASE2_32BIT_QNAN₂  0x7FC00002
 
 MACRO bool isinf(double x) { octa o; o.base₂ = x; return o.bits == 
   IEEE754BASE2_64BIT_NINF || o.bits == IEEE754BASE2_64BIT_PINF; }
@@ -108,13 +108,13 @@ int Roman(__builtin_int_t n, void (^out)(char numeral));
 #pragma mark Conversions from --<Additions>--<Filesystem.hpp>
 
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
-__builtin_uint_t Utf8BytesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t 
+__builtin_int_t Utf8BytesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t 
   maxᵘᵗfbytes); /* Returns `maxᵘᵗfbytes` in-case NULL is not earlier found. */
-__builtin_uint_t Utf8BytesIncludingANull(__builtin_int_t ³²bytes, char32_t * 
+__builtin_int_t Utf8BytesIncludingANull(__builtin_int_t ³²bytes, char32_t * 
   𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, bool &traversedUndefinedCodepoint);
 __builtin_int_t UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, 
   __builtin_int_t maxtetras𝘖𝘳₋𝟷);
-__builtin_uint_t UnicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t 
+__builtin_int_t UnicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t 
   maxᵘᵗfbytes); /* ...also returns `maxᵘᵗfbytes` when NULL can not be found. */
 
 #define ⁺⁼UnicodeToUtf8(Buffer,³²B,⁸B,T,UCS)                                \
@@ -137,8 +137,8 @@ unagain:                                                                    \
 
 #define ⁺⁼Utf8ToUnicode(U8,UCS,T,MAX,TETRA)                                 \
 auto utf8ToUnicode = ^(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, char32_t unicodes[],        \
-  bool prune, __builtin_uint_t maxUCs, __builtin_uint_t * tetra) {          \
-   __builtin_int_t followers, incr; int ⁸b=0; __builtin_uint_t Ɀtetra;      \
+  bool prune, __builtin_int_t maxUCs, __builtin_int_t * tetra) {            \
+   __builtin_int_t followers, incr; int ⁸b=0; __builtin_int_t Ɀtetra;       \
   char32_t uc; *tetra /* 𝘈․𝘬․a ³²b */ = 0;                                  \
 again:                                                                      \
    const uint8_t * leadOr8Bit = (const uint8_t *)utf8 + ⁸b;                 \
@@ -163,10 +163,10 @@ int
 Utf8ToUnicode(
   const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8,
   __builtin_int_t maxᵘᵗfbytes,
-  void (^out)(char32_t * uc, __builtin_uint_t tetras)
-) {  __builtin_uint_t maxUCs = UnicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(utf8, maxᵘᵗfbytes);
+  void (^out)(char32_t * uc, __builtin_int_t tetras)
+) {  __builtin_int_t maxUCs = UnicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(utf8, maxᵘᵗfbytes);
     if (maxUCs == maxᵘᵗfbytes) { return 1; }
-    __builtin_uint_t tetra; char32_t unicodes[maxUCs]; bool trim=false;
+    __builtin_int_t tetra; char32_t unicodes[maxUCs]; bool trim=false;
     if (⁺⁼Utf8ToUnicode(utf8, unicodes, trim, maxUCs, &tetra)) { return -1; }
     out(unicodes, tetra);
     return 0;
@@ -178,8 +178,8 @@ UnicodeToUtf8(
   char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳,
   __builtin_int_t maxtetras,
   void (^out)(const char * utf8, int tetras, int utf8bytes)
-) {  __builtin_uint_t tetras = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳, maxtetras);
-    bool invalid=false; __builtin_uint_t utf8bytes = 
+) {  __builtin_int_t tetras = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳, maxtetras);
+    bool invalid=false; __builtin_int_t utf8bytes = 
       Utf8BytesIncludingANull(tetras<<2, ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳, invalid);
     if (invalid) return -1;
     char utf8s[utf8bytes]; int ³²idx=0, ⁸idx=0;
@@ -503,6 +503,8 @@ TS( /* E.𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:
 ) NEVERBLURTS;
 
 #pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
+
+/* ✂️ << --<shoebox>{Fiber} ✃ */
 
 #endif
 
