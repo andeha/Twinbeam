@@ -162,7 +162,7 @@ inline
 int
 Utf8ToUnicode(
   const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8,
-  __builtin_int_t maxᵘᵗfbytes,
+  __builtin_int_t maxᵘᵗfbytes, 
   void (^out)(char32_t * uc, __builtin_int_t tetras)
 ) {  __builtin_int_t maxUCs = UnicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(utf8, maxᵘᵗfbytes);
     if (maxUCs == maxᵘᵗfbytes) { return 1; }
@@ -243,7 +243,7 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
 /* #include <Additions/Color.hpp>
 #include <Additions/Typeset.hpp> */
 
-enum class Unit { thou, mm, in, pc, pt, px }; /* ...and to place your copy:
+enum class Unit { thou, mm, in, pc, pt, px }; /* …and to place your copy:
 int Width(const Ornaments& o, Unit unit, double &width, double &kerning) WESTERN;
 int Width(const Unicodes& uc, Unit unit, double &width, double &kerning) WESTERN; */
 /* 1 thou = 1/100'th inch; 1pc = 1/6 inch, 1/12pc = 1pt. */
@@ -271,15 +271,15 @@ struct Utf8Terminal {
     
     virtual int write(const uint8_t * utf8s, __builtin_int_t bytes) const;
     
-    void (^scientificFormat)(double x, Utf8Terminal &stream);
+    void (^format)(double x, Utf8Terminal &stream);
     
 😐;
 
-enum class PresentBase { dec, hex, oct, bin };
 namespace NumberformatCatalogue { 
- void CForm(double, void (^out)(char32_t uc));
- void MonetaryForm(double, void (^out)(char32_t uc));
+ void Scientific(double, void (^out)(char32_t uc));
+ void Monetary(double, void (^out)(char32_t uc));
  extern void (^Default)(double, Utf8Terminal&); }
+enum class PresentBase { dec, hex, oct, bin };
 void Present(Utf8Terminal &term, __builtin_int_t z);
 void Present(Utf8Terminal &term, __builtin_uint_t n, PresentBase base);
 void Present(Utf8Terminal &term, double value);

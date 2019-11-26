@@ -2,8 +2,8 @@
 
 #ifndef __CHERRY_H
 #define __CHERRY_H
-#include <Additions/math/simd².hpp>
 #include <Additions/math/simdⁱ.hpp>
+#include <Additions/math/simd².hpp> /* ⬷ `#include-stochastic-when-debug` */
 #if __has_include(<Additions/math/simd⁴.hpp>)
 #include <Additions/math/simd⁴.hpp>
 #endif
