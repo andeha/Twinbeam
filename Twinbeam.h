@@ -320,7 +320,7 @@ template <typename T> bool eqeql(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
 #define 🥈 WHEN_COMPILING /* Must be assigned to a `const` and no inline assembler. */
 #define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧. Scandinavian 'jurid'. */
-template <typename T> T * Critic(const T * x) { return const_cast<T *>(x); } /* A․𝘬․a "Away 𝙘𝙤𝙣𝙨𝙩 evil". */
+template <typename T> T * Critic(const T * x) { return const_cast<T *>(x); } /* A․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
 #define ᶿ﹡ const * /* #define *⥃ const char *, a․𝘬․𝘢 `*⥆` and `*⫩`. */
 
 #pragma mark Utf-8
@@ -420,7 +420,9 @@ typedef union {
      unsigned exponent :  8;
      unsigned sign     :  1;
    } binary32; /* A․𝘬․a `ieee754₂`. */
-   struct { /* ⫝ */ } ieee754_2008₁₀; /* A․𝘬․a `decimal32`. */
+   struct { /* For ±1×10⁻⁹⁵ to ±9.999999×10⁹⁶. */
+      /* ⫝ */
+   } decimal32; /* A․𝘬․a `ieee754_2008₁₀`. */
    uint32_t bits;
 } tetra;
 
@@ -432,11 +434,9 @@ enum class Endianness { Native, Network };
 
 int Utf8Sync(uint8_t **p); /* Backs at most 3 bytes to regain sync. */
 
-inline char32_t Superscript(short 𝟶to𝟿) { const uint8_t s[] = "⁰";
-  char32_t u = Utf8ToUnicode(s, 3); return u + 𝟶to𝟿; } /* ⁰¹⋯⁹ */
+inline char32_t Superscript(short 𝟶to𝟿) { return U'⁰'+𝟶to𝟿; } /* ⁰¹⋯⁹ */
 
-inline char32_t Subscript(short 𝟶to𝟿) { const uint8_t s[] = "₀";
-  char32_t u = Utf8ToUnicode(s, 3); return u + 𝟶to𝟿; } /* ₀₁…₉; ⬷ For the computational chemistry inclined. */
+inline char32_t Subscript(short 𝟶to𝟿) { return U'₀'+𝟶to𝟿; } /* ₀₁…₉; ⬷ For the computational chemistry inclined. */
 
 struct Unicodes { __builtin_int_t tetras; char32_t * unicodes; };
 /* See `ᵊ` in --<Additions.h> */
