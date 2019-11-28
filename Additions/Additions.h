@@ -67,11 +67,11 @@ MACRO bool isexactlyzero(double x) { octa o; o.base₂ = x; return o.bits ==
 
 MACRO double abs64d(double x) { return x < +0.0 ? -x : x; } /* …and for the mathematically inclined '-0.0'. */
 
-namespace NumberFormat { enum { Scientific, Monetary, Intervallic }; }
+namespace NumberFormat { enum { Scientific, Monetary }; }
 MACRO Argᴾ ﹟F(double f, int format=NumberFormat::Scientific) { return Argᴾ { .value.f₁=f, 9 }; }
 MACRO Argᴾ ﹟F(float r, int format=NumberFormat::Scientific) { return Argᴾ { .value.f₂=r, 8 }; }
 
-#pragma mark - In-cases of an high-precision IEEE754
+#pragma mark - In cases of 'high-precision IEEE754'
 
 typedef long double binary128; /* 2⁻¹⁶³⁸² ≈ 
   3.3621 × 10⁻⁴⁹³² - 2⁻¹⁶³⁸⁴ − 2⁻¹⁶²⁷¹ ≈ 1.1897 × 10⁻⁴⁹³² */
@@ -279,7 +279,10 @@ namespace NumberformatCatalogue {
  void Scientific(double, void (^out)(char32_t uc));
  void Monetary(double, void (^out)(char32_t uc));
  void Regional(double ℝ, void (^out)(char32_t uc));
- void Intervallic(double ℝ₁, double ℝ₂, void (^out)(char32_t uc));
+ void Intervallic(double ℝ₁, double ℝ₂, bool openEnd, void (^out)(char32_t uc));
+ void Normal(double μ, double σ, void (^out)(char32_t uc));
+ void Percentile(double ₋𝟹𝜎, double ₋𝟸𝜎, double ₋𝜎, double 𝟶, double 𝜎, 
+   double 𝟸𝜎, double 𝟹𝜎, __builtin_int_t& 𝟷𝟶ⁱ, void (^out)(char32_t uc));
  extern void (^Default)(double, Utf8Terminal&); }
 enum class PresentBase { dec, hex, oct, bin };
 void Present(Utf8Terminal &term, __builtin_int_t z);
