@@ -407,7 +407,7 @@ int Hash(uint8_t *p, __builtin_int_t bytes, void (^ping)(bool &stop), void
 #define BUILTIN_INT_MAX 2147483647
 #elif defined __x86_64__
 #define BUILTIN_INT_MAX 0x7FFFFFFFFFFFFFFF
-#endif
+#endif /* ~0b0>>1 */
 
 typedef union {
    float base₂; /* For 2⁻¹²⁶ to 2¹²⁷ or 1․18×10⁻³⁸ to 3․40×10³⁸. */
@@ -421,7 +421,7 @@ typedef union {
      unsigned sign     :  1;
    } binary32; /* A․𝘬․a `ieee754₂`. */
    struct { /* For ±1×10⁻⁹⁵ to ±9.999999×10⁹⁶. */
-      /* ⫝ */
+     /* ⫝ */
    } decimal32; /* A․𝘬․a `ieee754_2008₁₀`. */
    uint32_t bits;
 } tetra;
