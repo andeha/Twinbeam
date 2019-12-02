@@ -47,8 +47,8 @@ Binary32_MAN ␣␣␣␣|␣␣␣␣|␣xxx|xxxx|xxxx|xxxx|xxxx|xxxx| Fraction
                                                                              
 */
 
-#define IEEE754BASE2_64BIT_PZERO  0x0000000000000000L /* ⬷ Big endian. */
-#define IEEE754BASE2_64BIT_NZERO  0x8000000000000000L
+#define IEEE754BASE2_64BIT_PZERO  0x0000000000000000L /* ⬷ Big endian */
+#define IEEE754BASE2_64BIT_NZERO  0x8000000000000000L 
 #define IEEE754BASE2_64BIT_SNAN₂  0x7FF0000000000002L /* Signalling */
 #define IEEE754BASE2_64BIT_PINF   0x7FF0000000000000L /* Positive */
 #define IEEE754BASE2_64BIT_NINF   0xFFF0000000000000L /* Negative */
@@ -71,6 +71,12 @@ namespace NumberFormat { enum { Scientific, Monetary }; }
 MACRO Argᴾ ﹟F(double f, int format=NumberFormat::Scientific) { return Argᴾ { .value.f₁=f, 9 }; }
 MACRO Argᴾ ﹟F(float r, int format=NumberFormat::Scientific) { return Argᴾ { .value.f₂=r, 8 }; }
 
+#pragma mark 😐🎲
+
+enum GaussianApproximate { AbramowitzStegun, ZogheibHlynka };
+int Gaussian(GaussianApproximate approximate, double *out);
+int Uniform(double *out); /* *out ∈ [0, 1) */
+
 #pragma mark - In cases of 'high-precision IEEE754'
 
 typedef long double binary128; /* 2⁻¹⁶³⁸² ≈ 
@@ -81,11 +87,8 @@ typedef binary128 maxprec;
 typedef double maxprec;
 #endif
 
-enum GaussianApproximate { AbramowitzStegun, ZogheibHlynka };
-int Gaussian(GaussianApproximate approximate, double *out);
-int Uniform(double *out); /* *out ∈ [0, 1) */
+#pragma mark - Gauss' K𝑒𝑡𝑡𝑒𝑛𝑏𝑟𝑢𝑐ℎ
 
-/* Gauss' K𝑒𝑡𝑡𝑒𝑛𝑏𝑟𝑢𝑐ℎ */
 /* MACRO void Khinchin(double * A, int count, double &acc) { for (int i=count-1;
   i >= 0; i--) { acc = 1/(A[i] + acc); } } */
 /* MACRO void Khinchin(double (^A)(double k), double (^B)(double k), int count,
@@ -101,11 +104,11 @@ MACRO bool Similar(double x, double y, double eps) { if (isinf(x) &&
   isexactlyzero(x) && isexactlyzero(y)) return true; double diff =
   abs64d(x - y); return diff < eps; }
 
-/**  Output integer possibly in compliance with Mediterranean laws. */
+#pragma mark - Integers in compliance with Mediterranean laws
 
 int Roman(__builtin_int_t n, void (^out)(char numeral));
 
-#pragma mark Conversions from --<Additions>--<Filesystem.hpp>
+#pragma mark - Conversions from --<Additions>--<Filesystem.hpp>
 
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
 __builtin_int_t Utf8BytesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t 
@@ -273,16 +276,21 @@ struct Utf8Terminal {
     
     void (^format)(double x, Utf8Terminal &stream);
     
+    typedef void * Refedpics; /* A․𝘬․a Map<const char *, Image ∧ uint8_t *>. */
+    
+    int show(Refedpics pics, short unsigned cols, Unit unit);
+    
 😐;
 
 namespace NumberformatCatalogue { 
  void Scientific(double, void (^out)(char32_t uc));
  void Monetary(double, void (^out)(char32_t uc));
  void Regional(double ℝ, void (^out)(char32_t uc));
- void Intervallic(double ℝ₁, double ℝ₂, bool openEnd, void (^out)(char32_t uc));
- void Normal(double μ, double σ, void (^out)(char32_t uc));
+ void Intervallic(double ℝ₁, double ℝ₂, bool openend, void (^out)(char32_t uc));
  void Percentile(double ₋𝟹𝜎, double ₋𝟸𝜎, double ₋𝜎, double 𝟶, double 𝜎, 
    double 𝟸𝜎, double 𝟹𝜎, __builtin_int_t& 𝟷𝟶ⁱ, void (^out)(char32_t uc));
+ void Normal(double μ, double σ, void (^out)(char32_t uc));
+ /* log-normal distribution = draped `logₑ` is N(μ,σ). */
  extern void (^Default)(double, Utf8Terminal&); }
 enum class PresentBase { dec, hex, oct, bin };
 void Present(Utf8Terminal &term, __builtin_int_t z);
@@ -290,7 +298,7 @@ void Present(Utf8Terminal &term, __builtin_uint_t n, PresentBase base);
 void Present(Utf8Terminal &term, double value);
 void Present(Utf8Terminal &term, char32_t unicode);
 void Present(Utf8Terminal &term, const char * utf8, __builtin_int_t maxbytes=BUILTIN_INT_MAX);
-/* Struct assignment ⟶ Memory copy. */
+/* Struct assignment ⟶ Memory (shallow) copy. */
 void Present(Utf8Terminal &term, const Ornaments & ds);
 /* void Present(Utf8Terminal &term, UnicodeBlock location); */
 /* enum Register { rtcc, dma0, … }; void Present(Utf8Terminal &term, Register reg); */
