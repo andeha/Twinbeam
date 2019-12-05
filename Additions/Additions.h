@@ -290,7 +290,7 @@ namespace NumberformatCatalogue {
  void Percentile(double ₋𝟹𝜎, double ₋𝟸𝜎, double ₋𝜎, double 𝟶, double 𝜎, 
    double 𝟸𝜎, double 𝟹𝜎, __builtin_int_t& 𝟷𝟶ⁱ, void (^out)(char32_t uc));
  void Normal(double μ, double σ, void (^out)(char32_t uc));
- /* log-normal distribution = draped `logₑ` is N(μ,σ). */
+ /* log-normal distribution = draped `logₑ` is N(μ,σ²). */
  extern void (^Default)(double, Utf8Terminal&); }
 enum class PresentBase { dec, hex, oct, bin };
 void Present(Utf8Terminal &term, __builtin_int_t z);
