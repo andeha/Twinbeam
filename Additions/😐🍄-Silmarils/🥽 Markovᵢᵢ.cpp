@@ -12,6 +12,8 @@ typedef template <typename T> Knot¹ᵈ<T> Stack<T>;
 
 namespace Samples { enum { 𝟶𝟶,𝟶𝟷,𝟷𝟶,𝟷𝟷 }; }
 
+#define 🎲(sides) ({ uint64_t value; SlowRandom rnd(&value, SlowRandom::Solution::RAND); rnd.update(); (value % sides) + 1; });
+
 Knot¹ᵈ<Vertex> machine = {
   { U"idle", { { }, { } } },
   { U"fwd",  {   { } } },          /* 𝟶,cw,ccw,𝟄 */
