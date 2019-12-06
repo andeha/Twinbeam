@@ -3,39 +3,16 @@
 #include <Twinbeam.h>
 
 DISORDERABLE extern void CastᵈᵇˡToText(double value, void (^digits)(bool neg, 
-  int e, const char *𝟶to𝟿s), void (^zero)(), void (^inf)(), void (^nan)()) { 
-  zero(); } /* ⬷ Redefined in --<Additions>--<Ieee754₆₄bits.cpp>. */
+  int e, const char *𝟶to𝟿s), void (^zero)(bool neg), void (^inf)(bool neg), 
+  void (^nan)()) { zero(false); } /* ⬷ Defined also in --<Additions>--<Ieee754₆₄bits.cpp>. */
 
 DISORDERABLE extern void Anfang(char32_t prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, uint8_t * image) { 
-  print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); }
+  print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); } /* See --<🥢 𝙎𝙪𝙨𝙝𝙞 𝘾𝙝𝙚́𝙛.cpp> for details 
+  on PNG::IHDR. */
 
 DISORDERABLE extern void ReᵍsPrint(__builtin_uint_t mask) { print("∎"); }
 
-DISORDERABLE void Format(double ℝ, void (^out)(char32_t uc)) {
-  const char32_t *zero=U"0", *inf=U"∞", *nan=U"NaN", *minus=U"-", *decimal=U".", *expo=U"e";
-  auto strlen⁷ᵇⁱᵗ = ^(const char * s) { const char * p; for (p=s; *p; ++p) { } return (int)(p - s); };
-  auto stream_𝟾bits = ^(const char * s, int n) { for (int i=0; i<n; i++) { out((char32_t)*(s+i)); } };
-  auto out𝕫 = ^(__builtin_int_t ℤ) { Base𝕫(ℤ, 10, 0, ^(char c) { out((char32_t)c); }); };
-  auto UcUntil𝖭𝖴𝖫𝖫 = ^(const char32_t * ucs) { char32_t * ucs₂ = Critic(ucs); 
-    again: char32_t uc = *ucs₂; if (!uc) { return; } out(uc); ucs₂++; goto again; };
-  auto zeros = ^(int n) { for (int i=0; i<n; i++) { UcUntil𝖭𝖴𝖫𝖫(zero); } };
-  auto 𝟾bitsUntil𝖭𝖴𝖫𝖫 = ^(const char * s) { char * p = Critic(s); again: 
-    char c = *p; if (!c) { return; } out((char32_t)c); p++; goto again; };
-  auto out𝕟sub = ^(__builtin_uint_t ℕ) { Base𝕟(ℕ, 10, 0, ^(char c) { out(Superscript(c - '0')); }); };
-  auto engineering₁ = ^(bool neg, int e, const char * 𝟶to𝟿s, void (^out)(char32_t uc)) { 
-    stream_𝟾bits(𝟶to𝟿s, 1); if (𝟶to𝟿s[1]) { UcUntil𝖭𝖴𝖫𝖫(decimal); } 𝟾bitsUntil𝖭𝖴𝖫𝖫(𝟶to𝟿s+1);
-    out(U'×'); UcUntil𝖭𝖴𝖫𝖫(U"10"); if (e < 0) { out(U'⁻'); } out𝕟sub(e-1); };
-  auto engineering₂ = ^(bool neg, int e, const char * 𝟶to𝟿s, void (^out)(char32_t uc)) { 
-    stream_𝟾bits(𝟶to𝟿s, 1); if (𝟶to𝟿s[1]) { UcUntil𝖭𝖴𝖫𝖫(decimal); } 𝟾bitsUntil𝖭𝖴𝖫𝖫(𝟶to𝟿s+1); 
-    UcUntil𝖭𝖴𝖫𝖫(expo); out𝕫(e-1); };
-  CastᵈᵇˡToText(ℝ, ^(bool neg, int e, const char * 𝟶to𝟿s) { 
-    if (neg) { UcUntil𝖭𝖴𝖫𝖫(minus); } int bytesExcptNULL=strlen⁷ᵇⁱᵗ(𝟶to𝟿s);
-    if (e > 17 || e < bytesExcptNULL - 17) { engineering₁(neg, e, 𝟶to𝟿s, out); }
-    else if (e < 0) { UcUntil𝖭𝖴𝖫𝖫(decimal); zeros(-e); 𝟾bitsUntil𝖭𝖴𝖫𝖫(𝟶to𝟿s); }
-    else if (bytesExcptNULL >= e) { stream_𝟾bits(𝟶to𝟿s,e); UcUntil𝖭𝖴𝖫𝖫(decimal); 𝟾bitsUntil𝖭𝖴𝖫𝖫(𝟶to𝟿s + e); }
-    else { 𝟾bitsUntil𝖭𝖴𝖫𝖫(𝟶to𝟿s); zeros(e - bytesExcptNULL); UcUntil𝖭𝖴𝖫𝖫(decimal); }
-  }, ^{ UcUntil𝖭𝖴𝖫𝖫(zero); }, ^{ UcUntil𝖭𝖴𝖫𝖫(inf); }, ^{ UcUntil𝖭𝖴𝖫𝖫(nan); });
-} /* MMMIX-ARITH § 67. */
+DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc)) { out(U'∎'); }
 
 #define ⁺⁼PrintArgAndPop /* DISORDERABLE OVERLOADED */                      \
   const Argᴾ a = __builtin_va_arg(arg, Argᴾ);                               \
@@ -118,7 +95,7 @@ print﹟(
     int 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 printedBytesExcept0=0; /* bool may𝘖𝘳DidEscape=false; */
     auto out₂ = ^(const char * utf8s, uint16_t bytes) { out((uint8_t *)utf8s, bytes); printedBytesExcept0 += bytes; };
     auto out𝕫 = ^(__builtin_int_t x) { Base𝕫(x, 10, 0, ^(char s) { out₂(&s, 1);  }); };
-    auto out𝕟 = ^(__builtin_uint_t x) { Base𝕟(x, 16,
+    auto out𝕟 = ^(__builtin_uint_t x) { Base𝕟(x, 16, 
 #ifdef __x86_64__
       16
 #elif defined __mips__
@@ -137,7 +114,7 @@ print﹟(
     auto streamout_unicode = ^(char32_t u) { UnicodeToUtf8(u, ^(const uint8_t *p, 
       int bytes) { out₂((const char *)p, bytes); }); };
     /* #ifndef AVOID_IEEE754 */
-    auto out𝕕 = ^(double ℝ) { Format(ℝ, ^(char32_t uc) { streamout_unicode(uc); }); };
+    auto out𝕕 = ^(double ℝ) { Format(ℝ, Ieee754Form::Scientific, ^(char32_t uc) { streamout_unicode(uc); }); };
     /* #endif */
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
     auto streamout_unicodes = ^(int tetras, char32_t 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 * unicodes) { __builtin_int_t 
