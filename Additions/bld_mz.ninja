@@ -22,7 +22,7 @@ build $libroot: lib $objsdir/Additions.o $objsdir/Ieee754₆₄bits.o           
   $objsdir/⌊𝑥⌋+nearest.o $objsdir/arctan.o $objsdir/atan₂.o                 $
   $objsdir/cherry.o $objsdir/ℯ🔭².o $objsdir/Erf.o $objsdir/logₑ.o          $
   $objsdir/log𝛤.o $objsdir/mod.o $objsdir/sincos.o $objsdir/tan.o           $
-  $objsdir/tanh.o $objsdir/Presentᵃᵘˣ.o $objsdir/Present.o
+  $objsdir/tanh.o $objsdir/Knot.o $objsdir/Presentᵃᵘˣ.o $objsdir/Present.o
  
 build $objsdir/Additions.o: cc Additions.cpp
 build $objsdir/Ieee754₆₄bits.o: cc Ieee754₆₄bits.cpp
@@ -45,6 +45,7 @@ build $objsdir/sincos.o: cc math/sincos.cpp
 build $objsdir/tan.o: cc math/tan.cpp
 build $objsdir/tanh.o: cc math/tanh.cpp
 # …and more non-math folders:
+build $objsdir/Knot.o: cc Knot.cpp
 build $objsdir/Presentᵃᵘˣ.o: cc Presentᵃᵘˣ.cpp
 build $objsdir/Present.o: cc Present.cpp
 build content: emitcontent
