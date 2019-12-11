@@ -108,7 +108,7 @@ MACRO bool Similar(double x, double y, double eps) { if (isinf(x) &&
 
 int Roman(__builtin_int_t n, void (^out)(char numeral));
 
-#pragma mark - Conversions from --<Additions>--<Filesystem.hpp>
+#pragma mark - Conversions given --<Additions>--<Filesystem.hpp>
 
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
 __builtin_int_t Utf8BytesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t 
@@ -204,7 +204,7 @@ typedef struct UnicodeBlock {
   __builtin_int_t linesOffsetFirst, linesOffsetLast;
 } UnicodeBlock; /* See also --<Preserves.h>{Utf8Interval} */
 
-#include <Additions/Knot₂.hpp>
+#include <Additions/Knot.h>
 
 FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …       
                                                                              
@@ -219,7 +219,7 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
     
     struct {
       
-      Knot¹ᵈ<Utf8Artifact> original;
+      Knot¹ᵈ<Utf8Symbol> original;
       
       Knot¹ᵈ<UnicodeIntervalAnd𝑂𝑟Location> parsed;
       
