@@ -15,6 +15,9 @@ struct Knot¹ᵈ { /* A․𝘬․a `Relative+Irreversib`, `Radio`, `Sequence`, `
   
   /* also `...chronologically` and `...retrospectly` arranged sequences. */
   
+  int push₁(const E& elem, void * (^alloc)(int bytes), int (^init)(const E& elem, void * contain));
+  int push₂(const E& elem, void * (^alloc)(int bytes), int (^init)(const E& elem, void * pointer));
+  
   int pop(__builtin_int_t count, E elems[]) { return Knot::pop(sizeof(E)*count, (void *)elems); }
   
   short 🥈 Bytes = SystemInfoPagesize() - (sizeof(uint16_t) + 2*sizeof(void *));
@@ -23,7 +26,7 @@ struct Knot¹ᵈ { /* A․𝘬․a `Relative+Irreversib`, `Radio`, `Sequence`, `
     uint8_t content[Bytes];
     Tape *next, *prev;
     uint16_t brk=0; /* For content deletion (from block-end) in O(1) time. */
-    __builtin_int_t ordinal; bool wrapped; /* See --<Twinbeam>{Chronology}. */
+    __builtin_int_t ordinal; bool wrapped;
   };
   
   typename Knot¹ᵈ<E>::Tape *first, *last;
@@ -34,12 +37,12 @@ struct Knot¹ᵈ { /* A․𝘬․a `Relative+Irreversib`, `Radio`, `Sequence`, `
   
   static Tape& tape(short unsigned nᵒ) { return tapes[nᵒ]; } /* 𝖤․𝘨 for time series. */
   
-  static short lru() { bool didwrap;
+  /* static short lru() { bool didwrap, issorted;
   
     Chronology chronology = ComputationalChronology();
     __builtin_int_t ordinal = chronology.ordinal(didwrap);
    
-  } /* See also --<source>--<Memory.cpp>. */
+  } See also --<source>--<Memory.cpp>, 'Paging.S', `TLBP` ∧ the disjunction `TLB_Place`/`TLB_Random`. */
   
   enum Extra { cyclicend, lastatend, crash, bound }; /* The cyclic and last defined also for idx < 0. */
   
@@ -64,6 +67,10 @@ struct Knot¹ᵈ { /* A․𝘬․a `Relative+Irreversib`, `Radio`, `Sequence`, `
   
 }; /* ⬷ WORM-safe container. A․𝘬․a 𝑅𝑎⃛𝑡𝑡𝑠ℎ𝑎𝑛𝑙𝑖𝑛𝑔𝑎𝑟. For `Knot¹ᵈ₋ᵥᵥ`, 
   see --<🥽 Cordal.cpp>. */
+
+/* template <typename E> int Merge(Knot¹ᵈ<int> k₁, Knot¹ᵈ<int> k₂, Knot¹ᵈ<int>& 𝟸k) { }
+template <typename E> int Merge¹⁻⁴(Knot¹ᵈ<int> k₁, Knot¹ᵈ<int> k₂, Knot¹ᵈ<int>& 𝟸k) { } */
+/* template <typename E> int Delete(Knot¹ᵈ<E>& k, int idx) { } ⬷ DELETED. */
 
 struct Knot2½d { __builtin_int_t k; void * c; 
     
