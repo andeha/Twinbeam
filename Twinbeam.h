@@ -506,6 +506,8 @@ struct Memoryregion { /* ⬷ Two levels! */
       MemoryDelegate * delegate = NULL, void * (^alloc)(__builtin_int_t 
       bytes) = Alloc);
     
+    /* Old document vs. 'editableOrAppend' a․𝘬․a --<🥽 i-node.cpp>{camera₋ready}. */
+    
 #pragma mark Implicits
     
     Memoryregion() = delete;
