@@ -263,6 +263,7 @@ MACRO void _Block_release(const void *arg) { Fallow((void *)arg); }
 typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
 __builtin_int_t constexpr SystemInfoPagesize() { return 4096; } /* One definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
+/* ﹟frames = 1 + bytes>>12 - [is₍𝑚𝑜𝑑4096₎AndNot𝟶] */
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
 #ifdef  __mips__
 typedef uint32_t mips32_context[32];
@@ -319,7 +320,7 @@ template <typename T> bool eqeql(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 🥇 NOT_EVERYTIME
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
 #define 🥈 WHEN_COMPILING /* Must be assigned to a `const` and no inline assembler. */
-#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧. Scandinavian 'jurid' and 'förekomst'. */
+#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧. Scandinavian 'jurid' and 'förekomst'. Also machinal. */
 template <typename T> T * Critic(const T * x) { return const_cast<T *>(x); } /* A․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
 #define ᶿ﹡ const * /* #define *⥃ const char *, a․𝘬․𝘢 `*⥆` and `*⫩`. */
 
@@ -497,14 +498,14 @@ struct Memoryregion { /* ⬷ Two levels! */
       delegate = NULL, bool allowWrites = true, void *(^alloc)(
       __builtin_int_t bytes) = Alloc);
     
-    static Opt<Memoryregion> reflect⁻ᵚ(const char * utf8Filepath,
-      __builtin_int_t pagesOffset = 0, __builtin_int_t pagesLength = 0,
-      MemoryDelegate * delegate = NULL);
+    static Opt<Memoryregion> reflect⁻ᵚ(Unicodes regularOrLinkpath, 
+      __builtin_int_t pagesOffset = 0, __builtin_int_t pagesLength = 0, 
+      bool append𝙴𝙾𝚃at𝙴𝙾𝙵, MemoryDelegate * delegate = NULL);
     
-    static Opt<Memoryregion> reflectʳᵚ(const char * utf8Filepath,
-      __builtin_int_t pagesOffset = 0, __builtin_int_t pagesLength = 0,
-      MemoryDelegate * delegate = NULL, void * (^alloc)(__builtin_int_t 
-      bytes) = Alloc);
+    static Opt<Memoryregion> reflectʳᵚ(Unicodes regularpath, 
+      __builtin_int_t pagesOffset = 0, __builtin_int_t pagesLength = 0, 
+      bool append𝙴𝙾𝚃at𝙴𝙾𝙵, MemoryDelegate * delegate = NULL, void * (^alloc)(
+      __builtin_int_t bytes) = Alloc);
     
     /* Old document vs. 'editableOrAppend' a․𝘬․a --<🥽 i-node.cpp>{camera₋ready}. */
     
