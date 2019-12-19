@@ -207,9 +207,12 @@ Argᴾ ﹟d(__builtin_int_t d); Argᴾ ﹟x(__builtin_uint_t x); Argᴾ ﹟b(__b
 b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(int tetras, char32_t * uc); Argᴾ ﹟c(
 char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
 Argᴾ ﹟reᵍs(__builtin_uint_t mask); Argᴾ ﹟λ(Argᴾ::Output scalar, void * context);
-extern "C" { int atexit(void(*func)(void)); void exit(int); } unsigned MaxFrames();
-extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *); int 
-Acquire(unsigned ﹟frames, void (^each)(void * frame)); int Release(void * frame);
+extern "C" { int atexit(void(*func)(void)); void exit(int); } 
+extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *); 
+int Acquire(__builtin_int_t ﹟frames, void (^each)(void * frame, bool& stop)); 
+int Release(void * frame); unsigned MaxFrames();
+__builtin_int_t ﹟Frames(__builtin_int_t bytes, __builtin_int_t * remains); 
+/* ⬷ ﹟frames = 1 + bytes>>12 - [is₍𝑚𝑜𝑑4096₎AndNot𝟶] */
 extern "C" { void * malloc(size_t); void free(void *); }
 typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
 #ifdef __x86_64__
@@ -263,7 +266,6 @@ MACRO void _Block_release(const void *arg) { Fallow((void *)arg); }
 typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
 __builtin_int_t constexpr SystemInfoPagesize() { return 4096; } /* One definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
-/* ﹟frames = 1 + bytes>>12 - [is₍𝑚𝑜𝑑4096₎AndNot𝟶] */
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
 #ifdef  __mips__
 typedef uint32_t mips32_context[32];

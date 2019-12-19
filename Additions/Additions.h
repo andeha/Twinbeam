@@ -265,7 +265,7 @@ struct Utf8Terminal {
     
     virtual
     Inputctrl
-    interaction(
+    interaction( /* See also --<Fossilate.h|cpp>{TerminalIn ∧ WaitTerminal}. */
       int periods𝘖𝘳Zero,
       int ᵗᵉⁿᵗʰseconds,
       void (^ping)(bool &stop), /* Cyclically whilst time passes. */
@@ -413,7 +413,7 @@ struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
  /* private */ int physical(unsigned δ) const { extern int Physical(unsigned 
      nowdelta /* A․𝘬․a `prevrelativehead` */, int brk, int depth);
     return Physical(δ, brk, depth); }
-   enum Flavor { allinorder, latest };
+   enum Flavor { allinorder, latest /* randomized */ };
 }; /* Note also that three areas where one 'precomputed 'area always separates the 
   'producer' from the 'consumer' enables a 'stable external projection' without 
   visible fluctuations a․𝘬․a 'flickering'; whereas two areas lead to the need 
@@ -516,7 +516,6 @@ TS( /* E.𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:
 ) NEVERBLURTS;
 
 #pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
-
 /* ✂️ << --<shoebox>{Fiber} ✃ */
 
 #endif
