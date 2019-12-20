@@ -502,12 +502,12 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     static Opt<Memoryregion> reflect⁻ᵚ(Unicodes regularOrLinkpath, 
       __builtin_int_t pagesOffset = 0, __builtin_int_t pagesLength = 0, 
-      bool append𝙴𝙾𝚃at𝙴𝙾𝙵, MemoryDelegate * delegate = NULL);
+      bool append𝙴𝙾𝚃at𝙴𝙾𝙵 = false, MemoryDelegate * delegate = NULL);
     
     static Opt<Memoryregion> reflectʳᵚ(Unicodes regularpath, 
       __builtin_int_t pagesOffset = 0, __builtin_int_t pagesLength = 0, 
-      bool append𝙴𝙾𝚃at𝙴𝙾𝙵, MemoryDelegate * delegate = NULL, void * (^alloc)(
-      __builtin_int_t bytes) = Alloc);
+      bool append𝙴𝙾𝚃at𝙴𝙾𝙵 = false, MemoryDelegate * delegate = NULL, 
+      void * (^alloc)(__builtin_int_t bytes) = Alloc);
     
     /* Old document vs. 'editableOrAppend' a․𝘬․a --<🥽 i-node.cpp>{camera₋ready}. */
     
@@ -728,11 +728,11 @@ Chronology& SystemCalendricChronology();
 
 /* See --<Additions>--<Framewrk.h> for details on `Trap` and `Indicate`. */
 
-/**  Correlative-relative: xʳ∈[-1/2₋𝜀, +1/2₊𝜀] and xʳ∈[-π₊𝜀, +π₋𝜀]. */
+/**  Correlative-relative, 𝘦․𝘨 xʳ∈[-1/2₋𝜀, +1/2₊𝜀] and xʳ∈[-π₊𝜀, +π₋𝜀]. */
 
 typedef float floatʳ; typedef double doubleʳ;
 
-/**  Subtractive-relative: x⁺ʳ∈[0₋𝜀, 1₊𝜀) and x⁺ʳ∈[0₊𝜀, π₋𝜀). */
+/**  Subtractive-relative, 𝘦․𝘨 x⁺ʳ∈[0₋𝜀, 1₊𝜀) and x⁺ʳ∈[0₊𝜀, π₋𝜀). */
 
 typedef float float⁺ʳ; typedef double double⁺ʳ;
 
