@@ -1,7 +1,4 @@
-//
-//  Automata.cpp
-//  Additions
-//
+/*  Automata.cpp | Input conversion, tokenization and parsing. */
 
 #include <Twinbeam.h>
 #include <Additions/Additions.h>
@@ -124,24 +121,32 @@ TS(
 ) NEVERBLURTS
 { /* …or 'Find chronology𝛥 and recursively parse l and r'. */
     
-    __block enum class State { init, y1_2, y2_3, y3_4, y_hyphen, hyphen_M,
+    𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 enum class State { init, y1_2, y2_3, y3_4, y_hyphen, hyphen_M,
         M1_2, M2_hyphen, hyphen_d1, d1_2, date_time, h1_2, h2_colon, colon_m1,
         m1_2, m2_colon, colon_s1, s1_2, s2_optfrac, dot_frac, time, error
     } state = State::init;
     
     auto digit = ^(char32_t u) { return (0x30 <= u && u < 0x40); };
     
-    auto whitespace = ^(char32_t u) { return u == '\t' || u == ' ' ||
+    auto whitespace = ^(char32_t u) { return u == '\t' || u == ' ' || 
       u == 0xa || u == 0xd; };
     
     auto atoi = ^(char32_t u) { return u - '0'; };
     
-    uint32_t __block fract=0;
-    int32_t __block y=0, M=0, d=0, h=0, m=0, s=0;
+    auto ws𝘖𝘳EOT = ^(char32_t u) { return u == END_OF_TRANSMISSION || whitespace(u); };
+    
+    uint32_t 🥈 iⁿbase₂[] = { 0, /* 0, 1/10, 1/100, ..., 1/10⁻32 in UQ32. */
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 }; /* ⬷ See --<🥽 Alloca.cpp>. */
+    auto augment = ^(short 𝟶to𝟿, unsigned 𝟷𝟶⁻ˣ, uint32_t frac) { return (𝟶to𝟿*frac)*iⁿbase₂[𝟷𝟶⁻ˣ]; };
+    /* 1/10 = 1/16 + 1/32 + 1/256 + 1/512 enum Rounding { RoundNearestUnder, 
+      RoundNearestOver, RoundNearestErrorSquared }; */
+    uint32_t 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 acc=0; /* E․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
+    unsigned 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 𝟷𝟶⁻ˣ=1; int32_t 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 y=0, M=0, d=0, h=0, m=0, s=0;
+    /* Also: ∑ f(k)/10⁻k = ∑f₁(k)/2⁻k - ∑f₂(k)/2⁻k */
     
     🧵(Error) {
       case Error: return Opt<Chronology::Instant>::no();
-    }
+    } /* ⬷ Note that we're exiting from inside a block using `confess` ⤐ */
     
     auto process = ^(char32_t u) {
         switch (state) {
@@ -218,25 +223,25 @@ TS(
                 if (digit(u)) { s += 1*atoi(u); state = State::s2_optfrac; }
                 else { state = State::error; }
                 break;
-            case State::s2_optfrac:
+            case State::s2_optfrac: /* ⬷ terminal. */
                 if (u == '.') { state = State::dot_frac; }
-                else if (whitespace(u)) { state = State::time; }
+                else if (ws𝘖𝘳EOT(u)) { state = State::time; }
                 else { state = State::error; }
                 break;
             case State::dot_frac:
-                if (digit(u)) { fract *= 10; /* frac += atoi(u); */ }
+                if (digit(u)) { uint32_t digit=atoi(u); acc=augment(digit,𝟷𝟶⁻ˣ,acc); 𝟷𝟶⁻ˣ++; }
                 else if (whitespace(u)) { state = State::time; }
                 else { state = State::error; }
                 break;
-            case State::time:
-                if (whitespace(u)) { /* do nothing */ }
+            case State::time: /* ⬷ terminal. */
+                if (ws𝘖𝘳EOT(u)) { /* do nothing */ }
                 else { state = State::error; }
                 break;
             case State::error: confess(Error);
         }
     }; /* Req: state, y, M, d, h, m, s, frac */
     
-    __block __builtin_int_t beam = 0; /* SemanticPointer<char32_t *> unicode =
+    __builtin_int_t beam=0; /* SemanticPointer<char32_t *> unicode =
        beam.unicodeLook(0, BinaryChoiceToRight); */
      if (TokenizeUtf8OrUnicode(encoding, datetime, beam, ^(char32_t unicode,
        __builtin_int_t byteOffset, bool& stop) { process(unicode); }))
@@ -247,7 +252,6 @@ TS(
     
     int32_t t[6] = { y, M, d, h, m, s };
     
-    return chronology.timestamp(t, fract);
+    return chronology.timestamp(t,acc);
 }
-
 

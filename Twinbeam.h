@@ -501,13 +501,15 @@ struct Memoryregion { /* ⬷ Two levels! */
       __builtin_int_t bytes) = Alloc);
     
     static Opt<Memoryregion> reflect⁻ᵚ(Unicodes regularOrLinkpath, 
-      __builtin_int_t pagesOffset = 0, __builtin_int_t pagesLength = 0, 
-      bool append𝙴𝙾𝚃at𝙴𝙾𝙵 = false, MemoryDelegate * delegate = NULL);
+      __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
+      bool append𝙴𝙾𝚃at𝙴𝙾𝙵, void (^transformAndResolve)(Unicodes path, 
+      void (^final)(const char * utf8)), MemoryDelegate * delegate = NULL);
     
     static Opt<Memoryregion> reflectʳᵚ(Unicodes regularpath, 
-      __builtin_int_t pagesOffset = 0, __builtin_int_t pagesLength = 0, 
-      bool append𝙴𝙾𝚃at𝙴𝙾𝙵 = false, MemoryDelegate * delegate = NULL, 
-      void * (^alloc)(__builtin_int_t bytes) = Alloc);
+      __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
+      bool append𝙴𝙾𝚃at𝙴𝙾𝙵, void (^transform)(Unicodes path, 
+      void (^final)(const char * utf8)), void * (^alloc)(__builtin_int_t 
+      bytes) = Alloc, MemoryDelegate * delegate = NULL);
     
     /* Old document vs. 'editableOrAppend' a․𝘬․a --<🥽 i-node.cpp>{camera₋ready}. */
     
@@ -686,7 +688,7 @@ struct Chronology {
     /**  Retrieve a - since the program started and given a chronology - unique 
       value in a 'strict monotonically increasing' serie. */
     
-    __builtin_int_t ordinal(bool& didwrap) const;
+    __builtin_int_t ordinal(bool& didwrap) const; /* Wraps (𝄇) at `BUILTIN_INT_MAX`. */
     
     /**  Return weekday assuming a week starts on a Wednesday. (Encoded as 0.) */
     

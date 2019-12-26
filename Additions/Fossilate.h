@@ -1,7 +1,4 @@
-//
-//  Fossilate.h
-//  Additions
-//
+/*  Fossilate.h | Really, really persisted stuff. */
 
 #ifndef __FOSSILATE_H
 #define __FOSSILATE_H
@@ -50,21 +47,23 @@ typedef long long           __builtin_int_t;
     kind,
     optUnit,
     nameOrIdent,
-    this } */ ; // ⬷ ⚠️ Struct 'Fossilate' did recently contain a 'this' pointer but now contains an ⚱️. Optional signature, i.e. SHA1 last 64 bits, an xor with a key and then xor back has not yet been computed.
+    this } */ ; /* ⬷ ⚠️ Struct 'Fossilate' did recently contain a 'this' pointer but now 
+      contains an ⚱️. Optional signature, i.e. SHA1 last 64 bits, an xor with a key and 
+      then xor back has not yet been computed. */
 
 // 💀🎤😐: 🎲⤣ ≅
 
 struct Envelop { uint8_t utf8Address[4]; Fossilate content; };
 
 /* Overridable prepacked lambdas. */
-DISORDERABLE extern void (^Init)();
+DISORDERABLE extern void (^ᵗᵚⁱⁿᵝᵉᵃᵐInit)();
 DISORDERABLE extern void (^Putₒ)(uint8_t * utf8s, uint16_t bytes);
 DISORDERABLE extern void (^Reciever)(void (*isr)(Fiber::fiber_t * self));
 DISORDERABLE extern void (^TerminalIn)(void (*isr)(Fiber::fiber_t * self));
 DISORDERABLE extern void (^📡 /*♬*/)(Chronology::Instant t, const Modulation::Variat& V, float &c, float &s);
 DISORDERABLE extern void (^SetPixelAA)(int x, int y, long err);
 DISORDERABLE extern int (^InititeMesmerization)(Chronology::Instant t, float version, 
-  void (^output)(int x, int y, long err));
+  void (^videoᵐᵒᵈ¹⁻³)(int x, int y, long err), void (^audio)(Q79 latency, int chnls, uint16_t *l…r));
 DISORDERABLE extern int (^WaitTerminal)(int periods𝘖𝘳Zero, int ᵗᵉⁿᵗʰseconds, 
   void (^ping)(bool &stop), char32_t * uc);
 #ifdef __mips__
@@ -74,7 +73,9 @@ DISORDERABLE extern void (^InteractivelySetChronometer)(unsigned& y, unsigned& M
   uint32_t& key2, unsigned& tuner, bool& rollback); /* Using an oscilloscope, measure the RTCC pin. */
 DISORDERABLE extern void (^TuneChronometer)(void (^ping)(int16_t &tenbitSignedOffset, bool &commit));
 #endif
+DISORDERABLE extern void (^TransformReflection)(Unicodes path, void (^final)(const char * utf8));
+DISORDERABLE extern void (^TransformAndResolveReflection)(Unicodes path, void (^final)(const char * utf8));
 /* Non-overridable mandatory prepacked lambdas include `Alloc`, `LocalNow`,
-    `RandomInteger` and `Fallow`.  See --<Fossilate.cpp> for details. */
-
+   `RandomInteger` and `Fallow`.  See --<Fossilate.cpp> and --<llvmʳᵗ³.cpp> for 
+   details. */
 #endif
