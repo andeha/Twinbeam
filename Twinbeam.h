@@ -372,8 +372,8 @@ union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits
 union Treeint { struct { int32_t key; uint32_t val; } keyvalue; uint64_t bits; };
 #endif /* A․𝘬․a `Autumn` and `Treeℤ`. */
 
-void * Insert(void * opaque, Treeint data, void * (^alloc)(int bytes));
-void Forall(void ᶿ﹡ opaque, void (^dfs)(Treeint data, bool& stop));
+void * Insert(void * opaque, Treeint valkey, void * (^alloc)(int bytes));
+void Forall(void ᶿ﹡ opaque, void (^dfs)(Treeint valkey, bool& stop));
 void * Lookup(void ᶿ﹡ opaque, Treeint target);
 
 /*  Big endian ⟷ 'most significant first', little endian ⟷ 'least sigificant first'. */
