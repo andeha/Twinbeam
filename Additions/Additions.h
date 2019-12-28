@@ -192,7 +192,17 @@ UnicodeToUtf8(
 }
 
 MACRO Unicodes ᵊ(const char32_t * ucs) { char32_t * uc = Critic(ucs); 
-  int c = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(uc, ~0>>1); return Unicodes { c, uc }; }
+  int t = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(uc, ~0>>1); return Unicodes { t, uc }; }
+
+inline int ᵊ(const char * utf8, void (^sometimes)(Unicodes uc)) {
+  if (Utf8ToUnicode(utf8, ~0>>1, 
+    ^(char32_t * uc, __builtin_int_t tetras) {
+        Unicodes unicode { tetras, uc };
+        sometimes(unicode);
+    }
+  )) { return -1; }
+  return 0;
+}
 
 #pragma mark Fine print for well-versed readers:
 
