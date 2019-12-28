@@ -23,7 +23,7 @@ main(
      ﹟x(valkey.keyvalue.val)); };
     Forall(root, dfs); Treeint target = leaf₂;
     Treeint * x = (Treeint *)Lookup(root, target);
-    if (x == NULL) { print("Not found\n"); } else { print("⬚\n", ﹟x(x->keyvalue.val)); }
+    if (x == NULL) { print("Nonavailable\n"); } else { print("⬚\n", ﹟x(x->keyvalue.val)); }
     return 0;
 }
 
