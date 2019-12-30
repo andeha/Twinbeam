@@ -459,10 +459,6 @@ typedef __builtin_uint_t metaaddress;
 
 struct MemoryDelegate { struct Memoryregion; virtual void statistics() = 0; };
 
-#if __has_include(<Additions/Kirkbridge/911.h>)
-#include <Additions/Kirkbridge/911.h>
-#endif
-
 struct Memoryregion { /* ⬷ Two levels! */
     
     Memoryregion(MemoryDelegate * delegate);
@@ -490,7 +486,7 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     __builtin_uint_t deref(metaaddress word, void (^issue)(int nº)) const;
     
-    int keep(metaaddress loc, __builtin_uint_t word) const;
+    int keep(metaaddress loc, __builtin_uint_t& word) const;
     
 #pragma mark Miscellaneous tasks and generalizations
     
@@ -534,6 +530,10 @@ struct Memoryregion { /* ⬷ Two levels! */
     Memoryregion(const Memoryregion& other) = delete;
     
 😐; /* Pimpl optional because of opaque, mandatory since `alsoAtDealloc`. */
+
+#if __has_include(<Additions/Kirkbridge/911.h>)
+#include <Additions/Kirkbridge/911.h>
+#endif
 
 void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
   __builtin_int_t (^cmp)(const void *key, const void *elt));
