@@ -459,6 +459,10 @@ typedef __builtin_uint_t metaaddress;
 
 struct MemoryDelegate { struct Memoryregion; virtual void statistics() = 0; };
 
+#if __has_include(<Additions/Kirkbridge/911.h>)
+#include <Additions/Kirkbridge/911.h>
+#endif
+
 struct Memoryregion { /* ⬷ Two levels! */
     
     Memoryregion(MemoryDelegate * delegate);
@@ -474,13 +478,23 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     int exclude(metaaddress start, __builtin_int_t bytes);
     
-    int takeover(Memoryregion& virtue, metaaddress loc); /* */
+    int takeover(Memoryregion& virtue, metaaddress loc);
     
     int augment(__builtin_int_t bytes, void (^frame)(void * page)); /* Exercises `Acquire`. */
+    
+#pragma mark Easy: 'Consecutive', 'bounded' and 'disjunct'
     
     SemanticPointer<void *> start() const;
     
     SemanticPointer<void *> relative(__builtin_int_t byte, SemanticPointer<void *> base) const;
+    
+    __builtin_uint_t deref(metaaddress word, void (^issue)(int nº)) const;
+    
+    int keep(metaaddress loc, __builtin_uint_t word) const;
+    
+#pragma mark Miscellaneous tasks and generalizations
+    
+    struct µProc; µProc * µP() const; /* A․𝘬․a `processor`. */
     
     __builtin_int_t bytes() const;
     
