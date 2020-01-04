@@ -58,16 +58,16 @@ void divide_bignum(bignum *a, bignum *b, bignum *c);
 #define Intel👈 __asm { .intel_syntax noprefix /* Requires -fms-extensions */
 #define IntelPlusATT👉 asm { .att_syntax .text
 #endif
-template<typename T>
+/* template<typename T>
 struct InnerFrame {
   InnerFrame<T>() { } T * ref_;
-  // ~InnerFrame() { /* Delete `ref_` in outer class destructor. */ }
+  // ~InnerFrame() { / * Delete `ref_` in outer class destructor. * / }
   T * operator->() const { return ref_; }
   InnerFrame(T * ref) { ref_ = ref; }
-};
+}; */
 #define APPEND_PIMPL                                                         \
   struct Internals;                                                          \
-  InnerFrame<Internals> impl_;
+  Internals * impl_;
 #define 😐 APPEND_PIMPL }
 template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․𝘬․a `DisjunctPointer` and `OptionalIntervallicPointer`. */
 #define VISITISR(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + call */
@@ -106,6 +106,7 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․𝘬․a 
 #define CEDILLEDISPOSITIVE
 #define CEDILLEINDUCTIVE
 #define EVENTUALMACHINAL
+#define REINTEGRATIVE
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -465,6 +466,8 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     Memoryregion(void * p, __builtin_int_t bytes, MemoryDelegate * delegate = NULL);
     
+    Memoryregion(void * sorted[], __builtin_int_t count, __builtin_int_t unused, MemoryDelegate * delegate = NULL);
+    
     ~Memoryregion(); /* Exercises `Release`. */
     
     /* */ int incorporate(void * virtue, __builtin_int_t bytes, metaaddress loc);
@@ -484,9 +487,9 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     SemanticPointer<void *> relative(__builtin_int_t byte, SemanticPointer<void *> base) const;
     
-    __builtin_uint_t deref(metaaddress word, void (^issue)(int nº)) const;
+    __builtin_uint_t deref(metaaddress loc, void (^issue)(int nº)) const;
     
-    int keep(metaaddress loc, __builtin_uint_t& word) const;
+    int keep(metaaddress loc, __builtin_uint_t word) const;
     
 #pragma mark Miscellaneous tasks and generalizations
     
@@ -500,15 +503,19 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     /**  TODO: Measure energy consumption while 𝑝𝑢𝑚𝑝𝑖𝑛' 𝑛𝑒𝑡𝑤𝑜𝑟𝑘/𝑛𝑎𝑡𝑖𝑣𝑒. */
     
-    void toggleNetworkAndNative(void (^ping)(bool &stop), void /* REQ: O(1). */
-      (^completion)(__builtin_int_t bytes)); /*  See also `ᵗᵍᵍˡendian` defined below 
-      and --<Additions.h>{OptimisticAsync8Copy}. */
+    int toggleNetworkAndNative(__builtin_int_t skip, __builtin_int_t bytes, 
+      void (^ping)(bool &stop), void (^completion)(__builtin_int_t bytes)); 
+      /*  REQ: O(1). See also `ᵗᵍᵍˡendian` defined below and 
+         --<Additions.h>{OptimisticAsync8Copy}. */
     
 #pragma mark Fields of Capacitors on Two-gates/feedbacked-inverters
     
-    static Opt<Memoryregion> abduct(__builtin_int_t bytes, MemoryDelegate *
-      delegate = NULL, bool allowWrites = true, void *(^alloc)(
-      __builtin_int_t bytes) = Alloc);
+    static void cradle(__builtin_int_t bytes, void (^once)(Memoryregion& region),
+      MemoryDelegate * delegate = NULL); /* A․𝘬․a `nest`. */
+    
+    static Opt<Memoryregion> abductª(__builtin_int_t bytes, MemoryDelegate * delegate = NULL);
+    
+    static int abductº(__builtin_int_t bytes, MemoryDelegate * delegate, Memoryregion& region);
     
     static Opt<Memoryregion> reflect⁻ᵚ(Unicodes regularOrLinkpath, 
       __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
@@ -543,7 +550,7 @@ template <typename T> T * ᵟBranch(Memoryview * stem, void * (^alloc)(int bytes
   int bytes); int (^dyncast)(Memoryview shoot); } x = { stem, alloc, dyncast }; 
   extern void * 💫(void *); return (T *)💫((void *)&x); } /* A․𝘬․a `Materialize`, 
   `Fullcircle`, `SymbolicPrint`, `Snapshot`, `Xerox` and `∂ranch`; E․𝘨 Unicodes uc = 
-  Snapshot(myView); Also --<History.h>. */
+  Snapshot(myView); Also --<History.h> and --<ˢᵚCache.cpp>{CachedFile}. */
 
 int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 /* Returns `int` indicating difference at branch, -1 if equal and `0` when string 
