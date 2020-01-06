@@ -466,7 +466,7 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     Memoryregion(void * p, __builtin_int_t bytes, MemoryDelegate * delegate = NULL);
     
-    Memoryregion(void * sorted[], __builtin_int_t count, __builtin_int_t unused, MemoryDelegate * delegate = NULL);
+    Memoryregion(void * sorted[], __builtin_int_t count, __builtin_int_t lastPageBytes, MemoryDelegate * delegate = NULL);
     
     ~Memoryregion(); /* Exercises `Release`. */
     
@@ -510,12 +510,12 @@ struct Memoryregion { /* ⬷ Two levels! */
     
 #pragma mark Fields of Capacitors on Two-gates/feedbacked-inverters
     
-    static void cradle(__builtin_int_t bytes, void (^once)(Memoryregion& region),
-      MemoryDelegate * delegate = NULL); /* A․𝘬․a `nest`. */
+    static void sediment(__builtin_int_t bytes, void (^once)(Memoryregion& region),
+      MemoryDelegate * delegate = NULL); /* A․𝘬․a `nest` and `cradle`. */
     
-    static Opt<Memoryregion> abductª(__builtin_int_t bytes, MemoryDelegate * delegate = NULL);
+    static Opt<Memoryregion> abduct₁(__builtin_int_t bytes, MemoryDelegate * delegate = NULL);
     
-    static int abductº(__builtin_int_t bytes, MemoryDelegate * delegate, Memoryregion& region);
+    static int abduct₂(__builtin_int_t bytes, MemoryDelegate * delegate, Memoryregion& region);
     
     static Opt<Memoryregion> reflect⁻ᵚ(Unicodes regularOrLinkpath, 
       __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
