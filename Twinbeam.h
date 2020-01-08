@@ -517,16 +517,15 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     static Opt<Memoryregion> abduct₁(__builtin_int_t bytes, MemoryDelegate * delegate = NULL);
     
-    static Opt<Memoryregion> reflect⁻ᵚ(Unicodes regularOrLinkpath, 
+    static int reflect⁻ᵚ(Unicodes regularOrLinkpath, 
       __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
-      bool append𝙴𝙾𝚃at𝙴𝙾𝙵, void (^transformAndResolve)(Unicodes path, 
-      void (^final)(const char * utf8)), MemoryDelegate * delegate = NULL);
+      void (^transformAndResolve)(Unicodes path, void (^final)(const char * utf8)),
+      Memoryregion& region, bool append𝙴𝙾𝚃at𝙴𝙾𝙵);
     
-    static Opt<Memoryregion> reflectʳᵚ(Unicodes regularpath, 
+    static int reflectʳᵚ(Unicodes regularpath, 
       __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
-      bool append𝙴𝙾𝚃at𝙴𝙾𝙵, void (^transform)(Unicodes path, 
-      void (^final)(const char * utf8)), void * (^alloc)(__builtin_int_t 
-      bytes) = Alloc, MemoryDelegate * delegate = NULL);
+      void (^transform)(Unicodes path, void (^final)(const char * utf8)), 
+      Memoryregion& region, bool append𝙴𝙾𝚃at𝙴𝙾𝙵);
     
     /* Old document vs. 'editableOrAppend' a․𝘬․a --<🥽 i-node.cpp>{camera₋ready}. */
     
