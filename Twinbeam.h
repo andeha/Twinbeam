@@ -470,16 +470,16 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     ~Memoryregion(); /* Exercises `Release`. */
     
-    /* */ int incorporate(void * virtue, __builtin_int_t bytes, metaaddress loc);
+    /* int incorporate(void * virtue, __builtin_int_t bytes, metaaddress loc);
     
     int inject(__builtin_int_t index, const Memoryregion& src, void * (^alloc) 
       (__builtin_int_t bytes) = Alloc);
     
     int exclude(metaaddress start, __builtin_int_t bytes);
     
-    int takeover(Memoryregion& virtue, metaaddress loc);
+    int takeover(Memoryregion& virtue, metaaddress loc); */
     
-    int augment(__builtin_int_t bytes, void (^frame)(void * page)); /* Exercises `Acquire`. */
+    int augment(__builtin_int_t bytes, void (^frame)(void * 𝟺kbpage𝘖𝘳Halfpage)); /* May exercise `Acquire`. */
     
 #pragma mark Easy: 'Consecutive', 'bounded' and 'disjunct'
     
@@ -511,11 +511,11 @@ struct Memoryregion { /* ⬷ Two levels! */
 #pragma mark Fields of Capacitors on Two-gates/feedbacked-inverters
     
     static void sediment(__builtin_int_t bytes, void (^once)(Memoryregion& region),
-      MemoryDelegate * delegate = NULL); /* A․𝘬․a `nest` and `cradle`. */
-    
-    static Opt<Memoryregion> abduct₁(__builtin_int_t bytes, MemoryDelegate * delegate = NULL);
+      MemoryDelegate * delegate = NULL); /* A․𝘬․a `cradle` and `nest`. */
     
     static int abduct₂(__builtin_int_t bytes, MemoryDelegate * delegate, Memoryregion& region);
+    
+    static Opt<Memoryregion> abduct₁(__builtin_int_t bytes, MemoryDelegate * delegate = NULL);
     
     static Opt<Memoryregion> reflect⁻ᵚ(Unicodes regularOrLinkpath, 
       __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
@@ -534,7 +534,7 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     Memoryregion() = delete;
     
-    Memoryregion(const Memoryregion& other) = delete;
+    Memoryregion(const Memoryregion& other); /* ⬷ Required by `abduct₁`. */
     
 😐; /* Pimpl optional because of opaque, mandatory since `alsoAtDealloc`. */
 
