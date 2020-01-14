@@ -210,7 +210,6 @@ char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int1
 Argᴾ ﹟reᵍs(__builtin_uint_t mask); Argᴾ ﹟λ(Argᴾ::Output scalar, void * context);
 extern "C" { int atexit(void(*func)(void)); void exit(int); } 
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
-void InitFrames(__builtin_int_t availWords, __builtin_uint_t * avails);
 __builtin_int_t ﹟Frames(__builtin_int_t bytes, __builtin_int_t * modula);
 int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t 
   pages[], __builtin_uint_t avails[], void (^every)(void * frame, bool& stop));
@@ -464,11 +463,11 @@ typedef SemanticPointer<virtuaddr> metaaddress;
 
 struct MemoryDelegate { struct Memoryregion; virtual void statistics() = 0; };
 
+void Attachstore(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_uint_t **pages,  __builtin_uint_t **avails);
+
 struct Memoryregion { /* ⬷ Two levels! */
     
     Memoryregion(MemoryDelegate * delegate);
-    
-    Memoryregion(void * p, __builtin_int_t 𝟸ˣbytes, MemoryDelegate * delegate = NULL);
     
     Memoryregion(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastPageBytes, MemoryDelegate * delegate = NULL);
     
@@ -492,6 +491,8 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     void alsoAtDealloc(void (^deferral)()); /* ☜😐: 🛵𝜆 */
     
+    int foreach(void (^frame)(__builtin_uint_t *start, __builtin_int_t bytes, bool& stop));
+    
 #pragma mark Little and Big Endians
     
     /**  TODO: Measure energy consumption while 𝑝𝑢𝑚𝑝𝑖𝑛' 𝑛𝑒𝑡𝑤𝑜𝑟𝑘/𝑛𝑎𝑡𝑖𝑣𝑒. */
@@ -512,12 +513,12 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     static int reflect⁻ᵚ(Unicodes regularOrLinkpath, 
       __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
-      void (^transformAndResolve)(Unicodes path, void (^final)(const char * utf8)),
+      int (^transformAndResolve)(Unicodes path, void (^final)(const char * utf8)),
       Memoryregion& region, bool append𝙴𝙾𝚃at𝙴𝙾𝙵);
     
     static int reflectʳᵚ(Unicodes regularpath, 
       __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
-      void (^transform)(Unicodes path, void (^final)(const char * utf8)), 
+      int (^transform)(Unicodes path, void (^final)(const char * utf8)), 
       Memoryregion& region, bool append𝙴𝙾𝚃at𝙴𝙾𝙵);
     
     /* Old document vs. 'editableOrAppend' a․𝘬․a --<🥽 i-node.cpp>{camera₋ready}. */
