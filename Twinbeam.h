@@ -477,7 +477,7 @@ struct Memoryregion { /* ⬷ Two levels! */
     
 #pragma mark Easy: 'Consecutive', 'bounded' and 'disjunct'
     
-    metaaddress relative(__builtin_int_t wordNº) const;
+    metaaddress relative(__builtin_int_t wordNº, bool cyclic) const;
     
     __builtin_uint_t deref(metaaddress loc, void (^issue)(int nº)) const;
     
@@ -489,7 +489,13 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     __builtin_int_t bytes() const; __builtin_int_t bytesLeft() const; /* A․𝘬․a `debris` and `ᵇʸᵗᵉresidue`. */
     
-    void alsoAtDealloc(void (^deferral)()); /* ☜😐: 🛵𝜆 */
+    uint8_t ⁸(__builtin_uint_t word); uint16_t ¹⁶(__builtin_uint_t word);
+    
+    uint32_t mips(__builtin_uint_t word);
+    
+    uint64_t intel(uint32_t ˡᵒword, uint32_t wordʰⁱ);
+    
+    int alsoAtDealloc(void (^deferral)()); /* ☜😐: 🛵𝜆 */
     
     int foreach(void (^frame)(__builtin_uint_t *start, __builtin_int_t bytes, bool& stop));
     
