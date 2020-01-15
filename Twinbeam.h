@@ -491,9 +491,7 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     uint8_t ⁸(__builtin_uint_t word); uint16_t ¹⁶(__builtin_uint_t word);
     
-    uint32_t mips(__builtin_uint_t word);
-    
-    uint64_t intel(uint32_t ˡᵒword, uint32_t wordʰⁱ);
+    uint32_t mips(__builtin_uint_t word); uint64_t intel(uint32_t ˡᵒword, uint32_t wordʰⁱ);
     
     int alsoAtDealloc(void (^deferral)()); /* ☜😐: 🛵𝜆 */
     
