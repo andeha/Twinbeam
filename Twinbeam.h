@@ -483,15 +483,39 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     int keep(metaaddress loc, __builtin_uint_t word) const;
     
+#pragma mark Manipulations within a Haitian wrap
+    
+    enum RelativeWrap { cyclic, constant, linear, bilinear, error };
+    
+    uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, RelativeWrap wrap, void (^issue)(int nº));
+    
+    uint16_t ¹⁶𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥short, RelativeWrap wrap, void (^issue)(int nº));
+    
+    uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, RelativeWrap wrap, void (^issue)(int nº));
+    
+    uint64_t intel𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, RelativeWrap wrap, void (^issue)(int nº));
+    
+    typedef int intʳ; int ⁸hayball(int manhattan, intʳ clock, void (^bytes)(uint8_t *bytes));
+    
+    /* Kernels include 9, 16, 25, 36, … pixels. */
+    
+    int kernel(int cols, int size, int pxlwidth, void (^bytes)(uint8_t *bytes)); /* Extrapolate 1px is linear, 2px is constant. */
+    
+    typedef short gpr;
+    enum 𝙶𝚛𝚊𝚗𝚞𝚕 { 𝟷𝟸𝟾, 𝟼𝟺, 𝟹𝟸, 𝟷𝟼, 𝟾 }; enum class CCWSectors { 𝟸, 𝟺, 𝟾 };
+    void (^𝚍𝚎𝚛𝚎𝚏)(const void *p, CCWSectors s, int dirₓ, gpr r_idx, 𝙶𝚛𝚊𝚗𝚞𝚕 g);
+    void (^👉𝚒𝚗𝚍𝚒𝚛𝚎𝚌𝚝)(gpr r_value, const void * base, gpr r_offsets, 𝙶𝚛𝚊𝚗𝚞𝚕 g);
+    
+    MACRO uint64_t intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
+   
+    __uint128_t /* ...and simd_tᵦ, 𝛽₋simd, simd_t, simd_tᵥ, simd_tₐ, simd_tᵢₐ. */
+    closedradio(__builtin_int_t 𝟷₋𝟾shortNº); /* Up to 16 symbols at a time. */
+    
 #pragma mark Miscellaneous tasks and generalizations
     
     struct µProc; µProc * µP() const; /* A․𝘬․a `processor`. */
     
     __builtin_int_t bytes() const; __builtin_int_t bytesLeft() const; /* A․𝘬․a `debris` and `ᵇʸᵗᵉresidue`. */
-    
-    uint8_t ⁸(__builtin_uint_t word); uint16_t ¹⁶(__builtin_uint_t word);
-    
-    uint32_t mips(__builtin_uint_t word); uint64_t intel(uint32_t ˡᵒword, uint32_t wordʰⁱ);
     
     int alsoAtDealloc(void (^deferral)()); /* ☜😐: 🛵𝜆 */
     
