@@ -503,20 +503,16 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, RelativeWrap wrap, uint64_t intel);
     
-#pragma mark - Extrapolate 1px is (bi-)linear, 2px is constant. Kernels include 9, 16, 25, 36, … pixels
-    
     enum Minutes { 𝟶, 𝟽½, 𝟷𝟻, 𝟸𝟸½, 𝟹𝟶, 𝟹𝟽½, 𝟺𝟻, 𝟻𝟸½ };
     int ⁸hayball(int cols, int manhattan, Minutes m, void (^bytes)(uint8_t *pxls, int bytes));
     
-    uint8_t ⁸𝟸ᵈ(int cols, __builtin_int_t byteNº, 
+    uint8_t ⁸𝟸ᵈ(int cols, __builtin_int_t byteNº,
       __builtin_int_t 𝛥bytesˣ, __builtin_int_t 𝛥bytesʸ, 
       void (^issue)(int nº));
     
     int keep𝟸ᵈ(int cols, __builtin_int_t byteNº, 
       __builtin_int_t 𝛥bytesˣ, __builtin_int_t 𝛥bytesʸ, 
       uint8_t byte);
-    
-#pragma mark - Partially disjunct and on-a-line
     
     __uint128_t radio𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥radio, 
       RelativeWrap wrap, void (^issue)(int nº));
