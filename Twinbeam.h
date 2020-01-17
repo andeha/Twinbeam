@@ -495,27 +495,44 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     uint64_t intel𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, RelativeWrap wrap, void (^issue)(int nº));
     
-    typedef int intʳ; int ⁸hayball(int manhattan, intʳ clock, void (^bytes)(uint8_t *bytes));
+    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, RelativeWrap wrap, uint8_t byte);
     
-    /* Kernels include 9, 16, 25, 36, … pixels. */
+    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥short, RelativeWrap wrap, uint16_t shoʳt);
     
-    int kernel(int cols, int size, int pxlwidth, void (^bytes)(uint8_t *bytes)); /* Extrapolate 1px is linear, 2px is constant. */
+    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, RelativeWrap wrap, uint32_t mips);
     
-    typedef short gpr;
-    enum 𝙶𝚛𝚊𝚗𝚞𝚕 { 𝟷𝟸𝟾, 𝟼𝟺, 𝟹𝟸, 𝟷𝟼, 𝟾 }; enum class CCWSectors { 𝟸, 𝟺, 𝟾 };
-    void (^𝚍𝚎𝚛𝚎𝚏)(const void *p, CCWSectors s, int dirₓ, gpr r_idx, 𝙶𝚛𝚊𝚗𝚞𝚕 g);
-    void (^👉𝚒𝚗𝚍𝚒𝚛𝚎𝚌𝚝)(gpr r_value, const void * base, gpr r_offsets, 𝙶𝚛𝚊𝚗𝚞𝚕 g);
+    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, RelativeWrap wrap, uint64_t intel);
     
-    MACRO uint64_t intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
-   
-    __uint128_t /* ...and simd_tᵦ, 𝛽₋simd, simd_t, simd_tᵥ, simd_tₐ, simd_tᵢₐ. */
-    closedradio(__builtin_int_t 𝟷₋𝟾shortNº); /* Up to 16 symbols at a time. */
+#pragma mark - Extrapolate 1px is (bi-)linear, 2px is constant. Kernels include 9, 16, 25, 36, … pixels
+    
+    enum Minutes { 𝟶, 𝟽½, 𝟷𝟻, 𝟸𝟸½, 𝟹𝟶, 𝟹𝟽½, 𝟺𝟻, 𝟻𝟸½ };
+    int ⁸hayball(int cols, int manhattan, Minutes m, void (^bytes)(uint8_t *pxls, int bytes));
+    
+    uint8_t ⁸𝟸ᵈ(int cols, __builtin_int_t byteNº, 
+      __builtin_int_t 𝛥bytesˣ, __builtin_int_t 𝛥bytesʸ, 
+      void (^issue)(int nº));
+    
+    int keep𝟸ᵈ(int cols, __builtin_int_t byteNº, 
+      __builtin_int_t 𝛥bytesˣ, __builtin_int_t 𝛥bytesʸ, 
+      uint8_t byte);
+    
+#pragma mark - Partially disjunct and on-a-line
+    
+    __uint128_t radio𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥radio, 
+      RelativeWrap wrap, void (^issue)(int nº));
+    
+    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥radio, 
+      RelativeWrap wrap, __uint128_t radio);
+    
+    /* ...and simd_tᵦ, 𝛽₋simd, simd_t, simd_tᵥ, simd_tₐ, simd_tᵢₐ. */
     
 #pragma mark Miscellaneous tasks and generalizations
     
     struct µProc; µProc * µP() const; /* A․𝘬․a `processor`. */
     
     __builtin_int_t bytes() const; __builtin_int_t bytesLeft() const; /* A․𝘬․a `debris` and `ᵇʸᵗᵉresidue`. */
+    
+    inline uint64_t intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
     
     int alsoAtDealloc(void (^deferral)()); /* ☜😐: 🛵𝜆 */
     
