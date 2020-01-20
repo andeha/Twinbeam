@@ -506,13 +506,13 @@ struct Memoryregion { /* ⬷ Two levels! */
     enum Minutes { 𝟶, 𝟽½, 𝟷𝟻, 𝟸𝟸½, 𝟹𝟶, 𝟹𝟽½, 𝟺𝟻, 𝟻𝟸½ };
     int ⁸hayball(int cols, int manhattan, Minutes m, void (^bytes)(uint8_t *pxls, int bytes));
     
-    uint8_t ⁸𝟸ᵈ(int cols, __builtin_int_t byteNº,
+    uint8_t ⁸𝟸ᵈ(__builtin_int_t byteNº, int cols,
       __builtin_int_t 𝛥bytesˣ, __builtin_int_t 𝛥bytesʸ, 
-      void (^issue)(int nº));
+      RelativeWrap wrap, void (^issue)(int nº));
     
-    int keep𝟸ᵈ(int cols, __builtin_int_t byteNº, 
+    int keep𝟸ᵈ(__builtin_int_t byteNº, int cols,
       __builtin_int_t 𝛥bytesˣ, __builtin_int_t 𝛥bytesʸ, 
-      uint8_t byte);
+      RelativeWrap wrap, uint8_t byte);
     
     __uint128_t radio𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥radio, 
       RelativeWrap wrap, void (^issue)(int nº));
@@ -546,11 +546,11 @@ struct Memoryregion { /* ⬷ Two levels! */
 #pragma mark Fields of Capacitors on Two-gates/feedbacked-inverters
     
     static void sediment(__builtin_int_t bytes, void (^once)(Memoryregion& region),
-      MemoryDelegate * delegate = NULL); /* A․𝘬․a `cradle` and `nest`. */
+      MemoryDelegate * delegate = NULL); /* A․𝘬․a `scratch`, `cradle` and `nest`. */
     
     static int abduct₂(__builtin_int_t bytes, MemoryDelegate * delegate, Memoryregion& region);
     
-    static Opt<Memoryregion> abduct₁(__builtin_int_t bytes, MemoryDelegate * delegate = NULL);
+    static Opt<Memoryregion> abduct₁(__builtin_int_t bytes, MemoryDelegate * delegate = NULL); /* A․𝘬․𝘢 `itch`. */
     
     static int reflect⁻ᵚ(Unicodes regularOrLinkpath, 
       __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
