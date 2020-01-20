@@ -212,8 +212,8 @@ extern "C" { int atexit(void(*func)(void)); void exit(int); }
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
 __builtin_int_t ﹟Frames(__builtin_int_t bytes, __builtin_int_t * modula);
 int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t 
-  pages[], __builtin_uint_t avails[], void (^every)(void * frame, bool& stop));
-int Release𝟷ᵈ(void * frame, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
+  pages[], __builtin_uint_t avails[], void (^every)(void * 𝟸ⁿframe, bool& stop));
+int Release𝟷ᵈ(void * 𝟸ⁿframe, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
   __builtin_uint_t avails[], bool secure);
 extern "C" { void * malloc(size_t); void free(void *); }
 typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
@@ -463,7 +463,7 @@ typedef SemanticPointer<virtuaddr> metaaddress;
 
 struct MemoryDelegate { struct Memoryregion; virtual void statistics() = 0; };
 
-void Attachstore(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_uint_t **pages,  __builtin_uint_t **avails);
+void Reservoir(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_uint_t **pages,  __builtin_uint_t **avails);
 
 struct Memoryregion { /* ⬷ Two levels! */
     
@@ -520,7 +520,7 @@ struct Memoryregion { /* ⬷ Two levels! */
     int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥radio, 
       RelativeWrap wrap, __uint128_t radio);
     
-    /* ...and simd_tᵦ, 𝛽₋simd, simd_t, simd_tᵥ, simd_tₐ, simd_tᵢₐ. */
+    /* ...and simd_tᵦ, 𝛽₋simd, simd_t, simd_tᵥ, simd_tₐ, simd_tᵢₐ and double². */
     
 #pragma mark Miscellaneous tasks and generalizations
     
