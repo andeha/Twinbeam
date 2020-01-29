@@ -250,7 +250,7 @@ MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /* A․
 ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
 ByteAlignedRef Overwrite8Memory(ByteAlignedRef src, uint8_t val,
   __builtin_int_t bytes);
-MACRO __builtin_int_t Frame(__builtin_uint_t size, __builtin_uint_t framesize) {
+MACRO __builtin_uint_t Frame(__builtin_uint_t size, __builtin_uint_t framesize) {
   return (size + framesize - 1) & ~(framesize - 1); }
 MACRO __builtin_int_t HowMany(__builtin_uint_t index, __builtin_uint_t width) {
   return (index % width == 0) ? index/width : index/width + 1; }
@@ -463,17 +463,20 @@ typedef SemanticPointer<virtuaddr> metaaddress;
 
 struct MemoryDelegate { struct Memoryregion; virtual void statistics() = 0; };
 
-void Reservoir(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_uint_t **pages,  __builtin_uint_t **avails);
+/* void Reservoir(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_uint_t **pages, __builtin_uint_t 
+  **avails); */
 
-struct Memoryregion { /* ⬷ Two levels! */
+struct Memoryregion {
     
     Memoryregion(MemoryDelegate * delegate);
     
-    Memoryregion(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastPageBytes, MemoryDelegate * delegate = NULL);
+    Memoryregion(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastPageBytes, MemoryDelegate * delegate);
     
-    ~Memoryregion(); /* Exercises `Release`. */
+    ~Memoryregion(); /* Exercises `Release𝟷ᵈ`. */
     
-    int augment(__builtin_int_t bytes, void (^frame)(void * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage)); /* Exercises `Acquire`. */
+    int augment(__builtin_int_t bytes, void (^once𝘖𝘳Multiple)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage)); /* Exercises `Acquire𝟷ᵈ`. */
+    
+    int relief(__builtin_int_t bytes, void (^left)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage)); /* A․𝘬․a `de-exhert` and `gone`. */
     
 #pragma mark Easy: 'Consecutive', 'bounded' and 'disjunct'
     
@@ -550,12 +553,12 @@ struct Memoryregion { /* ⬷ Two levels! */
     
     static int abduct₂(__builtin_int_t bytes, MemoryDelegate * delegate, Memoryregion& region);
     
-    static Opt<Memoryregion> abduct₁(__builtin_int_t bytes, MemoryDelegate * delegate = NULL); /* A․𝘬․𝘢 `itch`. */
+    static Opt<Memoryregion> abduct₁(__builtin_int_t bytes, MemoryDelegate * delegate); /* A․𝘬․a `itch`. */
     
     static int reflect⁻ᵚ(Unicodes regularOrLinkpath, 
       __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
       int (^transformAndResolve)(Unicodes path, void (^final)(const char * utf8)),
-      Memoryregion& region, bool append𝙴𝙾𝚃at𝙴𝙾𝙵);
+      Memoryregion& region, bool append𝙴𝙾𝚃at𝙴𝙾𝙵); /* ⬷ WORM = '𝑊𝑟𝑖𝑡𝑒₋𝑜𝑛𝑐𝑒₋read₋𝑚𝑎𝑛𝑦'. */
     
     static int reflectʳᵚ(Unicodes regularpath, 
       __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
