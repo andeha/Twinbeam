@@ -250,8 +250,8 @@ MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /* A․
 ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
 ByteAlignedRef Overwrite8Memory(ByteAlignedRef src, uint8_t val,
   __builtin_int_t bytes);
-MACRO __builtin_uint_t Frame(__builtin_uint_t size, __builtin_uint_t framesize) {
-  return (size + framesize - 1) & ~(framesize - 1); }
+MACRO __builtin_int_t Frame(__builtin_uint_t size, __builtin_uint_t framesize) {
+  return __builtin_int_t((size + framesize - 1) & ~(framesize - 1)); }
 MACRO __builtin_int_t HowMany(__builtin_uint_t index, __builtin_uint_t width) {
   return (index % width == 0) ? index/width : index/width + 1; }
 #define Block_copy(...) ((__typeof(__VA_ARGS__))_Block_copy((const void *)(__VA_ARGS__)))
@@ -548,7 +548,7 @@ struct Memoryregion {
     
 #pragma mark Fields of Capacitors on Two-gates/feedbacked-inverters
     
-    static void sediment(__builtin_int_t bytes, void (^once)(Memoryregion& region),
+    static void sediment(__builtin_int_t bytes, void (^once𝘖𝘳Never)(Memoryregion& region),
       MemoryDelegate * delegate = NULL); /* A․𝘬․a `scratch`, `cradle` and `nest`. */
     
     static int abduct₂(__builtin_int_t bytes, MemoryDelegate * delegate, Memoryregion& region);
