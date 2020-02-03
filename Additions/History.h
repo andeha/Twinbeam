@@ -21,14 +21,14 @@ struct History { /* Consideration */
       union { Q7 q7s[8]; Q15 q15s[4]; Q31 q31s[2]; } relatives;      /*  3 */
       __builtin_int_t machinesigned;                                 /* 23 */
 #ifdef __x86_64__
-      /* 💊 ditriaconta avx2machine;                                     6
+      /* ✠ ditriaconta avx₂machine;                                      6
       ditriaconta avx512machine[2];                                      7 */
 #endif
       Chronology::UQ32 relativretrospectat                           /*  9 */
       /* typedef bignum * Bignum; Bignum big;                           11
       struct { Bignum right; Bignum left; } doublebig;                  12 */
       struct Mixedradix { double small; __builtin_int_t 𝟷𝟶ᵐ; };
-      struct { Mixedradix right; Mixedradix left; } detailing;       /* 17 */
+      struct { Mixedradix right; Mixedradix left; } detail;          /* 17 */
     }; /* Sometimes 64 bits, sometimes 2*32 bits. See --<Arith⁺⁺.cpp>. */
     
     typedef const char * ⁸Bitref; typedef Unicodes Key;
