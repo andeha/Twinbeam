@@ -455,7 +455,7 @@ typedef Unicodes Unicodes⁺ᵃ⁻ᵚ; /*  To use when a sequence of symbols,
 
 enum { END_OF_TRANSMISSION = U'\u0004' }; /* ⬷ hex ∧ dec; Also A․|incorrectly/𝘬․a '\x4', '\x41', '\x42', … */
 
-#pragma mark - ”𝑇ℎ𝑒 🧠🧠” 🔍😐
+#pragma mark - For 𝑝𝑖𝑔𝑒𝑜𝑛 𝑟𝑒𝑐𝑜𝑛𝑛𝑎𝑖𝑠𝑠𝑎𝑛𝑐𝑒, 𝑠𝑐𝑜𝑢𝑡𝑖𝑛𝑔 and other missions
 
 typedef __builtin_uint_t virtuaddr;
 
@@ -486,7 +486,7 @@ struct Memoryregion {
     
     int keep(metaaddress loc, __builtin_uint_t word) const;
     
-#pragma mark Manipulations within a Haitian wrap
+#pragma mark Inside one Haitian wrap
     
     enum RelativeWrap { cyclic, constant, linear, bilinear, error };
     

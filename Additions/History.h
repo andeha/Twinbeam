@@ -1,4 +1,4 @@
-/*  History.h | Additions. */
+/*  History.h | At last, a state snapshot. */
 
 #ifndef __HISTORY_H
 #define __HISTORY_H
@@ -10,8 +10,8 @@ struct History { /* Consideration */
     
     explicit History(Version& revision) noexcept;
     
-    enum Kind { machineunsigned, singleReal, doubleReal, 𝟺𝚑𝚊𝚕𝚏s=4, 𝟾Q7=3,
-      𝟺Q15=5, 𝟸Q31=8, 𝛥𝘵=9, /* ⟤⟥ */ machinesigned=23 };
+    enum Kind { machineunsigned, singleReal, doubleReal, 𝟺𝗵𝗮𝗹𝗳s=4, 𝟾Q7=3, 
+      𝟺Q15=5, 𝟸Q31=8, 𝛥𝘵=9, Q79=10, Temporalˡ=11, /* ⟤⟥ */ machinesigned=23 };
     
     union Pod {
       __builtin_uint_t machineunsigned;                              /*  0 */
@@ -27,6 +27,7 @@ struct History { /* Consideration */
       Chronology::UQ32 relativretrospectat                           /*  9 */
       /* typedef bignum * Bignum; Bignum big;                           11
       struct { Bignum right; Bignum left; } doublebig;                  12 */
+      struct Mixedradix { double small; __builtin_int_t 𝟷𝟶ᵐ; };
       struct { Mixedradix right; Mixedradix left; } detailing;       /* 17 */
     }; /* Sometimes 64 bits, sometimes 2*32 bits. See --<Arith⁺⁺.cpp>. */
     
@@ -34,7 +35,7 @@ struct History { /* Consideration */
     Timeserie<Key, Pod, ⁸Bitref> serie;
     Kind kind;
     
-    static History::Pod (^add)(History::Pod& left, History::Pod& right,
+    static History::Pod (^add)(History::Pod& left, History::Pod& right, 
       void *ctx); /* History::Kind */
     
 #pragma mark - Querying
@@ -43,9 +44,9 @@ struct History { /* Consideration */
     
 #pragma mark Implicits
     
-    History() = delete;
+    /* History(const History& other); */
     
-    History(const History& other) = default;
+    History() = delete;
     
 };
 
@@ -59,21 +60,21 @@ struct ComputationalIndex {
     
 #pragma mark Transactions
     
-    void peek(void (^entry)(Serie key, Operation op, const Arguments& e,
+    void peek(void (^entry)(Serie key, Operation op, const Arguments& e, 
       bool& stop));
     
-    bool commit(Chronology::Instant instant, void (^touchbase)(const char *
-      ref, const History::Pod& value, void * ctx, Version revision, const
+    bool commit(Chronology::Instant instant, void (^detail)(const char * 
+      ref, const History::Pod& value, void * ctx, Version revision, const 
       Chronology::Instant& instant));
     
     void rollback();
     
-#pragma mark - Refreshing the non-volatile memory
+#pragma mark - Refreshing the non-volatiles
   
   FOCAL int
     reconcile(
-      Opt<Unicodes> pathᵚ, 
-      void (^ping)(double⁺ʳ percent, bool& stop), 
+      Opt<Unicodes> pathᵚ,
+      void (^ping)(double⁺ʳ percent, bool& stop),
       void (^completion)(int bytes)
     ); /* A․𝘬․a `preserve`. */
     
@@ -81,7 +82,7 @@ struct ComputationalIndex {
     
     /* Subgraph<Seriekey> organization; */
     
-    Map<Serie, History> series;
+    Map<Serie, History> series; /* With `succumb` and `branch`. */
     
 😐;
 
@@ -90,8 +91,12 @@ extern History::Pod (^__doubleReal)(float left, float right);
 extern History::Pod (^__singleReal)(double scalar);
 
 void Present(Utf8Terminal &term, const History& history);
-void Present(Utf8Terminal &term, const History::Pod& pod,
+void Present(Utf8Terminal &term, const History::Pod& pod, 
   const History::Kind kind);
+
+#if __has_include(<Additions/Esoteric.h>)
+#include <Additions/Esoteric.h>
+#endif
 
 union Twinpod {                                                              
   simd_tᵦ doubleDouble;                                              /* 1 */
@@ -100,17 +105,21 @@ union Twinpod {
   simd_tₐ eightAudio;                                                /* 4 */
   simd_tᵢₐ fourThirtytwo;                                            /* 5 */
   simd_tₒ twoSixtyfour;                                              /* 6 */
-};
+#if __has_include(<Additions/Esoteric.h>)
+  Q79 eightfixed[8];                                                /* 10 */
+  Q1516 fourinterval[4]                                             /* 11 */
+#endif
+}; /* ⬷ Requires physical to unlock after storage. Notice pod possibly locally tainted. */
 
-#pragma mark - Preservation
+#pragma mark - Preserves
 
 FOCAL
 Opt<ComputationalIndex>
 ᵟBranch(
   Unicodes pathᵚ, 
-  int (^dyncast)(Memoryview view, ComputationalIndex & y), 
+  int (^modernize)(Memoryview view, ComputationalIndex & y), 
   void (^ping)(double⁺ʳ percent, bool& stop), 
   void (^completion)(int bytes)
-); /* A․𝘬․a `Reflect`, `Materialize`. */
+); /* A․𝘬․a `Reflect`/`Abduct`. */
 
 #endif
