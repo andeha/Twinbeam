@@ -30,7 +30,7 @@ typedef int                 int32_t; /* ≡`long` */
 typedef uint64_t            __builtin_uint_t;
 typedef int64_t             __builtin_int_t; /* 𝘈․𝘬․a `sequential`. */
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
-#endif
+#endif /* ⬷ Consider 32- alt. 64-bits with an extra sign bit for `Frame`, `leqAndPowerOfTwo`, `geqAndPowerOfTwo` and `isPowerOfTwo` in --<Memory.cpp>. */
 typedef unsigned short      uint16_t;
 typedef short               int16_t; /* ≡`ᵐⁱᵖˢint` */
 typedef __builtin_uint_t Tribool;
@@ -81,7 +81,7 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․𝘬․a 
 #define Si_FOCAL
 #define OPT_Si_FOCAL
 #define ENCLAVED
-// #define ⚠️_IMPLICATIONS_WHILE_HARDTIMES
+/* #define ⚠️_IMPLICATIONS_WHILE_HARDTIMES */
 #define ARGUMENTATIVE /* A․𝘬․a `ONLY_FOR_SOFT_REALTIME`. */
 #define MAY_CONTAIN_TRACES_OF_FIRM_REALTIME
 #define INFLATABBLE
@@ -103,10 +103,11 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․𝘬․a 
 #define VERYLOGARITHMIC
 #define ANTIPOLARISATIVE
 #define DUALREFLECTIVE
-#define CEDILLEDISPOSITIVE
+#define CEDILLEPOSITIVE
 #define CEDILLEINDUCTIVE
 #define EVENTUALMACHINAL
 #define REINTEGRATIVE
+#define PRUDENTPOSSESSIVE
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -116,7 +117,7 @@ typedef x86_64_context jmp_buf2;
 #endif
 extern "C" { int setjmp2(jmp_buf2 env); void longjmp2(jmp_buf2 env,
   __builtin_int_t val); /* `__builtin_longjmp` requires last arg to be 
-  const and bounded by `int`. */ }
+  const and bounded by `int`. Determined 𝑎₋𝑝𝑟𝑖𝑜𝑟𝑖 to be 𝙞𝙣𝙩. */ }
 #ifdef  __mips__
 #define BLURT(str) { tetra t; t.bits = (uint32_t)(const char *)str;          \
   longjmp2(*JmpBuf(), int(t.unsigned_little_endian.lsh)); }
@@ -509,11 +510,11 @@ struct Memoryregion {
     enum Minutes { 𝟶, 𝟽½, 𝟷𝟻, 𝟸𝟸½, 𝟹𝟶, 𝟹𝟽½, 𝟺𝟻, 𝟻𝟸½ };
     int ⁸hayball(int cols, int manhattan, Minutes m, void (^bytes)(uint8_t *pxls, int bytes));
     
-    uint8_t ⁸𝟸ᵈ(__builtin_int_t byteNº, int cols,
+  /* uint8_t ⁸𝟸ᵈ(__builtin_int_t byteNº, int cols, 
       __builtin_int_t 𝛥bytesˣ, __builtin_int_t 𝛥bytesʸ, 
-      RelativeWrap wrap, void (^issue)(int nº));
+      RelativeWrap wrap, void (^issue)(int nº)); */
     
-    int keep𝟸ᵈ(__builtin_int_t byteNº, int cols,
+    int keep𝟸ᵈ(__builtin_int_t byteNº, int cols, 
       __builtin_int_t 𝛥bytesˣ, __builtin_int_t 𝛥bytesʸ, 
       RelativeWrap wrap, uint8_t byte);
     
