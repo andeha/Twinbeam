@@ -82,7 +82,7 @@ struct ComputationalIndex {
     
     /* Subgraph<Seriekey> organization; */
     
-    Map<Serie, History> series; /* With `succumb` and `branch`. */
+    void * series; /* A․𝘬․a Map<Serie, History>; With `succumb` and `branch`. */
     
 😐;
 
@@ -109,7 +109,8 @@ union Twinpod {
   Q79 eightfixed[8];                                                /* 10 */
   Q1516 fourinterval[4]                                             /* 11 */
 #endif
-}; /* ⬷ Requires physical to unlock after storage. Notice pod possibly locally tainted. */
+}; /* ⬷ Requires physical to unlock after storage. Notice pod possibly 
+  locally colored. */
 
 #pragma mark - Preserves
 
