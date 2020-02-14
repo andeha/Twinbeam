@@ -5,6 +5,9 @@
 
 #include <Twinbeam.h>
 #include <Additions/Timeserie.hpp>
+#if __has_include(<Additions/Esoteric.h>)
+#include <Additions/Esoteric.h>
+#endif
 
 struct History { /* Consideration */
     
@@ -93,10 +96,6 @@ extern History::Pod (^__singleReal)(double scalar);
 void Present(Utf8Terminal &term, const History& history);
 void Present(Utf8Terminal &term, const History::Pod& pod, 
   const History::Kind kind);
-
-#if __has_include(<Additions/Esoteric.h>)
-#include <Additions/Esoteric.h>
-#endif
 
 union Twinpod {                                                              
   simd_tᵦ doubleDouble;                                              /* 1 */

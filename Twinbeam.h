@@ -30,7 +30,7 @@ typedef int                 int32_t; /* ≡`long` */
 typedef uint64_t            __builtin_uint_t;
 typedef int64_t             __builtin_int_t; /* 𝘈․𝘬․a `sequential`. */
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
-#endif /* ⬷ Consider 32- alt. 64-bits with an extra sign bit for `Frame`, `leqAndPowerOfTwo`, `geqAndPowerOfTwo` and `isPowerOfTwo` in --<Memory.cpp>. */
+#endif /* ⬷ Consider 32- alt. 64-bits with an extra sign bit for `Frame`, `leqAndPowerOfTwo`, `geqAndPowerOfTwo` and `isPowerOfTwo`. */
 typedef unsigned short      uint16_t;
 typedef short               int16_t; /* ≡`ᵐⁱᵖˢint` */
 typedef __builtin_uint_t Tribool;
@@ -489,40 +489,40 @@ struct Memoryregion {
     
 #pragma mark Inside one Haitian wrap
     
-    enum RelativeWrap { cyclic, constant, linear, bilinear, error };
+    enum Sentinel { cyclic, last, linear, bilinear, crash, bound }; /* A․𝘬․a `BirelativeWrap`; The cyclic and last defined also for idx < 0. */
     
-    uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, RelativeWrap wrap, void (^issue)(int nº));
+    uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, void (^issue)(int nº));
     
-    uint16_t ¹⁶𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥short, RelativeWrap wrap, void (^issue)(int nº));
+    uint16_t ¹⁶𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥short, Sentinel wrap, void (^issue)(int nº));
     
-    uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, RelativeWrap wrap, void (^issue)(int nº));
+    uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, void (^issue)(int nº));
     
-    uint64_t intel𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, RelativeWrap wrap, void (^issue)(int nº));
+    uint64_t intel𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, Sentinel wrap, void (^issue)(int nº));
     
-    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, RelativeWrap wrap, uint8_t byte);
+    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, uint8_t byte);
     
-    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥short, RelativeWrap wrap, uint16_t shoʳt);
+    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥short, Sentinel wrap, uint16_t shoʳt);
     
-    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, RelativeWrap wrap, uint32_t mips);
+    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, uint32_t mips);
     
-    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, RelativeWrap wrap, uint64_t intel);
+    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, Sentinel wrap, uint64_t intel);
     
     enum Minutes { 𝟶, 𝟽½, 𝟷𝟻, 𝟸𝟸½, 𝟹𝟶, 𝟹𝟽½, 𝟺𝟻, 𝟻𝟸½ };
     int ⁸hayball(int cols, int manhattan, Minutes m, void (^bytes)(uint8_t *pxls, int bytes));
     
   /* uint8_t ⁸𝟸ᵈ(__builtin_int_t byteNº, int cols, 
       __builtin_int_t 𝛥bytesˣ, __builtin_int_t 𝛥bytesʸ, 
-      RelativeWrap wrap, void (^issue)(int nº)); */
+      Sentinel wrap, void (^issue)(int nº)); */
     
     int keep𝟸ᵈ(__builtin_int_t byteNº, int cols, 
       __builtin_int_t 𝛥bytesˣ, __builtin_int_t 𝛥bytesʸ, 
-      RelativeWrap wrap, uint8_t byte);
+      Sentinel wrap, uint8_t byte); /* A․𝘬․a  'uumph𝟸ᵈ' and 'typeset'. */
     
     __uint128_t radio𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥radio, 
-      RelativeWrap wrap, void (^issue)(int nº));
+      Sentinel wrap, void (^issue)(int nº));
     
     int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥radio, 
-      RelativeWrap wrap, __uint128_t radio);
+      Sentinel wrap, __uint128_t radio);
     
     /* ...and simd_tᵦ, 𝛽₋simd, simd_t, simd_tᵥ, simd_tₐ, simd_tᵢₐ and double². */
     
@@ -559,12 +559,12 @@ struct Memoryregion {
     static int reflect⁻ᵚ(Unicodes regularOrLinkpath, 
       __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
       int (^transformAndResolve)(Unicodes path, void (^final)(const char * utf8)),
-      Memoryregion& region, bool append𝙴𝙾𝚃at𝙴𝙾𝙵); /* ⬷ WORM = '𝑊𝑟𝑖𝑡𝑒₋𝑜𝑛𝑐𝑒₋read₋𝑚𝑎𝑛𝑦'. */
+      Memoryregion& serpent, bool append𝙴𝙾𝚃at𝙴𝙾𝙵); /* ⬷ WORM = '𝑊𝑟𝑖𝑡𝑒₋𝑜𝑛𝑐𝑒₋read₋𝑚𝑎𝑛𝑦'. */
     
     static int reflectʳᵚ(Unicodes regularpath, 
       __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
       int (^transform)(Unicodes path, void (^final)(const char * utf8)), 
-      Memoryregion& region, bool append𝙴𝙾𝚃at𝙴𝙾𝙵);
+      Memoryregion& serpent, bool append𝙴𝙾𝚃at𝙴𝙾𝙵);
     
     /* Old document vs. 'editableOrAppend' a․𝘬․a --<🥽 i-node.cpp>{camera₋ready}. */
     
