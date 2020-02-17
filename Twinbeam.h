@@ -100,14 +100,15 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․𝘬․a 
 #define IRREPABEL /* In German: 'reparierbar'. */
 #define AMBIVALENT /* Native: 'contra-polarisative'. */
 #define DEFLECTIVE /* E․𝘨 `Auntie`. */
-#define VERYLOGARITHMIC
 #define ANTIPOLARISATIVE
 #define DUALREFLECTIVE
 #define CEDILLEPOSITIVE
 #define CEDILLEINDUCTIVE
 #define EVENTUALMACHINAL
 #define REINTEGRATIVE
-#define PRUDENTPOSSESSIVE
+#define REFLECTIVEATTRACTIONAL
+#define VERYLOGARITHMIC
+#define PROCESSACCUSATIVE
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -512,7 +513,7 @@ struct Memoryregion {
     
   /* uint8_t ⁸𝟸ᵈ(__builtin_int_t byteNº, int cols, 
       __builtin_int_t 𝛥bytesˣ, __builtin_int_t 𝛥bytesʸ, 
-      Sentinel wrap, void (^issue)(int nº)); */
+      BirelativeWrap wrap, void (^issue)(int nº)); */
     
     int keep𝟸ᵈ(__builtin_int_t byteNº, int cols, 
       __builtin_int_t 𝛥bytesˣ, __builtin_int_t 𝛥bytesʸ, 
