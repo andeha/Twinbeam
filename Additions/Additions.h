@@ -229,11 +229,11 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
     
     struct {
       
-      Knot¹ᵈ<Utf8Symbol> original;
+      Knots¹ᵈ<Utf8Symbol> original;
       
-      Knot¹ᵈ<UnicodeIntervalAnd𝑂𝑟Location> parsed;
+      Knots¹ᵈ<UnicodeIntervalAnd𝑂𝑟Location> parsed;
       
-      Knot¹ᵈ<UnicodeBlock> rendered;
+      Knots¹ᵈ<UnicodeBlock> rendered;
       
       /* typedef __builtin_int_t Parsedᴵᵈˣ; */
       
@@ -288,7 +288,7 @@ struct Utf8Terminal {
     
     typedef void * Refedpics; /* A․𝘬․a Map<const char *, Image ∧ uint8_t *>. */
     
-    int show(Refedpics pics, short unsigned cols, Unit unit);
+    int show(Refedpics pics, short cols, Unit unit);
     
 😐;
 
