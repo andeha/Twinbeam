@@ -21,7 +21,9 @@ struct History { /* Consideration */
       double singleReal;                                             /*  1 */
       struct { float starboard; float port; } doubleReal;            /*  2 */
       half pythagoreans[4];                                          /*  4 */
+#if __has_include(<Additions/Esoteric.h>)
       union { Q7 q7s[8]; Q15 q15s[4]; Q31 q31s[2]; } relatives;      /*  3 */
+#endif
       __builtin_int_t machinesigned;                                 /* 23 */
 #ifdef __x86_64__
       /* ✠ ditriaconta avx₂machine;                                      6
@@ -97,7 +99,7 @@ void Present(Utf8Terminal &term, const History& history);
 void Present(Utf8Terminal &term, const History::Pod& pod, 
   const History::Kind kind);
 
-union Twinpod {                                                              
+union Twinpod {                                                             
   simd_tᵦ doubleDouble;                                              /* 1 */
   simd_t quadFloat;                                                  /* 2 */
   simd_tᵥ sixteenVideo;                                              /* 3 */
@@ -120,6 +122,7 @@ Opt<ComputationalIndex>
   int (^modernize)(Memoryview view, ComputationalIndex & y), 
   void (^ping)(double⁺ʳ percent, bool& stop), 
   void (^completion)(int bytes)
-); /* A․𝘬․a `Reflect`/`Abduct`. */
+); /* A․𝘬․a `Reflect`/`Abduct`, reconcile, preserve, syncronize, succumb, branch, cloneAndPersist. */
 
-#endif
+#endif /* See also Scandinavian 'förlupen', 'upplupen' and anglosaxian 'puzzle'/`lapsus𝘖rMUX`. */
+
