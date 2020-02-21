@@ -109,7 +109,6 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․𝘬․a 
 #define REFLECTIVEATTRACTIONAL
 #define VERYLOGARITHMIC
 #define PROCESSACCUSATIVE
-#define PETRIREJECTORIAL
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
