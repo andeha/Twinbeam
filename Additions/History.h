@@ -124,5 +124,5 @@ Opt<ComputationalIndex>
   void (^completion)(int bytes)
 ); /* A․𝘬․a `Reflect`/`Abduct`, reconcile, preserve, syncronize, succumb, branch, cloneAndPersist. */
 
-#endif /* See also Scandinavian 'förlupen', 'upplupen' and anglosaxian 'puzzle'/`lapsus𝘖rMUX`. */
+#endif /* C𝘧. Scandinavian 'förlupen', 'upplupen' and anglosaxon 'puzzle'/`lapsus𝘖rMUX`. */
 
