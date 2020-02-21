@@ -259,7 +259,7 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
     Unicodes text() const; /* See also [github.com]>--<fmtlib>--<fmt>. */
 #endif
     
-😐; /* …, `DecoratedString` and `Recording`. */
+😐; /* …, `Spatsitemporal-relative`, `DecoratedString` and `Recording`. */
 
 /* #include <Additions/Color.hpp>
 #include <Additions/Typeset.hpp> */
