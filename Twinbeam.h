@@ -569,13 +569,16 @@ struct Memoryregion {
     
     /* Old document vs. 'editableOrAppend' a․𝘬․a --<🥽 i-node.cpp>{camera₋ready}. */
     
-#pragma mark Implicits
+#pragma mark Toggling implicits
     
-    Memoryregion() = delete;
+    Memoryregion(); /* ⬷ Required when in nested structures. See --<Ornaments.cpp>. */
     
     Memoryregion(const Memoryregion& other); /* ⬷ Required by `abduct₁`. */
     
-😐; /* Pimpl optional because of opaque, mandatory since `alsoAtDealloc`. */
+😐; /* Idiom optional because of opaque, mandatory since `alsoAtDealloc`. */
+
+int Incorporate(const Memoryregion& dst, __builtin_int_t byteOffsetToTail, __builtin_int_t 
+  bytes, void (^sometimes)(void * virtue, __builtin_int_t bytes));
 
 #if __has_include(<Additions/Kirkbridge/911.h>)
 #include <Additions/Kirkbridge/911.h>

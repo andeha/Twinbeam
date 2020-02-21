@@ -245,11 +245,19 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
         
         /* 𝟺𝚔𝚋Quadtreenode * quadtrees; */
         
-      } elucidation;
+      } exegesis;
       
     } cache;
     
-    Unicodes unicodes() const;
+    enum Errorcode { unableToEncompass };
+    
+    MACRO static void Error(Errorcode code) { /* ⭐️ */ Sheriff(); }
+    
+#ifdef WITHOUT_MMU
+    int text(void (^zero𝘖rMany)(__builtin_int_t tetras, char32_t * unicodes)) const
+#else
+    Unicodes text() const; /* See also [github.com]>--<fmtlib>--<fmt>. */
+#endif
     
 😐; /* …, `DecoratedString` and `Recording`. */
 
