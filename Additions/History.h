@@ -113,7 +113,7 @@ union Twinpod {
 }; /* ⬷ Requires physical to unlock after storage. Notice pod possibly 
   locally colored. */
 
-#pragma mark - Preserves
+#pragma mark - Preserves /* C𝘧. Scandinavian 'förlupen', 'upplupen' and anglosaxon 'puzzle'/`lapsus𝘖rMUX`. */
 
 FOCAL
 Opt<ComputationalIndex>
@@ -124,5 +124,5 @@ Opt<ComputationalIndex>
   void (^completion)(int bytes)
 ); /* A․𝘬․a `Reflect`/`Abduct`, reconcile, preserve, syncronize, succumb, branch, cloneAndPersist. */
 
-#endif /* C𝘧. Scandinavian 'förlupen', 'upplupen' and anglosaxon 'puzzle'/`lapsus𝘖rMUX`. */
+#endif
 
