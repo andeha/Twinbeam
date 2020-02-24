@@ -25,7 +25,7 @@ BITMASK (uint32_t) { /* UxSTA */
 #define 🔧ᵗᵍᵍˡ𝑀𝑋(symbol,msk) 🔧(PIC32MX_##symbol##INV) = PIC32MX_##symbol##_##msk
 #define 🔧0𝑀𝑋(symbol,msk) 🔧(PIC32MX_##symbol##CLR) = PIC32MX_##symbol##_##msk
 #define 🔧1𝑀𝑋(symbol,msk) 🔧(PIC32MX_##symbol##SET) = PIC32MX_##symbol##_##msk
-#define 🐛𝑀𝑋(symbol,msk) ((i)&PIC32MX_##symbol##_##msk)
+#define 🐛𝑀𝑋(symbol,msk) (🔎(PIC32MX_##symbol)&PIC32MX_##symbol##_##msk)
 
 #define PIC32MX_SYSKEY 0xBF80F230
 

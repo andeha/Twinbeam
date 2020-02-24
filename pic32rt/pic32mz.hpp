@@ -1,7 +1,4 @@
-//
-//  pic32mz.hpp
-//  pic32rt
-//
+/*  pic32mz.hpp | The MZ model specifics. (pic32rt) */
 
 PIC32SYMBOL(MZ, INTSTAT, 0xBF810020)
 PIC32SYMBOL(MZ, RPG9R,   0xBF8016a4)
@@ -62,7 +59,7 @@ BITMASK (uint32_t) { /* UxSTA */
 #define 🔧ᵗᵍᵍˡ𝑀𝑍(symbol,msk) 🔧(PIC32MZ_##symbol##INV) = PIC32MZ_##symbol##_##msk
 #define 🔧0𝑀𝑍(symbol,msk) 🔧(PIC32MZ_##symbol##CLR) = PIC32MZ_##symbol##_##msk
 #define 🔧1𝑀𝑍(symbol,msk) 🔧(PIC32MZ_##symbol##SET) = PIC32MZ_##symbol##_##msk
-#define 🐛𝑀𝑍(symbol,msk) ((i)&PIC32MZ_##symbol##_##msk)
+#define 🐛𝑀𝑍(symbol,msk) (🔎(PIC32MZ_##symbol)&PIC32MZ_##symbol##_##msk)
 
 enum Interrupt { Coretimer=0, Coresoftware0=1, Coresoftware1=2, ExternalInt0=3,
   Timer1=4, InputCapture1Error=5, InputCapture1=6, OutputCompare1=7, Timer2=9, OutputCompare2=12,

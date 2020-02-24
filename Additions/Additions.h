@@ -206,7 +206,7 @@ inline int ᵊ(const char * utf8, void (^sometimes)(Unicodes uc)) {
 
 #pragma mark Fine print for well-versed readers:
 
-typedef struct UnicodeIntervalAnd𝑂𝑟Location {
+typedef struct UnicodeIntervalAnd𝑂rLocation {
   __builtin_int_t tetrasRelativeFirst, tetrasRelativeLast;
 } UnicodeArtifact; /* See also --<Preserves.h>{Utf8Interval} */
 
@@ -220,7 +220,7 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
                                                                              
          ⎡      😐≅       ⎤                                                  
         ♢⎢    😐?😐≅😐    ⎥                                                  
-         ⎣ 😐?😐≅😐?😐?😐?⎦ */
+         ⎣ 😐?😐≅😐?😐?😐?⎦, `Spatsitemporal₋relative`, */
     
     Ornaments(const char32_t *nativeEndianUnicodes, 
       __builtin_int_t tetras, bool readonly);
@@ -231,7 +231,7 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
       
       Knots¹ᵈ<Utf8Symbol> original;
       
-      Knots¹ᵈ<UnicodeIntervalAnd𝑂𝑟Location> parsed;
+      Knots¹ᵈ<UnicodeIntervalAnd𝑂rLocation> parsed;
       
       Knots¹ᵈ<UnicodeBlock> rendered;
       
@@ -253,13 +253,13 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
     
     MACRO static void Error(Errorcode code) { /* ⭐️ */ Sheriff(); }
     
-#ifdef WITHOUT_MMU
-    int text(void (^zero𝘖rMany)(__builtin_int_t tetras, char32_t * unicodes)) const
+#ifndef CPU_INCLUDES_MMU
+    int text(void (^zero𝘖rMany)(__builtin_int_t tetras, char32_t * unicodes)) const;
 #else
     Unicodes text() const; /* See also [github.com]>--<fmtlib>--<fmt>. */
 #endif
     
-😐; /* …, `Spatsitemporal-relative`, `DecoratedString` and `Recording`. */
+😐; /* …, `DecoratedString` and `Recording`. */
 
 /* #include <Additions/Color.hpp>
 #include <Additions/Typeset.hpp> */
@@ -285,7 +285,7 @@ struct Utf8Terminal {
     Inputctrl
     interaction( /* See also --<Fossilate.h|cpp>{TerminalIn ∧ WaitTerminal}. */
       int periods𝘖𝘳Zero,
-      int ᵗᵉⁿᵗʰseconds,
+      int 𝟷𝟶ᵗʰseconds,
       void (^ping)(bool &stop), /* Cyclically whilst time passes. */
       void (^touchbase)(char32_t unicode, bool &stop) /* After a key press. */
     ) const; /* 𝘈․𝘬․a `interact`, `read` and `password`. */
@@ -304,7 +304,7 @@ namespace NumberformatCatalogue {
  void Scientific(double, void (^out)(char32_t uc));
  void Monetary(double, void (^out)(char32_t uc));
  void Regional(double ℝ, void (^out)(char32_t uc));
- void Intervallic(double ℝ₁, double ℝ₂, bool openend, void (^out)(char32_t uc));
+ void Interval(double ℝ₁, double ℝ₂, bool openend, void (^out)(char32_t uc));
  void Percentile(double ₋𝟹𝜎, double ₋𝟸𝜎, double ₋𝜎, double 𝟶, double 𝜎, 
    double 𝟸𝜎, double 𝟹𝜎, __builtin_int_t& 𝟷𝟶ⁱ, void (^out)(char32_t uc));
  void Normal(double μ, double σ, void (^out)(char32_t uc));
@@ -351,12 +351,12 @@ MACRO
 Utf8Terminal &
 operator<<(
   Utf8Terminal &term,
-  const char32_t * ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳
+  const char32_t * ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳
 )
-{ if (!ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳) { return term; }
+{ if (!ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳) { return term; }
   char32_t uc; int i=0;
 again:
-  uc = *(ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳 + i);
+  uc = *(ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳 + i);
   if (uc == 0x0000) { return term; }
   if (uc == END_OF_TRANSMISSION) { return term; }
   Present(term, uc);

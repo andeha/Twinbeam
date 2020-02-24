@@ -461,14 +461,14 @@ enum { END_OF_TRANSMISSION = U'\u0004' }; /* ⬷ hex ∧ dec; Also A․|incorrec
 
 typedef __builtin_uint_t virtuaddr;
 
-typedef SemanticPointer<virtuaddr> metaaddress;
+typedef SemanticPointer<virtuaddr> byteaddress; /* A․𝘬․a `metaaddress`. */
 
 struct MemoryDelegate { struct Memoryregion; virtual void statistics() = 0; };
 
 /* void Reservoir(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_uint_t **pages, __builtin_uint_t 
   **avails); */
 
-struct Memoryregion {
+struct Memoryregion { /* See also --<🥽 Bounds.cpp>{Intervallic}. */
     
     Memoryregion(MemoryDelegate * delegate);
     
@@ -482,31 +482,31 @@ struct Memoryregion {
     
 #pragma mark Easy: 'Consecutive', 'bounded' and 'disjunct'
     
-    metaaddress relative(__builtin_int_t wordNº, bool cyclic) const;
+    byteaddress relative(__builtin_int_t wordNº, bool cyclic) const;
     
-    __builtin_uint_t deref(metaaddress loc, void (^issue)(int nº)) const;
+    __builtin_uint_t deref(byteaddress loc, void (^issue)(int nº)) const;
     
-    int keep(metaaddress loc, __builtin_uint_t word) const;
+    int keep(byteaddress loc, __builtin_uint_t word) const;
     
 #pragma mark Inside one Haitian wrap
     
-    enum Sentinel { cyclic, last, linear, bilinear, crash, bound }; /* A․𝘬․a `BirelativeWrap`; The cyclic and last defined also for idx < 0. */
+    enum Sentinel { cyclic, last /*, linear, bilinear, crash, bound */ }; /* The cyclic and last defined also for idx < 0. */
     
-    uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, void (^issue)(int nº));
+    uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, __builtin_int_t totbytes, void (^issue)(int nº));
     
-    uint16_t ¹⁶𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥short, Sentinel wrap, void (^issue)(int nº));
+    uint16_t ¹⁶𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥short, Sentinel wrap, __builtin_int_t totshorts, void (^issue)(int nº));
     
-    uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, void (^issue)(int nº));
+    uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, __builtin_int_t totmips, void (^issue)(int nº));
     
-    uint64_t intel𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, Sentinel wrap, void (^issue)(int nº));
+    uint64_t intel𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, Sentinel wrap, __builtin_int_t totintels, void (^issue)(int nº));
     
-    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, uint8_t byte);
+    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, __builtin_int_t totbytes, Sentinel wrap, uint8_t byte);
     
-    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥short, Sentinel wrap, uint16_t shoʳt);
+    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥short, __builtin_int_t totshorts, Sentinel wrap, uint16_t shoʳt);
     
-    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, uint32_t mips);
+    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, __builtin_int_t totmips, Sentinel wrap, uint32_t mips);
     
-    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, Sentinel wrap, uint64_t intel);
+    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, __builtin_int_t totintels, Sentinel wrap, uint64_t intel);
     
     enum Minutes { 𝟶, 𝟽½, 𝟷𝟻, 𝟸𝟸½, 𝟹𝟶, 𝟹𝟽½, 𝟺𝟻, 𝟻𝟸½ };
     int ⁸hayball(int cols, int manhattan, Minutes m, void (^bytes)(uint8_t *pxls, int bytes));
@@ -536,6 +536,9 @@ struct Memoryregion {
     inline uint64_t intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
     
     int alsoAtDealloc(void (^deferral)()); /* ☜😐: 🛵𝜆 */
+    
+    int incorporate(__builtin_int_t byteOffsetToTail, __builtin_int_t bytes, 
+      void (^sometimes)(void * virtue, __builtin_int_t bytes));
     
     int foreach(void (^frame)(__builtin_uint_t *start, __builtin_int_t bytes, bool& stop));
     
@@ -576,9 +579,6 @@ struct Memoryregion {
     Memoryregion(const Memoryregion& other); /* ⬷ Required by `abduct₁`. */
     
 😐; /* Idiom optional because of opaque, mandatory since `alsoAtDealloc`. */
-
-int Incorporate(const Memoryregion& dst, __builtin_int_t byteOffsetToTail, __builtin_int_t 
-  bytes, void (^sometimes)(void * virtue, __builtin_int_t bytes));
 
 #if __has_include(<Additions/Kirkbridge/911.h>)
 #include <Additions/Kirkbridge/911.h>
