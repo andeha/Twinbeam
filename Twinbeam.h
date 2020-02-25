@@ -461,123 +461,122 @@ enum { END_OF_TRANSMISSION = U'\u0004' }; /* ⬷ hex ∧ dec; Also A․|incorrec
 
 typedef __builtin_uint_t virtuaddr;
 
+enum class Byterelative { 𝟾, 𝟷𝟼, 𝟹𝟸, 𝟼𝟺, 𝟷𝟸𝟾lo, 𝟷𝟸𝟾hi };
+
 typedef SemanticPointer<virtuaddr> byteaddress; /* A․𝘬․a `metaaddress`. */
 
-struct MemoryDelegate { struct Memoryregion; virtual void statistics() = 0; };
+struct MemoryDelegate { struct Memoryregion; 
+  virtual void statistics(Memoryregion * reg, char32_t uc) = 0;
+  virtual void issue(Memoryregion * reg, byteaddress start, Byterelative rel, int nº) = 0;
+};
 
 /* void Reservoir(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_uint_t **pages, __builtin_uint_t 
   **avails); */
 
 struct Memoryregion { /* See also --<🥽 Bounds.cpp>{Intervallic}. */
-    
-    Memoryregion(MemoryDelegate * delegate);
-    
-    Memoryregion(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastPageBytes, MemoryDelegate * delegate);
-    
-    ~Memoryregion(); /* Exercises `Release𝟷ᵈ`. */
-    
-    int augment(__builtin_int_t bytes, void (^once𝘖𝘳Multiple)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage)); /* Exercises `Acquire𝟷ᵈ`. */
-    
-    int relief(__builtin_int_t bytes, void (^left)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage)); /* A․𝘬․a `de-exhert` and `gone`. */
-    
+   
+   Memoryregion(MemoryDelegate * delegate);
+   
+   Memoryregion(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastPageBytes, MemoryDelegate * delegate);
+   
+   ~Memoryregion(); /* Exercises `Release𝟷ᵈ`. */
+   
+   int augment(__builtin_int_t bytes, void (^once𝘖rMultiple)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage)); /* Exercises `Acquire𝟷ᵈ`. */
+   
+   int relief(__builtin_int_t bytes, void (^left)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖r𝟺kbPage)); /* A․𝘬․a `de-exhert` and `gone`. */
+   
 #pragma mark Easy: 'Consecutive', 'bounded' and 'disjunct'
-    
-    byteaddress relative(__builtin_int_t wordNº, bool cyclic) const;
-    
-    __builtin_uint_t deref(byteaddress loc, void (^issue)(int nº)) const;
-    
-    int keep(byteaddress loc, __builtin_uint_t word) const;
-    
+   
+   byteaddress relative(__builtin_int_t wordNº, bool cyclic) const;
+   
+   /* __builtin_uint_t deref(byteaddress locs, void (^issue)(int nº)) const; ⬷ Also for hayball array. */
+   
+   /* int keep(byteaddress loc, __builtin_uint_t word) const;  ⬷ For hayball array. */
+   
+   enum Access { scalar, hayball };
+   
+   int retrieve(byteaddress loc, Access acess, /* ⬷ Also for hayball. */
+     void (^up)(short count, __builtin_uint_t words[]), 
+     void (^down)(short count, __builtin_uint_t words[])) const; /* Formerly `deref` and `keep`. */
+   
 #pragma mark Inside one Haitian wrap
-    
-    enum Sentinel { cyclic, last /*, linear, bilinear, crash, bound */ }; /* The cyclic and last defined also for idx < 0. */
-    
-    uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, __builtin_int_t totbytes, void (^issue)(int nº));
-    
-    uint16_t ¹⁶𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥short, Sentinel wrap, __builtin_int_t totshorts, void (^issue)(int nº));
-    
-    uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, __builtin_int_t totmips, void (^issue)(int nº));
-    
-    uint64_t intel𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, Sentinel wrap, __builtin_int_t totintels, void (^issue)(int nº));
-    
-    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, __builtin_int_t totbytes, Sentinel wrap, uint8_t byte);
-    
-    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥short, __builtin_int_t totshorts, Sentinel wrap, uint16_t shoʳt);
-    
-    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, __builtin_int_t totmips, Sentinel wrap, uint32_t mips);
-    
-    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, __builtin_int_t totintels, Sentinel wrap, uint64_t intel);
-    
-    enum Minutes { 𝟶, 𝟽½, 𝟷𝟻, 𝟸𝟸½, 𝟹𝟶, 𝟹𝟽½, 𝟺𝟻, 𝟻𝟸½ };
-    int ⁸hayball(int cols, int manhattan, Minutes m, void (^bytes)(uint8_t *pxls, int bytes));
-    
-  /* uint8_t ⁸𝟸ᵈ(__builtin_int_t byteNº, int cols, 
-      __builtin_int_t 𝛥bytesˣ, __builtin_int_t 𝛥bytesʸ, 
-      BirelativeWrap wrap, void (^issue)(int nº)); */
-    
-    int keep𝟸ᵈ(__builtin_int_t byteNº, int cols, 
-      __builtin_int_t 𝛥bytesˣ, __builtin_int_t 𝛥bytesʸ, 
-      Sentinel wrap, uint8_t byte); /* A․𝘬․a  'uumph𝟸ᵈ' and 'typeset'. */
-    
-    __uint128_t radio𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥radio, 
-      Sentinel wrap, void (^issue)(int nº));
-    
-    int keep𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥radio, 
-      Sentinel wrap, __uint128_t radio);
-    
-    /* ...and simd_tᵦ, 𝛽₋simd, simd_t, simd_tᵥ, simd_tₐ, simd_tᵢₐ and double². */
-    
+   
+   enum Sentinel { cyclic, last /*, linear, bilinear, crash, bound */ }; /* The cyclic and last defined also for idx < 0. */
+   
+   uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, __builtin_int_t totbytes, void (^keep)(uint8_t& shifted) = ^(uint8_t &) { });
+   
+   uint16_t ¹⁶𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥short, Sentinel wrap, __builtin_int_t totshorts, void (^keep)(uint16_t& shifted) = ^(uint16_t &) { });
+   
+   uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, __builtin_int_t totmips, void (^keep)(uint32_t& shifted) = ^(uint32_t &) { });
+   
+   uint64_t intel𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, Sentinel wrap, __builtin_int_t totintels, void (^keep)(uint64_t& shifted) = ^(uint64_t &) { });
+   
+   enum Minutes { 𝟶, 𝟽½, 𝟷𝟻, 𝟸𝟸½, 𝟹𝟶, 𝟹𝟽½, 𝟺𝟻, 𝟻𝟸½ };
+   
+   int ⁸hayball(int cols, int manhattan, Minutes m, void (^bytes)(uint8_t *pxls, int bytes));
+   
+   uint8_t ⁸𝟸ᵈ(__builtin_int_t byteNº, int cols, 
+     __builtin_int_t 𝛥bytesˣ, __builtin_int_t 𝛥bytesʸ, 
+     Sentinel wrap, void (^keep)(uint8_t& shifted) = 
+     ^(uint8_t &) { }); /* A․𝘬․a  'uumph𝟸ᵈ' and 'typeset'. */
+   
+   __uint128_t radio𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥radio, 
+     Sentinel wrap, __builtin_int_t totradio, void (^keep)(__uint128_t& shifted) = 
+     ^(__uint128_t &) { });
+   
+  /* ...and simd_tᵦ, 𝛽₋simd, simd_t, simd_tᵥ, simd_tₐ, simd_tᵢₐ and double². */
+   
 #pragma mark Miscellaneous tasks and generalizations
-    
-    struct µProc; µProc * µP() const; /* A․𝘬․a `processor`. */
-    
-    __builtin_int_t bytes() const; __builtin_int_t bytesLeft() const; /* A․𝘬․a `debris` and `ᵇʸᵗᵉresidue`. */
-    
-    inline uint64_t intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
-    
-    int alsoAtDealloc(void (^deferral)()); /* ☜😐: 🛵𝜆 */
-    
-    int incorporate(__builtin_int_t byteOffsetToTail, __builtin_int_t bytes, 
-      void (^sometimes)(void * virtue, __builtin_int_t bytes));
-    
-    int foreach(void (^frame)(__builtin_uint_t *start, __builtin_int_t bytes, bool& stop));
-    
-#pragma mark Little and Big Endians
-    
-    /**  TODO: Measure energy consumption while 𝑝𝑢𝑚𝑝𝑖𝑛' 𝑛𝑒𝑡𝑤𝑜𝑟𝑘/𝑛𝑎𝑡𝑖𝑣𝑒. */
-    
-    int toggleNetworkAndNative(__builtin_int_t bytesSkip, __builtin_int_t bytes, 
-      void (^ping)(bool &stop), void (^completion)(__builtin_int_t bytes)); 
-      /*  REQ: O(1). See also `ᵗᵍᵍˡendian` defined below and 
+   
+   struct µProc; µProc * µP() const; /* A․𝘬․a `processor`. */
+   
+   __builtin_int_t bytes() const; __builtin_int_t bytesLeft() const; /* A․𝘬․a `debris` and `ᵇʸᵗᵉresidue`. */
+   
+   inline uint64_t intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
+   
+   int alsoAtDealloc(void (^deferral)()); /* ☜😐: 🛵𝜆 */
+   
+   int incorporate(__builtin_int_t byteOffsetToTail, __builtin_int_t bytes, 
+     void (^sometimes)(void * virtue, __builtin_int_t bytes));
+   
+   int foreach(void (^frame)(__builtin_uint_t *start, __builtin_int_t bytes, bool& stop));
+   
+#pragma mark Little and Big-endians
+   
+   /**  TODO: Measure energy consumption while 𝑝𝑢𝑚𝑝𝑖𝑛' 𝑛𝑒𝑡𝑤𝑜𝑟𝑘/𝑛𝑎𝑡𝑖𝑣𝑒. */
+   
+   int toggleNetworkAndNative(__builtin_int_t bytesSkip, __builtin_int_t bytes, 
+     void (^ping)(bool &stop), void (^completion)(__builtin_int_t bytes)); 
+     /*  REQ: O(1). See also `ᵗᵍᵍˡendian` defined below and 
          --<Additions.h>{OptimisticAsync8Copy}. */
-    
+   
 #pragma mark Fields of Capacitors on Two-gates/feedbacked-inverters
-    
-    static void sediment(__builtin_int_t bytes, void (^once𝘖𝘳Never)(Memoryregion& region),
-      MemoryDelegate * delegate = NULL); /* A․𝘬․a `scratch`, `cradle` and `nest`. */
-    
-    static int abduct₂(__builtin_int_t bytes, MemoryDelegate * delegate, Memoryregion& region);
-    
-    static Opt<Memoryregion> abduct₁(__builtin_int_t bytes, MemoryDelegate * delegate); /* A․𝘬․a `itch`. */
-    
-    static int reflect⁻ᵚ(Unicodes regularOrLinkpath, 
-      __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
-      int (^transformAndResolve)(Unicodes path, void (^final)(const char * utf8)),
-      Memoryregion& serpent, bool append𝙴𝙾𝚃at𝙴𝙾𝙵); /* ⬷ WORM = '𝑊𝑟𝑖𝑡𝑒₋𝑜𝑛𝑐𝑒₋read₋𝑚𝑎𝑛𝑦'. */
-    
-    static int reflectʳᵚ(Unicodes regularpath, 
-      __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
-      int (^transform)(Unicodes path, void (^final)(const char * utf8)), 
-      Memoryregion& serpent, bool append𝙴𝙾𝚃at𝙴𝙾𝙵);
-    
-    /* Old document vs. 'editableOrAppend' a․𝘬․a --<🥽 i-node.cpp>{camera₋ready}. */
-    
+   
+   static void sediment(__builtin_int_t bytes, void (^once𝘖rNever)(Memoryregion& region),
+     MemoryDelegate * delegate = NULL); /* A․𝘬․a `scratch`, `cradle` and `nest`. */
+   
+   static int abduct₂(__builtin_int_t bytes, MemoryDelegate * delegate, Memoryregion& region);
+   
+   static Opt<Memoryregion> abduct₁(__builtin_int_t bytes, MemoryDelegate * delegate); /* A․𝘬․a `itch`. */
+   
+   static int reflect⁻ᵚ(Unicodes regular𝘖rLinkpath, 
+     __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
+     int (^transformAndResolve)(Unicodes path, void (^final)(const char * utf8)),
+     Memoryregion& serpent, bool append𝙴𝙾𝚃at𝙴𝙾𝙵); /* ⬷ WORM = '𝑊𝑟𝑖𝑡𝑒₋𝑜𝑛𝑐𝑒₋read₋𝑚𝑎𝑛𝑦'. */
+   
+   static int reflectʳᵚ(Unicodes regularpath, 
+     __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
+     int (^transform)(Unicodes path, void (^final)(const char * utf8)), 
+     Memoryregion& serpent, bool append𝙴𝙾𝚃at𝙴𝙾𝙵);
+   
+   /* Old document vs. 'editableOrAppend' a․𝘬․a --<🥽 i-node.cpp>{camera₋ready}. */
+   
 #pragma mark Toggling implicits
-    
-    Memoryregion(); /* ⬷ Required when in nested structures. See --<Ornaments.cpp>. */
-    
-    Memoryregion(const Memoryregion& other); /* ⬷ Required by `abduct₁`. */
-    
+   
+   Memoryregion(); /* ⬷ Required when in nested structures. See --<Ornaments.cpp>. */
+   
+   Memoryregion(const Memoryregion& other); /* ⬷ Required by `abduct₁`. */
+   
 😐; /* Idiom optional because of opaque, mandatory since `alsoAtDealloc`. */
 
 #if __has_include(<Additions/Kirkbridge/911.h>)
