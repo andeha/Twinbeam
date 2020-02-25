@@ -496,7 +496,7 @@ struct Memoryregion { /* See also --<🥽 Bounds.cpp>{Intervallic}. */
    enum Access { scalar, hayball };
    
    int retrieve(byteaddress loc, Access acess, /* ⬷ Also for hayball. */
-     void (^up)(short count, __builtin_uint_t words[]), 
+     void (^up)(__builtin_uint_t words[], short count), 
      void (^down)(short count, __builtin_uint_t words[])) const; /* Formerly `deref` and `keep`. */
    
 #pragma mark Inside one Haitian wrap
@@ -524,11 +524,11 @@ struct Memoryregion { /* See also --<🥽 Bounds.cpp>{Intervallic}. */
      Sentinel wrap, __builtin_int_t totradio, void (^keep)(__uint128_t& shifted) = 
      ^(__uint128_t &) { });
    
-  /* ...and simd_tᵦ, 𝛽₋simd, simd_t, simd_tᵥ, simd_tₐ, simd_tᵢₐ and double². */
-   
 #pragma mark Miscellaneous tasks and generalizations
    
-   struct µProc; µProc * µP() const; /* A․𝘬․a `processor`. */
+   struct µProc; µProc * µP() const; /* A․𝘬․a 'processor'. */
+   
+   /* struct Memoryaccess; Memoryaccess * access() const; 𝘊․𝘧 --<🥽 Access.cpp>. */
    
    __builtin_int_t bytes() const; __builtin_int_t bytesLeft() const; /* A․𝘬․a `debris` and `ᵇʸᵗᵉresidue`. */
    
