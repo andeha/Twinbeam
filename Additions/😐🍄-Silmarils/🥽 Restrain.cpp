@@ -1,4 +1,4 @@
-/*  Restrain.h | 👓: 'It is actually 'pointer at the top'.' */
+/*  Res₋train.h | 👓: 'It is actually 'pointer at the top'.' */
 
 #include <Twinbeam.h>
 
@@ -44,5 +44,6 @@ main(
     return 0;
 }
 
-/* See also --<🥽⋆Bounds.cpp>{Intervallic}. */
+/* Exercise: Prove 'value-for-effort' is related to 'cylinder-on-top'. */
+/* See instead: --<🥽⋆Bounds.cpp>{Intervallic}. */
 
