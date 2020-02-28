@@ -109,6 +109,7 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․𝘬․a 
 #define REFLECTIVEATTRACTIONAL
 #define VERYLOGARITHMIC
 #define PROCESSACCUSATIVE
+#define BOOGIEABLATIVE
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -461,13 +462,13 @@ enum { END_OF_TRANSMISSION = U'\u0004' }; /* ⬷ hex ∧ dec; Also A․|incorrec
 
 typedef __builtin_uint_t virtuaddr;
 
-enum class Byterelative { 𝟾, 𝟷𝟼, 𝟹𝟸, 𝟼𝟺, 𝟷𝟸𝟾lo, 𝟷𝟸𝟾hi };
-
 typedef SemanticPointer<virtuaddr> byteaddress; /* A․𝘬․a `metaaddress`. */
 
+enum class Arrangement { 𝟾, 𝟷𝟼, 𝟹𝟸, 𝟼𝟺, lo𝟼𝟺, hi𝟼𝟺, lo𝟷𝟸𝟾, hi𝟷𝟸𝟾 };
+
 struct MemoryDelegate { struct Memoryregion; 
-  virtual void statistics(Memoryregion * reg, char32_t uc) = 0;
-  virtual void issue(Memoryregion * reg, byteaddress start, Byterelative rel, int nº) = 0;
+  virtual void statistics(Memoryregion * r, char32_t unicode) = 0;
+  virtual void issue(Memoryregion * reg, byteaddress start, Arrangement a, int nº) = 0;
 };
 
 /* void Reservoir(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_uint_t **pages, __builtin_uint_t 
@@ -477,7 +478,7 @@ struct Memoryregion { /* See also --<🥽 Bounds.cpp>{Intervallic}. */
    
    Memoryregion(MemoryDelegate * delegate);
    
-   Memoryregion(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastPageBytes, MemoryDelegate * delegate);
+   Memoryregion(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes, MemoryDelegate * delegate);
    
    ~Memoryregion(); /* Exercises `Release𝟷ᵈ`. */
    
@@ -487,48 +488,42 @@ struct Memoryregion { /* See also --<🥽 Bounds.cpp>{Intervallic}. */
    
 #pragma mark Easy: 'Consecutive', 'bounded' and 'disjunct'
    
-   byteaddress relative(__builtin_int_t wordNº, bool cyclic) const;
+   byteaddress relative(__builtin_int_t byteoffset) const;
    
-   /* __builtin_uint_t deref(byteaddress locs, void (^issue)(int nº)) const; ⬷ Also for hayball array. */
+   __builtin_uint_t& word(byteaddress unaligned, short &lshbits, void (^issue)(int nº)) const;
    
-   /* int keep(byteaddress loc, __builtin_uint_t word) const;  ⬷ For hayball array. */
-   
-   enum Access { scalar, hayball };
-   
-   int retrieve(byteaddress loc, Access acess, /* ⬷ Also for hayball. */
-     void (^up)(__builtin_uint_t words[], short count), 
-     void (^down)(short count, __builtin_uint_t words[])) const; /* Formerly `deref` and `keep`. */
+   int keep(byteaddress unaligned, __builtin_uint_t word) const;
    
 #pragma mark Inside one Haitian wrap
    
-   enum Sentinel { cyclic, last /*, linear, bilinear, crash, bound */ }; /* The cyclic and last defined also for idx < 0. */
+   enum Sentinel { cyclic, last /*, linear, bilinear, crash, bound */ }; /* Does not define e.g `⁸𝟷ᵈ` also for idx < 0. */
    
-   uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, __builtin_int_t totbytes, void (^keep)(uint8_t& shifted) = ^(uint8_t &) { });
+   uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, __builtin_int_t totbytes, void (^keep)(uint8_t &shifted) = ^(uint8_t &) { });
    
-   uint16_t ¹⁶𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥short, Sentinel wrap, __builtin_int_t totshorts, void (^keep)(uint16_t& shifted) = ^(uint16_t &) { });
+   uint16_t ¹⁶𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥short, Sentinel wrap, __builtin_int_t totshorts, void (^keep)(uint16_t &shifted) = ^(uint16_t &) { });
    
-   uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, __builtin_int_t totmips, void (^keep)(uint32_t& shifted) = ^(uint32_t &) { });
+   uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, __builtin_int_t totmips, void (^keep)(uint32_t &shifted) = ^(uint32_t &) { });
    
-   uint64_t intel𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, Sentinel wrap, __builtin_int_t totintels, void (^keep)(uint64_t& shifted) = ^(uint64_t &) { });
+   uint64_t intel𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥intel, Sentinel wrap, __builtin_int_t totintels, void (^keep)(uint64_t &shifted) = ^(uint64_t &) { });
    
    enum Minutes { 𝟶, 𝟽½, 𝟷𝟻, 𝟸𝟸½, 𝟹𝟶, 𝟹𝟽½, 𝟺𝟻, 𝟻𝟸½ };
    
    int ⁸hayball(int cols, int manhattan, Minutes m, void (^bytes)(uint8_t *pxls, int bytes));
    
-   uint8_t ⁸𝟸ᵈ(__builtin_int_t byteNº, int cols, 
-     __builtin_int_t 𝛥bytesˣ, __builtin_int_t 𝛥bytesʸ, 
-     Sentinel wrap, void (^keep)(uint8_t& shifted) = 
+   uint8_t ⁸𝟸ᵈ(__builtin_int_t byteNº, int cols, __builtin_int_t 𝛥bytesˣ, 
+     __builtin_int_t 𝛥bytesʸ, Sentinel wrap, void (^keep)(uint8_t &shifted) = 
      ^(uint8_t &) { }); /* A․𝘬․a  'uumph𝟸ᵈ' and 'typeset'. */
    
-   __uint128_t radio𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥radio, 
-     Sentinel wrap, __builtin_int_t totradio, void (^keep)(__uint128_t& shifted) = 
-     ^(__uint128_t &) { });
+   __uint128_t radio𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥radio, Sentinel wrap, 
+     __builtin_int_t totradio, void (^keep)(__uint128_t &shifted) = ^(__uint128_t &) { });
    
 #pragma mark Miscellaneous tasks and generalizations
    
    struct µProc; µProc * µP() const; /* A․𝘬․a 'processor'. */
    
-   /* struct Memoryaccess; Memoryaccess * access() const; 𝘊․𝘧 --<🥽 Access.cpp>. */
+   uint8_t& operator[](__builtin_int_t idx);
+   
+   struct Memoryaccess; Memoryaccess * access() const; /* 𝘊․𝘧 --<🥽 Access.cpp>. */
    
    __builtin_int_t bytes() const; __builtin_int_t bytesLeft() const; /* A․𝘬․a `debris` and `ᵇʸᵗᵉresidue`. */
    
