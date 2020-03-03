@@ -58,13 +58,6 @@ void divide_bignum(bignum *a, bignum *b, bignum *c);
 #define Intel👈 __asm { .intel_syntax noprefix /* Requires -fms-extensions */
 #define IntelPlusATT👉 asm { .att_syntax .text
 #endif
-/* template<typename T>
-struct InnerFrame {
-  InnerFrame<T>() { } T * ref_;
-  // ~InnerFrame() { / * Delete `ref_` in outer class destructor. * / }
-  T * operator->() const { return ref_; }
-  InnerFrame(T * ref) { ref_ = ref; }
-}; */
 #define APPEND_PIMPL                                                         \
   struct Internals;                                                          \
   Internals * impl_;
@@ -108,8 +101,8 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․𝘬․a 
 #define REINTEGRATIVE
 #define REFLECTIVEATTRACTIONAL
 #define VERYLOGARITHMIC
-#define PROCESSACCUSATIVE
 #define BOOGIEABLATIVE
+#define PROCESSACCUSATIVE
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -488,7 +481,7 @@ struct Memoryregion { /* See also --<🥽 Bounds.cpp>{Intervallic}. */
    /* int incorporate(__builtin_int_t bytesToTail, __builtin_int_t bytes, 
      void (^once𝘖rMultiple)(short bytes, const Intervallic & virtue)); */
    
-   int shiftout(__builtin_int_t bytes, void (^notin)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖r𝟺kbPage)); /* C․𝘧 Scandinavian `utrangera`. */
+   int shiftout(__builtin_int_t bytes, void (^not₋in)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖r𝟺kbPage)); /* C․𝘧 Scandinavian `utrangera`. */
    
 #pragma mark Easy: 'Consecutive', 'bounded' and 'disjunct'
    
