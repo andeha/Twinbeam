@@ -62,7 +62,7 @@ void divide_bignum(bignum *a, bignum *b, bignum *c);
   struct Internals;                                                          \
   Internals * impl_;
 #define 😐 APPEND_PIMPL }
-template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․𝘬․a `DisjunctPointer` and `OptionalIntervallicPointer`. */
+template <typename T> struct SemanticPointer { T ref; }; /* 𝘈․𝘬․a `DisjunctPointer` and `OptionalIntervallicPointer`. */
 #define VISITISR(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + call */
 #define UNITTEST(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
 #define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",          \
@@ -103,6 +103,7 @@ template <typename T> struct SemanticPointer { T pointer; }; /* 𝘈․𝘬․a 
 #define VERYLOGARITHMIC
 #define BOOGIEABLATIVE
 #define PROCESSACCUSATIVE
+#define ALTERNATOPTIONAL
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -462,12 +463,16 @@ struct Memorydelegate {
   virtual void issue(Memoryregion * r, byteaddress start, int nº) = 0;
 };
 
+#if __has_include(<Additions/Reference.hpp>)
+#include <Additions/Reference.hpp>
+#endif /* See also --<🥽 Bounds.cpp>{Reference}. */
+
 /* void Reservoir(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_uint_t **pages, __builtin_uint_t 
   **avails); */
 
-struct Memoryregion; struct µProc; struct Memoryaccess;
+struct Memoryaccess; struct µProc;
 
-struct Memoryregion { /* See also --<🥽 Bounds.cpp>{Intervallic}. */
+struct Memoryregion {
    
    Memoryregion(Memorydelegate * delegate);
       
@@ -478,8 +483,10 @@ struct Memoryregion { /* See also --<🥽 Bounds.cpp>{Intervallic}. */
    int incorporate(__builtin_int_t bytesToTail, __builtin_int_t bytes, 
      void (^once𝘖rMultiple)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage)); /* May exercise `Acquire𝟷ᵈ`. */
    
-   /* int incorporate(__builtin_int_t bytesToTail, __builtin_int_t bytes, 
-     void (^once𝘖rMultiple)(short bytes, const Intervallic & virtue)); */
+#ifdef INTERVALLIC /* #if __is_identifier(Reference) a․𝘬․a `is_token`. */
+   int incorporate(__builtin_int_t bytesToTail, __builtin_int_t bytes, 
+     void (^once𝘖rMultiple)(short bytes, const Reference & virtue));
+#endif /* ⼓ */
    
    int shiftout(__builtin_int_t bytes, void (^not₋in)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖r𝟺kbPage)); /* C․𝘧 Scandinavian `utrangera`. */
    
