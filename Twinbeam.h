@@ -213,6 +213,12 @@ int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __
 int Release𝟷ᵈ(void * 𝟸ⁿframe, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
   __builtin_uint_t avails[], bool secure);
 extern "C" { void * malloc(size_t); void free(void *); }
+/* Pointer arithmetics and the pointers inner intrinsics implicits. */
+enum class Sentinel { cyclic, last, /*, linear, bilinear, */ crash, bound };
+__builtin_int_t Byteoffset⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, 
+ Sentinel wrap, __builtin_int_t totbytes);
+__builtin_int_t ByteoffsetMips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, 
+ Sentinel wrap, __builtin_int_t totmips);
 typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
 #ifdef __x86_64__
 FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memory(
@@ -485,7 +491,7 @@ struct Memoryregion {
    
 #ifdef INTERVALLIC /* #if __is_identifier(Reference) a․𝘬․a `is_token`. */
    int incorporate(__builtin_int_t bytesToTail, __builtin_int_t bytes, 
-     void (^once𝘖rMultiple)(short bytes, const Reference & virtue));
+     void (^once𝘖rMultiple)(short bytes, const Reference &));
 #endif /* ⼓ */
    
    int shiftout(__builtin_int_t bytes, void (^not₋in)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖r𝟺kbPage)); /* C․𝘧 Scandinavian `utrangera`. */
@@ -501,8 +507,6 @@ struct Memoryregion {
    int keep(byteaddress unaligned, __builtin_uint_t word) const;
    
 #pragma mark The Haitian wrap
-   
-   enum Sentinel { cyclic, last, /*, linear, bilinear, */ crash, bound }; /* Does not define e.g `⁸𝟷ᵈ` also for idx < 0. */
    
    uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, __builtin_int_t totbytes, void (^keep)(uint8_t &shifted) = ^(uint8_t &) { });
    
@@ -566,13 +570,6 @@ struct Memoryregion {
 
 void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
   __builtin_int_t (^cmp)(const void *key, const void *elt));
-
-template <typename T> T * ᵟBranch(Memoryview * stem, void * (^alloc)(int bytes), int 
-  (^dyncast)(Memoryview shoot)) { struct X { Memoryview * stem; void * (^alloc)(
-  int bytes); int (^dyncast)(Memoryview shoot); } x = { stem, alloc, dyncast }; 
-  extern void * 💫(void *); return (T *)💫((void *)&x); } /* A․𝘬․a `Materialize`, 
-  `Fullcircle`, `SymbolicPrint`, `Snapshot`, `Xerox` and `∂ranch`; E․𝘨 Unicodes uc = 
-  Snapshot(myView); Also --<History.h> and --<ˢᵚCache.cpp>{CachedFile}. */
 
 int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 /* Returns `int` indicating difference at branch, -1 if equal and `0` when string 
