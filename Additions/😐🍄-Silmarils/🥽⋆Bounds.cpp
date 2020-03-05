@@ -39,12 +39,19 @@ main(
     short lshbits; __builtin_uint_t word₁=interval₁.word(wloc,lshbits,ʳᵈissue);
     print("word₁ is ⬚\n", ﹟x(word₁));
     
-    /* Detailed-interface case: */
-    __builtin_int_t byteNº=8, 𝛥bytes=8, totbytes=100;
-    uint8_t old₁ = interval₁.⁸𝟷ᵈ(byteNº, 𝛥bytes, Reference::last, totbytes, 
+    /* Slim detailed-interface case: */
+    __builtin_int_t byteNº₁=8, 𝛥bytes=8, totbytes=100;
+    uint8_t 𝟾old₁=interval₁.⁸𝟷ᵈ(byteNº₁, 𝛥bytes, Sentinel::last, totbytes, 
       ^(uint8_t &shifted) { shifted=0xca; });
-    uint8_t old₂ = interval₁.⁸𝟷ᵈ(byteNº, 𝛥bytes, Reference::last, totbytes);
-    print("Old₁/old₂ is ⬚/⬚\n", ﹟x(old₁), ﹟x(old₂));
+    uint8_t 𝟾old₂=interval₁.⁸𝟷ᵈ(byteNº₁, 𝛥bytes, Sentinel::last, totbytes);
+    print("Byte old₁/old₂ is ⬚/⬚\n", ﹟x(𝟾old₁), ﹟x(𝟾old₂));
+    
+    /* Natural detail-interface case: */
+    __builtin_int_t byteNº₂=8, 𝛥mips=8, totmips=100;
+    uint32_t 𝟹𝟸old₁=interval₁.mips𝟷ᵈ(byteNº₂, 𝛥mips, Sentinel::last, totmips, 
+      ^(uint32_t &shifted) { shifted=0xca; });
+    uint32_t 𝟹𝟸old₂=interval₁.mips𝟷ᵈ(byteNº₂, 𝛥bytes, Sentinel::last, totmips);
+    print("32-bits old₁/old₂ is ⬚/⬚\n", ﹟x(𝟹𝟸old₁), ﹟x(𝟹𝟸old₂));
     
     /* ...and when using indexing: */
     uint8_t y₁=interval₁[5];
