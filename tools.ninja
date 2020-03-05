@@ -2,11 +2,11 @@
 tools = /Users/<User- or project name>/mips-tools/9.0.0
 runtime = /Users/<User- or project name>/pic32rt
 additions = $runtime/../Additions
-gencdflags = -fno-rtti -fblocks -fno-exceptions
+gencdflags = -fno-rtti -fblocks -fno-exceptions -fno-builtin
 pic32cflags = -target mipsel -fforce-enable-int128 -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32 -mfp64 -mmsa -mdspr2 -gdwarf-5 -Wno-format $gencdflags
 macoscflags_withxcode = $gencdflags -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mmacosx-version-min=10.14
 macoscflags_withoutxcode = $gencdflags -mmacosx-version-min=10.14
 host = /Users/<User- or project name>/macOS
-# Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git reset --hard HEAD^'.
+# Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git reset --hard HEAD^' (Or in public but not committed).
 sha1git = `git log -1 '--pretty=format:%h'`
 
