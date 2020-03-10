@@ -212,6 +212,7 @@ int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __
   pages[], __builtin_uint_t avails[], void (^every)(void * 𝟸ⁿframe, bool& stop));
 int Release𝟷ᵈ(void * 𝟸ⁿframe, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
   __builtin_uint_t avails[], bool secure);
+int CoalescingAcquire(void **𝟺kbframes, __builtin_int_t ﹟);
 extern "C" { void * malloc(size_t); void free(void *); }
 /* Pointer arithmetics and the pointers inner intrinsics implicits. */
 enum class Sentinel { cyclic, last, /*, linear, bilinear, */ crash, bound };
@@ -478,7 +479,36 @@ struct Memorydelegate {
 
 struct Memoryaccess; struct µProc;
 
-struct Memoryregion {
+struct Scatter { /* Max4kB, Max4MB, Nonbound */
+   Scatter(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes) FALLIBLE;
+   Scatter(Memorydelegate * delegate = NULL);
+   int ⁴ᵏᵇinit(void * 𝟺kbPage, __builtin_int_t lastpageBytes);
+   int ⁴ᴹᵇinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes);
+   int ⁴Gᵇinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes);
+   int incorp(__builtin_int_t bytesToTail, __builtin_int_t bytes, 
+     void (^sometimes)(short bytes, uint8_t * virtue));
+   byteaddress relative(__builtin_int_t ᵇʸᵗᵉoffset, void (^issue)(int nº)) const;
+   int keep(byteaddress unaligned, __builtin_uint_t word) const;
+   __builtin_uint_t& word(byteaddress unaligned, short &lshbits, void (^issue)(int nº));
+   int shiftout(__builtin_int_t bytes, void (^left)(short bytes, uint8_t * 
+     partial𝘈𝘯𝘥𝘖r𝟺kbPage));
+   int foreach(void (^frame)(uint8_t *start, __builtin_int_t bytes, bool& stop));
+   __builtin_int_t bytes() const; __builtin_int_t bytesLeft() const;
+   ~Scatter();
+😐;
+
+struct Bits /* A․𝘬․a `Memoryregion`. */
+{
+   Bits(const Scatter& index); Scatter index;
+   uint8_t& operator[](__builtin_int_t idx);
+   uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, 
+     __builtin_int_t totbytes, void (^keep)(uint8_t &shifted));
+   uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, 
+     __builtin_int_t totmips, void (^keep)(uint32_t &shifted));
+   ~Bits();
+};
+
+LONGTOOTH struct Memoryregion {
    
    Memoryregion(Memorydelegate * delegate);
       
@@ -486,11 +516,11 @@ struct Memoryregion {
    
    ~Memoryregion(); /* Exercises `Release𝟷ᵈ`. */
    
-   int incorporate(__builtin_int_t bytesToTail, __builtin_int_t bytes, 
+   int incorp(__builtin_int_t bytesToTail, __builtin_int_t bytes, 
      void (^once𝘖rMultiple)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage)); /* May exercise `Acquire𝟷ᵈ`. */
    
 #ifdef INTERVALLIC /* #if __is_identifier(Reference) a․𝘬․a `is_token`. */
-   int incorporate(__builtin_int_t bytesToTail, __builtin_int_t bytes, 
+   int incorp(__builtin_int_t bytesToTail, __builtin_int_t bytes, 
      void (^once𝘖rMultiple)(short bytes, const Reference &));
 #endif /* ⼓ */
    
@@ -528,7 +558,7 @@ struct Memoryregion {
    
    int foreach(void (^frame)(uint8_t *start, __builtin_int_t bytes, bool& stop));
    
-#pragma mark Little and Big-endians
+#pragma mark Little and big-endians
    
    /**  TODO: Measure energy consumption while 𝑝𝑢𝑚𝑝𝑖𝑛' 𝑛𝑒𝑡𝑤𝑜𝑟𝑘/𝑛𝑎𝑡𝑖𝑣𝑒. */
    
@@ -537,9 +567,9 @@ struct Memoryregion {
      /*  REQ: O(1). See also `ᵗᵍᵍˡendian` defined below and 
          --<Additions.h>{OptimisticAsync8Copy}. */
    
-#pragma mark Fields of Capacitors on Two-gates/feedbacked-inverters
+#pragma mark Fields of capacitors on two-gates/feedbacked-inverters
    
-   static void sediment(__builtin_int_t bytes, void (^once𝘖rNever)(Memoryregion& region),
+   static int sediment(__builtin_int_t bytes, void (^once𝘖rNever)(Memoryregion& region),
      Memorydelegate * delegate = NULL); /* A․𝘬․a `scratch`, `cradle` and `nest`. */
    
    static int abduct(__builtin_int_t bytes, Memorydelegate * delegate, Memoryregion& region);
@@ -554,15 +584,23 @@ struct Memoryregion {
      int (^transform)(Unicodes path, void (^final)(const char * utf8)), 
      Memoryregion& serpent, bool append𝙴𝙾𝚃at𝙴𝙾𝙵);
    
-   /* Old document vs. 'editableOrAppend' a․𝘬․a --<🥽 i-node.cpp>{camera₋ready}. */
+   /* Old document vs. 'editable𝘖rAppend' a․𝘬․a --<🥽 i-node.cpp>{camera₋ready}. */
    
 #pragma mark Toggling implicits
    
    Memoryregion(); /* ⬷ Required when in nested structures. See --<Ornaments.cpp>. */
    
-   Memoryregion(const Memoryregion& other); /* ⬷ Required by `abduct₁`. */
+   Memoryregion(const Memoryregion& other) = delete; /* ⬷ Required by `abduct₁`. */
    
 😐; /* Idiom optional because of opaque, mandatory since `alsoAtDealloc`. */
+
+int Augment(Memoryregion& r, __builtin_int_t bytes, void (^once𝘖rMultiple)(
+  short bytes, uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage));
+int Cattle(Opt<Unicodes> pathᵚ, const Memoryregion& branch, 
+  void (^ping)(double 𝟬₋𝟭percent /* a․𝘬․a double⁺ʳ */, bool& stop), 
+  void (^zero𝘖rSeveral)(__builtin_int_t offset, short bytes, uint8_t * page, bool& stop), 
+  int (^completion)(__builtin_int_t bytes, bool& no₋go));
+int Snapshot(const Memoryregion& original, Memoryregion & pristine);
 
 #if __has_include(<Additions/Kirkbridge/911.h>)
 #include <Additions/Kirkbridge/911.h>
