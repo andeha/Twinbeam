@@ -474,7 +474,7 @@ struct Memorydelegate {
 /* void Reservoir(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_uint_t **pages, __builtin_uint_t 
   **avails); */
 
-struct Scatter { /* Max4kB, Max4MB and Nonbound */
+struct Scatter { /* Max4kB, Max4MB and Nonbound; 𝘊․𝘧 Scandinavian 'by₋tes' a․𝘬․a '✠✠'. */
    Scatter(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes) FALLIBLE;
    Scatter(Memorydelegate * delegate = NULL);
    int ⁴ᵏᵇinit(void * 𝟺kbPage, __builtin_int_t lastpageBytes);
@@ -486,7 +486,7 @@ struct Scatter { /* Max4kB, Max4MB and Nonbound */
    __builtin_uint_t& word(byteaddress unaligned, short &lshbits, void (^issue)(int nº));
    int keep(byteaddress unaligned, __builtin_uint_t word) const;
    int foreach(void (^frame)(uint8_t *start, __builtin_int_t bytes, bool& stop));
-   __builtin_int_t bytes() const; __builtin_int_t availbytes() const; /* 𝘊․𝘧 Scandinavian 'by₋tes' a․𝘬․a '✠✠'. */
+   __builtin_int_t bytes() const; __builtin_int_t availbytes() const; 
    ~Scatter(); Memorydelegate * delegate;
 😐;
 
