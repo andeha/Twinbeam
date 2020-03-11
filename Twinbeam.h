@@ -460,6 +460,7 @@ typedef Unicodes Unicodes⁺ᵃ⁻ᵚ; /*  To use when a sequence of symbols,
 enum { END_OF_TRANSMISSION = U'\u0004' }; /* ⬷ hex ∧ dec; Also A․|incorrectly/𝘬․a '\x4', '\x41', '\x42', … */
 
 #pragma mark - For 𝑝𝑖𝑔𝑒𝑜𝑛 𝑟𝑒𝑐𝑜𝑛𝑛𝑎𝑖𝑠𝑠𝑎𝑛𝑐𝑒, 𝑠𝑐𝑜𝑢𝑡𝑖𝑛𝑔 and other missions
+#pragma mark - Still images, timeseries and language analysis
 
 typedef __builtin_uint_t virtuaddr;
 
@@ -470,141 +471,40 @@ struct Memorydelegate {
   virtual void issue(Memoryregion * r, byteaddress start, int nº) = 0;
 };
 
-#if __has_include(<Additions/Reference.hpp>)
-#include <Additions/Reference.hpp>
-#endif /* See also --<🥽 Bounds.cpp>{Reference}. */
-
 /* void Reservoir(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_uint_t **pages, __builtin_uint_t 
   **avails); */
 
-struct Memoryaccess; struct µProc;
-
-struct Scatter { /* Max4kB, Max4MB, Nonbound */
+struct Scatter { /* Max4kB, Max4MB and Nonbound */
    Scatter(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes) FALLIBLE;
    Scatter(Memorydelegate * delegate = NULL);
    int ⁴ᵏᵇinit(void * 𝟺kbPage, __builtin_int_t lastpageBytes);
-   int ⁴ᴹᵇinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes);
+   /* int ⁴ᴹᵇinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes); */
    int ⁴Gᵇinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes);
-   int incorp(__builtin_int_t bytesToTail, __builtin_int_t bytes, 
-     void (^sometimes)(short bytes, uint8_t * virtue));
-   byteaddress relative(__builtin_int_t ᵇʸᵗᵉoffset, void (^issue)(int nº)) const;
-   int keep(byteaddress unaligned, __builtin_uint_t word) const;
+   int incorp(__builtin_int_t bytesToTail, __builtin_int_t bytes, void (^sometimes)(short bytes, uint8_t * virtue));
+   int shiftout(__builtin_int_t bytes, void (^left)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖r𝟺kbPage));
+   byteaddress relative(__builtin_int_t byteoffset, void (^issue)(int nº)) const;
    __builtin_uint_t& word(byteaddress unaligned, short &lshbits, void (^issue)(int nº));
-   int shiftout(__builtin_int_t bytes, void (^left)(short bytes, uint8_t * 
-     partial𝘈𝘯𝘥𝘖r𝟺kbPage));
+   int keep(byteaddress unaligned, __builtin_uint_t word) const;
    int foreach(void (^frame)(uint8_t *start, __builtin_int_t bytes, bool& stop));
-   __builtin_int_t bytes() const; __builtin_int_t bytesLeft() const;
-   ~Scatter();
+   __builtin_int_t bytes() const; __builtin_int_t availbytes() const; /* 𝘊․𝘧 Scandinavian 'by₋tes' a․𝘬․a '✠✠'. */
+   ~Scatter(); Memorydelegate * delegate;
 😐;
 
-struct Bits /* A․𝘬․a `Memoryregion`. */
-{
-   Bits(const Scatter& index); Scatter index;
-   uint8_t& operator[](__builtin_int_t idx);
-   uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, 
-     __builtin_int_t totbytes, void (^keep)(uint8_t &shifted));
-   uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, 
-     __builtin_int_t totmips, void (^keep)(uint32_t &shifted));
-   ~Bits();
-};
-
-LONGTOOTH struct Memoryregion {
-   
-   Memoryregion(Memorydelegate * delegate);
-      
-   Memoryregion(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes, Memorydelegate * delegate);
-   
-   ~Memoryregion(); /* Exercises `Release𝟷ᵈ`. */
-   
-   int incorp(__builtin_int_t bytesToTail, __builtin_int_t bytes, 
-     void (^once𝘖rMultiple)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage)); /* May exercise `Acquire𝟷ᵈ`. */
-   
-#ifdef INTERVALLIC /* #if __is_identifier(Reference) a․𝘬․a `is_token`. */
-   int incorp(__builtin_int_t bytesToTail, __builtin_int_t bytes, 
-     void (^once𝘖rMultiple)(short bytes, const Reference &));
-#endif /* ⼓ */
-   
-   int shiftout(__builtin_int_t bytes, void (^not₋in)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖r𝟺kbPage)); /* C․𝘧 Scandinavian `utrangera`. */
-   
-#pragma mark Easy: 'Consecutive', 'bounded' and 'disjunct'
-   
-   byteaddress relative(__builtin_int_t byteoffset) const;
-   
-   __builtin_uint_t& word(byteaddress unaligned, short &lshbits, void (^issue)(int nº)) const;
-   
-   uint8_t& operator[](__builtin_int_t idx);
-   
-   int keep(byteaddress unaligned, __builtin_uint_t word) const;
-   
-#pragma mark The Haitian wrap
-   
-   uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, __builtin_int_t totbytes, void (^keep)(uint8_t &shifted) = ^(uint8_t &) { });
-   
-   uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, __builtin_int_t totmips, void (^keep)(uint32_t &shifted) = ^(uint32_t &) { });
-   
-   /* enum class Arrangement { 𝟾, 𝟷𝟼, 𝟹𝟸, 𝟼𝟺, lo𝟼𝟺, hi𝟼𝟺, lo𝟷𝟸𝟾, hi𝟷𝟸𝟾 }; */
-   
-   inline uint64_t intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
-   
-#pragma mark Miscellaneous tasks and generalizations
-   
-   µProc * µP() const; /* A․𝘬․a 'processor'. */
-   
-   Memoryaccess * access() const; /* 𝘊․𝘧 --<🥽 Access.cpp> and --<Memaccess.h|cpp>. */
-   
-   __builtin_int_t bytes() const; __builtin_int_t bytesLeft() const; /* A․𝘬․a `debris` and `ᵇʸᵗᵉresidue`. */
-   
-   int alsoAtDealloc(void (^deferral)()); /* ☜😐: 🛵𝜆 */
-   
-   int foreach(void (^frame)(uint8_t *start, __builtin_int_t bytes, bool& stop));
-   
-#pragma mark Little and big-endians
-   
-   /**  TODO: Measure energy consumption while 𝑝𝑢𝑚𝑝𝑖𝑛' 𝑛𝑒𝑡𝑤𝑜𝑟𝑘/𝑛𝑎𝑡𝑖𝑣𝑒. */
-   
-   int toggleNetworkAndNative(__builtin_int_t bytesSkip, __builtin_int_t bytes, 
-     void (^ping)(bool &stop), void (^completion)(__builtin_int_t bytes)); 
-     /*  REQ: O(1). See also `ᵗᵍᵍˡendian` defined below and 
-         --<Additions.h>{OptimisticAsync8Copy}. */
-   
-#pragma mark Fields of capacitors on two-gates/feedbacked-inverters
-   
-   static int sediment(__builtin_int_t bytes, void (^once𝘖rNever)(Memoryregion& region),
-     Memorydelegate * delegate = NULL); /* A․𝘬․a `scratch`, `cradle` and `nest`. */
-   
-   static int abduct(__builtin_int_t bytes, Memorydelegate * delegate, Memoryregion& region);
-   
-   static int reflect⁻ᵚ(Unicodes regular𝘖rLinkpath, 
-     __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
-     int (^transformAndResolve)(Unicodes path, void (^final)(const char * utf8)),
-     Memoryregion& serpent, bool append𝙴𝙾𝚃at𝙴𝙾𝙵); /* ⬷ WORM = '𝑊𝑟𝑖𝑡𝑒₋𝑜𝑛𝑐𝑒₋read₋𝑚𝑎𝑛𝑦'. */
-   
-   static int reflectʳᵚ(Unicodes regularpath, 
-     __builtin_int_t pagesOffset /*=0*/, __builtin_int_t pagesLength /*=0*/, 
-     int (^transform)(Unicodes path, void (^final)(const char * utf8)), 
-     Memoryregion& serpent, bool append𝙴𝙾𝚃at𝙴𝙾𝙵);
-   
-   /* Old document vs. 'editable𝘖rAppend' a․𝘬․a --<🥽 i-node.cpp>{camera₋ready}. */
-   
-#pragma mark Toggling implicits
-   
-   Memoryregion(); /* ⬷ Required when in nested structures. See --<Ornaments.cpp>. */
-   
-   Memoryregion(const Memoryregion& other) = delete; /* ⬷ Required by `abduct₁`. */
-   
-😐; /* Idiom optional because of opaque, mandatory since `alsoAtDealloc`. */
-
-int Augment(Memoryregion& r, __builtin_int_t bytes, void (^once𝘖rMultiple)(
+int Augment(Scatter& s, __builtin_int_t bytes, void (^once𝘖rMultiple)(
   short bytes, uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage));
-int Cattle(Opt<Unicodes> pathᵚ, const Memoryregion& branch, 
+int Cattle(Opt<Unicodes> pathᵚ, const Scatter& branch, 
   void (^ping)(double 𝟬₋𝟭percent /* a․𝘬․a double⁺ʳ */, bool& stop), 
   void (^zero𝘖rSeveral)(__builtin_int_t offset, short bytes, uint8_t * page, bool& stop), 
   int (^completion)(__builtin_int_t bytes, bool& no₋go));
-int Snapshot(const Memoryregion& original, Memoryregion & pristine);
+int Snapshot(const Scatter& original, Scatter & pristine);
 
-#if __has_include(<Additions/Kirkbridge/911.h>)
-#include <Additions/Kirkbridge/911.h>
-#endif
+struct Bits { Scatter * scatter;
+  Bits(Scatter * scatter); uint8_t& operator[](__builtin_int_t idx);
+  uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, 
+    __builtin_int_t totbytes, void (^keep)(uint8_t &shifted));
+  uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, 
+    __builtin_int_t totmips, void (^keep)(uint32_t &shifted));
+}; /* A․𝘬․a `Memoryregion`. */
 
 void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
   __builtin_int_t (^cmp)(const void *key, const void *elt));
