@@ -176,8 +176,8 @@ namespace std { /* The Standard Residual */ typedef ::size_t size_t;
   std::initializer_list<T> i) { return i.begin(); } template<class T> inline
   const T * end(std::initializer_list<T> i) { return i.end(); } }
 /* ☜😐: 🔅 ⬷ Earlier remark still valid? */
-struct Memoryregion; struct Memoryview { Memoryregion * region; __builtin_int_t
-  bytesOffset; __builtin_int_t byteCount; };
+struct Scatter; struct Memoryview { Scatter * scatter; __builtin_int_t
+  bytesoffset; __builtin_int_t bytecount; };
 MACRO __builtin_uint_t 🔎(__builtin_uint_t var) { return *((__builtin_uint_t
   /* volatile */ *) var); }
 MACRO __builtin_uint_t&  🔧(__builtin_uint_t var) { return (__builtin_uint_t&)
@@ -467,17 +467,14 @@ typedef __builtin_uint_t virtuaddr;
 typedef SemanticPointer<virtuaddr> byteaddress; /* A․𝘬․a `metaaddress`. */
 
 struct Memorydelegate {
-  virtual void statistics(Memoryregion * r, char32_t unicode) = 0;
-  virtual void issue(Memoryregion * r, byteaddress start, int nº) = 0;
+  virtual void statistics(Scatter * s, char32_t unicode) = 0;
+  virtual void issue(Scatter * s, byteaddress start, int nº) = 0;
 };
 
-/* void Reservoir(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_uint_t **pages, __builtin_uint_t 
-  **avails); */
-
-struct Scatter { /* Max4kB, Max4MB and Nonbound; 𝘊․𝘧 Scandinavian 'by₋tes' a․𝘬․a '✠✠'. */
-   Scatter(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes) FALLIBLE;
+struct Scatter { /* Max4kB, Max4MB and Nonbound; 𝘊․𝘧 Scandinavian 'by₋tes' a․𝘬․a '✠✠' where 'one' may be ⟤⟥. */
+   /* Scatter(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes) FALLIBLE; */
    Scatter(Memorydelegate * delegate = NULL);
-   int ⁴ᵏᵇinit(void * 𝟺kbPage, __builtin_int_t lastpageBytes);
+   int ⁴ᵏᵇinit(void * the𝟺kbPage, short unusedbytes);
    /* int ⁴ᴹᵇinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes); */
    int ⁴Gᵇinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes);
    int incorp(__builtin_int_t bytesToTail, __builtin_int_t bytes, void (^sometimes)(short bytes, uint8_t * virtue));
@@ -486,17 +483,18 @@ struct Scatter { /* Max4kB, Max4MB and Nonbound; 𝘊․𝘧 Scandinavian 'by₋
    __builtin_uint_t& word(byteaddress unaligned, short &lshbits, void (^issue)(int nº));
    int keep(byteaddress unaligned, __builtin_uint_t word) const;
    int foreach(void (^frame)(uint8_t *start, __builtin_int_t bytes, bool& stop));
-   __builtin_int_t bytes() const; __builtin_int_t availbytes() const; 
-   ~Scatter(); Memorydelegate * delegate;
+   __builtin_int_t bytes() const; __builtin_int_t availbytes() const;
+   ~Scatter(); Memorydelegate * delegate; Scatter(const Scatter& other) = delete;
 😐;
 
-int Augment(Scatter& s, __builtin_int_t bytes, void (^once𝘖rMultiple)(
-  short bytes, uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage));
+int Augment(Scatter& s, __builtin_int_t bytes, void (^once𝘖rMultiple)(short bytes, 
+  uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage));
 int Cattle(Opt<Unicodes> pathᵚ, const Scatter& branch, 
   void (^ping)(double 𝟬₋𝟭percent /* a․𝘬․a double⁺ʳ */, bool& stop), 
   void (^zero𝘖rSeveral)(__builtin_int_t offset, short bytes, uint8_t * page, bool& stop), 
   int (^completion)(__builtin_int_t bytes, bool& no₋go));
 int Snapshot(const Scatter& original, Scatter & pristine);
+/* Also `reflectʳᵚ`, `reflect⁻ᵚ`, `Reflect` (transitive), `abduct`, `sediment`, `toggleNetworkAndNative`. */
 
 struct Bits { Scatter * scatter;
   Bits(Scatter * scatter); uint8_t& operator[](__builtin_int_t idx);
@@ -504,6 +502,8 @@ struct Bits { Scatter * scatter;
     __builtin_int_t totbytes, void (^keep)(uint8_t &shifted));
   uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, 
     __builtin_int_t totmips, void (^keep)(uint32_t &shifted));
+  uint64_t intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; } 
+  /* A․𝘬․a `ieee754dbl`. */
 }; /* A․𝘬․a `Memoryregion`. */
 
 void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
@@ -512,6 +512,10 @@ void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
 int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 /* Returns `int` indicating difference at branch, -1 if equal and `0` when string 
     contains neither prefix nor is equal. */
+
+/*  enum class Arrangement { 𝟾, 𝟷𝟼, 𝟹𝟸, 𝟼𝟺, lo𝟼𝟺, hi𝟼𝟺, lo𝟷𝟸𝟾, hi𝟷𝟸𝟾 };
+  void Reservoir(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_uint_t **pages, __builtin_uint_t 
+    **avails); */
 
 #pragma mark - 😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
