@@ -209,7 +209,7 @@ extern "C" { int atexit(void(*func)(void)); void exit(int); }
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
 __builtin_int_t ﹟Frames(__builtin_int_t bytes, __builtin_int_t * modula);
 int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t 
-  pages[], __builtin_uint_t avails[], void (^every)(void * 𝟸ⁿframe, bool& stop));
+  pages[], __builtin_uint_t avails[], void (^every)(uint8_t * 𝟸ⁿframe, bool& stop));
 int Release𝟷ᵈ(void * 𝟸ⁿframe, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
   __builtin_uint_t avails[], bool secure);
 int CoalescingAcquire(void **𝟺kbframes, __builtin_int_t ﹟);
@@ -329,7 +329,9 @@ template <typename T> bool eqeql(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
 #define 🥈 WHEN_COMPILING /* Must be assigned to a `const` and no inline assembler. */
 #define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧. Scandinavian 'jurid' and 'förekomst'. Also machinal. */
-template <typename T> T * Critic(const T * x) { return const_cast<T *>(x); } /* A․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
+template <typename T> T * Critic(const T * x) { return const_cast<T *>(x); }
+template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* A․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
+
 #define ᶿ﹡ const * /* #define *⥃ const char *, a․𝘬․𝘢 `*⥆` and `*⫩`. */
 
 #pragma mark Utf-8
@@ -461,6 +463,8 @@ enum { END_OF_TRANSMISSION = U'\u0004' }; /* ⬷ hex ∧ dec; Also A․|incorrec
 
 #pragma mark - For 𝑝𝑖𝑔𝑒𝑜𝑛 𝑟𝑒𝑐𝑜𝑛𝑛𝑎𝑖𝑠𝑠𝑎𝑛𝑐𝑒, 𝑠𝑐𝑜𝑢𝑡𝑖𝑛𝑔 and other missions
 #pragma mark - Still images, timeseries and language analysis
+#pragma mark - 𝘊․𝘧 Scandinavian 'by₋tes' a․𝘬․a '✠✠'
+#pragma mark - Modelling a physical rendition of 🦠
 
 typedef __builtin_uint_t virtuaddr;
 
@@ -468,13 +472,13 @@ typedef SemanticPointer<virtuaddr> byteaddress; /* A․𝘬․a `metaaddress`. *
 
 struct Memorydelegate {
   virtual void statistics(Scatter * s, char32_t unicode) = 0;
-  virtual void issue(Scatter * s, byteaddress start, int nº) = 0;
+  virtual void issue(Scatter * s, __builtin_int_t arg, int nº) = 0;
 };
 
-struct Scatter { /* Max4kB, Max4MB and Nonbound; 𝘊․𝘧 Scandinavian 'by₋tes' a․𝘬․a '✠✠' where 'one' may be ⟤⟥. */
-   /* Scatter(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes) FALLIBLE; */
+struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max4MB and Nonbound.) */
+   Scatter(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpagebytes) FALLIBLE;
    Scatter(Memorydelegate * delegate = NULL);
-   int ⁴ᵏᵇinit(void * the𝟺kbPage, short unusedbytes);
+   int ⁴ᵏᵇinit(void * the𝟺kbpage, short unusedbytes);
    /* int ⁴ᴹᵇinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes); */
    int ⁴Gᵇinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes);
    int incorp(__builtin_int_t bytesToTail, __builtin_int_t bytes, void (^sometimes)(short bytes, uint8_t * virtue));
@@ -482,10 +486,13 @@ struct Scatter { /* Max4kB, Max4MB and Nonbound; 𝘊․𝘧 Scandinavian 'by₋
    byteaddress relative(__builtin_int_t byteoffset, void (^issue)(int nº)) const;
    __builtin_uint_t& word(byteaddress unaligned, short &lshbits, void (^issue)(int nº));
    int keep(byteaddress unaligned, __builtin_uint_t word) const;
-   int foreach(void (^frame)(uint8_t *start, __builtin_int_t bytes, bool& stop));
-   __builtin_int_t bytes() const; __builtin_int_t availbytes() const;
+   int tile(__builtin_int_t ﹟, void (^onceWired)(uint8_t *start, __builtin_int_t bytes));
+   __builtin_int_t bytes() const; __builtin_int_t ᵇdebris() const;
    ~Scatter(); Memorydelegate * delegate; Scatter(const Scatter& other) = delete;
-😐;
+😐; /* Disjunct, sediment and segments. */
+
+/*  void Reservoir(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_uint_t **pages, 
+    __builtin_uint_t **avails); */
 
 int Augment(Scatter& s, __builtin_int_t bytes, void (^once𝘖rMultiple)(short bytes, 
   uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage));
@@ -504,7 +511,14 @@ struct Bits { Scatter * scatter;
     __builtin_int_t totmips, void (^keep)(uint32_t &shifted));
   uint64_t intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; } 
   /* A․𝘬․a `ieee754dbl`. */
-}; /* A․𝘬․a `Memoryregion`. */
+}; /* A․𝘬․a `Memoryregion` and `Creature`. */
+
+struct Clipbytes { __builtin_int_t count() const; /* Also: 'add', 'delete' and 'change'. */
+  int include(__builtin_int_t byteidx, __builtin_int_t ᵟcount);
+  int 𝟺kbtile(__builtin_int_t ﹟, __builtin_int_t &byteidx, __builtin_int_t &ᵟcount);
+😐; /* A․𝘬․a `Censor`, `Strikethrough` and `Linebreaks`. */
+
+enum class Arrangement { 𝟾, 𝟷𝟼, 𝟹𝟸, 𝟼𝟺, lo𝟼𝟺, hi𝟼𝟺, lo𝟷𝟸𝟾, hi𝟷𝟸𝟾, utf8 };
 
 void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
   __builtin_int_t (^cmp)(const void *key, const void *elt));
@@ -512,10 +526,6 @@ void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
 int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 /* Returns `int` indicating difference at branch, -1 if equal and `0` when string 
     contains neither prefix nor is equal. */
-
-/*  enum class Arrangement { 𝟾, 𝟷𝟼, 𝟹𝟸, 𝟼𝟺, lo𝟼𝟺, hi𝟼𝟺, lo𝟷𝟸𝟾, hi𝟷𝟸𝟾 };
-  void Reservoir(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_uint_t **pages, __builtin_uint_t 
-    **avails); */
 
 #pragma mark - 😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
