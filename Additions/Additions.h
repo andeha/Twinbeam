@@ -258,7 +258,7 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
     
 😐; /* …, `DecoratedString` and `Recording`. */
 
-/* #include <Additions/Color.hpp>
+/*  #include <Additions/Color.hpp>
 #include <Additions/Typeset.hpp> */
 
 enum class Unit { thou, mm, in, pc, pt, px }; /* …and to place your copy:
@@ -278,7 +278,6 @@ struct Utf8Terminal {
     
     enum Inputctrl { Terminated, Timedout, Error };
     
-    virtual
     Inputctrl
     interaction( /* See also --<Fossilate.h|cpp>{TerminalIn ∧ WaitTerminal}. */
       int periods𝘖𝘳Zero,
@@ -287,13 +286,18 @@ struct Utf8Terminal {
       void (^touchbase)(char32_t unicode, bool &stop) /* After a key press. */
     ) const; /* 𝘈․𝘬․a `interact`, `read` and `password`. */
     
-    virtual int write(const uint8_t * utf8s, __builtin_int_t bytes) const;
+    int write(const uint8_t * utf8s, __builtin_int_t bytes) const; /* A․𝘬․a `txtwrite`. */
     
     void (^format)(double x, Utf8Terminal &stream);
     
-    typedef void * Refedpics; /* A․𝘬․a Map<const char *, Image ∧ uint8_t *>. */
+    int addrefresh₁(const char * ref, void * lduvair) const;
+    int addrefresh₂ᴹ(const char * ref, void * lduvail) const;
     
-    int show(Refedpics pics, short cols, Unit unit);
+    void * picrefs; /* ⬷ A․𝘬․a Map<Unicodes, Image ∧ uint8_t *>. A․𝘬․a `imgwrite`. ⤐ */
+    
+    int write(short count, const char * pics[], short cols, Unit elemunit);
+    
+    int refreshed(const char * ref);
     
 😐;
 
@@ -303,7 +307,7 @@ namespace NumberformatCatalogue {
  void Regional(double ℝ, void (^out)(char32_t uc));
  void Interval(double ℝ₁, double ℝ₂, bool openend, void (^out)(char32_t uc));
  void Percentile(double ₋𝟹𝜎, double ₋𝟸𝜎, double ₋𝜎, double 𝟶, double 𝜎, 
-   double 𝟸𝜎, double 𝟹𝜎, __builtin_int_t& 𝟷𝟶ⁱ, void (^out)(char32_t uc));
+   double 𝟸𝜎, double 𝟹𝜎, __builtin_int_t * 𝟷𝟶ⁱ, void (^out)(char32_t uc));
  void Normal(double μ, double σ, void (^out)(char32_t uc));
  /* log-normal distribution = draped `logₑ` is N(μ,σ²). */
  extern void (^Default)(double, Utf8Terminal&); }
@@ -329,8 +333,8 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, __builtin_int_t z)
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, __builtin_uint_t n)
 { Present(term, n, PresentBase::hex); return term; }
 
-MACRO Utf8Terminal & operator<<(Utf8Terminal &term, double x)
-{ Present(term, x); return term; }
+/* MACRO Utf8Terminal & operator<<(Utf8Terminal &term, double x)
+{ Present(term, x); return term; } */
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, char32_t unicode)
 { Present(term, unicode); return term; }
@@ -338,11 +342,11 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, char32_t unicode)
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char * utf8)
 { Present(term, utf8); return term; }
 
-MACRO Utf8Terminal & operator<<(Utf8Terminal &term, char c)
-{ Present(term, (char32_t)c); return term; } /* A․𝘬․a `ascii7ToUnicode`. */
+/* MACRO LONGTOOTH Utf8Terminal & operator<<(Utf8Terminal &term, char c)
+{ Present(term, (char32_t)c); return term; } A․𝘬․a `ascii7ToUnicode`.
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, float x)
-{ Present(term, (double)x); return term; }
+{ Present(term, (double)x); return term; } */
 
 MACRO
 Utf8Terminal &
@@ -371,8 +375,12 @@ template <typename T> Utf8Terminal& operator<<(Utf8Terminal &term,
 Utf8Terminal & operator<<(Utf8Terminal &u8os, Utf8Terminal present) 
   { return u8os; } */
 
-extern "C" { extern const char *tab; extern const char *eol; extern const char
-  *sep; } /* ↹ ↩︎ ¶ */
+struct hfillobj { }; struct vfillobj { };
+vfillobj vfill(double val, Unit unit); hfillobj hfill();
+Utf8Terminal & operator<<(Utf8Terminal &term, hfillobj);
+Utf8Terminal & operator<<(Utf8Terminal &term, vfillobj);
+
+extern "C" { extern const char *tab; extern const char *eol; extern const char *sep; } /* ↹ ↩︎ ¶ */
 
 extern Utf8Terminal _myTerminal;
 
@@ -522,6 +530,12 @@ enum class Encoding { utf8, unicode };
 
 int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content, __builtin_int_t& 
   beam, void (^several)(char32_t unicode, __builtin_int_t byteOffset, bool& stop));
+
+struct Jagged { Jagged(); ~Jagged(); 
+  int include(__builtin_int_t tetraidx, __builtin_int_t ᵟcount);
+  __builtin_int_t count() const;
+  int 𝟺kbtile(__builtin_int_t ﹟, __builtin_int_t &tetraidx, __builtin_int_t &ᵟcount);
+😐; /* A․𝘬․a `Linebreaks`. */
 
 Opt<Chronology::Instant>
 TS( /* E.𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232. */

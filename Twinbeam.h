@@ -464,7 +464,7 @@ enum { END_OF_TRANSMISSION = U'\u0004' }; /* ⬷ hex ∧ dec; Also A․|incorrec
 #pragma mark - For 𝑝𝑖𝑔𝑒𝑜𝑛 𝑟𝑒𝑐𝑜𝑛𝑛𝑎𝑖𝑠𝑠𝑎𝑛𝑐𝑒, 𝑠𝑐𝑜𝑢𝑡𝑖𝑛𝑔 and other missions
 #pragma mark - Still images, timeseries and language analysis
 #pragma mark - 𝘊․𝘧 Scandinavian 'by₋tes' a․𝘬․a '✠✠'
-#pragma mark - Modelling a physical rendition of 🦠
+#pragma mark - Touting strong radio (🦠)
 
 typedef __builtin_uint_t virtuaddr;
 
@@ -478,15 +478,14 @@ struct Memorydelegate {
 struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max4MB and Nonbound.) */
    Scatter(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpagebytes) FALLIBLE;
    Scatter(Memorydelegate * delegate = NULL);
-   int ⁴ᵏᵇinit(void * the𝟺kbpage, short unusedbytes);
-   /* int ⁴ᴹᵇinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes); */
-   int ⁴Gᵇinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes);
+   int 𝟺kinit(void * the𝟺kbpage, short unusedbytes);
+   /* int 𝟺Mbinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes); */
+   int 𝟺Gbinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes);
    int incorp(__builtin_int_t bytesToTail, __builtin_int_t bytes, void (^sometimes)(short bytes, uint8_t * virtue));
    int shiftout(__builtin_int_t bytes, void (^left)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖r𝟺kbPage));
    byteaddress relative(__builtin_int_t byteoffset, void (^issue)(int nº)) const;
    __builtin_uint_t& word(byteaddress unaligned, short &lshbits, void (^issue)(int nº));
    int keep(byteaddress unaligned, __builtin_uint_t word) const;
-   int tile(__builtin_int_t ﹟, void (^onceWired)(uint8_t *start, __builtin_int_t bytes));
    __builtin_int_t bytes() const; __builtin_int_t ᵇdebris() const;
    ~Scatter(); Memorydelegate * delegate; Scatter(const Scatter& other) = delete;
 😐; /* Disjunct, sediment and segments. */
@@ -506,9 +505,9 @@ int Snapshot(const Scatter& original, Scatter & pristine);
 struct Bits { Scatter * scatter;
   Bits(Scatter * scatter); uint8_t& operator[](__builtin_int_t idx);
   uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, 
-    __builtin_int_t totbytes, void (^keep)(uint8_t &shifted));
+    __builtin_int_t totbytes, void (^keep)(uint8_t &shifted) = ^(uint8_t&) { } );
   uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, 
-    __builtin_int_t totmips, void (^keep)(uint32_t &shifted));
+    __builtin_int_t totmips, void (^keep)(uint32_t &shifted) = ^(uint32_t&) { } );
   uint64_t intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; } 
   /* A․𝘬․a `ieee754dbl`. */
 }; /* A․𝘬․a `Memoryregion` and `Creature`. */
