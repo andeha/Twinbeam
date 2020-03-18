@@ -286,14 +286,14 @@ struct Utf8Terminal {
       void (^touchbase)(char32_t unicode, bool &stop) /* After a key press. */
     ) const; /* 𝘈․𝘬․a `interact`, `read` and `password`. */
     
-    int write(const uint8_t * utf8s, __builtin_int_t bytes) const; /* A․𝘬․a `txtwrite`. */
+    int write(const uint8_t * utf8s, __builtin_int_t bytes) const;
     
     void (^format)(double x, Utf8Terminal &stream);
     
     int addrefresh₁(const char * ref, void * lduvair) const;
     int addrefresh₂ᴹ(const char * ref, void * lduvail) const;
     
-    void * picrefs; /* ⬷ A․𝘬․a Map<Unicodes, Image ∧ uint8_t *>. A․𝘬․a `imgwrite`. ⤐ */
+    void * picrefs; /* ⬷ A․𝘬․a Map<Unicodes, Image ∧ uint8_t *>. */
     
     int write(short count, const char * pics[], short cols, Unit elemunit);
     
@@ -307,7 +307,7 @@ namespace NumberformatCatalogue {
  void Regional(double ℝ, void (^out)(char32_t uc));
  void Interval(double ℝ₁, double ℝ₂, bool openend, void (^out)(char32_t uc));
  void Percentile(double ₋𝟹𝜎, double ₋𝟸𝜎, double ₋𝜎, double 𝟶, double 𝜎, 
-   double 𝟸𝜎, double 𝟹𝜎, __builtin_int_t * 𝟷𝟶ⁱ, void (^out)(char32_t uc));
+   double 𝟸𝜎, double 𝟹𝜎, __builtin_int_t * 𝟷𝟶ⁱ, void (^out)(char32_t uc)); /* See also `Quantile`. */
  void Normal(double μ, double σ, void (^out)(char32_t uc));
  /* log-normal distribution = draped `logₑ` is N(μ,σ²). */
  extern void (^Default)(double, Utf8Terminal&); }
@@ -375,10 +375,10 @@ template <typename T> Utf8Terminal& operator<<(Utf8Terminal &term,
 Utf8Terminal & operator<<(Utf8Terminal &u8os, Utf8Terminal present) 
   { return u8os; } */
 
-struct hfillobj { }; struct vfillobj { };
-vfillobj vfill(double val, Unit unit); hfillobj hfill();
-Utf8Terminal & operator<<(Utf8Terminal &term, hfillobj);
-Utf8Terminal & operator<<(Utf8Terminal &term, vfillobj);
+struct 𝗵fill { }; struct 𝘃fill { };
+𝘃fill vfill(double val, Unit unit); 𝗵fill hfill();
+Utf8Terminal & operator<<(Utf8Terminal &term, 𝗵fill);
+Utf8Terminal & operator<<(Utf8Terminal &term, 𝘃fill);
 
 extern "C" { extern const char *tab; extern const char *eol; extern const char *sep; } /* ↹ ↩︎ ¶ */
 
