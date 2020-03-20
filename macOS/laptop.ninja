@@ -1,4 +1,4 @@
-# macbook.ninja | Compilation directives.
+#  laptop.ninja | Compilation directives.
 
 rule cc
     command = xcrun clang -std=c++2a -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out

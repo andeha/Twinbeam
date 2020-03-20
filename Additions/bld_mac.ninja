@@ -18,7 +18,7 @@ rule lib
 
 build $libroot: lib $objsdir/Additions.o $objsdir/Ieee754₆₄bits.o           $
   $objsdir/Random.o $objsdir/Randomˢᵚ.o $objsdir/Guid.o                     $
-  $objsdir/Utf8Terminal.o $objsdir/Automata.o $objsdir/Ornaments.o          $
+  $objsdir/Terminal.o $objsdir/Automata.o $objsdir/Ornaments.o              $
   $objsdir/Streams.o $objsdir/⌊𝑥⌋+nearest.o $objsdir/arctan.o               $
   $objsdir/atan₂.o  $objsdir/cherry.o $objsdir/ℯ🔭².o $objsdir/Erf.o        $
   $objsdir/logₑ.o $objsdir/log𝛤.o $objsdir/mod.o $objsdir/sincos.o          $
@@ -30,7 +30,7 @@ build $objsdir/Ieee754₆₄bits.o: cc Ieee754₆₄bits.cpp
 build $objsdir/Random.o: ccms Random.cpp
 build $objsdir/Randomˢᵚ.o: cc Randomˢᵚ.cpp
 build $objsdir/Guid.o: cc Guid.cpp
-build $objsdir/Utf8Terminal.o: cc Terminal.cpp
+build $objsdir/Terminal.o: cc Terminal.cpp
 build $objsdir/Automata.o: cc Automata.cpp
 build $objsdir/Ornaments.o: cc Ornament.cpp
 build $objsdir/Streams.o: cc Streams.cpp

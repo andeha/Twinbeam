@@ -1,4 +1,4 @@
-/*  llvmʳᵗ².cpp - Middle manages dynamic memory unfortunately. */
+/*  llvmʳᵗ².cpp - Middle manages dynamic memory. */
 
 #include <Twinbeam.h>
 
@@ -7,4 +7,5 @@ void * _NSConcreteGlobalBlock[32];
 
 void * operator new(size_t size) { return Alloc(size); }
 void operator delete(void * p) { Fallow(p); }
+/* The abstractions `Alloc` and `Fallow` are non-overloadable in C++. */
 

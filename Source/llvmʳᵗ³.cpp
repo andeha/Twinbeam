@@ -9,20 +9,20 @@ struct { __builtin_int_t board₁, palm₂; } cxaGuard;
 extern "C" int __cxa_guard_acquire() { return 🔒(cxaGuard); }
 extern "C" void __cxa_guard_release() { 🔓(cxaGuard); }
 extern "C" int __cxa_atexit(void (* fn)(void *), void * arg, void * dso_handle) { return 0; }
-extern "C" void __cxa_pure_virtual() { /* print("Pure virtual function called\n"); */ while (1); } /* `BLURT` unpossible since one error allowed. */
-#pragma clang diagnostic ignored "-Wunused-value"
+extern "C" void __cxa_pure_virtual() { /* print("Pure virtual function called\n"); */ /* boot_Reset(PIC32MZDA_KEY1,PIC32MZDA_KEY2); */ /* ⭐️ Sheriff() */ while (1); } /* `BLURT` unpossible since one error allowed. */
+namespace std { void terminate() { /* ⭐️ Sheriff() */ } }
+extern "C" void * __cxa_begin_catch(void * exceptionObject) throw() { /* ⭐️ Sheriff() */ return NULL; }
 void * operator new(size_t size) { return Alloc(size); }
 void operator delete(void * p) throw() { Fallow(p); }
 auto Alloc = ^(__builtin_int_t bytes) { return malloc(bytes); };
 auto Fallow = ^(void * p) { free(p); };
-/* To access primitive, include 'extern void * (^Alloc)(__builtin_int_t);' inside your .cpp file. */
+/* ⬷ To access primitive, include 'extern void * (^Alloc)(__builtin_int_t);' inside your .cpp file. */
 extern "C" void * memcpy(void *dst, const void *src, size_t n)
 { return (void *)Copy8Memory((ByteAlignedRef)dst, (ByteAlignedRef)src, (__builtin_int_t)n); }
 extern "C" void * memset(void *b, int c, size_t len)
 { return (void *)Overwrite8Memory((ByteAlignedRef)b, (uint8_t)c, (__builtin_int_t)len); }
 /* void * memmove(void * dst𝘖𝘳Void, const void * src𝘖𝘳Void, size_t length)
 { return (void *)Copy8Memory((ByteAlignedRef)dst𝘖𝘳Void, (ByteAlignedRef)src𝘖𝘳Void, (__builtin_int_t)len); } */
-/* See also: Implementations inside Imagination technologies. */
 #ifdef __x86_64__
 extern "C" int write(int fd, const void * s, short unsigned b);
 DISORDERABLE auto Putₒ = ^(uint8_t * utf8s, uint16_t bytes) {

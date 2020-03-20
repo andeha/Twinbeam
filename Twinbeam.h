@@ -207,12 +207,14 @@ char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int1
 Argᴾ ﹟reᵍs(__builtin_uint_t mask); Argᴾ ﹟λ(Argᴾ::Output scalar, void * context);
 extern "C" { int atexit(void(*func)(void)); void exit(int); } 
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow)(void *);
-__builtin_int_t ﹟Frames(__builtin_int_t bytes, __builtin_int_t * modula);
-int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t 
-  pages[], __builtin_uint_t avails[], void (^every)(uint8_t * 𝟸ⁿframe, bool& stop));
+__builtin_int_t ﹟Frames₁(__builtin_int_t bytes, __builtin_int_t * modula);
+int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
+  __builtin_uint_t avails[], void (^every)(uint8_t * 𝟸ⁿframe, bool& stop));
 int Release𝟷ᵈ(void * 𝟸ⁿframe, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
-  __builtin_uint_t avails[], bool secure);
-int CoalescingAcquire(void **𝟺kbframes, __builtin_int_t ﹟);
+  __builtin_uint_t avails[], bool secure); void InitFrames(); int CoalescingAcquire
+/* A․𝘬․a `Secure1d`. */ (void **𝟺kbframes, __builtin_int_t ﹟);
+int ﹟Frames₂(__builtin_int_t bytes, __builtin_int_t &fullpages, __builtin_int_t 
+  &lastpagebytes, __builtin_int_t &﹟frames); /* 𝘊․𝘧 'predictive' and 'add'. */
 extern "C" { void * malloc(size_t); void free(void *); }
 /* Pointer arithmetics and the pointers inner intrinsics implicits. */
 enum class Sentinel { cyclic, last, /*, linear, bilinear, */ crash, bound };
@@ -486,12 +488,13 @@ struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max
    byteaddress relative(__builtin_int_t byteoffset, void (^issue)(int nº)) const;
    __builtin_uint_t& word(byteaddress unaligned, short &lshbits, void (^issue)(int nº));
    int keep(byteaddress unaligned, __builtin_uint_t word) const;
+   int oncewired(__builtin_int_t ﹟, uint8_t **start, __builtin_int_t *bytes) const;
    __builtin_int_t bytes() const; __builtin_int_t ᵇdebris() const;
    ~Scatter(); Memorydelegate * delegate; Scatter(const Scatter& other) = delete;
 😐; /* Disjunct, sediment and segments. */
 
-/*  void Reservoir(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_uint_t **pages, 
-    __builtin_uint_t **avails); */
+/*  void Reservoir(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_int_t *Idxs, 
+    __builtin_uint_t **pages, __builtin_uint_t **avails); */
 
 int Augment(Scatter& s, __builtin_int_t bytes, void (^once𝘖rMultiple)(short bytes, 
   uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage));
@@ -499,6 +502,8 @@ int Cattle(Opt<Unicodes> pathᵚ, const Scatter& branch,
   void (^ping)(double 𝟬₋𝟭percent /* a․𝘬․a double⁺ʳ */, bool& stop), 
   void (^zero𝘖rSeveral)(__builtin_int_t offset, short bytes, uint8_t * page, bool& stop), 
   int (^completion)(__builtin_int_t bytes, bool& no₋go));
+int Foreach(const Scatter& s, void (^zero𝘖rMany)(__builtin_int_t bytes, 
+  uint8_t * material, bool& stop));
 int Snapshot(const Scatter& original, Scatter & pristine);
 /* Also `reflectʳᵚ`, `reflect⁻ᵚ`, `Reflect` (transitive), `abduct`, `sediment`, `toggleNetworkAndNative`. */
 

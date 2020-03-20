@@ -1,7 +1,4 @@
-//
-//  FontRasterizer.h
-//  Additions
-//
+/*  FontRasterizer.h | Additions. */
 
 #ifndef __FONTRASTERIZER_H
 #define __FONTRASTERIZER_H

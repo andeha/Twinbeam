@@ -112,13 +112,13 @@ int Roman(__builtin_int_t n, void (^out)(char numeral));
 
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
 __builtin_int_t Utf8BytesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t 
-  maxᵘᵗfbytes); /* Returns `maxᵘᵗfbytes` in-case NULL is not earlier found. */
+  maxutfbytes); /* Returns `maxutfbytes` in-case NULL is not earlier found. */
 __builtin_int_t Utf8BytesIncludingANull(__builtin_int_t ³²bytes, char32_t * 
   𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, bool &traversedUndefinedCodepoint);
-__builtin_int_t UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, 
-  __builtin_int_t maxtetras𝘖𝘳₋𝟷);
-__builtin_int_t UnicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t 
-  maxᵘᵗfbytes); /* ...also returns `maxᵘᵗfbytes` when NULL can not be found. */
+__builtin_int_t UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, 
+  __builtin_int_t maxtetras𝘖r₋𝟷);
+__builtin_int_t UnicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t 
+  maxutfbytes); /* ...also returns `maxutfbytes` when NULL can not be found. */
 
 #define ⁺⁼UnicodeToUtf8(Buffer,³²B,⁸B,T,UCS)                                \
 auto unicodeToUtf8 = ^(char buffer[], int& ³²b, int& ⁸b, int tetras,        \
@@ -165,10 +165,10 @@ inline
 int
 Utf8ToUnicode(
   const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8,
-  __builtin_int_t maxᵘᵗfbytes, 
+  __builtin_int_t maxutfbytes, 
   void (^out)(char32_t * uc, __builtin_int_t tetras)
-) {  __builtin_int_t maxUCs = UnicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(utf8, maxᵘᵗfbytes);
-    if (maxUCs == maxᵘᵗfbytes) { return 1; }
+) {  __builtin_int_t maxUCs = UnicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(utf8,maxutfbytes);
+    if (maxUCs == maxutfbytes) { return 1; }
     __builtin_int_t tetra; char32_t unicodes[maxUCs]; bool trim=false;
     if (⁺⁼Utf8ToUnicode(utf8, unicodes, trim, maxUCs, &tetra)) { return -1; }
     out(unicodes, tetra);
@@ -178,21 +178,21 @@ Utf8ToUnicode(
 inline
 int
 UnicodeToUtf8(
-  char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳,
+  char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳,
   __builtin_int_t maxtetras,
-  void (^out)(const char * utf8, int tetras, int utf8bytes)
-) {  __builtin_int_t tetras = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳, maxtetras);
-    bool invalid=false; __builtin_int_t utf8bytes = 
-      Utf8BytesIncludingANull(tetras<<2, ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳, invalid);
+  void (^out)(const char * utf8, int tetras, int ᵇutf8)
+) {  __builtin_int_t tetras = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳, maxtetras);
+    bool invalid=false; __builtin_int_t ᵇutf8 = 
+      Utf8BytesIncludingANull(tetras<<2, ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳, invalid);
     if (invalid) return -1;
-    char utf8s[utf8bytes]; int ³²idx=0, ⁸idx=0;
-    if (⁺⁼UnicodeToUtf8(utf8s, ³²idx, ⁸idx, tetras, ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳)) { return 1; }
+    char utf8s[ᵇutf8]; int ³²idx=0, ⁸idx=0;
+    if (⁺⁼UnicodeToUtf8(utf8s, ³²idx, ⁸idx, tetras, ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳)) { return 1; }
     out(utf8s, ³²idx, ⁸idx);
     return 0;
 }
 
 MACRO Unicodes ᵊ(const char32_t * ucs) { char32_t * uc = Critic(ucs); 
-  int t = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳(uc, ~0>>1); return Unicodes { t, uc }; }
+  int t = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(uc, ~0>>1); return Unicodes { t, uc }; }
 
 inline int ᵊ(const char * utf8, void (^sometimes)(Unicodes uc)) {
   if (Utf8ToUnicode(utf8, ~0>>1, 
@@ -295,7 +295,7 @@ struct Utf8Terminal {
     
     void * picrefs; /* ⬷ A․𝘬․a Map<Unicodes, Image ∧ uint8_t *>. */
     
-    int write(short count, const char * pics[], short cols, Unit elemunit);
+    int write(double v, double h, Unit hvunit, short count, const char * pics[], short cols);
     
     int refreshed(const char * ref);
     
@@ -311,9 +311,9 @@ namespace NumberformatCatalogue {
  void Normal(double μ, double σ, void (^out)(char32_t uc));
  /* log-normal distribution = draped `logₑ` is N(μ,σ²). */
  extern void (^Default)(double, Utf8Terminal&); }
-enum class PresentBase { dec, hex, oct, bin };
+enum class Base { dec, hex, oct, bin };
 void Present(Utf8Terminal &term, __builtin_int_t z);
-void Present(Utf8Terminal &term, __builtin_uint_t n, PresentBase base);
+void Present(Utf8Terminal &term, __builtin_uint_t n, Base base);
 void Present(Utf8Terminal &term, double value);
 void Present(Utf8Terminal &term, char32_t unicode);
 void Present(Utf8Terminal &term, const char * utf8, __builtin_int_t maxbytes=BUILTIN_INT_MAX);
@@ -331,7 +331,7 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, __builtin_int_t z)
 { Present(term, z); return term; }
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, __builtin_uint_t n)
-{ Present(term, n, PresentBase::hex); return term; }
+{ Present(term, n, Base::hex); return term; }
 
 /* MACRO Utf8Terminal & operator<<(Utf8Terminal &term, double x)
 { Present(term, x); return term; } */
@@ -352,26 +352,26 @@ MACRO
 Utf8Terminal &
 operator<<(
   Utf8Terminal &term,
-  const char32_t * ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳
+  const char32_t * ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳
 )
-{ if (!ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳) { return term; }
+{ if (!ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳) { return term; }
   char32_t uc; int i=0;
 again:
-  uc = *(ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳 + i);
+  uc = *(ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳 + i);
   if (uc == 0x0000) { return term; }
   if (uc == END_OF_TRANSMISSION) { return term; }
   Present(term, uc);
   i++; goto again;
 }
 
-/* MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const String& s) {
-  __builtin_int_t tetras = s.unicodeCount(); for (int i = 0; i < tetras; i++)
-  { s.unicode(i, ^(SemanticPointer<char *> prev, char32_t elem,
-  SemanticPointer<char *> next) { term.write(elem); }); } return term; }
-MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const Intervallic& s) 
+/* Utf8Terminal & operator<<(Utf8Terminal &term, const String& s) {
+  __builtin_int_t tetras = s.﹟unicodes(); for (int i=0; i<tetras; i++)
+  { s.unicode(i, ^(byteaddress prev, char32_t elem, byteaddress next) { 
+    term.write(elem); }); } return term; }
+Utf8Terminal & operator<<(Utf8Terminal &term, const Ornaments& s) 
   { Present(term, s); return term; }
 template <typename T> Utf8Terminal& operator<<(Utf8Terminal &term, 
-  Vector<T> &v) { Present(v, term); return v; }
+  Vector<T> &v) { Present(v,term); return v; }
 Utf8Terminal & operator<<(Utf8Terminal &u8os, Utf8Terminal present) 
   { return u8os; } */
 
@@ -380,7 +380,7 @@ struct 𝗵fill { }; struct 𝘃fill { };
 Utf8Terminal & operator<<(Utf8Terminal &term, 𝗵fill);
 Utf8Terminal & operator<<(Utf8Terminal &term, 𝘃fill);
 
-extern "C" { extern const char *tab; extern const char *eol; extern const char *sep; } /* ↹ ↩︎ ¶ */
+extern "C" { extern const char *tab, *eol, *sep; } /* ↹ ↩︎ ¶ and hfill: ⎓ alt. ﹇. */
 
 extern Utf8Terminal _myTerminal;
 
@@ -395,7 +395,7 @@ Guid NewGuid();
 void GuidToText(const Guid& guid, void (^out)(char digitOrHyphen));
 
 void Present(Utf8Terminal &term, const Guid& ds);
-/* …and not MACRO Argᴾ ﹟Ref(Guid& g) { ⟶⟵ } */
+/* …not: MACRO Argᴾ ﹟Ref(Guid& g) { ⟶⟵ } */
 
 #pragma mark - Input Feeding in Practice
 
