@@ -67,9 +67,9 @@ MACRO bool isexactlyzero(double x) { octa o; o.base₂ = x; return o.bits ==
 
 MACRO double abs64d(double x) { return x < +0.0 ? -x : x; } /* …and for the mathematically inclined '-0.0'. */
 
-namespace NumberFormat { enum { Scientific, Monetary }; }
-MACRO Argᴾ ﹟F(double f, int format=NumberFormat::Scientific) { return Argᴾ { .value.f₁=f, 9 }; }
-MACRO Argᴾ ﹟F(float r, int format=NumberFormat::Scientific) { return Argᴾ { .value.f₂=r, 8 }; }
+namespace Numberformat { enum { Scientific, Monetary }; }
+MACRO Argᴾ ﹟F(double f, int format=Numberformat::Scientific) { return Argᴾ { .value.f₁=f, 9 }; }
+MACRO Argᴾ ﹟F(float r, int format=Numberformat::Scientific) { return Argᴾ { .value.f₂=r, 8 }; }
 
 #pragma mark 😐🎲
 
@@ -181,7 +181,7 @@ UnicodeToUtf8(
   char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳,
   __builtin_int_t maxtetras,
   void (^out)(const char * utf8, int tetras, int ᵇutf8)
-) {  __builtin_int_t tetras = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳, maxtetras);
+) {  __builtin_int_t tetras=UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳,maxtetras);
     bool invalid=false; __builtin_int_t ᵇutf8 = 
       Utf8BytesIncludingANull(tetras<<2, ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳, invalid);
     if (invalid) return -1;
@@ -191,8 +191,8 @@ UnicodeToUtf8(
     return 0;
 }
 
-MACRO Unicodes ᵊ(const char32_t * ucs) { char32_t * uc = Critic(ucs); 
-  int t = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(uc, ~0>>1); return Unicodes { t, uc }; }
+MACRO Unicodes ᵊ(const char32_t * ucs) { char32_t * uc=Critic(ucs); 
+  int t = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(uc,~0>>1); return Unicodes { t, uc }; }
 
 inline int ᵊ(const char * utf8, void (^sometimes)(Unicodes uc)) {
   if (Utf8ToUnicode(utf8, ~0>>1, 
@@ -253,8 +253,8 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
     
     MACRO static void Error(Errorcode code) { /* ⭐️ */ Sheriff(); }
     
-    int text(void (^zero𝘖rMany)(__builtin_int_t tetras, char32_t * unicodes, bool& stop)) const;
-    /* See also [github.com]>--<fmtlib>--<fmt>. */
+    int text(void (^zero𝘖rMany)(__builtin_int_t tetras, char32_t * unicodes, 
+     bool& stop)) const; /* See also [github.com]>--<fmtlib>--<fmt>. */
     
 😐; /* …, `DecoratedString` and `Recording`. */
 
@@ -280,7 +280,7 @@ struct Utf8Terminal {
     
     Inputctrl
     interaction( /* See also --<Fossilate.h|cpp>{TerminalIn ∧ WaitTerminal}. */
-      int periods𝘖𝘳Zero,
+      int periods𝘖rZero,
       int 𝟷𝟶ᵗʰseconds,
       void (^ping)(bool &stop), /* Cyclically whilst time passes. */
       void (^touchbase)(char32_t unicode, bool &stop) /* After a key press. */
@@ -357,10 +357,10 @@ operator<<(
 { if (!ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳) { return term; }
   char32_t uc; int i=0;
 again:
-  uc = *(ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳 + i);
+  uc = *(ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳+i);
   if (uc == 0x0000) { return term; }
   if (uc == END_OF_TRANSMISSION) { return term; }
-  Present(term, uc);
+  Present(term,uc);
   i++; goto again;
 }
 
@@ -375,10 +375,12 @@ template <typename T> Utf8Terminal& operator<<(Utf8Terminal &term,
 Utf8Terminal & operator<<(Utf8Terminal &u8os, Utf8Terminal present) 
   { return u8os; } */
 
-struct 𝗵fill { }; struct 𝘃fill { };
-𝘃fill vfill(double val, Unit unit); 𝗵fill hfill();
+struct 𝗵fill { }; struct 𝘃fill { double val; Unit unit; }; 
+struct ᵖ𝗴fill { bool versoNotRecto; }; /* A․𝘬․a `formfeed`. */
+ᵖ𝗴fill pfill(bool); 𝘃fill vfill(double, Unit); 𝗵fill hfill();
 Utf8Terminal & operator<<(Utf8Terminal &term, 𝗵fill);
 Utf8Terminal & operator<<(Utf8Terminal &term, 𝘃fill);
+Utf8Terminal & operator<<(Utf8Terminal &term, ᵖ𝗴fill);
 
 extern "C" { extern const char *tab, *eol, *sep; } /* ↹ ↩︎ ¶ and hfill: ⎓ alt. ﹇. */
 
