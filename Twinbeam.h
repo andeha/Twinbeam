@@ -504,7 +504,7 @@ int Foreach(const Scatter& s, void (^zero𝘖rMany)(__builtin_int_t bytes,
   uint8_t * material, bool& stop));
 int Snapshot(const Scatter& original, Scatter & pristine);
 
-int Abduct(__builtin_int_t bytes, Memorydelegate * delegate, Scatter &weave);
+int Abduct(__builtin_int_t bytes, Memorydelegate * delegate, Scatter &pattern);
 int Reflect(Unicodes pathᵚ, __builtin_int_t pagesOffset, __builtin_int_t 
   pagesLength, int (^transformAndResolve)(Unicodes pathᵚ, void (^final)(
   const char * regular𝘖rLinkpath)), Scatter &serpent, /* bool no₋writes, */ bool append𝙴𝙾𝚃at𝙴𝙾𝙵);
