@@ -504,12 +504,12 @@ int Foreach(const Scatter& s, void (^zero𝘖rMany)(__builtin_int_t bytes,
   uint8_t * material, bool& stop));
 int Snapshot(const Scatter& original, Scatter & pristine);
 
-int Abduct(__builtin_int_t bytes, Memorydelegate * delegate, Scatter &echo);
+int Abduct(__builtin_int_t bytes, Memorydelegate * delegate, Scatter &weave);
 int Reflect(Unicodes pathᵚ, __builtin_int_t pagesOffset, __builtin_int_t 
   pagesLength, int (^transformAndResolve)(Unicodes pathᵚ, void (^final)(
   const char * regular𝘖rLinkpath)), Scatter &serpent, /* bool no₋writes, */ bool append𝙴𝙾𝚃at𝙴𝙾𝙵);
 /* ⬷ WORM = '𝑊𝑟𝑖𝑡𝑒₋𝑜𝑛𝑐𝑒₋read₋𝑚𝑎𝑛𝑦'. */
-int ToggleNetworkAndNative(Scatter &scatter, __builtin_int_t bytesSkip, __builtin_int_t 
+int ToggleNetworkAndNative(Scatter &region, __builtin_int_t bytesSkip, __builtin_int_t 
   bytes, void (^ping)(bool &stop), void (^completion)(__builtin_int_t bytes)); 
 /* See also --<🥽 Störung.cpp>. */
 
