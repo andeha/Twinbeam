@@ -486,7 +486,7 @@ struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max
    byteaddress relative(__builtin_int_t byteoffset, void (^issue)(int nº)) const;
    __builtin_uint_t& word(byteaddress unaligned, short &lshbits, void (^issue)(int nº));
    int keep(byteaddress unaligned, __builtin_uint_t word) const;
-   int oncewired(__builtin_int_t ﹟, uint8_t **start, __builtin_int_t *bytes) const;
+   int oncewired(__builtin_int_t ﹟, uint8_t **start, __builtin_int_t *bytes) const; /* 𝘊․𝘧 predictive cache. */
    __builtin_int_t bytes() const; __builtin_int_t ᵇdebris() const;
    ~Scatter(); Memorydelegate * delegate; Scatter(const Scatter& other); /* Required by `pristine`. */
 😐; /* Disjunct, sediment and segments. */
@@ -504,7 +504,7 @@ int Foreach(const Scatter& s, void (^zero𝘖rMany)(__builtin_int_t bytes,
   uint8_t * material, bool& stop));
 int Snapshot(const Scatter& original, Scatter & pristine);
 
-int Abduct(__builtin_int_t bytes, Memorydelegate * delegate, Scatter &serpent);
+int Abduct(__builtin_int_t bytes, Memorydelegate * delegate, Scatter &echo);
 int Reflect(Unicodes pathᵚ, __builtin_int_t pagesOffset, __builtin_int_t 
   pagesLength, int (^transformAndResolve)(Unicodes pathᵚ, void (^final)(
   const char * regular𝘖rLinkpath)), Scatter &serpent, /* bool no₋writes, */ bool append𝙴𝙾𝚃at𝙴𝙾𝙵);
