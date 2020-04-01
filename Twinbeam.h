@@ -336,7 +336,7 @@ template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* A�
 
 #pragma mark Utf-8
 
-int UnicodeToUtf8(char32_t uc, void (^sometimes)(const uint8_t *p, int bytes));
+int UnicodeToUtf8(char32_t ξ, void (^sometimes /* valid */)(const uint8_t *p, int bytes));
 
 short Utf8Followers(uint8_t leadOr8Bit); /*  See also modern `char8_t` and a later `uchar`. */
 
@@ -345,7 +345,7 @@ char32_t Utf8ToUnicode(const uint8_t *p, __builtin_int_t bytes);
 struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; };
 
 typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast, 
-  bytesOffsetInclLast; } Utf8Interval; /* E.𝘨 wrongly coded utf-8. */
+  bytesOffsetInclLast; } Utf8Interval; /* E․𝘨 wrongly coded utf-8. */
 
 #pragma mark - 🌱
 
