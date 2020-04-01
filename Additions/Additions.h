@@ -208,11 +208,15 @@ inline int ᵊ(const char * utf8, void (^sometimes)(Unicodes uc)) {
 
 typedef struct UnicodeIntervalAnd𝑂rLocation {
   __builtin_int_t tetrasRelativeFirst, tetrasRelativeLast;
-} UnicodeArtifact; /* See also --<Preserves.h>{Utf8Interval} */
+} UnicodeArtifact; /* See also --<Preserves.h>{Utf8Interval|Sourcelocation} */
 
 typedef struct UnicodeBlock {
-  __builtin_int_t linesOffsetFirst, linesOffsetLast;
-} UnicodeBlock; /* See also --<Preserves.h>{Utf8Interval} */
+  __builtin_int_t linesOffsetFirst, linesOffsetLast, col₁, col₂;
+} UnicodeBlock;
+
+typedef struct UnicodeBlock⁻¹ {
+  __builtin_int_t 𝗰𝗼𝗹L𝟷, 𝗰𝗼𝗹L𝟸, linesOffsetFirst, linesOffsetLast;
+} UnicodeColBlock; /* See again --<Preserves.h>{Utf8Interval|Sourcelocation} */
 
 #include <Additions/Knot.h>
 
@@ -261,10 +265,11 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
 /*  #include <Additions/Color.hpp>
 #include <Additions/Typeset.hpp> */
 
-enum class Unit { thou, mm, in, pc, pt, px }; /* …and to place your copy:
-int Width(const Ornaments& o, Unit unit, double &width, double &kerning) WESTERN;
+enum class Unit { thou, mm, in, pc, pt, px, 𝑜𝑝𝑡lp };
+/* int Width(const Ornaments& o, Unit unit, double &width, double &kerning) WESTERN;
 int Width(const Unicodes& uc, Unit unit, double &width, double &kerning) WESTERN; */
-/* 1 thou = 1/100'th inch; 1pc = 1/6 inch, 1/12pc = 1pt. */
+/* 1/log²(2) 'pavoni'=distance between copy and its header. */
+/* 1 thou = 1/100'th inch; 1pc=1/6 inch, 1/12pc=1pt. */
 /* Wikipedia: '…one twentieth of a pound or twelve pence.' */
 /* 1 shilling ⟷ 1/12 pound ∧ 1 shilling ⟷ 12 pence. (DE-MORGAN's law) */
 
@@ -377,10 +382,10 @@ Utf8Terminal & operator<<(Utf8Terminal &u8os, Utf8Terminal present)
 
 struct 𝗵fill { }; struct 𝘃fill { double val; Unit unit; }; 
 struct ᵖ𝗴fill { bool versoNotRecto; }; /* A․𝘬․a `formfeed`. */
-ᵖ𝗴fill pfill(bool); 𝘃fill vfill(double, Unit); 𝗵fill hfill();
-Utf8Terminal & operator<<(Utf8Terminal &term, 𝗵fill);
-Utf8Terminal & operator<<(Utf8Terminal &term, 𝘃fill);
-Utf8Terminal & operator<<(Utf8Terminal &term, ᵖ𝗴fill);
+ᵖ𝗴fill pfill(bool); 𝘃fill vfill(double,Unit); 𝗵fill hfill();
+Utf8Terminal & operator<<(Utf8Terminal&,𝗵fill);
+Utf8Terminal & operator<<(Utf8Terminal&,𝘃fill);
+Utf8Terminal & operator<<(Utf8Terminal&,ᵖ𝗴fill);
 
 extern "C" { extern const char *tab, *eol, *sep; } /* ↹ ↩︎ ¶ and hfill: ⎓ alt. ﹇. */
 
@@ -396,7 +401,7 @@ Guid NewGuid();
 
 void GuidToText(const Guid& guid, void (^out)(char digitOrHyphen));
 
-void Present(Utf8Terminal &term, const Guid& ds);
+void Present(Utf8Terminal &term, const Guid& mp);
 /* …not: MACRO Argᴾ ﹟Ref(Guid& g) { ⟶⟵ } */
 
 #pragma mark - Input Feeding in Practice
@@ -404,9 +409,9 @@ void Present(Utf8Terminal &term, const Guid& ds);
 enum class CastToIntOpinion { accept, rejecting, negate, commit, annul };
 
 Opt<__builtin_int_t>
-CastᵗˣᵗToInt(
+CastTˣᵗToInt(
   CastToIntOpinion (^feeder)(unsigned short &digit)
-); /* 𝘈․𝘬․a `CastToInt`. */
+); /* 𝘈․𝘬․a `CastToInt`. Also `--<🥽 Swap 𝑣𝑠․ ♚♜-X>`. */
 
 enum class Inputcontrol { ok, quit };
 
@@ -432,12 +437,12 @@ Tokenize(
 template <typename E>
 struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
    /* Fifo(int depth, void * base, int bytes) { content = *base; } */
-   int count=0, brk=0/*𝘈․𝘬․a ⬚-idx*/, depth=10; int 🥈ᵢ MAX=100; E * content[MAX];
-   void include(E * ref) { content[brk] = ref; extern void Include(int depth, 
-     int * brk, int * count); Include(depth, &brk, &count); }
+   int count=0, brk=0, depth=10; int 🥈 MAX=100; E * content[MAX];
+   void include(E * ref) { content[brk]=ref; extern void Include(int depth, 
+     int * brk, int * count); Include(depth,&brk,&count); }
  /* private */ int physical(unsigned δ) const { extern int Physical(unsigned 
      nowdelta /* A․𝘬․a `prevrelativehead` */, int brk, int depth);
-    return Physical(δ, brk, depth); }
+    return Physical(δ,brk,depth); }
    enum Flavor { allinorder, latest /* randomized */ };
 }; /* Note also that three areas where one 'precomputed 'area always separates the 
   'producer' from the 'consumer' enables a 'stable external projection' without 
