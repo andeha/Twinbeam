@@ -11,7 +11,7 @@ FileSystemItemExists(
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
       Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
     if (invalid) return false;
-    char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
+    char buffer[Maxpathᴮʸᵗᵉˢ]; __builtin_int_t ³²b=0, ⁸b=0;
     if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b, 𝘁𝗲𝘁𝗿𝗮𝘀, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ)) { return false; }
     return stat((const char *)buffer, &st) == 0;
 }
@@ -25,7 +25,7 @@ IsRegularFile(
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
       Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
     if (invalid) return false;
-    char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
+    char buffer[Maxpathᴮʸᵗᵉˢ]; __builtin_int_t ³²b=0, ⁸b=0;
     if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b, 𝘁𝗲𝘁𝗿𝗮𝘀, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ)) { return false; }
     if (stat((const char *)buffer, &st)) { return false; }
     return S_ISREG(st.st_mode);
@@ -39,7 +39,7 @@ RegularOrLinkFileLength(
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ =
     Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
     if (invalid) return -1;
-    char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
+    char buffer[Maxpathᴮʸᵗᵉˢ]; __builtin_int_t ³²b=0, ⁸b=0;
     if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b, 𝘁𝗲𝘁𝗿𝗮𝘀, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ)) { return -2; }
     if (stat((const char *)buffer, &st)) { return -3; }
     return st.st_size;
@@ -54,7 +54,7 @@ IsDirectory(
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
       Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
     if (invalid) return false;
-    char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
+    char buffer[Maxpathᴮʸᵗᵉˢ]; __builtin_int_t ³²b=0, ⁸b=0;
     if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b, 𝘁𝗲𝘁𝗿𝗮𝘀, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ)) { return false; }
     if (stat((const char *)buffer, &st)) { return false; }
     return S_ISDIR(st.st_mode);
@@ -69,7 +69,7 @@ IsSymbolicLink(
 {  struct stat st; bool invalid=false; __builtin_uint_t Maxpathᴮʸᵗᵉˢ = 
       Utf8BytesIncludingANull(𝘁𝗲𝘁𝗿𝗮𝘀<<2, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ, invalid);
     if (invalid) return false;
-    char buffer[Maxpathᴮʸᵗᵉˢ]; int ³²b=0, ⁸b=0;
+    char buffer[Maxpathᴮʸᵗᵉˢ]; __builtin_int_t ³²b=0, ⁸b=0;
     if (⁺⁼UnicodeToUtf8(buffer, ³²b, ⁸b, 𝘁𝗲𝘁𝗿𝗮𝘀, 𝗰𝗮𝗻𝗼𝗻𝗶𝗰𝗮𝗹ᵚ)) { return false; }
     if (stat((const char *)buffer, &st)) { return false; }
     return S_ISLNK(st.st_mode);

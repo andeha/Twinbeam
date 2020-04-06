@@ -116,13 +116,13 @@ __builtin_int_t Utf8BytesUntilNull(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf
 __builtin_int_t Utf8BytesIncludingANull(__builtin_int_t ³²bytes, char32_t * 
   𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, bool &traversedUndefinedCodepoint);
 __builtin_int_t UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 nativeEndianUnicodes, 
-  __builtin_int_t maxtetras𝘖r₋𝟷);
+  __builtin_int_t maxtetras𝘖r₋𝟷); /* Actually until 0x0000 or 'passed EOT'. */
 __builtin_int_t UnicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, __builtin_int_t 
   maxutfbytes); /* ...also returns `maxutfbytes` when NULL can not be found. */
 
 #define ⁺⁼UnicodeToUtf8(Buffer,³²B,⁸B,T,UCS)                                \
-auto unicodeToUtf8 = ^(char buffer[], int& ³²b, int& ⁸b, int tetras,        \
-  char32_t * ucs) {                                                         \
+auto unicodeToUtf8 = ^(char buffer[], __builtin_int_t& ³²b,                 \
+  __builtin_int_t& ⁸b, int tetras, char32_t * ucs) {                        \
 again:                                                                      \
    char32_t uc = *(ucs + ³²b);                                              \
    if (uc == 0x0000 || uc == END_OF_TRANSMISSION) { goto unagain; }         \
@@ -141,8 +141,8 @@ unagain:                                                                    \
 #define ⁺⁼Utf8ToUnicode(U8,UCS,T,MAX,TETRA)                                 \
 auto utf8ToUnicode = ^(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, char32_t unicodes[],        \
   bool prune, __builtin_int_t maxUCs, __builtin_int_t * tetra) {            \
-   __builtin_int_t followers, incr; int ⁸b=0; __builtin_int_t Ɀtetra;       \
-  char32_t uc; *tetra /* 𝘈․𝘬․a ³²b */ = 0;                                  \
+   __builtin_int_t followers, incr, ⁸b=0, Ɀtetra; char32_t uc;              \
+  *tetra /* 𝘈․𝘬․a ³²b */ = 0;                                               \
 again:                                                                      \
    const uint8_t * leadOr8Bit = (const uint8_t *)utf8 + ⁸b;                 \
    if (*leadOr8Bit == 0x0) { goto unagain; }                                \
@@ -167,12 +167,12 @@ Utf8ToUnicode(
   const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8,
   __builtin_int_t maxutfbytes, 
   void (^out)(char32_t * uc, __builtin_int_t tetras)
-) {  __builtin_int_t maxUCs = UnicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(utf8,maxutfbytes);
-    if (maxUCs == maxutfbytes) { return 1; }
-    __builtin_int_t tetra; char32_t unicodes[maxUCs]; bool trim=false;
-    if (⁺⁼Utf8ToUnicode(utf8, unicodes, trim, maxUCs, &tetra)) { return -1; }
-    out(unicodes, tetra);
-    return 0;
+) {  __builtin_int_t maxUCs=UnicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(utf8,maxutfbytes);
+   if (maxUCs == maxutfbytes) { return 1; }
+   __builtin_int_t tetra; char32_t unicodes[maxUCs]; bool trim=false;
+   if (⁺⁼Utf8ToUnicode(utf8,unicodes,trim,maxUCs,&tetra)) { return -1; }
+   out(unicodes,tetra);
+   return 0;
 }
 
 inline
@@ -180,21 +180,32 @@ int
 UnicodeToUtf8(
   char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳,
   __builtin_int_t maxtetras,
-  void (^out)(const char * utf8, int tetras, int ᵇutf8)
+  void (^out)(const char * utf8, __builtin_int_t tetras, __builtin_int_t ᵇutf8)
 ) {  __builtin_int_t tetras=UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳,maxtetras);
-    bool invalid=false; __builtin_int_t ᵇutf8 = 
-      Utf8BytesIncludingANull(tetras<<2, ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳, invalid);
-    if (invalid) return -1;
-    char utf8s[ᵇutf8]; int ³²idx=0, ⁸idx=0;
-    if (⁺⁼UnicodeToUtf8(utf8s, ³²idx, ⁸idx, tetras, ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳)) { return 1; }
-    out(utf8s, ³²idx, ⁸idx);
-    return 0;
+   bool invalid=false; __builtin_int_t ᵇutf8 = 
+     Utf8BytesIncludingANull(tetras<<2,ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳,invalid);
+   if (invalid) return -2;
+   char utf8[ᵇutf8]; __builtin_int_t ³²idx=0, ⁸idx=0;
+   if (⁺⁼UnicodeToUtf8(utf8,³²idx,⁸idx,tetras,ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳)) { return -1; }
+   out(utf8,³²idx,⁸idx);
+   return 0;
+}
+
+inline
+int
+UnicodeToUtf8(Unicodes ucs,
+  void (^out)(const char * utf8, __builtin_int_t ᵇutf8)
+) {
+   __builtin_int_t ᵇutf8 = 4*ucs.tetras; /* Closed under 4 times and less. */
+   char utf8[ᵇutf8]; __builtin_int_t ³²idx=0, ⁸idx=0;
+   if (⁺⁼UnicodeToUtf8(utf8,³²idx,⁸idx,ucs.tetras,ucs.unicodes)) { return -1; }
+   out(utf8,ᵇutf8); return 0;
 }
 
 MACRO Unicodes ᵊ(const char32_t * ucs) { char32_t * uc=Critic(ucs); 
   int t = UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(uc,~0>>1); return Unicodes { t, uc }; }
 
-inline int ᵊ(const char * utf8, void (^sometimes)(Unicodes uc)) {
+MACRO int ᵊ(const char * utf8, void (^sometimes)(Unicodes uc)) {
   if (Utf8ToUnicode(utf8, ~0>>1, 
     ^(char32_t * uc, __builtin_int_t tetras) {
         Unicodes unicode { tetras, uc };
@@ -380,12 +391,13 @@ template <typename T> Utf8Terminal& operator<<(Utf8Terminal &term,
 Utf8Terminal & operator<<(Utf8Terminal &u8os, Utf8Terminal present) 
   { return u8os; } */
 
-struct 𝗵fill { }; struct 𝘃fill { double val; Unit unit; }; 
-struct ᵖ𝗴fill { bool versoNotRecto; }; /* A․𝘬․a `formfeed`. */
-ᵖ𝗴fill pfill(bool); 𝘃fill vfill(double,Unit); 𝗵fill hfill();
+struct 𝗵fill { }; struct 𝘃fill { double val; Unit unit; };
+struct 𝗣𝒂𝒈𝒆 { bool versoNotRecto; }; /* A․𝘬․a `formfeed` and U+0x000c. */
+𝗣𝒂𝒈𝒆 ᵖ𝗴(bool); 𝘃fill vfill(double,Unit); 𝗵fill hfill();
+/* A․k․a `␋` , `␉` and `␌` . */
 Utf8Terminal & operator<<(Utf8Terminal&,𝗵fill);
 Utf8Terminal & operator<<(Utf8Terminal&,𝘃fill);
-Utf8Terminal & operator<<(Utf8Terminal&,ᵖ𝗴fill);
+Utf8Terminal & operator<<(Utf8Terminal&, 𝗣𝒂𝒈𝒆);
 
 extern "C" { extern const char *tab, *eol, *sep; } /* ↹ ↩︎ ¶ and hfill: ⎓ alt. ﹇. */
 
@@ -417,7 +429,7 @@ enum class Inputcontrol { ok, quit };
 
 enum class Readlineopinion { accept, rejecting, commit, quit };
 
-int ReadUtf8(Readlineopinion (^feeder)(char &utf8byte), Inputcontrol (^line)
+int ReadUtf8(Readlineopinion (^feeder)(char &utf8), Inputcontrol (^line)
   (char * line)); int ReadUnicode(Readlineopinion (^feeder)(char32_t &unicode),
   Inputcontrol (^line)(char32_t * line)); /* Count symbols with __block inside `feeder`. */
 
