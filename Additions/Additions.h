@@ -547,8 +547,11 @@ enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
 
 enum class Encoding { utf8, unicode };
 
-int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content, __builtin_int_t& 
+int LONGTOOTH TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content, __builtin_int_t& 
   beam, void (^several)(char32_t unicode, __builtin_int_t byteOffset, bool& stop));
+
+int Utf8ToUnicode(uint8_t * material, short bytes, 
+  void (^character)(char32_t uc, __builtin_int_t byteOffset, bool& stop));
 
 struct Jagged { Jagged(); ~Jagged(); 
   int include(__builtin_int_t tetraidx, __builtin_int_t ᵟcount);

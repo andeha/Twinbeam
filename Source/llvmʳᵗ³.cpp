@@ -15,7 +15,7 @@ extern "C" void * __cxa_begin_catch(void * exceptionObject) throw() { /* ⭐️ 
 void * operator new(size_t size) { return Alloc(size); }
 void operator delete(void * p) throw() { Fallow(p); }
 auto Alloc = ^(__builtin_int_t bytes) { return malloc(bytes); };
-auto Fallow = ^(void * p) { free(p); };
+auto Fallow₋ₒ = ^(void * p) { free(p); };
 /* ⬷ To access primitive, include 'extern void * (^Alloc)(__builtin_int_t);' inside your .cpp file. */
 extern "C" void * memcpy(void *dst, const void *src, size_t n)
 { return (void *)Copy8Memory((ByteAlignedRef)dst, (ByteAlignedRef)src, (__builtin_int_t)n); }
