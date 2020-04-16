@@ -212,12 +212,13 @@ int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __
   __builtin_uint_t avails[], void (^every)(uint8_t * 𝟸ⁿframe, bool& stop));
 int Release𝟷ᵈ(void * 𝟸ⁿframe, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
   __builtin_uint_t avails[], bool secure);
-struct Expeditionary { __builtin_int_t 𝑙𝑜𝑔₂Pages; __builtin_int_t Idxs; __builtin_uint_t 
-  *pages; __builtin_uint_t *avails; }; void InitFrames(Expeditionary area);
-int CoalescingAcquire(Expeditionary area, void **𝟺kbframes, __builtin_int_t ﹟);
-int Fallow(Expeditionary area, void **𝟺kbframes, __builtin_int_t ﹟);
-/* LONGTOOTH void Reservoir(__builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_int_t *Idxs, 
-  __builtin_uint_t **pages, __builtin_uint_t **avails); */
+struct Expeditionary { __builtin_int_t 𝑙𝑜𝑔₂Pages; __builtin_int_t Idxs; 
+  __builtin_uint_t * pages; __builtin_uint_t * avails; };
+void InitFrames(int count, unsigned expeditionaries[]);
+int CoalescingAcquire(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟);
+int Fallow(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟);
+/* void Reservoir(unsigned expeditionary, __builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_int_t *
+  Idxs, __builtin_uint_t **pages, __builtin_uint_t **avails); */
 extern "C" { void * malloc(size_t); void free(void *); }
 /* Pointer arithmetics and the pointers inner intrinsics implicits. */
 enum class Sentinel { cyclic, last, /*, linear, bilinear, */ crash, bound };
@@ -306,6 +307,7 @@ MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
 #define READONLY __attribute__ ((section(".rodata,.rodata")))
 #elif defined __mips__
 #define READONLY __attribute__ ((section(".rodata")))
+#define COHERENT __attribute__ ((section(".coherent")))
 #endif
 #define IsOdd(x) ((x) & 0b1) /* For int32_t|int64_t. H: x & 0b010 ⟷̸ ◻️⃞. See also --<math>--<erf.cpp>{⁽₋1⁾ᵏ|alt}. */
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
@@ -509,15 +511,14 @@ int Snapshot(const Scatter& original, Scatter & pristine);
 
 int Abduct(__builtin_int_t bytes, Memorydelegate * delegate, Scatter &pattern);
 typedef int (^TransformAndResolve)(Unicodes pathᵚᵍ, void (^final)(const char * regular𝘖rLinkpath));
-int Reflect(Unicodes pathᵚᵍ, TransformAndResolve tr, __builtin_int_t pagesOffset, 
-  __builtin_int_t pagesLength, __builtin_int_t bytesAugment, void (^pages)(short bytes,
-  uint8_t * material, __builtin_int_t totalbytes, bool& stop));
-int Reflect(Unicodes pathᵚᵍ, TransformAndResolve tr, __builtin_int_t pagesOffset, 
-  __builtin_int_t pagesLength, __builtin_int_t bytesAugment, void (^pages)(
-  __builtin_int_t count, uint8_t **𝟺kbframes, __builtin_int_t totalbytes));
-int Reflect(Unicodes pathᵚ, __builtin_int_t pagesOffset, __builtin_int_t pagesLength, 
-  TransformAndResolve tr, Scatter &region);
-/* ⬷ WORM = '𝑊𝑟𝑖𝑡𝑒₋𝑜𝑛𝑐𝑒₋read₋𝑚𝑎𝑛𝑦'. bool no₋writes, append𝙴𝙾𝚃at𝙴𝙾𝙵 */
+int TextualReflect(Unicodes pathᵚᵍ, TransformAndResolve tr, __builtin_int_t * totalbytes, 
+  void (^zero𝘖rSeveral)(__builtin_int_t byteOffset, char32_t unicode, bool& stop));
+int Reflect(Unicodes pathᵚᵍ, __builtin_int_t pagesOffset, __builtin_int_t pages𝘖𝘳Zero, 
+  __builtin_int_t bytesAugment, __builtin_int_t * totalbytes, TransformAndResolve tr, 
+  void (^pages)(__builtin_int_t count, uint8_t **𝟺kbframes, __builtin_int_t lastunusedbytes));
+int Reflect(Unicodes pathᵚ, __builtin_int_t pagesOffset, __builtin_int_t pages𝘖𝘳Zero, 
+  __builtin_int_t bytesAugment, TransformAndResolve tr, Scatter &region);
+/* ⬷ WORM = '𝑊𝑟𝑖𝑡𝑒₋𝑜𝑛𝑐𝑒₋read₋𝑚𝑎𝑛𝑦'. bool no₋writes, append𝙴𝙾𝚃at𝙴𝙾𝙵. */
 int ToggleNetworkAndNative(Scatter &region, __builtin_int_t bytesSkip, __builtin_int_t 
   bytes, void (^ping)(bool &stop), void (^completion)(__builtin_int_t bytes)); 
 /* See also --<🥽 Störung.cpp>. */
@@ -667,7 +668,7 @@ struct Chronology {
      @param parts  Contains year, month (1-12), day (1-31), hour (0-23),
        minutes (0-59) and seconds (0-59)
      
-     @param frac  The number of ≈232.83 ps intervals to add
+     @param frac  The number of 2⁻³² second ticks (≈232.83 ps) to add
      
      Epoch for the modified Julian day is 03/23/1955 at 15.00: When Saab J29 
      travels in 900.660 km/h.
@@ -687,21 +688,27 @@ struct Chronology {
       years) until a wrap occurs. */
     
     Instant
-    addSeconds(
-      Instant instant,
-      uint32_t seconds,
-      UQ32 frac
+    addSeconds(Instant instant,
+      uint32_t seconds, UQ32 frac
     ) const;
     
     /**  Only for unperturbed chronologies. For non-reversable chronologies,
       subtract throws an error. */
     
-    Instant subtractSeconds(Instant instant, uint32_t seconds) const BLURTS;
+    Instant subtractSeconds(Instant instant, uint32_t seconds, UQ32 frac) const BLURTS;
+    
+    /**  Time passed running from t₂ to t₁. */
+    
+    typedef octa Interval; Interval delta(Instant t₁, Instant t₂) const;
+    
+    /**  A chronological interval together with a machine epsilon of approximately 0.111ps. */
+    
+    double ieee754(Interval interval) const;
     
     /**  Retrieve a - since the program started and given a chronology - unique 
       value in a 'strict monotonically increasing' serie. */
     
-    __builtin_int_t ordinal(bool& didwrap) const; /* Wraps (𝄇) at `BUILTIN_INT_MAX`. */
+    __builtin_int_t ordinal(bool &didwrap) const; /* Wraps (𝄇) at `BUILTIN_INT_MAX`. */
     
     /**  Return weekday assuming a week starts on a Wednesday. (Encoded as 0.) */
     
@@ -741,8 +748,6 @@ Chronology& ComputationalChronology(); /* 𝖤․𝘨 for chronometers. A․𝘬
 
 Chronology& SystemCalendricChronology();
 
-/* See --<Additions>--<Framewrk.h> for details on `Trap` and `Indicate`. */
-
 /**  Correlative-relative, 𝘦․𝘨 xʳ∈[-1/2₋𝜀, +1/2₊𝜀] and xʳ∈[-π₊𝜀, +π₋𝜀]. */
 
 typedef float floatʳ; typedef double doubleʳ;
@@ -754,3 +759,4 @@ typedef float float⁺ʳ; typedef double double⁺ʳ;
 typedef uint8_t uchar; typedef uint32_t uint32; typedef uint8_t byte;
 
 #endif
+
