@@ -1,4 +1,4 @@
-/*  𝙋𝙞𝙘𝟯𝟮𝙢𝙯.cpp | Twinbeam. */
+/* pic32mz.cpp | Sometimes many legs, sometimes… */
 
 #include <Twinbeam.h>
 

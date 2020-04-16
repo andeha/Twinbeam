@@ -12,8 +12,8 @@ extern "C" int __cxa_atexit(void (* fn)(void *), void * arg, void * dso_handle) 
 extern "C" void __cxa_pure_virtual() { /* print("Pure virtual function called\n"); */ /* boot_Reset(PIC32MZDA_KEY1,PIC32MZDA_KEY2); */ /* ⭐️ Sheriff() */ while (1); } /* `BLURT` unpossible since one error allowed. */
 namespace std { void terminate() { /* ⭐️ Sheriff() */ } }
 extern "C" void * __cxa_begin_catch(void * exceptionObject) throw() { /* ⭐️ Sheriff() */ return NULL; }
-void * operator new(size_t size) { return Alloc(size); }
-void operator delete(void * p) throw() { Fallow(p); }
+void * operator new(size_t size) { return Alloc(size); } /* ⬷ E․𝘨 for impl_ ∧ 😐 */
+void operator delete(void * p) throw() { Fallow₋ₒ(p); }
 auto Alloc = ^(__builtin_int_t bytes) { return malloc(bytes); };
 auto Fallow₋ₒ = ^(void * p) { free(p); };
 /* ⬷ To access primitive, include 'extern void * (^Alloc)(__builtin_int_t);' inside your .cpp file. */
@@ -90,3 +90,39 @@ extern "C" __uint128_t __udivmodti4(__uint128_t a, __uint128_t b, __uint128_t * 
 extern "C" __uint128_t __umodti3(__uint128_t a, __uint128_t b) { __uint128_t r; __udivmodti4(a, b, &r); return r; }
 extern "C" __uint128_t __udivti3(__uint128_t a, __uint128_t b) { __uint128_t r, d; d = __udivmodti4(a, b, &r); return d; }
 #endif
+
+#pragma mark - Frames and multiple frame stores
+
+template <int 𝑙𝑜𝑔₂Frames>
+struct Framestore { __builtin_int_t 🥈 𝑙𝑜𝑔₂Pages=𝑙𝑜𝑔₂Frames, 
+  Pages=0b1<<𝑙𝑜𝑔₂Frames,
+  BytesPerWord=sizeof(__builtin_uint_t),
+  Words=Pages*(SystemInfoPagesize()/BytesPerWord),
+  Idxs=(Pages/BytesPerWord)>>3;
+  __builtin_uint_t pages[Words], avails[Idxs];
+}; 
+
+void
+Reservoir(unsigned expeditionary, 
+  __builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_int_t *Idxs, 
+  __builtin_uint_t **pages, __builtin_uint_t **avails
+)
+{
+    /* int count=2; static unsigned expeditionaries[] = { 9, 9 }; */
+#if defined (__mips__) && defined (__MZ__)
+    static Framestore<9> f₁;
+    static Framestore<9> f₂ __attribute__ ((section(".ddr2")); /* Store at 0xA8000000 (non-cachable) and 0x88000000 (cachable). */
+    static Expeditionary exp₁ = Expeditionary { f₁.𝑙𝑜𝑔₂Pages, f₁.Idxs, f₁.pages, f₁.avails };
+    static Expeditionary exp₂ = Expeditionary { f₂.𝑙𝑜𝑔₂Pages, f₂.Idxs, f₂.pages, f₂.avails };
+    switch (expeditionary) {
+    case 0: *𝑙𝑜𝑔₂Pages=exp₁.𝑙𝑜𝑔₂Pages; *Idxs=exp₁.Idxs; *pages=exp₁.pages; *avails=exp₁.avails; break;
+    case 1: *𝑙𝑜𝑔₂Pages=exp₂.𝑙𝑜𝑔₂Pages; *Idxs=exp₂.Idxs; *pages=exp₂.pages; *avails=exp₂.avails; break;
+    default: *𝑙𝑜𝑔₂Pages=0; *Idxs=0; *pages=NULL; *avails=NULL; break;
+    }
+#elif defined __x86_64__
+    static Framestore<9> f;
+    static Expeditionary exp = Expeditionary { f.𝑙𝑜𝑔₂Pages, f.Idxs, f.pages, f.avails };
+    *𝑙𝑜𝑔₂Pages=exp.𝑙𝑜𝑔₂Pages; *Idxs=exp.Idxs; *pages=exp.pages; *avails=exp.avails;
+#endif
+}
+

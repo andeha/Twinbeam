@@ -47,46 +47,47 @@ int
 Utf8Sync(
   uint8_t **p
 ) /* Backs at most 3 bytes to regain sync. */
-{
-    __builtin_int_t i = 3;
-#define Utf8IsLead(x) (((x)&0b11000000)==0xD0) // Ensure argument is `uint8_t` or equivalent.
+{ __builtin_int_t i=3;
+/* Ensure argument is `uint8_t` or equivalent. */
+#define Utf8IsLead(x) (((x)&0b11000000)==0xD0)
 #define Utf8Is8Bit(x) ((x) <= 0x7f)
 #define Utf8IsPointerToFollower(p) (((*p)&0b11000000)==0xC0)
-    while (i && Utf8IsPointerToFollower(*p)) { (*p)--; i--; }
-    return i == 0 || !(Utf8IsLead(**p) || Utf8Is8Bit(**p));
+   while (i && Utf8IsPointerToFollower(*p)) { (*p)--; i--; }
+   return i == 0 || !(Utf8IsLead(**p) || Utf8Is8Bit(**p));
 }
 
 FOCAL
 int
 UnicodeToUtf8(
-  char32_t u,
-  void (^/*sometimes-*/completion)(const uint8_t *p, int bytes)
+  char32_t Ξ,
+  void (^valid)(const uint8_t *p, int bytes)
 )
 {
-    unsigned char 🥈ᵢ firstByteMark[7] = { 0x00, 0x00, 0xC0, 0xE0, 0xF0,
+    unsigned char 🥈 firstByteMark[7] = { 0x00, 0x00, 0xC0, 0xE0, 0xF0,
       0xF8, 0xFC };
     
-    char32_t 🥈ᵢ byteMask = 0xBF, byteMark = 0x80;
+    char32_t 🥈 byteMask=0xBF, byteMark=0x80;
     
-    unsigned short bytesToWrite = 0;
+    unsigned short bytesToWrite=0;
     
-    if (u < (char32_t)0x80) { bytesToWrite = 1; }
-    else if (u < (char32_t)0x800) { bytesToWrite = 2; }
-    else if (u < (char32_t)0x10000) { bytesToWrite = 3; }
-    else if (u <= (char32_t)0x0010FFFF) { bytesToWrite = 4; }
+    if (Ξ < (char32_t)0x80) { bytesToWrite=1; }
+    else if (Ξ < (char32_t)0x800) { bytesToWrite=2; }
+    else if (Ξ < (char32_t)0x10000) { bytesToWrite=3; }
+    else if (Ξ <= (char32_t)0x0010FFFF) { bytesToWrite=4; }
     else { return 1; }
     
     uint8_t target[4];
     
     switch (bytesToWrite) {
-      case 4: target[3] = (uint8_t)((u | byteMark) & byteMask); u >>= 6;
-      case 3: target[2] = (uint8_t)((u | byteMark) & byteMask); u >>= 6;
-      case 2: target[1] = (uint8_t)((u | byteMark) & byteMask); u >>= 6;
-      case 1: target[0] = (uint8_t) (u | firstByteMark[bytesToWrite]);
+      case 4: target[3] = (uint8_t)((Ξ | byteMark) & byteMask); Ξ >>= 6;
+      case 3: target[2] = (uint8_t)((Ξ | byteMark) & byteMask); Ξ >>= 6;
+      case 2: target[1] = (uint8_t)((Ξ | byteMark) & byteMask); Ξ >>= 6;
+      case 1: target[0] = (uint8_t) (Ξ | firstByteMark[bytesToWrite]);
     }
     
-    completion(target, bytesToWrite);
+    valid(target,bytesToWrite);
     
     return 0;
 }
+
 

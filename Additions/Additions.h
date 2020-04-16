@@ -208,8 +208,8 @@ MACRO Unicodes ᵊ(const char32_t * ucs) { char32_t * uc=Critic(ucs);
 MACRO int ᵊ(const char * utf8, void (^sometimes)(Unicodes uc)) {
   if (Utf8ToUnicode(utf8, ~0>>1, 
     ^(char32_t * uc, __builtin_int_t tetras) {
-        Unicodes unicode { tetras, uc };
-        sometimes(unicode);
+      Unicodes unicode { tetras, uc };
+      sometimes(unicode);
     }
   )) { return -1; }
   return 0;
@@ -219,7 +219,7 @@ MACRO int ᵊ(const char * utf8, void (^sometimes)(Unicodes uc)) {
 
 typedef struct UnicodeIntervalAnd𝑂rLocation {
   __builtin_int_t tetrasRelativeFirst, tetrasRelativeLast;
-} UnicodeArtifact; /* See also --<Preserves.h>{Utf8Interval|Sourcelocation} */
+} UnicodeSelection; /* See also --<Preserves.h>{Utf8Interval|Sourcelocation} */
 
 typedef struct UnicodeBlock {
   __builtin_int_t linesOffsetFirst, linesOffsetLast, col₁, col₂;
@@ -542,16 +542,16 @@ typedef void (^AsyncJob)(); /* A․𝘬․a 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼
 enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
 
 /* int Parse(const char *utf8, void (^untangle)(char32_t unicode, 
-  const Vector<int>& ss, Map<char32_t *, __builtin_uint_t>& stab,
+  const Knots¹ᵈ<int>& ss, void * / * a․𝘬․a Map<char32_t *, __builtin_uint_t>& * / stab,
   __builtin_int_t byteoffset, bool edge₁, bool& stop)); */
+
+int TokenizeUtf8ToUnicode(uint8_t * material, short bytes, void (^zero𝘖rSeveral)
+  (__builtin_int_t byteOffset, char32_t unicode, __builtin_int_t utf8bytes, bool& stop));
 
 enum class Encoding { utf8, unicode };
 
-int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content, __builtin_int_t& 
-  beam, void (^several)(char32_t unicode, __builtin_int_t byteOffset, bool& stop));
-
-int Utf8ToUnicode(uint8_t * material, short bytes, 
-  void (^character)(char32_t uc, __builtin_int_t byteOffset, bool& stop));
+int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content, __builtin_int_t& beam, 
+  void (^zero𝘖rSeveral)(char32_t unicode, __builtin_int_t byteOffset, bool& stop));
 
 struct Jagged { Jagged(); ~Jagged(); 
   int include(__builtin_int_t tetraidx, __builtin_int_t ᵟcount);
