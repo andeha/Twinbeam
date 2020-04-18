@@ -487,8 +487,8 @@ struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max
    Scatter(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpagebytes) FALLIBLE;
    Scatter(Memorydelegate * delegate = NULL);
    int 𝟺kinit(void * the𝟺kbpage, short unusedbytes);
-   /* int 𝟺Mbinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes); */
-   int 𝟺Gbinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpageBytes);
+/* int 𝟺Mbinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpage₋bytes); */
+   int 𝟺Gbinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpage₋bytes);
    int incorp(__builtin_int_t bytesToTail, __builtin_int_t bytes, void (^sometimes)(short bytes, uint8_t * virtue));
    int shiftout(__builtin_int_t bytes, void (^left)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖r𝟺kbPage)); /* Also `𝘗𝘰𝘴𝘴𝘪𝘣𝘭𝘺`. */
    byteaddress relative(__builtin_int_t byteoffset, void (^issue)(int nº)) const;
@@ -501,24 +501,11 @@ struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max
 
 int Augment(Scatter& s, __builtin_int_t bytes, void (^once𝘖rMultiple)(short bytes, 
   uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage));
-int /* DISORDERABLE */ Cattle(Opt<Unicodes> pathᵚᵍ, const Scatter& branch,  
-  void (^ping)(double 𝟬₋𝟭percent /* a․𝘬․a double⁺ʳ */, bool& stop), 
-  void (^zero𝘖rSeveral)(__builtin_int_t offset, short bytes, uint8_t * page, bool& stop), 
-  int (^completion)(__builtin_int_t bytes, bool& no₋go)); /* A․𝘬․a `Reconcile`. */
 int Foreach(const Scatter& s, void (^zero𝘖rMany)(__builtin_int_t bytes, 
   uint8_t * material, bool& stop));
 int Snapshot(const Scatter& original, Scatter & pristine);
 
-int Abduct(__builtin_int_t bytes, Memorydelegate * delegate, Scatter &pattern);
-typedef int (^TransformAndResolve)(Unicodes pathᵚᵍ, void (^final)(const char * regular𝘖rLinkpath));
-int TextualReflect(Unicodes pathᵚᵍ, TransformAndResolve tr, __builtin_int_t * totalbytes, 
-  void (^zero𝘖rSeveral)(__builtin_int_t byteOffset, char32_t unicode, bool& stop));
-int Reflect(Unicodes pathᵚᵍ, __builtin_int_t pagesOffset, __builtin_int_t pages𝘖𝘳Zero, 
-  __builtin_int_t bytesAugment, __builtin_int_t * totalbytes, TransformAndResolve tr, 
-  void (^pages)(__builtin_int_t count, uint8_t **𝟺kbframes, __builtin_int_t lastunusedbytes));
-int Reflect(Unicodes pathᵚ, __builtin_int_t pagesOffset, __builtin_int_t pages𝘖𝘳Zero, 
-  __builtin_int_t bytesAugment, TransformAndResolve tr, Scatter &region);
-/* ⬷ WORM = '𝑊𝑟𝑖𝑡𝑒₋𝑜𝑛𝑐𝑒₋read₋𝑚𝑎𝑛𝑦'. bool no₋writes, append𝙴𝙾𝚃at𝙴𝙾𝙵. */
+int Abduct(unsigned expeditionary, __builtin_int_t bytes, Memorydelegate * delegate, Scatter &pattern);
 int ToggleNetworkAndNative(Scatter &region, __builtin_int_t bytesSkip, __builtin_int_t 
   bytes, void (^ping)(bool &stop), void (^completion)(__builtin_int_t bytes)); 
 /* See also --<🥽 Störung.cpp>. */
@@ -532,17 +519,10 @@ struct Bits { Bits(Scatter * s); Scatter * scatter; uint8_t& operator[](__builti
   /* A․𝘬․a `ieee754dbl`. */
 }; /* A․𝘬․a `Memoryregion`. */
 
-struct Clipbytes { __builtin_int_t count() const; /* Also: 'add', 'delete' and 'change'. */
-  int include(__builtin_int_t byteidx, __builtin_int_t ᵟcount);
-  int 𝟺kbtile(__builtin_int_t ﹟, __builtin_int_t &byteidx, __builtin_int_t &ᵟcount);
-😐; /* A․𝘬․a `Censor`, `Strikethrough` and `Linebreaks`. */
-
-enum class Arrangement { 𝟾, 𝟷𝟼, 𝟹𝟸, 𝟼𝟺, lo𝟼𝟺, hi𝟼𝟺, lo𝟷𝟸𝟾, hi𝟷𝟸𝟾, utf8 };
-
 void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
   __builtin_int_t (^cmp)(const void *key, const void *elt));
 
-int Sediment(__builtin_int_t bytes, void (^once𝘖rNever)(Bits& bits));
+int Sediment(unsigned expeditionary, __builtin_int_t bytes, void (^once𝘖rNever)(Bits& bits));
 /* ⬷ A․k․a `Otherref`; Similar-to `alloca`. */
 
 int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);

@@ -537,6 +537,21 @@ OptimisticAsync8Copy(
 
 typedef void (^AsyncJob)(); /* A․𝘬․a 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀 and `CHandler`. */
 
+typedef int (^TransformAndResolve)(Unicodes pathᵚᵍ, void (^final)(const char * regular𝘖rLinkpath));
+int Cattle(Opt<Unicodes> pathᵚᵍ, const Scatter& branch, TransformAndResolve tr, 
+  void (^ping)(double 𝟬₋𝟭percent /* a․𝘬․a double⁺ʳ */, bool& stop), 
+  void (^zero𝘖rSeveral)(__builtin_int_t offset, short bytes, uint8_t * page, bool& stop), 
+  int (^completion)(__builtin_int_t bytes, bool& no₋go)); /* A․𝘬․a `Reconcile`. C․𝘧 Intels' 'segmentation' and 'paging'. */
+/* int Cattle(__builtin_int_t ﹟, bool toggleEndianess, 
+   Control (^alterificate)(Gregorian& draft, Ensemble &stone)); */
+int Reflect(Unicodes pathᵚᵍ, unsigned expeditionary, __builtin_int_t byteOffset, 
+ __builtin_int_t pages𝘖𝘳Zero, __builtin_int_t bytesAugment, __builtin_int_t * totalbytes, 
+ TransformAndResolve tr, void (^pages)(__builtin_int_t count, uint8_t **𝟺kbframes, 
+ __builtin_int_t lastunusedbytes));
+/* int Reflect(Unicodes pathᵚ, __builtin_int_t bytesOffset, __builtin_int_t pages𝘖𝘳Zero, 
+  __builtin_int_t bytesAugment, TransformAndResolve tr, Scatter &region); ⬷ WORM = 
+  '𝑊𝑟𝑖𝑡𝑒₋𝑜𝑛𝑐𝑒₋read₋𝑚𝑎𝑛𝑦'. bool no₋writes, append𝙴𝙾𝚃at𝙴𝙾𝙵. 𝘊․𝘧 𝒓𝒐𝒖𝒍𝒂𝒅𝒆. */
+
 #pragma mark - Language Translation --<Automata.cpp>
 
 enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
@@ -548,10 +563,13 @@ enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
 int TokenizeUtf8ToUnicode(uint8_t * material, short bytes, void (^zero𝘖rSeveral)
   (__builtin_int_t byteOffset, char32_t unicode, __builtin_int_t utf8bytes, bool& stop));
 
-enum class Encoding { utf8, unicode };
+int Reflect(Unicodes pathᵚᵍ, TransformAndResolve tr, __builtin_int_t * totalbytes, 
+  void (^zero𝘖rSeveral)(__builtin_int_t byteOffset, int count, char32_t unicodes[], bool& stop));
+
+/* enum class Encoding { utf8, unicode };
 
 int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content, __builtin_int_t& beam, 
-  void (^zero𝘖rSeveral)(char32_t unicode, __builtin_int_t byteOffset, bool& stop));
+  void (^zero𝘖rSeveral)(char32_t unicode, __builtin_int_t byteOffset, bool& stop)); */
 
 struct Jagged { Jagged(); ~Jagged(); 
   int include(__builtin_int_t tetraidx, __builtin_int_t ᵟcount);
