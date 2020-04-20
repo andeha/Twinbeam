@@ -473,6 +473,7 @@ enum { END_OF_TRANSMISSION = U'\u0004' }; /* ⬷ hex ∧ dec; Also A․|incorrec
 #pragma mark - 𝘊․𝘧 Scandinavian 'by₋tes' a․𝘬․a '✠✠'
 #pragma mark - Touting strong radio (🦠)
 #pragma mark - ³⁰Clotty
+#pragma mark - Mutating
 
 typedef __builtin_uint_t virtuaddr;
 
@@ -688,7 +689,7 @@ struct Chronology {
     /**  Retrieve a - since the program started and given a chronology - unique 
       value in a 'strict monotonically increasing' serie. */
     
-    __builtin_int_t ordinal(bool &didwrap) const; /* Wraps (𝄇) at `BUILTIN_INT_MAX`. */
+    __builtin_int_t ordinal(bool * didwrap) const; /* Wraps (𝄇) at `BUILTIN_INT_MAX`. */
     
     /**  Return weekday assuming a week starts on a Wednesday. (Encoded as 0.) */
     

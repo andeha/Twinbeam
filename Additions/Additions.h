@@ -104,7 +104,7 @@ MACRO bool Similar(double x, double y, double eps) { if (isinf(x) &&
   isexactlyzero(x) && isexactlyzero(y)) return true; double diff =
   abs64d(x - y); return diff < eps; }
 
-#pragma mark - Integers in compliance with Mediterranean laws
+#pragma mark - Figures in compliance with Mediterranean laws
 
 int Roman(__builtin_int_t n, void (^out)(char numeral));
 
@@ -394,12 +394,12 @@ Utf8Terminal & operator<<(Utf8Terminal &u8os, Utf8Terminal present)
 struct 𝗵fill { }; struct 𝘃fill { double val; Unit unit; };
 struct 𝗣𝒂𝒈𝒆 { bool versoNotRecto; }; /* A․𝘬․a `formfeed` and U+0x000c. */
 𝗣𝒂𝒈𝒆 ᵖ𝗴(bool); 𝘃fill vfill(double,Unit); 𝗵fill hfill();
-/* A․k․a `␋` , `␉` and `␌` . */
+/* A․𝘬․a `␋` , `␉` and `␌` . */
 Utf8Terminal & operator<<(Utf8Terminal&,𝗵fill);
 Utf8Terminal & operator<<(Utf8Terminal&,𝘃fill);
 Utf8Terminal & operator<<(Utf8Terminal&, 𝗣𝒂𝒈𝒆);
 
-extern "C" { extern const char *tab, *eol, *sep; } /* ↹ ↩︎ ¶ and hfill: ⎓ alt. ﹇. */
+extern "C" { extern const char *tab, *eol, *sep; } /* Also: ↹ ↩︎ ¶ and hfill: ⎓ alt. ﹇. */
 
 extern Utf8Terminal _myTerminal;
 
@@ -416,7 +416,7 @@ void GuidToText(const Guid& guid, void (^out)(char digitOrHyphen));
 void Present(Utf8Terminal &term, const Guid& mp);
 /* …not: MACRO Argᴾ ﹟Ref(Guid& g) { ⟶⟵ } */
 
-#pragma mark - Input Feeding in Practice
+#pragma mark - Input feeding in practice
 
 enum class CastToIntOpinion { accept, rejecting, negate, commit, annul };
 
@@ -433,7 +433,7 @@ int ReadUtf8(Readlineopinion (^feeder)(char &utf8), Inputcontrol (^line)
   (char * line)); int ReadUnicode(Readlineopinion (^feeder)(char32_t &unicode),
   Inputcontrol (^line)(char32_t * line)); /* Count symbols with __block inside `feeder`. */
 
-#pragma mark Tri-cameral Tokenizer
+#pragma mark Tri-cameral tokenizer
 
 enum class Tokenizefact { fragment, rejecting, separator, error, eol };
 
@@ -444,78 +444,68 @@ Tokenize(
   Inputcontrol (^token)(char32_t * unicodes, __builtin_int_t count)
 ); /* `Tokenize` - `ReadUnicode` = Opt<𝑓𝑢𝑡𝑢𝑟𝑒 𝑡𝑒𝑛𝑠𝑒> */
 
-#pragma mark - F̲irst i̲n f̲irst o̲ut: Easy-bounded `Vector` …ancient: `VM-realloc`
+#pragma mark - F̲irst i̲n f̲irst o̲ut: Zero, one or two halves are always returned`(FIFO)
 
 template <typename E>
-struct Fifo { /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp. */
-   /* Fifo(int depth, void * base, int bytes) { content = *base; } */
-   int count=0, brk=0, depth=10; int 🥈 MAX=100; E * content[MAX];
-   void include(E * ref) { content[brk]=ref; extern void Include(int depth, 
-     int * brk, int * count); Include(depth,&brk,&count); }
- /* private */ int physical(unsigned δ) const { extern int Physical(unsigned 
-     nowdelta /* A․𝘬․a `prevrelativehead` */, int brk, int depth);
-    return Physical(δ,brk,depth); }
+struct Fifo { int count=0, brk=0, elems; E * base;
+   init(int elems, E * base) { this->elems=elems; this->base=base; }
+   extern void Include(int elems, int * brk, int * count);
+   extern int Physical(unsigned nowdelta, int brk, int elems);
+   /* The parameter `nowdelta` is a․𝘬․a `δ` and `previous-relative-head`. */
+   E * include() { if (count == elems) return NULL; E * Ɀ=brk+base; Include(elems,&brk,&count); return Ɀ; }
+   int shiftout() { if (count == 0) { return -1; } count--; return 0; }
    enum Flavor { allinorder, latest /* randomized */ };
-}; /* Note also that three areas where one 'precomputed 'area always separates the 
-  'producer' from the 'consumer' enables a 'stable external projection' without 
-  visible fluctuations a․𝘬․a 'flickering'; whereas two areas lead to the need 
-  to induce 'lock' as well as the other contratranquistimulantic constraints. 
-  'efterhandskonstruktion'/hack. (ret-ro-spect = [stimulu-tranqui-jello]). */
-
-/*
- 
- Integration using the trapezoid rule is a recursive filter: 
- 
-  yᵢ₊₁ = yᵢ + h (uᵢ₊₁ + uᵢ)/2
- 
- as well as Simpsons rule 
- 
-  yᵢ₊₁ = yᵢ₋₁ + h (uᵢ₊₁ + 4uᵢ + uᵢ₋₁)/3
- 
- See --<🥽 Romberg.cpp> for a ∫-method that is not on-line.
- 
+};  /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp.  Note also that three areas where 
+  one 'precomputed 'area always separates the 'producer' from the 'consumer' 
+  enables a 'stable external projection' without visible fluctuations a․𝘬․a 
+  'flickering'; whereas two areas lead to the need to induce 'lock' as well as
+  the other contratranquistimulantic constraints. 'efterhandskonstruktion'/hack. 
+  (ret-ro-spect = [stimulu-tranqui-jello]). 
+  
+  Integration using the trapezoid rule is a recursive filter:
+    
+    yᵢ₊₁ = yᵢ + h (uᵢ₊₁ + uᵢ)/2
+    
+  as well as Simpsons rule:
+    
+    yᵢ₊₁ = yᵢ₋₁ + h (uᵢ₊₁ + 4uᵢ + uᵢ₋₁)/3
+    
+  See --<🥽 Romberg.cpp> for a ∫-method that is not on-line.
+  
  */
 
-template <typename E> bool Empty(const Fifo<E>& s) { return s.count == 0; }
-template <typename E> Opt<E&> Youngest(const Fifo<E>& s) { if (s.count == 0) return 
-  Opt<E&>::no(); int idx = s.physical(0); E * e = s.content[idx]; return Opt<E&>(e); }
-template <typename E> Opt<E&> Oldest(const Fifo<E>& s) { if (s.count == 0) return 
-  Opt<E&>::no(); int idx = s.physical(s.count - 1); E * e = s.content[idx]; 
-  return Opt<E&>(e); }
+template <typename E> bool Empty(const Fifo<E>& q) { return q.count == 0; }
+template <typename E> E * Deref(unsigned δ, const Fifo<E>& q) { return q.base+Physical(δ,q.brk,q.elems); }
+template <typename E> E * Youngest(const Fifo<E>& q) { return Empty(q) ? NULL : Deref(0,q); }
+template <typename E> E * Oldest(const Fifo<E>& q) { return Empty(q) ? NULL : Deref(q.count-1,q); }
+
+template <typename E> void Incorporate(const Fifo<E>& q, void (^location)(E * elem))
+{ if (q.count==q.elems) { q.shiftout(); } E * elem = q.include(); location(elem); }
 
 template <typename E>
-int
-Retrospect(
-  typename Fifo<E>::Flavor f, 
-  const Fifo<E>& fifo, 
-  E &t, E &t₋₁
-)
-{  if (fifo.count < 2) { return -1; } int idxᵢ, idxᵢ₋₁;
-    switch (f) {
-    case Fifo<E>::allinorder: idxᵢ₋₁=fifo.physical(fifo.count - 1), 
-      idxᵢ=fifo.physical(fifo.count - 2); break;
-    case Fifo<E>::latest: idxᵢ=fifo.physical(0), idxᵢ₋₁= 
-      fifo.physical(1); break;
-    } t = fifo.content[idxᵢ]; t₋₁ = fifo.content[idxᵢ₋₁];
+int Retrospect(typename Fifo<E>::Flavor f, const Fifo<E>& q, E * t, E * t₋₁)
+{  int idxᵢ, idxᵢ₋₁;
+    switch (q.count) { case 0: return -1;
+    case 1: *t₋₁=*t=Deref(0,q); return 0;
+    default: switch (f) { case Fifo<E>::allinorder: 
+      *t₋₁=Deref(fifo.count-1,q); *t=Deref(fifo.count-2,q); break;
+    case Fifo<E>::latest: *t=Deref(0,q); *t₋₁=Deref(1,q); break; }
     return 0;
-} /* Zero, one or two halves are always returned: struct Half { E * f,l; }; int 
-  retrospect(unsigned youngs, Half &h, Half &h₋₁) { } */
+} /* See also --<System.h>{Actual} where two queues and interpolation 
+  results in a `simd_tᵦ` and irreversibly 'momentan-retrospectiv'. */
 
-/* See also --<System.h>{Actual} where two queues and interpolation 
-  results in a `simd_tᵦ`. */
-
-#pragma mark - Recollection and Associativity
+#pragma mark - Recollection and associativity
 
 struct Bitsetˢᵘᵖ { /* A․𝘬․a `Capped-ET-Bitset`. */
   
   __builtin_uint_t state;
   
-  void toggle(int pos) { state ^= 1<<pos; } /* Xor₁: 'different' between two and 
+  void toggle(short pos) { state ^= 1<<pos; } /* Xor₁: 'different' between two and 
     toggles one; I․𝘦 'abstract` ⟷ Xor. A․𝘬․a `alternate`. */
   
-  __builtin_uint_t anset() { /* Xor₂: Toggles ∧ identifies 'change' simultaneously. */
-     __builtin_uint_t cnt = TrailingZeros(state);
-     toggle((int)cnt);
+  __builtin_int_t anset() { /* Xor₂: Toggles ∧ identifies 'change' simultaneously. */
+     short cnt = (short)TrailingZeros(state);
+     toggle(cnt);
      return cnt;
   } /* Toggles a `non-toggled` bit. */
   
@@ -533,7 +523,7 @@ OptimisticAsync8Copy(
   void (^error)(), void (^complete)()
 ); /* 𝘈․𝘬․a `Copy8Async` and `BasicTransfer`. */
 
-#pragma mark - Dispatch, Priorities and Interrupts
+#pragma mark - Dispatch, priorities and interrupts
 
 typedef void (^AsyncJob)(); /* A․𝘬․a 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀 and `CHandler`. */
 
@@ -544,7 +534,7 @@ int Cattle(Opt<Unicodes> pathᵚᵍ, const Scatter& branch, TransformAndResolve 
   int (^completion)(__builtin_int_t bytes, bool& no₋go)); /* A․𝘬․a `Reconcile`. C․𝘧 Intels' 'segmentation' and 'paging'. */
 /* int Cattle(__builtin_int_t ﹟, bool toggleEndianess, 
    Control (^alterificate)(Gregorian& draft, Ensemble &stone)); */
-int Reflect(Unicodes pathᵚᵍ, unsigned expeditionary, __builtin_int_t byteOffset, 
+int Reflect(Unicodes pathᵚᵍ, unsigned expeditionary, __builtin_int_t bytesOffset, 
  __builtin_int_t pages𝘖𝘳Zero, __builtin_int_t bytesAugment, __builtin_int_t * totalbytes, 
  TransformAndResolve tr, void (^pages)(__builtin_int_t count, uint8_t **𝟺kbframes, 
  __builtin_int_t lastunusedbytes));
@@ -552,7 +542,7 @@ int Reflect(Unicodes pathᵚᵍ, unsigned expeditionary, __builtin_int_t byteOff
   __builtin_int_t bytesAugment, TransformAndResolve tr, Scatter &region); ⬷ WORM = 
   '𝑊𝑟𝑖𝑡𝑒₋𝑜𝑛𝑐𝑒₋read₋𝑚𝑎𝑛𝑦'. bool no₋writes, append𝙴𝙾𝚃at𝙴𝙾𝙵. 𝘊․𝘧 𝒓𝒐𝒖𝒍𝒂𝒅𝒆. */
 
-#pragma mark - Language Translation --<Automata.cpp>
+#pragma mark - Language translation --<Automata.cpp>
 
 enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
 
@@ -566,9 +556,9 @@ int TokenizeUtf8ToUnicode(uint8_t * material, short bytes, void (^zero𝘖rSever
 int Reflect(Unicodes pathᵚᵍ, TransformAndResolve tr, __builtin_int_t * totalbytes, 
   void (^zero𝘖rSeveral)(__builtin_int_t byteOffset, int count, char32_t unicodes[], bool& stop));
 
-/* enum class Encoding { utf8, unicode };
+enum class Encoding { utf8, unicode };
 
-int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content, __builtin_int_t& beam, 
+/* int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content, __builtin_int_t& beam, 
   void (^zero𝘖rSeveral)(char32_t unicode, __builtin_int_t byteOffset, bool& stop)); */
 
 struct Jagged { Jagged(); ~Jagged(); 
