@@ -143,7 +143,7 @@ err₂𝘖rContinue:
     return y;
 }
 
-void InitAIO()
+void InitIO()
 {
     /* struct sigaction sa, sa_old;
     sigemptyset(&sa.sa_mask);
@@ -161,8 +161,8 @@ void InitAIO()
 FOCAL int syncronous_write(int job, 
   __builtin_int_t count, struct iovec * iov, 
   const char * utf8file, AsyncJob polling)
-{
-    if (write(job, count, iov, utf8file, ^{ })) { return -1; }
+{  auto completion = ^{ };
+    if (write(job, count, iov, utf8file, completion)) { return -1; }
     Ongoing & ongoing = ongoings[job]; aiocb & cb = ongoing.cb;
     while (aio_error(&cb) == EINPROGRESS) { polling(); }
     return 0;
@@ -170,8 +170,8 @@ FOCAL int syncronous_write(int job,
 
 FOCAL int syncronous_read(int job, const char * utf8file, 
   __builtin_int_t count, struct iovec * iov, AsyncJob polling
-) {
-    if (read(job, utf8file, count, iov, ^{ })) { return -1; }
+) {  auto completion = ^{ };
+    if (read(job, utf8file, count, iov, completion)) { return -1; }
     Ongoing & ongoing = ongoings[job]; aiocb & cb = ongoing.cb;
     while (aio_error(&cb) == EINPROGRESS) { polling(); }
     return 0;
@@ -184,7 +184,7 @@ main(
   int argc,
   const char * argv[]
 )
-{  InitAIO(); const char * utf8path = "🥽𝜀📖F².txt";
+{  InitIO(); const char * utf8path = "🥽𝜀📖F².txt";
     const char * message = "The brown fox jumped over the lazy dog.";
     AsyncJob polling=^{ print("Processing...\n"); };
     
