@@ -513,9 +513,9 @@ int ToggleNetworkAndNative(Scatter &region, __builtin_int_t bytesSkip, __builtin
 
 struct Bits { Bits(Scatter * s); Scatter * scatter; uint8_t& operator[](__builtin_int_t idx);
   uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, 
-    __builtin_int_t totbytes, void (^keep)(uint8_t &shifted) = ^(uint8_t&) { } );
+    __builtin_int_t totbytes, uint8_t * towrite𝘖r𝖭𝖴𝖫𝖫=NULL);
   uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, 
-    __builtin_int_t totmips, void (^keep)(uint32_t &shifted) = ^(uint32_t&) { } );
+    __builtin_int_t totmips, uint32_t * towrite𝘖r𝖭𝖴𝖫𝖫=NULL);
   uint64_t intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
   /* A․𝘬․a `ieee754dbl`. */
 }; /* A․𝘬․a `Memoryregion`. */

@@ -446,11 +446,12 @@ Tokenize(
 
 #pragma mark - F̲irst i̲n f̲irst o̲ut: Zero, one or two halves are always returned`(FIFO)
 
+extern void Include(int elems, int * brk, int * count);
+extern int Physical(unsigned nowdelta, int brk, int elems);
+
 template <typename E>
-struct Fifo { int count=0, brk=0, elems; E * base;
-   init(int elems, E * base) { this->elems=elems; this->base=base; }
-   extern void Include(int elems, int * brk, int * count);
-   extern int Physical(unsigned nowdelta, int brk, int elems);
+struct Fifo { int count=0, brk=0, elems; E * base; 
+   int init(int elems, E * base) { this->elems=elems; this->base=base; return 0; }
    /* The parameter `nowdelta` is a․𝘬․a `δ` and `previous-relative-head`. */
    E * include() { if (count == elems) return NULL; E * Ɀ=brk+base; Include(elems,&brk,&count); return Ɀ; }
    int shiftout() { if (count == 0) { return -1; } count--; return 0; }
@@ -484,15 +485,16 @@ template <typename E> void Incorporate(const Fifo<E>& q, void (^location)(E * el
 
 template <typename E>
 int Retrospect(typename Fifo<E>::Flavor f, const Fifo<E>& q, E * t, E * t₋₁)
-{  int idxᵢ, idxᵢ₋₁;
-    switch (q.count) { case 0: return -1;
-    case 1: *t₋₁=*t=Deref(0,q); return 0;
-    default: switch (f) { case Fifo<E>::allinorder: 
-      *t₋₁=Deref(fifo.count-1,q); *t=Deref(fifo.count-2,q); break;
-    case Fifo<E>::latest: *t=Deref(0,q); *t₋₁=Deref(1,q); break; }
-    return 0;
-} /* See also --<System.h>{Actual} where two queues and interpolation 
-  results in a `simd_tᵦ` and irreversibly 'momentan-retrospectiv'. */
+{
+    switch (q.count) { case 0: return -1; 
+      case 1: *t₋₁=*t=Deref(0,q); return 0;
+      default: switch (f) { 
+        case Fifo<E>::allinorder: *t₋₁=Deref(q.count-1,q); *t=Deref(q.count-2,q); break;
+        case Fifo<E>::latest: *t=Deref(0,q); *t₋₁=Deref(1,q); break;
+    } } return 0;
+} /* Consider `𝟹₋Retrospect` where the derivate may appear to be continous. See 
+  also --<System.h>{Actual} where two queues and interpolation results in a 
+  `simd_tᵦ` and irreversibly 'momentan-retrospectiv'. */
 
 #pragma mark - Recollection and associativity
 
