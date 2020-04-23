@@ -1,4 +1,4 @@
-/*  Conformal.h | A slice of --<System.h>. */
+/*  Conformal.h | A slice from --<System.h>. */
 
 enum Variation { Rasterized, FunctionalD, FunctionalS };
 

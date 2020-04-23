@@ -1,4 +1,4 @@
-/*  Fossilate.h | Really, really persisted stuff. */
+/*  Fossilate.h | Persisted and not preserved. */
 
 #ifndef __FOSSILATE_H
 #define __FOSSILATE_H
