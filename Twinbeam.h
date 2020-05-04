@@ -207,7 +207,7 @@ char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int1
 Argᴾ ﹟reᵍs(__builtin_uint_t mask); Argᴾ ﹟λ(Argᴾ::Output scalar, void * context);
 extern "C" { int atexit(void(*func)(void)); void exit(int); } 
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow₋ₒ)(void *);
-__builtin_int_t ﹟Frames₁(__builtin_int_t bytes, __builtin_int_t * modula);
+__builtin_int_t 𝟸ⁿ₋Frame(__builtin_int_t byte₋number, __builtin_int_t * modulo);
 int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
   __builtin_uint_t avails[], void (^every)(uint8_t * 𝟸ⁿframe, bool& stop));
 int Release𝟷ᵈ(void * 𝟸ⁿframe, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
@@ -301,8 +301,10 @@ MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
 #define /* PROVOCATIVE */ ASSEMBLERONLY __attribute__((naked)) /* A․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN, NEITHER_PROLOGUE_NOR_EPILOGUE. */
 /* #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error"))) */
 /* #define STRANGE_MAIN void _Noreturn main */
-#define LEAF
-#define /* Do not follow. (That sometimes occurs…) */ LEAFLING
+#define LEAF /* Attribute-at-end for method declarations. A․𝘬․a 'do not follow'. */
+#define leaf /* Initial attribute for function definitions and declarations. */
+#define half₋leaf /* Multiple attempts-w(as)-silicon-based. */
+/* ⬷ ...except intrinsic functions! */
 #ifdef __x86_64__
 #define READONLY __attribute__ ((section(".rodata,.rodata")))
 #elif defined __mips__
@@ -532,7 +534,7 @@ int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
 
 #pragma mark - 😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
-#define va_epilogue __builtin_va_end(__arg);
+#define va_epilogue __builtin_va_end(__various);
 extern "C" void ASSEMBLERONLY Sheriff();
 /* #define ⭐️ Sheriff();  After delivery, a non-inquisitorial system is assumed. */
 enum Impediment { MustBeOrdered, JustSwap };
@@ -581,7 +583,7 @@ namespace Fiber {
       uint8_t alcoda[bytes]; /* ⌖ */
     };
     int Snapshot(Peel *ucp) LEAF;
-    int Recall(const Peel *ucp) LEAFLING;
+    int Recall(const Peel *ucp) LEAF;
     void Incubate(Peel *ucp, void (*ufnc)(...), int argc, ...);
 #ifdef __x86_64__
     register __builtin_uint_t rsp asm("rsp"), rbp asm("rbp");
@@ -620,8 +622,8 @@ namespace Fiber {
 
 #define STRINGIFY(str) #str
 #define va_prologue(symbol)                                                 \
-  __builtin_va_list __arg;                                                  \
-  __builtin_va_start(__arg, symbol);
+  __builtin_va_list __various;                                              \
+  __builtin_va_start(__various, symbol);
 
 #pragma mark - 😐😇
 
