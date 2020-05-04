@@ -30,8 +30,8 @@ DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc)) { 
     void * context) { if (!anfang) { print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); }   \
     else { Anfang(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, NULL); } }; a.value.λ.scalar(set,       \
     a.value.λ.context); break; }                                            \
-  case 11: out¹²⁸𝕟(a.value.U); break;                                       \
-  case 12: out¹²⁸𝕫(a.value.I); break;                                       \
+  case 11: ¹²⁸out𝕟(a.value.U); break;                                       \
+  case 12: ¹²⁸out𝕫(a.value.I); break;                                       \
   case 13: ReᵍsPrint(a.value.x); break;                                     \
   default: /* if (a.kind >= 0) imprint[a.kind](a); else */                  \
     streamout_unicode(U'?'); break; }
@@ -84,7 +84,7 @@ inexorable void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short
   digitsOr0, void (^out)(char 𝟶to𝟿and₋)) { if (ℤ < +0) { out('-'); ℤ = -ℤ; }
   Base𝕟((__builtin_uint_t)ℤ, base, digitsOr0, out); };
 
-FOCAL
+inexorable
 int
 print﹟(
   void (^out)(uint8_t * utf8s, short unsigned bytes),
@@ -110,7 +110,7 @@ print﹟(
 #endif
       , ^(char s) { out₂(&s, 1); }); };
     auto streamout_char = ^(char c) { out₂(&c, 1); };
-    auto streamout_utf8 = ^(const char * utf8) { char *p = (char *)(utf8); while (*p) { out₂(p, 1); p++; } };
+    auto streamout_utf8 = ^(const char * utf8) { char *p = (char *)(utf8); while (*p) { out₂(p,1); p++; } };
     auto streamout_unicode = ^(char32_t u) { UnicodeToUtf8(u, ^(const uint8_t *p, 
       int bytes) { out₂((const char *)p, bytes); }); };
     /* #ifndef AVOID_IEEE754 */
@@ -120,15 +120,15 @@ print﹟(
     auto streamout_unicodes = ^(int tetras, char32_t 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 * unicodes) { __builtin_int_t 
       beam=0; while (beam < tetras) { char32_t uc = *(unicodes + beam); streamout_unicode(uc); 
       ++beam; } }; /* { int, (bytes, symbols) } */
-    auto out¹²⁸𝕫 = ^(__int128_t I) { Base𝕫(I, 10, 0, ^(char 𝟶to𝟿) { out₂(&𝟶to𝟿, 1); }); };
-    auto out¹²⁸𝕟 = ^(__uint128_t U) { Base𝕟(U, 16, 0, ^(char 𝟶to𝟿and₋) { out₂(&𝟶to𝟿and₋, 1); }); };
+    auto ¹²⁸out𝕫 = ^(__int128_t I) { Base𝕫(I, 10, 0, ^(char 𝟶to𝟿) { out₂(&𝟶to𝟿,1); }); };
+    auto ¹²⁸out𝕟 = ^(__uint128_t U) { Base𝕟(U, 16, 0, ^(char 𝟶to𝟿and₋) { out₂(&𝟶to𝟿and₋,1); }); };
 again:
     auto leadOr8Bit = (uint8_t *)utf8format + i;
     if (*leadOr8Bit == 0x0) { goto unagain; }
     followers = Utf8Followers(*leadOr8Bit);
     if (followers < 0) { return -1; }
     incr = followers + 1;
-    uc = Utf8ToUnicode(leadOr8Bit, incr);
+    uc = Utf8ToUnicode(leadOr8Bit,incr);
     if (uc == 0xFFFE || uc == 0xFFFF) { return -2; }
     else if (uc != U'⬚') { streamout_unicode(uc); /* may𝘖𝘳DidEscape = (uc == U'/'); */ }
     else { ⁺⁼PrintArgAndPop }
@@ -139,12 +139,20 @@ unagain:
 
 FOCAL
 int
+print(const char * utf8format, __builtin_va_list args)
+{
+   extern void (^Putₒ)(uint8_t * utf8s, uint16_t bytes);
+   auto out = ^(uint8_t * utf8s, uint16_t bytes) { Putₒ(utf8s,bytes); };
+   int y = print﹟(out,utf8format,args);
+   return y;
+}
+
+FOCAL
+int
 print(const char * utf8format, ...) /* Here all variable args are of the type `Argᴾ`. */
 {  int y;
     va_prologue(utf8format);
-    extern void (^Putₒ)(uint8_t * utf8s, uint16_t bytes);
-    auto out = ^(uint8_t * utf8s, uint16_t bytes) { Putₒ(utf8s, bytes); };
-    y = print﹟(out, utf8format, __arg);
+    y = print(utf8format,__various);
     va_epilogue
     return y;
 }
@@ -158,7 +166,7 @@ print(
 )
 { int y;
     va_prologue(utf8format);
-    y = print﹟(out, utf8format, __arg);
+    y = print﹟(out, utf8format, __various);
     va_epilogue
     return y;
 } /* 𝘈․𝘬․a `print⁺⁺`. See --<🥽 𝙋𝙧𝙞𝙣𝙩⁺.cpp> for more details. */
