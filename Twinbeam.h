@@ -188,10 +188,10 @@ MACRO __builtin_uint_t TrailingZeros(__builtin_uint_t x) { if (x == 0) { return
   contemplative consumption of abstraction, 𝑃𝑖𝑛𝑐𝑒 𝑎𝑏𝑠𝑡𝑟𝑎𝑖𝑡: */
 MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   void (^update)(__builtin_uint_t& shifted) = ^(__builtin_uint_t&) { } ) {
-  __builtin_uint_t word = *symbol, shift=TrailingZeros(mask), orig=mask&word,
+  __builtin_uint_t word = *symbol, shift=TrailingZeros(mask), orig = mask&word,
   shifted = orig>>shift; if (update) update(shifted); __builtin_uint_t fresh =
   (shifted<<shift)&mask; *symbol = (word & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL
-enum class Ieee754Form { Scientific, Monetary }; /* ⬷ Sometimes `intrinsic_and_base₋10`. */
+enum class Ieee754Form { Scientific, Monetary }; /* ⬷ Occasionally `intrinsic_and_base₋10`. */
 DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc)); 
 int print(const char *utf8format, ...); int print(void (^out)(uint8_t * utf8s, 
 short unsigned bytes), const char *utf8format, ...);
@@ -340,7 +340,6 @@ template <typename T> bool eqeql(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧. Scandinavian 'jurid' and 'förekomst'. Also machinal. */
 template <typename T> T * Critic(const T * x) { return const_cast<T *>(x); }
 template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* A․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
-
 #define ᶿ﹡ const * /* #define *⥃ const char *, a․𝘬․𝘢 `*⥆` and `*⫩`. */
 
 #pragma mark Utf-8
@@ -582,7 +581,7 @@ namespace Fiber {
       int 🥈 bytes = sizeof(ucontext_t);
       uint8_t alcoda[bytes]; /* ⌖ */
     }; /* Consider `Orbital` and `Principia`. */
-    int Snapshot(Peel * dissection) LEAF; /* bool also-pc. A.k.a `nutrients`. */
+    int Snapshot(Peel * dissection) LEAF; /* bool also-pc. A․𝘬․a `nutrients`. */
     int Recall(const Peel * dissection) LEAF;
     void Incubate(Peel * dissection, void (*ufnc)(...), int argc, ...);
 #ifdef __x86_64__
