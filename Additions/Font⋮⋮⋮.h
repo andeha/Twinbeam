@@ -1,7 +1,7 @@
-/*  FontRasterizer.h | Additions. */
+/*  Rasterizer.h | Additions. */
 
-#ifndef __FONTRASTERIZER_H
-#define __FONTRASTERIZER_H
+#ifndef __RASTERIZER_H
+#define __RASTERIZER_H
 
 #include <Twinbeam.h>
 
@@ -27,4 +27,4 @@ struct FontRasterizer {
     
 😐;
 
-#endif
+#endif /* An example font is defined in Fig~302, [Knuth, A Potpourri of Puzzles]. */

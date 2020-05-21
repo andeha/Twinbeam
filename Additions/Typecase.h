@@ -18,7 +18,7 @@
     Parentheses and temporals: ⎛⎜⎝   ⎞⎟⎠        ◯ ♢ ▢
     Sub/super: ⁻⁺⁽¹ˣ⁾⁼ⁱⁿ ᵢᵣᵤᵥᵦᵧᵨᵩᵪ₊₋₌₍₎⨧ₐₑₒₓₔⱼ ᵃⁿᵈᵉʰᵊᵇⁱʲˡˢᵋᵌᵍᵎᵏᵐⁿᵒᵖʳᵗᵘᵙᵚᵛˣʸᴬᴮᴴᴵᴺᵅᵝᵞᵟᵋᶿᵠᵡ
     Matrices and conditionals: ⎡⎢⎣ ⋱ ⋰ ⋮ ⎤⎥⎦  ⎧⎨⎩  ⎫⎬⎭  ⎪
-    Misc¹: ℃ ℉ ® © ™ № ºª µ Ω ℊ ϵε϶— ∁ ≙ ⋈ ⫝ ⦣⧄⧅⧆⧇ ⧈ ⧉ ╳ ☩ ₧ ₥
+    Misc¹: ℃/˚C/ºC ℉/˚F/ºF ® © ™ № ºª µ Ω ℊ ϵε϶— ∁ ≙ ⋈ ⫝ ⦣⧄⧅⧆⧇ ⧈ ⧉ ╳ ☩ ₧ ₥
     Chemistry Hobbyist: ⇾ ₀₁₂₃₄₅₆₇₈₉
     Math Additionals: ± ∓ ∔ ×
     
@@ -31,8 +31,8 @@
                                                                              
     E․𝘨: auto set💰 = ^(Argᴾ::Unicode set, void * context) { … };
                                                                              
-    Big no-no: ≈ ≣ ≡ --<'', '' (Slanted dowsing.)
-    Signals: ⎍ ⎎ ⊕ ⏚ ㊉㊀ ㎽ ㎮ ㎯
+    Big no-no: ≈ ≣ ≡ ∝ --<'', '' (Slanted dowsing.)
+    Signals: ⎍ ⎎ ⊕ ⏚ ҂ ㊉㊀ ㎽ ㎮ ㎯
     Misc²: ª º ✓ ✔︎✓ ☑︎☒ ✕ ✖︎ ✗ ✘ ▲◇□▪︎ △□◇▷▽ ○◦●∙⦁
      à ⬷ The letter 'a' + 'COMBINING GRAVE ACCENT'. See ACUTE and CIRCUMFLEX.
      A̲ ⬷ …and 'A' + 'COMBINING LOW LINE'
@@ -108,8 +108,10 @@
      ⇀ ↽ (Medium mathematical space), ⇀　↽ (Ideographic space), ⇀〿↽
      (Ideographic half-fill space). ␣ (Knuths' Constant.) ﹇ (Silver space)
                                                                              
-   Switches and Buttons: ⌘ Command (U+2318), ⌥ Option (U+2325), 
-     ⇧ Shift (U+21e7), ⎋ ESC (U+238b), ⇪ Capslock (U+21ea), 
-     ⏎ Return U+23ce), ⌫ Delete/Backspace (U+232b), ⇥ Tab Arrow (U+21e5)
+   Switches and Buttons: ⌘ Command (U+2318), ⌥ Option (U+2325),              
+     ⇧ Shift (U+21e7), ⎋ ESC (U+238b), ⇪ Capslock (U+21ea),                  
+     ⏎ Return U+23ce), ⌫ Delete/Backspace (U+232b), ⇥ Tab Arrow (U+21e5)     
+                                                                             
+   Zoom in/out on the Mac: Cmd﹢Shift﹢`+` and Cmd﹢Shift﹢`-`                
                                                                              
  *␣///}✂️ >> --<shoebox>{Utf-8 Symbols} */

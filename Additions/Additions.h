@@ -276,7 +276,7 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
 /*  #include <Additions/Color.hpp>
 #include <Additions/Typeset.hpp> */
 
-enum class Unit { thou, mm, in, pc, pt, px, 𝑜𝑝𝑡lp };
+namespace Unit { enum { thou, mm, in, pc, pt, px, 𝑜𝑝𝑡lp }; };
 /* int Width(const Ornaments& o, Unit unit, double &width, double &kerning) WESTERN;
 int Width(const Unicodes& uc, Unit unit, double &width, double &kerning) WESTERN; */
 /* 1/log²(2) 'pavoni'=distance between copy and its header. */
@@ -302,7 +302,7 @@ struct Utf8Terminal {
       void (^touchbase)(char32_t unicode, bool &stop) /* After a key press. */
     ) const; /* 𝘈․𝘬․a `interact`, `read` and `password`. */
     
-    int write(const uint8_t * utf8s, __builtin_int_t bytes) const;
+    int write(const uint8_t * utf8s, __builtin_int_t bytes) const; /* ⬷ Possibly NULL-terminated. */
     
     void (^format)(double x, Utf8Terminal &stream);
     
@@ -311,7 +311,7 @@ struct Utf8Terminal {
     
     void * picrefs; /* ⬷ A․𝘬․a Map<Unicodes, Image ∧ uint8_t *>. */
     
-    int write(double v, double h, Unit hvunit, short count, const char * pics[], short cols);
+    int write(double v, double h, /* Unit */ int hvunit, short count, const char * pics[], short cols);
     
     int refreshed(const char * ref);
     
@@ -391,9 +391,9 @@ template <typename T> Utf8Terminal& operator<<(Utf8Terminal &term,
 Utf8Terminal & operator<<(Utf8Terminal &u8os, Utf8Terminal present) 
   { return u8os; } */
 
-struct 𝗵fill { }; struct 𝘃fill { double val; Unit unit; };
+struct 𝗵fill { }; struct 𝘃fill { double val; /* Unit */ int unit; };
 struct 𝗣𝒂𝒈𝒆 { bool versoNotRecto; }; /* A․𝘬․a `formfeed` and U+0x000c. */
-𝗣𝒂𝒈𝒆 ᵖ𝗴(bool); 𝘃fill vfill(double,Unit); 𝗵fill hfill();
+𝗣𝒂𝒈𝒆 ᵖ𝗴(bool); 𝘃fill vfill(double, /* Unit */ int); 𝗵fill hfill();
 /* A․𝘬․a `␋` , `␉` and `␌` . */
 Utf8Terminal & operator<<(Utf8Terminal&,𝗵fill);
 Utf8Terminal & operator<<(Utf8Terminal&,𝘃fill);
@@ -494,7 +494,7 @@ int Retrospect(typename Fifo<E>::Flavor f, const Fifo<E>& q, E * t, E * t₋₁)
     } } return 0;
 } /* Consider `𝟹₋Retrospect` where the derivate may appear to be continous. See 
   also --<System.h>{Actual} where two queues and interpolation results in a 
-  `simd_tᵦ` and irreversibly 'momentan-retrospectiv'. */
+  `simd_tᵦ` and irreversibly 'momentan-retrospectiv'. See also 'man mkfifo' and 'man mknod'. */
 
 #pragma mark - Recollection and associativity
 
@@ -530,19 +530,22 @@ OptimisticAsync8Copy(
 typedef void (^AsyncJob)(); /* A․𝘬․a 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀 and `CHandler`. */
 
 typedef int (^TransformAndResolve)(Unicodes pathᵚᵍ, void (^final)(const char * regular𝘖rLinkpath));
-int Cattle(Opt<Unicodes> pathᵚᵍ, const Scatter& branch, TransformAndResolve tr, 
-  void (^ping)(double 𝟬₋𝟭percent /* a․𝘬․a double⁺ʳ */, bool& stop), 
-  void (^zero𝘖rSeveral)(__builtin_int_t offset, short bytes, uint8_t * page, bool& stop), 
-  int (^completion)(__builtin_int_t bytes, bool& no₋go)); /* A․𝘬․a `Reconcile`. C․𝘧 Intels' 'segmentation' and 'paging'. */
-/* int Cattle(__builtin_int_t ﹟, bool toggleEndianess, 
-   Control (^alterificate)(Gregorian& draft, Ensemble &stone)); */
+
+int Reflect(Unicodes pathᵚᵍ, TransformAndResolve tr, __builtin_int_t * totalbytes, 
+  void (^zero𝘖rSeveral)(__builtin_int_t byteOffset, int count, char32_t unicodes[], 
+  bool& stop)); /* A․𝘬․a `TextualReflect` and `RadioReflect`. */
 int Reflect(Unicodes pathᵚᵍ, unsigned expeditionary, __builtin_int_t bytesOffset, 
  __builtin_int_t pages𝘖𝘳Zero, __builtin_int_t bytesAugment, __builtin_int_t * totalbytes, 
  TransformAndResolve tr, void (^pages)(__builtin_int_t count, uint8_t **𝟺kbframes, 
  __builtin_int_t lastunusedbytes));
-/* int Reflect(Unicodes pathᵚ, __builtin_int_t bytesOffset, __builtin_int_t pages𝘖𝘳Zero, 
-  __builtin_int_t bytesAugment, TransformAndResolve tr, Scatter &region); ⬷ WORM = 
-  '𝑊𝑟𝑖𝑡𝑒₋𝑜𝑛𝑐𝑒₋read₋𝑚𝑎𝑛𝑦'. bool no₋writes, append𝙴𝙾𝚃at𝙴𝙾𝙵. 𝘊․𝘧 𝒓𝒐𝒖𝒍𝒂𝒅𝒆. */
+
+/* int Pamphlet(unsigned expeditionary, __builtin_int_t bytes, Ensemble &details);
+int Branch(Unicodes pathᵚᵍ, TransformAndResolve tr, 
+  void (^ping)(double⁺ʳ 𝟬₋𝟭percent, bool& stop), 
+  AsyncJob stopped, Ensemble &ensemble, AsyncJob completed);
+int Reconcile(Opt<Unicodes> pathᵚᵍ, TransformAndResolve tr, 
+  void (^ping)(double⁺ʳ 𝟬₋𝟭percent, bool& stop), 
+  AsyncJob repented, Ensemble& branch, AsyncJob completed); */ /* --<Ensemble.h>. */
 
 #pragma mark - Language translation --<Automata.cpp>
 
@@ -555,22 +558,19 @@ enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
 int TokenizeUtf8ToUnicode(uint8_t * material, short bytes, void (^zero𝘖rSeveral)
   (__builtin_int_t byteOffset, char32_t unicode, __builtin_int_t utf8bytes, bool& stop));
 
-int Reflect(Unicodes pathᵚᵍ, TransformAndResolve tr, __builtin_int_t * totalbytes, 
-  void (^zero𝘖rSeveral)(__builtin_int_t byteOffset, int count, char32_t unicodes[], bool& stop));
-
 enum class Encoding { utf8, unicode };
 
 /* int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content, __builtin_int_t& beam, 
   void (^zero𝘖rSeveral)(char32_t unicode, __builtin_int_t byteOffset, bool& stop)); */
 
 struct Jagged { Jagged(); ~Jagged(); 
-  int include(__builtin_int_t tetraidx, __builtin_int_t ᵟcount);
+  int include(__builtin_int_t tetraidx, __builtin_int_t δ₋count);
   __builtin_int_t count() const;
-  int 𝟺kbtile(__builtin_int_t ﹟, __builtin_int_t &tetraidx, __builtin_int_t &ᵟcount);
+  int 𝟺kbtile(__builtin_int_t ﹟, __builtin_int_t &tetraidx, __builtin_int_t &δ₋count);
 😐; /* A․𝘬․a `Linebreaks`. */
 
 Opt<Chronology::Instant>
-TS( /* E.𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232. */
+TS( /* E․𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232. */
   Encoding encoding,
   Chronology chronology,
   Memoryview datetime

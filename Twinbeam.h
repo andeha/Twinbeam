@@ -188,10 +188,10 @@ MACRO __builtin_uint_t TrailingZeros(__builtin_uint_t x) { if (x == 0) { return
   contemplative consumption of abstraction, 𝑃𝑖𝑛𝑐𝑒 𝑎𝑏𝑠𝑡𝑟𝑎𝑖𝑡: */
 MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   void (^update)(__builtin_uint_t& shifted) = ^(__builtin_uint_t&) { } ) {
-  __builtin_uint_t word = *symbol, shift = TrailingZeros(mask), orig = mask & word,
+  __builtin_uint_t word = *symbol, shift=TrailingZeros(mask), orig=mask&word,
   shifted = orig>>shift; if (update) update(shifted); __builtin_uint_t fresh =
   (shifted<<shift)&mask; *symbol = (word & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL
-enum class Ieee754Form { Scientific, Monetary };
+enum class Ieee754Form { Scientific, Monetary }; /* ⬷ Sometimes `intrinsic_and_base₋10`. */
 DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc)); 
 int print(const char *utf8format, ...); int print(void (^out)(uint8_t * utf8s, 
 short unsigned bytes), const char *utf8format, ...);
@@ -207,7 +207,7 @@ char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int1
 Argᴾ ﹟reᵍs(__builtin_uint_t mask); Argᴾ ﹟λ(Argᴾ::Output scalar, void * context);
 extern "C" { int atexit(void(*func)(void)); void exit(int); } 
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow₋ₒ)(void *);
-__builtin_int_t 𝟸ⁿ₋Frame(__builtin_int_t byte₋number, __builtin_int_t * modulo);
+__builtin_int_t 𝟺𝟶𝟿𝟼₋aligned₋frame(__builtin_int_t byte₋number, __builtin_int_t * modulo);
 int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
   __builtin_uint_t avails[], void (^every)(uint8_t * 𝟸ⁿframe, bool& stop));
 int Release𝟷ᵈ(void * 𝟸ⁿframe, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
@@ -573,18 +573,18 @@ namespace Fiber {
         struct { __builtin_uint_t regs[1+15+4], rip, rsp; } intel;
         struct { __builtin_uint_t gprs[Bytes/4]; } mips;
       } cpu;
-      __builtin_int_t bytesStk; uint8_t * rtstk;
+      __builtin_int_t bytes₋stk; uint8_t * rt₋stk;
       uint8_t alcoda[Bytes]; /* ⌖ */
     };
 #endif
-    struct Peel { /* Consider `Orbital` and `Principia`. */
+    struct Peel { /* See also [Knuth, --<5>]. */
       ucontext_t ctx;
       int 🥈 bytes = sizeof(ucontext_t);
       uint8_t alcoda[bytes]; /* ⌖ */
-    };
-    int Snapshot(Peel *ucp) LEAF;
-    int Recall(const Peel *ucp) LEAF;
-    void Incubate(Peel *ucp, void (*ufnc)(...), int argc, ...);
+    }; /* Consider `Orbital` and `Principia`. */
+    int Snapshot(Peel * dissection) LEAF; /* bool also-pc. A.k.a `nutrients`. */
+    int Recall(const Peel * dissection) LEAF;
+    void Incubate(Peel * dissection, void (*ufnc)(...), int argc, ...);
 #ifdef __x86_64__
     register __builtin_uint_t rsp asm("rsp"), rbp asm("rbp");
 #endif
