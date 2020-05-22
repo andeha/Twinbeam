@@ -62,7 +62,7 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-tools=~/Projects/mips-tools/9.0.0/
+tools=~/Projects/mips-tools/10.0.0/
 glue=~/Projects/mips-tools
 MDBPATH=/Applications/microchip/mplabx/v5.20/mplab_platform/bin/
 PIC32DEVICE=PIC32MZ2064DAB288
@@ -71,7 +71,9 @@ script=../../pic32rt/pic32one.ld
 lib=../../Source/Releases/libTwinbeam_pic32mz.a
 rt=../../Source/llvmʳᵗ³.cpp
 boot=../../Bootloader/Releases/bootloader_mz_39e78938.hex
-cc=$tools/clang-9
+cc=$tools/clang-10
+ld=$tools/lld
+# For some versions of llvm the executable above is named `ld.lld`.
 
 if [[ -n "$verbose" ]]; then
   echo "Compiling $fullfilename"
@@ -87,7 +89,7 @@ echo "binary=${binary}"
 
 $cc @ccargs_mz -o $objectfile -DSHA1GIT=`git log -1 '--pretty=format:%h'` -c "$fullfilename"
 $cc @ccargs_mz -o rtllvm.o -c $rt
-$tools/ld.lld -T $script -o $binary $objectfile rtllvm.o $lib
+$ld -T $script -o $binary $objectfile rtllvm.o $lib
 $glue/llvm2pic32 -b $boot $binary > "${fname}.hex"
 # 'llvm2pic32 -s' not used.
 rm $binary

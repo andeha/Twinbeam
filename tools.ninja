@@ -1,5 +1,5 @@
 # tools.ninja — Settings for macOS and Pic32.
-tools = /Users/<User- or project name>/mips-tools/9.0.0
+tools = /Users/<User- or project name>/mips-tools/10.0.0
 runtime = /Users/<User- or project name>/pic32rt
 additions = $runtime/../Additions
 gencdflags = -fno-rtti -fblocks -fno-exceptions -fno-builtin -Wno-format
