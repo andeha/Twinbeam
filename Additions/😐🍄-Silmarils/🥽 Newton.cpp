@@ -34,8 +34,8 @@ double Power(double S, __builtin_int_t N) { if (N<+0.0) { return 1/Power(S,-N); 
 extern double ℝ₋root(/* __builting_int_t r, */ double x); /* ⬷ A․k․a ʳ√x */
 extern double log₂(double x); /* ⬷ Simpler to compute, therefore 'computer'. */
 extern double reciproc(double x) Si_FOCAL;
-extern double generic₋ℝ₋root(int count, double xᵣ[], complex λᵣ[]);
-/* ⬷ A․k․a c_{n}*xⁿ + c_{n-1} * xⁿ⁻¹ + ... + c_0 == 0.  Number of solutions are $n-1$. When 
+/* extern double generic₋ℝ₋root(int count, double xᵣ[], complex λᵣ[]);
+/ * ⬷ A․k․a c_{n}*xⁿ + c_{n-1} * xⁿ⁻¹ + ... + c_0 == 0.  Number of solutions are $n-1$. When 
  odd degree at least one real root. Returns even and odd complex . Analytical solution when 
  up to a degree four. */
 
@@ -51,7 +51,9 @@ extern double generic₋ℝ₋root(int count, double xᵣ[], complex λᵣ[]);
 
 /*
  
- First spatial damping, 𝘪․𝘦 solving: xᵇ = s 𝘦․𝘨 x² = s ⟷ x² - S = 0
+ First 𝘦․𝘨 'spatial damping', 𝘪․𝘦 solving: xᵇ = s 𝘦․𝘨 x² = s ⟷ x² - S = 0
+ 
+ Where an area is composed into a 'perfectly square' rectangle.
  
  */
 
