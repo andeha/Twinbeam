@@ -15,7 +15,7 @@
      Sans-serif (non-Bold) 𝘐𝘵𝘢𝘭𝘪𝘤: 𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡 𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻
      𝙼𝚘𝚗𝚘space: 𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿 𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉 𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣
     Models and mathematics: ⊏ ⊑ ⊢ ⊨ ⊿ ª0 + … + ªn₋1 n₍2k₊1₎ ª1⋯ªk ∴ (tf) ∵ (b) ∎ ⇀↽
-    Parentheses and temporals: ⎛⎜⎝   ⎞⎟⎠        ◯ ♢ ▢
+    Parentheses and temporals: ⎛⎜⎝   ⎞⎟⎠        ◯ ♢ ▢ (...also: 'valid' and 'transaction'.)
     Sub/super: ⁻⁺⁽¹ˣ⁾⁼ⁱⁿ ᵢᵣᵤᵥᵦᵧᵨᵩᵪ₊₋₌₍₎⨧ₐₑₒₓₔⱼ ᵃⁿᵈᵉʰᵊᵇⁱʲˡˢᵋᵌᵍᵎᵏᵐⁿᵒᵖʳᵗᵘᵙᵚᵛˣʸᴬᴮᴴᴵᴺᵅᵝᵞᵟᵋᶿᵠᵡ
     Matrices and conditionals: ⎡⎢⎣ ⋱ ⋰ ⋮ ⎤⎥⎦  ⎧⎨⎩  ⎫⎬⎭  ⎪
     Misc¹: ℃/˚C/ºC ℉/˚F/ºF ® © ™ № ºª µ Ω ℊ ϵε϶— ∁ ≙ ⋈ ⫝ ⦣⧄⧅⧆⧇ ⧈ ⧉ ╳ ☩ ₧ ₥
@@ -84,7 +84,7 @@
      
    Arrows: ⇽ ⇾ ⟲⟳ ↗︎↘︎↙︎↖︎ ⸔⸕ ⤡⤢ ⤺⤻ ↰↱↲↳ ↴ ↩︎ ↵  ⮐ ↹ ←↑→↓
      ↼ (Leftward harpoon with barb upwards) ↽↾↿⇀⇁⇂⇃⇄⇅⇆⇇⇈⇉⇊⇋⇌⇍⇏⇐⇑⇒⇓⇚⇛⇜⇝⇤⇥⇦⇧
-     '⇨⇩⇪⇵⇶ ⎔ ➔➙➛➜➝➞➟➠⟰⟤⟥ ⤶ ⤷  ↔︎'
+     '⇨⇩⇪⇵⇶ ⎔ ➔➙➛➜➝➞➟➠⟰ ⤶ ⤷  ↔︎'
      '📲📩📈📉🔃➡︎⬅︎⬆︎⬇︎↩︎⤴︎⤵︎⤴⤵ (牮筏)'
      ⬷ ⤐ (Leftwards two-headed triple dash arrow)
     
@@ -107,11 +107,15 @@
      ⇀​↽ (Zero width space), ⇀ ↽ (Narrow no-break space),
      ⇀ ↽ (Medium mathematical space), ⇀　↽ (Ideographic space), ⇀〿↽
      (Ideographic half-fill space). ␣ (Knuths' Constant.) ﹇ (Silver space)
+    ⇀⁤,⁣,⁢↽ (Non-visible-plus|separator|*)                                      
+                                                                             
+   Language: ' APOSTROPHE " QUOTATION MARK, ` GRAVE ACCENT,                  
+       todo: RABIT LEFT, RABIT RIGHT, SUBSCRIPTED RABIT LFT, SUBSCRIPT RABIT RGHT
                                                                              
    Switches and Buttons: ⌘ Command (U+2318), ⌥ Option (U+2325),              
      ⇧ Shift (U+21e7), ⎋ ESC (U+238b), ⇪ Capslock (U+21ea),                  
      ⏎ Return U+23ce), ⌫ Delete/Backspace (U+232b), ⇥ Tab Arrow (U+21e5)     
                                                                              
-   Zoom in/out on the Mac: Cmd﹢Shift﹢`+` and Cmd﹢Shift﹢`-`                
+   Zoom in/out on the Mac: Cmd﹢Shift﹢`+` and Cmd﹢Shift﹢`-` 
                                                                              
  *␣///}✂️ >> --<shoebox>{Utf-8 Symbols} */

@@ -286,11 +286,11 @@ typedef mips32_context jmp_buf2;
 typedef int64_t x86_64_context[(9 * 2) + 3 + 16];
 typedef x86_64_context jmp_buf2;
 #endif
-FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned
-  short base, unsigned short digitsOr0, /* Not more than 32 or 64 digits
+FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned 
+  short base, unsigned short digitsOr0, /* Not more than 32 alt. 64 digits 
   depending on word size! (Or set to `0` to skip leading zeros.) */ void
   (^out)(char 𝟶to𝟿)); /* See --<Print.cpp> for a 128-bit version. */
-FOCAL void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short
+FOCAL void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short 
   digitsOr0, void (^out)(char 𝟶to𝟿and₋));
 #define OVERLOADABLE __attribute__ ((overloadable))
 #define SIGNBIT_INT32 0x80000000
@@ -311,20 +311,33 @@ MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
 #define READONLY __attribute__ ((section(".rodata")))
 #define COHERENT __attribute__ ((section(".coherent")))
 #endif
-#define IsOdd(x) ((x) & 0b1) /* For int32_t|int64_t. H: x & 0b010 ⟷̸ ◻️⃞. See also --<math>--<erf.cpp>{⁽₋1⁾ᵏ|alt}. */
+#define IsOdd(x) ((x) & 0b1) /* ⬷ For simultaneously int32_t ∧ int64_t. H: x & 0b010 ⟷̸ ◻️⃞. See also --<math>--<erf.cpp>{⁽₋1⁾ᵏ|alt}. */
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
 namespace Relative {
+template <typename T> T relative(T x₁, T x₂) { return x₂/x₁; }
+template <typename T> T difference(T x₁, T x₂) { return x₁ - x₂; }
+template <typename T> T ˡchange(T x₁, T x₂) { return (x₁ - x₂) / x₂; } /* ∈[0,1]. */
+template <typename T> T ʳchange(T x₁, T x₂) { return (x₂ - x₁) / x₁; } /* ∉[0,1]. */
+#ifdef __mips__
+#define innominate auto /* a․𝘬․a `innominate-type`. */
+template <typename T> concept Relative₋accumulative = requires (T x₁, T x₂) {
+ x₁ + x₂ /* -> int */; x₁ - x₂ /* -> bool */; Zero(x₂) /* -> T*/; };
+ /* A․𝘬․a `Turtle` and 'algebraic category'. To instatiate write similar to 
+ 'template <Relative₋accumulative T>' ... and 
+ 'void foo(Relative₋accumulative innominate & x) { ... }'. 
+ 'template <typename T> requires Relative₋accumulative<T> T operator... */
+#endif
+template <typename T> int collate₋coalesc(__builtin_int_t count, T xᵣ[], T * acc, 
+ int (^port)(T x, T & acc)) { for (__builtin_int_t i=0; i<count; i++) { 
+ int ok=port(xᵣ[i],*acc); if (!ok) { return ok; } } } /*  Also known as: `Norm`, 
+ `linear-combine`, also `gaussian₋combination`, `irreversive₋combination` 
+ and permutative₋combination`. */
 template <typename T> T arithmetic(T x₁, T x₂) { return (x₁ + x₂) / 2; }
-/* template <typename T> T geometric(T x₁, T acc) { return ⁿ√(x₁ * acc) = ⁿ√x₁ * ⁿ√acc) = (x₁ * acc)^(1/n); } 𝘚𝘦𝘦: 𝚂𝚎𝚊𝚛𝚌𝚑. 😐: MMCLXVII, XXX, ⅳ. */
-/* template <typename T> T harmonic(T x₁, T acc) { return 1/(1/x₁ + … + 1/xₒ₊𝜀); } 𝘚𝘦𝘦: 𝑃𝑎𝑑é (acute). 😐: 🐚. */
-template <typename T> T ˡᵊfᵗChange(T x₁, T x₂) { return (x₁ - x₂) / x₂; } /* ∈[0,1] */
-template <typename T> T ʳⁱℊʰᵗChange(T x₁, T x₂) { return (x₂ - x₁) / x₁; } /* ∉[0,1] */
-/* Norm == Sequence<T>|AccumulativeSequence<T> S, AlgebraicCategory<T> C */
-template <typename T> T diff(T x₁, T x₂) { return x₁ - x₂; }
-template <typename T> T dist(T x₁, T x₂, T (^N)(T x, T y)) { return N(x₁, x₂); }
-template <typename T> bool eqrel(T x₁, T x₂) { return !(x₁ < x₂ || x₂ < x₁); }
-template <typename T> bool eqeql(T x₁, T x₂) { return x₁ == x₂; }; }
+/* template <typename T> T geometric(T x₁, T x₂) { return sqrt(x₁*x₂); }; */
+/* C․𝘧 --<🥽 Argentum.cpp> (TO-BE-TYPED) and --<🥽 Newton.cpp>. */
+template <typename T> bool rel₋eq(T x₁, T x₂) { return !(x₁ < x₂ || x₂ < x₁); }
+template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 #define WHEN_COMPILING constexpr static
 #define NOT_EVERYTIME const static
 #define CARDINALS(...) enum Cardinal { __hole=0, __VA_ARGS__ };              \
@@ -550,11 +563,10 @@ inline uint32_t ᵗᵍᵍˡendian(uint32_t x) { return __builtin_bswap32(x); }
 #ifdef __x86_64__ /* ⇇ A․𝘬․a `toggleNetworkAndNative`. */
 inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
 #define POSIX_FIBER
+#include <Source/osXFiber.hpp>
 #elif defined __mips__
 #define MIPS_VIRTUAL_MULTITHREADED
-#define MIPS_MCU_AUTOMATIC_PROLOG_EPILOG_IRQ
 #endif
-#include <Source/osXFiber.hpp>
 namespace Fiber {
     
     int 🥈 Bytes =
@@ -566,57 +578,56 @@ namespace Fiber {
         ;
     
 #ifndef POSIX_FIBER
-    struct ucontext_t {
+    struct ucontext_t { /* Someday: void * variables; */
       union {
-        struct { uint8_t bytes[Bytes]; } generic;
-        struct { __builtin_uint_t regs[1+15+4], rip, rsp; } intel;
-        struct { __builtin_uint_t gprs[Bytes/4]; } mips;
-      } cpu;
-      __builtin_int_t bytes₋stk; uint8_t * rt₋stk;
-      uint8_t alcoda[Bytes]; /* ⌖ */
+       struct { uint8_t bytes[Bytes]; } generic;
+       struct { __builtin_uint_t regs[1+15+4], rip, rsp; } intel;
+       struct { __builtin_uint_t gprs[32]; } mips;
+      } cpu₋states; /* Not 'yet' 'int 🥈 stacks=3'. */
+      uint8_t * kernel₋stk, * irq﹠rt₋stk; 
+      __builtin_int_t bytes₋kernel, bytes₋rt﹠irq;
     };
 #endif
-    struct Peel { /* See also [Knuth, --<5>]. */
-      ucontext_t ctx;
-      int 🥈 bytes = sizeof(ucontext_t);
+    struct Peel { void * variables; 
+      ucontext_t ctx; int 🥈 bytes=sizeof(ucontext_t);
       uint8_t alcoda[bytes]; /* ⌖ */
-    }; /* Consider `Orbital` and `Principia`. */
-    int Snapshot(Peel * dissection) LEAF; /* bool also-pc. A․𝘬․a `nutrients`. */
+    }; /* ⬷ Consider `Orbital` and `Principia`. A․𝘬․a 'Pentominoes'. */
+    namespace Composition { enum { encompass₋counter, all₋but₋counter }; } /* For coroutines, task-switching, debug and irq. */
+    struct io₋mapping { __builtin_uint_t address; __builtin_uint_t material; }; /* Such as msr, tsc and/or rcon. */
+    int Snapshot(Peel * dissection /* a․𝘬․a `nutrients`. */, int composition=0, int count=0, io₋mapping * keep=NULL) LEAF;
     int Recall(const Peel * dissection) LEAF;
-    void Incubate(Peel * dissection, void (*ufnc)(...), int argc, ...);
 #ifdef __x86_64__
     register __builtin_uint_t rsp asm("rsp"), rbp asm("rbp");
 #endif
     
     typedef Peel fiber_t;
     
-    /* __attribute__ ((callback (ufnc, uctx))) */
-    inline void create(fiber_t& fib, void (*ufnc)(void *), void * uctx,
-      void *(^alloc)(__builtin_int_t bytes) = Alloc) {
-        Snapshot(&fib);
-        __builtin_uint_t 🥈ᵢ bytesStack = 131072;
+    void Incubate(fiber_t * dissection, void (*ufnc)(...), int argc, ...);
+    
+    inline int Start(fiber_t & nxt, void * 𝕍) { if (𝕍) { nxt.variables=𝕍; } return Recall(&nxt); }
+    
+    /* typedef void (^Classic₋fiber)(Fiber::fiber_t * self, void * variables); */
+    
+    inline void swap(fiber_t & nxt, fiber_t & prv) { if (Snapshot(&prv) == 0) Recall(&nxt); }
+    
+}
+
+/* __attribute__ ((callback (ufnc, uctx))) */
+inline void Initiate(Fiber::fiber_t& fib, void (*jam)(Fiber::fiber_t *, void *uctx), void * uctx=NULL, 
+  void * (^alloc)(__builtin_int_t bytes) = Alloc) {
+    Fiber::Snapshot(&fib);
+    __builtin_uint_t 🥈ᵢ bytes₋stack = 131072;
 #ifdef POSIX_FIBER
-        fib.ctx.uc_stack.ss_sp = alloc(bytesStack);
-        fib.ctx.uc_stack.ss_size = bytesStack;
-        fib.ctx.uc_link = 0;
+    fib.ctx.uc_stack.ss_sp = alloc(bytes₋stack);
+    fib.ctx.uc_stack.ss_size = bytes₋stack;
+    fib.ctx.uc_link = 0;
 #else
-        fib.ctx.rtstk = (uint8_t *)alloc(bytesStack);
-        fib.ctx.bytesStk = bytesStack;
+    fib.ctx.kernel₋stk = (uint8_t *)alloc(bytes₋stack);
+    fib.ctx.irq﹠rt₋stk = (uint8_t *)alloc(bytes₋stack);
+    fib.ctx.bytes₋rt﹠irq = bytes₋stack;
+    fib.ctx.bytes₋kernel = bytes₋stack;
 #endif
-        Incubate(&fib, (void (*)(...))ufnc, 1, uctx);
-    }
-    
-    /* __attribute__ ((callback (ufnc, fib))) */
-    inline void create(Fiber::fiber_t& fib, void (*ufnc)(Fiber::fiber_t *),
-      void *(^alloc)(__builtin_int_t bytes) = Alloc) {
-        Fiber::create(fib, (void (*)(void *))ufnc, (void *)&fib, alloc);
-    }
-    
-    MACRO void swap(fiber_t& nxt, fiber_t& prv)
-    { if (Snapshot(&prv) == 0) Recall(&nxt); }
-    
-    MACRO void start(fiber_t& nxt) { Recall(&nxt); }
-    
+    Fiber::Incubate(&fib, (void (*)(...))jam, 1, uctx);
 }
 
 #define STRINGIFY(str) #str
@@ -628,7 +639,10 @@ namespace Fiber {
 
 struct Chronology {
     
-    typedef octa Instant; typedef uint32_t UQ32; /* E.𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
+    typedef octa Instant; typedef octa Interval; /** Second is calendric 
+      alt. monotonically increasing non-rooting temporal relative. */
+    
+    typedef uint32_t UQ32; /* E․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */	
     
     /**  Given a timestamp, return year, month (1-12) and day (1-31). */
     
@@ -641,7 +655,7 @@ struct Chronology {
      
      */
     
-    Tuple<int32_t, int32_t, int32_t, uint32_t> sinceMidnight(Instant ts) const;
+    Tuple<int32_t, int32_t, int32_t, UQ32> sinceMidnight(Instant ts) const;
     
     /**
      
@@ -650,7 +664,7 @@ struct Chronology {
      @param parts  Contains year, month (1-12), day (1-31), hour (0-23),
        minutes (0-59) and seconds (0-59)
      
-     @param frac  The number of 2⁻³² second ticks (≈232.83 ps) to add
+     @param frac  The number of 1/2³² second ticks (≈232.83 ps) to add
      
      Epoch for the modified Julian day is 03/23/1955 at 15.00: When Saab J29 
      travels in 900.660 km/h.
@@ -670,22 +684,14 @@ struct Chronology {
       years) until a wrap occurs. */
     
     Instant
-    addSeconds(Instant instant,
+    addSeconds(Interval relative, 
       uint32_t seconds, UQ32 frac
     ) const;
     
     /**  Only for unperturbed chronologies. For non-reversable chronologies,
       subtract throws an error. */
     
-    Instant subtractSeconds(Instant instant, uint32_t seconds, UQ32 frac) const BLURTS;
-    
-    /**  Time passed running from t₂ to t₁. */
-    
-    typedef octa Interval; Interval delta(Instant t₁, Instant t₂) const;
-    
-    /**  A chronological interval together with a machine epsilon of approximately 0.111ps. */
-    
-    double ieee754(Interval interval) const;
+    Instant subtractSeconds(Interval relative, uint32_t seconds, UQ32 frac) const BLURTS;
     
     /**  Retrieve a - since the program started and given a chronology - unique 
       value in a 'strict monotonically increasing' serie. */
