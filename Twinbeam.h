@@ -319,10 +319,10 @@ template <typename T> T relative(T x₁, T x₂) { return x₂/x₁; }
 template <typename T> T difference(T x₁, T x₂) { return x₁ - x₂; }
 template <typename T> T ˡchange(T x₁, T x₂) { return (x₁ - x₂) / x₂; } /* ∈[0,1]. */
 template <typename T> T ʳchange(T x₁, T x₂) { return (x₂ - x₁) / x₁; } /* ∉[0,1]. */
-#ifdef __mips__
+#if defined (__mips__) && defined (__cpp_concepts)
 #define innominate auto /* a․𝘬․a `innominate-type`. */
 template <typename T> concept Relative₋accumulative = requires (T x₁, T x₂) {
- x₁ + x₂ /* -> int */; x₁ - x₂ /* -> bool */; Zero(x₂) /* -> T*/; };
+ x₁ + x₂ /* -> int */; /*{*/ x₁ - x₂ /*} -> Same<bool>*/; Zero(x₂) /* -> T*/; };
  /* A․𝘬․a `Turtle` and 'algebraic category'. To instatiate write similar to 
  'template <Relative₋accumulative T>' ... and 
  'void foo(Relative₋accumulative innominate & x) { ... }'. 
@@ -707,8 +707,8 @@ struct Chronology {
 int
 InstantToText(
   Chronology chronology,
-  Chronology::Instant ts, bool inclFrac,
-  void (^out)(char digitHyphenColonPeriodOrSpace)
+  Chronology::Instant ts, bool incl₋frac,
+  void (^out)(char digitHyphenColonPeriod𝘖rSpace)
 );
 
  /*
