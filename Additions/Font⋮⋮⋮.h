@@ -11,18 +11,18 @@ struct Pixelation {
     
     ~Pixelation();
     
-    typedef struct Boundingbox { signed long xMin, yMin, xMax, yMax; } BBox;
+    struct Bounds { signed long xMin, yMin, xMax, yMax; };
     
-    int renderMonocrome(int width, int height, Memoryview otfFont, char32_t 
-      (^text)(int index), void (^bitmap)(int width, int rows, uint8_t *buffer, 
-      int pitch, int horzKern));
+    int renderMonocrome(int width, int height, Memoryview otf₋font, char32_t 
+      (^text)(int index), void (^bitmap)(int width, int rows, uint8_t * buffer, 
+      int pitch, int horz₋kern));
     
-    int renderAA256(int width, int height, Memoryview otfFont, char32_t 
-      (^text)(int index), void (^bitmap)(int width, int rows, uint8_t *buffer, 
-      int pitch, int horzKern));
+    int renderAA256(int width, int height, Memoryview otf₋font, char32_t 
+      (^text)(int index), void (^bitmap)(int width, int rows, uint8_t * buffer, 
+      int pitch, int horz₋kern));
     
-    int renderOutline(int width, int height, Memoryview otfFont, char32_t 
-      (^text)(int index), void (^outline)(Boundingbox box, int horzKern));
+    int renderOutline(int width, int height, Memoryview otf₋font, char32_t 
+      (^text)(int index), void (^outline)(Boundingbox box, int horz₋kern));
     
 😐;
 
