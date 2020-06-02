@@ -10,15 +10,15 @@ namespace Fiber {
 
 int
 Recall(
-  const Peel *ucp
-)
+  const Peel * dissection
+) /* The register %rdi contains the address to `ucp`. */
 { /* todo: Exercise '.set  symbol, $a0' and '#define arg1 %rsi' later. */
     
 #ifdef POSIX_FIBER
-    return setcontext(&ucp->ctx);
+    return setcontext(&dissection->ctx); /* Remember to 'align' with: 'man setcontext'. */
 #elif defined __x86_64__ && !defined __AAPL__
     
-  IntelPlusATT👉
+  IntelPlusATT👉 /* a․𝘬․a src ⤞ dst when 'mov'. */
      movq    16(%rdi), %rsi   /* Retrieve formerly stored register values. */
      movq    24(%rdi), %rdx
      movq    32(%rdi), %rcx
@@ -81,11 +81,13 @@ Recall(
    
    return 0;
    
-} /* See also --<exception.S>. Also known as `RecallState`. */
+} /* See also --<exception.S>. Also known as `Recall₋state`. */
 
 int
-Snapshot(
-  Peel *ucp
+Snapshot( /* a․𝘬․a `Record₋state`. */
+  Peel * dissection, 
+  int composition, 
+  int count, io₋mapping * keep
 ) /*  In the System V AMD64 ABI, the first six pointer/integer arguments are
   passed in rdi, rsi, rdx, rcx, r8, r9. In the MIPS ABI, the first integer 
   argument is found in a0 a․𝘬․a `$4`. */
@@ -93,12 +95,12 @@ Snapshot(
     
 #ifdef POSIX_FIBER
     
-    return getcontext(&ucp->ctx);
+    return getcontext(&dissection->ctx);
     
 #elif defined __x86_64__ && !defined __AAPL__
     
-  Intel👈 /* No .intel_syntax implies AT&T. */
-     mov    8[rdi],  rdi // FIXME: According to belief: noprefix = unprefixed registers, otherwise '%rip'.
+  Intel👈 /* a․𝘬․a dst ⤝ src when 'mov'. No .intel_syntax implies AT&T. */
+     mov    8[rdi],  rdi
      mov   16[rdi],  rsi
      mov   24[rdi],  rdx
      mov   32[rdi],  rcx
@@ -121,7 +123,7 @@ Snapshot(
      
      mov       rcx, 32[rdi]       /* Restore rcx */
      mov       rax, 0
-  };
+  }; /* Keyword 'noprefix' implies unprefixed registers, otherwise 𝘦․𝘨 '%rip'. */
     
 #elif defined __mips__
     
@@ -160,21 +162,19 @@ Snapshot(
 
 void
 Incubate(
-  Peel *ucp,
+  fiber_t * dissection,
   void (*ufnc)(...), int argc, ...
-/* …and not `fuContext *ctx, void(^job)(void * ctx₂)` since we're initially
-  doing cooperative multitask. (`Peel` nowdays.) */
-)
+) /* A․𝘬․a `Nurture` and `Initiate`. */
 {
 #ifdef POSIX_FIBER
     void *arg = 0;
     va_prologue(argc)
-    if (argc > 0) { arg = __builtin_va_arg(__arg, void *); }
+    if (argc > 0) { arg = __builtin_va_arg(__various, void *); }
     va_epilogue
-    makecontext(&ucp->ctx, (void (*)())ufnc, 1, arg); // __builtin_va_list fed into `...`
+    makecontext(&dissection->ctx, (void (*)())ufnc, 1, arg); /* __builtin_va_list fed into `...` */
 #elif defined __x86_64__ && !defined __AAPL__ /* The __m128 type requires the stack frame to be aligned to a 16-byte boundary. */
-    Clear8Memory((ByteAlignedRef)(&ucp->ctx.cpu), sizeof(ucp->ctx.cpu));
-    /* On macOS, the first six 64-bit pointer/integer parameters are passed via
+    Clear8Memory((ByteAlignedRef)(&dissection->ctx.cpu), sizeof(dissection->ctx.cpu));
+    /* On macos, the first six 64-bit pointer/integer parameters are passed via 
       `rdi`, `rsi`, `rdx`, `rcx`, `r8`, `r9`. */
     int 🥈 RDI=1, RSI=2, RDX=3, RCX=4;
     va_prologue(argc)
@@ -183,21 +183,23 @@ Incubate(
     if (argc > 2) { ucp->ctx.cpu.intel.regs[RDX] = __builtin_va_arg(__arg, __builtin_uint_t); }
     if (argc > 3) { ucp->ctx.cpu.intel.regs[RCX] = __builtin_va_arg(__arg, __builtin_uint_t); }
     va_epilogue
-    uint8_t *sp = Frame(ucp->ctx.rtstk + ucp->ctx.bytesStk, 16);
+    uint8_t * sp = Frame(dissection->ctx.irq₋stk + dissection->ctx.bytes₋irq, 16);
+    uint8_t * sp = Frame(dissection->ctx.rt₋stk + dissection->ctx.bytes₋rt, 16);
     sp -= argc;
     *--sp = 0; /* Return address */
-    ucp->ctx.cpu.intel.rsp = (__builtin_uint_t)sp;
-    ucp->ctx.cpu.intel.rip = (__builtin_uint_t)ufnc;
+    nutrients->ctx.cpu.intel.rsp = (__builtin_uint_t)sp;
+    nutrients->ctx.cpu.intel.rip = (__builtin_uint_t)ufnc;
 #elif defined __mips__
-    uint8_t * sp = ucp->ctx.rtstk + ucp->ctx.bytesStk;
-    Clear8Memory((ByteAlignedRef)&(ucp->ctx.cpu.mips), sizeof(ucp->ctx.cpu.mips));
+    // uint8_t * sp = dissection->ctx.irq₋stk + dissection->ctx.bytes₋irq;
+    uint8_t * sp = dissection->ctx.rt₋stk + dissection->ctx.bytes₋rt;
+    Clear8Memory((ByteAlignedRef)&(dissection->ctx.cpu₋states.mips), sizeof(dissection->ctx.cpu₋states.mips));
     va_prologue(argc)
     /* On MIPS, the first four 32-bit pointer/integer parameters are located in
        register $4 - $7 a․𝘬․a a0 - a3. */
-    for (int i = 0; i < min(4, argc); i++) { ucp->ctx.cpu.mips.gprs[i+4] = __builtin_va_arg(__arg, __builtin_int_t); }
+    for (int i = 0; i < min(4,argc); i++) { dissection->ctx.cpu₋states.mips.gprs[i+4] = __builtin_va_arg(__various, __builtin_int_t); }
     va_epilogue
-    ucp->ctx.cpu.mips.gprs[29] = (__builtin_uint_t)sp;
-    ucp->ctx.cpu.mips.gprs[31] = (__builtin_uint_t)ufnc;
+    dissection->ctx.cpu₋states.mips.gprs[29] = (__builtin_uint_t)sp;
+    dissection->ctx.cpu₋states.mips.gprs[31] = (__builtin_uint_t)ufnc;
 #endif
 }
 

@@ -324,9 +324,10 @@ template <typename T> T ʳchange(T x₁, T x₂) { return (x₂ - x₁) / x₁; 
 template <typename T> concept Relative₋accumulative = requires (T x₁, T x₂) {
  x₁ + x₂ /* -> int */; /*{*/ x₁ - x₂ /*} -> Same<bool>*/; Zero(x₂) /* -> T*/; };
  /* A․𝘬․a `Turtle` and 'algebraic category'. To instatiate write similar to 
- 'template <Relative₋accumulative T>' ... and 
+ 'template <Relative₋accumulative T>' ... , 
+ 'template <typename T> requires Relative₋accumulative<T> T operator... and 
  'void foo(Relative₋accumulative innominate & x) { ... }'. 
- 'template <typename T> requires Relative₋accumulative<T> T operator... */
+ */
 #endif
 template <typename T> int collate₋coalesc(__builtin_int_t count, T xᵣ[], T * acc, 
  int (^port)(T x, T & acc)) { for (__builtin_int_t i=0; i<count; i++) { 
