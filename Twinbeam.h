@@ -241,9 +241,9 @@ FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
   print(#prefix " measures ⬚ ns\n", ﹟d(prefix##Nanos));
 #define 🎭𝑋𝟾𝟼(storage,symmsk,...) 🎭((__builtin_uint_t *)(storage), INTEL_##symmsk __VA_OPT__(,) __VA_ARGS__)
 #elif defined __mips__
-FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef
+FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef 
   dst, ByteAlignedRef src, __builtin_int_t bytes);
-FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁,
+FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁, 
   ByteAlignedRef p₂, __builtin_uint_t bytes); /* A․𝘬․a `memcmp`. */
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
   constexpr uint32_t PIC32##serie##_##symbol = vaddr;                        \
@@ -319,17 +319,16 @@ template <typename T> T relative(T x₁, T x₂) { return x₂/x₁; }
 template <typename T> T difference(T x₁, T x₂) { return x₁ - x₂; }
 template <typename T> T ˡchange(T x₁, T x₂) { return (x₁ - x₂) / x₂; } /* ∈[0,1]. */
 template <typename T> T ʳchange(T x₁, T x₂) { return (x₂ - x₁) / x₁; } /* ∉[0,1]. */
-#if defined (__mips__) && defined (__cpp_concepts)
+#if defined __mips__ && defined __cpp_concepts
 #define innominate auto /* a․𝘬․a `innominate-type`. */
 template <typename T> concept Relative₋accumulative = requires (T x₁, T x₂) {
  x₁ + x₂ /* -> int */; /*{*/ x₁ - x₂ /*} -> Same<bool>*/; Zero(x₂) /* -> T*/; };
  /* A․𝘬․a `Turtle` and 'algebraic category'. To instatiate write similar to 
  'template <Relative₋accumulative T>' ... , 
  'template <typename T> requires Relative₋accumulative<T> T operator... and 
- 'void foo(Relative₋accumulative innominate & x) { ... }'. 
- */
+ 'void foo(Relative₋accumulative innominate & x) { ... }'. */
 #endif
-template <typename T> int collate₋coalesc(__builtin_int_t count, T xᵣ[], T * acc, 
+template <typename T> int collate₋coalesce(__builtin_int_t count, T xᵣ[], T * acc, 
  int (^port)(T x, T & acc)) { for (__builtin_int_t i=0; i<count; i++) { 
  int ok=port(xᵣ[i],*acc); if (!ok) { return ok; } } } /*  Also known as: `Norm`, 
  `linear-combine`, also `gaussian₋combination`, `irreversive₋combination` 
@@ -585,8 +584,8 @@ namespace Fiber {
        struct { __builtin_uint_t regs[1+15+4], rip, rsp; } intel;
        struct { __builtin_uint_t gprs[32]; } mips;
       } cpu₋states; /* Not 'yet' 'int 🥈 stacks=3'. */
-      uint8_t * kernel₋stk, * irq﹠rt₋stk; 
-      __builtin_int_t bytes₋kernel, bytes₋rt﹠irq;
+      uint8_t * kernel₋stk, * irq₋stk, * rt₋stk;
+      __builtin_int_t bytes₋kernel, bytes₋rt, bytes₋irq;
     };
 #endif
     struct Peel { void * variables; 
@@ -624,9 +623,9 @@ inline void Initiate(Fiber::fiber_t& fib, void (*jam)(Fiber::fiber_t *, void *uc
     fib.ctx.uc_link = 0;
 #else
     fib.ctx.kernel₋stk = (uint8_t *)alloc(bytes₋stack);
-    fib.ctx.irq﹠rt₋stk = (uint8_t *)alloc(bytes₋stack);
-    fib.ctx.bytes₋rt﹠irq = bytes₋stack;
-    fib.ctx.bytes₋kernel = bytes₋stack;
+    fib.ctx.irq₋stk = (uint8_t *)alloc(bytes₋stack);
+    fib.ctx.rt₋stk = (uint8_t *)alloc(bytes₋stack);
+    fib.ctx.bytes₋rt = fib.ctx.bytes₋irq = fib.ctx.bytes₋kernel = bytes₋stack;
 #endif
     Fiber::Incubate(&fib, (void (*)(...))jam, 1, uctx);
 }
