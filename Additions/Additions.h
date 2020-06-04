@@ -1,17 +1,15 @@
 /*
- *  Additions.h to Twinbeam.
+ *  Additions.h to Twinbeam: Includes the IEEE754 `double` type.
  *  C++2a to clang to x86_64 and Mips.
- *  Version 9.0.0 to Mips.
+ *  Version 10.0.0 to Mips.
  *  Xcode Version 10.2.1 (10E1001) to x86_64.
  */
 
 #ifndef __ADDITIONS_H
 #define __ADDITIONS_H
 
-void
-CastᵈᵇˡToText(
-  double value,
-  void (^digits)(bool neg, int e, const char *𝟶to𝟿s),
+void CastᵈᵇˡToText(double value,
+  void (^digits)(bool neg, int e, const char *𝟶to𝟿s), 
   void (^zero)(bool neg), void (^inf)(bool neg), void (^nan)()
 ); /* A․𝘬․a `CastToText`. */
 
@@ -226,7 +224,7 @@ typedef struct UnicodeBlock {
 } UnicodeBlock;
 
 typedef struct UnicodeBlock⁻¹ {
-  __builtin_int_t 𝗰𝗼𝗹L𝟷, 𝗰𝗼𝗹L𝟸, linesOffsetFirst, linesOffsetLast;
+  __builtin_int_t colL𝟷, colL𝟸, linesOffsetFirst, linesOffsetLast;
 } UnicodeColBlock; /* See again --<Preserves.h>{Utf8Interval|Sourcelocation} */
 
 #include <Additions/Knot.h>
@@ -273,8 +271,14 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
     
 😐; /* …, `DecoratedString` and `Recording`. */
 
-/*  #include <Additions/Color.hpp>
+#if __has_include(<Additions/Impressions.hpp>)
+#include <Additions/Impressions.hpp>
+#endif
+
+#if __has_include(<Additions/Typeset.hpp>) && __has_include(<Additions/Color.hpp>)
+/* #include <Additions/Color.hpp>
 #include <Additions/Typeset.hpp> */
+#endif
 
 namespace Unit { enum { thou, mm, in, pc, pt, px, 𝑜𝑝𝑡lp }; };
 /* int Width(const Ornaments& o, Unit unit, double &width, double &kerning) WESTERN;
@@ -286,34 +290,29 @@ int Width(const Unicodes& uc, Unit unit, double &width, double &kerning) WESTERN
 
 #pragma mark - The Terminal
 
+namespace Inputctrl { enum { Stopped=1, Timedout, Keyboard₋terminated, Indication₋terminated }; }
+
 struct Utf8Terminal {
     
     Utf8Terminal();
     
     ~Utf8Terminal();
     
-    enum Inputctrl { Terminated, Timedout, Error };
-    
-    Inputctrl
+    int /* Inputctrl */ 
     interaction( /* See also --<Fossilate.h|cpp>{TerminalIn ∧ WaitTerminal}. */
       int periods𝘖rZero,
-      int 𝟷𝟶ᵗʰseconds,
-      void (^ping)(bool &stop), /* Cyclically whilst time passes. */
-      void (^touchbase)(char32_t unicode, bool &stop) /* After a key press. */
+      int 𝟷𝟶ᵗʰ₋seconds,
+      void (^ping𝘖r𝖭𝖴𝖫𝖫)(bool &stop), /* Cyclically whilst time passes. */
+      void (^input)(char32_t unicode, bool &stop) /* After a key press. */
     ) const; /* 𝘈․𝘬․a `interact`, `read` and `password`. */
     
-    int write(const uint8_t * utf8s, __builtin_int_t bytes) const; /* ⬷ Possibly NULL-terminated. */
+    int write(const uint8_t * utf8s, __builtin_int_t bytes) const; /* ⬷ Optionally NULL-termination included. */
     
     void (^format)(double x, Utf8Terminal &stream);
     
-    int addrefresh₁(const char * ref, void * lduvair) const;
-    int addrefresh₂ᴹ(const char * ref, void * lduvail) const;
-    
-    void * picrefs; /* ⬷ A․𝘬․a Map<Unicodes, Image ∧ uint8_t *>. */
-    
-    int write(double v, double h, /* Unit */ int hvunit, short count, const char * pics[], short cols);
-    
-    int refreshed(const char * ref);
+#if __has_include(<Additions/VT99.cxx>)
+#include <Additions/VT99.cxx>
+#endif
     
 😐;
 
@@ -391,7 +390,7 @@ template <typename T> Utf8Terminal& operator<<(Utf8Terminal &term,
 Utf8Terminal & operator<<(Utf8Terminal &u8os, Utf8Terminal present) 
   { return u8os; } */
 
-struct 𝗵fill { }; struct 𝘃fill { double val; /* Unit */ int unit; };
+struct 𝗵fill { }; struct 𝘃fill { double val; int /* Unit */ unit; };
 struct 𝗣𝒂𝒈𝒆 { bool versoNotRecto; }; /* A․𝘬․a `formfeed` and U+0x000c. */
 𝗣𝒂𝒈𝒆 ᵖ𝗴(bool); 𝘃fill vfill(double, /* Unit */ int); 𝗵fill hfill();
 /* A․𝘬․a `␋` , `␉` and `␌` . */
@@ -517,8 +516,8 @@ struct Bitsetˢᵘᵖ { /* A․𝘬․a `Capped-ET-Bitset`. */
 
 int
 OptimisticAsync8Copy(
-  void * noncachabledst,
-  void * noncachablesrc,
+  void * noncachable₋dst,
+  void * noncachable₋src,
   int bytes,
   bool ᵗᵍᵍˡendian,
   void (^ping)(int bytes, bool &reset, bool &suspend),
@@ -527,7 +526,7 @@ OptimisticAsync8Copy(
 
 #pragma mark - Dispatch, priorities and interrupts
 
-typedef void (^AsyncJob)(); /* A․𝘬․a 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀 and `CHandler`. */
+typedef void (^Async₋job)(); /* A․𝘬․a 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀 and `CHandler`. */
 
 typedef int (^TransformAndResolve)(Unicodes pathᵚᵍ, void (^final)(const char * regular𝘖rLinkpath));
 

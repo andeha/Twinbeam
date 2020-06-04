@@ -18,12 +18,12 @@ rule lib
 
 build $libroot: lib $objsdir/Additions.o $objsdir/Ieee754₆₄bits.o           $
   $objsdir/Random.o $objsdir/Randomˢᵚ.o $objsdir/Guid.o                     $
-  $objsdir/Terminal.o $objsdir/Automata.o $objsdir/Ornaments.o              $
-  $objsdir/Streams.o $objsdir/⌊𝑥⌋+nearest.o $objsdir/arctan.o               $
-  $objsdir/atan₂.o $objsdir/cherry.o $objsdir/ℯ🔭².o $objsdir/Erf.o         $
+  $objsdir/Terminal.o $objsdir/VT99.o $objsdir/Automata.o                   $
+  $objsdir/Ornaments.o $objsdir/Streams.o $objsdir/⌊𝑥⌋+nearest.o            $
+  $objsdir/arctan.o $objsdir/atan₂.o $objsdir/cherry.o $objsdir/ℯ🔭².o      $
   $objsdir/logₑ.o $objsdir/log𝛤.o $objsdir/mod.o $objsdir/sincos.o          $
-  $objsdir/tan.o $objsdir/tanh.o $objsdir/Knot.o $objsdir/Presentᵃᵘˣ.o      $
-  $objsdir/Present.o
+  $objsdir/tan.o $objsdir/tanh.o $objsdir/Erf.o $objsdir/Knot.o             $
+  $objsdir/Present.o $objsdir/Presentᵃᵘˣ.o 
  
 build $objsdir/Additions.o: cc Additions.cpp
 build $objsdir/Ieee754₆₄bits.o: cc Ieee754₆₄bits.cpp
@@ -31,6 +31,7 @@ build $objsdir/Random.o: cc Random.cpp
 build $objsdir/Randomˢᵚ.o: cc Randomˢᵚ.cpp
 build $objsdir/Guid.o: cc Guid.cpp
 build $objsdir/Terminal.o: cc Terminal.cpp
+build $objsdir/VT99.o: cc VT99.cpp
 build $objsdir/Automata.o: cc Automata.cpp
 build $objsdir/Ornaments.o: cc Ornament.cpp
 build $objsdir/Streams.o: cc Streams.cpp
@@ -48,7 +49,7 @@ build $objsdir/tan.o: cc math/tan.cpp
 build $objsdir/tanh.o: cc math/tanh.cpp
 # …and more non-math folders:
 build $objsdir/Knot.o: cc Knot.cpp
-build $objsdir/Presentᵃᵘˣ.o: cc Presentᵃᵘˣ.cpp
 build $objsdir/Present.o: cc Present.cpp
+build $objsdir/Presentᵃᵘˣ.o: cc Presentᵃᵘˣ.cpp
 build content: emitcontent
 default $libroot
