@@ -1,7 +1,8 @@
 /*  Twinbeam.h (libTwinbeam_X_cdcdc7f.a)
     C++20 for clang to x86_64 and MIPS
     MIPS compiled using clang version 10.0.0
-    x86_64 compiled using Xcode Version 10.2.1 (10E1001) */
+    x86_64 compiled using Xcode Version 10.2.1 (10E1001) 
+    and/or clang-1100.0.33.8. */
 
 #ifndef __TWINBEAM_H
 #define __TWINBEAM_H
@@ -170,7 +171,7 @@ namespace std { /* The Standard Residual */ typedef ::size_t size_t;
   initializer_list(const T * b, size_t s) : beg(b), sz(s) { } public: typedef
   T value_type; typedef const T& reference; typedef const T& const_reference;
   typedef size_t size_type; typedef const T * iterator; typedef const T *
-  const_iterator; initializer_list() : beg(0), sz(0) {} size_t size() const {
+  const_iterator; initializer_list() : beg(0), sz(0) { } size_t size() const {
   return sz; } const T * begin() const { return beg; } const T * end() const {
   return beg + sz; } }; template<class T> inline const T * begin(
   std::initializer_list<T> i) { return i.begin(); } template<class T> inline
@@ -433,7 +434,7 @@ typedef union {
 /**  Computes a cryptographic hash value similar to NIST FIPS PUB 180-4: 
   "Secure Hash Standard (SHS)", August 2015. */
 
-int Hash(uint8_t *p, __builtin_int_t bytes, void (^ping)(bool &stop), void
+int Hash(uint8_t *p, __builtin_int_t bytes, void (^ping𝘖r𝖭𝖴𝖫𝖫)(bool &stop), void
   (^completion)(ditriaconta digest));
 
 #ifdef  __mips__
