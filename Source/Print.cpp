@@ -111,8 +111,8 @@ print﹟(
       , ^(char s) { out₂(&s, 1); }); };
     auto streamout_char = ^(char c) { out₂(&c, 1); };
     auto streamout_utf8 = ^(const char * utf8) { char *p = (char *)(utf8); while (*p) { out₂(p,1); p++; } };
-    auto streamout_unicode = ^(char32_t u) { UnicodeToUtf8(u, ^(const uint8_t *p, 
-      int bytes) { out₂((const char *)p, bytes); }); };
+    auto streamout_unicode = ^(char32_t u) { UnicodeToUtf8(u, ^(const uint8_t *u8s, 
+      short bytes) { out₂((const char *)u8s, bytes); }); };
     /* #ifndef AVOID_IEEE754 */
     auto out𝕕 = ^(double ℝ) { Format(ℝ, Ieee754Form::Scientific, ^(char32_t uc) { streamout_unicode(uc); }); };
     /* #endif */
