@@ -16,7 +16,7 @@ Utf8Followers(uint8_t leadOr8Bit)
     __builtin_int_t onesUntilZero = __builtin_clzll(~((uint64_t)leadOr8Bit<<56));
 #else
     auto clz = ^(uint8_t x) {
-      uint8_t 🥈ᵢ lookup[16] = { 4, 3, 2, 2, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+      uint8_t 🥈ᵢ lookup[16] = { 4, 3, 2, 2, 1, 1, 1, 1, 0, 0, 0, 0, 0, 
         0, 0, 0 }, upper = x >> 4, lower = x & 0x0F;
       return upper ? lookup[upper] : 4 + lookup[lower];
     };
@@ -35,10 +35,10 @@ Utf8ToUnicode(
 {
     uint8_t first = *ξ;
     if (248 <= first || (128 <= first && first < 192)) return 0x0000FFFF;
-    switch (bytes) { case 1: return (char32_t)(uint8_t)*ξ; case 2: return
-    (0b11111&*ξ) << 6 | (0b111111&(*(ξ + 1))); case 3: return (0b1111&*ξ) <<
-    12 | (0b111111&(*(ξ + 1))) << 6 | (0b111111&(*(ξ + 2))); case 4: return
-    (0b111&*ξ) << 18 | (0b111111&(*(ξ + 1))) << 12 | (0b111111&(*(ξ + 2))) <<
+    switch (bytes) { case 1: return (char32_t)(uint8_t)*ξ; case 2: return 
+    (0b11111&*ξ) << 6 | (0b111111&(*(ξ + 1))); case 3: return (0b1111&*ξ) << 
+    12 | (0b111111&(*(ξ + 1))) << 6 | (0b111111&(*(ξ + 2))); case 4: return 
+    (0b111&*ξ) << 18 | (0b111111&(*(ξ + 1))) << 12 | (0b111111&(*(ξ + 2))) << 
     6 | (0b111111&(*(ξ + 3))); } return 0x0000FFFE;
 }
 
@@ -63,7 +63,7 @@ UnicodeToUtf8(
   void (^sometime₋valid)(const uint8_t *u8s, short bytes)
 )
 {
-    unsigned char 🥈 firstByteMark[7] = { 0x00, 0x00, 0xC0, 0xE0, 0xF0,
+    unsigned char 🥈 firstByteMark[7] = { 0x00, 0x00, 0xC0, 0xE0, 0xF0, 
       0xF8, 0xFC };
     
     char32_t 🥈 byteMask=0xBF, byteMark=0x80;

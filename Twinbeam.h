@@ -361,7 +361,7 @@ template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* A�
 
 int UnicodeToUtf8(char32_t Ξ, void (^sometime₋valid)(const uint8_t *ξ, short bytes));
 
-short Utf8Followers(uint8_t leadOr8Bit); /*  See also modern `char8_t` and a later `uchar`. */
+short Utf8Followers(uint8_t lead𝘖r8Bit); /*  Notice modern `char8_t` and later `uchar`. */
 
 char32_t Utf8ToUnicode(const uint8_t *ξ, __builtin_int_t bytes);
 
