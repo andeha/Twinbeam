@@ -29,38 +29,38 @@ Utf8Followers(uint8_t leadOr8Bit)
 FOCAL
 char32_t
 Utf8ToUnicode(
-  const uint8_t *p,
+  const uint8_t *ξ,
   __builtin_int_t bytes
 )
 {
-    uint8_t first = *p;
+    uint8_t first = *ξ;
     if (248 <= first || (128 <= first && first < 192)) return 0x0000FFFF;
-    switch (bytes) { case 1: return (char32_t)(uint8_t)*p; case 2: return
-    (0b11111&*p) << 6 | (0b111111&(*(p + 1))); case 3: return (0b1111&*p) <<
-    12 | (0b111111&(*(p + 1))) << 6 | (0b111111&(*(p + 2))); case 4: return
-    (0b111&*p) << 18 | (0b111111&(*(p + 1))) << 12 | (0b111111&(*(p + 2))) <<
-    6 | (0b111111&(*(p + 3))); } return 0x0000FFFE;
+    switch (bytes) { case 1: return (char32_t)(uint8_t)*ξ; case 2: return
+    (0b11111&*ξ) << 6 | (0b111111&(*(ξ + 1))); case 3: return (0b1111&*ξ) <<
+    12 | (0b111111&(*(ξ + 1))) << 6 | (0b111111&(*(ξ + 2))); case 4: return
+    (0b111&*ξ) << 18 | (0b111111&(*(ξ + 1))) << 12 | (0b111111&(*(ξ + 2))) <<
+    6 | (0b111111&(*(ξ + 3))); } return 0x0000FFFE;
 }
 
 FOCAL
 int
 Utf8Sync(
-  uint8_t **p
+  uint8_t **ξ
 ) /* Backs at most 3 bytes to regain sync. */
 { __builtin_int_t i=3;
 /* Ensure argument is `uint8_t` or equivalent. */
 #define Utf8IsLead(x) (((x)&0b11000000)==0xD0)
 #define Utf8Is8Bit(x) ((x) <= 0x7f)
 #define Utf8IsPointerToFollower(p) (((*p)&0b11000000)==0xC0)
-   while (i && Utf8IsPointerToFollower(*p)) { (*p)--; i--; }
-   return i == 0 || !(Utf8IsLead(**p) || Utf8Is8Bit(**p));
+   while (i && Utf8IsPointerToFollower(*ξ)) { (*ξ)--; i--; }
+   return i == 0 || !(Utf8IsLead(**ξ) || Utf8Is8Bit(**ξ));
 }
 
 FOCAL
 int
 UnicodeToUtf8(
   char32_t Ξ,
-  void (^valid)(const uint8_t *p, int bytes)
+  void (^sometime₋valid)(const uint8_t *u8s, int bytes)
 )
 {
     unsigned char 🥈 firstByteMark[7] = { 0x00, 0x00, 0xC0, 0xE0, 0xF0,
@@ -85,7 +85,7 @@ UnicodeToUtf8(
       case 1: target[0] = (uint8_t) (Ξ | firstByteMark[bytesToWrite]);
     }
     
-    valid(target,bytesToWrite);
+    sometime₋valid(target,bytesToWrite);
     
     return 0;
 }

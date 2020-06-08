@@ -87,7 +87,7 @@ inexorable void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short
 inexorable
 int
 print﹟(
-  void (^out)(uint8_t * u8s, short unsigned bytes),
+  void (^out)(uint8_t * u8s, short bytes),
   const char * utf8format,
   __builtin_va_list arg
 )
@@ -137,15 +137,16 @@ unagain:
     return printedBytesExcept0;
 }
 
+FOCAL
 int
 printerr(
   const char * utf8format,
   ...
 )
 { int y; va_prologue(utf8format);
-   extern void (^Traceₒ)(uint8_t * utf8s, uint16_t bytes);
-   auto out = ^(uint8_t * utf8s, uint16_t bytes) { Traceₒ(utf8s,bytes); };
-   y = print﹟(out, utf8format, __various);
+   extern void (^Traceₒ)(uint8_t * u8s, uint16_t bytes);
+   auto out = ^(uint8_t * u8s, short bytes) { Traceₒ(u8s,(uint16_t)bytes); };
+   y = print﹟(out,utf8format,__various);
    va_epilogue return y;
 }
 
@@ -161,12 +162,12 @@ print(const char * utf8format, ...) /* Here all variable args are of the type `A
 FOCAL
 int
 print(
-  void (^out)(uint8_t * u8s, short unsigned bytes),
+  void (^out)(uint8_t * u8s, short bytes),
   const char * utf8format,
   ...
 )
 { int y; va_prologue(utf8format);
-   y = print﹟(out, utf8format, __various);
+   y = print﹟(out,utf8format,__various);
    va_epilogue
    return y;
 } /* 𝘈․𝘬․a `print⁺⁺`. See --<🥽 𝙋𝙧𝙞𝙣𝙩⁺.cpp> for more details. */

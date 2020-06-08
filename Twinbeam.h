@@ -195,7 +195,7 @@ MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
 enum class Ieee754Form { Scientific, Monetary }; /* ⬷ Occasionally `intrinsic_and_base₋10`. */
 DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc)); 
 int print(const char *utf8format,...); int printerr(const char * utf8format,...);
-int print(void (^out)(uint8_t * u8s, short unsigned bytes), const char *utf8format, ...);
+int print(void (^out)(uint8_t * u8s, short bytes), const char *utf8format, ...);
 struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, void * context); 
   typedef void (^Output)(Unicode set, void * context); union { __builtin_int_t d; 
   __builtin_uint_t x, b; const char * utf8; struct /* Unicodes */ { char32_t * 
@@ -353,13 +353,13 @@ template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
 #define 🥈 WHEN_COMPILING /* Must be assigned to a `const` and no inline assembler. */
 #define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧. Scandinavian 'jurid' and 'förekomst'. Also machinal. */
-template <typename T> T * Critic(const T * x) { return const_cast<T *>(x); }
+template <typename T> T * Critic(const T * x) { return const_cast<T*>(x); }
 template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* A․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
 #define ᶿ﹡ const * /* #define *⥃ const char *, a․𝘬․𝘢 `*⥆` and `*⫩`. */
 
 #pragma mark Utf-8
 
-int UnicodeToUtf8(char32_t Ξ, void (^sometimes /* valid */)(const uint8_t *ξ, short bytes));
+int UnicodeToUtf8(char32_t Ξ, void (^sometime₋valid)(const uint8_t *ξ, short bytes));
 
 short Utf8Followers(uint8_t leadOr8Bit); /*  See also modern `char8_t` and a later `uchar`. */
 
