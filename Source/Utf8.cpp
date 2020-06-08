@@ -60,7 +60,7 @@ FOCAL
 int
 UnicodeToUtf8(
   char32_t Ξ,
-  void (^sometime₋valid)(const uint8_t *u8s, int bytes)
+  void (^sometime₋valid)(const uint8_t *u8s, short bytes)
 )
 {
     unsigned char 🥈 firstByteMark[7] = { 0x00, 0x00, 0xC0, 0xE0, 0xF0,
@@ -68,7 +68,7 @@ UnicodeToUtf8(
     
     char32_t 🥈 byteMask=0xBF, byteMark=0x80;
     
-    unsigned short bytesToWrite=0;
+    short bytesToWrite=0;
     
     if (Ξ < (char32_t)0x80) { bytesToWrite=1; }
     else if (Ξ < (char32_t)0x800) { bytesToWrite=2; }
