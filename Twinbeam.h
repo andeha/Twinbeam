@@ -194,8 +194,8 @@ MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   (shifted<<shift)&mask; *symbol = (word & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL
 enum class Ieee754Form { Scientific, Monetary }; /* ⬷ Occasionally `intrinsic_and_base₋10`. */
 DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc)); 
-int print(const char *utf8format, ...); int print(void (^out)(uint8_t * utf8s, 
-short unsigned bytes), const char *utf8format, ...);
+int print(const char *utf8format,...); int printerr(const char * utf8format,...);
+int print(void (^out)(uint8_t * u8s, short unsigned bytes), const char *utf8format, ...);
 struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, void * context); 
   typedef void (^Output)(Unicode set, void * context); union { __builtin_int_t d; 
   __builtin_uint_t x, b; const char * utf8; struct /* Unicodes */ { char32_t * 
@@ -359,7 +359,7 @@ template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* A�
 
 #pragma mark Utf-8
 
-int UnicodeToUtf8(char32_t Ξ, void (^sometimes /* valid */)(const uint8_t *p, int bytes));
+int UnicodeToUtf8(char32_t Ξ, void (^sometimes /* valid */)(const uint8_t *ξ, short bytes));
 
 short Utf8Followers(uint8_t leadOr8Bit); /*  See also modern `char8_t` and a later `uchar`. */
 
