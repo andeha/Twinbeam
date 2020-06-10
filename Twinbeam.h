@@ -105,6 +105,7 @@ template <typename T> struct SemanticPointer { T ref; }; /* 𝘈․𝘬․a `Dis
 #define BOOGIEABLATIVE
 #define PROCESSACCUSATIVE
 #define ALTERNATOPTIONAL
+#define PRIMALTRANSLATIVE
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
 typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
@@ -197,18 +198,18 @@ DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc));
 int print(const char *utf8format,...); int printerr(const char * utf8format,...);
 int print(void (^out)(uint8_t * u8s, short bytes), const char *utf8format, ...);
 struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, void * context); 
-  typedef void (^Output)(Unicode set, void * context); union { __builtin_int_t d; 
-  __builtin_uint_t x, b; const char * utf8; struct /* Unicodes */ { char32_t * 
-  unicodes; int tetras; } ucs; char c; char32_t uc; double f₁; float f₂; uint8_t 
-  bytes[16]; __uint128_t U; __int128_t I; uint64_t pair[2]; struct { Output scalar; 
-  void * context; } λ; } value; int kind; };
+ typedef void (^Output)(Unicode set, void * context); union { __builtin_int_t d; 
+ __builtin_uint_t x, b; const char * utf8; struct /* Unicodes */ { char32_t * 
+ unicodes; int tetras; } ucs; char c; char32_t uc; double f₁; float f₂; uint8_t 
+ bytes[16]; __uint128_t U; __int128_t I; uint64_t pair[2]; struct { Output scalar; 
+ void * context; } λ; } value; int kind; };
 Argᴾ ﹟d(__builtin_int_t d); Argᴾ ﹟x(__builtin_uint_t x); Argᴾ ﹟b(__builtin_uint_t 
 b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(int tetras, char32_t * uc); Argᴾ ﹟c(
 char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
 Argᴾ ﹟reᵍs(__builtin_uint_t mask); Argᴾ ﹟λ(Argᴾ::Output scalar, void * context);
 extern "C" { int atexit(void(*func)(void)); void exit(int); } 
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow₋ₒ)(void *);
-__builtin_int_t 𝟺𝟶𝟿𝟼₋aligned₋frame(__builtin_int_t byte₋number, __builtin_int_t * modulo);
+__builtin_int_t 𝟺𝟶𝟿𝟼₋aligned₋frame₂(__builtin_int_t byte₋number, __builtin_int_t * modulo);
 int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
   __builtin_uint_t avails[], void (^every)(uint8_t * 𝟸ⁿframe, bool& stop));
 int Release𝟷ᵈ(void * 𝟸ⁿframe, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
@@ -298,8 +299,13 @@ FOCAL void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short
 #define SIGNBIT_INT64 0x8000000000000000
 MACRO int64_t abs64i(int64_t x) { return x & ~SIGNBIT_INT64; }
 MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
-/* template <typename ℤ> T abs(ℤ x) { return x < 0 ? -x : x; }
-template <typename ℝ> T abs(ℝ x) { return x <= -0.0 ? -x : x; } yet (specialization, ±0.0, ±0 and optimization). */
+/* template <typename ℤ> ℤ abs₁(ℤ x) { return x < 0 ? -x : x; }
+template <typename ℝ> T abs(ℝ x) { return x <= -0.0 ? -x : x; }  */
+template <typename ℕ> void invert(ℕ & x) { x = ~x; }
+template <typename ℕ> void 𝟸₋compl(ℕ & x) { invert(x); ++x; }
+template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋compl(x) : x; }
+/* ⬷ Notice `x` = INT_MIN is not representable as a positive number¹ and maps 
+ back to the same bit pattern. (Similar with 'identity a․𝘬․a zero'.) */
 #define /* PROVOCATIVE */ ASSEMBLERONLY __attribute__((naked)) /* A․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN, NEITHER_PROLOGUE_NOR_EPILOGUE. */
 /* #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error"))) */
 /* #define STRANGE_MAIN void _Noreturn main */
@@ -518,12 +524,12 @@ struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max
 
 int Augment(Scatter& s, __builtin_int_t bytes, void (^once𝘖rMultiple)(short bytes, 
   uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage));
-int Foreach(const Scatter& s, void (^zero𝘖rMany)(__builtin_int_t bytes, 
+int Foreach(const Scatter& s, void (^nought𝘖rMany)(__builtin_int_t bytes, 
   uint8_t * material, bool& stop));
 int Snapshot(const Scatter& original, Scatter & pristine);
 
 int Abduct(unsigned expeditionary, __builtin_int_t bytes, Memorydelegate * delegate, Scatter &pattern);
-int ToggleNetworkAndNative(Scatter &region, __builtin_int_t bytesSkip, __builtin_int_t 
+int ToggleNetworkAndNative(Scatter &region, __builtin_int_t bytes₋skip, __builtin_int_t 
   bytes, void (^ping)(bool &stop), void (^completion)(__builtin_int_t bytes)); 
 /* See also --<🥽 Störung.cpp>. */
 
@@ -532,14 +538,13 @@ struct Bits { Bits(Scatter * s); Scatter * scatter; uint8_t& operator[](__builti
     __builtin_int_t totbytes, uint8_t * towrite𝘖r𝖭𝖴𝖫𝖫=NULL);
   uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, 
     __builtin_int_t totmips, uint32_t * towrite𝘖r𝖭𝖴𝖫𝖫=NULL);
-  uint64_t intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
-  /* A․𝘬․a `ieee754dbl`. */
+  uint64_t /* a․𝘬․a `ieee754dbl₋pattern` */ intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
 }; /* A․𝘬․a `Memoryregion`. */
 
 void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
   __builtin_int_t (^cmp)(const void *key, const void *elt));
 
-int Sediment(unsigned expeditionary, __builtin_int_t bytes, void (^once𝘖rNever)(Bits& bits));
+int Sediment(unsigned expeditionary, __builtin_int_t bytes, void (^once𝘖rNought)(Bits& bits));
 /* ⬷ A․k․a `Otherref`; Similar-to `alloca`. */
 
 int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
