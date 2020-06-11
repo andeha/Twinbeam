@@ -301,7 +301,7 @@ MACRO int64_t abs64i(int64_t x) { return x & ~SIGNBIT_INT64; }
 MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
 /* template <typename ℤ> ℤ abs₁(ℤ x) { return x < 0 ? -x : x; }
 template <typename ℝ> T abs(ℝ x) { return x <= -0.0 ? -x : x; }  */
-template <typename ℕ> void invert(ℕ & x) { x = ~x; }
+template <typename ℕ> void invert(ℕ & x) { x = ~x; } /* A․𝘬․a `toggle₋all`. */
 template <typename ℕ> void 𝟸₋compl(ℕ & x) { invert(x); ++x; }
 template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋compl(x) : x; }
 /* ⬷ Notice `x` = INT_MIN is not representable as a positive number¹ and maps 
@@ -341,7 +341,7 @@ template <typename T> int collate₋coalesce(__builtin_int_t count, T xᵣ[], T 
  int ok=port(xᵣ[i],*acc); if (!ok) { return ok; } } } /*  Also known as: `Norm`, 
  `linear-combine`, also `gaussian₋combination`, `irreversive₋combination` 
  and permutative₋combination`. */
-template <typename T> T arithmetic(T x₁, T x₂) { return (x₁ + x₂) / 2; }
+template <typename ℚ> ℚ arithmetic(ℚ x₁, ℚ x₂) { return (x₁ + x₂) / 2; }
 /* template <typename T> T geometric(T x₁, T x₂) { return sqrt(x₁*x₂); }; */
 /* C․𝘧 --<🥽 Argentum.cpp> (TO-BE-TYPED) and --<🥽 Newton.cpp>. */
 template <typename T> bool rel₋eq(T x₁, T x₂) { return !(x₁ < x₂ || x₂ < x₁); }
@@ -512,9 +512,9 @@ struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max
    int 𝟺kinit(void * the𝟺kbpage, short unusedbytes);
 /* int 𝟺Mbinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpage₋bytes); */
    int 𝟺Gbinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpage₋bytes);
-   int incorp(__builtin_int_t bytesToTail, __builtin_int_t bytes, void (^sometimes)(short bytes, uint8_t * virtue));
+   int incorp(__builtin_int_t bytes₋to₋tail, __builtin_int_t bytes, void (^sometimes)(short bytes, uint8_t * virtue));
    int shiftout(__builtin_int_t bytes, void (^left)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖r𝟺kbPage)); /* Also `𝘗𝘰𝘴𝘴𝘪𝘣𝘭𝘺`. */
-   byteaddress relative(__builtin_int_t byteoffset, void (^issue)(int nº)) const;
+   byteaddress relative(__builtin_int_t byte₋offset, void (^issue)(int nº)) const;
    __builtin_uint_t& word(byteaddress unaligned, short &lshbits, void (^issue)(int nº));
    int keep(byteaddress unaligned, __builtin_uint_t word) const;
    int oncewired(__builtin_int_t ﹟, uint8_t **start, __builtin_int_t *bytes) const; /* 𝘊․𝘧 predictive cache. */
@@ -595,7 +595,7 @@ namespace Fiber {
       __builtin_int_t bytes₋kernel, bytes₋rt, bytes₋irq;
     };
 #endif
-    struct Peel { void * variables; 
+    struct Peel { void * variables; /* ⬷ A․𝘬․a `citri`. */
       ucontext_t ctx; int 🥈 bytes=sizeof(ucontext_t);
       uint8_t alcoda[bytes]; /* ⌖ */
     }; /* ⬷ Consider `Orbital` and `Principia`. A․𝘬․a 'Pentominoes'. */
@@ -750,6 +750,8 @@ typedef float floatʳ; typedef double doubleʳ;
 /**  Subtractive-relative, 𝘦․𝘨 x⁺ʳ∈[0₋𝜀, 1₊𝜀) and x⁺ʳ∈[0₊𝜀, π₋𝜀). */
 
 typedef float float⁺ʳ; typedef double double⁺ʳ;
+
+/**  Relative-fixative types: */
 
 typedef uint8_t uchar; typedef uint32_t uint32; typedef uint8_t byte;
 
