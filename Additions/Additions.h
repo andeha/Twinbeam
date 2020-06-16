@@ -213,7 +213,7 @@ MACRO int ᵊ(const char * utf8, void (^sometimes)(Unicodes uc)) {
   return 0;
 }
 
-#pragma mark Fine print for well-versed readers:
+#pragma mark Fine print for well-versed readers a․𝘬․a 'intervals and dots'
 
 typedef struct UnicodeIntervalAnd𝑂rLocation {
   __builtin_int_t tetrasRelativeFirst, tetrasRelativeLast;
@@ -285,8 +285,9 @@ namespace Unit { enum { thou, mm, in, pc, pt, px, 𝑜𝑝𝑡lp }; };
 int Width(const Unicodes& uc, Unit unit, double &width, double &kerning) WESTERN; */
 /* 1/log²(2) 'pavoni'=distance between copy and its header. */
 /* 1 thou = 1/100'th inch; 1pc=1/6 inch, 1/12pc=1pt. */
-/* Wikipedia: '…one twentieth of a pound or twelve pence.' */
 /* 1 shilling ⟷ 1/12 pound ∧ 1 shilling ⟷ 12 pence. (DE-MORGAN's law) */
+
+/* Intevals and dots: 0 0, 0 1, 1 2, 3 3, ﹇ 4 */
 
 #pragma mark - The Terminal
 
@@ -343,25 +344,25 @@ void Presentᵧ(Utf8Terminal &term, float value);
 #pragma mark - Conveniences
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, __builtin_int_t z)
-{ Present(term, z); return term; }
+{ Present(term,z); return term; }
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, __builtin_uint_t n)
 { Present(term, n, Base::hex); return term; }
 
 /* MACRO Utf8Terminal & operator<<(Utf8Terminal &term, double x)
-{ Present(term, x); return term; } */
+{ Present(term,x); return term; } */
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, char32_t unicode)
-{ Present(term, unicode); return term; }
+{ Present(term,unicode); return term; }
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char * utf8)
-{ Present(term, utf8); return term; }
+{ Present(term,utf8); return term; }
 
 /* MACRO LONGTOOTH Utf8Terminal & operator<<(Utf8Terminal &term, char c)
-{ Present(term, (char32_t)c); return term; } A․𝘬․a `ascii7ToUnicode`.
+{ Present(term,(char32_t)c); return term; } A․𝘬․a `ascii7ToUnicode`.
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, float x)
-{ Present(term, (double)x); return term; } */
+{ Present(term,(double)x); return term; } */
 
 MACRO
 Utf8Terminal &
@@ -393,14 +394,14 @@ Utf8Terminal & operator<<(Utf8Terminal &u8os, Utf8Terminal present)
 struct 𝗵fill { }; struct 𝘃fill { double val; int /* Unit */ unit; };
 struct 𝗣𝒂𝒈𝒆 { bool versoNotRecto; }; /* A․𝘬․a `formfeed` and U+0x000c. */
 𝗣𝒂𝒈𝒆 ᵖ𝗴(bool); 𝘃fill vfill(double, /* Unit */ int); 𝗵fill hfill();
-/* A․𝘬․a `␋` , `␉` and `␌` . */
+/* A․𝘬․a the Unicodes `␋` , `␉` and `␌`. */
 Utf8Terminal & operator<<(Utf8Terminal&,𝗵fill);
 Utf8Terminal & operator<<(Utf8Terminal&,𝘃fill);
 Utf8Terminal & operator<<(Utf8Terminal&, 𝗣𝒂𝒈𝒆);
 
 extern "C" { extern const char *tab, *eol, *sep; } /* Also: ↹ ↩︎ ¶ and hfill: ⎓ alt. ﹇. */
 
-extern Utf8Terminal _myTerminal;
+extern Utf8Terminal _myTerminal, _myTracelog;
 
 #define Termlog _myTerminal
 
@@ -410,7 +411,7 @@ typedef sexdeca Guid;
 
 Guid NewGuid();
 
-void GuidToText(const Guid& guid, void (^out)(char digitOrHyphen));
+void GuidToText(const Guid& guid, void (^out)(char digit𝘖rHyphen));
 
 void Present(Utf8Terminal &term, const Guid& mp);
 /* …not: MACRO Argᴾ ﹟Ref(Guid& g) { ⟶⟵ } */
@@ -454,7 +455,7 @@ struct Fifo { int count=0, brk=0, elems; E * base;
    /* The parameter `nowdelta` is a․𝘬․a `δ` and `previous-relative-head`. */
    E * include() { if (count == elems) return NULL; E * Ɀ=brk+base; Include(elems,&brk,&count); return Ɀ; }
    int shiftout() { if (count == 0) { return -1; } count--; return 0; }
-   enum Flavor { allinorder, latest /* randomized */ };
+   enum Flavor { allinorder, latest /* 𝘊․𝘧 `randomized`. */ };
 };  /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp.  Note also that three areas where 
   one 'precomputed 'area always separates the 'producer' from the 'consumer' 
   enables a 'stable external projection' without visible fluctuations a․𝘬․a 
@@ -567,6 +568,8 @@ struct Jagged { Jagged(); ~Jagged();
   __builtin_int_t count() const;
   int 𝟺kbtile(__builtin_int_t ﹟, __builtin_int_t &tetraidx, __builtin_int_t &δ₋count);
 😐; /* A․𝘬․a `Linebreaks`. */
+
+enum class Arrangement { 𝟾, 𝟷𝟼, 𝟹𝟸, 𝟼𝟺, lo𝟼𝟺, hi𝟼𝟺, lo𝟷𝟸𝟾, hi𝟷𝟸𝟾, utf8 };
 
 Opt<Chronology::Instant>
 TS( /* E․𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232. */

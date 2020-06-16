@@ -13,7 +13,7 @@
 #define structᵢ struct __attribute__((internal_linkage))
 #define unionᵢ union __attribute__ ((internal_linkage))
 #define inexorable static __attribute__ ((internal_linkage)) /* embedded */
-/* Line above replaces `INNER_DATA` ∧ `INNER_FUNCTION`. 'See 𝚗𝚖 for details'. */
+/* Line above replaces `INNER_DATA` ∧ `INNER_FUNCTION`. 'See 𝗇𝗆 for details'. */
 #define DISORDERABLE __attribute__((weak))
 typedef signed char         int8_t;
 typedef unsigned char       uint8_t;
@@ -68,7 +68,7 @@ template <typename T> struct SemanticPointer { T ref; }; /* 𝘈․𝘬․a `Dis
 #define UNITTEST(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
 #define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",          \
   ﹟s(s), ﹟s(__FUNCTION__), ﹟s(__FILE__), ﹟d(__LINE__)); exit(-1); }
-#define ENSURE(c,s) { if (!(c)) { Panic(Testlog, s); } }
+#define ENSURE(c,s) { if (!(c)) { Panic(Testlog,s); } }
 #define FINAL /*  …or DO_NOT_DESTABBILIZE */
 #define LONGTOOTH /* __attribute__ ((deprecated("Marked LONGTOOTH."))) */
 #define FOCAL
@@ -106,9 +106,11 @@ template <typename T> struct SemanticPointer { T ref; }; /* 𝘈․𝘬․a `Dis
 #define PROCESSACCUSATIVE
 #define ALTERNATOPTIONAL
 #define PRIMALTRANSLATIVE
+#define ALTERNATESCHEDULATIVE
+#define OPTIONALSCHEDULATIVE
 #ifdef  __mips__
-typedef uint32_t mips32_context[32]; //  ∎: mx=11 ∧ mz=23!
-typedef mips32_context jmp_buf2;     // 🔎: 32. ⛅️rax!
+typedef uint32_t mips32_context[32]; /*  ∎: mx=11 ∧ mz=23! */
+typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
 #elif defined __x86_64__
 typedef int64_t x86_64_context[37];
 typedef x86_64_context jmp_buf2;
@@ -178,13 +180,13 @@ namespace std { /* The Standard Residual */ typedef ::size_t size_t;
   std::initializer_list<T> i) { return i.begin(); } template<class T> inline
   const T * end(std::initializer_list<T> i) { return i.end(); } }
 /* ☜😐: 🔅 ⬷ Earlier remark still valid? */
-struct Scatter; struct Memoryview { Scatter * scatter; __builtin_int_t
+struct Scatter; struct Memoryview { Scatter * scatter; __builtin_int_t 
   bytesoffset; __builtin_int_t bytecount; };
-MACRO __builtin_uint_t 🔎(__builtin_uint_t var) { return *((__builtin_uint_t
+MACRO __builtin_uint_t 🔎(__builtin_uint_t var) { return *((__builtin_uint_t 
   /* volatile */ *) var); }
-MACRO __builtin_uint_t&  🔧(__builtin_uint_t var) { return (__builtin_uint_t&)
+MACRO __builtin_uint_t&  🔧(__builtin_uint_t var) { return (__builtin_uint_t&) 
   *(__builtin_uint_t /* volatile */ *)var; }
-MACRO __builtin_uint_t TrailingZeros(__builtin_uint_t x) { if (x == 0) { return
+MACRO __builtin_uint_t TrailingZeros(__builtin_uint_t x) { if (x == 0) { return 
   8*sizeof(x); } x=(x^(x-1))>>1; int c=0; for (; x; c++) { x >>= 1; } return c; }
 /* ⬷ Not `__builtin_clzl` for Mips and `__builtin_clz` for Intel.  And for 
   contemplative consumption of abstraction, 𝑃𝑖𝑛𝑐𝑒 𝑎𝑏𝑠𝑡𝑟𝑎𝑖𝑡: */
@@ -195,8 +197,8 @@ MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   (shifted<<shift)&mask; *symbol = (word & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL
 enum class Ieee754Form { Scientific, Monetary }; /* ⬷ Occasionally `intrinsic_and_base₋10`. */
 DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc)); 
-int print(const char *utf8format,...); int printerr(const char * utf8format,...);
-int print(void (^out)(uint8_t * u8s, short bytes), const char *utf8format, ...);
+int print(const char * utf8format,...); int printerr(const char * utf8format,...);
+int print(void (^out)(uint8_t * u8s, short bytes), const char * utf8format, ...);
 struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, void * context); 
  typedef void (^Output)(Unicode set, void * context); union { __builtin_int_t d; 
  __builtin_uint_t x, b; const char * utf8; struct /* Unicodes */ { char32_t * 
@@ -246,7 +248,7 @@ FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
 FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef 
   dst, ByteAlignedRef src, __builtin_int_t bytes);
 FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁, 
-  ByteAlignedRef p₂, __builtin_uint_t bytes); /* A․𝘬․a `memcmp`. */
+  ByteAlignedRef p₂, __builtin_uint_t bytes); /* A․k․a `memcmp`. */
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
   constexpr uint32_t PIC32##serie##_##symbol = vaddr;                        \
   constexpr uint32_t PIC32##serie##_##symbol##CLR = (vaddr + 0x4);           \
@@ -343,7 +345,7 @@ template <typename T> int collate₋coalesce(__builtin_int_t count, T xᵣ[], T 
  and permutative₋combination`. */
 template <typename ℚ> ℚ arithmetic(ℚ x₁, ℚ x₂) { return (x₁ + x₂) / 2; }
 /* template <typename T> T geometric(T x₁, T x₂) { return sqrt(x₁*x₂); }; */
-/* C․𝘧 --<🥽 Argentum.cpp> (TO-BE-TYPED) and --<🥽 Newton.cpp>. */
+/* C․𝘧 the two files --<🥽 Argentum.cpp> (TO-BE-TYPED) and --<🥽 Newton.cpp>. */
 template <typename T> bool rel₋eq(T x₁, T x₂) { return !(x₁ < x₂ || x₂ < x₁); }
 template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 #define WHEN_COMPILING constexpr static
@@ -404,7 +406,7 @@ struct Octa { uint32_t l, h; };
 #ifdef __x86_64__
 union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits; };
 #include <xmmintrin.h>  /* ≥ SSE 4.2 */
-#include <immintrin.h>  /* The `blend` intrinsic in smmintrin.h and AVX/AVX2 from avxintrin.h and avx2intrin.h */
+#include <immintrin.h>  /* The `crc_u32` intrinsic in smmintrin.h. */
 #elif defined __mips__
 union Treeint { struct { int32_t key; uint32_t val; } keyvalue; uint64_t bits; };
 #endif /* A․𝘬․a `Autumn` and `Treeℤ`. */
@@ -440,8 +442,8 @@ typedef union {
 /**  Computes a cryptographic hash value similar to NIST FIPS PUB 180-4: 
   "Secure Hash Standard (SHS)", August 2015. */
 
-int Hash(uint8_t *p, __builtin_int_t bytes, void (^ping𝘖r𝖭𝖴𝖫𝖫)(bool &stop), void
-  (^completion)(ditriaconta digest));
+int Hash(uint8_t * material, __builtin_int_t bytes, void (^ping𝘖r𝖭𝖴𝖫𝖫)(bool &stop), 
+  void (^complete)(ditriaconta digest)); /* A․𝘬․a `Fineprint`. */
 
 #ifdef  __mips__
 #define BUILTIN_INT_MAX 2147483647
