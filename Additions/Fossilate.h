@@ -17,11 +17,11 @@ typedef long long           __builtin_int_t;
 
 /* extern ENCRYPTED "Utf-8✕json" struct "myTuple" Pair { int a; int b; } foo() { return { 0, 0 }; } */
 
-/* ONETIMEPAD */ typedef struct Fossilate /* public : base */ {
+/* ONETIMEPAD */ typedef struct Fossilate FINAL {
     /* DISJUNCT */ union Value {
-        // ...Interesting. FINAL below often                        ☜😐🔅¹
-        struct { __builtin_int_t tetras; char32_t *unicodes; } machineString; // ⬷ Not stored in SI™
-        const char *eightbitCString; // Is 0-terminated.
+        /* ...Interesting. FINAL below often                        ☜😐🔅¹ */
+        struct { __builtin_int_t tetras; char32_t * unicodes; } machineString; // ⬷ Not stored in SI™
+        const char *eightbitCString; /* Still zero-terminated. */
         __builtin_uint_t bitmap;
         double real;
         typedef struct Reference {
@@ -32,7 +32,7 @@ typedef long long           __builtin_int_t;
     __builtin_int_t kind; // ∈ [0, ⃨,k-1]
     Fossilate *optUnit;
     struct { __builtin_int_t tetras; char32_t *unicodes; } optUnitNameOrIdent;
-    // ↸ But not neccessarily FINAL here...                         ☜😐🔅²
+    /* ↸ But not neccessarily FINAL here...                         ☜😐🔅² */
 } Fossilate /* == {
   Content {
     machineString,
@@ -51,20 +51,21 @@ typedef long long           __builtin_int_t;
       contains an ⚱️. Optional signature, i.e. SHA1 last 64 bits, an xor with a key and 
       then xor back has not yet been computed. */
 
-// 💀🎤😐: 🎲⤣ ≅
+/* 💀🎤😐: 🎲⤣ ≅ */
 
 struct Envelop { uint8_t utf8Address[4]; Fossilate content; };
 
 /* Overridable prepacked lambdas. */
 DISORDERABLE extern void (^ᵗᵚⁱⁿᵝᵉᵃᵐInit)();
-DISORDERABLE extern void (^Putₒ)(uint8_t * utf8s, uint16_t bytes);
+DISORDERABLE extern void (^Putₒ)(uint8_t * u8s, uint16_t bytes);
+DISORDERABLE extern void (^Traceₒ)(uint8_t * u8s, uint16_t bytes);
 DISORDERABLE extern void (^Reciever)(void (*isr)(Fiber::fiber_t * self));
 DISORDERABLE extern void (^TerminalIn)(void (*isr)(Fiber::fiber_t * self));
 DISORDERABLE extern void (^📡 /*♬*/)(Chronology::Instant t, const Modulation::Variat& V, float &c, float &s);
 DISORDERABLE extern void (^SetPixelAA)(int x, int y, long err);
-DISORDERABLE extern int (^InititeMesmerization)(Chronology::Instant t, float version, 
-  void (^videoᵐᵒᵈ¹⁻³)(int x, int y, long err), void (^audio)(Q79 latency, int chnls, uint16_t *l…r));
-DISORDERABLE extern int (^WaitTerminal)(int periods𝘖𝘳Zero, int ᵗᵉⁿᵗʰseconds, 
+DISORDERABLE extern int (^InitiateMesmerization)(Chronology::Instant t, float version, 
+  void (^videoᵐᵒᵈ¹⁻³)(int x, int y, long err), void (^audio)(Q79 latency, int chnls, uint16_t * RtoL));
+DISORDERABLE extern int (^WaitTerminal)(int periods𝘖𝘳Zero, int 𝟷𝟶ᵗʰ₋seconds, 
   void (^ping)(bool &stop), char32_t * uc);
 #ifdef __mips__
 DISORDERABLE extern void (^TuneOscillator)(int8_t signandfivebits);
@@ -73,8 +74,8 @@ DISORDERABLE extern void (^InteractivelySetChronometer)(unsigned& y, unsigned& M
   uint32_t& key2, unsigned& tuner, bool& rollback); /* Using an oscilloscope, measure the RTCC pin. */
 DISORDERABLE extern void (^TuneChronometer)(void (^ping)(int16_t &tenbitSignedOffset, bool &commit));
 #endif
-DISORDERABLE extern void (^TransformReflection)(Unicodes path, void (^final)(const char * utf8));
-DISORDERABLE extern void (^TransformAndResolveReflection)(Unicodes path, void (^final)(const char * utf8));
+DISORDERABLE extern int (^Resolve𝟷Or𝙽Reflectionᴸ)(Unicodes pathᵚ, void (^final)(
+  const char * canonicalUtf8Regular𝘖rLinkpath)) /* -> int */;
 /* Non-overridable mandatory prepacked lambdas include `Alloc`, `LocalNow`,
    `RandomInteger` and `Fallow`.  See --<Fossilate.cpp> and --<llvmʳᵗ³.cpp> for 
    details. */
