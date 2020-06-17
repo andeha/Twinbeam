@@ -18,6 +18,7 @@ struct Temporal { Chronology::Interval length; Latency in₋length; Chronology::
 struct Δ₋Temporal { Chronology::Interval length; Latency in₋length; Chronology::Interval ending; };
 extern Chronology::Interval computational₋Δ(Chronology::Instant t₁, Chronology::Instant t₂);
 unionᵢ Ntp₋stomp { octa bits; struct { uint32_t seconds; Chronology::UQ32 frac; } ᐦΔ; };
+auto Δ = ^(Chronology::Instant t₁, Chronology::Instant t₂) { return computational₋Δ(t₁,t₂); };
 auto ieee754 = ^(Chronology::Interval Δt) /* -> double */ { Ntp₋stomp I { .bits=Δt.bits }; 
   return I.ᐦΔ.seconds + I.ᐦΔ.frac * 282e-18;
 }; /* Chronological interval together with a variable machine epsilon. */
@@ -28,13 +29,13 @@ auto lt = ^(Chronology::Instant t₁, Chronology::Instant t₂) /* -> int */ {
   return s₁.ᐦΔ.seconds < s₂.ᐦΔ.seconds;
 };
 
-inexorable Fifo<Temporal> impressions; inexorable Fifo<double> chnl₁, chnl₂;
+inexorable Fifo<Chronology::Instant> impressions; inexorable Fifo<double> chnl₁, chnl₂;
 
 int Extrapolate(Chronology::Instant t, Chronology::Instant t₁, Chronology::Instant t₂, 
   double f₁, double f₂, double * y)
 {
     auto mutual = ^(double v₀, double v₁, double t /*∈[0…1)*/) { return v₀ + t * (v₁ - v₀); };
-    Chronology::Interval δ₁ = Δ(t₁,t), δ₂ = Δ(t₁,t₂); float t = ieee754(δ₁)/ieee754(δ₂);
+    Chronology::Interval δ₁ = Δ(t₁,t), δ₂ = Δ(t₁,t₂); double t = ieee754(δ₁)/ieee754(δ₂);
     *y=mutual(f₁,f₂,t);
     return 0;
 }
@@ -43,7 +44,7 @@ int Interpolate(Chronology::Instant t, Chronology::Instant t₁, Chronology::Ins
   double f₁, double f₂, double * y)
 {
     auto mutual = ^(float v₀, float v₁, float t /*∈[0…1)*/) { return (1.0 - t) * v₀ + t * v₁; };
-    Chronology::Interval δ₁ = Δ(t₁,t), δ₂ = Δ(t₁,t₂); float t = ieee754(δ₁)/ieee754(δ₂);
+    Chronology::Interval δ₁ = Δ(t₁,t), δ₂ = Δ(t₁,t₂); double t = ieee754(δ₁)/ieee754(δ₂);
     *y=mutual(f₁,f₂,t);
     return 0;
 }
@@ -56,7 +57,7 @@ int Estimate(Chronology::Instant t, Chronology::Instant t₁, Chronology::Instan
     return 0;
 }
 
-void Regulate(double * epsilon)
+void /* coroutine₋*/ Regulate(double * epsilon)
 { double 🥈ᵢ Kp=1.0, Ki=1.0, Kd=1.0;
     auto measure = ^{ Chronology::Instant Ɀ = LocalNow(); 
       impressions.include(Ɀ); chnl₁.include(1.0); chnl₂.include(1.2);
