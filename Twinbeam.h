@@ -520,6 +520,9 @@ struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max
    __builtin_uint_t& word(byteaddress unaligned, short &lshbits, void (^issue)(int nº));
    int keep(byteaddress unaligned, __builtin_uint_t word) const;
    int oncewired(__builtin_int_t ﹟, uint8_t **start, __builtin_int_t *bytes) const; /* 𝘊․𝘧 predictive cache. */
+   /* int blob₁(__builtin_int_t ᵇoffset, __builtin_int_t bytes, void (^malloced)(uint8_t *optcopy)); 
+   int blob₂(__builtin_int_t ᵇoffset, __builtin_int_t bytes, void (^once𝘖rMultiple)(uint8_t *original));
+   int oftensort() const; */
    __builtin_int_t bytes() const; __builtin_int_t ᵇdebris() const;
    ~Scatter(); Memorydelegate * delegate; Scatter(const Scatter& other); /* Required by `pristine`. */
 😐; /* Disjunct, sediment and segments. */
@@ -646,10 +649,12 @@ inline void Initiate(Fiber::fiber_t& fib, void (*jam)(Fiber::fiber_t *, void *uc
 
 #pragma mark - 😐😇
 
-struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ }; 
+struct Chronology { struct Sequent { __builtin_int_t soon=0; }; 
     
     typedef octa Instant; typedef octa Interval; /** Second is calendric 
       alt. monotonically increasing non-rooting temporal relative. */
+    
+    enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
     
     typedef uint32_t UQ32; /* E․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */	
     
@@ -702,16 +707,15 @@ struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
     
     Instant subtractSeconds(Instant relative, uint32_t seconds, UQ32 frac) const BLURTS;
     
-    /**  Retrieve a - since the program started and given a chronology - unique 
-      value in a 'strict monotonically increasing' serie. */
-    
-    __builtin_int_t ordinal(bool * didwrap) const; /* Wraps (𝄇) at `BUILTIN_INT_MAX`. */
-    
     /**  Return weekday assuming a week starts on a Wednesday. (Encoded as 0.) */
     
-    int dayofweek(Instant instant, int &wd) const; /* May return ≠0 ⟷ 'divergent methods recognized'. */
+    int dayofweek(Instant instant, int &wd) const; /* May return ≠0 ⟷ 'divergent 
+     methods recognized'. */
     
 };
+
+__builtin_int_t Ordinal(bool * didwrap, Chronology::Sequent * sequent); /**  Retrieves 
+ a unique value in a 'strict monotonically increasing' serie.  Wraps (𝄇) at `BUILTIN_INT_MAX`. */
 
 int
 InstantToText(
