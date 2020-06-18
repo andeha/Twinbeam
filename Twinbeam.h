@@ -649,7 +649,7 @@ inline void Initiate(Fiber::fiber_t& fib, void (*jam)(Fiber::fiber_t *, void *uc
 
 #pragma mark - 😐😇
 
-struct Chronology { struct Sequent { __builtin_int_t soon=0; }; 
+struct Chronology { struct Peg { __builtin_int_t soon=0; }; 
     
     typedef octa Instant; typedef octa Interval; /** Second is calendric 
       alt. monotonically increasing non-rooting temporal relative. */
@@ -714,8 +714,8 @@ struct Chronology { struct Sequent { __builtin_int_t soon=0; };
     
 };
 
-__builtin_int_t Ordinal(bool * didwrap, Chronology::Sequent * sequent); /**  Retrieves 
- a unique value in a 'strict monotonically increasing' serie.  Wraps (𝄇) at `BUILTIN_INT_MAX`. */
+__builtin_int_t Ordinal(bool * didwrap, Chronology::Peg * act); /**  Retrieves a unique 
+ value in a 'strict monotonically increasing' serie.  Wraps (𝄇) at `BUILTIN_INT_MAX`. */
 
 int
 InstantToText(
