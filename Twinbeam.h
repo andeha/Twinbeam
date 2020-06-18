@@ -693,14 +693,14 @@ struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
       years) until a wrap occurs. */
     
     Instant
-    addSeconds(Interval relative, 
+    addSeconds(Instant relative, 
       uint32_t seconds, UQ32 frac
     ) const;
     
     /**  Only for unperturbed chronologies. For non-reversable chronologies, 
       subtract throws an error. */
     
-    Instant subtractSeconds(Interval relative, uint32_t seconds, UQ32 frac) const BLURTS;
+    Instant subtractSeconds(Instant relative, uint32_t seconds, UQ32 frac) const BLURTS;
     
     /**  Retrieve a - since the program started and given a chronology - unique 
       value in a 'strict monotonically increasing' serie. */
