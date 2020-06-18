@@ -21,15 +21,16 @@
     Misc¹: ℃/˚C/ºC ℉/˚F/ºF ® © ™ № ºª µ Ω ℊ ϵε϶— ∁ ≙ ⋈ ⫝ ⦣⧄⧅⧆⧇ ⧈ ⧉ ╳ ☩ ₧ ₥
     Chemistry Hobbyist: ⇾ ₀₁₂₃₄₅₆₇₈₉
     Math Additionals: ± ∓ ∔ ×
-    
-    print "The brown ⬚ jumped over the lazy ⬚\n", ﹟s("fox"), ﹟s("dog")
-      ﹟d(__builtin_int_t d)                     ﹟b(__builtin_uint_t b)
-      ﹟S(int tetras, const char32_t * uc)       ﹟s(const char * utf8)
-      ﹟reᵍ(__builtin_int_t r) ﹟λ(Argᴾ::Output scalar, void * context)
+                                                                             
+    print "The brown ⬚ jumped over the lazy ⬚\n", ﹟s("fox"), ﹟s("dog")      
+      ﹟d(__builtin_int_t d)                     ﹟b(__builtin_uint_t b)      
+      ﹟S(int tetras, const char32_t * uc)       ﹟s(const char * utf8)       
+   Scientific and Monetary: ﹟F(double f) and ﹟F(float r)                    
+      ﹟reᵍ(__builtin_int_t r) ﹟λ(Argᴾ::Output scalar, void * context)       
                                                                              
    Also: U(__uint128_t),x(__builtin_uint_t),c(char),C(char32_t),I(__int128_t)
                                                                              
-    E․𝘨: auto set💰 = ^(Argᴾ::Unicode set, void * context) { … };
+    E․𝘨  auto set💰 = ^(Argᴾ::Unicode set, void * context) { … };            
                                                                              
     Big no-no: ≈ ≣ ≡ ∝ --<'', '' (Slanted dowsing.)
     Signals: ⎍ ⎎ ⊕ ⏚ ҂ ㊉㊀ ㎽ ㎮ ㎯
