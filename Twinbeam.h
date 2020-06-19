@@ -348,6 +348,8 @@ template <typename ℚ> ℚ arithmetic(ℚ x₁, ℚ x₂) { return (x₁ + x₂
 /* C․𝘧 the two files --<🥽 Argentum.cpp> (TO-BE-TYPED) and --<🥽 Newton.cpp>. */
 template <typename T> bool rel₋eq(T x₁, T x₂) { return !(x₁ < x₂ || x₂ < x₁); }
 template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
+__builtin_uint_t MOR(__builtin_uint_t X,__builtin_uint_t 👈);
+__builtin_uint_t MXOR(__builtin_uint_t X,__builtin_uint_t 👈);
 #define WHEN_COMPILING constexpr static
 #define NOT_EVERYTIME const static
 #define CARDINALS(...) enum Cardinal { __hole=0, __VA_ARGS__ };              \
@@ -649,12 +651,10 @@ inline void Initiate(Fiber::fiber_t& fib, void (*jam)(Fiber::fiber_t *, void *uc
 
 #pragma mark - 😐😇
 
-struct Chronology { struct Peg { __builtin_int_t soon=0; }; 
+struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ }; 
     
     typedef octa Instant; typedef octa Interval; /** Second is calendric 
       alt. monotonically increasing non-rooting temporal relative. */
-    
-    enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
     
     typedef uint32_t UQ32; /* E․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */	
     
@@ -709,13 +709,10 @@ struct Chronology { struct Peg { __builtin_int_t soon=0; };
     
     /**  Return weekday assuming a week starts on a Wednesday. (Encoded as 0.) */
     
-    int dayofweek(Instant instant, int &wd) const; /* May return ≠0 ⟷ 'divergent 
+    int dayofweek(Instant instant, int &wd) const; /*  May return ≠0 ⟷ 'divergent 
      methods recognized'. */
     
 };
-
-__builtin_int_t Ordinal(bool * didwrap, Chronology::Peg * act); /**  Retrieves a unique 
- value in a 'strict monotonically increasing' serie.  Wraps (𝄇) at `BUILTIN_INT_MAX`. */
 
 int
 InstantToText(
