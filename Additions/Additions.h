@@ -53,14 +53,22 @@ Binary32_MAN ␣␣␣␣|␣␣␣␣|␣xxx|xxxx|xxxx|xxxx|xxxx|xxxx| Fraction
 #define IEEE754BASE2_64BIT_QNAN₂  0x7ff8000000000002L /* Quiet */
 #define IEEE754BASE2_32BIT_QNAN₂  0x7FC00002
 
-MACRO bool isinf(double x) { octa o; o.base₂ = x; return o.bits == 
-  IEEE754BASE2_64BIT_NINF || o.bits == IEEE754BASE2_64BIT_PINF; }
+MACRO bool is₋pairwise₋inf(double x, double y, int * bipolar) {
+  octa o₁, o₂; o₁.base﹟𝟸=x, o₂.base﹟𝟸=y; *bipolar=1; 
+  uint64_t 🥈 P=IEEE754BASE2_64BIT_PINF, N=IEEE754BASE2_64BIT_NINF;
+  if (o₁.bits == N && o₂.bits == P) { return true; }
+  if (o₁.bits == P && o₂.bits == N) { return true; }
+  *bipolar=0;
+  if (o₁.bits == N && o₂.bits == N) { return true; }
+  if (o₁.bits == P && o₂.bits == P) { return true; }
+  return false; 
+}
 
-MACRO bool isnan(double x) { octa o; o.base₂ = x; return (o.binary64.mantissah 
-  != 0 || o.binary64.mantissal != 0) && o.binary64.exponent == 0x7ff; } /* Exponent 
+MACRO bool isnan(double x) { octa o; o.base₂ = x; return (o.binary64.mantissah != 0 || 
+  o.binary64.mantissal != 0) && o.binary64.exponent == 0x7ff; } /* Exponent 
  is eleven bits. Sign not relevant; and IEEE 754-2008: MSB is `is_quiet`. */
 
-MACRO bool isexactlyzero(double x) { octa o; o.base₂ = x; return o.bits == 
+MACRO bool iszero(double x) { octa o; o.base₂ = x; return o.bits == 
   IEEE754BASE2_64BIT_PZERO || o.bits == IEEE754BASE2_64BIT_NZERO; }
 
 MACRO double abs64d(double x) { return x < +0.0 ? -x : x; } /* …and for the mathematically inclined '-0.0'. */
@@ -290,7 +298,7 @@ int Width(const Unicodes& uc, Unit unit, double &width, double &kerning) WESTERN
 /* 1 thou = 1/100'th inch; 1pc=1/6 inch, 1/12pc=1pt. */
 /* 1 shilling ⟷ 1/12 pound ∧ 1 shilling ⟷ 12 pence. (DE-MORGAN's law) */
 /* Hydrogen a․𝘬․a ²H: 0 0 0, 1 2 1. (a․𝘬․a 'toggling isotopes'.) */
-/* Intevals and dots: 0 0, 0 1, 1 2, 3 3, ﹇ 4.  See also OEIS. */
+/* Intervals and dots: 0 0, 0 1, 1 2, 3 3, ﹇ 4.  See also OEIS. */
 namespace Raster { enum { mm, lines, nonuniform₋mm, none }; }
 
 #pragma mark - Sequences and series
@@ -300,7 +308,7 @@ namespace Raster { enum { mm, lines, nonuniform₋mm, none }; }
 
 struct Chronology₋peg { __builtin_int_t soon=0; };  /* A․𝘬․a `Sequent` and 'Stilistic chronology'. */
 
-__builtin_int_t Ordinal(bool * didwrap, Chronology₋peg * act); 
+__builtin_int_t Ordinal(Chronology₋peg * act, bool * didwrap);
 
 #pragma mark - The Terminal
 
@@ -436,7 +444,7 @@ enum class CastToIntOpinion { accept, rejecting, negate, commit, annul };
 Opt<__builtin_int_t>
 CastTˣᵗToInt(
   CastToIntOpinion (^feeder)(unsigned short &digit)
-); /* 𝘈․𝘬․a `CastToInt`. Includes also 'Swap 𝑣𝑠․ ♚♜ and X'. */
+); /* 𝘈․𝘬․a `CastToInt`. Incorp. also 'Swap 𝑣𝑠․ ♚♜ and X'. */
 
 enum class Inputcontrol { ok, quit };
 
@@ -468,7 +476,7 @@ struct Fifo { int count=0, brk=0, elems; E * base;
    /* The parameter `nowdelta` is a․𝘬․a `δ` and `previous-relative-head`. */
    E * include() { if (count == elems) return NULL; E * Ɀ=brk+base; Include(elems,&brk,&count); return Ɀ; }
    int shiftout() { if (count == 0) { return -1; } count--; return 0; }
-   enum Flavor { allinorder, latest /* 𝘊․𝘧 `randomized`. */ };
+   enum Flavor { allinorder, latest /* c․𝘧 `randomized`. */ };
 };  /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp.  Note also that three areas where 
   one 'precomputed 'area always separates the 'producer' from the 'consumer' 
   enables a 'stable external projection' without visible fluctuations a․𝘬․a 

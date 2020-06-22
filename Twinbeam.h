@@ -348,8 +348,6 @@ template <typename ℚ> ℚ arithmetic(ℚ x₁, ℚ x₂) { return (x₁ + x₂
 /* C․𝘧 the two files --<🥽 Argentum.cpp> (TO-BE-TYPED) and --<🥽 Newton.cpp>. */
 template <typename T> bool rel₋eq(T x₁, T x₂) { return !(x₁ < x₂ || x₂ < x₁); }
 template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
-__builtin_uint_t MOR(__builtin_uint_t X,__builtin_uint_t 👈);
-__builtin_uint_t MXOR(__builtin_uint_t X,__builtin_uint_t 👈);
 #define WHEN_COMPILING constexpr static
 #define NOT_EVERYTIME const static
 #define CARDINALS(...) enum Cardinal { __hole=0, __VA_ARGS__ };              \
@@ -383,7 +381,7 @@ typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffse
 #pragma mark - 🌱
 
 typedef union {
-   double base₂; /* Captures 2⁻¹⁰²² and 2¹⁰²³ or in engineering: 2․23×10⁻³⁰⁸ to 1․79×10³⁰⁸. */
+   double base﹟𝟸; /* Captures 2⁻¹⁰²² and 2¹⁰²³ or in engineering: 2․23×10⁻³⁰⁸ to 1․79×10³⁰⁸. */
    struct { uint32_t lst; int32_t mst; } signed_little_endian;
    struct { int32_t mst; uint32_t lst; } signed_big_endian;
    struct { uint32_t lst; uint32_t mst; } unsigned_little_endian;
@@ -393,8 +391,8 @@ typedef union {
       unsigned mantissah : 20;
       unsigned exponent  : 11;
       unsigned sign      :  1;
-   } binary64; /* A․𝘬․a `ieee754b₂`. */
-   /* struct { … } ieee754b₁₀; A․𝘬․a `decimal64`. */
+   } binary64; /* a․𝘬․a `ieee754b﹟𝟸`. */
+   /* struct { … } ieee754b﹟𝟷𝟶; a․𝘬․a `decimal64`. */
    /* struct { 
       unsigned absolute  : 31;
       unsigned sign      :  1;
@@ -454,7 +452,7 @@ int Hash(uint8_t * material, __builtin_int_t bytes, void (^ping𝘖r𝖭𝖴𝖫
 #endif /* ~0b0>>1 */
 
 typedef union {
-   float base₂; /* For 2⁻¹²⁶ to 2¹²⁷ or 1․18×10⁻³⁸ to 3․40×10³⁸. */
+   float base﹟𝟸; /* For 2⁻¹²⁶ to 2¹²⁷ or 1․18×10⁻³⁸ to 3․40×10³⁸. */
    struct { uint16_t lsh; int16_t msh; } signed_little_endian;
    struct { int16_t msh; uint16_t lsh; } signed_big_endian;
    struct { uint16_t lsh; uint16_t msh; } unsigned_little_endian;
