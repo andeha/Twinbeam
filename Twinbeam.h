@@ -554,7 +554,7 @@ void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
 int Sediment(unsigned expeditionary, __builtin_int_t bytes, void (^once𝘖rNought)(Bits& bits));
 /* ⬷ A․k․a `Otherref`; Similar-to `alloca`. */
 
-int IsPrefixOrEqual(const char *eightbitString, const char *eightbitPrefix);
+int IsPrefixOrEqual(const char *𝟽alt𝟾₋bitstring, const char *𝟽alt𝟾₋bitprefix);
 /* Returns `int` indicating difference at branch, -1 if equal and `0` when string 
     contains neither prefix nor is equal. */
 

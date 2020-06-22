@@ -23,9 +23,10 @@ build $libroot: lib $objsdir/Additions.o $objsdir/Ieee754₆₄bits.o           
   $objsdir/arctan.o $objsdir/atan₂.o $objsdir/cherry.o $objsdir/ℯ🔭².o      $
   $objsdir/logₑ.o $objsdir/log𝛤.o $objsdir/mod.o $objsdir/sincos.o          $
   $objsdir/tan.o $objsdir/tanh.o $objsdir/Erf.o $objsdir/Knot.o             $
-  $objsdir/Present.o $objsdir/Presentᵃᵘˣ.o 
+  $objsdir/Present.o $objsdir/Presentᵃᵘˣ.o $objsdir/photo-d3.o 
  
 build $objsdir/Additions.o: cc Additions.cpp
+build $objsdir/photo-d3.o: cc photo-d3.cpp
 build $objsdir/Ieee754₆₄bits.o: cc Ieee754₆₄bits.cpp
 build $objsdir/Random.o: cc Random.cpp
 build $objsdir/Randomˢᵚ.o: cc Randomˢᵚ.cpp

@@ -271,6 +271,9 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
     
 😐; /* …, `DecoratedString` and `Recording`. */
 
+template <typename T> struct rectangle { T height, width; int /* Unit */ unit; };
+template <typename T> struct measure { T value; int /* Unit */ unit; };
+
 #if __has_include(<Additions/Impressions.hpp>)
 #include <Additions/Impressions.hpp>
 #endif
@@ -280,14 +283,24 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
 #include <Additions/Typeset.hpp> */
 #endif
 
-namespace Unit { enum { thou, mm, in, pc, pt, px, 𝑜𝑝𝑡lp }; };
+namespace Unit { enum { thou, mm, in, pc, pt, px, 𝑜𝑝𝑡lp }; }
 /* int Width(const Ornaments& o, Unit unit, double &width, double &kerning) WESTERN;
 int Width(const Unicodes& uc, Unit unit, double &width, double &kerning) WESTERN; */
 /* 1/log²(2) 'pavoni'=distance between copy and its header. */
 /* 1 thou = 1/100'th inch; 1pc=1/6 inch, 1/12pc=1pt. */
 /* 1 shilling ⟷ 1/12 pound ∧ 1 shilling ⟷ 12 pence. (DE-MORGAN's law) */
+/* Hydrogen a․𝘬․a ²H: 0 0 0, 1 2 1. (a․𝘬․a 'toggling isotopes'.) */
+/* Intevals and dots: 0 0, 0 1, 1 2, 3 3, ﹇ 4.  See also OEIS. */
+namespace Raster { enum { mm, lines, nonuniform₋mm, none }; }
 
-/* Intevals and dots: 0 0, 0 1, 1 2, 3 3, ﹇ 4 */
+#pragma mark - Sequences and series
+
+/**  Retrieves a unique value in a 'strict monotonically increasing' serie. 
+ Wraps (𝄇) at `BUILTIN_INT_MAX`. */
+
+struct Chronology₋peg { __builtin_int_t soon=0; };  /* A․𝘬․a `Sequent` and 'Stilistic chronology'. */
+
+__builtin_int_t Ordinal(bool * didwrap, Chronology₋peg * act); 
 
 #pragma mark - The Terminal
 
@@ -305,13 +318,13 @@ struct Utf8Terminal {
       int 𝟷𝟶ᵗʰ₋seconds,
       void (^ping𝘖r𝖭𝖴𝖫𝖫)(bool &stop), /* Cyclically whilst time passes. */
       void (^input)(char32_t unicode, bool &stop) /* After a key press. */
-    ) const; /* 𝘈․𝘬․a `interact`, `read` and `password`. */
+    ) const; /* 𝘊․𝘧 `readOne𝘖rManylines`, password`, `getc`/`ungetc` and `readline`. */
     
     int write(const uint8_t * utf8s, __builtin_int_t bytes) const; /* ⬷ Optionally NULL-termination included. */
     
     void (^format)(double x, Utf8Terminal &stream);
     
-#if __has_include(<Additions/VT99.cxx>)
+#if __has_include(<Additions/photo-d3.cxx>) && __has_include(<Additions/VT99.cxx>)
 #include <Additions/VT99.cxx>
 #endif
     
@@ -423,7 +436,7 @@ enum class CastToIntOpinion { accept, rejecting, negate, commit, annul };
 Opt<__builtin_int_t>
 CastTˣᵗToInt(
   CastToIntOpinion (^feeder)(unsigned short &digit)
-); /* 𝘈․𝘬․a `CastToInt`. Also `--<🥽 Swap 𝑣𝑠․ ♚♜-X>`. */
+); /* 𝘈․𝘬․a `CastToInt`. Includes also 'Swap 𝑣𝑠․ ♚♜ and X'. */
 
 enum class Inputcontrol { ok, quit };
 
