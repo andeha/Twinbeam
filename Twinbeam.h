@@ -34,7 +34,7 @@ typedef int64_t             __builtin_int_t; /* 𝘈․𝘬․a `sequential`. */
 #endif /* ⬷ Consider 32- alt. 64-bits with an extra sign bit for `Frame`, `leqAndPowerOfTwo`, `geqAndPowerOfTwo` and `isPowerOfTwo`. */
 typedef unsigned short      uint16_t;
 typedef short               int16_t; /* ≡`ᵐⁱᵖˢint` */
-typedef __builtin_uint_t Tribool;
+typedef __builtin_uint_t Tribool; /* 𝘤․𝘧 🎿 'obekant'. */
 
 typedef struct bignum { /* Artificial */
   constexpr static int maxdigits = 100; /* To not: Templates, … */
@@ -76,10 +76,10 @@ template <typename T> struct SemanticPointer { T ref; }; /* 𝘈․𝘬․a `Dis
 #define OPT_Si_FOCAL
 #define ENCLAVED
 /* #define ⚠️_IMPLICATIONS_WHILE_HARDTIMES */
-#define ARGUMENTATIVE /* A․𝘬․a `ONLY_FOR_SOFT_REALTIME`. */
+#define ARGUMENTATIVE /* a․𝘬․a `ONLY_FOR_SOFT_REALTIME`. */
 #define MAY_CONTAIN_TRACES_OF_FIRM_REALTIME
 #define INFLATABBLE
-#define SYNTESIZABLE /* I.𝘦 no loops, … */
+#define SYNTESIZABLE /* i.𝘦 no loops, … */
 #define FOSSILATED
 #define CONTEMPLATE
 #define 🚫🔌 ARGUMENTATIVE /* ⏲ */
@@ -190,6 +190,7 @@ MACRO __builtin_uint_t TrailingZeros(__builtin_uint_t x) { if (x == 0) { return
   8*sizeof(x); } x=(x^(x-1))>>1; int c=0; for (; x; c++) { x >>= 1; } return c; }
 /* ⬷ Not `__builtin_clzl` for Mips and `__builtin_clz` for Intel.  And for 
   contemplative consumption of abstraction, 𝑃𝑖𝑛𝑐𝑒 𝑎𝑏𝑠𝑡𝑟𝑎𝑖𝑡: */
+MACRO void Envelop(__builtin_uint_t & x) { x=(x^(x-1)); }
 MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   void (^update)(__builtin_uint_t& shifted) = ^(__builtin_uint_t&) { } ) {
   __builtin_uint_t word = *symbol, shift=TrailingZeros(mask), orig = mask&word,
@@ -211,7 +212,7 @@ char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int1
 Argᴾ ﹟reᵍs(__builtin_uint_t mask); Argᴾ ﹟λ(Argᴾ::Output scalar, void * context);
 extern "C" { int atexit(void(*func)(void)); void exit(int); } 
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow₋ₒ)(void *);
-__builtin_int_t 𝟺𝟶𝟿𝟼₋aligned₋frame₂(__builtin_int_t byte₋number, __builtin_int_t * modulo);
+__builtin_int_t 𝟺𝟶𝟿𝟼₋aligned₋frame(__builtin_int_t byte₋number, __builtin_int_t * modulo);
 int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
   __builtin_uint_t avails[], void (^every)(uint8_t * 𝟸ⁿframe, bool& stop));
 int Release𝟷ᵈ(void * 𝟸ⁿframe, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
@@ -360,7 +361,7 @@ template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 🥇 NOT_EVERYTIME
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
 #define 🥈 WHEN_COMPILING /* Must be assigned to a `const` and no inline assembler. */
-#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧. Scandinavian 'jurid' and 'förekomst'. Also machinal. */
+#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 🎿 'jurid' and 'förekomst'. Also 'machinal'. */
 template <typename T> T * Critic(const T * x) { return const_cast<T*>(x); }
 template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* A․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
 #define ᶿ﹡ const * /* #define *⥃ const char *, a․𝘬․𝘢 `*⥆` and `*⫩`. */
@@ -501,18 +502,18 @@ enum { END_OF_TRANSMISSION = U'\u0004' }; /* ⬷ hex ∧ dec; Also A․|incorrec
 
 typedef __builtin_uint_t virtuaddr;
 
-typedef SemanticPointer<virtuaddr> byteaddress; /* A․𝘬․a `metaaddress`. */
+typedef SemanticPointer<virtuaddr> byteaddress; /* a․𝘬․a `metaaddress`. */
 
 struct Memorydelegate {
   virtual void statistics(Scatter * s, char32_t unicode) = 0;
-  virtual void issue(Scatter * s, __builtin_int_t arg, int nº) = 0;
+  virtual void issue(Scatter * s, virtuaddr arg, int nº) = 0;
 };
 
 struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max4MB and Nonbound.) */
    Scatter(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpagebytes) FALLIBLE;
    Scatter(Memorydelegate * delegate = NULL);
    int 𝟺kinit(void * the𝟺kbpage, short unusedbytes);
-/* int 𝟺Mbinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpage₋bytes); */
+   int 𝟺Mbinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpage₋bytes);
    int 𝟺Gbinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpage₋bytes);
    int incorp(__builtin_int_t bytes₋to₋tail, __builtin_int_t bytes, void (^sometimes)(short bytes, uint8_t * virtue));
    int shiftout(__builtin_int_t bytes, void (^left)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖r𝟺kbPage)); /* Also `𝘗𝘰𝘴𝘴𝘪𝘣𝘭𝘺`. */
@@ -546,8 +547,8 @@ struct Bits { Bits(Scatter * s); Scatter * scatter; uint8_t& operator[](__builti
   uint64_t /* a․𝘬․a `ieee754dbl₋pattern` */ intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
 }; /* A․k․a `Memoryregion`. */
 
-void * ExactSeek₂(const void *key, const void *base, size_t num, size_t size,
-  __builtin_int_t (^cmp)(const void *key, const void *elt));
+void * ExactSeek₂(const void *key, const void *base, size_t num, 
+ size_t size, int (^cmp)(const void *key, const void *elt));
 
 int Sediment(unsigned expeditionary, __builtin_int_t bytes, void (^once𝘖rNought)(Bits& bits));
 /* ⬷ A․k․a `Otherref`; Similar-to `alloca`. */
