@@ -34,7 +34,7 @@ typedef int64_t             __builtin_int_t; /* 𝘈․𝘬․a `sequential`. */
 #endif /* ⬷ Consider 32- alt. 64-bits with an extra sign bit for `Frame`, `leqAndPowerOfTwo`, `geqAndPowerOfTwo` and `isPowerOfTwo`. */
 typedef unsigned short      uint16_t;
 typedef short               int16_t; /* ≡`ᵐⁱᵖˢint` */
-typedef __builtin_uint_t Tribool; /* 𝘤․𝘧 🎿 'obekant'. */
+typedef __builtin_uint_t Tribool; /* 𝘊․𝘧 🎿 'obekant' and 'icke-lös'. */
 
 typedef struct bignum { /* Artificial */
   constexpr static int maxdigits = 100; /* To not: Templates, … */
@@ -361,10 +361,10 @@ template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 🥇 NOT_EVERYTIME
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
 #define 🥈 WHEN_COMPILING /* Must be assigned to a `const` and no inline assembler. */
-#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* 𝘈․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 🎿 'jurid' and 'förekomst'. Also 'machinal'. */
+#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* a․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 🎿 'jurid' and 'förekomst'. Also 'machinal'. */
 template <typename T> T * Critic(const T * x) { return const_cast<T*>(x); }
-template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* A․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
-#define ᶿ﹡ const * /* #define *⥃ const char *, a․𝘬․𝘢 `*⥆` and `*⫩`. */
+template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* a․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
+#define ᶿ﹡ const * /* #define *⥃ const char *, a․𝘬․a `*⥆` and `*⫩`. */
 
 #pragma mark Utf-8
 
@@ -601,7 +601,7 @@ namespace Fiber {
       __builtin_int_t bytes₋kernel, bytes₋rt, bytes₋irq;
     };
 #endif
-    struct Peel { void * variables; /* ⬷ A․𝘬․a `citri`. */
+    struct Peel { void * variables; /* ⬷ a․𝘬․a `citri`. */
       ucontext_t ctx; int 🥈 bytes=sizeof(ucontext_t);
       uint8_t alcoda[bytes]; /* ⌖ */
     }; /* ⬷ Consider `Orbital` and `Principia`; a․𝘬․a 'Pentominoes'. */
