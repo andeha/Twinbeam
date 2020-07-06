@@ -8,10 +8,10 @@
 #ifndef __ADDITIONS_H
 #define __ADDITIONS_H
 
-void CastᵈᵇˡToText(double value,
+void CastᵈᵇˡToText(double value, 
   void (^digits)(bool neg, int e, const char *𝟶to𝟿s), 
   void (^zero)(bool neg), void (^inf)(bool neg), void (^nan)()
-); /* A․𝘬․a `CastToText`. */
+); /* a․𝘬․a `CastToText`. */
 
 /* The next smallest value after `1`. */
 #define DOUBLE_EPS1  1.00000000000000011102230246251565 /* 1+2⁻⁵³ */
@@ -53,7 +53,7 @@ Binary32_MAN ␣␣␣␣|␣␣␣␣|␣xxx|xxxx|xxxx|xxxx|xxxx|xxxx| Fraction
 #define IEEE754BASE2_64BIT_QNAN₂  0x7ff8000000000002L /* Quiet */
 #define IEEE754BASE2_32BIT_QNAN₂  0x7FC00002
 
-MACRO bool is₋pairwise₋inf(double x, double y, int * bipolar) {
+MACRO int is₋pairwise₋inf(double x, double y, int * bipolar) {
   octa o₁, o₂; o₁.base﹟𝟸=x, o₂.base﹟𝟸=y; *bipolar=1; 
   uint64_t 🥈 P=IEEE754BASE2_64BIT_PINF, N=IEEE754BASE2_64BIT_NINF;
   if (o₁.bits == N && o₂.bits == P) { return true; }
@@ -64,14 +64,27 @@ MACRO bool is₋pairwise₋inf(double x, double y, int * bipolar) {
   return false; 
 }
 
-MACRO bool isnan(double x) { octa o; o.base₂ = x; return (o.binary64.mantissah != 0 || 
-  o.binary64.mantissal != 0) && o.binary64.exponent == 0x7ff; } /* Exponent 
+MACRO int isnan(double x) { octa o; o.base﹟𝟸=x; return (o.binary64.mantissah != 0 || 
+ o.binary64.mantissal != 0) && o.binary64.exponent == 0x7ff; }  /* Exponent 
  is eleven bits. Sign not relevant; and IEEE 754-2008: MSB is `is_quiet`. */
 
-MACRO bool iszero(double x) { octa o; o.base₂ = x; return o.bits == 
-  IEEE754BASE2_64BIT_PZERO || o.bits == IEEE754BASE2_64BIT_NZERO; }
+MACRO int iszero(double x) { octa o; o.base﹟𝟸=x; return o.bits == 
+ IEEE754BASE2_64BIT_PZERO || o.bits == IEEE754BASE2_64BIT_NZERO; }
 
-MACRO double abs64d(double x) { return x < +0.0 ? -x : x; } /* …and for the mathematically inclined '-0.0'. */
+MACRO double abs64d(double x) { return x < +0.0 ? -x : x; }
+
+MACRO int 
+Similar(
+  double x, double y, double eps
+)
+{  int bipolar; 
+    if (isnan(x) && isnan(y)) { return true; }
+    if (is₋pairwise₋inf(x,y,&bipolar) && bipolar) { return true; }
+    if (isnegone(x) && isnegone(y)) { return true; }
+    if (iszero(x) && iszero(y)) { return true; }
+    double diff = abs64d(x-y);
+    return diff < eps;
+}
 
 namespace Numberformat { enum { Scientific, Monetary }; }
 MACRO Argᴾ ﹟F(double f, int format=Numberformat::Scientific) { return Argᴾ { .value.f₁=f, 9 }; }
@@ -170,8 +183,8 @@ unagain:                                                                    \
 inline
 int
 Utf8ToUnicode(
-  const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8,
-  __builtin_int_t maxutfbytes, 
+  const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, 
+  __builtin_int_t maxutfbytes,
   void (^out)(char32_t * uc, __builtin_int_t tetras)
 ) {  __builtin_int_t maxUCs=UnicodesAnd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(utf8,maxutfbytes);
    if (maxUCs == maxutfbytes) { return 1; }
@@ -184,7 +197,7 @@ Utf8ToUnicode(
 inline
 int
 UnicodeToUtf8(
-  char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳,
+  char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳, 
   __builtin_int_t maxtetras,
   void (^out)(const char * utf8, __builtin_int_t tetras, __builtin_int_t ᵇutf8)
 ) {  __builtin_int_t tetras=UnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳(ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳,maxtetras);
@@ -199,7 +212,7 @@ UnicodeToUtf8(
 
 inline
 int
-UnicodeToUtf8(Unicodes ucs,
+UnicodeToUtf8(Unicodes ucs, 
   void (^out)(const char * utf8, __builtin_int_t ᵇutf8)
 ) {
    __builtin_int_t ᵇutf8 = 4*ucs.tetras; /* Closed under 4 times and less. */
@@ -237,7 +250,7 @@ typedef struct UnicodeBlock⁻¹ {
 
 #include <Additions/Knot.h>
 
-FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …       
+FINAL struct Ornaments { /* a․𝘬․a `Intervallic`, `SpatialIntervals`, …       
                                                                              
          ⎡      😐≅       ⎤                                                  
         ♢⎢    😐?😐≅😐    ⎥                                                  
@@ -264,7 +277,7 @@ FINAL struct Ornaments { /* A․𝘬․a `Intervallic`, `SpatialIntervals`, …
       
       struct {
         
-        /* 𝟺𝚔𝚋Quadtreenode * quadtrees; */
+        /* 𝟺𝚔𝚋Quadtreenode quadtrees[2]; */
         
       } exegesis;
       
@@ -422,9 +435,9 @@ Utf8Terminal & operator<<(Utf8Terminal&, 𝗣𝒂𝒈𝒆);
 
 extern "C" { extern const char *tab, *eol, *sep; } /* Also: ↹ ↩︎ ¶ and hfill: ⎓ alt. ﹇. */
 
-extern Utf8Terminal _myTerminal, _myTracelog;
+extern Utf8Terminal _myOutput, _myTrace;
 
-#define Termlog _myTerminal
+#define Termlog _myTrace
 
 #pragma mark - Guids
 
@@ -460,31 +473,47 @@ enum class Tokenizefact { fragment, rejecting, separator, error, eol };
 
 int
 Tokenize(
-  Tokenizefact (^feeder)(char32_t &unicode),
-  Inputcontrol (^ahead)(char32_t * unicodes, __builtin_int_t count),
+  Tokenizefact (^feeder)(char32_t &unicode), 
+  Inputcontrol (^ahead)(char32_t * unicodes, __builtin_int_t count), 
   Inputcontrol (^token)(char32_t * unicodes, __builtin_int_t count)
 ); /* `Tokenize` - `ReadUnicode` = Opt<𝑓𝑢𝑡𝑢𝑟𝑒 𝑡𝑒𝑛𝑠𝑒> */
 
-#pragma mark - F̲irst i̲n f̲irst o̲ut: Zero, one or two halves are always returned`(FIFO)
+#pragma mark - FIFO: 0, 1 or 2 halves always returned
 
-extern void Include(int elems, int * brk, int * count);
-extern int Physical(unsigned nowdelta, int brk, int elems);
+struct ᵐᵃᵡ𝟺kb₋etiolate { __builtin_int_t ﹟; void * 𝟺kbtiles[]; }; /* a․𝘬․a `day-sy`. */
 
-template <typename E>
-struct Fifo { int count=0, brk=0, elems; E * base; 
-   int init(int elems, E * base) { this->elems=elems; this->base=base; return 0; }
-   /* The parameter `nowdelta` is a․𝘬․a `δ` and `previous-relative-head`. */
-   E * include() { if (count == elems) return NULL; E * Ɀ=brk+base; Include(elems,&brk,&count); return Ɀ; }
-   int shiftout() { if (count == 0) { return -1; } count--; return 0; }
-   enum Flavor { allinorder, latest /* c․𝘧 `randomized`. */ };
-};  /* 𝘈․𝘬․a Fifoʳᵉf and not Fifoⁱⁿcorp.  Note also that three areas where 
-  one 'precomputed 'area always separates the 'producer' from the 'consumer' 
-  enables a 'stable external projection' without visible fluctuations a․𝘬․a 
-  'flickering'; whereas two areas lead to the need to induce 'lock' as well as
-  the other contratranquistimulantic constraints. 'efterhandskonstruktion'/hack. 
-  (ret-ro-spect = [stimulu-tranqui-jello]). 
+/* template <typename E> struct 🅨₋Arrange {
+virtual int copy₋include(int count, E * Ɀ) = 0;
+virtual int shiftout(int count) = 0; };
+template <typename E> struct 🅨₋arrange₋X { virtual int reform(int segments) = 0; /* a․𝘬․a `amend` and `augment`. * / };
+enum Tape₋ctrl { stop, reverse, forward }; template struct <typename E, int SEL=3> 🅨₋tape₋N {
+int read(int bytes, void (^intervals⁺ʳ⁻ᵚ₋𝟷₋𝘯)(int actual, uint8_t * now₋readable, Tape₋ctrl &next));
+int write(int bytes, void (^intervals⁻ʳ⁺ᵚ₋𝟷₋𝘯)(int avail, uint8_t * later₋written, bool last)); }; */ 
+
+struct fifo { __builtin_int_t E₋max, brk=0, count=0; __builtin_uint_t * 𝟷₋tile; 
+   
+   /* ...and for segmented fifos possibly with padding at end: */
+   ᵐᵃᵡ𝟺kb₋etiolate * 𝗇₋tiles; short tile₋brk=0, elem₋brk=0;
+   
+   int init(__builtin_int_t E₋elems, void * 𝟷₋tile);
+   int init(ᵐᵃᵡ𝟺kb₋etiolate * 𝗇₋tiles);
+   
+   int 𝟷₋tile₋copy₋include(int count, __builtin_uint_t * Ɀ); /* ⬷ For 
+  use inside irq when one of two dma buffers are full 𝘦․𝘨 'B-buffer-full-irq'. */
+   int n₋tile₋copy₋include(int count, __builtin_uint_t * Ɀ); /* a․𝘬․a `🅨₋Arrange::copy₋include`. */
+   
+   int shiftout(int elems);
+   int 𝟷₋tile₋fifo₋pop(int elems, void (^𝟷₋succumb)(__builtin_uint_t * bottom₋elem));
+   int n₋tile₋fifo₋pop(int elems, void (^many₋𝟺kbetiolates)(int tot, int ﹟, void * bottom₋elem));
+   /* ⬷ a․𝘬․a `structure-preserving-n₋tile₋fifo₋pop`. */
+}; /*  A․𝘬․a `Fifoʳᵉf`, `n₋tile₋fifo` and `𝟷₋tile₋fifo`. 𝖢․𝘧 also `Fifoⁱⁿcorp`.  Note 
+  that three areas where one 'precomputed 'area always separates the 'producer' from 
+  the 'consumer' enables a 'stable external projection' without visible fluctuations 
+  a․𝘬․a 'flickering'; whereas two areas lead to the need to induce 'lock' as well as 
+  the other contratranquistimulantic constraints. 
+  'efterhandskonstruktion'/hack. (ret-ro-spect = [stimulu-tranqui-jello]). 
   
-  Integration using the trapezoid rule is a recursive filter:
+  Integration using the trapezoid rule is a recursive filter: 
     
     yᵢ₊₁ = yᵢ + h (uᵢ₊₁ + uᵢ)/2
     
@@ -492,34 +521,25 @@ struct Fifo { int count=0, brk=0, elems; E * base;
     
     yᵢ₊₁ = yᵢ₋₁ + h (uᵢ₊₁ + 4uᵢ + uᵢ₋₁)/3
     
-  See --<🥽 Romberg.cpp> for a ∫-method that is not on-line.
+  See also 'man mkfifo' and 'man mknod'.
+  
+  Further, see --<🥽 Romberg.cpp> for a ∫-method that is not on-line.
   
  */
 
-template <typename E> bool Empty(const Fifo<E>& q) { return q.count == 0; }
-template <typename E> E * Deref(unsigned δ, const Fifo<E>& q) { return q.base+Physical(δ,q.brk,q.elems); }
-template <typename E> E * Youngest(const Fifo<E>& q) { return Empty(q) ? NULL : Deref(0,q); }
-template <typename E> E * Oldest(const Fifo<E>& q) { return Empty(q) ? NULL : Deref(q.count-1,q); }
-
-template <typename E> void Incorporate(const Fifo<E>& q, void (^location)(E * elem))
-{ if (q.count==q.elems) { q.shiftout(); } E * elem = q.include(); location(elem); }
-
-template <typename E>
-int Retrospect(typename Fifo<E>::Flavor f, const Fifo<E>& q, E * t, E * t₋₁)
-{
-    switch (q.count) { case 0: return -1; 
-      case 1: *t₋₁=*t=Deref(0,q); return 0;
-      default: switch (f) { 
-        case Fifo<E>::allinorder: *t₋₁=Deref(q.count-1,q); *t=Deref(q.count-2,q); break;
-        case Fifo<E>::latest: *t=Deref(0,q); *t₋₁=Deref(1,q); break;
-    } } return 0;
-} /* Consider `𝟹₋Retrospect` where the derivate may appear to be continous. See 
-  also --<System.h>{Actual} where two queues and interpolation results in a 
-  `simd_tᵦ` and irreversibly 'momentan-retrospectiv'. See also 'man mkfifo' and 'man mknod'. */
+bool Empty(const fifo& q);
+__builtin_uint_t * 𝟷₋tile₋Deref(unsigned δ, const fifo& q);
+__builtin_uint_t * n₋tile₋Deref(__builtin_uint_t δ, const fifo& q);
+__builtin_uint_t * n₋tile₋Bank(__builtin_uint_t idx, const fifo& q);
+__builtin_uint_t * n₋tile₋Chronologic(const fifo& q, __builtin_uint_t idx);
+__builtin_uint_t * n₋tile₋Youngest(const fifo& q);
+__builtin_uint_t * n₋tile₋Oldest(const fifo& q);
+enum class fifo₋flavor { allinorder, latest /* 𝘤․𝘧 'randomized'. */ };
+int 𝟷₋tile₋Retrospect(Fifo₋flavor f, const fifo& q, __builtin_uint_t * t, __builtin_uint_t * t₋₁);
 
 #pragma mark - Recollection and associativity
 
-struct Bitsetˢᵘᵖ { /* A․𝘬․a `Capped-ET-Bitset`. */
+struct Bitsetˢᵘᵖ { /* a․𝘬․a `Capped-ET-Bitset`. */
   
   __builtin_uint_t state;
   
@@ -544,17 +564,17 @@ OptimisticAsync8Copy(
   bool ᵗᵍᵍˡendian,
   void (^ping)(int bytes, bool &reset, bool &suspend),
   void (^error)(), void (^complete)()
-); /* 𝘈․𝘬․a `Copy8Async` and `BasicTransfer`. */
+); /* a․𝘬․a `Copy8Async` and `BasicTransfer`. */
 
 #pragma mark - Dispatch, priorities and interrupts
 
-typedef void (^Async₋job)(); /* A․𝘬․a 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀 and `CHandler`. */
+typedef void (^Async₋job)(); /* a․𝘬․a 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀 and `CHandler`. */
 
 typedef int (^TransformAndResolve)(Unicodes pathᵚᵍ, void (^final)(const char * regular𝘖rLinkpath));
 
 int Reflect(Unicodes pathᵚᵍ, TransformAndResolve tr, __builtin_int_t * totalbytes, 
   void (^zero𝘖rSeveral)(__builtin_int_t byteOffset, int count, char32_t unicodes[], 
-  bool& stop)); /* A․𝘬․a `TextualReflect` and `RadioReflect`. */
+  bool& stop)); /* a․𝘬․a `TextualReflect` and `RadioReflect`. */
 int Reflect(Unicodes pathᵚᵍ, unsigned expeditionary, __builtin_int_t bytesOffset, 
  __builtin_int_t pages𝘖𝘳Zero, __builtin_int_t bytesAugment, __builtin_int_t * totalbytes, 
  TransformAndResolve tr, void (^pages)(__builtin_int_t count, uint8_t **𝟺kbframes, 
@@ -588,7 +608,7 @@ struct Jagged { Jagged(); ~Jagged();
   int include(__builtin_int_t tetraidx, __builtin_int_t δ₋count);
   __builtin_int_t count() const;
   int 𝟺kbtile(__builtin_int_t ﹟, __builtin_int_t &tetraidx, __builtin_int_t &δ₋count);
-😐; /* A․𝘬․a `Linebreaks`. */
+😐; /* a․𝘬․a `Linebreaks`. */
 
 enum class Arrangement { 𝟾, 𝟷𝟼, 𝟹𝟸, 𝟼𝟺, lo𝟼𝟺, hi𝟼𝟺, lo𝟷𝟸𝟾, hi𝟷𝟸𝟾, utf8 };
 

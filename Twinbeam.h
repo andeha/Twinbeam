@@ -364,6 +364,8 @@ template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* a․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 🎿 'jurid' and 'förekomst'. Also 'machinal'. */
 template <typename T> T * Critic(const T * x) { return const_cast<T*>(x); }
 template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* a․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
+__builtin_int_t LeastPossibleResidue(__builtin_int_t dividend, __builtin_int_t divisor); 
+/* ⬷ See --<Wiki>--<Essays>--<On Clocks and Time> and 'Circular reasoning'. */
 #define ᶿ﹡ const * /* #define *⥃ const char *, a․𝘬․a `*⥆` and `*⫩`. */
 
 #pragma mark Utf-8

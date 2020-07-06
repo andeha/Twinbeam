@@ -22,7 +22,7 @@ build $stem: lib $objsdir/Utf8.o $objsdir/Tree.o $objsdir/Memory.o          $
   $objsdir/Chronology.o $objsdir/bignum.o $objsdir/sha256.o                 $
   $objsdir/pic32mz.o $objsdir/Print.o $objsdir/Fiber.o                      $
   $objsdir/exception.o $objsdir/Paging.o $objsdir/System.o                  $
-  $objsdir/Sheriff.o
+  $objsdir/Sheriff.o $objsdir/fifo.o
 build $objsdir/Fiber.o: cc Fiber.cpp
 build $objsdir/Utf8.o: cc Utf8.cpp
 build $objsdir/Tree.o: cc Tree.cpp
@@ -36,4 +36,5 @@ build $objsdir/exception.o: asm exception.S
 build $objsdir/Paging.o: asm Paging.S
 build $objsdir/System.o: cc System.cpp
 build $objsdir/Sheriff.o: cc ../pic32rt/⭐️.cpp
+build $objsdir/fifo.o: cc ../Source/fifo.cpp
 default $stem
