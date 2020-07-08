@@ -54,14 +54,14 @@ Binary32_MAN ␣␣␣␣|␣␣␣␣|␣xxx|xxxx|xxxx|xxxx|xxxx|xxxx| Fraction
 #define IEEE754BASE2_32BIT_QNAN₂  0x7FC00002
 
 MACRO int is₋pairwise₋inf(double x, double y, int * bipolar) {
-  octa o₁, o₂; o₁.base﹟𝟸=x, o₂.base﹟𝟸=y; *bipolar=1; 
+  octa o₁, o₂; o₁.base﹟𝟸=x, o₂.base﹟𝟸=y; *bipolar=1;
   uint64_t 🥈 P=IEEE754BASE2_64BIT_PINF, N=IEEE754BASE2_64BIT_NINF;
   if (o₁.bits == N && o₂.bits == P) { return true; }
   if (o₁.bits == P && o₂.bits == N) { return true; }
   *bipolar=0;
   if (o₁.bits == N && o₂.bits == N) { return true; }
   if (o₁.bits == P && o₂.bits == P) { return true; }
-  return false; 
+  return false;
 }
 
 MACRO int isnan(double x) { octa o; o.base﹟𝟸=x; return (o.binary64.mantissah != 0 || 
@@ -271,9 +271,9 @@ FINAL struct Ornaments { /* a․𝘬․a `Intervallic`, `SpatialIntervals`, …
       
       /* typedef __builtin_int_t Parsedᴵᵈˣ; */
       
-      void * namedruns₁; /* A․𝘬․a Map<const char32_t *, Parsedᴵᵈˣ>. */
+      void * namedruns₁; /* a․𝘬․a Map<const char32_t *, Parsedᴵᵈˣ>. */
       
-      void * namedruns₂; /* A․𝘬․a Map<const char *, Parsedᴵᵈˣ>. */
+      void * namedruns₂; /* a․𝘬․a Map<const char *, Parsedᴵᵈˣ>. */
       
       struct {
         
@@ -480,7 +480,7 @@ Tokenize(
 
 #pragma mark - FIFO: 0, 1 or 2 halves always returned
 
-struct ᵐᵃᵡ𝟺kb₋etiolate { __builtin_int_t ﹟; void * 𝟺kbtiles[]; }; /* a․𝘬․a `day-sy`. */
+struct ᵐᵃᵡ𝟺kb₋etiolate { __builtin_int_t ﹟; void **𝟺kbtiles; }; /* a․𝘬․a `day-sy`. */
 
 /* template <typename E> struct 🅨₋Arrange {
 virtual int copy₋include(int count, E * Ɀ) = 0;
@@ -493,25 +493,24 @@ int write(int bytes, void (^intervals⁻ʳ⁺ᵚ₋𝟷₋𝘯)(int avail, uint8
 struct fifo { __builtin_int_t E₋max, brk=0, count=0; __builtin_uint_t * 𝟷₋tile; 
    
    /* ...and for segmented fifos possibly with padding at end: */
-   ᵐᵃᵡ𝟺kb₋etiolate * 𝗇₋tiles; short tile₋brk=0, elem₋brk=0;
+   ᵐᵃᵡ𝟺kb₋etiolate * 𝗇₋tiles; short tile₋brk=0, elem₋brk=0; alloc₋brk=0;
    
    int init(__builtin_int_t E₋elems, void * 𝟷₋tile);
    int init(ᵐᵃᵡ𝟺kb₋etiolate * 𝗇₋tiles);
    
    int 𝟷₋tile₋copy₋include(int count, __builtin_uint_t * Ɀ); /* ⬷ For 
-  use inside irq when one of two dma buffers are full 𝘦․𝘨 'B-buffer-full-irq'. */
+ use inside irq when one of two dma buffers are full 𝘦․𝘨 'B-buffer-full-irq'. */
    int n₋tile₋copy₋include(int count, __builtin_uint_t * Ɀ); /* a․𝘬․a `🅨₋Arrange::copy₋include`. */
-   
    int shiftout(int elems);
    int 𝟷₋tile₋fifo₋pop(int elems, void (^𝟷₋succumb)(__builtin_uint_t * bottom₋elem));
    int n₋tile₋fifo₋pop(int elems, void (^many₋𝟺kbetiolates)(int tot, int ﹟, void * bottom₋elem));
    /* ⬷ a․𝘬․a `structure-preserving-n₋tile₋fifo₋pop`. */
-}; /*  A․𝘬․a `Fifoʳᵉf`, `n₋tile₋fifo` and `𝟷₋tile₋fifo`. 𝖢․𝘧 also `Fifoⁱⁿcorp`.  Note 
+}; /* A․𝘬․a `Fifoʳᵉf`, `n₋tile₋fifo` and `𝟷₋tile₋fifo`. 𝖢․𝘧 also `Fifoⁱⁿcorp`.  Note 
   that three areas where one 'precomputed 'area always separates the 'producer' from 
   the 'consumer' enables a 'stable external projection' without visible fluctuations 
   a․𝘬․a 'flickering'; whereas two areas lead to the need to induce 'lock' as well as 
   the other contratranquistimulantic constraints. 
-  'efterhandskonstruktion'/hack. (ret-ro-spect = [stimulu-tranqui-jello]). 
+  'efterhandskonstruktion'/hack. (ret-ro-spect = [stimulu-tranqui-jello]).
   
   Integration using the trapezoid rule is a recursive filter: 
     
@@ -597,7 +596,7 @@ enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
   __builtin_int_t byteoffset, bool edge₁, bool& stop)); */
 
 int TokenizeUtf8ToUnicode(uint8_t * material, short bytes, void (^zero𝘖rSeveral)
-  (__builtin_int_t byteOffset, char32_t unicode, __builtin_int_t utf8bytes, bool& stop));
+ (__builtin_int_t byteOffset, char32_t unicode, __builtin_int_t utf8bytes, bool& stop));
 
 enum class Encoding { utf8, unicode };
 
