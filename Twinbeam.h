@@ -197,19 +197,19 @@ MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   shifted = orig>>shift; if (update) update(shifted); __builtin_uint_t fresh =
   (shifted<<shift)&mask; *symbol = (word & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL
 enum class Ieee754Form { Scientific, Monetary }; /* ⬷ Occasionally `intrinsic_and_base₋10`. */
-DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc)); 
-int print(const char * utf8format,...); int printerr(const char * utf8format,...);
-int print(void (^out)(uint8_t * u8s, short bytes), const char * utf8format, ...);
+DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc));
+int print(const char * utf8format,...); int mfprint(const char * utf8format,...);
+int print(void (^out)(uint8_t * u8s, __builtin_int_t bytes), const char * utf8format, ...);
 struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, void * context); 
  typedef void (^Output)(Unicode set, void * context); union { __builtin_int_t d; 
  __builtin_uint_t x, b; const char * utf8; struct /* Unicodes */ { char32_t * 
- unicodes; int tetras; } ucs; char c; char32_t uc; double f₁; float f₂; uint8_t 
- bytes[16]; __uint128_t U; __int128_t I; uint64_t pair[2]; struct { Output scalar; 
- void * context; } λ; } value; int kind; };
+ unicodes; __builtin_int_t tetras; } ucs; char c; char32_t uc; double f₁; float f₂; 
+ uint8_t bytes[16]; __uint128_t U; __int128_t I; uint64_t pair[2]; struct { Output 
+ scalar; void * context; } λ; } value; int kind; };
 Argᴾ ﹟d(__builtin_int_t d); Argᴾ ﹟x(__builtin_uint_t x); Argᴾ ﹟b(__builtin_uint_t 
-b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(int tetras, char32_t * uc); Argᴾ ﹟c(
-char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
-Argᴾ ﹟reᵍs(__builtin_uint_t mask); Argᴾ ﹟λ(Argᴾ::Output scalar, void * context);
+b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(__builtin_int_t tetras, char32_t * uc); Argᴾ 
+﹟c(char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
+Argᴾ ﹟regs(__builtin_uint_t mask); Argᴾ ﹟λ(Argᴾ::Output scalar, void * context);
 extern "C" { int atexit(void(*func)(void)); void exit(int); } 
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow₋ₒ)(void *);
 __builtin_int_t 𝟺𝟶𝟿𝟼₋aligned₋frame(__builtin_int_t byte₋number, __builtin_int_t * modulo);
@@ -304,7 +304,7 @@ MACRO int64_t abs64i(int64_t x) { return x & ~SIGNBIT_INT64; }
 MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
 /* template <typename ℤ> ℤ abs₁(ℤ x) { return x < 0 ? -x : x; }
 template <typename ℝ> T abs(ℝ x) { return x <= -0.0 ? -x : x; }  */
-template <typename ℕ> void invert(ℕ & x) { x = ~x; } /* A․𝘬․a `toggle₋all`. */
+template <typename ℕ> void invert(ℕ & x) { x = ~x; } /* a․𝘬․a `toggle₋all`. */
 template <typename ℕ> void 𝟸₋compl(ℕ & x) { invert(x); ++x; }
 template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋compl(x) : x; }
 /* ⬷ Notice `x` = INT_MIN is not representable as a positive number¹ and maps 
@@ -334,16 +334,16 @@ template <typename T> T ʳchange(T x₁, T x₂) { return (x₂ - x₁) / x₁; 
 #define innominate auto /* a․𝘬․a `innominate-type`. */
 template <typename T> concept Relative₋accumulative = requires (T x₁, T x₂) {
  x₁ + x₂ /* -> int */; /*{*/ x₁ - x₂ /*} -> Same<bool>*/; Zero(x₂) /* -> T*/; };
- /* A․𝘬․a `Turtle` and 'algebraic category'. To instatiate write similar to 
+ /* ⬷ A․𝘬․a `Turtle` and 'algebraic category'. To instatiate write similar to 
  'template <Relative₋accumulative T>' ... , 
  'template <typename T> requires Relative₋accumulative<T> T operator... and 
  'void foo(Relative₋accumulative innominate & x) { ... }'. */
 #endif
 template <typename T> int collate₋coalesce(__builtin_int_t count, T xᵣ[], T * acc, 
  int (^port)(T x, T & acc)) { for (__builtin_int_t i=0; i<count; i++) { 
- int ok=port(xᵣ[i],*acc); if (!ok) { return ok; } } } /*  Also known as: `Norm`, 
- `linear-combine`, also `gaussian₋combination`, `irreversive₋combination` 
- and permutative₋combination`. */
+ int ok=port(xᵣ[i],*acc); if (!ok) { return ok; } } } /* Also known as: `Norm`, 
+ `linear-combine`, also `gaussian₋combination`, `irreversive₋combination` and 
+ permutative₋combination`. */
 template <typename ℚ> ℚ arithmetic(ℚ x₁, ℚ x₂) { return (x₁ + x₂) / 2; }
 /* template <typename T> T geometric(T x₁, T x₂) { return sqrt(x₁*x₂); }; */
 /* C․𝘧 the two files --<🥽 Argentum.cpp> (TO-BE-TYPED) and --<🥽 Newton.cpp>. */
@@ -361,10 +361,10 @@ template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 🥇 NOT_EVERYTIME
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
 #define 🥈 WHEN_COMPILING /* Must be assigned to a `const` and no inline assembler. */
-#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* a․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 🎿 'jurid' and 'förekomst'. Also 'machinal'. */
+#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* A․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 🎿 'jurid' and 'förekomst'. Also 'machinal'. */
 template <typename T> T * Critic(const T * x) { return const_cast<T*>(x); }
 template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* a․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
-__builtin_int_t LeastPossibleResidue(__builtin_int_t dividend, __builtin_int_t divisor); 
+__builtin_int_t LeastPossibleResidue(__builtin_int_t dividend, __builtin_int_t divisor);
 /* ⬷ See --<Wiki>--<Essays>--<On Clocks and Time> and 'Circular reasoning'. */
 #define ᶿ﹡ const * /* #define *⥃ const char *, a․𝘬․a `*⥆` and `*⫩`. */
 

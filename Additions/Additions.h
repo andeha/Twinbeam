@@ -356,8 +356,9 @@ namespace NumberformatCatalogue {
  void Monetary(double, void (^out)(char32_t uc));
  void Regional(double ℝ, void (^out)(char32_t uc));
  void Interval(double ℝ₁, double ℝ₂, bool openend, void (^out)(char32_t uc));
- void Percentile(double ₋𝟹𝜎, double ₋𝟸𝜎, double ₋𝜎, double 𝟶, double 𝜎, 
-   double 𝟸𝜎, double 𝟹𝜎, __builtin_int_t * 𝟷𝟶ⁱ, void (^out)(char32_t uc)); /* See also `Quantile`. */
+ void Percentile(double ₋𝟯σ, double ₋𝟮σ, double ₋σ, double 𝟶, double σ, 
+   double 𝟮σ, double 𝟯σ, __builtin_int_t * 𝟭𝟬ⁱ, void (^out)(char32_t uc)); 
+ /* ⬷ See also `Quantile`. */
  void Normal(double μ, double σ, void (^out)(char32_t uc));
  /* log-normal distribution = draped `logₑ` is N(μ,σ²). */
  extern void (^Default)(double, Utf8Terminal&); }
@@ -371,7 +372,7 @@ void Present(Utf8Terminal &term, const char * utf8, __builtin_int_t maxbytes=BUI
 void Present(Utf8Terminal &term, const Ornaments & ds);
 /* void Present(Utf8Terminal &term, UnicodeBlock location); */
 /* enum Register { rtcc, dma0, … }; void Present(Utf8Terminal &term, Register reg); */
-void Present(Utf8Terminal &term, const AnnotatedRegister& ar, uint32_t value, bool 𝟷𝟼bits=false);
+void Present(Utf8Terminal &term, const AnnotatedRegister& ar, uint32_t value, bool 𝟷𝟼₋bits=false);
 void Presentᵧ(Utf8Terminal &term, double value);
 void Presentᵧ(Utf8Terminal &term, float value);
 
@@ -398,21 +399,21 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char * utf8)
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, float x)
 { Present(term,(double)x); return term; } */
 
-MACRO
-Utf8Terminal &
-operator<<(
-  Utf8Terminal &term,
-  const char32_t * ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳
+inline void Present(Utf8Terminal &term, 
+  const char32_t * ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳, bool emit𝖤𝖮𝖳=true
 )
-{ if (!ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳) { return term; }
-  char32_t uc; int i=0;
+{  char32_t uc; int i=0;
+   if (!ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳) { return term; }
 again:
-  uc = *(ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳+i);
-  if (uc == 0x0000) { return term; }
-  if (uc == END_OF_TRANSMISSION) { return term; }
-  Present(term,uc);
-  i++; goto again;
+   char32_t uc = *(ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳 + i);
+   if (uc == 0x0000) { return; }
+   if (!emit𝖤𝖮𝖳 && uc == END_OF_TRANSMISSION) { return; }
+   Present(term,uc);
+   i++; goto again;
 }
+
+MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char32_t * ucs)
+{ Present(term,ucs,false); }
 
 /* Utf8Terminal & operator<<(Utf8Terminal &term, const String& s) {
   __builtin_int_t tetras = s.﹟unicodes(); for (int i=0; i<tetras; i++)
@@ -490,27 +491,28 @@ enum Tape₋ctrl { stop, reverse, forward }; template struct <typename E, int SE
 int read(int bytes, void (^intervals⁺ʳ⁻ᵚ₋𝟷₋𝘯)(int actual, uint8_t * now₋readable, Tape₋ctrl &next));
 int write(int bytes, void (^intervals⁻ʳ⁺ᵚ₋𝟷₋𝘯)(int avail, uint8_t * later₋written, bool last)); }; */ 
 
-struct fifo { __builtin_int_t E₋max, brk=0, count=0; __builtin_uint_t * 𝟷₋tile; 
+struct fifo { __builtin_int_t E₋enfoiled, count=0, brk=0; __builtin_uint_t * 𝟷₋tile; 
    
    /* ...and for segmented fifos possibly with padding at end: */
-   ᵐᵃᵡ𝟺kb₋etiolate * 𝗇₋tiles; short tile₋brk=0, elem₋brk=0; alloc₋brk=0;
+   ᵐᵃᵡ𝟺kb₋etiolate * 𝗇₋tiles; short tile₋brk=0, elem₋brk=0, alloc₋brk=0, E₋alloced;
    
    int init(__builtin_int_t E₋elems, void * 𝟷₋tile);
    int init(ᵐᵃᵡ𝟺kb₋etiolate * 𝗇₋tiles);
    
    int 𝟷₋tile₋copy₋include(int count, __builtin_uint_t * Ɀ); /* ⬷ For 
- use inside irq when one of two dma buffers are full 𝘦․𝘨 'B-buffer-full-irq'. */
-   int n₋tile₋copy₋include(int count, __builtin_uint_t * Ɀ); /* a․𝘬․a `🅨₋Arrange::copy₋include`. */
-   int shiftout(int elems);
-   int 𝟷₋tile₋fifo₋pop(int elems, void (^𝟷₋succumb)(__builtin_uint_t * bottom₋elem));
-   int n₋tile₋fifo₋pop(int elems, void (^many₋𝟺kbetiolates)(int tot, int ﹟, void * bottom₋elem));
+  use inside irq when one of two dma buffers are full 𝘦․𝘨 'B-buffer-full-irq'. */
+   int n₋tile₋copy₋include(unsigned expeditionary, __builtin_int_t count, __builtin_uint_t * Ɀ); /* a․𝘬․a `🅨₋Arrange::copy₋include`. */
+   int shiftout(__builtin_int_t elems);
+   int 𝟷₋tile₋fifo₋pop(__builtin_int_t elems, void (^succumbs₋𝟷)(__builtin_uint_t * bottom₋elem));
+   int etoliate₋enfoil(unsigned expeditionary, __builtin_int_t augment₋﹟);
+   int n₋tile₋fifo₋pop(__builtin_int_t elems, void (^many₋𝟺kb₋etiolates)(many₋𝟺kb₋etiolates tot, __builtin_int_t ﹟, void * bottom₋elem));
    /* ⬷ a․𝘬․a `structure-preserving-n₋tile₋fifo₋pop`. */
-}; /* A․𝘬․a `Fifoʳᵉf`, `n₋tile₋fifo` and `𝟷₋tile₋fifo`. 𝖢․𝘧 also `Fifoⁱⁿcorp`.  Note 
+}; /*  A․𝘬․a `Fifoʳᵉf`, `n₋tile₋fifo` and `𝟷₋tile₋fifo`. 𝖢․𝘧 also `Fifoⁱⁿcorp`.  Note 
   that three areas where one 'precomputed 'area always separates the 'producer' from 
   the 'consumer' enables a 'stable external projection' without visible fluctuations 
   a․𝘬․a 'flickering'; whereas two areas lead to the need to induce 'lock' as well as 
   the other contratranquistimulantic constraints. 
-  'efterhandskonstruktion'/hack. (ret-ro-spect = [stimulu-tranqui-jello]).
+  'efterhandskonstruktion'/hack. (ret-ro-spect = [stimulu-tranqui-jello]). 
   
   Integration using the trapezoid rule is a recursive filter: 
     
@@ -527,14 +529,14 @@ struct fifo { __builtin_int_t E₋max, brk=0, count=0; __builtin_uint_t * 𝟷�
  */
 
 bool Empty(const fifo& q);
-__builtin_uint_t * 𝟷₋tile₋Deref(unsigned δ, const fifo& q);
-__builtin_uint_t * n₋tile₋Deref(__builtin_uint_t δ, const fifo& q);
-__builtin_uint_t * n₋tile₋Bank(__builtin_uint_t idx, const fifo& q);
-__builtin_uint_t * n₋tile₋Chronologic(const fifo& q, __builtin_uint_t idx);
+__builtin_uint_t * 𝟷₋tile₋Deref(__builtin_int_t δ, const fifo& q);
+__builtin_uint_t * n₋tile₋Deref(__builtin_int_t δ, const fifo& q);
+__builtin_uint_t * n₋tile₋Bank(__builtin_int_t idx, const fifo& q);
+__builtin_uint_t * n₋tile₋Chronologic(const fifo& q, __builtin_int_t idx);
 __builtin_uint_t * n₋tile₋Youngest(const fifo& q);
 __builtin_uint_t * n₋tile₋Oldest(const fifo& q);
 enum class fifo₋flavor { allinorder, latest /* 𝘤․𝘧 'randomized'. */ };
-int 𝟷₋tile₋Retrospect(Fifo₋flavor f, const fifo& q, __builtin_uint_t * t, __builtin_uint_t * t₋₁);
+int 𝟷₋tile₋Retrospect(fifo₋flavor f, const fifo& q, __builtin_uint_t * t, __builtin_uint_t * t₋₁);
 
 #pragma mark - Recollection and associativity
 
@@ -595,8 +597,8 @@ enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
   const Knots¹ᵈ<int>& ss, void * / * a․𝘬․a Map<char32_t *, __builtin_uint_t>& * / stab,
   __builtin_int_t byteoffset, bool edge₁, bool& stop)); */
 
-int TokenizeUtf8ToUnicode(uint8_t * material, short bytes, void (^zero𝘖rSeveral)
- (__builtin_int_t byteOffset, char32_t unicode, __builtin_int_t utf8bytes, bool& stop));
+int TokenizeUtf8ToUnicode(uint8_t * material, short bytes, void (^zero𝘖rSeveral)(
+ __builtin_int_t byteOffset, char32_t unicode, __builtin_int_t utf8bytes, bool& stop));
 
 enum class Encoding { utf8, unicode };
 
