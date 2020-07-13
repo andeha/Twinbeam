@@ -357,7 +357,7 @@ namespace NumberformatCatalogue {
  void Regional(double ℝ, void (^out)(char32_t uc));
  void Interval(double ℝ₁, double ℝ₂, bool openend, void (^out)(char32_t uc));
  void Percentile(double ₋𝟯σ, double ₋𝟮σ, double ₋σ, double 𝟶, double σ, 
-   double 𝟮σ, double 𝟯σ, __builtin_int_t * 𝟭𝟬ⁱ, void (^out)(char32_t uc)); 
+   double 𝟮σ, double 𝟯σ, __builtin_int_t * 𝟭𝟬ⁱ, void (^out)(char32_t uc));
  /* ⬷ See also `Quantile`. */
  void Normal(double μ, double σ, void (^out)(char32_t uc));
  /* log-normal distribution = draped `logₑ` is N(μ,σ²). */
@@ -427,7 +427,7 @@ Utf8Terminal & operator<<(Utf8Terminal &u8os, Utf8Terminal present)
   { return u8os; } */
 
 struct 𝗵fill { }; struct 𝘃fill { double val; int /* Unit */ unit; };
-struct 𝗣𝒂𝒈𝒆 { bool versoNotRecto; }; /* A․𝘬․a `formfeed` and U+0x000c. */
+struct 𝗣𝒂𝒈𝒆 { bool versoNotRecto; }; /* a․𝘬․a `formfeed` and U+0x000c. */
 𝗣𝒂𝒈𝒆 ᵖ𝗴(bool); 𝘃fill vfill(double, /* Unit */ int); 𝗵fill hfill();
 /* A․𝘬․a the Unicodes `␋` , `␉` and `␌`. */
 Utf8Terminal & operator<<(Utf8Terminal&,𝗵fill);
@@ -458,7 +458,7 @@ enum class CastToIntOpinion { accept, rejecting, negate, commit, annul };
 Opt<__builtin_int_t>
 CastTˣᵗToInt(
   CastToIntOpinion (^feeder)(unsigned short &digit)
-); /* 𝘈․𝘬․a `CastToInt`. Incorp. also 'Swap 𝑣𝑠․ ♚♜ and X'. */
+); /* a․𝘬․a `CastToInt`. Incorp. also 'Swap 𝑣𝑠․ ♚♜ and X'. */
 
 enum class Inputcontrol { ok, quit };
 
@@ -482,14 +482,6 @@ Tokenize(
 #pragma mark - FIFO: 0, 1 or 2 halves always returned
 
 struct ᵐᵃᵡ𝟺kb₋etiolate { __builtin_int_t ﹟; void **𝟺kbtiles; }; /* a․𝘬․a `day-sy`. */
-
-/* template <typename E> struct 🅨₋Arrange {
-virtual int copy₋include(int count, E * Ɀ) = 0;
-virtual int shiftout(int count) = 0; };
-template <typename E> struct 🅨₋arrange₋X { virtual int reform(int segments) = 0; /* a․𝘬․a `amend` and `augment`. * / };
-enum Tape₋ctrl { stop, reverse, forward }; template struct <typename E, int SEL=3> 🅨₋tape₋N {
-int read(int bytes, void (^intervals⁺ʳ⁻ᵚ₋𝟷₋𝘯)(int actual, uint8_t * now₋readable, Tape₋ctrl &next));
-int write(int bytes, void (^intervals⁻ʳ⁺ᵚ₋𝟷₋𝘯)(int avail, uint8_t * later₋written, bool last)); }; */ 
 
 struct fifo { __builtin_int_t E₋enfoiled, count=0, brk=0; __builtin_uint_t * 𝟷₋tile; 
    
