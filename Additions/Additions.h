@@ -483,21 +483,22 @@ Tokenize(
 
 struct ᵐᵃᵡ𝟺kb₋etiolate { __builtin_int_t ﹟; void **𝟺kbtiles; }; /* a․𝘬․a `day-sy`. */
 
-struct fifo { __builtin_int_t E₋enfoiled, count=0, brk=0; __builtin_uint_t * 𝟷₋tile; 
+struct fifo { __builtin_int_t words₋enfoiled, count=0, brk=0; __builtin_uint_t * 𝟷₋tile; 
    
    /* ...and for segmented fifos possibly with padding at end: */
-   ᵐᵃᵡ𝟺kb₋etiolate * 𝗇₋tiles; short tile₋brk=0, elem₋brk=0, alloc₋brk=0, E₋alloced;
+   ᵐᵃᵡ𝟺kb₋etiolate * 𝗇₋tiles; __builtin_int_t tile₋brk=0, elem₋brk=0, 
+    alloc₋brk=0, words₋unity;
    
-   int init(__builtin_int_t E₋elems, void * 𝟷₋tile);
+   int init(__builtin_int_t word₋elems, void * 𝟷₋tile);
    int init(ᵐᵃᵡ𝟺kb₋etiolate * 𝗇₋tiles);
    
-   int 𝟷₋tile₋copy₋include(int count, __builtin_uint_t * Ɀ); /* ⬷ For 
+   int 𝟷₋tile₋copy₋include(int words, __builtin_uint_t * Ɀ); /* ⬷ For 
   use inside irq when one of two dma buffers are full 𝘦․𝘨 'B-buffer-full-irq'. */
-   int n₋tile₋copy₋include(unsigned expeditionary, __builtin_int_t count, __builtin_uint_t * Ɀ); /* a․𝘬․a `🅨₋Arrange::copy₋include`. */
-   int shiftout(__builtin_int_t elems);
-   int 𝟷₋tile₋fifo₋pop(__builtin_int_t elems, void (^succumbs₋𝟷)(__builtin_uint_t * bottom₋elem));
+   int n₋tile₋copy₋include(unsigned expeditionary, __builtin_int_t words, __builtin_uint_t * Ɀ); /* a․𝘬․a `🅨₋Arrange::copy₋include`. */
+   int shiftout(__builtin_int_t words);
+   int 𝟷₋tile₋fifo₋pop(__builtin_int_t words, void (^succumbs₋𝟷)(__builtin_uint_t * bottom₋elem));
    int etoliate₋enfoil(unsigned expeditionary, __builtin_int_t augment₋﹟);
-   int n₋tile₋fifo₋pop(__builtin_int_t elems, void (^many₋𝟺kb₋etiolates)(many₋𝟺kb₋etiolates tot, __builtin_int_t ﹟, void * bottom₋elem));
+   int n₋tile₋fifo₋pop(__builtin_int_t words, void (^many₋𝟺kb₋etiolates)(many₋𝟺kb₋etiolates tot, __builtin_int_t ﹟, void * bottom₋elem));
    /* ⬷ a․𝘬․a `structure-preserving-n₋tile₋fifo₋pop`. */
 }; /*  A․𝘬․a `Fifoʳᵉf`, `n₋tile₋fifo` and `𝟷₋tile₋fifo`. 𝖢․𝘧 also `Fifoⁱⁿcorp`.  Note 
   that three areas where one 'precomputed 'area always separates the 'producer' from 

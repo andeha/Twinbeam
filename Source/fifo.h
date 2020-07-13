@@ -74,10 +74,8 @@ template <typename E> struct 𝟷₋tile₋fifo { fifo 🅠;
   int init(__builtin_int_t count, void * 𝟷₋tile) { return 🅠.init(count,𝟷₋tile); }
   int copy₋include(int count, E * Ɀ) { return 🅠.𝟷₋tile₋copy₋include(count,(__builtin_uint_t *)Ɀ); }
   int pop(int count, void (^𝟷₋succumb)(E * bottom₋elem)) {
-     auto chim = ^(__builtin_uint_t * bottom₋elem) { 𝟷₋succumb((E *)bottom₋elem); };
-     return 🅠.𝟷₋tile₋fifo₋pop(count,chim);
+    auto chim = ^(__builtin_uint_t * bottom₋elem) { 𝟷₋succumb((E *)bottom₋elem); };
+    return 🅠.𝟷₋tile₋fifo₋pop(count,chim);
   }
 };
-
-
 
