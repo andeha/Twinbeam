@@ -381,6 +381,13 @@ struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; };
 typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast, 
   bytesOffsetInclLast; } Utf8Interval; /* ⬷ E․𝘨 wrongly coded utf-8. */
 
+#pragma mark 7-bit keyput sequences
+
+typedef const unsigned char * 𝟾alt𝟽bit₋pointer; /* ⬷ Type 'const char *' 
+  still C implementation dependent whether signed/unsigned. */
+
+struct 𝟽bit₋text { __builtin_int_t bytes; 𝟾alt𝟽bit₋pointer pool; };
+
 #pragma mark - 🌱
 
 typedef union {
