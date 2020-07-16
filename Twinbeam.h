@@ -515,7 +515,7 @@ typedef SemanticPointer<virtuaddr> byteaddress; /* a․𝘬․a `metaaddress`. *
 
 struct Memorydelegate {
   virtual void statistics(Scatter * s, char32_t unicode) = 0;
-  virtual void issue(Scatter * s, virtuaddr arg, int nº) = 0;
+  virtual void issue(Scatter * s, byteaddress unaligned, int nº) = 0;
 };
 
 struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max4MB and Nonbound.) */
@@ -526,8 +526,8 @@ struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max
    int 𝟺Gbinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpage₋bytes);
    int incorp(__builtin_int_t bytes₋to₋tail, __builtin_int_t bytes, void (^sometimes)(short bytes, uint8_t * virtue));
    int shiftout(__builtin_int_t bytes, void (^left)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖r𝟺kbPage)); /* Also `𝘗𝘰𝘴𝘴𝘪𝘣𝘭𝘺`. */
-   byteaddress relative(__builtin_int_t byte₋offset, void (^issue)(int nº)) const;
-   __builtin_uint_t& word(byteaddress unaligned, short &lshbits, void (^issue)(int nº));
+   byteaddress relative(__builtin_int_t byte₋offset, void (^relissue)(int nº)) const;
+   __builtin_uint_t& word(byteaddress unaligned, short &lshbits, void (^issue)(int nº,byteaddress));
    int keep(byteaddress unaligned, __builtin_uint_t word) const;
    int oncewired(__builtin_int_t ﹟, uint8_t **start, __builtin_int_t *bytes) const; /* 𝘊․𝘧 predictive cache. */
    /* int blob₁(__builtin_int_t ᵇoffset, __builtin_int_t bytes, void (^malloced)(uint8_t *optcopy)); 
