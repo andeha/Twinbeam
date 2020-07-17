@@ -7,7 +7,7 @@ struct fifo { __builtin_int_t words₋enfoiled, count=0, brk=0; __builtin_uint_t
    
    /* ...and for segmented fifos possibly with padding at end: */
    ᵐᵃᵡ𝟺kb₋etiolate * 𝗇₋tiles; __builtin_int_t tile₋brk=0, words₋brk=0, 
-    alloc₋brk=0, words₋unity;
+    alloc₋brk=0, words₋to₋unity;
    
    int init(__builtin_int_t word₋elems, void * 𝟷₋tile);
    int init(ᵐᵃᵡ𝟺kb₋etiolate * 𝗇₋tiles);
@@ -19,7 +19,7 @@ struct fifo { __builtin_int_t words₋enfoiled, count=0, brk=0; __builtin_uint_t
    int shiftout(__builtin_int_t words);
    int 𝟷₋tile₋fifo₋pop(__builtin_int_t words, void (^succumbs₋𝟷)(__builtin_uint_t * bottom₋elem));
    int etoliate₋enfoil(unsigned expeditionary, __builtin_int_t augment₋﹟);
-   int n₋tile₋fifo₋pop(__builtin_int_t words, void (^many₋𝟺kb₋etiolates)(__builtin_int_t tot, __builtin_int_t ﹟, void * bottom₋elem));
+   int n₋tile₋fifo₋pop(__builtin_int_t words, void (^many₋𝟺kb₋etiolates)(__builtin_int_t tot, __builtin_int_t ﹟, __builtin_uint_t * bottom₋elem));
    /* ⬷ a․𝘬․a `structure-preserving-n₋tile₋fifo₋pop`. */
 };
 
@@ -41,33 +41,36 @@ enum Tape₋ctrl { stop, reverse, forward }; template struct <typename E, int SE
 int read(int bytes, void (^intervals⁺ʳ⁻ᵚ₋𝟷₋𝘯)(int actual, uint8_t * now₋readable, Tape₋ctrl &next));
 int write(int bytes, void (^intervals⁻ʳ⁺ᵚ₋𝟷₋𝘯)(int avail, uint8_t * later₋written, bool last)); }; */ 
 
-template <typename E> struct n₋tile₋fifo { fifo 🅠; 
-  int apriori₋init(unsigned expeditionary, 
-    __builtin_int_t alloca̲t̲ed₋count, __builtin_int_t maximum₋count)
-  {
-    bool dummy₋negative; __builtin_int_t ℤ₁, modula₁, ℤ₂, modula₂, 
-     alloced₋bytes=alloca̲t̲ed₋count*sizeof(E), max₋bytes=maximum₋count*sizeof(E);
-    extern int fractions(__builtin_int_t num, __builtin_int_t denom, 
-     __builtin_int_t &ℤ, __builtin_int_t &modula, bool &sum₋negative);
+inline int n₋tile₋apriori(unsigned expeditionary, __builtin_int_t alloca̲t̲ed₋count, 
+  __builtin_int_t maximum₋count, fifo& 🅠, int size) {
+   bool dummy₋negative; __builtin_int_t ℤ₁, modula₁, ℤ₂, modula₂, 
+   alloced₋bytes=alloca̲t̲ed₋count*size, max₋bytes=maximum₋count*size;
+   extern int fractions(__builtin_int_t num, __builtin_int_t denom, 
+    __builtin_int_t &ℤ, __builtin_int_t &modula, bool &sum₋negative);
     __builtin_int_t num = SystemInfoPagesize();
-    if (alloca̲t̲ed₋count > maximum₋count) { return -1; }
-    if (fractions(alloca̲t̲ed₋count,num,ℤ₁,modula₁,dummy₋negative)) { return -2; }
-    if (fractions(max₋bytes,num,ℤ₂,modula₂,dummy₋negative)) { return -3; }
-    __builtin_int_t maximum₋﹟ = (modula₂ ? 1 : 0) + ℤ₂;
-    __builtin_int_t allocated₋﹟ = (modula₁ ? 1 : 0) + ℤ₁;
-    void * 𝟺kbframes[maximum₋﹟]; /* ⬷ Not copied 'element-for-element'! */
-    ᵐᵃᵡ𝟺kb₋etiolate 𝗇₋tiles { maximum₋﹟, 𝟺kbframes };
-    if (unassign₋init(&𝗇₋tiles)) { return -4; }
-    if (🅠.etoliate₋enfoil(expeditionary,allocated₋﹟)) { return -5; }
-    return 0;
-  }
-  int unassign₋init(ᵐᵃᵡ𝟺kb₋etiolate * 𝗇₋tiles) { return 🅠.init(𝗇₋tiles); }
-  int copy₋include(unsigned expeditionary, __builtin_int_t count, E * Ɀ) { 
+   if (alloca̲t̲ed₋count > maximum₋count) { return -1; }
+   if (fractions(alloca̲t̲ed₋count,num,ℤ₁,modula₁,dummy₋negative)) { return -2; }
+   if (fractions(max₋bytes,num,ℤ₂,modula₂,dummy₋negative)) { return -3; }
+   __builtin_int_t maximum₋﹟ = (modula₂ ? 1 : 0) + ℤ₂;
+   __builtin_int_t allocated₋﹟ = (modula₁ ? 1 : 0) + ℤ₁;
+   void * 𝟺kbframes[maximum₋﹟]; /* ⬷ Not copied 'element-for-element'! */
+   ᵐᵃᵡ𝟺kb₋etiolate 𝗇₋tiles { maximum₋﹟, 𝟺kbframes };
+   if (🅠.init(&𝗇₋tiles)) { return -4; }
+   if (🅠.etoliate₋enfoil(expeditionary,allocated₋﹟)) { return -5; }
+   return 0;
+}
+
+template <typename E> struct n₋tile₋fifo { fifo 🅠; 
+   int apriori₋init(unsigned expeditionary, __builtin_int_t alloca̲t̲ed₋count, 
+    __builtin_int_t maximum₋count) { return n₋tile₋apriori(expeditionary, 
+    alloca̲t̲ed₋count,maximum₋count,🅠,sizeof(E)); }
+   int copy₋include(unsigned expeditionary, __builtin_int_t count, E * Ɀ) { 
     return 🅠.n₋tile₋copy₋include(expeditionary,count,(__builtin_uint_t *)Ɀ); }
-  int pop(__builtin_int_t count, void (^many₋𝟺kb₋etiolates)(__builtin_int_t tot, 
+   int pop(__builtin_int_t count, void (^many₋𝟺kb₋etiolates)(__builtin_int_t tot, 
    __builtin_int_t ﹟, E * bottom₋elem)) { auto chim = ^(__builtin_int_t tot, 
-   __builtin_int_t ﹟, void * bottom₋elem) { many₋𝟺kb₋etiolates(tot,﹟,(E *)bottom₋elem); };
-      return 🅠.n₋tile₋fifo₋pop(count,chim); }
+   __builtin_int_t ﹟, __builtin_uint_t * bottom₋elem) { 
+     many₋𝟺kb₋etiolates(tot,﹟,(E *)bottom₋elem); };
+     return 🅠.n₋tile₋fifo₋pop(count,chim); }
 }; /* a․𝘬․a `vector`. */
 
 template <typename E> struct 𝟷₋tile₋fifo { fifo 🅠; 
@@ -78,4 +81,6 @@ template <typename E> struct 𝟷₋tile₋fifo { fifo 🅠;
     return 🅠.𝟷₋tile₋fifo₋pop(count,chim);
   }
 };
+
+template <typename E> using Knots¹ᵈ = n₋tile₋fifo<E>;
 
