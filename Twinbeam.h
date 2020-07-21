@@ -533,9 +533,6 @@ struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max
    __builtin_uint_t& word(byteaddress unaligned, short &lshbits, void (^issue)(int nº,byteaddress));
    int keep(byteaddress unaligned, __builtin_uint_t word) const;
    int oncewired(__builtin_int_t ﹟, uint8_t **start, __builtin_int_t *bytes) const; /* 𝘊․𝘧 predictive cache. */
-   /* int blob₁(__builtin_int_t ᵇoffset, __builtin_int_t bytes, void (^malloced)(uint8_t *optcopy)); 
-   int blob₂(__builtin_int_t ᵇoffset, __builtin_int_t bytes, void (^once𝘖rMultiple)(uint8_t *original));
-   int oftensort() const; */
    __builtin_int_t bytes() const; __builtin_int_t ᵇdebris() const;
    ~Scatter(); Memorydelegate * delegate; Scatter(const Scatter& other); /* Required by `pristine`. */
 😐; /* Disjunct, sediment and segments. A `Scatter` is 
