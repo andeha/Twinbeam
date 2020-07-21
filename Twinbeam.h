@@ -88,7 +88,7 @@ template <typename T> struct SemanticPointer { T ref; }; /* 𝘈․𝘬․a `Dis
 #define SPATIALPERTUBAL
 #define EVENTUALRETROSPECTIVE
 #define ROTATIONAL
-#define IRREVERSIb /* IRREVERSI♭ */
+#define IRREVERSIb /* IRREVERSI♭ alt․ IRREVERSIꙎ. */
 #define TRAJECTORAL /* Also: TRAJECTORAL🝑 */
 #define INITIALPROJECTIVE
 #define IRREPABEL /* In German: 'reparierbar'. */
@@ -108,6 +108,9 @@ template <typename T> struct SemanticPointer { T ref; }; /* 𝘈․𝘬․a `Dis
 #define PRIMALTRANSLATIVE
 #define ALTERNATESCHEDULATIVE
 #define OPTIONALSCHEDULATIVE
+#define CIRCULATIVE /* a․𝘬․a  'Averaged' ∧ '␣'. */
+#define NONFRUITY /* FRUKT-SAM-T and 'inkräktare'. */
+#define SILHOUETTED /* a․𝘬․a `SILLHOUETIC` and AL₋GE₋BR₋A/AL₋GOR₋IT₋H₋M. */
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; /*  ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
@@ -453,7 +456,7 @@ typedef union {
   "Secure Hash Standard (SHS)", August 2015. */
 
 int Hash(uint8_t * material, __builtin_int_t bytes, void (^ping𝘖r𝖭𝖴𝖫𝖫)(bool &stop), 
-  void (^complete)(ditriaconta digest)); /* A․𝘬․a `Fineprint`. */
+  void (^complete)(ditriaconta digest)); /* a․𝘬․a `Fineprint`. */
 
 #ifdef  __mips__
 #define BUILTIN_INT_MAX 2147483647
@@ -471,10 +474,10 @@ typedef union {
      unsigned mantissa : 23;
      unsigned exponent :  8;
      unsigned sign     :  1;
-   } binary32; /* A․𝘬․a `ieee754₂`. */
+   } binary32; /* a․𝘬․a `ieee754₂`. */
    struct { /* For ±1×10⁻⁹⁵ to ±9.999999×10⁹⁶. */
      /* ⫝ */
-   } decimal32; /* A․𝘬․a `ieee754_2008₁₀`. */
+   } decimal32; /* a․𝘬․a `ieee754_2008₁₀`. */
    uint32_t bits;
 } tetra;
 
@@ -519,11 +522,11 @@ struct Memorydelegate {
 };
 
 struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max4MB and Nonbound.) */
-   Scatter(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpagebytes) FALLIBLE;
+   Scatter(void * 𝟺kbPages[], __builtin_int_t ﹟, __builtin_int_t lastpagebytes) FALLIBLE;
    Scatter(Memorydelegate * delegate = NULL);
-   int 𝟺kinit(void * the𝟺kbpage, short unusedbytes);
-   int 𝟺Mbinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpage₋bytes);
-   int 𝟺Gbinit(void * 𝟺kbPages[], __builtin_int_t count, __builtin_int_t lastpage₋bytes);
+   int 𝟺kb₋init(void * the𝟺kbpage, short unusedbytes);
+   int 𝟷₋tile₋init(__builtin_int_t ref₋bytes, void * ref₋store, void * 𝟺kbPages[], __builtin_int_t ﹟, __builtin_int_t lastpage₋bytes); /* a․𝘬․a `𝟺Mbinit` and `𝟷₋ref-scatter`. */
+   int n₋tile₋init(void * 𝟺kbPages[], __builtin_int_t ﹟, __builtin_int_t lastpage₋bytes, __builtin_int_t * fifo₋pages); /* a․𝘬․a `𝟺Gbinit` and `𝟸₋ref₋scatter`. */
    int incorp(__builtin_int_t bytes₋to₋tail, __builtin_int_t bytes, void (^sometimes)(short bytes, uint8_t * virtue));
    int shiftout(__builtin_int_t bytes, void (^left)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖r𝟺kbPage)); /* Also `𝘗𝘰𝘴𝘴𝘪𝘣𝘭𝘺`. */
    byteaddress relative(__builtin_int_t byte₋offset, void (^relissue)(int nº)) const;
@@ -535,7 +538,12 @@ struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max
    int oftensort() const; */
    __builtin_int_t bytes() const; __builtin_int_t ᵇdebris() const;
    ~Scatter(); Memorydelegate * delegate; Scatter(const Scatter& other); /* Required by `pristine`. */
-😐; /* Disjunct, sediment and segments. */
+😐; /* Disjunct, sediment and segments. A `Scatter` is 
+  
+  1) an `n-tile-fifo` and o-mi₍ss₎tted evaluated 'Augment' operation.
+  2) a synthesized pointer consisting of a page index and an offset.
+  3) a partially enfoiled fifo and a byte-address accessor. Note that the 
+    accessor is not called from `push` and `pop`. */
 
 int Augment(Scatter& s, __builtin_int_t bytes, void (^once𝘖rMultiple)(short bytes, 
   uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage));
@@ -554,13 +562,13 @@ struct Bits { Bits(Scatter * s); Scatter * scatter; uint8_t& operator[](__builti
   uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, 
     __builtin_int_t totmips, uint32_t * towrite𝘖r𝖭𝖴𝖫𝖫=NULL);
   uint64_t /* a․𝘬․a `ieee754dbl₋pattern` */ intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
-}; /* A․k․a `Memoryregion`. */
+}; /* a․k․a `Memoryregion`. */
 
 void * ExactSeek₂(const void *key, const void *base, size_t num, 
  size_t size, int (^cmp)(const void *key, const void *elt));
 
 int Sediment(unsigned expeditionary, __builtin_int_t bytes, void (^once𝘖rNought)(Bits& bits));
-/* ⬷ A․k․a `Otherref`; Similar-to `alloca`. */
+/* ⬷ a․k․a `Otherref`; Similar-to `alloca`. */
 
 int IsPrefixOrEqual(const char *𝟽alt𝟾₋bitstring, const char *𝟽alt𝟾₋bitprefix);
 /* Returns `int` indicating difference at branch, -1 if equal and `0` when string 
