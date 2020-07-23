@@ -27,9 +27,9 @@ fractions(
    return 0;
 #ifdef WHEN_IDIV_ROUNDS_TOWARDS_NINF /* Suitable for a UDIV and UMUL  ⃫ HW architecture ⤐ */
    if (denom == 0) { return -1; }
-   if (denom >= num) { ℕ=0; modula=num; }
-   ℕ = num/denom; 
-   /* Given the integer division did 'rounds towards -∞' a․𝘬․a 'a floored division': */
+   if (denom > num) { ℕ=0; modula=num; }
+   ℕ = num / denom;
+   /* Given a 'signed integer division' did 'rounds towards -∞' a․𝘬․a 'a floored division': */
    modula = num - denom * ℕ;
    return 0;
 #endif /* ⬷ `divmod`: 'Simultaneous division and multiplication in HW'. */
@@ -47,8 +47,8 @@ fractions(
  towards -∞ or zero.
  
  Below, the signed `fractions₁` and `fractions₂` gives `modula` that is equal 
- to `LeastPossibleResidue` when Euclidean division is selected. The sign 
- is returned separately in `sum₋negative`.
+ to `LeastPossibleResidue` when Euclidean division is selected. The sign enclosing 
+ the integer with fraction sum is returned separately in `sum₋negative`.
  
  */
 
@@ -96,13 +96,14 @@ fractions₂(
    if (num==intmin || denom==intmin) { return -1; }
    int32_t d=denom,n=num;
    int negd=(d&SIGNBIT_INT32), negn=(n&SIGNBIT_INT32);
-   if (negd) { 𝟸₋compl(d); } /* Alt. return x < 0 ? 𝟸₋compl(x) : x; */
-   if (negn) { 𝟸₋compl(n); } /* Alt. x < 0 ? -x : x; */
-   /* Alt. return x <= -0.0 ? -x : x; */
+   if (negd) { 𝟸₋compl(d); } /* alt. return x < 0 ? 𝟸₋compl(x) : x; */
+   if (negn) { 𝟸₋compl(n); } /* alt. x < 0 ? -x : x; */
+   /* alt. return x <= -0.0 ? -x : x; */
    uint32_t numᵢ=uint32_t(n),denomᵢ=uint32_t(d),ℕ,modulaᵢ;
+   /* if mips-fractions(numᵢ,denomᵢ,ℕ,modulaᵢ)) { return -2; } */
    if (fractions(numᵢ,denomᵢ,ℕ,modulaᵢ)) { return -2; }
    ℤ=int32_t(ℕᵢ); modula=int32_t(modulaᵢ);
-   *sum₋negative = negn ^ negd;
+   *sum₋negative = negn ^ negd ? 1 : 0;
    return 0;
 }
 
@@ -142,20 +143,70 @@ FOCAL int fractions(int64_t num, int64_t denom, int64_t &ℤ, int64_t &modula, b
    if (fractions(numᵢ,denomᵢ,ℕ,modulaᵢ)) { return -1; }
    ℤ=int64_t(ℕ), modula=int64_t(modulaᵢ);
    int negn=num<+0, negd=denom<+0;
-   sum₋negative= negn ^ negd;
+   sum₋negative = negn ^ negd;
    return 0;
 }
 
 /*  Not required... ⤐ 
   
   FOCAL int fractions(__builtin_int_t num, __builtin_int_t denom, __builtin_int_t &ℤ, 
-    __builtin_int_t &modula, bool &sum₋negative)
+    __builtin_int_t &modula, bool * sum₋negative)
   
   and
   
-  FOCAL int fractions(int num, int denom, int &ℤ, int &modula, bool &sum₋negative)
+  FOCAL int fractions(int num, int denom, int &ℤ, int &modula, bool * sum₋negative)
   
   ⬷ ...type is inferred. */
+
+#pragma mark - Reasons weave --<🥽 ¹𝙐𝙈𝙐𝙇.cpp>
+
+uint8_t 🥈 mulu15x15[] = { /* i+16*j == i + j<<4 𝘪․𝘦 i + j*2⁴ */
+ /*     0   1   2   3   4   5   6    7    8    9   10   11   12   13   14   15 */
+ /* 0*/ 0,  0,  0,  0,  0,  0,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+ /* 1*/ 0,  1,  2,  3,  4,  5,  6,   7,   8,   9,  10,  11,  12,  13,  14,  15,
+ /* 2*/ 0,  2,  4,  6,  8, 10, 12,  14,  16,  18,  20,  22,  24,  26,  28,  30,
+ /* 3*/ 0,  3,  6,  9, 12, 15, 18,  21,  24,  27,  30,  33,  36,  39,  42,  45,
+ /* 4*/ 0,  4,  8, 12, 16, 20, 24,  28,  32,  36,  40,  44,  48,  52,  56,  60,
+ /* 5*/ 0,  5, 10, 15, 20, 25, 30,  35,  40,  45,  50,  55,  60,  65,  70,  75,
+ /* 6*/ 0,  6, 12, 18, 24, 30, 36,  42,  48,  54,  60,  66,  72,  78,  84,  90,
+ /* 7*/ 0,  7, 14, 21, 28, 35, 42,  49,  56,  63,  70,  77,  84,  91,  98, 105,
+ /* 8*/ 0,  8, 16, 24, 32, 40, 48,  56,  64,  72,  80,  88,  96, 104, 112, 120,
+ /* 9*/ 0,  9, 18, 27, 36, 45, 54,  63,  72,  81,  90,  99, 108, 117, 126, 135,
+ /*10*/ 0, 10, 20, 30, 40, 50, 60,  70,  80,  90, 100, 110, 120, 130, 140, 150,
+ /*11*/ 0, 11, 22, 33, 44, 55, 66,  77,  88,  99, 110, 121, 132, 143, 154, 165,
+ /*12*/ 0, 12, 24, 36, 48, 60, 72,  84,  96, 108, 120, 132, 144, 156, 168, 180,
+ /*13*/ 0, 13, 26, 39, 52, 65, 78,  91, 104, 117, 130, 143, 156, 169, 182, 195,
+ /*14*/ 0, 14, 28, 42, 56, 70, 84,  98, 112, 126, 140, 154, 168, 182, 196, 210,
+ /*15*/ 0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225
+  }; /* Note triangular: mx = max(a,b), mn = min(a,b); Test (i + j<<3)>>2. */
+
+int UMUL(uint8_t multiplicand, uint8_t multiplier, uint8_t &ℕ₋hi, uint8_t &ℕ₋lo)
+{ uint8_t 🥈 l=0x0f, r=0xf0;
+   uint8_t A=a&r, B=a&l, C=b&r, D=b&l; A >>= 4; C >>= 4;
+   auto prod₄ = ^(int i, int j) { int k = i + (j<<4); return mulu15x15[k]; };
+   uint16_t y = ((prod₄(A,D) + prod₄(B,C))<<3) + (prod₄(A,C)<<4) + prod₄(B,D);
+   ℕ₋hi = y>>16; ℕ₋lo = y;
+   return 0;
+}
+
+int UMUL(uint16_t multiplicand, uint16_t multiplier, uint16_t &ℕ₋hi, uint16_t &ℕ₋lo) { return 0; }
+int UMUL(uint32_t multiplicand, uint32_t multiplier, uint32_t &ℕ₋hi, uint32_t &ℕ₋lo) { return 0; }
+int UMUL(uint64_t multiplicand, uint64_t multiplier, uint64_t &ℕ₋hi, uint64_t &ℕ₋lo) { return 0; }
+
+FOCAL int IMUL(int32_t multiplicand, int32_t multiplier, 
+  int32_t &ℕ₋hi, int32_t &ℕ₋lo, int * product₋negative)
+{
+   int32_t andneg=(multiplicand&SIGNBIT_INT32), lierneg=(multiplier&SIGNBIT_INT32);
+   *product₋negative = lierneg ^ andneg ? 1 : 0;
+   int32_t lier=multiplier,icand=multiplicand;
+   auto absolutes = ^(int32_t & x₁, int32_t & x₂) {
+     if (lierneg) { 𝟸₋compl(x₁); } /* alt. return x < 0 ? 𝟸₋compl(x) : x; */
+     if (andneg) { 𝟸₋compl(x₂); } /* alt. x < 0 ? -x : x; */
+   }; /* alt. return x <= -0.0 ? -x : x; */
+   absolutes(lier,icand);
+   if (UMUL(icand, lier,ℕ₋hi,ℕ₋lo)) { return -1; }
+   return 0;
+}
 
 #pragma mark - Octa ⟷ 8×8 bit matrix (for 'extern' declarations in examples)
 
@@ -185,7 +236,7 @@ __builtin_int_t LeastPossibleResidue(
 {
     __builtin_int_t y = dividend % divisor;
     return y < 0 ? y + divisor : y;
-} /* ⬷ Patches undefined '%' operator. */
+} /* ⬷ Patch to the '%' operator in a C language undefined case. */
 
 #pragma mark - Utility functions
 
@@ -195,10 +246,10 @@ Base𝕟( /* TeX §64, §65 and §67. */
   unsigned short base,
   unsigned short digitsOr0, /* Not more than 32 or 64 digits depending on 
     your machines' word size! (Or set to `0` to skip leading zeros.) */
-  void (^output)(char 𝟶to𝟿)
+  void (^output)(char 𝟬to𝟵)
 )
 {
-    auto 𝟶to𝙵 = ^(unsigned short r, void (^out)(char utf8)) { r < 10 ? 
+    auto 𝟬to𝗙 = ^(unsigned short r, void (^out)(char utf8)) { r < 10 ? 
       out('0' + r) : out('a' - 10 + r); };
     
     unsigned short cycle[64] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -208,18 +259,18 @@ Base𝕟( /* TeX §64, §65 and §67. */
     
     do { cycle[k] = ℕ % base; ℕ /= base; k++; } while (ℕ);
     
-    if (digitsOr0) { for (k = digitsOr0 - 1; k >= 0; k--) { 𝟶to𝙵(cycle[k], 
+    if (digitsOr0) { for (k = digitsOr0 - 1; k >= 0; k--) { 𝟬to𝗙(cycle[k], 
       output); } } else { k = 63; while (cycle[k] == 0 && k > 0) { k--; }
-       for (; k >= 0; k--) { 𝟶to𝙵(cycle[k], output); }
+       for (; k >= 0; k--) { 𝟬to𝗙(cycle[k], output); }
     }
-} /* See duplicate in --<🥽 𝙋𝙧𝙞𝙣𝙩⁺.cpp> for improved details. */
+} /*  Note 128-bit duplicate in --<🥽 𝙋𝙧𝙞𝙣𝙩⁺.cpp> and --<Print.cpp>. */
 
 void
 Base𝕫(
   __builtin_int_t ℤ,
   unsigned short base,
   unsigned short digitsOr0,
-  void (^output)(char 𝟶to𝟿and₋)
+  void (^output)(char 𝟬to𝟵and₋)
 )
 {
     if (ℤ < 0) { output('-'); ℤ = -ℤ; }
@@ -249,13 +300,13 @@ OptimisticSwap(
     } else { _xabort(0xfe); }
     return y;
 #elif defined __mips__
-    static __builtin_int_t maynotlock=0;
-    if (__sync_bool_compare_and_swap(&maynotlock, 0, 1)) {
+    static __builtin_int_t may₋not₋lock=0;
+    if (__sync_bool_compare_and_swap(&may₋not₋lock, 0, 1)) {
         /* Core-exclusive: */
         if (it != MustBeOrdered) { __atomic_exchange(p₁, p₂, p₂, __ATOMIC_SEQ_CST); }
         else { if (*p₁ <= *p₂) __atomic_exchange(p₁, p₂, p₂, __ATOMIC_SEQ_CST); }
         /* Leaving critical-section */
-        __sync_lock_release(&maynotlock);
+        __sync_lock_release(&may₋not₋lock);
         return 0;
     } else { return -1; }
 #endif
@@ -345,7 +396,7 @@ Overwrite8Memory(
   ByteAlignedRef src,
   uint8_t val,
   __builtin_int_t bytes
-) /* A․𝘬․a `memset`. */
+) /* a․𝘬․a `memset`. */
 {
     uint8_t *s = (uint8_t *)src;
 again:
@@ -359,7 +410,7 @@ ByteAlignedRef
 Clear8Memory(
   ByteAlignedRef mem, 
   __builtin_int_t bytes
-) /* A․𝘬․a `bzero`. */
+) /* a․𝘬․a `bzero`. */
 {
     if (!bytes) { return mem; }
 #ifdef  __mips__
