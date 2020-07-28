@@ -7,8 +7,7 @@ struct TwinbeamContext {
   Chronology calendricChronology, computationalChronology;
 } __twinbeamContext;
 
-extern "C"
-DISORDERABLE /* Overridden when linked together with 𝘦․𝘨 `SlimScheduler.o`. */
+extern "C" DISORDERABLE /* Overridden when linked together with 𝘦․𝘨 `SlimScheduler.o`. */
 jmp_buf2 * /* volatile */
 JmpBuf() { return &(__twinbeamContext.singleTaskProgramState); }
 
@@ -64,7 +63,7 @@ inexorable int fractions₁(
 }
 
 #ifdef __mips__
-inexorable int mips-fractions(
+inexorable int mips₋fractions(
   uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula
 ) {
     if (denom == 0) { return -1; }
@@ -82,7 +81,7 @@ inexorable int mips-fractions(
 
 inexorable void invert(int32_t & x) { x = ~x; } /* a․𝘬․a `toggle₋all`. */
 inexorable void increment₁(int32_t & x) { ++x; } /* a․𝘬․a `möbius-at-intmax`. */
-inexorable int 𝟸₋compl(int32_t & x) { invert(x); increment₁(x); }
+inexorable void 𝟸₋compl(int32_t & x) { invert(x); increment₁(x); }
 
 inexorable int
 fractions₂(
@@ -94,15 +93,14 @@ fractions₂(
    /* int32_t 🥈 intmax = 0b01111111111111111111111111111111; */
    int32_t 🥈 intmin = 0b10000000000000000000000000000001;
    if (num==intmin || denom==intmin) { return -1; }
-   int32_t d=denom,n=num;
-   int negd=(d&SIGNBIT_INT32), negn=(n&SIGNBIT_INT32);
-   if (negd) { 𝟸₋compl(d); } /* alt. return x < 0 ? 𝟸₋compl(x) : x; */
-   if (negn) { 𝟸₋compl(n); } /* alt. x < 0 ? -x : x; */
-   /* alt. return x <= -0.0 ? -x : x; */
+   int32_t d=denom,n=num,negd=(d&SIGNBIT_INT32),negn=(n&SIGNBIT_INT32);
+   if (negd) { 𝟸₋compl(d); } /* alt. return x < 0 ? 𝟸₋compl(x) : x */
+   if (negn) { 𝟸₋compl(n); } /* alt. x < 0 ? -x : x */
+   /* alt. return x <= -0.0 ? -x : x */
    uint32_t numᵢ=uint32_t(n),denomᵢ=uint32_t(d),ℕ,modulaᵢ;
    /* if mips-fractions(numᵢ,denomᵢ,ℕ,modulaᵢ)) { return -2; } */
    if (fractions(numᵢ,denomᵢ,ℕ,modulaᵢ)) { return -2; }
-   ℤ=int32_t(ℕᵢ); modula=int32_t(modulaᵢ);
+   ℤ=int32_t(ℕ); modula=int32_t(modulaᵢ);
    *sum₋negative = negn ^ negd ? 1 : 0;
    return 0;
 }
@@ -122,8 +120,7 @@ fractions(
    return 0;
 }
 
-int
-fractions(
+int fractions(
   __uint128_t num, __uint128_t denom, 
   __uint128_t &ℕ, __uint128_t &modula)
 { ℕ=0;
@@ -137,8 +134,8 @@ fractions(
 
 #pragma mark - …and one more signed counterparts a․𝘬․a `IDIV` for 64-bits:
 
-FOCAL int fractions(int64_t num, int64_t denom, int64_t &ℤ, int64_t &modula, bool &sum₋negative)
-{
+FOCAL int fractions(int64_t num, int64_t denom, int64_t &ℤ, int64_t &modula, 
+ bool &sum₋negative) {
    uint64_t numᵢ=(uint64_t)abs64i(num),denomᵢ=(uint64_t)abs64i(denom),ℕ,modulaᵢ;
    if (fractions(numᵢ,denomᵢ,ℕ,modulaᵢ)) { return -1; }
    ℤ=int64_t(ℕ), modula=int64_t(modulaᵢ);
@@ -160,7 +157,7 @@ FOCAL int fractions(int64_t num, int64_t denom, int64_t &ℤ, int64_t &modula, b
 
 #pragma mark - Reasons weave --<🥽 ¹𝙐𝙈𝙐𝙇.cpp>
 
-uint8_t 🥈 mulu15x15[] = { /* i+16*j == i + j<<4 𝘪․𝘦 i + j*2⁴ */
+uint8_t 🥈ᵢ mulu15x15[] = { /* i+16*j == i + j<<4 𝘪․𝘦 i + j*2⁴ */
  /*     0   1   2   3   4   5   6    7    8    9   10   11   12   13   14   15 */
  /* 0*/ 0,  0,  0,  0,  0,  0,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
  /* 1*/ 0,  1,  2,  3,  4,  5,  6,   7,   8,   9,  10,  11,  12,  13,  14,  15,
@@ -180,54 +177,50 @@ uint8_t 🥈 mulu15x15[] = { /* i+16*j == i + j<<4 𝘪․𝘦 i + j*2⁴ */
  /*15*/ 0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225
   }; /* Note triangular: mx = max(a,b), mn = min(a,b); Test (i + j<<3)>>2. */
 
-int UMUL(uint8_t multiplicand, uint8_t multiplier, uint8_t &ℕ₋hi, uint8_t &ℕ₋lo)
+int UMUL(uint8_t x₁, uint8_t x₂, uint8_t &ℕ₋hi, uint8_t &ℕ₋lo)
 { uint8_t 🥈 l=0x0f, r=0xf0;
-   uint8_t A=a&r, B=a&l, C=b&r, D=b&l; A >>= 4; C >>= 4;
-   auto prod₄ = ^(int i, int j) { int k = i + (j<<4); return mulu15x15[k]; };
+   uint8_t A=x₁&r, B=x₁&l, C=x₂&r, D=x₂&l; A >>= 4; C >>= 4;
+   auto prod₄ = ^(int i, int j) { int k = i + (j<<4); return (uint16_t)mulu15x15[k]; };
    uint16_t y = ((prod₄(A,D) + prod₄(B,C))<<3) + (prod₄(A,C)<<4) + prod₄(B,D);
-   ℕ₋hi = y>>16; ℕ₋lo = y;
+   ℕ₋hi = y>>8; ℕ₋lo = y;
    return 0;
 }
 
-int UMUL(uint16_t multiplicand, uint16_t multiplier, uint16_t &ℕ₋hi, uint16_t &ℕ₋lo) { return 0; }
-int UMUL(uint32_t multiplicand, uint32_t multiplier, uint32_t &ℕ₋hi, uint32_t &ℕ₋lo) { return 0; }
-int UMUL(uint64_t multiplicand, uint64_t multiplier, uint64_t &ℕ₋hi, uint64_t &ℕ₋lo) { return 0; }
+int UMUL(uint16_t x₁, uint16_t x₂, uint16_t &ℕ₋hi, uint16_t &ℕ₋lo)
+{ uint16_t 🥈 l=0x00ff, r=0xff00; 
+   uint16_t A=x₁&r, B=x₁&l, C=x₂&r, D=x₂&l; A >>= 8; C >>= 8;
+   uint16_t ℕ₋hiAD, ℕ₋loAD, ℕ₋hiBC, ℕ₋loBC, ℕ₋hiAC, ℕ₋loAC, ℕ₋hiBD, ℕ₋loBD;
+   if (UMUL(A,D, ℕ₋hiAD, ℕ₋loAD)) { return -1; }
+   if (UMUL(B,C, ℕ₋hiBC, ℕ₋loBC)) { return -2; }
+   if (UMUL(A,C, ℕ₋hiAC, ℕ₋loAC)) { return -3; }
+   if (UMUL(B,D, ℕ₋hiBD, ℕ₋loBD)) { return -4; }
+   uint32_t prod₄AD=(ℕ₋hiAD<<8) & ℕ₋loAD, prod₄BC=(ℕ₋hiBC<<8) & ℕ₋loBC, 
+     prod₄AC=(ℕ₋hiAC<<8) & ℕ₋loAC, prod₄BD=(ℕ₋hiBD<<8) & ℕ₋loBD;
+   uint32_t y = ((prod₄AD + prod₄BC)<<7) + (prod₄AC<<8) + prod₄BD;
+   ℕ₋lo = y; ℕ₋hi = y>>16;
+   return 0;
+} /* ...and now to be expanded in the detail-fork --<System¹.cpp>. */
+
+int UMUL(uint32_t x₁, uint32_t x₂, uint32_t &ℕ₋hi, uint32_t &ℕ₋lo) { return 0; }
+int UMUL(uint64_t x₁, uint64_t x₂, uint64_t &ℕ₋hi, uint64_t &ℕ₋lo) { return 0; }
 
 FOCAL int IMUL(int32_t multiplicand, int32_t multiplier, 
-  int32_t &ℕ₋hi, int32_t &ℕ₋lo, int * product₋negative)
+  int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * product₋negative)
 {
-   int32_t andneg=(multiplicand&SIGNBIT_INT32), lierneg=(multiplier&SIGNBIT_INT32);
-   *product₋negative = lierneg ^ andneg ? 1 : 0;
    int32_t lier=multiplier,icand=multiplicand;
+   int32_t lierneg=(lier&SIGNBIT_INT32), negand=(icand&SIGNBIT_INT32);
+   *product₋negative = lierneg ^ negand ? 1 : 0;
    auto absolutes = ^(int32_t & x₁, int32_t & x₂) {
-     if (lierneg) { 𝟸₋compl(x₁); } /* alt. return x < 0 ? 𝟸₋compl(x) : x; */
-     if (andneg) { 𝟸₋compl(x₂); } /* alt. x < 0 ? -x : x; */
-   }; /* alt. return x <= -0.0 ? -x : x; */
+     if (lierneg) { 𝟸₋compl(x₁); } /* alt. return x < 0 ? 𝟸₋compl(x) : x */
+     if (negand) { 𝟸₋compl(x₂); } /* alt. x < 0 ? -x : x */
+   }; /* alt. return x <= -0.0 ? -x : x */
    absolutes(lier,icand);
-   if (UMUL(icand, lier,ℕ₋hi,ℕ₋lo)) { return -1; }
+   uint32_t icandᵢ=uint32_t(icand),lierᵢ=uint32_t(lier),ℕ₋hiᵢ,ℕ₋loᵢ;
+   if (UMUL(icandᵢ,lierᵢ,ℕ₋hiᵢ,ℕ₋loᵢ)) { return -1; }
+   /* Computations 'max*max' and 'min*min' is 0x3FFFFFFF00000001 so 'if (0x8000 0000 & ℕ₋hiᵢ) { return -2; }' redundant. */
+   ℕ₋hi=ℕ₋hiᵢ; ℕ₋lo=ℕ₋loᵢ;
    return 0;
 }
-
-#pragma mark - Octa ⟷ 8×8 bit matrix (for 'extern' declarations in examples)
-
-unionᵢ Individual { uint64_t le; uint8_t radio[8]; };
-
-uint64_t MXOR(uint64_t X, uint64_t 👈)
-{  Individual x { .le=X }, sel { .le=👈 }, y { .le=0 };
-    for (__builtin_int_t i=0; i<8; ++i) { for (__builtin_int_t j=0; j<8; ++j) { 
-      if (sel.radio[i]) { y.radio[j] ^= x.radio[i]; } } }
-    return y.le;
-} /* a․𝘬․a 'multiple-xor'. The 👈 selects bytes in X that are xor-ed together. */
-
-uint64_t MOR(uint64_t X, uint64_t 👈)
-{  Individual x { .le=X }, sel { .le=👈 }, y { .le=0 };
-    for (__builtin_int_t i=0; i<8; ++i) { for (__builtin_int_t j=0; j<8; ++j) { 
-      if (sel.radio[i]) { y.radio[j] |= x.radio[i]; } } }
-    return y.le;
-} /* a․𝘬․a 'multiple-or'. The 👈 selects bytes in X that are or-ed together. */
-
-/*  For example 8 ascii to 8 unicodes, cyclically/arithmetically/logically shift a 
- register. See MMIX 1.3.1 for additional use-cases such as addition and reflection. */
 
 #pragma mark - Circular reasoning
 
