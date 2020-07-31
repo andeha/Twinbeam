@@ -37,14 +37,14 @@ typedef short               int16_t; /* ≡`ᵐⁱᵖˢint` */
 typedef __builtin_uint_t Tribool; /* 𝘊․𝘧 🎿 'obekant' and 'icke-lös'. */
 
 typedef struct bignum { /* Artificial */
-  constexpr static int maxdigits = 100; /* To not: Templates, … */
-  char digits[maxdigits]; /* Binary coded decimals. */
+  constexpr static int maxdigits = 628; /* To not: 'templates', … */
+  char digits[maxdigits]; /* Unpacked binary coded decimals. */
   int signbit; /* Indicates with 𝟷 if positive and with -𝟷 if negative. */
   int lastdigit; /* High-order digit index. */
 } bignum;
-void print_bignum(bignum *n, void (^output)(char c));
-void int_to_bignum(__builtin_int_t s, bignum *n);
-void initialize_bignum(bignum *n);
+void print_bignum(bignum *n, void (^out)(char c));
+void int_to_bignum(uint64_t ℕ, bignum *n);
+void initialize_bignum(bignum *n, const char * str);
 void add_bignum(bignum *a, bignum *b, bignum *c);
 void subtract_bignum(bignum *a, bignum *b, bignum *c);
 int compare_bignum(bignum *a, bignum *b);
@@ -200,7 +200,7 @@ MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   shifted = orig>>shift; if (update) update(shifted); __builtin_uint_t fresh =
   (shifted<<shift)&mask; *symbol = (word & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL
 enum class Ieee754Form { Scientific, Monetary }; /* ⬷ Occasionally `intrinsic_and_base₋10`. */
-DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc));
+DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t 𝟷𝟶₋base));
 int print(const char * utf8format,...); int mfprint(const char * utf8format,...);
 int print(void (^out)(uint8_t * u8s, __builtin_int_t bytes), const char * utf8format, ...);
 struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, void * context); 
@@ -214,7 +214,7 @@ b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(__builtin_int_t tetras, char32_t
 ﹟c(char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
 Argᴾ ﹟regs(__builtin_uint_t mask); Argᴾ ﹟λ(Argᴾ::Output scalar, void * context);
 extern "C" { int atexit(void(*func)(void)); void exit(int); } 
-extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fallow₋ₒ)(void *);
+extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fall⒪⒲﹠o)(void *);
 __builtin_int_t 𝟺𝟶𝟿𝟼₋aligned₋frame(__builtin_int_t byte₋number, __builtin_int_t * modulo);
 int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
   __builtin_uint_t avails[], void (^every)(uint8_t * 𝟸ⁿframe, bool& stop));
@@ -224,7 +224,7 @@ struct Expeditionary { __builtin_int_t 𝑙𝑜𝑔₂Pages; __builtin_int_t Idx
   __builtin_uint_t * pages; __builtin_uint_t * avails; };
 void InitFrames(int count, unsigned expeditionaries[]);
 int CoalescingAcquire(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟);
-int Fallow(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟);
+int 🄕allo⒲(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟);
 /* void Reservoir(unsigned expeditionary, __builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_int_t *
   Idxs, __builtin_uint_t **pages, __builtin_uint_t **avails); */
 extern "C" { void * malloc(size_t); void free(void *); }
@@ -239,7 +239,7 @@ typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
 FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memory(
   ByteAlignedRef dst, /* const */ ByteAlignedRef src, __builtin_int_t bytes) {
   ByteAlignedRef org = dst; __asm__ __volatile__ ("rep movsb" : "+D"(dst),
-  "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* a․𝘬․a `memcopy`. */
+  "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* A․k․a `memcopy`. */
 FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
   ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uint_t bytes); /* ⏱😐🏁 */
 #define MEASURE_START(prefix) int64_t prefix##Start = __rdtsc(); /* 𝚜𝚒𝚐𝚗𝚎𝚍 ⟵ Comparision */
@@ -252,7 +252,7 @@ FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
 FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef 
   dst, ByteAlignedRef src, __builtin_int_t bytes);
 FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁, 
-  ByteAlignedRef p₂, __builtin_uint_t bytes); /* a․k․a `memcmp`. */
+  ByteAlignedRef p₂, __builtin_uint_t bytes); /* A․k․a `memcmp`. */
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
   constexpr uint32_t PIC32##serie##_##symbol = vaddr;                        \
   constexpr uint32_t PIC32##serie##_##symbol##CLR = (vaddr + 0x4);           \
@@ -262,8 +262,8 @@ FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁
 #define 🔎🎭𝑀𝑋(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__) 
 #define 🔎🎭𝑀𝑍𝐷𝐴(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
 #define 🔎🎭𝑀𝑍(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
-MACRO uint32_t AsUncached(uint32_t vaddr) { return vaddr | 0x20000000; } /* a․𝘬․a `KSEG0ToKSEG1`. */
-MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /* a․𝘬․a `VToP`. */
+MACRO uint32_t AsUncached(uint32_t vaddr) { return vaddr | 0x20000000; } /* A․𝘬․a `KSEG0ToKSEG1`. */
+MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /* A․𝘬․a `VToP`. */
 #endif
 ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
 ByteAlignedRef Overwrite8Memory(ByteAlignedRef src, uint8_t val,
@@ -282,7 +282,7 @@ MACRO void * _Block_copy(const void *arg) { struct Block_layout *block = (struct
   Block_layout *)arg; struct Block_layout *res = (struct Block_layout *)Alloc(
   block->descriptor->size); Copy8Memory((ByteAlignedRef)res, (ByteAlignedRef)
   block, block->descriptor->size); return res; }
-MACRO void _Block_release(const void *arg) { Fallow((void *)arg); }
+MACRO void _Block_release(const void *arg) { Fall⒪⒲﹠o((void *)arg); }
 typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
 __builtin_int_t constexpr SystemInfoPagesize() { return 4096; } /* One definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
@@ -364,7 +364,7 @@ template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 🥇 NOT_EVERYTIME
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
 #define 🥈 WHEN_COMPILING /* Must be assigned to a `const` and no inline assembler. */
-#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* a․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 🎿 'jurid' and 'förekomst'. Also 'machinal'. */
+#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* A․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 🎿 'jurid' and 'förekomst'. Also 'machinal'. */
 template <typename T> T * Critic(const T * x) { return const_cast<T*>(x); }
 template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* a․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
 __builtin_int_t LeastPossibleResidue(__builtin_int_t dividend, __builtin_int_t divisor);
@@ -474,10 +474,10 @@ typedef union {
      unsigned mantissa : 23;
      unsigned exponent :  8;
      unsigned sign     :  1;
-   } binary32; /* a․𝘬․a `ieee754₂`. */
+   } binary32; /* a․𝘬․a `ieee754base₋2`. */
    struct { /* For ±1×10⁻⁹⁵ to ±9.999999×10⁹⁶. */
      /* ⫝ */
-   } decimal32; /* a․𝘬․a `ieee754_2008₁₀`. */
+   } decimal32; /* a․𝘬․a `ieee754_2008₋base₋10`. */
    uint32_t bits;
 } tetra;
 
