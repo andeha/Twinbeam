@@ -29,28 +29,33 @@ typedef int32_t             __builtin_int_t;
 typedef unsigned int        uint32_t;
 typedef int                 int32_t; /* ≡`long` */
 typedef uint64_t            __builtin_uint_t;
-typedef int64_t             __builtin_int_t; /* 𝘈․𝘬․a `sequential`. */
+typedef int64_t             __builtin_int_t; /* a․𝘬․a `sequential`. */
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
 #endif /* ⬷ Consider 32- alt. 64-bits with an extra sign bit for `Frame`, `leqAndPowerOfTwo`, `geqAndPowerOfTwo` and `isPowerOfTwo`. */
 typedef unsigned short      uint16_t;
 typedef short               int16_t; /* ≡`ᵐⁱᵖˢint` */
 typedef __builtin_uint_t Tribool; /* 𝘊․𝘧 🎿 'obekant' and 'icke-lös'. */
-
 typedef struct bignum { /* Artificial */
   constexpr static int maxdigits = 628; /* To not: 'templates', … */
   char digits[maxdigits]; /* Unpacked binary coded decimals. */
   int signbit; /* Indicates with 𝟷 if positive and with -𝟷 if negative. */
   int lastdigit; /* High-order digit index. */
-} bignum;
+} bignum; /* ⬷ A very-long integer type. */
 void print_bignum(bignum *n, void (^out)(char c));
-void int_to_bignum(uint64_t ℕ, bignum *n);
-void initialize_bignum(bignum *n, const char * str);
+void int_to_bignum(int64_t ℕ, bignum *n);
+int initialize_bignum(bignum *n);
+int digits_to_bignum(bignum * n, const char * digits);
 void add_bignum(bignum *a, bignum *b, bignum *c);
 void subtract_bignum(bignum *a, bignum *b, bignum *c);
 int compare_bignum(bignum *a, bignum *b);
 void digit_shift(bignum *n, __builtin_int_t d); /* Multiply n by 10ᵈ. */
 void multiply_bignum(bignum *a, bignum *b, bignum *c);
 void divide_bignum(bignum *a, bignum *b, bignum *c);
+int fractions(uint64_t num, uint64_t denom, uint64_t &ℕ, uint64_t &modula);
+int fractions(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula);
+/* Also register allocation when e․g four integer accumulators. */
+int IMUL(short id, int32_t multipliand, int32_t multiplier, int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * product₋negative);
+/* The constant INT_MAX is an odd number. Also: 'odd' is closed under multiplication. */
 
 #define BITMASK(type) enum : type
 #ifdef  __mips__
@@ -298,8 +303,9 @@ FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned
   short base, unsigned short digitsOr0, /* Not more than 32 alt. 64 digits 
   depending on word size! (Or set to `0` to skip leading zeros.) */ void
   (^out)(char 𝟶to𝟿)); /* See --<Print.cpp> for a 128-bit version. */
-FOCAL void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short 
-  digitsOr0, void (^out)(char 𝟶to𝟿and₋));
+void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿and₋));
+void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿));
+void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿and₋));
 #define OVERLOADABLE __attribute__ ((overloadable))
 #define SIGNBIT_INT32 0x80000000
 #define SIGNBIT_INT64 0x8000000000000000
