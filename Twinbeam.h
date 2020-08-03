@@ -53,7 +53,6 @@ void multiply_bignum(bignum *a, bignum *b, bignum *c);
 void divide_bignum(bignum *a, bignum *b, bignum *c);
 int fractions(uint64_t num, uint64_t denom, uint64_t &ℕ, uint64_t &modula);
 int fractions(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula);
-/* Also register allocation when e․g four integer accumulators. */
 int IMUL(short id, int32_t multipliand, int32_t multiplier, int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * product₋negative);
 /* The constant INT_MAX is an odd number. Also: 'odd' is closed under multiplication. */
 
