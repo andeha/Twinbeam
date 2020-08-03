@@ -51,8 +51,11 @@ int compare_bignum(bignum *a, bignum *b);
 void digit_shift(bignum *n, __builtin_int_t d); /* Multiply n by 10ᵈ. */
 void multiply_bignum(bignum *a, bignum *b, bignum *c);
 void divide_bignum(bignum *a, bignum *b, bignum *c);
-int fractions(uint64_t num, uint64_t denom, uint64_t &ℕ, uint64_t &modula);
-int fractions(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula);
+int hw₋fractions(uint64_t num, uint64_t denom, uint64_t &ℕ, uint64_t &modula);
+/* int hw₋fractions(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
+int sw₋fractions(__uint128_t num, __uint128_t denom, __uint128_t &ℕ, __uint128_t &modula);
+int hw₋fractions(int64_t num, int64_t denom, int64_t &ℤ, int64_t &modula, int * sum₋negative);
+int hw₋fractions(int32_t num, int32_t denom, int32_t &ℤ, int32_t &modula, int * sum₋negative);
 int IMUL(short id, int32_t multipliand, int32_t multiplier, int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * product₋negative);
 /* The constant INT_MAX is an odd number. Also: 'odd' is closed under multiplication. */
 
