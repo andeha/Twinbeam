@@ -61,8 +61,8 @@ int hw₋fractions(int32_t num, int32_t denom, int32_t &ℤ, int32_t &modula, in
 int IADD(short id, int32_t addend, int32_t augend, int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * sum₋negative);
 int IMUL(short id, int32_t multipliand, int32_t multiplier, int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * product₋negative);
 int Fused₋IMUL(short id, int32_t augend, int32_t multiplier, int invMultiplyThenAdd, int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * accumulator₋negative);
-/* FOCAL int Initiate₋Zero(short id, int32_t &ℕ₋hi, uint32_t &ℕ₋lo) { extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4]; __ℕ₋his[id]=0, __ℕ₋los[id]=0; /​* also IMUL(0,0,...). *​/ }
-FOCAL int Initiate₋One(short id, int32_t &ℕ₋hi, uint32_t &ℕ₋lo) { extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4]; __ℕ₋his[id]=0, __ℕ₋los[id]=1; /​* also IMUL(1,1,...) } *​/
+/* FOCAL int Initiate₋Zero(short id, int32_t &ℕ₋hi, uint32_t &ℕ₋lo) { extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4]; __ℕ₋🅷[id]=0, __ℕ₋🅻[id]=0; /​* also IMUL(0,0,...). *​/ }
+FOCAL int Initiate₋One(short id, int32_t &ℕ₋hi, uint32_t &ℕ₋lo) { extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4]; __ℕ₋🅷[id]=0, __ℕ₋🅻[id]=1; /​* also IMUL(1,1,...) } */
 /* The constant INT_MAX is an odd number. Also: 'odd' is closed under multiplication. */
 __builtin_int_t bi₋narrowing(int64_t x, void (^sometime)(int32_t distorsion));
 __builtin_int_t bi₋widening(int32_t x);  
