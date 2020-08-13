@@ -51,13 +51,23 @@ int compare_bignum(bignum *a, bignum *b);
 void digit_shift(bignum *n, __builtin_int_t d); /* Multiply n by 10ᵈ. */
 void multiply_bignum(bignum *a, bignum *b, bignum *c);
 void divide_bignum(bignum *a, bignum *b, bignum *c);
-int hw₋fractions(uint64_t num, uint64_t denom, uint64_t &ℕ, uint64_t &modula);
-/* int hw₋fractions(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
+/* int sw₋fractions(uint64_t num, uint64_t denom, uint64_t &ℕ, uint64_t &modula); */
+/* int hw₋fractions₁(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
+/* int sw₋fractions₂(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
+int fractions(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); /* ⬷ Requires `sw₋fractions₂` and/or `hw₋fractions₁`. */
 int sw₋fractions(__uint128_t num, __uint128_t denom, __uint128_t &ℕ, __uint128_t &modula);
 int hw₋fractions(int64_t num, int64_t denom, int64_t &ℤ, int64_t &modula, int * sum₋negative);
 int hw₋fractions(int32_t num, int32_t denom, int32_t &ℤ, int32_t &modula, int * sum₋negative);
+int IADD(short id, int32_t addend, int32_t augend, int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * sum₋negative);
 int IMUL(short id, int32_t multipliand, int32_t multiplier, int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * product₋negative);
+int Fused₋IMUL(short id, int32_t augend, int32_t multiplier, int invMultiplyThenAdd, int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * accumulator₋negative);
+/* FOCAL int Initiate₋Zero(short id, int32_t &ℕ₋hi, uint32_t &ℕ₋lo) { extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4]; __ℕ₋his[id]=0, __ℕ₋los[id]=0; /​* also IMUL(0,0,...). *​/ }
+FOCAL int Initiate₋One(short id, int32_t &ℕ₋hi, uint32_t &ℕ₋lo) { extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4]; __ℕ₋his[id]=0, __ℕ₋los[id]=1; /​* also IMUL(1,1,...) } *​/
 /* The constant INT_MAX is an odd number. Also: 'odd' is closed under multiplication. */
+__builtin_int_t bi₋narrowing(int64_t x, void (^sometime)(int32_t distorsion));
+__builtin_int_t bi₋widening(int32_t x);  
+int64_t indisponible(__builtin_uint_t x, int * error);
+uint64_t indisponible(__builtin_int_t x, int * error);
 
 #define BITMASK(type) enum : type
 #ifdef  __mips__
@@ -70,7 +80,7 @@ int IMUL(short id, int32_t multipliand, int32_t multiplier, int32_t &ℕ₋hi, u
   struct Internals;                                                          \
   Internals * impl_;
 #define 😐 APPEND_PIMPL }
-template <typename T> struct SemanticPointer { T ref; }; /* 𝘈․𝘬․a `DisjunctPointer` and `OptionalIntervallicPointer`. */
+template <typename T> struct SemanticPointer { T ref; }; /* a․𝘬․a `DisjunctPointer` and `OptionalIntervallicPointer`. */
 #define VISITISR(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + call */
 #define UNITTEST(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
 #define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",          \
@@ -117,7 +127,9 @@ template <typename T> struct SemanticPointer { T ref; }; /* 𝘈․𝘬․a `Dis
 #define OPTIONALSCHEDULATIVE
 #define CIRCULATIVE /* a․𝘬․a  'Averaged' ∧ '␣'. */
 #define NONFRUITY /* FRUKT-SAM-T and 'inkräktare'. */
+#define CONTEXTDESTILLATIVE
 #define SILHOUETTED /* a․𝘬․a `SILLHOUETIC` and AL₋GE₋BR₋A/AL₋GOR₋IT₋H₋M. */
+/* #define INPASSABLE */
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; /*  ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
@@ -206,7 +218,7 @@ MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
   __builtin_uint_t word = *symbol, shift=TrailingZeros(mask), orig = mask&word,
   shifted = orig>>shift; if (update) update(shifted); __builtin_uint_t fresh =
   (shifted<<shift)&mask; *symbol = (word & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL
-enum class Ieee754Form { Scientific, Monetary }; /* ⬷ Occasionally `intrinsic_and_base₋10`. */
+enum class Ieee754Form { Scientific, Saturn, Monetary }; /* ⬷ Occasionally `intrinsic_and_base₋10`. */
 DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t 𝟷𝟶₋base));
 int print(const char * utf8format,...); int mfprint(const char * utf8format,...);
 int print(void (^out)(uint8_t * u8s, __builtin_int_t bytes), const char * utf8format, ...);
@@ -259,7 +271,7 @@ FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
 FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef 
   dst, ByteAlignedRef src, __builtin_int_t bytes);
 FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁, 
-  ByteAlignedRef p₂, __builtin_uint_t bytes); /* A․k․a `memcmp`. */
+  ByteAlignedRef p₂, __builtin_uint_t bytes); /* a․k․a `memcmp`. */
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
   constexpr uint32_t PIC32##serie##_##symbol = vaddr;                        \
   constexpr uint32_t PIC32##serie##_##symbol##CLR = (vaddr + 0x4);           \
@@ -269,8 +281,8 @@ FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁
 #define 🔎🎭𝑀𝑋(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__) 
 #define 🔎🎭𝑀𝑍𝐷𝐴(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
 #define 🔎🎭𝑀𝑍(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
-MACRO uint32_t AsUncached(uint32_t vaddr) { return vaddr | 0x20000000; } /* A․𝘬․a `KSEG0ToKSEG1`. */
-MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /* A․𝘬․a `VToP`. */
+MACRO uint32_t AsUncached(uint32_t vaddr) { return vaddr | 0x20000000; } /* a․𝘬․a `KSEG0ToKSEG1`. */
+MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /* a․𝘬․a `VToP`. */
 #endif
 ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
 ByteAlignedRef Overwrite8Memory(ByteAlignedRef src, uint8_t val,
@@ -306,11 +318,12 @@ FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned
   depending on word size! (Or set to `0` to skip leading zeros.) */ void
   (^out)(char 𝟶to𝟿)); /* See --<Print.cpp> for a 128-bit version. */
 void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿and₋));
-void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿));
 void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿and₋));
+void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿));
 #define OVERLOADABLE __attribute__ ((overloadable))
 #define SIGNBIT_INT32 0x80000000
-#define SIGNBIT_INT64 0x8000000000000000
+#define SIGNBIT_INT64 0x8000000000000000 
+/* ⬷ a․𝘬․a -0, 'FURTHEST_AWAY +1 alt․ ++', '0b1<<31alt63' and ♯`INT_MIN`. */
 MACRO int64_t abs64i(int64_t x) { return x & ~SIGNBIT_INT64; }
 MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
 /* template <typename ℤ> ℤ abs₁(ℤ x) { return x < 0 ? -x : x; }
@@ -320,7 +333,7 @@ template <typename ℕ> void 𝟸₋compl(ℕ & x) { invert(x); ++x; }
 template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋compl(x) : x; }
 /* ⬷ Notice `x` = INT_MIN is not representable as a positive number¹ and maps 
  back to the same bit pattern. (Similar with 'identity a․𝘬․a zero'.) */
-#define /* PROVOCATIVE */ ASSEMBLERONLY __attribute__((naked)) /* A․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN, NEITHER_PROLOGUE_NOR_EPILOGUE. */
+#define /* PROVOCATIVE */ ASSEMBLERONLY __attribute__((naked)) /* a․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN, NEITHER_PROLOGUE_NOR_EPILOGUE. */
 /* #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error"))) */
 /* #define STRANGE_MAIN void _Noreturn main */
 #define LEAF /* Attribute-at-end for method declarations. A․𝘬․a 'do not follow'. */
@@ -345,7 +358,7 @@ template <typename T> T ʳchange(T x₁, T x₂) { return (x₂ - x₁) / x₁; 
 #define innominate auto /* a․𝘬․a `innominate-type`. */
 template <typename T> concept Relative₋accumulative = requires (T x₁, T x₂) {
  x₁ + x₂ /* -> int */; /*{*/ x₁ - x₂ /*} -> Same<bool>*/; Zero(x₂) /* -> T*/; };
- /* ⬷ A․𝘬․a `Turtle` and 'algebraic category'. To instatiate write similar to 
+ /* ⬷ a․𝘬․a `Turtle` and 'algebraic category'. To instatiate write similar to 
  'template <Relative₋accumulative T>' ... , 
  'template <typename T> requires Relative₋accumulative<T> T operator... and 
  'void foo(Relative₋accumulative innominate & x) { ... }'. */
@@ -372,7 +385,7 @@ template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 🥇 NOT_EVERYTIME
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
 #define 🥈 WHEN_COMPILING /* Must be assigned to a `const` and no inline assembler. */
-#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* A․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 🎿 'jurid' and 'förekomst'. Also 'machinal'. */
+#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* a․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 🎿 'jurid' and 'förekomst'. Also 'machinal'. */
 template <typename T> T * Critic(const T * x) { return const_cast<T*>(x); }
 template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* a․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
 __builtin_int_t LeastPossibleResidue(__builtin_int_t dividend, __builtin_int_t divisor);
@@ -430,7 +443,7 @@ union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits
 #include <immintrin.h>  /* The `crc_u32` intrinsic in smmintrin.h. */
 #elif defined __mips__
 union Treeint { struct { int32_t key; uint32_t val; } keyvalue; uint64_t bits; };
-#endif /* A․𝘬․a `Autumn` and `Treeℤ`. */
+#endif /* a․𝘬․a `Autumn` and `Treeℤ`. */
 
 void * Insert(void * opaque, Treeint valkey, void * (^alloc)(int bytes));
 void Forall(void ᶿ﹡ opaque, void (^dfs)(Treeint valkey, bool& stop));
@@ -595,7 +608,7 @@ struct Bitfield { const char32_t * ident; uint32_t mask;
 struct AnnotatedRegister { const char32_t * header; int regcnt; const 
   Bitfield * regs; uint32_t init; const char32_t * footnote; };
 inline uint32_t ᵗᵍᵍˡendian(uint32_t x) { return __builtin_bswap32(x); }
-#ifdef __x86_64__ /* ⇇ A․𝘬․a `toggleNetworkAndNative`. */
+#ifdef __x86_64__ /* ⇇ a․𝘬․a `toggleNetworkAndNative`. */
 inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
 #define POSIX_FIBER
 #include <Source/osXFiber.hpp>
