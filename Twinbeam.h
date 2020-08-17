@@ -65,10 +65,9 @@ int Fused₋IMUL(short id, int32_t augend, int32_t multiplier, int invMultiplyTh
 FOCAL int Initiate₋One(short id, int32_t &ℕ₋hi, uint32_t &ℕ₋lo) { extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4]; __ℕ₋🅷[id]=0, __ℕ₋🅻[id]=1; /​* also IMUL(1,1,...) } */
 /* The constant INT_MAX is an odd number. Also: 'odd' is closed under multiplication. */
 __builtin_int_t bi₋narrowing(int64_t x, void (^sometime)(int32_t distorsion));
-__builtin_int_t bi₋widening(int32_t x);  
+__builtin_int_t bi₋widening(int32_t x);
 int64_t indisponible(__builtin_uint_t x, int * error);
 uint64_t indisponible(__builtin_int_t x, int * error);
-
 #define BITMASK(type) enum : type
 #ifdef  __mips__
 #define Mips __asm__ __volatile__ (/* ".set noat   \n" */ ".set noreorder  \n" ".set nomacro    \n"
@@ -242,6 +241,7 @@ int Release𝟷ᵈ(void * 𝟸ⁿframe, __builtin_int_t 𝑙𝑜𝑔₂Pages, __
 struct Expeditionary { __builtin_int_t 𝑙𝑜𝑔₂Pages; __builtin_int_t Idxs; 
   __builtin_uint_t * pages; __builtin_uint_t * avails; };
 void InitFrames(int count, unsigned expeditionaries[]);
+int ContiguousAcquire(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟);
 int CoalescingAcquire(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟);
 int 🄕allo⒲(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟);
 /* void Reservoir(unsigned expeditionary, __builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_int_t *
@@ -375,7 +375,7 @@ template <typename T> bool rel₋eq(T x₁, T x₂) { return !(x₁ < x₂ || x�
 template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 #define WHEN_COMPILING constexpr static
 #define NOT_EVERYTIME const static
-#define CARDINALS(...) enum Cardinal { __hole=0, __VA_ARGS__ };              \
+#define CARDINALS(...) enum Cardinal { __🄦hole=0, __VA_ARGS__ };            \
   static jmp_buf2 __snapshot;                                                \
   auto confess = ^(Cardinal sin) { longjmp2(__snapshot, (__builtin_int_t)sin); };
 #define NEARBYCROSS                                                          \
@@ -389,8 +389,10 @@ template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 template <typename T> T * Critic(const T * x) { return const_cast<T*>(x); }
 template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* a․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
 __builtin_int_t LeastPossibleResidue(__builtin_int_t dividend, __builtin_int_t divisor);
-/* ⬷ See --<Wiki>--<Essays>--<On Clocks and Time> and 'Circular reasoning'. */
-#define ᶿ﹡ const * /* #define *⥃ const char *, a․𝘬․a `*⥆` and `*⫩`. */
+/* ⬷ See --<Wiki>--<Essays>--<On Clocks and Time> and 'circular reasoning'. */
+#define auto₋rollback(variable) decltype(variable)
+#define ᶿ﹡ const * /* #define *⥃ const char * /​* a․𝘬․a `*⥆` and `*⫩`. */
+#define overlay union
 
 #pragma mark Utf-8
 
@@ -538,16 +540,16 @@ typedef __builtin_uint_t virtuaddr;
 typedef SemanticPointer<virtuaddr> byteaddress; /* a․𝘬․a `metaaddress`. */
 
 struct Memorydelegate {
-  virtual void statistics(Scatter * s, char32_t unicode) = 0;
-  virtual void issue(Scatter * s, byteaddress unaligned, int nº) = 0;
+  virtual void statistics(Scatter * ṩ, char32_t unicode) = 0;
+  virtual void issue(Scatter * ṩ, byteaddress unaligned, int nº) = 0;
 };
 
 struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max4MB and Nonbound.) */
-   Scatter(void * 𝟺kbPages[], __builtin_int_t ﹟, __builtin_int_t lastpagebytes) FALLIBLE;
-   Scatter(Memorydelegate * delegate = NULL);
+   Scatter(unsigned 🅧ᵖ, void * 𝟺kbPages[], __builtin_int_t ﹟, __builtin_int_t lastpagebytes) FALLIBLE;
+   Scatter(unsigned 🅧ᵖ, Memorydelegate * delegate = NULL);
    int 𝟺kb₋init(void * the𝟺kbpage, short unusedbytes);
    int 𝟷₋tile₋init(__builtin_int_t ref₋bytes, void * ref₋store, void * 𝟺kbPages[], __builtin_int_t ﹟, __builtin_int_t lastpage₋bytes); /* a․𝘬․a `𝟺Mbinit` and `𝟷₋ref-scatter`. */
-   int n₋tile₋init(void * 𝟺kbPages[], __builtin_int_t ﹟, __builtin_int_t lastpage₋bytes, __builtin_int_t * fifo₋pages); /* a․𝘬․a `𝟺Gbinit` and `𝟸₋ref₋scatter`. */
+   int n₋tile₋init(void * 𝟺kbpages[], __builtin_int_t ﹟, __builtin_int_t lastpage₋bytes, __builtin_int_t * fifo₋pages); /* a․𝘬․a `𝟺Gbinit` and `𝟸₋ref₋scatter`. */
    int incorp(__builtin_int_t bytes₋to₋tail, __builtin_int_t bytes, void (^sometimes)(short bytes, uint8_t * virtue));
    int shiftout(__builtin_int_t bytes, void (^left)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖r𝟺kbPage)); /* Also `𝘗𝘰𝘴𝘴𝘪𝘣𝘭𝘺`. */
    byteaddress relative(__builtin_int_t byte₋offset, void (^relissue)(int nº)) const;
@@ -682,6 +684,25 @@ inline void Initiate(Fiber::fiber_t& fib, void (*jam)(Fiber::fiber_t *, void *uc
 #define va_prologue(symbol)                                                 \
   __builtin_va_list __various;                                              \
   __builtin_va_start(__various, symbol);
+
+/**  Return objects allocated from consecutive frames or from the heap. (DISJUNCT-ADJACENT-STUFFED) */
+template <typename T> T * Elements𝘖𝘳Heap(int expeditionary, 
+  int count, void (^default𝘖rNull)(T * elem)
+) {  T * location = NULL;
+   if (expeditionary == -1) { location = Alloc(count*sizeof(T)); } else { 
+     /* __builtin_int_t bytes=sizeof(T)*count, ﹟ = bytes/4096 + (bytes % 4096 ? 1 : 0); */
+     __builtin_int_t bytes=sizeof(T)*count, modula; int sum₋negative;
+     if (hw₋fractions(bytes, 4096, ﹟, modula, &sum₋negative)) { return NULL; }
+     void * 𝟺kbframes[﹟];
+     /* if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { return NULL; } */
+     if (ContiguousAcquire(expeditionary,𝟺kbframes,﹟)) { return NULL; }
+     /* ⬷ First-fit, closest-fit and most-recently-used. */
+     location = (T *)𝟺kbframes[0];
+   }
+   for (__builtin_int_t i=0; i<count; ++i) { T * elem = new (i + location) T(); }
+   if (default𝘖rNull) { for (__builtin_int_t i=0; i<count; ++i) { default𝘖rNull(i + location); } }
+   return location;
+} /* a․𝘬․a `malloc`, `StartupAlloc` and `Frame𝘈𝘭𝘵𝙉ew`. */
 
 #pragma mark - 😐😇
 
