@@ -696,7 +696,7 @@ template <typename T> T * Elements𝘖𝘳Heap(int expeditionary,
      void * 𝟺kbframes[﹟];
      /* if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { return NULL; } */
      if (ContiguousAcquire(expeditionary,𝟺kbframes,﹟)) { return NULL; }
-     /* ⬷ First-fit, closest-fit and most-recently-used. */
+     /* ⬷ First-fit, most-recently-used and closest-fit. */
      location = (T *)𝟺kbframes[0];
    }
    for (__builtin_int_t i=0; i<count; ++i) { T * elem = new (i + location) T(); }
