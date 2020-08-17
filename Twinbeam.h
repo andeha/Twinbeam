@@ -690,13 +690,12 @@ template <typename T> T * Elements𝘖𝘳Heap(int expeditionary,
   int count, void (^default𝘖rNull)(T * elem)
 ) {  T * location = NULL;
    if (expeditionary == -1) { location = Alloc(count*sizeof(T)); } else { 
-     /* __builtin_int_t bytes=sizeof(T)*count, ﹟ = bytes/4096 + (bytes % 4096 ? 1 : 0); */
-     __builtin_int_t bytes=sizeof(T)*count, modula; int sum₋negative;
+     __builtin_int_t bytes=sizeof(T)*count,﹟,modula; int sum₋negative;
      if (hw₋fractions(bytes, 4096, ﹟, modula, &sum₋negative)) { return NULL; }
-     void * 𝟺kbframes[﹟];
+     void * 𝟺kbframes[﹟ + (bytes % 4096 ? 1 : 0)]; /* ⬷ Always positive so ⌊⌋. */
      /* if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { return NULL; } */
      if (ContiguousAcquire(expeditionary,𝟺kbframes,﹟)) { return NULL; }
-     /* ⬷ First-fit, closest-fit and most-recently-used. */
+     /* ⬷ First-fit, most-recently-used and closest-fit. */
      location = (T *)𝟺kbframes[0];
    }
    for (__builtin_int_t i=0; i<count; ++i) { T * elem = new (i + location) T(); }
@@ -711,7 +710,7 @@ struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
     typedef octa Instant; typedef octa Interval; /** Second is calendric 
       alt. monotonically increasing non-rooting temporal relative. */
     
-    typedef uint32_t UQ32; /* E․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */	
+    typedef uint32_t UQ32; /* E․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
     
     /**  Given a timestamp, return year, month (1-12) and day (1-31). */
     
