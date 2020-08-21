@@ -1,0 +1,22 @@
+# /works/⁻¹.ninja - Something for Xcode, posssibly command-line.
+
+appbundle = Twinbeam.framework
+
+rule compile
+  command = rm -rf Twinbeam.framework                                      ; $
+  mkdir $appbundle                                                         ; $
+  mkdir $appbundle/Modules                                                 ; $
+  mkdir $appbundle/Headers                                                 ; $
+  mkdir $appbundle/PrivateHeaders                                          ; $
+  mkdir $appbundle/Frameworks                                              ; $
+  mkdir $appbundle/Resources                                               ; $
+  mkdir $appbundle/Name                                                    ; $
+  cp ../Twinbeam.h $appbundle/Headers                                      ; $
+  cp ../Additions/Additions.h $appbundle/Headers                           ; $
+  cp ../macOS/module.modulemap $appbundle/Modules                          ; $
+  cp libTwinbeam_macos.a $appbundle/libTwinbeam_macos                      ; $
+  cp libAdditions_macos.a $appbundle/libAdditions_macos                    ; $
+  cp libAuadditions_macos.a $appbundle/libAuadditions_macos
+
+build $appbundle: compile 
+default Twinbeam.framework
