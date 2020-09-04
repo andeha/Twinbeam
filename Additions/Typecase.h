@@ -6,7 +6,7 @@
       𝘦․𝘨 𝐊 (ᵃ𝑛/ᵇ𝑛), where n∈[1,∞) = a₁/(b₁ + a₂/(b₂ + …)
     Unicodes and utf-8: .*․｟｠ ⃦ ('Combining double vertical stroke overlay') ✚
       ★ 𐤟 (PHOENICIAN WORD SEPARATOR) ↹ ↩︎ ¶
-    Greek: 𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲𝛳𝛴𝛵𝛶𝛷𝛸𝛹𝛺 𝛼𝛽𝛾𝛿𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜎𝜏𝜐𝜑𝜒𝜓𝜔 𝜙𝜛
+    Greek₁: 𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲𝛳𝛴𝛵𝛶𝛷𝛸𝛹𝛺 𝛼𝛽𝛾𝛿𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜎𝜏𝜐𝜑𝜒𝜓𝜔 𝜙𝜛
     Mathematics 𝐼𝑡𝑎𝑙𝑖cs: 𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐾𝐽𝐿𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍 𝑎𝑏𝑐𝑑𝑒𝑓𝑔ℎ𝑖𝚤𝑗𝚥𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧
      𝑩𝒐𝒍𝒅 Italics: 𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿𝒀𝒁 𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛
      Sans-serif: 𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹 𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓 𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿
@@ -14,6 +14,7 @@
      𝙏𝙝𝙧𝙚𝙚: 𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕 𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯
      Sans-serif (non-Bold) 𝘐𝘵𝘢𝘭𝘪𝘤: 𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡 𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻
      𝙼𝚘𝚗𝚘space: 𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿 𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉 𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣
+    Greek₂: αβγδεζηθικλμνξοπρςστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ
     Models and mathematics: ⊏ ⊑ ⊢ ⊨ ⊿ ª0 + … + ªn₋1 n₍2k₊1₎ ª1⋯ªk ∴ (tf) ∵ (b) ∎ ⇀↽
     Parentheses and temporals: ⎛⎜⎝   ⎞⎟⎠        ◯ ♢ ▢ (...also: 'valid' and 'transaction'.)
     Sub/super: ⁻⁺⁽¹ˣ⁾⁼ⁱⁿ ᵢᵣᵤᵥᵦᵧᵨᵩᵪ₊₋₌₍₎⨧ₐₑₒₓₔⱼ ᵃⁿᵈᵉʰᵊᵇⁱʲˡˢᵋᵌᵍᵎᵏᵐⁿᵒᵖʳᵗᵘᵙᵚᵛˣʸᴬᴮᴴᴵᴺᵅᵝᵞᵟᵋᶿᵠᵡ
@@ -63,6 +64,8 @@
    
     „ ⃨as illustrated below or above:‟
    
+   --[Roadsign]--<Stem>--<Leaf 1>--<Again>
+   
       ∞              ∞                                                      
       ⌠  🔍😐        \̅                                                      
       ⎮ 𝘦⁻ˣ 𝘥𝑥 ≅ √𝘹 + › ⁣1/k² ≅ @w Sum[, … ∈ ℝ (DOUBLE-STRUCK CAPITAL R)   (0)
@@ -76,7 +79,7 @@
    Further, consider:
    
    Dashes: ‒ Figure Dash, – En Dash, — Em Dash, ⁓ Swung Dash, ⸺ Two-em Dash,
-        ⸻ Three-em Dash, 〰 Wavy Dash, - Hyphen Minus.
+     ⸻ Three-em Dash, 〰 Wavy Dash, - Hyphen Minus. Also 𝟄-soft-hyphen: ⥗­⥖.
      
      ˥ ˦ ˧ ˨ ˩ (Tone letters)
      ⎔⃚ (Combining anticlockwise ring overlay)
@@ -107,8 +110,8 @@
      ⇀ ↽ (Punctuation space), ⇀ ↽ (Thin space), ⇀ ↽ (Hair space),
      ⇀​↽ (Zero width space), ⇀ ↽ (Narrow no-break space),
      ⇀ ↽ (Medium mathematical space), ⇀　↽ (Ideographic space), ⇀〿↽
-     (Ideographic half-fill space). ␣ (Knuths' Constant.) ﹇ (Silver space)
-    ⇀⁤,⁣,⁢↽ (Non-visible-plus|separator|*)                                      
+     (Ideographic half-fill space). ␣ (Knuths' constant.) ﹇ (Silver space)
+    ⇀⁤,⁣,⁢↽ (Non-visible-plus|separator|*) ⥗ ⥖ (Paragraph separator)    
                                                                              
    Language: ' APOSTROPHE " QUOTATION MARK, ` GRAVE ACCENT,                  
        todo: RABIT LEFT, RABIT RIGHT, SUBSCRIPTED RABIT LFT, SUBSCRIPT RABIT RGHT
