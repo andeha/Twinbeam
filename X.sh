@@ -1,5 +1,5 @@
 ninja -C Source -f build_pic32mz.ninja                              || exit 1
-ninja -C Source -f build_macos.ninja                                || exit 1
+ninja -C Source -f build_macos₂.ninja                               || exit 1
 ninja -C macOS -f harnessᵗᵇ.ninja                                   || exit 1
 ninja -C macOS -f harnessᵃᵈᵈˢ.ninja                                 || exit 1
 ninja -C macOS -f harnessᵃᵘˣ.ninja                                  || exit 1

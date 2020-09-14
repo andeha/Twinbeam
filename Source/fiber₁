@@ -1,0 +1,82 @@
+/*  fiber₁ | Old-fiber. */
+
+#ifdef __x86_64__ 
+#define POSIX_FIBER
+/* #include <Source/osXFiber.hpp> */
+
+/* osXFiber.hpp ⤐ */
+#ifdef POSIX_FIBER
+#define _XOPEN_SOURCE
+#include <ucontext.h>
+#undef LEAF
+#define LEAF
+#endif
+/* ⬷ osXFiber.hpp. */
+
+#elif defined __mips__
+#define MIPS_VIRTUAL_MULTITHREADED
+#endif
+
+namespace Fiber {
+    
+    int 🥈 Bytes =
+ #ifdef __x86_64__
+        160
+ #elif defined __mips__
+        128
+ #endif
+        ;
+    
+#ifndef POSIX_FIBER
+    struct ucontext_t { /* Someday: void * variables; */
+      union {
+       struct { uint8_t bytes[Bytes]; } generic;
+       struct { __builtin_uint_t regs[1+15+4], rip, rsp; } intel;
+       struct { __builtin_uint_t gprs[32]; } mips;
+      } cpu₋states; /* Not 'yet' 'int 🥈 stacks=3'. */
+      uint8_t * kernel₋stk, * irq₋stk, * rt₋stk; /* ⬷ See 'schedule-dipl.'. */
+      __builtin_int_t bytes₋kernel, bytes₋rt, bytes₋irq;
+    };
+#endif
+    struct Peel { void * variables; /* ⬷ a․𝘬․a `citri`. */
+      ucontext_t ctx; int 🥈 bytes=sizeof(ucontext_t);
+      uint8_t alcoda[bytes]; /* ⌖ */
+    }; /* ⬷ Consider `Orbital` and `Principia`; a․𝘬․a 'Pentominoes'. */
+    namespace Composition { enum { encompass₋counter, all₋but₋counter }; } /* For coroutines, task-switching, debug and irq. */
+    struct io₋mapping { __builtin_uint_t address; __builtin_uint_t material; }; /* Such as msr, tsc and/or rcon. */
+    int Snapshot(Peel * dissection /* a․𝘬․a `nutrients`. */, int composition=0, int count=0, io₋mapping * keep=NULL) LEAF;
+    int Recall(const Peel * dissection) LEAF;
+#ifdef __x86_64__
+    register __builtin_uint_t rsp asm("rsp"), rbp asm("rbp");
+#endif
+    
+    typedef Peel fiber_t;
+    
+    void Incubate(fiber_t * dissection, void (*ufnc)(...), int argc, ...);
+    
+    inline int Start(fiber_t & nxt, void * 𝕍) { if (𝕍) { nxt.variables=𝕍; } return Recall(&nxt); }
+    
+    /* typedef void (^Classic₋fiber)(Fiber::fiber_t * self, void * variables); */
+    
+    inline void swap(fiber_t & nxt, fiber_t & prv) { if (Snapshot(&prv) == 0) Recall(&nxt); }
+    
+}
+
+/* __attribute__ ((callback (ufnc, uctx))) */
+inline void Initiate(Fiber::fiber_t& fib, void (*jam)(Fiber::fiber_t *, void *uctx), void * uctx=NULL, 
+  void * (^alloc)(__builtin_int_t bytes) = Alloc) {
+    Fiber::Snapshot(&fib);
+    __builtin_uint_t 🥈ᵢ bytes₋stack = 131072;
+#ifdef POSIX_FIBER
+    fib.ctx.uc_stack.ss_sp = alloc(bytes₋stack);
+    fib.ctx.uc_stack.ss_size = bytes₋stack;
+    fib.ctx.uc_link = 0;
+#else
+    fib.ctx.kernel₋stk = (uint8_t *)alloc(bytes₋stack);
+    fib.ctx.irq₋stk = (uint8_t *)alloc(bytes₋stack);
+    fib.ctx.rt₋stk = (uint8_t *)alloc(bytes₋stack);
+    fib.ctx.bytes₋rt = fib.ctx.bytes₋irq = fib.ctx.bytes₋kernel = bytes₋stack;
+#endif
+    Fiber::Incubate(&fib, (void (*)(...))jam, 1, uctx);
+}
+

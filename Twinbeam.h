@@ -41,16 +41,16 @@ typedef struct bignum { /* Artificial */
   int signbit; /* Indicates with 𝟷 if positive and with -𝟷 if negative. */
   int lastdigit; /* High-order digit index. */
 } bignum; /* ⬷ A very-long integer type. */
-void print_bignum(bignum *n, void (^out)(char c));
+void initialize_bignum(bignum *n);
 void int_to_bignum(int64_t ℕ, bignum *n);
-int initialize_bignum(bignum *n);
 int digits_to_bignum(bignum * n, const char * digits);
 void add_bignum(bignum *a, bignum *b, bignum *c);
 void subtract_bignum(bignum *a, bignum *b, bignum *c);
-int compare_bignum(bignum *a, bignum *b);
-void digit_shift(bignum *n, __builtin_int_t d); /* Multiply n by 10ᵈ. */
 void multiply_bignum(bignum *a, bignum *b, bignum *c);
 void divide_bignum(bignum *a, bignum *b, bignum *c);
+void digit_shift(bignum *n, __builtin_int_t d); /* Multiply n by 10ᵈ. */
+int compare_bignum(bignum *a, bignum *b);
+void print_bignum(bignum *n, void (^out)(char c));
 /* int sw₋fractions(uint64_t num, uint64_t denom, uint64_t &ℕ, uint64_t &modula); */
 /* int hw₋fractions₁(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
 /* int sw₋fractions₂(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
@@ -124,11 +124,13 @@ template <typename T> struct SemanticPointer { T ref; }; /* a․𝘬․a `Disjun
 #define PRIMALTRANSLATIVE
 #define ALTERNATESCHEDULATIVE
 #define OPTIONALSCHEDULATIVE
-#define CIRCULATIVE /* a․𝘬․a  'Averaged' ∧ '␣'. */
-#define NONFRUITY /* FRUKT-SAM-T and 'inkräktare'. */
+#define CIRCULATIVE /* a․𝘬․a 'Averaged' ∧ '␣'. */
 #define CONTEXTDESTILLATIVE
 #define SILHOUETTED /* a․𝘬․a `SILLHOUETIC` and AL₋GE₋BR₋A/AL₋GOR₋IT₋H₋M. */
-/* #define INPASSABLE */
+#define METABOLIUNIFICATIVE /* Disjunct relative METABOLISUBTRACTIONAL. */
+#define IMPLICATIVE /* I-ER-ANDE: ISOMORPHIC and INFOR. */
+#define AMBIVALENTOBFUSCATIVE /* BOLL:IG. */
+#define EUCLIDEANINCOHERENT
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; /*  ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
@@ -600,8 +602,9 @@ int IsPrefixOrEqual(const char *𝟽alt𝟾₋bitstring, const char *𝟽alt𝟾
 extern "C" void ASSEMBLERONLY Sheriff();
 /* #define ⭐️ Sheriff();  After delivery, a non-inquisitorial system is assumed. */
 enum Impediment { MustBeOrdered, JustSwap };
-int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂, Impediment it); /* Non-
-atomic, yet consistent and gracefully failing indicated through a non-zero return value. */
+int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂, Impediment it);
+/* ⬷ Non-atomic, yet consistent and gracefully failing indicated through a non-
+zero return value. */
 /* struct Peekey { __builtin_int_t 🥈 ⬚=2, 🗝=1; __builtin_int_t board₁, palm₂; }; */
 #define 🔒(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, MustBeOrdered)
 #define 🔓(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, JustSwap);
@@ -609,75 +612,29 @@ struct Bitfield { const char32_t * ident; uint32_t mask;
   const char32_t * text; }; typedef Bitfield Register[];
 struct AnnotatedRegister { const char32_t * header; int regcnt; const 
   Bitfield * regs; uint32_t init; const char32_t * footnote; };
+struct Monotonic { Monotonic(__builtin_int_t oldest=0); __builtin_int_t 
+ ordinal(bool * wrapped); /* ⬷ Retrieve a - since the program started and given 
+ a chronology - unique value in a 'strict monotonic increasing serie.  Wraps (𝄇) 
+ at `BUILTIN_INT_MAX`. A․𝘬․a 'stilistic chronology'. */ 😐;
 inline uint32_t ᵗᵍᵍˡendian(uint32_t x) { return __builtin_bswap32(x); }
-#ifdef __x86_64__ /* ⇇ a․𝘬․a `toggleNetworkAndNative`. */
 inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
-#define POSIX_FIBER
-#include <Source/osXFiber.hpp>
-#elif defined __mips__
-#define MIPS_VIRTUAL_MULTITHREADED
-#endif
-namespace Fiber {
-    
-    int 🥈 Bytes =
- #ifdef __x86_64__
-        160
- #elif defined __mips__
-        128
- #endif
-        ;
-    
-#ifndef POSIX_FIBER
-    struct ucontext_t { /* Someday: void * variables; */
-      union {
-       struct { uint8_t bytes[Bytes]; } generic;
-       struct { __builtin_uint_t regs[1+15+4], rip, rsp; } intel;
-       struct { __builtin_uint_t gprs[32]; } mips;
-      } cpu₋states; /* Not 'yet' 'int 🥈 stacks=3'. */
-      uint8_t * kernel₋stk, * irq₋stk, * rt₋stk;
-      __builtin_int_t bytes₋kernel, bytes₋rt, bytes₋irq;
-    };
-#endif
-    struct Peel { void * variables; /* ⬷ a․𝘬․a `citri`. */
-      ucontext_t ctx; int 🥈 bytes=sizeof(ucontext_t);
-      uint8_t alcoda[bytes]; /* ⌖ */
-    }; /* ⬷ Consider `Orbital` and `Principia`; a․𝘬․a 'Pentominoes'. */
-    namespace Composition { enum { encompass₋counter, all₋but₋counter }; } /* For coroutines, task-switching, debug and irq. */
-    struct io₋mapping { __builtin_uint_t address; __builtin_uint_t material; }; /* Such as msr, tsc and/or rcon. */
-    int Snapshot(Peel * dissection /* a․𝘬․a `nutrients`. */, int composition=0, int count=0, io₋mapping * keep=NULL) LEAF;
-    int Recall(const Peel * dissection) LEAF;
-#ifdef __x86_64__
-    register __builtin_uint_t rsp asm("rsp"), rbp asm("rbp");
-#endif
-    
-    typedef Peel fiber_t;
-    
-    void Incubate(fiber_t * dissection, void (*ufnc)(...), int argc, ...);
-    
-    inline int Start(fiber_t & nxt, void * 𝕍) { if (𝕍) { nxt.variables=𝕍; } return Recall(&nxt); }
-    
-    /* typedef void (^Classic₋fiber)(Fiber::fiber_t * self, void * variables); */
-    
-    inline void swap(fiber_t & nxt, fiber_t & prv) { if (Snapshot(&prv) == 0) Recall(&nxt); }
-    
-}
+/* ⇇ a․𝘬․a `toggleNetworkAndNative`. */
 
-/* __attribute__ ((callback (ufnc, uctx))) */
-inline void Initiate(Fiber::fiber_t& fib, void (*jam)(Fiber::fiber_t *, void *uctx), void * uctx=NULL, 
-  void * (^alloc)(__builtin_int_t bytes) = Alloc) {
-    Fiber::Snapshot(&fib);
-    __builtin_uint_t 🥈ᵢ bytes₋stack = 131072;
-#ifdef POSIX_FIBER
-    fib.ctx.uc_stack.ss_sp = alloc(bytes₋stack);
-    fib.ctx.uc_stack.ss_size = bytes₋stack;
-    fib.ctx.uc_link = 0;
-#else
-    fib.ctx.kernel₋stk = (uint8_t *)alloc(bytes₋stack);
-    fib.ctx.irq₋stk = (uint8_t *)alloc(bytes₋stack);
-    fib.ctx.rt₋stk = (uint8_t *)alloc(bytes₋stack);
-    fib.ctx.bytes₋rt = fib.ctx.bytes₋irq = fib.ctx.bytes₋kernel = bytes₋stack;
-#endif
-    Fiber::Incubate(&fib, (void (*)(...))jam, 1, uctx);
+/* #include <Source/fiber₁> */
+#include <Source/coroutine>
+
+namespace Fiber₂ {
+  
+  typedef 𝟄₋int Coroutine; /* ⬷ At least one of 'co_await', 'co_yield' and 'co_return'. */ 
+  
+  typedef int32_t fiber_t; /* ⬷ Strengthen: Guid. */
+  
+  extern void ᶿ* collection; /* Map<fiber_t, Coroutine>. */
+  
+  int Incubate(fiber_t fid, Coroutine coroutine, int count, ...);
+  
+  int Start(fiber_t fid, void (^after₋math)());
+  
 }
 
 #define STRINGIFY(str) #str
@@ -689,7 +646,7 @@ inline void Initiate(Fiber::fiber_t& fib, void (*jam)(Fiber::fiber_t *, void *uc
 template <typename T> T * Elements𝘖𝘳Heap(int expeditionary, 
   int count, void (^default𝘖rNull)(T * elem)
 ) {  T * location = NULL;
-   if (expeditionary == -1) { location = Alloc(count*sizeof(T)); } else { 
+   if (expeditionary == -1) { location = (T *)Alloc(count*sizeof(T)); } else { 
      __builtin_int_t bytes=sizeof(T)*count,﹟,modula; int sum₋negative;
      if (hw₋fractions(bytes, 4096, ﹟, modula, &sum₋negative)) { return NULL; }
      void * 𝟺kbframes[﹟ + (bytes % 4096 ? 1 : 0)]; /* ⬷ Always positive so ⌊⌋. */
@@ -740,7 +697,7 @@ struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
      A correct abbreviation for the unit of time and also the measurements of 
      duration is 's'. It is not 'S' which stands for Siemens and admittance.
      
-     One minute of geographic lattitude per hour = 1 kn = 1852.0 m/h. (Knot)
+     One minute of geographic latitude per hour = 1 kn = 1852.0 m/h. (Knot)
      
      */
     
@@ -792,11 +749,12 @@ typedef Chronology Chronology🦠; /* With 2⁻⁶⁵ 𝘢․𝘬․𝘢 `UQ65`;
 
 /**  The unperturbed — yet based on ¹³³Caesium — chronology. */
 
-Chronology& ComputationalChronology(); /* 𝖤․𝘨 for chronometers. A․𝘬․a `GMT` (therefore 
-  60×60×24 seconds per day), without leap seconds/years and no summertime correction. */
+Chronology& ComputationalChronology(); /*  𝖤․𝘨 for chronometers. A․𝘬․a 
+ `GMT` (therefore 60×60×24 seconds per day), without leap seconds/years 
+ and no summertime correction. */
 
-/**  The chronology of the users' choice. A․𝘬․a `UTC` (therefore an exact multiple of 
-  SI seconds, with leap seconds as well as summertime). */
+/**  The chronology of the users' choice. A․𝘬․a `UTC` (therefore an exact 
+ multiple of SI seconds, with leap seconds as well as summertime). */
 
 Chronology& SystemCalendricChronology();
 

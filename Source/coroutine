@@ -1,0 +1,53 @@
+/*  coroutine - Non-experimental in C⁺⁺₂₀. */
+
+namespace std::experimental {
+  
+  template <typename R, typename...> struct coroutine_traits {
+    using promise_type = typename R::promise_type;
+  };
+  
+  template <typename Promise = void> struct coroutine_handle;
+  
+  template <> struct coroutine_handle<void> { };
+  
+  template <typename Promise> struct coroutine_handle : coroutine_handle<> {
+    
+    static coroutine_handle from_address(void * addr) noexcept
+    {
+      return coroutine_handle { .ref=addr };
+    }
+    
+    Promise& promise() const { return *(Promise *) 
+      __builtin_coro_promise(ref, alignof(Promise), false);
+    }
+    
+    static coroutine_handle from_promise(Promise& promise) {
+      coroutine_handle coro; coro.ref = 
+      __builtin_coro_promise(&promise, alignof(Promise), true);
+      return coro;
+    }
+    
+    void * ref; void * address() const { return ref; }
+    
+  };
+  
+}
+
+void Resume(void * ref) { __builtin_coro_resume(ref); }
+
+#ifdef OUTSIDE_METHOD
+typedef void * Promised; void Resume(Promised p) { __builtin_coro_resume(p); }
+template <typename P> P& Promise(Promised p) { return (P *)__builtin_coro_promise(p,alignof(P),false); }
+template <typename P> Promised From₋promise(P& p) { return __builtin_coro_promise(p,alignof(P),true); }
+#endif
+
+namespace std::experimental {
+ struct base₋suspend { constexpr 
+   void await_suspend(std::experimental::coroutine_handle<>) const noexcept { }
+   constexpr void await_resume() const noexcept { } };
+ struct suspend_never : public base₋suspend {
+   constexpr bool await_ready() const noexcept { return true; } };
+ struct suspend_always : public base₋suspend {
+   constexpr bool await_ready() const noexcept { return false; }
+}; }
+

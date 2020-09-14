@@ -1,7 +1,7 @@
-# build.ninja — Building libTwinbeam_macOS.a.
+# build.ninja — Building libTwinbeam_macos.a.
 
 optflags = -g
-progroot = libTwinbeam_macOS
+progroot = libTwinbeam_macos
 objsdir = ./.objs/7703a312-55A9-44da-A892-ebbcf8f87663_$progroot
 platflags = -I ..
 include ../tools.ninja
@@ -9,13 +9,14 @@ flags = $optflags $macoscflags $platflags
 include ../macOS/laptop.ninja
 
 rule lib
-    command = xcrun ar rcs Releases/$out\_$sha1git.a $in;                   $
-      ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
+  command = xcrun ar rcs Releases/$out\_$sha1git.a $in                     ; $
+  ln -f Releases/$out\_$sha1git.a Releases/$out.a                          ; $
+  printf $sha1git
 
-build $progroot: lib $objsdir/Utf8.o $objsdir/Tree.o $objsdir/Memory.o      $
-  $objsdir/Chronology.o $objsdir/bignum.o $objsdir/sha256.o                 $
-  $objsdir/macos.o $objsdir/Print.o $objsdir/Fiber.o                        $
-  $objsdir/exception.o $objsdir/fifo.o $objsdir/System.o
+build $progroot: lib $objsdir/Utf8.o $objsdir/Tree.o $objsdir/Memory.o       $
+  $objsdir/Chronology.o $objsdir/bignum.o $objsdir/sha256.o                  $
+  $objsdir/macos.o $objsdir/Print.o $objsdir/exception.o $objsdir/fifo.o     $
+  $objsdir/System.o
 build $objsdir/bignum.o: cc ../Source/bignum.cpp
 build $objsdir/fifo.o: cc ../Source/fifo.cpp
 build $objsdir/Chronology.o: cc ../Source/Chronology.cpp
@@ -23,9 +24,8 @@ build $objsdir/macos.o: cc ../Source/macOS.cpp
 build $objsdir/Memory.o: cc ../Source/Memory.cpp
 build $objsdir/Print.o: cc ../Source/Print.cpp
 build $objsdir/sha256.o: cc ../Source/sha256.cpp
-build $objsdir/System.o: cc ../Source/System.cpp
+build $objsdir/System.o: ccms ../Source/System.cpp
 build $objsdir/Tree.o: cc ../Source/Tree.cpp
 build $objsdir/Utf8.o: cc ../Source/Utf8.cpp
-build $objsdir/Fiber.o: cc ../Source/Fiber.cpp
 build $objsdir/exception.o: asm ../Source/exception.S
 default $progroot
