@@ -51,3 +51,29 @@ namespace std::experimental {
    constexpr bool await_ready() const noexcept { return false; }
 }; }
 
+/* #include <Source/fifo.h> */
+
+struct 𝟄₋int₁ {
+  struct promise_type { int cached=-1; /* E․𝘨 𝟷₋tile₋fifo<uint32_t> irq𝘖rKernel₋requests; */
+    auto initial_suspend() { return coro::suspend_never(); } /* For irq=suspend_always */
+    auto final_suspend() { return coro::suspend_never(); } /* For user=suspend_always */
+    auto /* a․𝘬․a `Handle` */ get_return_object() { return Handle::from_promise(*this); }
+    void return_value(int expr) { cached=expr; }
+    void unhandled_exception() { /* throw; */ }
+    auto yield_value(int expr) { cached=expr; return coro::suspend_always(); }
+    auto yield_value(double expr) { int neg = expr < +0.0 ? 1 : 0; 
+      double expr₂ = neg ? -expr : expr; cached=/*⌊*/(expr₂+0.5)/*⌋*/;
+      if (neg) { cached = -cached; }
+      return coro::suspend_always(); }
+  };
+  
+  enum Kind { }; 𝟄₋int₁(Kind kind) { this.kind=kind; } Kind kind;
+  typedef std::experimental::coroutine_handle<promise_type> Handle;
+  Handle coroutine; 𝟄₋int₁(Handle routine) : coroutine(routine) { }
+  
+  constexpr bool await_ready() const noexcept { return true; }
+  constexpr void await_suspend(Handle handle) const noexcept { /* handle.resume(); */ }
+  𝟄₋int₁ await_resume() const noexcept { return 𝟄₋int(coroutine); }
+  
+};
+
