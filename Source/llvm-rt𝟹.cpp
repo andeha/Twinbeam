@@ -5,7 +5,10 @@
 void * __gxx_personality_v0;
 void * _NSConcreteStackBlock[32];
 void * _NSConcreteGlobalBlock[32];
+uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4];
 struct { __builtin_int_t board₁, palm₂; } cxaGuard;
+jmp_buf2 /* volatile */ singleTaskProgramState;
+Chronology calendricChronology, computationalChronology;
 extern "C" int __cxa_guard_acquire() { return 🔒(cxaGuard); }
 extern "C" void __cxa_guard_release() { 🔓(cxaGuard); }
 extern "C" int __cxa_atexit(void (* fn)(void *), void * arg, void * dso_handle) { return 0; }
@@ -13,41 +16,48 @@ extern "C" void __cxa_pure_virtual() { /* print("Pure virtual function called\n"
 namespace std { void terminate() { /* ⭐️ Sheriff() */ } }
 extern "C" void * __cxa_begin_catch(void * exceptionObject) throw() { /* ⭐️ Sheriff() */ return NULL; }
 void * operator new(size_t size) { return Alloc(size); } /* ⬷ E․𝘨 for impl_ ∧ 😐 */
-void operator delete(void * p) throw() { Fallow₋ₒ(p); }
+void operator delete(void * ref) throw() { Fall⒪⒲﹠o(ref); }
 auto Alloc = ^(__builtin_int_t bytes) { return malloc(bytes); };
-auto Fallow₋ₒ = ^(void * p) { free(p); };
+auto Fall⒪⒲﹠o = ^(void * ref) { free(ref); };
 /* ⬷ To access primitive, include 'extern void * (^Alloc)(__builtin_int_t);' inside your .cpp file. */
-extern "C" void * memcpy(void *dst, const void *src, size_t n)
-{ return (void *)Copy8Memory((ByteAlignedRef)dst, (ByteAlignedRef)src, (__builtin_int_t)n); }
-extern "C" void * memset(void *b, int c, size_t len)
-{ return (void *)Overwrite8Memory((ByteAlignedRef)b, (uint8_t)c, (__builtin_int_t)len); }
-/* void * memmove(void * dst𝘖𝘳Void, const void * src𝘖𝘳Void, size_t length)
-{ return (void *)Copy8Memory((ByteAlignedRef)dst𝘖𝘳Void, (ByteAlignedRef)src𝘖𝘳Void, (__builtin_int_t)len); } */
+extern "C" void * memcpy(void * dst, const void * src, size_t bytes)
+{ return Copy8Memory(ByteAlignedRef(dst), ByteAlignedRef(src), __builtin_int_t(bytes)); }
+extern "C" void * memset(void * base, int value, size_t bytes)
+{ return Overwrite8Memory(ByteAlignedRef(base), (uint8_t)value, __builtin_int_t(bytes)); }
 #ifdef __x86_64__
-extern "C" int write(int fd, const void * s, short unsigned b);
-DISORDERABLE auto Putₒ = ^(uint8_t * utf8s, uint16_t bytes) {
-  write(1, (const void *)utf8s, bytes); };
+extern "C" int write(int fd, const void * s, short unsigned nbyte);
+DISORDERABLE auto Putₒ = ^(uint8_t * u8s, __builtin_int_t bytes) {
+  write(/* stdout, i.e */ 1, (const void *)u8s, bytes); };
+DISORDERABLE auto Traceₒ = ^(uint8_t * u8s, __builtin_int_t bytes) {
+  write(/* stderr, i.e */ 2, (const void *)u8s, bytes); };
 #include <wchar.h>
 #elif defined __mips__
 #include <pic32rt/mips.hpp>
 #include <pic32rt/pic32mz.hpp>
 #include <pic32rt/pic32mzda.hpp>
 #include <pic32rt/stable.hpp>
-auto Putₒ = ^(uint8_t * utf8s, uint16_t bytes) {
-  for (int i = 0; i < bytes; i++) putch(*(utf8s+i)); };
+DISORDERABLE auto Putₒ = ^(uint8_t * u8s, __builtin_int_t bytes) {
+  for (__builtin_int_t i=0; i<bytes; i++) putch(*(u8s+i)); };
+DISORDERABLE auto Traceₒ = ^(uint8_t * u8s, __builtin_int_t bytes) { Putₒ(u8s,bytes); };
 #endif
+extern "C" const char * tab = "\t"; /* Also U+0009 'Character tabulation'. */
+extern "C" const char * eol = "\n"; /* Also U+2028 'Line separator' and `␍`+`␊`, `␤`. */
+extern "C" const char * sep = "\n\n"; /* Also U+2029 'Paragraph separator'. */
+namespace VT100 { const char * bright = "\x1B[1m", *dim = "\x1B[2m", *fgBlue = "\x1B[34m", 
+ *fgRed = "\x1B[31m", *reset = "\x1B[0m", *reverse = "\x1B[7m"; }
+
 /* Returns `0` when a key has been captured, `1` on timeout, other 
   numbers on error. */
 DISORDERABLE auto WaitTerminal = ^(int periods𝘖𝘳Zero, int 
-  ᵗᵉⁿᵗʰseconds, void (^ping)(bool &stop), char32_t * uc) {
+  𝟷𝟶ᵗᵇ₋seconds, void (^ping)(bool &stop), char32_t * uc) {
 #ifdef __mips__
-  
-  /*
    
-   See --<🥽 Keyput.cpp> for details on:
+   /* See --<🥽 Keyput.cpp> for details on: 
    H₁ Call `uint8_t getutf8()` and wait as in uint8_t utf8 = getutf8();
    H₂ Intermingle with Timer1-Timer9
-   
+   H₃ static Fifo<uint8_t> utf8bytes;
+     static Fifo<char32_t> unicodesKeyupsAndOrnaments
+     static Fifo<Chronology::Instant> keyWhen
    */
   
 #elif defined __x86_64__
@@ -111,7 +121,7 @@ Reservoir(unsigned expeditionary,
     /* int count=2; static unsigned expeditionaries[] = { 9, 9 }; */
 #if defined (__mips__) && defined (__MZ__)
     static Framestore<9> f₁;
-    static Framestore<9> f₂ __attribute__ ((section(".ddr2")); /* Store at 0xA8000000 (non-cachable) and 0x88000000 (cachable). */
+    static Framestore<9> f₂ __attribute__ ((section(".ddr2"))); /* Store at 0xA8000000 (non-cachable) and 0x88000000 (cachable). */
     static Expeditionary exp₁ = Expeditionary { f₁.𝑙𝑜𝑔₂Pages, f₁.Idxs, f₁.pages, f₁.avails };
     static Expeditionary exp₂ = Expeditionary { f₂.𝑙𝑜𝑔₂Pages, f₂.Idxs, f₂.pages, f₂.avails };
     switch (expeditionary) {
@@ -125,4 +135,3 @@ Reservoir(unsigned expeditionary,
     *𝑙𝑜𝑔₂Pages=exp.𝑙𝑜𝑔₂Pages; *Idxs=exp.Idxs; *pages=exp.pages; *avails=exp.avails;
 #endif
 }
-

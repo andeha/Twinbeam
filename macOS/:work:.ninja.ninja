@@ -6,48 +6,49 @@ moduledir = $appbundle/Modules
 rule compile
   command = rm -rf Twinbeam.framework                                      ; $
   mkdir $appbundle                                                         ; $
-  mkdir $appbundle/Headers                                                 ; $
+  mkdir $appbundle/Peek-headers                                            ; $
   mkdir $appbundle/Modules                                                 ; $
+  mkdir $appbundle/Intermediate                                            ; $
   mkdir $appbundle/Resources                                               ; $
-  cp ../Twinbeam.h $appbundle/Headers                                      ; $
-  mkdir $appbundle/Headers/Additions                                       ; $
-  cp ../Additions/Additions.h $appbundle/Headers/Additions                 ; $
-  cp ../Additions/Cartesian.hpp $appbundle/Headers/Additions               ; $
-  cp Chronology.pct                                            $moduledir  ; $
-  cp Fiber.pct                                                 $moduledir  ; $
-  cp fifo.pct                                                  $moduledir  ; $
-  cp macOS.pct                                                 $moduledir  ; $
-  cp Memory.pct                                                $moduledir  ; $
-  cp pic32mz.pct                                               $moduledir  ; $
-  cp Print.pct                                                 $moduledir  ; $
-  cp sha256.pct                                                $moduledir  ; $
-  cp System.pct                                                $moduledir  ; $
-  cp Tree.pct                                                  $moduledir  ; $
-  cp Utf8.pct                                                  $moduledir  ; $
-  cp Additions.pct                                             $moduledir  ; $
-  cp Automata.pct                                              $moduledir  ; $
-  cp Bezier.pct                                                $moduledir  ; $
-  cp Ensemble.pct                                              $moduledir  ; $
-  cp 𝔉𝔬𝔫𝔱⋮⋮⋮.pct                                                $moduledir  ; $
-  cp History.pct                                               $moduledir  ; $
-  cp Ieee754₆₄bits.pct                                         $moduledir  ; $
-  cp Mercator.pct                                              $moduledir  ; $
-  cp Ornament.pct                                              $moduledir  ; $
-  cp photo-d3.pct                                              $moduledir  ; $
-  cp Present.pct                                               $moduledir  ; $
-  cp Presentᵃᵘˣ.pct                                            $moduledir  ; $
-  cp Preserves.pct                                             $moduledir  ; $
-  cp Random.pct                                                $moduledir  ; $
-  cp Randomˢᵚ.pct                                              $moduledir  ; $
-  cp Reconcile.pct                                             $moduledir  ; $
-  cp Reflect.pct                                               $moduledir  ; $
-  cp Roman.pct                                                 $moduledir  ; $
-  cp Semantic.pct                                              $moduledir  ; $
-  cp Shoebox.pct                                               $moduledir  ; $
-  cp Streams.pct                                               $moduledir  ; $
-  cp Terminal.pct                                              $moduledir  ; $
-  cp VT99.pct                                                  $moduledir  ; $
-  cp x87math.pct                                               $moduledir  ; $
+  cp ../Twinbeam.h $appbundle/Peek-headers                                 ; $
+  mkdir $appbundle/Peek-headers/Additions                                  ; $
+  cp ../Additions/Additions.h $appbundle/Peek-headers/Additions            ; $
+  cp ../Additions/Cartesian.hpp $appbundle/Peek-headers/Additions          ; $
+  cp Chronology.(pct|i)                                        $moduledir  ; $
+  cp Fiber.(pct|i)                                             $moduledir  ; $
+  cp fifo.(pct|i)                                              $moduledir  ; $
+  cp macOS.(pct|i)                                             $moduledir  ; $
+  cp Memory.(pct|i)                                            $moduledir  ; $
+  cp pic32mz.(pct|i)                                           $moduledir  ; $
+  cp Print.(pct|i)                                             $moduledir  ; $
+  cp sha256.(pct|i)                                            $moduledir  ; $
+  cp System.(pct|i)                                            $moduledir  ; $
+  cp Tree.(pct|i)                                              $moduledir  ; $
+  cp Utf8.(pct|i)                                              $moduledir  ; $
+  cp Additions.(pct|i)                                         $moduledir  ; $
+  cp Automata.(pct|i)                                          $moduledir  ; $
+  cp Bezier.(pct|i)                                            $moduledir  ; $
+  cp Ensemble.(pct|i)                                          $moduledir  ; $
+  cp 𝔉𝔬𝔫𝔱⋮⋮⋮.(pct|i)                                            $moduledir  ; $
+  cp History.(pct|i)                                           $moduledir  ; $
+  cp Ieee754₆₄bits.(pct|i)                                     $moduledir  ; $
+  cp Mercator.(pct|i)                                          $moduledir  ; $
+  cp Ornament.(pct|i)                                          $moduledir  ; $
+  cp photo-d3.(pct|i)                                          $moduledir  ; $
+  cp Present.(pct|i)                                           $moduledir  ; $
+  cp Presentᵃᵘˣ.(pct|i)                                        $moduledir  ; $
+  cp Preserves.(pct|i)                                         $moduledir  ; $
+  cp Random.(pct|i)                                            $moduledir  ; $
+  cp Randomˢᵚ.(pct|i)                                          $moduledir  ; $
+  cp Reconcile.(pct|i)                                         $moduledir  ; $
+  cp Reflect.(pct|i)                                           $moduledir  ; $
+  cp Roman.(pct|i)                                             $moduledir  ; $
+  cp Semantic.(pct|i)                                          $moduledir  ; $
+  cp Shoebox.(pct|i)                                           $moduledir  ; $
+  cp Streams.(pct|i)                                           $moduledir  ; $
+  cp Terminal.(pct|i)                                          $moduledir  ; $
+  cp VT99.(pct|i)                                              $moduledir  ; $
+  cp x87math.(pct|i)                                           $moduledir  ; $
   cp ../macOS/module.modulemap                                 $moduledir  ; $
   cp libTwinbeam_macos.a              $appbundle/libTwinbeam_macos         ; $
   cp libAdditions_macos.a             $appbundle/libAdditions_macos        ; $
