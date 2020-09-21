@@ -23,6 +23,7 @@ inexorable struct node* lookup(struct node* node, Treeint target) {
 
 inexorable struct node* newNode(Treeint data, void * (^alloc)(int bytes)) {
    struct node* nodeloc = (struct node*)alloc(sizeof(node));
+   if (nodeloc) { return NULL; }
    struct node* node = new (nodeloc) struct node;
    node->data = data;
    node->left = NULL;
@@ -43,9 +44,9 @@ struct node* insert(struct node* node, Treeint data, void * (^alloc)(int bytes))
    }
 }
 
-void * Lookup(void ᶿ﹡ opaque, Treeint target) {
-   struct node* tell = lookup((struct node*)opaque, target);
-   if (tell) { return (void *)&(tell->data); }
+Treeint * Lookup(void ᶿ﹡ opaque, Treeint leafkey) {
+   struct node* tell = lookup((struct node*)opaque, leafkey);
+   if (tell) { return &(tell->data); }
    return NULL; /* ⬷ `target` not in tree. */
 }
 
@@ -55,7 +56,7 @@ void * Insert(void * opaque, Treeint valkey, void * (^alloc)(int bytes))
 void Forall(void ᶿ﹡ opaque, void (^dfs)(Treeint valkey, bool& stop))
 {  struct node* n=(struct node*)opaque; bool stop=false;
     if (n == NULL) return;
-    dfs(n->valkey, stop); /* Neither infix nor postfix! Prefix. */
+    dfs(n->cargo, stop); /* Neither infix nor postfix! Prefix. */
     if (stop) return;
     Forall(n->left, dfs);
     Forall(n->right, dfs);
