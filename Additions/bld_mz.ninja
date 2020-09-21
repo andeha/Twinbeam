@@ -4,53 +4,53 @@ optflags = -g -D__MZDAStarterBoard__
 libroot = libAdditions_pic32mz
 include ../tools.ninja
 platflags = -D__MZ__ -I $runtime/.. -I $additions -I $runtime
-objsdir = ./.objs/7703a312-559A-42ca-A992-eabcf7f87663_$libroot
+objs = ./.objs/7703a312-559A-42ca-A992-eabcf7f87663_$libroot
 flags = $optflags $pic32cflags $platflags
 progname = $libroot\_$sha1git.a
 include $runtime/commands.ninja
 
-rule emitcontent
-    command = $tools/llvm-ar t $progname
+rule emit-content
+  command = $librarian-pic32 t $progname
 
-rule lib
-    command = $tools/llvm-ar rcs Releases/$out\_$sha1git.a $in;             $
-      ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
+rule library
+  command = $librarian-pic32 rcs Releases/$out\_$sha1git.a $in            ; $
+  ln -f Releases/$out\_$sha1git.a Releases/$out.a                         ; $
+  printf $sha1git
 
-build $libroot: lib $objsdir/Additions.o $objsdir/Ieee754₆₄bits.o           $
-  $objsdir/Random.o $objsdir/Randomˢᵚ.o $objsdir/Guid.o                     $
-  $objsdir/Terminal.o $objsdir/VT99.o $objsdir/Automata.o                   $
-  $objsdir/Ornaments.o $objsdir/Streams.o $objsdir/⌊𝑥⌋+nearest.o            $
-  $objsdir/arctan.o $objsdir/atan₂.o $objsdir/cherry.o $objsdir/ℯ🔭².o      $
-  $objsdir/logₑ.o $objsdir/log𝛤.o $objsdir/mod.o $objsdir/sincos.o          $
-  $objsdir/tan.o $objsdir/tanh.o $objsdir/Erf.o $objsdir/Knot.o             $
-  $objsdir/Present.o $objsdir/Presentᵃᵘˣ.o $objsdir/photo-d3.o 
+build $libroot: library $objs/Additions.o $objs/Ieee754₆₄bits.o             $
+  $objs/Guid.o $objs/photo-d3.o $objs/Terminal.o  $objs/VT99.o              $
+  $objs/Streams.o $objs/Present.o $objs/Presentᵃᵘˣ.o $objs/Automata.o       $
+  $objs/Ornaments.o $objs/Randomˢᵚ.o $objs/Random.o $objs/⌊𝑥⌋+nearest.o     $
+  $objs/arctan.o $objs/cherry.o $objs/atan₂.o $objs/ℯ🔭².o $objs/logₑ.o     $
+  $objs/log𝛤.o $objs/mod.o $objs/sincos.o $objs/tan.o $objs/tanh.o          $
+  $objs/Erf.o
  
-build $objsdir/Additions.o: cc Additions.cpp
-build $objsdir/photo-d3.o: cc photo-d3.cpp
-build $objsdir/Ieee754₆₄bits.o: cc Ieee754₆₄bits.cpp
-build $objsdir/Random.o: cc Random.cpp
-build $objsdir/Randomˢᵚ.o: cc Randomˢᵚ.cpp
-build $objsdir/Guid.o: cc Guid.cpp
-build $objsdir/Terminal.o: cc Terminal.cpp
-build $objsdir/VT99.o: cc VT99.cpp
-build $objsdir/Automata.o: cc Automata.cpp
-build $objsdir/Ornaments.o: cc Ornament.cpp
-build $objsdir/Streams.o: cc Streams.cpp
-build $objsdir/⌊𝑥⌋+nearest.o: cc math/⌊𝑥⌋+nearest.cpp
-build $objsdir/arctan.o: cc math/arctan.cpp
-build $objsdir/atan₂.o: cc math/atan₂.cpp
-build $objsdir/cherry.o: cc math/cherry.cpp
-build $objsdir/ℯ🔭².o: cc math/ℯ🔭².cpp
-build $objsdir/Erf.o: cc math/erf.cpp
-build $objsdir/logₑ.o: cc math/logₑ.cpp
-build $objsdir/log𝛤.o: cc math/log𝛤.cpp
-build $objsdir/mod.o: cc math/mod.cpp
-build $objsdir/sincos.o: cc math/sincos.cpp
-build $objsdir/tan.o: cc math/tan.cpp
-build $objsdir/tanh.o: cc math/tanh.cpp
+build $objs/Additions.o: cc Additions.cpp
+build $objs/Ieee754₆₄bits.o: cc Ieee754₆₄bits.cpp
+build $objs/Randomˢᵚ.o: cc Randomˢᵚ.cpp
+build $objs/Random.o: cc Random.cpp
+build $objs/Guid.o: cc Guid.cpp
+build $objs/photo-d3.o: cc photo-d3.cpp
+build $objs/Terminal.o: cc Terminal.cpp
+build $objs/VT99.o: cc VT99.cpp
+build $objs/Automata.o: cc Automata.cpp
+build $objs/Ornaments.o: cc Ornament.cpp
+build $objs/Streams.o: cc Streams.cpp
+build $objs/⌊𝑥⌋+nearest.o: cc math/⌊𝑥⌋+nearest.cpp
+build $objs/arctan.o: cc math/arctan.cpp
+build $objs/atan₂.o: cc math/atan₂.cpp
+build $objs/cherry.o: cc math/cherry.cpp
+build $objs/ℯ🔭².o: cc math/ℯ🔭².cpp
+build $objs/Erf.o: cc math/erf.cpp
+build $objs/logₑ.o: cc math/logₑ.cpp
+build $objs/log𝛤.o: cc math/log𝛤.cpp
+build $objs/mod.o: cc math/mod.cpp
+build $objs/sincos.o: cc math/sincos.cpp
+build $objs/tan.o: cc math/tan.cpp
+build $objs/tanh.o: cc math/tanh.cpp
 # …and more non-math folders:
-build $objsdir/Knot.o: cc Knot.cpp
-build $objsdir/Present.o: cc Present.cpp
-build $objsdir/Presentᵃᵘˣ.o: cc Presentᵃᵘˣ.cpp
+build $objs/Present.o: cc Present.cpp
+build $objs/Presentᵃᵘˣ.o: cc Presentᵃᵘˣ.cpp
 build content: emitcontent
 default $libroot
+
