@@ -1,8 +1,10 @@
 ninja -C Source -f build_pic32mz.ninja                              || exit 1
 ninja -C Source -f build_macos₂.ninja                               || exit 1
-ninja -C macOS -f harnessᵗᵇ.ninja                                   || exit 1
-ninja -C macOS -f harnessᵃᵈᵈˢ.ninja                                 || exit 1
-ninja -C macOS -f harnessᵃᵘˣ.ninja                                  || exit 1
+ninja -C Additions -f bld_mac.ninja                                 || exit 1
+ninja -C Additions -f bld_mz.ninja                                  || exit 1
+ninja -C Additions -f bldº_mz.ninja                                 || exit 1
+ninja -C Additions -f bldº_mac.ninja                                || exit 1
+# ninja -C macOS -f :work:.ninja.ninja /work/.ninja.ninja           || exit 1
 ninja -C Bootloader -f build_mz.ninja                               || exit 1
 ninja -C Sprinkle/pdb                                               || exit 1
 ninja -C Examples/dbgout
@@ -18,7 +20,7 @@ ninja -C Examples/radio
 # ninja -C Examples/attokernel
 # ninja -C Examples/😐/
 ninja -C Examples/sdhc
-ninja -C Additions -f bld_mac.ninja                                 || exit 1
-ninja -C Additions -f bld_mz.ninja                                  || exit 1
-ninja -C Additions -f bldº_mz.ninja                                 || exit 1
-ninja -C Additions -f bldº_mac.ninja                                || exit 1
+ninja -C macOS -f harnessᵗᵇ.ninja                                   || exit 1
+ninja -C macOS -f harnessᵃᵈᵈˢ.ninja                                 || exit 1
+ninja -C macOS -f harnessᵃᵘˣ.ninja                                  || exit 1
+
