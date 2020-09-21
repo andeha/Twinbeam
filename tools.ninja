@@ -1,8 +1,8 @@
 # tools.ninja — Settings for macOS and Pic32.
-tools = /Users/<User- or project name>/mips-tools/11.0.0/bin
+tools = /Users/<User- or project name>/10.0.0
 runtime = /Users/<User- or project name>/pic32rt
 additions = $runtime/../Additions
-gencdflags = -fno-rtti -fblocks -fcoroutines-ts -fno-exceptions -fno-builtin -fno-signed-char -Wno-format
+gencdflags = -fno-rtti -fblocks -fcoroutines-ts -fno-exceptions -fno-signed-char -fno-builtin -Wno-format
 moduleflags = -fmodules-ts -fimplicit-modules -fmodule-map-file=../macOS/To-c++.modules
 pic32nda = -fforce-enable-int128 -mmsa -mdspr2 -gdwarf-5
 pic32cflags = -target mipsel -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32 -mfp64 $pic32nda $gencdflags
