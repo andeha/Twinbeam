@@ -20,8 +20,8 @@
     Sub/super: ⁻⁺⁽¹ˣ⁾⁼ⁱⁿ ᵢᵣᵤᵥᵦᵧᵨᵩᵪ₊₋₌₍₎⨧ₐₑₒₓₔⱼ ᵃⁿᵈᵉʰᵊᵇⁱʲˡˢᵋᵌᵍᵎᵏᵐⁿᵒᵖʳᵗᵘᵙᵚᵛˣʸᴬᴮᴴᴵᴺᵅᵝᵞᵟᵋᶿᵠᵡ
     Matrices and conditionals: ⎡⎢⎣ ⋱ ⋰ ⋮ ⎤⎥⎦  ⎧⎨⎩  ⎫⎬⎭  ⎪
     Misc¹: ℃/˚C/ºC ℉/˚F/ºF ® © ™ № ºª µ Ω ℊ ϵε϶— ∁ ≙ ⋈ ⫝ ⦣⧄⧅⧆⧇ ⧈ ⧉ ╳ ☩ ₧ ₥
-    Chemistry Hobbyist: ⇾ ₀₁₂₃₄₅₆₇₈₉
-    Math Additionals: ± ∓ ∔ ×
+    Chemistry hobbyist: ⇾ ₀₁₂₃₄₅₆₇₈₉
+    Math additionals: ± ∓ ∔ ×
                                                                              
     print "The brown ⬚ jumped over the lazy ⬚\n", ﹟s("fox"), ﹟s("dog")      
       ﹟d(__builtin_int_t d)                     ﹟b(__builtin_uint_t b)      
