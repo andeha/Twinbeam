@@ -1,4 +1,4 @@
--g -std=c++2a -v
+-g -std=c++2a
 -I /Users/<Twinbeam.h folder>/
 -fno-rtti -fblocks -fcoroutines-ts -fno-exceptions
 -fno-signed-char -fno-builtin -Wno-format
