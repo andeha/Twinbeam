@@ -1,18 +1,19 @@
 /*  module.module-map | Conjectured art: In₋te₋r₋net and 
  the '-fmodule₍-map₎-file'. (DO-NOT-DISTRIBUTE-MIDDLE-SECTION) */
 
-module Twinbeam_camp [system] [no_undeclared_includes] [extern_c] 
+module Twinbeam_camp [system] [no_undeclared_includes]
 { /* a․𝘬․a 'Twinbeam₋camp'. */
   requires cplusplus17, coroutines /* Actually 'cplusplus20' and also c17. */
   config_macros [exhaustive] __MZ__
   header "Twinbeam.h" /* and 'coroutine', 'fifo.h' and 'Typecase.h'. */
   link "Twinbeam_pic32mz" link "Twinbeam_macOS"
   export *
-}
+} /* #define generally header */
 
 module Twinbeam_with_Additions {
   use Twinbeam_camp header "Twinbeam.h"
   /* ⬷ Im-ple-m-en-ta-tio-n he-l-p and in₁₃-ter₂-face. */
+  config_macros [exhaustive] __MZDAStarterBoard__
   header "Additions/Additions.h"
   /* ⬷ and 'Color.hpp', 'Impressions.hpp' and 'Typeset.hpp'. */
   header "Additions/Cartesian.hpp"

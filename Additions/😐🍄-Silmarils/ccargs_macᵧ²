@@ -1,0 +1,7 @@
+-g -std=c++2a -v
+-I /Users/<Twinbeam.h folder>/
+-fno-rtti -fblocks -fcoroutines-ts -fno-exceptions
+-fno-signed-char -fno-builtin -Wno-format
+-fmodules-ts -fimplicit-modules -fmodule-map-file=../../🗿.modules
+-mmacosx-version-min=10.15
+

@@ -630,11 +630,11 @@ namespace Fiber₂ {
   
   typedef int32_t fiber_t; /* ⬷ Somtime strengthen to Guid. */
   
-  extern void * collection; /* Map<fiber_t, Coroutine> a․𝘬․a 'ᶿ* collection.' */
+  extern void * collection; /* Map<fiber_t, Coroutine> a․𝘬․a 'ᶿ* collection'. */
   
   int Incubate(fiber_t fid, Coroutine task /*, int count, ...*/);
   
-  int Start(fiber_t fid, void (^aftermath𝘖rNULL)());
+  int Start(fiber_t fid, void (^aftermath𝘖r𝖭𝖴𝖫𝖫)());
   
 }
 
