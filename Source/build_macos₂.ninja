@@ -17,8 +17,8 @@ rule library
   printf $sha1git
 
 build $progroot: library $objs/Tree.o $objs/Memory.o $objs/Print.o           $
-  $objs/Utf8.o$objs/Chronology.o $objs/bignum.o $objs/sha256.o $objs/macOS.o $
-  $objs/exception.o $objs/fifo.o $objs/System.o
+  $objs/Utf8.o $objs/Chronology.o $objs/bignum.o $objs/sha256.o              $
+  $objs/macOS.o $objs/exception.o $objs/fifo.o $objs/System.o
 build $objs/Tree.o: cc ../Source/Tree.cpp
 build $objs/Memory.o: cc ../Source/Memory.cpp
 build $objs/Print.o: cc ../Source/Print.cpp

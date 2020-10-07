@@ -1,6 +1,6 @@
 /**  Acceptable and Enclavable Platform ✁ until ✂️
                                              ͡                                
-    ■ = 1, □ = 0, ⬚ = Unknown, Ɀ = Sampled/dereferenced, Ç=Reconciled        
+    ■ = 1, □ = 0, ⬚ = Unknown, Ɀ = Sampled/dereferenced, Ç=Reconciled   𝓭  
     Logic and one-liners: ≅ ≠ ⋍ ~ ⟶ ⟷ ⊂⊄⊆⊈ ⊃ (Małuszyński inclusion) ∩∪ ∈∉
       ¬∧∨ ≤≥ ≰ ≱ ∞ ∀∃∄ ⊨ ∅ 𝟄 √ ∑∏ ∂∆ ∇𝛻 ∫∬∭ ℕℤℂℍℝ ℚ ¶ ⌈⌉ ⌊⌋
       𝘦․𝘨 𝐊 (ᵃ𝑛/ᵇ𝑛), where n∈[1,∞) = a₁/(b₁ + a₂/(b₂ + …)

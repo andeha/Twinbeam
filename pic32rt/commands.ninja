@@ -22,15 +22,15 @@ rule emitsource
 build source: emitsource
 
 rule cc
-    command = $tools/clang-10 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags --std=c++2a -c $in -o $out
+    command = $compiler-pic32 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags --std=c++2a -c $in -o $out
     depfile = $out.d
     deps = gcc
 
 rule c
-    command = $tools/clang-10 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
+    command = $compiler-pic32 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
     depfile = $out.d
     deps = gcc
 
 rule asm
-    command = $tools/clang-10 $flags -c $in -o $out
+    command = $compiler-pic32 $flags -c $in -o $out
 
