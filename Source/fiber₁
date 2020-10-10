@@ -1,4 +1,4 @@
-/*  fiber₁ | Old-fiber. */
+/*  fiber₁ | Old-time fiber. */
 
 #ifdef __x86_64__ 
 #define POSIX_FIBER
