@@ -3,7 +3,7 @@
 appbundle = Twinbeam.framework
 moduledir = $appbundle/Modules
 
-rule compile
+rule assemble
   command = rm -rf Twinbeam.framework                                      ; $
   mkdir $appbundle                                                         ; $
   mkdir $appbundle/Peek-headers                                            ; $
@@ -15,7 +15,6 @@ rule compile
   cp ../Additions/Additions.h $appbundle/Peek-headers/Additions            ; $
   cp ../Additions/Cartesian.hpp $appbundle/Peek-headers/Additions          ; $
   cp Chronology.(pct|i)                                        $moduledir  ; $
-  cp Fiber.(pct|i)                                             $moduledir  ; $
   cp fifo.(pct|i)                                              $moduledir  ; $
   cp macOS.(pct|i)                                             $moduledir  ; $
   cp Memory.(pct|i)                                            $moduledir  ; $
@@ -49,11 +48,11 @@ rule compile
   cp Terminal.(pct|i)                                          $moduledir  ; $
   cp VT99.(pct|i)                                              $moduledir  ; $
   cp x87math.(pct|i)                                           $moduledir  ; $
-  cp ../macOS/module.modulemap                                 $moduledir  ; $
-  cp libTwinbeam_macos.a              $appbundle/libTwinbeam_macos         ; $
-  cp libAdditions_macos.a             $appbundle/libAdditions_macos        ; $
-  cp libAdditionsᵃᵘˣ_macos.a          $appbundle/libAgadditions_macos
+  cp ../🗿.modules                    $moduledir/module.modulemap          ; $
+  cp libTwinbeam_macos.a              $appbundle/libTwinbeam_macos.a       ; $
+  cp libAdditions_macos.a             $appbundle/libAdditions_macos.a      ; $
+  cp libAuxiliaries_macos.a           $appbundle/libAuxiliaries_macos.a
 
-build $appbundle: compile 
+build $appbundle: assemble
 default Twinbeam.framework
 
