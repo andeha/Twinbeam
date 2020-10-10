@@ -8,7 +8,7 @@ module Twinbeam_camp [system] [no_undeclared_includes] /* [extern_c] */
   header "Twinbeam.h" /* and 'coroutine', 'fifo.h' and 'Typecase.h'. */
   link "Twinbeam_pic32mz" link "Twinbeam_macOS" /* ⬷ For one-file projects only. */
   export *
-} /* #define generally header */
+} /* Also: '#define generally header' and '#define run use'. */
 
 module Twinbeam_with_Additions {
   use Twinbeam_camp header "Twinbeam.h"
@@ -38,7 +38,7 @@ module Twinbeam_with_Additions {
 /* Possibly-maybe 'more commpressed:' */
   header "Additions/Structure.h"
   header "Additions/Tape.h"
-  use all_libraries
+  use possibly_encompassed
   export * module Twinbeam_camp { export * }
   /* ⬷ Chronologic samples. */
 } /* ⬷ a․𝘬․a 'Twinbeam₋with₋Additions'. */
@@ -46,7 +46,7 @@ module Twinbeam_with_Additions {
 module Twinbeam_with_Minimaladditions {
   use Twinbeam_camp header "Twinbeam.h"
   header "Additions/Additions.h"
-  use bound_library_set
+  use actually_bound_set
   export * module Twinbeam_camp { export * }
 } /* ⬷ a․𝘬․a 'Twinbeam₋with₋Minimaladditions'. */
 
@@ -54,7 +54,7 @@ module Textsearch_and_censorship {
   use Twinbeam_camp header "Twinbeam.h"
   header "Additions/Additions.h"
   header "Additions/Formatting.hpp"
-  use bound_library_set
+  use possibly_encompassed
   export * module Twinbeam_camp { export * }
 }
 
@@ -66,17 +66,17 @@ module Infographics_in_terminal {
   header "Additions/Font⋮⋮⋮.h"
   header "/Users/<User- or project name>/vt99-c.h"
   header "/Users/<User- or project name>/vt99-c++.h"
-  use all_libraries
+  use possibly_encompassed
   export * module Twinbeam_camp { export * }
 } /* ⬷ a․𝘬․a 'Infographics₋in₋terminal' and 'VT99'. */
 
 /* ✁ until ✂️ */ /* */ /* ✂️ */
 
-module bound_library_set {
+module actually_bound_set {
   link "Additions_pic32mz" link "Additions_macOS"
 } /* ⬷ a․𝘬․a 'bound₋library₋set'. */
 
-module all_libraries {
+module possibly_encompassed {
   link "Auxiliaries_macos"
   link "Auxiliaries_pic32mz"
   link "Additions_pic32mz"
@@ -86,7 +86,7 @@ module all_libraries {
 module Twinbeam_with_Additions_and_top [system] {
   use Twinbeam_with_Additions
   header "Additions/System.h"
-  use all_libraries
+  use possibly_encompassed
 } /* ⬷ a․𝘬․a Twinbeam₋with₋Additions₋and₋top. */
 
 /* All executables must be linked with 'Source/llvm-rt3.cpp'. */
