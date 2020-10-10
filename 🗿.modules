@@ -70,6 +70,13 @@ module Infographics_in_terminal {
   export * module Twinbeam_camp { export * }
 } /* ⬷ a․𝘬․a 'Infographics₋in₋terminal' and 'VT99'. */
 
+module Arizona {
+  use Twinbeam_camp header "Twinbeam.h"
+  header <pic32rt/mips.hpp>
+  header <pic32rt/pic32mz.hpp>
+  header <pic32rt/pic32mzda.hpp>
+}
+
 /* ✁ until ✂️ */ /* */ /* ✂️ */
 
 module actually_bound_set {
