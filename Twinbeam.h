@@ -34,8 +34,8 @@ typedef int64_t             __builtin_int_t; /* a․𝘬․a `sequential`. */
 #endif /* ⬷ Consider 32- alt. 64-bits with an extra sign bit for `Frame`, `leqAndPowerOfTwo`, `geqAndPowerOfTwo` and `isPowerOfTwo`. */
 typedef unsigned short      uint16_t;
 typedef short               int16_t; /* ≡`ᵐⁱᵖˢint` */
-typedef __builtin_uint_t Tribool; /* 𝘊․𝘧 🎿 'obekant' and 'icke-lös'. */
-typedef struct bignum { /* Artificial */
+typedef __builtin_uint_t Tribool; /*  𝘊․𝘧 'obekant', 'icke-lös' and 'embargo ₍im₎material'. (🎿) */
+typedef struct bignum { /* Artificial: Scandinavian 'med-vet-ande'. */
   constexpr static int maxdigits = 628; /* To not: 'templates', … */
   char digits[maxdigits]; /* Unpacked binary coded decimals. */
   int signbit; /* Indicates with 𝟷 if positive and with -𝟷 if negative. */
@@ -132,6 +132,7 @@ template <typename T> struct SemanticPointer { T ref; }; /* a․𝘬․a `Disjun
 #define AMBIVALENTOBFUSCATIVE /* BOLL:IG. */
 #define INCASED /* C․f Project and 'operation'. */
 #define EUCLIDEANINCOHERENT
+#define INTENTIONCORRELATIVE
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; /*  ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
@@ -412,10 +413,14 @@ typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffse
 
 #pragma mark 7-bit keyput sequences
 
-typedef const unsigned char * 𝟾alt𝟽bit₋pointer; /* ⬷ Type 'const char *' 
-  still C implementation dependent whether signed/unsigned. */
+typedef const unsigned char * 𝟾alt𝟽bit₋pointer;
 
-struct 𝟽bit₋text { __builtin_int_t bytes; 𝟾alt𝟽bit₋pointer pool; };
+struct 𝟽bit₋text { __builtin_int_t bytes; 𝟾alt𝟽bit₋pointer segment; };
+
+struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * segment; }; /* ⬷ Type 
+ 'char' C implementation dependent whether signed/unsigned. See '-fno-signed-char'. */
+
+struct utf8₋text { __builtin_int_t bytes; uint8_t * segment; };
 
 typedef union {
    double base﹟𝟸; /* Captures 2⁻¹⁰²² and 2¹⁰²³ or in engineering: 2․23×10⁻³⁰⁸ to 1․79×10³⁰⁸. */
@@ -621,13 +626,17 @@ namespace Fiber₂ {
   
   /* typedef 𝟄₋int₇ (Coroutine₋1*)(void); /​* ⬷ At least one of 'co_await', 'co_yield' and 'co_return'. */ 
   
-  typedef int32_t fiber_t; /* ⬷ Sometime strengthen to Guid. */
+  struct Necklace { void * 🅒 /* a․l․t Coroutine₋1 */; Necklace * nxt; };
+  
+  extern Necklace *first, *curr, *last;
   
   extern void * collection; /* Map<fiber_t, Coroutine₋N> a․𝘬․a 'ᶿ* collection'. */
   
-  int Incubate(fiber_t fid, void * coroutine /*, int count, ...*/);
+  typedef int32_t fiber_t; /* ⬷ Sometime strengthen to Guid. */
   
-  int Start(fiber_t fid, void (^aftermath𝘖rNULL)());
+  int Incubate𝘈ndStart(fiber_t fid, 𝟄₋int₁ coroutine /*, int count, ...*/); /* fiber_t fid, void (^aftermath𝘖rNULL)() */
+  
+  int Timer₋fired();
   
 }
 
@@ -644,9 +653,9 @@ template <typename T> T * Elements𝘖𝘳Heap(int expeditionary,
      __builtin_int_t bytes=sizeof(T)*count,﹟,modula; int sum₋negative;
      if (hw₋fractions(bytes, 4096, ﹟, modula, &sum₋negative)) { return NULL; }
      void * 𝟺kbframes[﹟ + (bytes % 4096 ? 1 : 0)]; /* ⬷ Always positive so ⌊⌋. */
-     /* if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { return NULL; } */
+     /* if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { return NULL; }
+      ⬷ First-fit, most-recently-used and closest-fit. */
      if (ContiguousAcquire(expeditionary,𝟺kbframes,﹟)) { return NULL; }
-     /* ⬷ First-fit, most-recently-used and closest-fit. */
      location = (T *)𝟺kbframes[0];
    }
    for (__builtin_int_t i=0; i<count; ++i) { T * elem = new (i + location) T(); }
