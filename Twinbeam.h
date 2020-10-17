@@ -611,10 +611,10 @@ struct Bitfield { const char32_t * ident; uint32_t mask;
   const char32_t * text; }; typedef Bitfield Register[];
 struct AnnotatedRegister { const char32_t * header; int regcnt; const 
   Bitfield * regs; uint32_t init; const char32_t * footnote; };
-struct Monotonic { Monotonic(__builtin_int_t oldest=0); __builtin_int_t 
+struct Monoton { Monoton(__builtin_int_t oldest=0); __builtin_int_t 
  ordinal(bool * wrapped); /* ⬷ Retrieve a - since the program started and given 
  a chronology - unique value in a 'strict monotonic increasing serie.  Wraps (𝄇) 
- at `BUILTIN_INT_MAX`. A․𝘬․a 'stilistic chronology'. */ 😐;
+ at `BUILTIN_INT_MAX`; a․𝘬․a 'stilistic chronology'. */ 😐;
 inline uint32_t ᵗᵍᵍˡendian(uint32_t x) { return __builtin_bswap32(x); }
 inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
 /* ⇇ a․𝘬․a `toggleNetworkAndNative`. */
@@ -622,21 +622,26 @@ inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
 /* #include <Source/fiber₁> */
 #include <Source/coroutine>
 
-namespace Fiber₂ {
+namespace Fiber₂₋Scheduler {
   
-  /* typedef 𝟄₋int₇ (Coroutine₋1*)(void); /​* ⬷ At least one of 'co_await', 'co_yield' and 'co_return'. */ 
+  typedef 𝟄₋int₁ (*Coroutine₋task)(void * ctx); /* ⬷ and at least one 
+    of 'co_await', 'co_yield' and 'co_return'. */ 
   
-  struct Necklace { void * 🅒 /* a․l․t Coroutine₋1 */; Necklace * nxt; };
+  struct Necklace { 𝟄₋int₁ err; Necklace * nxt; };
   
   extern Necklace *first, *curr, *last;
   
-  extern void * collection; /* Map<fiber_t, Coroutine₋N> a․𝘬․a 'ᶿ* collection'. */
+  extern void * ʰᵚcollection; /* a․𝘬․a Map<irq₋no, Corout₋task>. */
   
-  typedef int32_t fiber_t; /* ⬷ Sometime strengthen to Guid. */
+  /* typedef int32_t fiber_t; /​* ⬷ Sometime strengthen to Guid. */
   
-  int Incubate𝘈ndStart(fiber_t fid, 𝟄₋int₁ coroutine /*, int count, ...*/); /* fiber_t fid, void (^aftermath𝘖rNULL)() */
+  int Incubate(𝟄₋int₁ coroutine₋err, __builtin_int_t ﹟irq, void * ctx);
   
-  int Timer₋fired();
+  int Process(__builtin_int_t ﹟irq);
+  
+  int Start(𝟄₋int₁ coroutine₋err, void * start₋ctx);
+  
+  MACRO void Timer₋fired() { curr=curr->nxt; Resume(curr->err.coroutine.address()); }
   
 }
 
@@ -653,9 +658,9 @@ template <typename T> T * Elements𝘖𝘳Heap(int expeditionary,
      __builtin_int_t bytes=sizeof(T)*count,﹟,modula; int sum₋negative;
      if (hw₋fractions(bytes, 4096, ﹟, modula, &sum₋negative)) { return NULL; }
      void * 𝟺kbframes[﹟ + (bytes % 4096 ? 1 : 0)]; /* ⬷ Always positive so ⌊⌋. */
+     if (ContiguousAcquire(expeditionary,𝟺kbframes,﹟)) { return NULL; }
      /* if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { return NULL; }
       ⬷ First-fit, most-recently-used and closest-fit. */
-     if (ContiguousAcquire(expeditionary,𝟺kbframes,﹟)) { return NULL; }
      location = (T *)𝟺kbframes[0];
    }
    for (__builtin_int_t i=0; i<count; ++i) { T * elem = new (i + location) T(); }
