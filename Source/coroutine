@@ -33,7 +33,7 @@ namespace std::experimental {
   
 }
 
-void Resume(void * ref) { __builtin_coro_resume(ref); }
+MACRO void Resume(void * ref) { __builtin_coro_resume(ref); }
 
 #ifdef OUTSIDE_METHOD
 typedef void * Promised; void Resume(Promised p) { __builtin_coro_resume(p); }
@@ -41,7 +41,7 @@ template <typename P> P& Promise(Promised p) { return (P *)__builtin_coro_promis
 template <typename P> Promised From₋promise(P& p) { return __builtin_coro_promise(p,alignof(P),true); }
 #endif
 
-namespace std::experimental {
+namespace coro {
  struct base₋suspend { constexpr 
    void await_suspend(std::experimental::coroutine_handle<>) const noexcept { }
    constexpr void await_resume() const noexcept { } };
@@ -51,13 +51,13 @@ namespace std::experimental {
    constexpr bool await_ready() const noexcept { return false; }
 }; }
 
-/* #include <Source/fifo.h> */
-
-struct 𝟄₋int₁ {
-  struct promise_type { int cached=-1; /* E․𝘨 𝟷₋tile₋fifo<uint32_t> irq𝘖rKernel₋requests; */
+/* #include <Source/fifo.h>. The 'export module Treasure;' in explicit and 
+implicit modules are non-optional. */
+struct /* 𝟄₋int₂ : public */ 𝟄₋int₁ { 
+  struct promise_type { int cached=-1; /* E․𝘨 𝟷₋tile₋fifo<uint32_t> moment₋requests; */
     auto initial_suspend() { return coro::suspend_never(); } /* For irq=suspend_always */
     auto final_suspend() { return coro::suspend_never(); } /* For user=suspend_always */
-    auto /* a․𝘬․a `Handle` */ get_return_object() { return Handle::from_promise(*this); }
+    auto /* a․𝘬․a `Waiver` */ get_return_object() { return Waiver::from_promise(*this); }
     void return_value(int expr) { cached=expr; }
     void unhandled_exception() { /* throw; */ }
     auto yield_value(int expr) { cached=expr; return coro::suspend_always(); }
@@ -67,13 +67,13 @@ struct 𝟄₋int₁ {
       return coro::suspend_always(); }
   };
   
-  enum Kind { }; 𝟄₋int₁(Kind kind) { this.kind=kind; } Kind kind;
-  typedef std::experimental::coroutine_handle<promise_type> Handle;
-  Handle coroutine; 𝟄₋int₁(Handle routine) : coroutine(routine) { }
+  /* enum Kind { }; 𝟄₋int₁(Kind kind) { this->kind=kind; } Kind kind; */
+  typedef std::experimental::coroutine_handle<promise_type> Waiver;
+  Waiver coroutine; 𝟄₋int₁(Waiver routine) : coroutine(routine) { }
   
   constexpr bool await_ready() const noexcept { return true; }
-  constexpr void await_suspend(Handle handle) const noexcept { /* handle.resume(); */ }
-  𝟄₋int₁ await_resume() const noexcept { return 𝟄₋int(coroutine); }
+  constexpr void await_suspend(Waiver handle) const noexcept { /* handle.resume(); */ }
+  𝟄₋int₁ await_resume() const noexcept { return 𝟄₋int₁(coroutine); }
   
 };
 
