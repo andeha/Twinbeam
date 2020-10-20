@@ -8,6 +8,8 @@ void * _NSConcreteGlobalBlock[32];
 uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4];
 struct { __builtin_int_t board₁, palm₂; } cxaGuard;
 jmp_buf2 /* volatile */ singleTaskProgramState;
+void * Scheduler::ʰᵚcollection; 
+Scheduler::Necklace *first, *curr, *last;
 Chronology calendricChronology, computationalChronology;
 extern "C" int __cxa_guard_acquire() { return 🔒(cxaGuard); }
 extern "C" void __cxa_guard_release() { 🔓(cxaGuard); }
@@ -32,10 +34,8 @@ DISORDERABLE auto Traceₒ = ^(uint8_t * u8s, __builtin_int_t bytes) {
   write(/* stderr, i.e */ 2, (const void *)u8s, bytes); };
 #include <wchar.h>
 #elif defined __mips__
-#include <pic32rt/mips.hpp>
-#include <pic32rt/pic32mz.hpp>
-#include <pic32rt/pic32mzda.hpp>
-#include <pic32rt/stable.hpp>
+extern void putch(uint8_t c);
+extern void Putₒ(uint8_t c, __builtin_int_t bytes);
 DISORDERABLE auto Putₒ = ^(uint8_t * u8s, __builtin_int_t bytes) {
   for (__builtin_int_t i=0; i<bytes; i++) putch(*(u8s+i)); };
 DISORDERABLE auto Traceₒ = ^(uint8_t * u8s, __builtin_int_t bytes) { Putₒ(u8s,bytes); };
@@ -46,27 +46,45 @@ extern "C" const char * sep = "\n\n"; /* Also U+2029 'Paragraph separator'. */
 namespace VT100 { const char * bright = "\x1B[1m", *dim = "\x1B[2m", *fgBlue = "\x1B[34m", 
  *fgRed = "\x1B[31m", *reset = "\x1B[0m", *reverse = "\x1B[7m"; }
 
-/* Returns `0` when a key has been captured, `1` on timeout, other 
-  numbers on error. */
-DISORDERABLE auto WaitTerminal = ^(int periods𝘖𝘳Zero, int 
-  𝟷𝟶ᵗᵇ₋seconds, void (^ping)(bool &stop), char32_t * uc) {
+#ifdef __x86_64__
+#include <dispatch/dispatch.h>
+#include <pthread.h>
+#endif
+
+𝟄₋int₁ corout₋irqUART5Rx₋Wa₋it(unsigned expeditionary, int periods𝘖rZero, 
+  int 𝟷𝟶ᵗʰ₋seconds, char32_t * uc, void * (^alloc)(int bytes))
+{
 #ifdef __mips__
+   int 🥈 word₋elems=1024; void * 𝟷₋tile₋utf8=alloc(word₋elems), 
+    * 𝟷₋tile₋keydown=alloc(word₋elems), *𝟷₋tile₋length=alloc(word₋elems);
+   static Fifo<uint8_t> utf8bytes;
+   if (utf8bytes.init(word₋elems,𝟷₋tile₋utf8)) { co_return -1; }
+   static Fifo<char32_t> uc₋keydownAndOrnaments; /* Possibly-maybe: 'little-endian'. */
+   if (uc₋keydownAndOrnaments.init(word₋elems,𝟷₋tile₋keydown)) { co_return -2; }
+   static Fifo<Chronology::Interval> key₋when;
+   if (key₋when.init(word₋elems,𝟷₋tile₋length)) { co_return -3; }
+   co_yield 1; uint8_t c=0; while (1) { __builtin_int_t count=1; 
+     co_yield c; uint8_t c₁=getutf8(); __builtin_uint_t c₂=(__builtin_uint_t)c₁;
+     if (utf8bytes.copy₋include(expeditionary,count,&c₂)) { co_return -4; }
+    }
+#elif defined __x86_64__
+ /* void * Readthread(void * param) { *uc = (char32_t)fgetwc(stdin); return (void *)NULL; };
+   int y = pthread_create(readthread,attr,Readthread,arg);
+   if (y) { co_return -1; } */
+   /* Locks until keypress. See --<🥽 Keyput.cpp> for a slightly different version. */
+#endif
+   co_return 0;
+} /* a․𝘬․a `Stimulus` and `Waitterminal`.  Previously returned `0` when a 
+ key has been captured, `1` on timeout, other numbers on error. 
    
-   /* See --<🥽 Keyput.cpp> for details on: 
+  See --<🥽 Keyput.cpp> for details on: 
    H₁ Call `uint8_t getutf8()` and wait as in uint8_t utf8 = getutf8();
    H₂ Intermingle with Timer1-Timer9
    H₃ static Fifo<uint8_t> utf8bytes;
-     static Fifo<char32_t> unicodesKeyupsAndOrnaments
-     static Fifo<Chronology::Instant> keyWhen
-   */
-  
-#elif defined __x86_64__
-  *uc = (char32_t)fgetwc(stdin);
-#endif
-  return 0;
-}; /* Locks until keypress. See --<🥽 Keyput.cpp> for a slightly different version. */
-
-/* See --<Fossilate.h|cpp> for additional prepacked lambdas. */
+      static Fifo<char32_t> unicodesKeyupsAndOrnaments
+      static Fifo<Chronology::Instant> keyWhen  */
+ 
+/* See --<Fossilate.h|cpp> for additional prepacked lambdas and coroutines. */
 
 enum { BLOCK_IS_FLUCTUANT=8, BLOCK_IS_WEAK=16, BLOCK_IS_ANOTHERBLOCK=7 };
 
