@@ -4,13 +4,13 @@
 
 DISORDERABLE extern void CastᵈᵇˡToText(double value, void (^digits)(bool neg, 
   int e, const char *𝟶to𝟿s), void (^zero)(bool neg), void (^inf)(bool neg), 
-  void (^nan)()) { zero(false); } /* ⬷ Defined also in --<Additions>--<Ieee754₆₄bits.cpp>. */
+  void (^nan)()) { zero(true); } /* ⬷ Alt․ defintion in --<Additions>--<Ieee754₆₄bits.cpp>-<<--<Impressions.hpp>. */
 
-DISORDERABLE extern void Anfang(char32_t prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, uint8_t * image) { 
-  print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); } /* See --<🥢 𝙎𝙪𝙨𝙝𝙞 𝘾𝙝𝙚́𝙛.cpp> for details 
-  on PNG::IHDR. */
+DISORDERABLE extern void Anfang(char32_t prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, uint8_t * image) {
+  print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); } /* See --<🥢 𝙎𝙪𝙨𝙝𝙞 𝘾𝙝𝙚́𝙛.cpp> and 
+  --<Impressions.hpp> for details on PNG::IHDR. */
 
-DISORDERABLE extern void ReᵍsPrint(__builtin_uint_t mask) { print("∎"); }
+DISORDERABLE extern void Regsprint(__builtin_uint_t mask) { print("∎"); }
 
 DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc)) { out(U'∎'); }
 
@@ -19,7 +19,7 @@ DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc)) { 
   switch (a.kind) {                                                         \
   case 1: out𝕫(a.value.d); break;                                           \
   case 2: out𝕟(a.value.x); break;                                           \
-  case 3: ¹⁰¹¹⁰out(a.value.b); break;                                       \
+  case 3: 𝟷𝟶𝟷𝟷𝟶₋out(a.value.b); break;                                       \
   case 4: streamout_utf8(a.value.utf8); break;                              \
   case 5: streamout_unicodes(a.value.ucs.tetras, a.value.ucs.unicodes); break; \
   case 6: streamout_char(a.value.c); break;                                 \
@@ -30,71 +30,38 @@ DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc)) { 
     void * context) { if (!anfang) { print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); }   \
     else { Anfang(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, NULL); } }; a.value.λ.scalar(set,       \
     a.value.λ.context); break; }                                            \
-  case 11: ¹²⁸out𝕟(a.value.U); break;                                       \
-  case 12: ¹²⁸out𝕫(a.value.I); break;                                       \
-  case 13: ReᵍsPrint(a.value.x); break;                                     \
+  case 11: 𝟷𝟸𝟾₋out𝕟(a.value.U); break;                                      \
+  case 12: 𝟷𝟸𝟾₋out𝕫(a.value.I); break;                                      \
+  case 13: Regsprint(a.value.x); break;                                     \
   default: /* if (a.kind >= 0) imprint[a.kind](a); else */                  \
     streamout_unicode(U'?'); break; }
 
-Argᴾ ﹟d(__builtin_int_t d) { return Argᴾ { .value.d=d, 1 }; }
-Argᴾ ﹟x(__builtin_uint_t x) { return Argᴾ { .value.x=x, 2 }; }
-Argᴾ ﹟b(__builtin_uint_t b) { return Argᴾ { .value.b=b, 3 }; }
-Argᴾ ﹟s(const char * utf8) { return Argᴾ { .value.utf8=utf8, 4 }; }
-Argᴾ ﹟S(int tetras, char32_t * uc) { return Argᴾ { .value.ucs={uc,tetras}, 5 }; }
-Argᴾ ﹟S(int tetras, const char32_t * uc) { return Argᴾ { .value.ucs={Critic(uc),tetras}, 5 }; }
-Argᴾ ﹟c(char c) { return Argᴾ { .value.c=c, 6 }; }
-Argᴾ ﹟C(char32_t C) { return Argᴾ { .value.uc=C, 7 }; }
-Argᴾ ﹟U(__uint128_t U) { return Argᴾ { .value.U=U, 11 }; }
-Argᴾ ﹟I(__int128_t I) { return Argᴾ { .value.I=I, 12 }; }
-Argᴾ ﹟reᵍs(__builtin_uint_t mask) { return Argᴾ { .value.x=mask, 13 }; } /* Print between 0 and 31 non-high-volatile registers. */
-Argᴾ ﹟λ(Argᴾ::Output scalar, void * context) { return Argᴾ { .value.λ={ scalar, context }, 10 }; }
-
-inexorable
-void
-Base𝕟(
-  __uint128_t ℕ, 
-  unsigned short base, 
-  unsigned short digitsOr0, 
-  void (^out)(char 𝟶to𝟿)
-)
-{
-    auto 𝟶to𝖥 = ^(unsigned short r, void (^out)(char utf8)) { r < 10 ? 
-      out('0' + r) : out('a' - 10 + r); };
-    
-    unsigned short cycle[128] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    
-    short k = 0;
-    
-    do { cycle[k] = ℕ % base; ℕ /= base; k++; } while (ℕ);
-    
-    if (digitsOr0) { for (k = digitsOr0 - 1; k >= 0; k--) { 
-      𝟶to𝖥(cycle[k], out); } }
-    else { k = 127; while (cycle[k] == 0 && k > 0) { k--; }
-       for (; k >= 0; k--) { 𝟶to𝖥(cycle[k], out); }
-    }
-} /* Requires 128-bits-`fractions`, { `__umodti3`, `__udivti3` }, `__udivmodti4`. */
-
-inexorable void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short 
-  digitsOr0, void (^out)(char 𝟶to𝟿and₋)) { if (ℤ < +0) { out('-'); ℤ = -ℤ; }
-  Base𝕟((__builtin_uint_t)ℤ, base, digitsOr0, out); };
+Argᴾ ﹟d(__builtin_int_t d) { return Argᴾ { .value.d=d, .kind=1 }; }
+Argᴾ ﹟x(__builtin_uint_t x) { return Argᴾ { { .x=x }, 2 }; }
+Argᴾ ﹟b(__builtin_uint_t b) { return Argᴾ { { .b=b }, 3 }; }
+Argᴾ ﹟s(const char * utf8) { return Argᴾ { { .utf8=utf8 }, 4 }; }
+Argᴾ ﹟S(__builtin_int_t tetras, char32_t * uc) { return Argᴾ { { .ucs={ uc, tetras } }, 5 }; }
+Argᴾ ﹟S(__builtin_int_t tetras, const char32_t * uc) { return Argᴾ { { .ucs={ Critic(uc), tetras } }, 5 }; }
+Argᴾ ﹟c(char c) { return Argᴾ { { .c=c }, 6 }; }
+Argᴾ ﹟C(char32_t C) { return Argᴾ { { .uc=C }, 7 }; }
+Argᴾ ﹟U(__uint128_t U) { return Argᴾ { { .U=U }, 11 }; }
+Argᴾ ﹟I(__int128_t I) { return Argᴾ { { .I=I }, 12 }; }
+Argᴾ ﹟regs(__builtin_uint_t mask) { return Argᴾ { { .x=mask }, 13 }; }
+/* ⬷ Print between 0 and 31 non-high-volatile registers. */
+Argᴾ ﹟λ(Argᴾ::Output scalar, void * context) { return Argᴾ { { .λ={ scalar, context } }, 10 }; }
 
 inexorable
 int
 print﹟(
-  void (^out)(uint8_t * u8s, short bytes),
-  const char * utf8format,
+  void (^out)(uint8_t * u8s, __builtin_int_t bytes), 
+  const char * utf8format, 
   __builtin_va_list arg
 )
 {  __builtin_int_t i=0, incr; short followers; char32_t uc;
     int 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 printedBytesExcept0=0; /* bool may𝘖𝘳DidEscape=false; */
-    auto out₂ = ^(const char * utf8s, uint16_t bytes) { out((uint8_t *)utf8s, bytes); printedBytesExcept0 += bytes; };
-    auto out𝕫 = ^(__builtin_int_t x) { Base𝕫(x, 10, 0, ^(char s) { out₂(&s, 1);  }); };
+    auto out₂ = ^(const char * utf8, __builtin_int_t bytes) {
+      out((uint8_t *)utf8, bytes); printedBytesExcept0 += bytes; };
+    auto out𝕫 = ^(__builtin_int_t x) { Base𝕫(x, 10, 0, ^(char s) { out₂(&s, 1); }); };
     auto out𝕟 = ^(__builtin_uint_t x) { Base𝕟(x, 16, 
 #ifdef __x86_64__
       16
@@ -102,7 +69,7 @@ print﹟(
        8
 #endif
       , ^(char s) { out₂(&s, 1); }); };
-    auto ¹⁰¹¹⁰out = ^(__builtin_uint_t b) { Base𝕟(b, 2,
+    auto 𝟷𝟶𝟷𝟷𝟶₋out = ^(__builtin_uint_t b) { Base𝕟(b, 2,
 #ifdef __x86_64__
        64
 #elif defined __mips__
@@ -110,42 +77,55 @@ print﹟(
 #endif
       , ^(char s) { out₂(&s, 1); }); };
     auto streamout_char = ^(char c) { out₂(&c, 1); };
-    auto streamout_utf8 = ^(const char * utf8) { char *p = (char *)(utf8); while (*p) { out₂(p,1); p++; } };
-    auto streamout_unicode = ^(char32_t u) { UnicodeToUtf8(u, ^(const uint8_t *u8s, 
+    auto streamout_utf8 = ^(const char * utf8) { char * p = (char *)utf8; while (*p) { out₂(p,1); p++; } };
+    auto streamout_unicode = ^(char32_t u) { UnicodeToUtf8(u, ^(const uint8_t * u8s, 
       short bytes) { out₂((const char *)u8s, bytes); }); };
-    /* #ifndef AVOID_IEEE754 */
+/* #ifndef AVOID_IEEE754 */
     auto out𝕕 = ^(double ℝ) { Format(ℝ, Ieee754Form::Scientific, ^(char32_t uc) { streamout_unicode(uc); }); };
-    /* #endif */
+/* #endif */
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
     auto streamout_unicodes = ^(int tetras, char32_t 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 * unicodes) { __builtin_int_t 
       beam=0; while (beam < tetras) { char32_t uc = *(unicodes + beam); streamout_unicode(uc); 
       ++beam; } }; /* { int, (bytes, symbols) } */
-    auto ¹²⁸out𝕫 = ^(__int128_t I) { Base𝕫(I, 10, 0, ^(char 𝟶to𝟿) { out₂(&𝟶to𝟿,1); }); };
-    auto ¹²⁸out𝕟 = ^(__uint128_t U) { Base𝕟(U, 16, 0, ^(char 𝟶to𝟿and₋) { out₂(&𝟶to𝟿and₋,1); }); };
+    auto 𝟷𝟸𝟾₋out𝕫 = ^(__int128_t I) { Base𝕫(I, 10, 0, ^(char 𝟶to𝟿) { out₂(&𝟶to𝟿,1); }); };
+    auto 𝟷𝟸𝟾₋out𝕟 = ^(__uint128_t U) { Base𝕟(U, 16, 0, ^(char 𝟶to𝟿and₋) { out₂(&𝟶to𝟿and₋,1); }); };
 again:
-    auto leadOr8Bit = (uint8_t *)utf8format + i;
+    auto leadOr8Bit = i + (uint8_t *)utf8format;
     if (*leadOr8Bit == 0x0) { goto unagain; }
     followers = Utf8Followers(*leadOr8Bit);
     if (followers < 0) { return -1; }
     incr = followers + 1;
     uc = Utf8ToUnicode(leadOr8Bit,incr);
     if (uc == 0xFFFE || uc == 0xFFFF) { return -2; }
-    else if (uc != U'⬚') { streamout_unicode(uc); /* may𝘖𝘳DidEscape = (uc == U'/'); */ }
+    else if (uc != U'⬚') { streamout_unicode(uc); }
     else { ⁺⁼PrintArgAndPop }
     i += incr; goto again;
 unagain:
     return printedBytesExcept0;
 }
 
+#ifdef __x86_64__
+typedef size_t ssize_t;
+extern "C" ssize_t write(int fd, const void * s, size_t nbyte);
+#elif defined __mips__
+extern void (^Putₒ)(uint8_t * u8s, __builtin_int_t bytes);
+extern void (^Traceₒ)(uint8_t * u8s, __builtin_int_t bytes);
+#endif
+
 FOCAL
 int
-printerr(
-  const char * utf8format,
+mfprint(
+  const char * utf8format, 
   ...
 )
 { int y; va_prologue(utf8format);
-   extern void (^Traceₒ)(uint8_t * u8s, uint16_t bytes);
-   auto out = ^(uint8_t * u8s, short bytes) { Traceₒ(u8s,(uint16_t)bytes); };
+#ifdef __x86_64__
+   bool original = false;
+   int 🥇 descript = original ? 1 /* stdout */ : 2 /* stderr */;
+   auto out = ^(uint8_t * u8s, __builtin_int_t bytes) { write(descript, (const void *)u8s, bytes); };
+#elif defined __mips__
+   auto out = ^(uint8_t * u8s, __builtin_int_t bytes) { Traceₒ(u8s,bytes); };
+#endif
    y = print﹟(out,utf8format,__various);
    va_epilogue return y;
 }
@@ -154,21 +134,25 @@ FOCAL
 int
 print(const char * utf8format, ...) /* Here all variable args are of the type `Argᴾ`. */
 { int y; va_prologue(utf8format);
-   y = print(utf8format,__various);
-   va_epilogue
-   return y;
+#ifdef __x86_64__
+   auto out = ^(uint8_t * u8s, __builtin_int_t bytes) { write(1, (const void *)u8s, bytes); };
+#elif defined __mips__
+   auto out = ^(uint8_t * u8s, __builtin_int_t bytes) { Putₒ(u8s,bytes); };
+#endif
+   y = print﹟(out,utf8format,__various);
+   va_epilogue return y;
 }
 
 FOCAL
 int
 print(
-  void (^out)(uint8_t * u8s, short bytes),
-  const char * utf8format,
+  void (^out)(uint8_t * u8s, __builtin_int_t bytes), 
+  const char * utf8format, 
   ...
 )
 { int y; va_prologue(utf8format);
    y = print﹟(out,utf8format,__various);
    va_epilogue
    return y;
-} /* 𝘈․𝘬․a `print⁺⁺`. See --<🥽 𝙋𝙧𝙞𝙣𝙩⁺.cpp> for more details. */
+} /* a․𝘬․a `print⁺⁺`. See --<🥽 𝙋𝙧𝙞𝙣𝙩⁺.cpp> for more details. */
 
