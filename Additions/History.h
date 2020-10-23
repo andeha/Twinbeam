@@ -1,47 +1,55 @@
-/*  History.h | At last, a state snapshot. */
+/*  History.h | 'At last the state snapshot, executive summary style'. */
 
 #ifndef __HISTORY_H
 #define __HISTORY_H
 
-#include <Twinbeam.h>
 #include <Additions/Timeserie.hpp>
-#if __has_include(<Additions/Esoteric.h>)
-#include <Additions/Esoteric.h>
+#include <Additions/Kiddle.hpp>
+#if __has_include(<Additions/One-eps.h>)
+#include <Additions/One-eps.h>
 #endif
 
 struct History { /* Consideration */
     
-    explicit History(Version& revision) noexcept;
+    explicit History(Version & revision) noexcept;
     
-    enum Kind { machineunsigned, singleReal, doubleReal, 𝟺𝗵𝗮𝗹𝗳s=4, 𝟾Q7=3, 
-      𝟺Q15=5, 𝟸Q31=8, 𝛥𝘵=9, Q79=10, Temporalˡ=11, /* ⟤⟥ */ machinesigned=23 };
+    enum Kind { machineunsigned, single₋ℝ, double₋ℝ, 𝟺₋𝗵𝗮𝗹𝗳s=4, 𝟾Q7=3, 𝟺Q15=5, 
+      𝟸Q31=8, 𝛥𝘵=9, Q79=10, Temporalˡ=11, /* ⟤⟥ */ machinesigned=23, 
+      ChronoUQ32²=24 };
     
     union Pod {
       __builtin_uint_t machineunsigned;                              /*  0 */
-      double singleReal;                                             /*  1 */
-      struct { float starboard; float port; } doubleReal;            /*  2 */
+      double single₋real;                                            /*  1 */
+      struct { float starboard; float port; } double₋real;           /*  2 */
       half pythagoreans[4];                                          /*  4 */
-#if __has_include(<Additions/Esoteric.h>)
+#if __has_include(<Additions/One-eps.h>)
       union { Q7 q7s[8]; Q15 q15s[4]; Q31 q31s[2]; } relatives;      /*  3 */
 #endif
       __builtin_int_t machinesigned;                                 /* 23 */
 #ifdef __x86_64__
-      /* ✠ ditriaconta avx₂machine;                                      6
-      ditriaconta avx512machine[2];                                      7 */
+      /* ✠ ditriaconta avx𝟸machine;                                      6
+      ditriaconta avx𝟻𝟷𝟸machine[2];                                      7 */
 #endif
-      Chronology::UQ32 relativretrospectat                           /*  9 */
+      Chronology::Interval relative₋retrospectat                     /*  9 */
       /* typedef bignum * Bignum; Bignum big;                           11
       struct { Bignum right; Bignum left; } doublebig;                  12 */
       struct Mixedradix { double small; __builtin_int_t 𝟷𝟶ᵐ; };
       struct { Mixedradix right; Mixedradix left; } detail;          /* 17 */
-    }; /* Sometimes 64 bits, sometimes 2*32 bits. See --<Arith⁺⁺.cpp>. */
+      struct { Chronology::UQ32 starboard, port; } maxmin₋latency;  /*  24 */
+    };
     
-    typedef const char * ⁸Bitref; typedef Unicodes Key;
-    Timeserie<Key, Pod, ⁸Bitref> serie;
-    Kind kind;
+    n₋tile₋fifo 𝟽bit₋pool; Kiddle Unicode₋pool; /* ⬷ Compares to 
+     compulsive cases of 'Alloc' and 'Fallow`. */
     
-    static History::Pod (^add)(History::Pod& left, History::Pod& right, 
-      void *ctx); /* History::Kind */
+    typedef __builtin_int_t 𝟽₋bit₋ref;
+    typedef Kiddle::Nonabsolute Unicode₋ref;
+    
+    Timeserie<Unicode₋ref, Pod, 𝟽₋bit₋ref> serie; /* See also --<Kiddie.hpp>. */
+    
+    History::Pod add(History::Pod& left, History::Pod& right, 𝟽bit₋string ref, Kind kind);
+    
+    History::Pod add(History::Pod&, 𝟽bit₋string ref, Kind kind);
+    /* ⬷ a․𝘬․a 'bias' for mixed single and left/right series. */
     
 #pragma mark - Querying
     
@@ -49,7 +57,7 @@ struct History { /* Consideration */
     
 #pragma mark Implicits
     
-    /* History(const History& other); */
+    History(const History& other) = delete; /* ⬷ See `Snapshot` below. */
     
     History() = delete;
     
@@ -59,7 +67,7 @@ struct ComputationalIndex {
     
     explicit ComputationalIndex() noexcept;
     
-    typedef Unicodes Serie; /* A․𝘬․a `Name`. */
+    typedef Unicodes Serie; /* a․𝘬․a `Name`. */
     
     typedef Fossilate Arguments[4];
     
@@ -74,55 +82,63 @@ struct ComputationalIndex {
     
     void rollback();
     
-#pragma mark - Refreshing the non-volatiles
+#pragma mark Implicits
+    
+    ComputationalIndex(const ComputationalIndex& other) = delete;
+    
+#pragma mark - Refreshing a non-volatile memory
   
   FOCAL int
     reconcile(
-      Opt<Unicodes> pathᵚ,
-      void (^ping)(double⁺ʳ percent, bool& stop),
-      void (^completion)(int bytes)
-    ); /* A․𝘬․a `preserve`. */
+      Opt<Unicodes> pathᵚ, /* a․𝘬․a `primary𝘖𝘳𝑆econd` and `similar`. */
+      void (^ping)(double⁺ʳ percent, bool& stop), 
+      int (^completion)(__builtin_int_t bytes, bool& no₋go)
+    ); /* a․𝘬․a `preserve` and `syncronize`. 𝘊․𝘧 `msync` and `Snapshot`. */
     
-#pragma mark Time and Space
+#pragma mark Time and space
     
     /* Subgraph<Seriekey> organization; */
     
-    void * series; /* A․𝘬․a Map<Serie, History>; With `succumb` and `branch`. */
+    void * series; /* a․𝘬․a Map<Serie, History>; with `succumb` and `branch`. */
     
 😐;
 
 extern History::Pod (^__machineunsigned)(__builtin_uint_t scalar);
-extern History::Pod (^__doubleReal)(float left, float right);
-extern History::Pod (^__singleReal)(double scalar);
+extern History::Pod (^__doubleℝ)(float left, float right);
+extern History::Pod (^__singleℝ)(double scalar);
 
 void Present(Utf8Terminal &term, const History& history);
 void Present(Utf8Terminal &term, const History::Pod& pod, 
   const History::Kind kind);
 
-union Twinpod {                                                             
-  simd_tᵦ doubleDouble;                                              /* 1 */
-  simd_t quadFloat;                                                  /* 2 */
-  simd_tᵥ sixteenVideo;                                              /* 3 */
-  simd_tₐ eightAudio;                                                /* 4 */
-  simd_tᵢₐ fourThirtytwo;                                            /* 5 */
-  simd_tₒ twoSixtyfour;                                              /* 6 */
-#if __has_include(<Additions/Esoteric.h>)
-  Q79 eightfixed[8];                                                /* 10 */
-  Q1516 fourinterval[4]                                             /* 11 */
+union Twinpod {                                                            
+  simd_tᵦ double₋double;                                             /* 1 */
+  simd_t quad₋float;                                                 /* 2 */
+  simd_tᵥ sixteen₋video;                                             /* 3 */
+  simd_tₐ eight₋audio;                                               /* 4 */
+  simd_tᵢₐ four₋thirtytwo;                                           /* 5 */
+  simd_tₒ two₋sixtyfour;                                             /* 6 */
+#if __has_include(<Additions/One-eps.h>)
+  Q79 eight₋fixed[8];                                               /* 10 */
+  Q1516 four₋interval[4]                                            /* 11 */
 #endif
 }; /* ⬷ Requires physical to unlock after storage. Notice pod possibly 
   locally colored. */
 
-#pragma mark - Preserves /* C𝘧. Scandinavian 'förlupen', 'upplupen' and anglosaxon 'puzzle'/`lapsus𝘖rMUX`. */
+#pragma mark Volatile memory copying and not 'copy-constructor'
+
+int Snapshot(const ComputationalIndex& original, ComputationalIndex& pristine);
+
+#pragma mark The Scandinavian words 'förlupen', 'upplupen' and 'interim'
 
 FOCAL
-Opt<ComputationalIndex>
-ᵟBranch(
-  Unicodes pathᵚ, 
-  int (^modernize)(Memoryview view, ComputationalIndex & y), 
-  void (^ping)(double⁺ʳ percent, bool& stop), 
-  void (^completion)(int bytes)
-); /* A․𝘬․a `Reflect`/`Abduct`, reconcile, preserve, syncronize, succumb, branch, cloneAndPersist. */
+int /* Opt<ComputationalIndex> requires copy-constructible object. */
+ᵟBranch(Unicodes primary𝘖𝘳𝑆econd, ComputationalIndex &pristine, 
+  void (^ping₁)(double⁺ʳ percent, bool& stop), 
+  int (^modernize)(Memoryregion original, ComputationalIndex & shoot), 
+  void (^ping₂)(double⁺ʳ percent, bool& stop), 
+  void (^completion)(__builtin_int_t bytes, bool& no₋go)
+); /* a․𝘬․a `clone₋unpack` and `Reflect`. */
 
 #endif
 
