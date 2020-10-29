@@ -1,7 +1,4 @@
-//
-//  pic32mx.hpp
-//  pic32rt
-//
+/*  pic32mx.hpp | pic32rt. */
 
 PIC32SYMBOL(MX, U5MODE,  0xBF806a00) /* UARTx mode register. */
 PIC32SYMBOL(MX, U5STA,   0xBF806a10) /* UARTx status and control register. */
