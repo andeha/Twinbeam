@@ -1,4 +1,4 @@
-# commands.ninja — Targeting the many-legged.
+# commands.ninja — Targeting encased Microchip products.
 
 rule emitsyms
     command = $tools/llvm-nm $progname
