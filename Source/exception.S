@@ -17,7 +17,7 @@
 #define s8  $24
 #define sp  $29   /* The last pushed argument on the stack. */
 #define ra  $31   /* The address to return to when inside a function. */
-/* See [Wiki]--<🔬 Twinbeam Intricacies> for more info. */ 
+/* See [Wiki]--<🔬 Twinbeam Intricacies> for more info. */
     
     
     .text
@@ -45,7 +45,7 @@ setjmp2:
       the definition of --<Twinbeam.h>{`jmp_buf2`}.  Let's save 
       registers: */
     
-    sw sp, 0(a0)        /*  Save registers. */
+    sw sp, 0(a0)        /*  Save registers in `jmp_buf`. */
     sw ra, 4(a0)
     sw s0, 8(a0)
     sw s1, 12(a0)
@@ -63,7 +63,7 @@ setjmp2:
 .end setjmp2
   
   
- /*                         (Code updated to `__builtin_int_t`)
+ /*                         (Code updated for `__builtin_int_t`)
   *  
   *  void longjmp2(jmp_buf jb, int code)
   *  
@@ -127,7 +127,7 @@ _setjmp2:
     
     fnstcw  64(%rax)
     stmxcsr 68(%rax)
-    xorq    %rax,%rax
+    xorq    %rax,%rax         /* Return 0 in rax. */
     
     ret
     

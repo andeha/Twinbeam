@@ -51,8 +51,8 @@ namespace coro {
    constexpr bool await_ready() const noexcept { return false; }
 }; }
 
-/* #include <Source/fifo.h>. The 'export module Treasure;' in explicit and 
-implicit modules are non-optional. */
+/* #include <Source/fifo.h> */
+
 struct /* 𝟄₋int₂ : public */ 𝟄₋int₁ { 
   struct promise_type { int cached=-1; /* E․𝘨 𝟷₋tile₋fifo<uint32_t> moment₋requests; */
     auto initial_suspend() { return coro::suspend_never(); } /* For irq=suspend_always */
