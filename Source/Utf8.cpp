@@ -79,10 +79,10 @@ UnicodeToUtf8(
     uint8_t target[4];
     
     switch (bytesToWrite) {
-      case 4: target[3] = (uint8_t)((Ξ | byteMark) & byteMask); Ξ >>= 6;
-      case 3: target[2] = (uint8_t)((Ξ | byteMark) & byteMask); Ξ >>= 6;
-      case 2: target[1] = (uint8_t)((Ξ | byteMark) & byteMask); Ξ >>= 6;
-      case 1: target[0] = (uint8_t) (Ξ | firstByteMark[bytesToWrite]);
+    case 4: target[3] = (uint8_t)((Ξ | byteMark) & byteMask); Ξ >>= 6;
+    case 3: target[2] = (uint8_t)((Ξ | byteMark) & byteMask); Ξ >>= 6;
+    case 2: target[1] = (uint8_t)((Ξ | byteMark) & byteMask); Ξ >>= 6;
+    case 1: target[0] = (uint8_t) (Ξ | firstByteMark[bytesToWrite]);
     }
     
     sometime₋valid(target,bytesToWrite);
