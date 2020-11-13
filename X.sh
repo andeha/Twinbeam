@@ -1,5 +1,6 @@
 ninja -C Source -f build_pic32mz.ninja                              || exit 1
-ninja -C Source -f build_macos₂.ninja                               || exit 1
+ninja -C Source -f build_macos.ninja                                || exit 1
+# lipo -create .. as of Xcode 12.2 only for arm and intel, not mips.
 ninja -C Additions -f bld_mac.ninja                                 || exit 1
 ninja -C Additions -f bld_mz.ninja                                  || exit 1
 ninja -C Additions -f bldº_mz.ninja                                 || exit 1
