@@ -2,11 +2,11 @@
  the '-fmodule₍-map₎-file'. */
 
 module Twinbeam_camp [system] [no_undeclared_includes]
-{ requires cplusplus20, c17, coroutines export * header "Twinbeam.h" } 
+{ export * header "Twinbeam.h" } 
 /* Also: '#define generally header' and '#define run use'. */
 
 module Twinbeam_with_Additions [system] [no_undeclared_includes] 
-{ requires cplusplus20, c17, coroutines export * header "Twinbeam.h"
+{ export * header "Twinbeam.h"
   /* ⬷ Im-ple-m-en-ta-tio-n he-l-p and in₁₃-ter₂-face. */
   header "Additions/Additions.h"
   /* ⬷ and 'Color.hpp', 'Impressions.hpp' and 'Typeset.hpp'. */
@@ -38,6 +38,7 @@ module Twinbeam_with_Additions [system] [no_undeclared_includes]
 module Twinbeam_with_Minimaladditions {
   use Twinbeam_camp header "Twinbeam.h"
   header "Additions/Additions.h"
+  requires cplusplus20, c17, coroutines
   use actually_bound_set
   export * module Twinbeam_camp { export * }
 }
@@ -47,6 +48,7 @@ module Textsearch_and_censorship {
   header "Additions/Additions.h"
   header "Additions/Formatting.hpp"
   header "Additions/Kiddle.hpp"
+  requires cplusplus20, c17, coroutines
   use possibly_encompassed
   export * module Twinbeam_camp { export * }
 } /* Additional module declarations are in --<🚦.modules>. */
@@ -59,6 +61,7 @@ module Infographics_in_terminal { /* incl. sediments and timeseries. */
   header "Additions/Font⋮⋮⋮.h"
   header "/Users/<User- or project name>/vt99-c.h"
   header "/Users/<User- or project name>/vt99-c++.h"
+  requires cplusplus20, c17, coroutines
   use possibly_encompassed
   export * module Twinbeam_camp { export * }
 } /* ⬷ a․𝘬․a 'Infographics₋in₋terminal', 'Pixelperfect', 'VT99', 
@@ -70,6 +73,7 @@ module Arizona {
   header "pic32rt/pic32mzda.hpp"
   /* header "pic32rt/pic32mzda₁⋔.hpp"
   header "pic32rt/pic32mm.hpp" */
+  requires cplusplus20, c17, coroutines
   use possibly_encompassed
   export * module Twinbeam_camp { export * }
 } /* a․𝘬․a '⟤⟥_on_to_go.modules'. */
@@ -77,6 +81,7 @@ module Arizona {
 module Twinbeam_with_Additions_and_top [system] {
   use Twinbeam_with_Additions header "Twinbeam.h"
   header "Additions/System.h"
+  requires cplusplus20, c17, coroutines
   use possibly_encompassed
   export * module Twinbeam_with_Additions { export * }
 }
