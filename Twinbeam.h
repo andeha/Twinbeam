@@ -130,9 +130,11 @@ template <typename T> struct SemanticPointer { T ref; }; /* a․𝘬․a `Disjun
 #define METABOLIUNIFICATIVE /* Disjunct relative METABOLISUBTRACTIONAL. */
 #define IMPLICATIVE /* I-ER-ANDE: ISOMORPHIC and INFOR. */
 #define AMBIVALENTOBFUSCATIVE /* BOLL:IG. */
-#define INCASED /* C․f Project and 'operation'. */
-#define EUCLIDEANINCOHERENT
-#define INTENTIONCORRELATIVE
+#define INCASED /* C․f Project and 'operation'; and Scandinavian 'radiokälla'. */
+#define EUCLIDEANINCOHERENT /* C․f Subversive follows incoherence. */
+#define INTENTIONCORRELATIVE /* 𝘊․f Scandinavian alt. German ₍gestalt₎ stimulus. */
+#define ALTERNATESTRUCTURAL /* 𝘊․𝘧 'Alternate-encased`. Carriage-returns one symbol, possibly two symbols. */
+/* 𝘊․𝘧 'bildningsförledande'. */
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; /*  ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
@@ -236,7 +238,7 @@ b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(__builtin_int_t tetras, char32_t
 ﹟c(char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
 Argᴾ ﹟regs(__builtin_uint_t mask); Argᴾ ﹟λ(Argᴾ::Output scalar, void * context);
 extern "C" { int atexit(void(*func)(void)); void exit(int); } 
-extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fall⒪⒲﹠o)(void *);
+extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fall⒪⒲)(void *);
 __builtin_int_t 𝟺𝟶𝟿𝟼₋aligned₋frame(__builtin_int_t byte₋number, __builtin_int_t * modulo);
 int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
   __builtin_uint_t avails[], void (^every)(uint8_t * 𝟸ⁿframe, bool& stop));
@@ -305,7 +307,7 @@ MACRO void * _Block_copy(const void *arg) { struct Block_layout *block = (struct
   Block_layout *)arg; struct Block_layout *res = (struct Block_layout *)Alloc(
   block->descriptor->size); Copy8Memory((ByteAlignedRef)res, (ByteAlignedRef)
   block, block->descriptor->size); return res; }
-MACRO void _Block_release(const void *arg) { Fall⒪⒲﹠o((void *)arg); }
+MACRO void _Block_release(const void *arg) { Fall⒪⒲((void *)arg); }
 typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
 __builtin_int_t constexpr SystemInfoPagesize() { return 4096; } /* One definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
@@ -411,7 +413,7 @@ struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; };
 typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast, 
   bytesOffsetInclLast; } Utf8Interval; /* ⬷ E․𝘨 wrongly coded utf-8. */
 
-#pragma mark 7-bit keyput sequences
+#pragma mark Forests and types: seven-bit keyput sequences
 
 typedef const unsigned char * 𝟾alt𝟽bit₋pointer;
 
@@ -583,13 +585,13 @@ struct Bits { Bits(Scatter * s); Scatter * scatter; uint8_t& operator[](__builti
   uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, 
     __builtin_int_t totmips, uint32_t * towrite𝘖r𝖭𝖴𝖫𝖫=NULL);
   uint64_t /* a․𝘬․a `ieee754dbl₋pattern` */ intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
-}; /* a․k․a `Memoryregion`. */
+}; /* a․𝘬․a `Memoryregion`. */
 
 void * ExactSeek₂(const void *key, const void *base, size_t num, 
  size_t size, int (^cmp)(const void *key, const void *elt));
 
 int Sediment(unsigned expeditionary, __builtin_int_t bytes, void (^once𝘖rNought)(Bits& bits));
-/* ⬷ a․k․a `Otherref`; Similar-to `alloca`. */
+/* ⬷ a․𝘬․a `Otherref`; Similar-to `alloca`. */
 
 int IsPrefixOrEqual(const char *𝟽alt𝟾₋bitstring, const char *𝟽alt𝟾₋bitprefix);
 /* Returns `int` indicating difference at branch, -1 if equal and `0` when string 
@@ -622,29 +624,36 @@ inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
 /* #include <Source/fiber₁> */
 #include <Source/coroutine>
 
-namespace Fiber₂₋Scheduler {
+namespace Scheduler { void Init(); 
   
-  typedef 𝟄₋int₁ (*Coroutine₋task)(void * ctx); /* ⬷ and at least one 
-    of 'co_await', 'co_yield' and 'co_return'. */ 
-  
-  struct Necklace { 𝟄₋int₁ err; Necklace * nxt; };
-  
-  extern Necklace *first, *curr, *last;
+  /* typedef 𝟄₋int₁ (*Coroutine₋1)(void * ctx); /‌* ⬷ and at least one 
+    of 'co_await', 'co_yield' and 'co_return'. */
   
   extern void * ʰᵚcollection; /* a․𝘬․a Map<irq₋no, Corout₋task>. */
   
-  /* typedef int32_t fiber_t; /​* ⬷ Sometime strengthen to Guid. */
+  /*  𝟄₋int₁ y = co_await coroutine₋name(ctx);
+   auto retrieved = ^(𝟄₋int₁& y) { return y.coroutine.promise().cached; };
+   print("y-after-init-and-yield = ⬚\n", ﹟d(retrieved(y))); */
   
-  int Incubate(𝟄₋int₁ coroutine₋err, __builtin_int_t ﹟irq, void * ctx);
+  int Incubate(𝟄₋int₁ * coroutine₋err, int32_t ﹟irq, 
+   void * (^node₋alloc)(int bytes));
   
-  int Process(__builtin_int_t ﹟irq);
+  int Process(int32_t ﹟irq);
   
-  int Start(𝟄₋int₁ coroutine₋err, void * start₋ctx);
+  struct Necklace { 𝟄₋int₁ & err; Necklace * nxt; };
+  
+  extern Necklace *first, *curr, *last;
+  
+  int Start(𝟄₋int₁ * coroutine₋err, void * (^necklace₋alloc)(int bytes));
   
   MACRO void Timer₋fired() { curr=curr->nxt; Resume(curr->err.coroutine.address()); }
   
 }
 
+#define bye co_return
+#define co₋await co_await
+#define initiera co_await
+#define adjö co_return
 #define STRINGIFY(str) #str
 #define va_prologue(symbol)                                                 \
   __builtin_va_list __various;                                              \
@@ -672,7 +681,7 @@ template <typename T> T * Elements𝘖𝘳Heap(int expeditionary,
 
 struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ }; 
     
-    typedef octa Instant; typedef octa Interval; /** Second is calendric 
+    typedef octa Instant; typedef octa Interval; /**  Second is calendric 
       alt. monotonically increasing non-rooting temporal relative. */
     
     typedef uint32_t UQ32; /* E․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
