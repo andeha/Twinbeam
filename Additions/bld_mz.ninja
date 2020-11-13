@@ -7,7 +7,7 @@ platflags = -D__MZ__ -I $runtime/.. -I $additions -I $runtime
 objs = ./.objs/7703a312-559A-42ca-A992-eabcf7f87663_$libroot
 flags = $optflags $pic32cflags $platflags
 progname = $libroot\_$sha1git.a
-include $runtime/commands.ninja
+include $runtime/commands-little.ninja
 
 rule emit-content
   command = $librarian-pic32 t $progname

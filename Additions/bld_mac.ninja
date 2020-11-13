@@ -7,7 +7,7 @@ platflags =  -I $additions/..
 objs = ./.objs/7703a312-559A-44ca-A992-eabcf7f87663_$libroot
 flags = $optflags $macoscflags $platflags
 progname = $libroot\_$sha1git.a
-include ../macOS/laptop.ninja
+include ../macOS/laptop-big.ninja
 
 rule emit-content
   command = $librarian-mac t $progname
