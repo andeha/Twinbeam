@@ -1,21 +1,26 @@
 # tools.ninja — Settings for macOS and Pic32.
-tools = /Users/<User- or project name>/10.0.0
+tools = /Users/<User- or project name>/11.0.0
 runtime = /Users/<User- or project name>/pic32rt
 additions = $runtime/../Additions
-gencdflags = -fno-rtti -fblocks -fcoroutines-ts -fno-exceptions -fno-signed-char -fno-builtin -Wno-format
+gencdflags = -fno-rtti -fblocks -fcoroutines-ts -fno-exceptions              $
+ -fno-signed-char -fno-builtin -Wc99-designator -Wno-format
 moduleflags = -fmodules-ts -fimplicit-modules -fmodule-map-file=../🗿.modules
 pic32nda = -fforce-enable-int128 -mmsa -mdspr2 -gdwarf-5
-pic32cflags = -target mipsel -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32 -mfp64 $pic32nda $gencdflags
+pic32cflags = -target mipsel -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32       $
+ -mfp64 $pic32nda $gencdflags
+# The M-chip and the traditional Intel workforce:
+macos_arm = -target arm64-apple-macos11
+macos_x86_64 = -target x86_64-apple-macos10.12
 macoscflags_withxcode = $gencdflags -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mmacosx-version-min=10.14
-macoscflags_commandline-xcode = $gencdflags -mmacosx-version-min=10.15
+macoscflags_commandline-xcode = $gencdflags -mmacosx-version-min=10.15 $macos_x86_64
 macoscflags_llvm-dot-org = $gencdflags 
 macoscflags = $macoscflags_commandline-xcode
 host = /Users/<User- or project name>/macOS
-# Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git reset 
-# --hard HEAD^' (or in public but not committed).
+# Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git 
+# reset --hard HEAD^' (or in public but not committed).
 sha1git = `git log -1 '--pretty=format:%h'`
 librarian-pic32 = $tools/llvm-ar
 librarian-mac = xcrun ar
 compiler-macos = xcrun clang $moduleflags
-compiler-pic32 = $tools/clang-10 $moduleflags
+compiler-pic32 = $tools/clang-11 $moduleflags
 
