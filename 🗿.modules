@@ -1,19 +1,13 @@
 /*  module.module-map | Conjectured art: In₋te₋r₋net and 
- the '-fmodule₍-map₎-file'. (DO-NOT-DISTRIBUTE-MIDDLE-SECTION) */
+ the '-fmodule₍-map₎-file'. */
 
-module Twinbeam_camp [system] [no_undeclared_includes] /* [extern_c] */
-{ /* a․𝘬․a 'Twinbeam₋camp'. */
-  requires cplusplus17, coroutines /* Actually 'cplusplus20' and also c17. */
-  config_macros [exhaustive] __MZ__
-  header "Twinbeam.h" /* and 'coroutine', 'fifo.h' and 'Typecase.h'. */
-  link "Twinbeam_pic32mz" link "Twinbeam_macOS" /* ⬷ For one-file projects only. */
-  export *
-} /* Also: '#define generally header' and '#define run use'. */
+module Twinbeam_camp [system] [no_undeclared_includes]
+{ requires cplusplus20, c17, coroutines export * header "Twinbeam.h" } 
+/* Also: '#define generally header' and '#define run use'. */
 
-module Twinbeam_with_Additions {
-  use Twinbeam_camp header "Twinbeam.h"
+module Twinbeam_with_Additions [system] [no_undeclared_includes] 
+{ requires cplusplus20, c17, coroutines export * header "Twinbeam.h"
   /* ⬷ Im-ple-m-en-ta-tio-n he-l-p and in₁₃-ter₂-face. */
-  config_macros [exhaustive] __MZDAStarterBoard__
   header "Additions/Additions.h"
   /* ⬷ and 'Color.hpp', 'Impressions.hpp' and 'Typeset.hpp'. */
   header "Additions/Cartesian.hpp"
@@ -35,30 +29,29 @@ module Twinbeam_with_Additions {
   header "Additions/Preserves.h"
   header "Additions/Serious.h"
   header "Additions/Shoebox.h"
-/* Possibly-maybe 'more commpressed:' */
-  header "Additions/Structure.h"
+/* Possibly-maybe 'more compressed:' */
+  header "Additions/Subgraph.h"
+  header "Additions/System.h"
   header "Additions/Tape.h"
-  use possibly_encompassed
-  export * module Twinbeam_camp { export * }
-  /* ⬷ Chronologic samples. */
-} /* ⬷ a․𝘬․a 'Twinbeam₋with₋Additions'. */
+}
 
 module Twinbeam_with_Minimaladditions {
   use Twinbeam_camp header "Twinbeam.h"
   header "Additions/Additions.h"
   use actually_bound_set
   export * module Twinbeam_camp { export * }
-} /* ⬷ a․𝘬․a 'Twinbeam₋with₋Minimaladditions'. */
+}
 
 module Textsearch_and_censorship {
   use Twinbeam_camp header "Twinbeam.h"
   header "Additions/Additions.h"
   header "Additions/Formatting.hpp"
+  header "Additions/Kiddle.hpp"
   use possibly_encompassed
   export * module Twinbeam_camp { export * }
-}
+} /* Additional module declarations are in --<🚦.modules>. */
 
-module Infographics_in_terminal {
+module Infographics_in_terminal { /* incl. sediments and timeseries. */
   use Twinbeam_camp header "Twinbeam.h"
   header "Additions/Additions.h"
   /* ⬷ and 'Color.hpp', 'Impressions.hpp' and 'Typeset.hpp'. */
@@ -68,33 +61,36 @@ module Infographics_in_terminal {
   header "/Users/<User- or project name>/vt99-c++.h"
   use possibly_encompassed
   export * module Twinbeam_camp { export * }
-} /* ⬷ a․𝘬․a 'Infographics₋in₋terminal' and 'VT99'. */
+} /* ⬷ a․𝘬․a 'Infographics₋in₋terminal', 'Pixelperfect', 'VT99', 
+  'On 'terminally ill" and 'Inside_Terminalfun'. */
 
 module Arizona {
   use Twinbeam_camp header "Twinbeam.h"
-  header "pic32rt/mips.hpp"
-  header "pic32rt/pic32mz.hpp"
+  /* header "pic32rt/pic32mx.hpp" */
   header "pic32rt/pic32mzda.hpp"
+  /* header "pic32rt/pic32mzda₁⋔.hpp"
+  header "pic32rt/pic32mm.hpp" */
+  use possibly_encompassed
+  export * module Twinbeam_camp { export * }
+} /* a․𝘬․a '⟤⟥_on_to_go.modules'. */
+
+module Twinbeam_with_Additions_and_top [system] {
+  use Twinbeam_with_Additions header "Twinbeam.h"
+  header "Additions/System.h"
+  use possibly_encompassed
+  export * module Twinbeam_with_Additions { export * }
 }
 
-/* ✁ until ✂️ */ /* */ /* ✂️ */
-
 module actually_bound_set {
+  link "Twinbeam_pic32mz"  link "Twinbeam_macOS" 
   link "Additions_pic32mz" link "Additions_macOS"
 } /* ⬷ a․𝘬․a 'bound₋library₋set'. */
 
 module possibly_encompassed {
-  link "Auxiliaries_macos"
-  link "Auxiliaries_pic32mz"
-  link "Additions_pic32mz"
-  link "Additions_macOS"
+  link "Twinbeam_pic32mz"  link "Twinbeam_macOS" 
+  link "Auxiliaries_macos" link "Auxiliaries_pic32mz"
+  link "Additions_pic32mz" link "Additions_macOS"
 } /* ⬷ a․𝘬․a 'all₋libraries'. */
 
-module Twinbeam_with_Additions_and_top [system] {
-  use Twinbeam_with_Additions
-  header "Additions/System.h"
-  use possibly_encompassed
-} /* ⬷ a․𝘬․a Twinbeam₋with₋Additions₋and₋top. */
-
-/* All executables must be linked with 'Source/llvm-rt3.cpp'. */
+/* Executables to be linked with [github.com]>--<ia64-pic32rt>--<llvm-rt3.cpp>. */
 
