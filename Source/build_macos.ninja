@@ -1,22 +1,23 @@
-# build.ninja — Building libTwinbeam_macos.a.
+#  build.ninja — Building libTwinbeam_macos.a.
 
-optflags = -g
-progroot = libTwinbeam_macos
-objs = ./.objs/7703a312-55A9-44da-A892-ebbcf8f87663_$progroot
+optflags = -g 
+library-root = libTwinbeam_macos
+objs = ./.objs/7703a312-55A9-44da-A892-ebbcf8f87663_$library-root
 platflags = -I ..
 include ../tools.ninja
-flags = $optflags $macoscflags $platflags
+flags = $optflags $macoscflags $platflags -Wno-c++2x-designator -std=c++2a
 include ../macOS/laptop-big.ninja
 
-rule emit-content
+rule toc
   command = $librarian-mac t $progname.a
+# ⬷ monitor/Apps> ninja -C Source -f build_macos.ninja emit-content
 
 rule library
   command = $librarian-mac rcs Releases/$out\_$sha1git.a $in               ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a                          ; $
   printf $sha1git
 
-build $progroot: library $objs/Tree.o $objs/Memory.o $objs/Print.o           $
+build $library-root: library $objs/Tree.o $objs/Memory.o $objs/Print.o       $
   $objs/Utf8.o $objs/Chronology.o $objs/bignum.o $objs/sha256.o              $
   $objs/macOS.o $objs/exception.o $objs/fifo.o $objs/System.o
 build $objs/Tree.o: cc ../Source/Tree.cpp
@@ -30,5 +31,6 @@ build $objs/macOS.o: cc ../Source/macOS.cpp
 build $objs/exception.o: asm ../Source/exception.S
 build $objs/fifo.o: cc ../Source/fifo.cpp
 build $objs/System.o: ccms ../Source/System.cpp
-default $progroot
+build emit-content: toc
+default $library-root
 

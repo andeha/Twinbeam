@@ -1,23 +1,24 @@
-# build.ninja - Building traditional additions for MIPS/Pic32Mz.
+#  build.ninja | Building traditional additions for MIPS/Pic32Mz.
 
 optflags = -g -D__MZDAStarterBoard__
-libroot = libAdditions_pic32mz
+encased-library = libAdditions_pic32mz
 include ../tools.ninja
 platflags = -D__MZ__ -I $runtime/.. -I $additions -I $runtime
-objs = ./.objs/7703a312-559A-42ca-A992-eabcf7f87663_$libroot
-flags = $optflags $pic32cflags $platflags
+objs = ./.objs/7703a312-559A-42ca-A992-eabcf7f87663_$encased-library
+flags = $optflags $pic32cflags $platflags -Wno-c++20-designator -std=c++2a
 progname = $libroot\_$sha1git.a
 include $runtime/commands-little.ninja
 
-rule emit-content
+rule toc
   command = $librarian-pic32 t $progname
+# ⬷ monitor/Apps> ninja -C Additions -f bld_mz.ninja emit-content
 
 rule library
   command = $librarian-pic32 rcs Releases/$out\_$sha1git.a $in            ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a                         ; $
   printf $sha1git
 
-build $libroot: library $objs/Additions.o $objs/Ieee754₆₄bits.o             $
+build $encased-library: library $objs/Additions.o $objs/Ieee754₆₄bits.o     $
   $objs/Guid.o $objs/photo-d3.o $objs/Terminal.o  $objs/VT99.o              $
   $objs/Streams.o $objs/Present.o $objs/Presentᵃᵘˣ.o $objs/Automata.o       $
   $objs/Ornaments.o $objs/Randomˢᵚ.o $objs/Random.o $objs/⌊𝑥⌋+nearest.o     $
@@ -51,6 +52,6 @@ build $objs/tanh.o: cc math/tanh.cpp
 # …and more non-math folders:
 build $objs/Present.o: cc Present.cpp
 build $objs/Presentᵃᵘˣ.o: cc Presentᵃᵘˣ.cpp
-build content: emitcontent
-default $libroot
+build emit-content: toc
+default $encased-library
 

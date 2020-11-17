@@ -3,7 +3,7 @@
 
 module Twinbeam_camp [system] [no_undeclared_includes]
 { export * header "Twinbeam.h" } 
-/* Also: '#define generally header' and '#define run use'. */
+/* ⬷ also: '#define generally header' and '#define run use'. */
 
 module Twinbeam_with_Additions [system] [no_undeclared_includes] 
 { export * header "Twinbeam.h"
@@ -51,7 +51,7 @@ module Textsearch_and_censorship {
   requires cplusplus20, c17, coroutines
   use possibly_encompassed
   export * module Twinbeam_camp { export * }
-} /* Additional module declarations are in --<🚦.modules>. */
+} /* ⬷ additional module declarations are in --<🚦.modules>. */
 
 module Infographics_in_terminal { /* incl. sediments and timeseries. */
   use Twinbeam_camp header "Twinbeam.h"
@@ -66,17 +66,6 @@ module Infographics_in_terminal { /* incl. sediments and timeseries. */
   export * module Twinbeam_camp { export * }
 } /* ⬷ a․𝘬․a 'Infographics₋in₋terminal', 'Pixelperfect', 'VT99', 
   'On 'terminally ill" and 'Inside_Terminalfun'. */
-
-module Arizona {
-  use Twinbeam_camp header "Twinbeam.h"
-  /* header "pic32rt/pic32mx.hpp" */
-  header "pic32rt/pic32mzda.hpp"
-  /* header "pic32rt/pic32mzda₁⋔.hpp"
-  header "pic32rt/pic32mm.hpp" */
-  requires cplusplus20, c17, coroutines
-  use possibly_encompassed
-  export * module Twinbeam_camp { export * }
-} /* a․𝘬․a '⟤⟥_on_to_go.modules'. */
 
 module Twinbeam_with_Additions_and_top [system] {
   use Twinbeam_with_Additions header "Twinbeam.h"
@@ -97,5 +86,9 @@ module possibly_encompassed {
   link "Additions_pic32mz" link "Additions_macOS"
 } /* ⬷ a․𝘬․a 'all₋libraries'. */
 
-/* Executables to be linked with [github.com]>--<ia64-pic32rt>--<llvm-rt3.cpp>. */
+/*  Executables form mips and x86_64/arm64 to be linked with: 
+ 
+ >--<ia64-pic32rt>--<llvm-rt3.cpp>.
+ 
+ */
 

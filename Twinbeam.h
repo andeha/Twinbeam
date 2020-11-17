@@ -652,7 +652,8 @@ namespace Scheduler { void Init();
 
 #define bye co_return
 #define co₋await co_await
-#define initiera co_await
+#define initierad co_await
+#define feedback co_yield
 #define adjö co_return
 #define STRINGIFY(str) #str
 #define va_prologue(symbol)                                                 \

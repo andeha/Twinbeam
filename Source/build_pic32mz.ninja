@@ -1,24 +1,25 @@
-# build.ninja — Building libTwinbeam_pic32mz.a.
+#  build.ninja — Building libTwinbeam_pic32mz.a.
 
 optflags = -g -D__MZDAStarterBoard__
-stem = libTwinbeam_pic32mz
-objs = ./.objs/7703a312-559A-43ca-A992-eaccf7f87663_$stem
+stem-library = libTwinbeam_pic32mz
+objs = ./.objs/7703a312-559A-43ca-A992-eaccf7f87663_$stem-library
 include ../tools.ninja
 platflags = -D__MZ__ -I ..
 
-flags = $optflags $pic32cflags $platflags
+flags = $optflags $pic32cflags $platflags -Wno-c++20-designator -std=c++2a
 
 progname = $stem\_$sha1git.a
 include $runtime/commands-little.ninja
 
-rule emit-content
+rule toc
   command = $librarian-pic32 t $progname.a
+# ⬷ monitor/Apps> ninja -C Source -f build_pic32mz.ninja emit-content
 
 rule library
   command = $librarian-pic32 rcs Releases/$out\_$sha1git.a $in             ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
 
-build $stem: library $objs/Utf8.o $objs/Tree.o $objs/Memory.o                $
+build $stem-library: library $objs/Utf8.o $objs/Tree.o $objs/Memory.o        $
   $objs/Chronology.o $objs/bignum.o $objs/sha256.o $objs/Print.o             $
   $objs/pic32mz.o $objs/exception.o $objs/Paging.o $objs/System.o            $
   $objs/Sheriff.o $objs/fifo.o
@@ -35,4 +36,5 @@ build $objs/Paging.o: asm Paging.S
 build $objs/System.o: cc System.cpp
 build $objs/Sheriff.o: cc ../pic32rt/⭐️.cpp
 build $objs/fifo.o: cc ../Source/fifo.cpp
-default $stem
+build emit-content: toc
+default $stem-library

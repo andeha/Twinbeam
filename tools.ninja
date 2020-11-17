@@ -2,8 +2,8 @@
 tools = /Users/<User- or project name>/11.0.0
 runtime = /Users/<User- or project name>/pic32rt
 additions = $runtime/../Additions
-gencdflags = -fno-rtti -fblocks -fcoroutines-ts -fno-exceptions              $
- -fno-signed-char -fno-builtin -Wc99-designator -Wno-format
+gencdflags = -fno-rtti -fblocks -fcoroutines-ts -fno-exceptions -Wno-format  $
+ -fno-signed-char -Wno-c99-designator -fno-builtin
 moduleflags = -fmodules-ts -fimplicit-modules -fmodule-map-file=../🗿.modules
 pic32nda = -fforce-enable-int128 -mmsa -mdspr2 -gdwarf-5
 pic32cflags = -target mipsel -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32       $
