@@ -1,8 +1,8 @@
 /**  Acceptable and Enclavable Platform ✁ until ✂️
                                              ͡                                
-    ■ = 1, □ = 0, ⬚ = Unknown, Ɀ = Sampled/dereferenced, Ç=Reconciled   𝓭  
+    ■ = 1, □ = 0, ⬚ = Unknown, Ɀ = Sampled/dereferenced, Ç=Reconciled        
     Logic and one-liners: ≅ ≠ ⋍ ~ ⟶ ⟷ ⊂⊄⊆⊈ ⊃ (Małuszyński inclusion) ∩∪ ∈∉
-      ¬∧∨ ≤≥ ≰ ≱ ∞ ∀∃∄ ⊨ ∅ 𝟄 √ ∑∏ ∂∆ ∇𝛻 ∫∬∭ ℕℤℂℍℝ ℚ ¶ ⌈⌉ ⌊⌋
+      ¬∧∨ ≤≥ ≰ ≱ ∞ ∀∃∄ ⊨ ∅ 𝟄 √ ∑∏ ∂∆ ∇𝛻 ∫∬∭ ℕℤℂℍℝ ℚ ¶ ⌈⌉ ⌊⌋ log₁₀ log₃ logρ₍ₓ₎
       𝘦․𝘨 𝐊 (ᵃ𝑛/ᵇ𝑛), where n∈[1,∞) = a₁/(b₁ + a₂/(b₂ + …)
     Unicodes and utf-8: .*․｟｠ ⃦ ('Combining double vertical stroke overlay') ✚
       ★ 𐤟 (PHOENICIAN WORD SEPARATOR) ↹ ↩︎ ¶
@@ -123,3 +123,4 @@
    Zoom in/out on the Mac: Cmd﹢Shift﹢`+` and Cmd﹢Shift﹢`-` 
                                                                              
  *␣///}✂️ >> --<shoebox>{Utf-8 Symbols} */
+
