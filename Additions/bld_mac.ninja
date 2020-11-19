@@ -5,7 +5,7 @@ extra-library = libAdditions_macos
 include ../tools.ninja
 platflags =  -I $additions/..
 objs = ./.objs/7703a312-559A-44ca-A992-eabcf7f87663_$extra-library
-flags = $optflags $macoscflags $platflags -Wno-c++2x-designator -std=c++2a
+flags = $optflags $macoscflags $platflags -Wno-c++2a-designator -std=c++2a
 progname = $libroot\_$sha1git.a
 include ../macOS/laptop-big.ninja
 
