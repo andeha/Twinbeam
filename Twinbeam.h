@@ -431,7 +431,7 @@ struct 𝟽bit₋text { __builtin_int_t bytes; 𝟽bit₋pointer segment; };
 struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * segment; }; /* ⬷ Type 
  'char' C implementation dependent whether signed/unsigned. See '-fno-signed-char'. */
 
-struct utf8₋text { __builtin_int_t bytes; uint8_t * segment; };
+struct utf8₋text { __builtin_int_t bytes; uint8_t * segment; }; /* Unicode signed. */
 
 typedef union {
    double base﹟𝟸; /* Captures 2⁻¹⁰²² and 2¹⁰²³ or in engineering: 2․23×10⁻³⁰⁸ to 1․79×10³⁰⁸. */
