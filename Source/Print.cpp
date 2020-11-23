@@ -4,15 +4,20 @@
 
 DISORDERABLE extern void CastᵈᵇˡToText(double value, void (^digits)(bool neg, 
   int e, const char *𝟶to𝟿s), void (^zero)(bool neg), void (^inf)(bool neg), 
-  void (^nan)()) { zero(true); } /* ⬷ Alt․ defintion in --<Additions>--<Ieee754₆₄bits.cpp>-<<--<Impressions.hpp>. */
+  void (^nan)()) { zero(true); } /* ⬷ Alt. defintion in --<Additions>--<Ieee754₆₄bits.cpp>-<<--<Impressions.hpp>. */
 
 DISORDERABLE extern void Anfang(char32_t prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, uint8_t * image) {
-  print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); } /* See --<🥢 𝙎𝙪𝙨𝙝𝙞 𝘾𝙝𝙚́𝙛.cpp> and 
-  --<Impressions.hpp> for details on PNG::IHDR. */
+ print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); } /* See --<🥢 𝙎𝙪𝙨𝙝𝙞 𝘾𝙝𝙚́𝙛.cpp> and --<Impressions.hpp>
+ for details on PNG::IHDR. */
 
-DISORDERABLE extern void Regsprint(__builtin_uint_t mask) { print("∎"); }
+DISORDERABLE extern void register₋reflect(__builtin_uint_t mask) { print("∎"); }
+/* Alternative definition in --<Additions>--<Presentᵃᵘˣ.cpp>. */
 
-DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc)) { out(U'∎'); }
+DISORDERABLE extern void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc)) 
+{ out(U'∎'); } /* Alternative definition in --<Additions>--<Ieee754₆₄bits.cpp>. */
+
+DISORDERABLE extern void platform₋reflect() { } /* ⬷ Alternative definition 
+ in --<Additions>--<Presentᵃᵘˣ.cpp>. */
 
 #define ⁺⁼PrintArgAndPop /* DISORDERABLE OVERLOADED */                      \
   const Argᴾ a = __builtin_va_arg(arg, Argᴾ);                               \
@@ -32,7 +37,7 @@ DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc)) { 
     a.value.λ.context); break; }                                            \
   case 11: 𝟷𝟸𝟾₋out𝕟(a.value.U); break;                                      \
   case 12: 𝟷𝟸𝟾₋out𝕫(a.value.I); break;                                      \
-  case 13: Regsprint(a.value.x); break;                                     \
+  case 13: register₋reflect(a.value.x); break;                              \
   default: /* if (a.kind >= 0) imprint[a.kind](a); else */                  \
     streamout_unicode(U'?'); break; }
 
