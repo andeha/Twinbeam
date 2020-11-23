@@ -88,7 +88,7 @@ module possibly_encompassed {
 
 /*  Executables form mips and x86_64/arm64 to be linked with: 
  
- >--<ia64-pic32rt>--<llvm-rt3.cpp>.
+ []>--<ia64-pic32rt>--<llvm-rt3.cpp>.
  
  */
 

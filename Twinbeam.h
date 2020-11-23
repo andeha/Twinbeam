@@ -41,16 +41,18 @@ typedef struct bignum { /* Artificial: Scandinavian 'med-vet-ande'. */
   int signbit; /* Indicates with 𝟷 if positive and with -𝟷 if negative. */
   int lastdigit; /* High-order digit index. */
 } bignum; /* ⬷ A very-long integer type. */
-void initialize_bignum(bignum *n);
-void int_to_bignum(int64_t ℕ, bignum *n);
-int digits_to_bignum(bignum * n, const char * digits);
-void add_bignum(bignum *a, bignum *b, bignum *c);
-void subtract_bignum(bignum *a, bignum *b, bignum *c);
-void multiply_bignum(bignum *a, bignum *b, bignum *c);
-void divide_bignum(bignum *a, bignum *b, bignum *c);
-void digit_shift(bignum *n, __builtin_int_t d); /* Multiply n by 10ᵈ. */
-int compare_bignum(bignum *a, bignum *b);
-void print_bignum(bignum *n, void (^out)(char c));
+#define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
+#define 𝓵₋bignum 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 bignum
+void initialize_bignum(𝓵₋bignum * n);
+void int_to_bignum(int64_t ℤ, 𝓵₋bignum * n);
+int digits_to_bignum(𝓵₋bignum * n, const char * digits);
+void add_bignum(𝓵₋bignum * a, 𝓵₋bignum * b, 𝓵₋bignum * c);
+void subtract_bignum(𝓵₋bignum * a, 𝓵₋bignum * b, 𝓵₋bignum * c);
+void multiply_bignum(𝓵₋bignum * a, 𝓵₋bignum * b, 𝓵₋bignum * c);
+void divide_bignum(𝓵₋bignum * a, 𝓵₋bignum * b, 𝓵₋bignum * c);
+void digit_shift(𝓵₋bignum * n, __builtin_int_t I); /* ⬷ multiplies n by 10ᵈ. */
+int compare_bignum(𝓵₋bignum * a, 𝓵₋bignum * b);
+void print_bignum(𝓵₋bignum * n, void (^output)(char c));
 /* int sw₋fractions(uint64_t num, uint64_t denom, uint64_t &ℕ, uint64_t &modula); */
 /* int hw₋fractions₁(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
 /* int sw₋fractions₂(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
@@ -64,10 +66,14 @@ int Fused₋IMUL(short id, int32_t augend, int32_t multiplier, int invMultiplyTh
 /* FOCAL int Initiate₋Zero(short id, int32_t &ℕ₋hi, uint32_t &ℕ₋lo) { extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4]; __ℕ₋🅷[id]=0, __ℕ₋🅻[id]=0; /​* also IMUL(0,0,...). *​/ }
 FOCAL int Initiate₋One(short id, int32_t &ℕ₋hi, uint32_t &ℕ₋lo) { extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4]; __ℕ₋🅷[id]=0, __ℕ₋🅻[id]=1; /​* also IMUL(1,1,...) } */
 /* The constant INT_MAX is an odd number. Also: 'odd' is closed under multiplication. */
-__builtin_int_t bi₋narrowing(int64_t x, void (^sometime)(int32_t distorsion));
-__builtin_int_t bi₋widening(int32_t x);
-int64_t indisponible(__builtin_uint_t x, int * error);
-uint64_t indisponible(__builtin_int_t x, int * error);
+int32_t bi₋transition⁻¹Ɣ(int64_t ℍ); int64_t bi₋transition₋Ɣ(int32_t ℍ);
+uint64_t Large₋𝟺₋cookie(__builtin_int_t ℤ, int * negative);
+int64_t Large₋𝟺₋cookie(__builtin_uint_t ℕ, int * overflow);
+uint32_t Small₋𝟺₋cookie(__builtin_int_t ℤ, int * negative, int * overflow);
+int32_t Small₋𝟺₋cookie(__builtin_uint_t ℕ, int * overflow);
+__builtin_int_t bi₋normal(int64_t ℂ, void (^sometime)(int32_t distorsion));
+__builtin_int_t bi₋normal(int32_t ℂ); __builtin_int_t bi₋normal(int16_t ℂ);
+__builtin_int_t bi₋normal(int8_t ℂ);
 #define BITMASK(type) enum : type
 #ifdef  __mips__
 #define Mips __asm__ __volatile__ (/* ".set noat   \n" */ ".set noreorder  \n" ".set nomacro    \n"
@@ -82,7 +88,7 @@ uint64_t indisponible(__builtin_int_t x, int * error);
 template <typename T> struct SemanticPointer { T ref; }; /* a․𝘬․a `DisjunctPointer` and `OptionalIntervallicPointer`. */
 #define VISITISR(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + call */
 #define UNITTEST(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
-#define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",          \
+#define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",            \
   ﹟s(s), ﹟s(__FUNCTION__), ﹟s(__FILE__), ﹟d(__LINE__)); exit(-1); }
 #define ENSURE(c,s) { if (!(c)) { Panic(Testlog,s); } }
 #define FINAL /*  …or DO_NOT_DESTABBILIZE */
@@ -95,7 +101,7 @@ template <typename T> struct SemanticPointer { T ref; }; /* a․𝘬․a `Disjun
 #define ARGUMENTATIVE /* a․𝘬․a `ONLY_FOR_SOFT_REALTIME`. */
 #define MAY_CONTAIN_TRACES_OF_FIRM_REALTIME
 #define INFLATABBLE
-#define SYNTESIZABLE /* i.𝘦 no loops, … */
+#define SYNTESIZABLE /* i.e no loops, … */
 #define FOSSILATED
 #define CONTEMPLATE
 #define 🚫🔌 ARGUMENTATIVE /* ⏲ */
@@ -130,11 +136,14 @@ template <typename T> struct SemanticPointer { T ref; }; /* a․𝘬․a `Disjun
 #define METABOLIUNIFICATIVE /* Disjunct relative METABOLISUBTRACTIONAL. */
 #define IMPLICATIVE /* I-ER-ANDE: ISOMORPHIC and INFOR. */
 #define AMBIVALENTOBFUSCATIVE /* BOLL:IG. */
-#define INCASED /* C․f Project and 'operation'; and Scandinavian 'radiokälla'. */
-#define EUCLIDEANINCOHERENT /* C․f Subversive follows incoherence. */
-#define INTENTIONCORRELATIVE /* 𝘊․f Scandinavian alt. German ₍gestalt₎ stimulus. */
-#define ALTERNATESTRUCTURAL /* 𝘊․𝘧 'Alternate-encased`. Carriage-returns one symbol, possibly two symbols. */
-/* 𝘊․𝘧 'bildningsförledande'. */
+#define INCASED /* C․𝖿 project and 'operation'; and Scandinavian 'radiokälla'. */
+#define EUCLIDEANINCOHERENT /* C․𝖿 subversive follows incoherence. */
+#define INTENTIONCORRELATIVE /* 𝘊․𝖿 Scandinavian alt. German ₍gestalt₎ stimulus. */
+#define ALTERNATESTRUCTURAL /* 𝘊․𝖿 'alternate-encased`. Carriage-returns one symbol, possibly two symbols. */
+/* 𝘊․𝖿 'bildningsförledande': 'förstagångsprojekt' and 'genomtänktprojekt'. */
+/* 𝘊․𝖿 'noggsamt-ögonblickligen' matrix. */
+/* 𝘊․𝖿 'vek-tor' and 'automat-cognitive-response'. */
+#define INTERFERENTIALCOGNITIVE
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; /*  ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
@@ -413,11 +422,11 @@ struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; };
 typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast, 
   bytesOffsetInclLast; } Utf8Interval; /* ⬷ E․𝘨 wrongly coded utf-8. */
 
-#pragma mark Forests and types: seven-bit keyput sequences
+#pragma mark Seven-bit keyput/file and Utf-8 strings
 
-typedef const unsigned char * 𝟾alt𝟽bit₋pointer;
+typedef signed char * 𝟽bit₋pointer;
 
-struct 𝟽bit₋text { __builtin_int_t bytes; 𝟾alt𝟽bit₋pointer segment; };
+struct 𝟽bit₋text { __builtin_int_t bytes; 𝟽bit₋pointer segment; };
 
 struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * segment; }; /* ⬷ Type 
  'char' C implementation dependent whether signed/unsigned. See '-fno-signed-char'. */
@@ -467,8 +476,8 @@ typedef union {
 #elif defined __mips__
 #endif
   __uint128_t bits;
-  struct { octa lso, mso; } little_endian;
-  struct { octa mso, lso; } big_endian;
+  struct { octa lso, mso; } little₋endian;
+  struct { octa mso, lso; } big₋endian;
   struct { Octa l, h; } parts;
 } sexdeca;
 
@@ -479,8 +488,8 @@ typedef union {
 #endif
   uint32_t eight₋tetra[8];
   uint8_t thirtytwo₋bytes[32];
-  struct { sexdeca lss; sexdeca mss; } little_endian;
-  struct { sexdeca mss; sexdeca lss; } big_endian;
+  struct { sexdeca lss; sexdeca mss; } little₋endian;
+  struct { sexdeca mss; sexdeca lss; } big₋endian;
 } ditriaconta;
 
 /**  Computes a cryptographic hash value similar to NIST FIPS PUB 180-4: 
