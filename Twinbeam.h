@@ -466,7 +466,7 @@ MACRO double Nearest(int64_t measure)
 {
 #ifdef GENERAL
    __builtin_int_t 🥈 wordbytes=sizeof(__builtin_uint_t);
-   uint64_t 🥈 sign₋bit = 0b1ll<<63; uint64_t 🥈 𝟹𝟸₋bits = 0xffffffff;
+   uint64_t 🥈 sign₋bit = 0b1LL<<63; uint64_t 🥈 𝟹𝟸₋bits = 0xffffffff;
    int sign = sign₋bit & measure;
    if (measure<+0) { measure = -measure; }
    int64_t leading₋zeros = __builtin_clzll(measure);
@@ -477,9 +477,11 @@ MACRO double Nearest(int64_t measure)
    return real.base﹟𝟸;
 #elif defined __mips__
    Mips                                                                      
-     "  cvt.s.l    ft, fs                                     \n"            
-     "  sw         $4,  24($4)                                \n"            
-     "  lw         $18, 80($4)                                \n"            
+     "                                                        \n"            
+     "  mtc1       $a1, $f0                                   \n"            
+     "  mthc1      $a2, $f0                                   \n"            
+     "  cvt.d.l    $f0, $f0                                   \n"            
+     "  mfc1       $v0, $f0                                   \n"            
      "                                                        \n"            
    );                                                                        
 #elif defined __x86_64__
@@ -501,34 +503,26 @@ MACRO int64_t Nearest(double measure, int * reciproc)
    int32_t unbiased₋exp = biased₋exp - 1022;
    *reciproc = biased₋exp < 1022 ? 1 : 0; /* also -0. */
    int64_t shifted = integer.binary64.mantissal | (integer.binary64.mantissah<<32);
-   uint64_t 🥈 sign₋bit = 0b1ll<<32;
+   uint64_t 🥈 sign₋bit = 0b1LL<<32;
    if (*reciproc) { shifted << (unbiased₋exp & sign₋bit); }
    else { shifted << (unbiased₋exp & sign₋bit); }
    int sign = integer.binary64.sign;
    return sign ? -shifted : shifted;
 #elif defined __mips__
    Mips                                                                      
-     "  ctc1             $a0, fs                              \n" /* Move GPR to low-word fp-register. */
-     "  ldc1                                                  \n"            
      "                                                        \n"            
-     "  round.l.d        ft, fs                               \n" /* Rounded towards nearest/even and fixed point in fp-register. */
-     "  floor.l.d        ft, fs                               \n" /* Rounded towards -inf and fixed point in fp-register. */
-     "  ceil.l.d         ft, fs                               \n" /* Rounded towards +inf and fixed point in fp-register. */
-     "  lwc1, ldc1 alt. mtc1                                  \n"            
-     "  sw               $4,  24($4)                          \n"            
-     "  rint       fd, fs                                     \n"  /* ⬷ FPR[fd] ⟵ round_int(FPR[fs]) as in FCSR.RM. */
-     "  swc1, sdc1 alt. mfc1                                  \n"            
-     "  sdc1                                                  \n"            
+     "  round.l.d  $f12, $f12                                 \n" /* Rounded towards nearest/even with fixed point in fp-register. */
+     "  mfc1       $v1,  $f12                                 \n"            
+     "  mfhc1      $v0,  $f12                                 \n" /* Also recip.d. */
      "                                                        \n"            
-     "  cfc1             $a0, fs                              \n" /* ⬷ gpr[a0] ⟵ fp_control[fs]. */
-   ); /* Not Mips.Rint and not Mips.cvt.l.d. */                              
+   );                                                                        
 #elif defined __x86_64__
    asm {                                                                     
      fld xmm0                                                                
      fistp rax              /* ⬷ Not Intel.ROUNDSD and not Intel.FRNDINT. */
    }                                                                         
 #endif
-} /* ⬷ a․𝘬․a `Cast` and `Convert`. */
+} /* ⬷ a․𝘬․a `Cast` and `Convert`. (Rounded towards -inf: Mips.floor.l.d; Rounded towards +inf: Mips.ceil.l.d) */
 
 #ifdef __x86_64__
 union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits; };
