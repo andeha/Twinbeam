@@ -1,26 +1,26 @@
-# buildᵗᵇ.ninja — Building units testing Twinbeam.
+#  harnessᵗᵇ.ninja | Building units testing Twinbeam.
 
 optflags = -g
 
 cases = ../Unittests
 src = ../Source
 adds = ../Additions
-progname = TwinbeamUnits
+progname = Twinbeam-units
 objs = ./.objs/7703a312-55B9-44da-A792-ebbcf9f87663_$progname
 platflags = -I ..
 include ../tools.ninja
 flags = $optflags $macoscflags $platflags
-include laptop.ninja
+include laptop-big.ninja
 
 rule link
-    command = xcrun ld -macosx_version_min 10.14.0 -lSystem -lc++ -o $out   $
-      $in $libtwinbeam
+  command = xcrun ld -macosx_version_min 10.14.0 -lSystem -lc++ -o $out     $
+    $in $libtwinbeam
 
 # Consider x87math ⟷ bignum and ∩- exception.o
-build TwinbeamUnits: link $objs/harness.o $objs/llvmʳᵗ³.o $objs/exception.o $
-  $objs/Chronology.o $objs/Tree.o $objs/x87math.o $objs/bignum.o            $
-  $objs/Utf8.o $objs/System.o $objs/macOS.o $objs/sha256.o $objs/Print.o    $
-  $objs/Memory.o $objs/Fiber.o                                              $
+build Twinbeamunits: link $objs/harness.o $objs/Tree.o $objs/Memory.o       $
+  $objs/Print.o $objs/Utf8.o $objs/Chronology.o $objs/bignum.o              $
+  $objs/sha256.o $objs/macOS.o $objs/exception.o $objs/fifo.o               $
+  $objs/System.o $objs/x87math.o $objs/llvm-rt3.o                           $
                                                                             $
   $objs/BaseTests.o $objs/BignumTests.o $objs/ChronoTests.o                 $
   $objs/ExceptTests.o $objs/MallocTests.o $objs/MemTests.o                  $
@@ -39,17 +39,18 @@ build $objs/RegionTests.o: cc $cases/ˢRegionTests.cpp
 build $objs/Utf8Tests.o: cc $cases/ˢUtf8Tests.cpp
 
 build $objs/Tree.o: cc $src/Tree.cpp
-build $objs/Utf8.o: cc $src/Utf8.cpp
-build $objs/sha256.o: cc $src/sha256.cpp
-build $objs/Fiber.o: cc $src/Fiber.cpp
 build $objs/Memory.o: cc $src/Memory.cpp
 build $objs/Print.o: cc $src/Print.cpp
-build $objs/System.o: cc $src/System.cpp
+build $objs/Utf8.o: cc $src/Utf8.cpp
+build $objs/Chronology.o: cc $src/Chronology.cpp
+build $objs/bignum.o: cc $src/bignum.cpp
+build $objs/sha256.o: cc $src/sha256.cpp
 build $objs/macOS.o: cc $src/macOS.cpp
 build $objs/exception.o: asm $src/exception.S
-build $objs/Chronology.o: cc $src/Chronology.cpp
+build $objs/fifo.o: cc $src/fifo.cpp
+build $objs/System.o: cc $src/System.cpp
 build $objs/x87math.o: ccms $adds/x87math.cpp
-build $objs/bignum.o: cc $src/bignum.cpp
-build $objs/llvmʳᵗ³.o: cc $src/llvmʳᵗ³.cpp
+build $objs/llvm-rt3.o: cc ../../ia64+pic32rt/llvm-rt3.cpp
 build $objs/harness.o: cc main.cpp
 default $progname
+
