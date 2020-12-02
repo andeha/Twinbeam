@@ -142,7 +142,7 @@ template <typename T> struct SemanticPointer { T ref; }; /* a․𝘬․a `Disjun
 #define ALTERNATESTRUCTURAL /* 𝘊․𝖿 'alternate-encased`. Carriage-returns one symbol, possibly two symbols. */
 #define EN₋VE₋LO₍U₎PE
 #define FILIBUSTER
-#define INTERFERENTIALCOGNITIVE
+/* Cogitat, given, giv-et, ruminat (abbrevia ⤪ and 'rum.'). */
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; /*  ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
@@ -459,7 +459,7 @@ struct Octa { uint32_t l, h; };
 MACRO int64_t nearest₋naive(double measure) { return (int64_t)measure; } 
  ⬷ Truncates fraction. */
 
-/* #define IEEE754_ARITHMETICS_NOT_AVAILABLE */
+#define IEEE754_ARITHMETICS_INSIDE
 #define GENERAL
 
 MACRO double Nearest(int64_t measure)
@@ -486,16 +486,16 @@ MACRO double Nearest(int64_t measure)
    );                                                                        
 #elif defined __x86_64__
    asm {                                                                     
-     fild rdi                   /* ⬷ See also Intel.FBLD and Intel.FBSTP. */
+     fild rdi                   /* ⬷ See Intel.FBLD and Intel.FBSTP. */     
      fstp xmm0                                                               
-   }                                                                         
+   } /* ⬷ enabled by '-fms-extension'. */                                   
 #endif
 } /* ⬷ a․𝘬․a `Cast` and `Convert`. */
 
 MACRO int64_t Nearest(double measure, int * reciproc)
 {
 #ifdef GENERAL
-#ifndef IEEE754_ARITHMETICS_NOT_AVAILABLE
+#ifdef IEEE754_ARITHMETICS_INSIDE
    measure += 0.5; /* Add 0.5 before scissor for 'nearest', otherwise rounds towards zero. */
 #endif /* ⬷ and 1.5 when negative and 'round towards -inf'. */
    octa integer { .base﹟𝟸=measure };
@@ -522,7 +522,8 @@ MACRO int64_t Nearest(double measure, int * reciproc)
      fistp rax              /* ⬷ Not Intel.ROUNDSD and not Intel.FRNDINT. */
    }                                                                         
 #endif
-} /* ⬷ a․𝘬․a `Cast` and `Convert`. (Rounded towards -inf: Mips.floor.l.d; Rounded towards +inf: Mips.ceil.l.d) */
+} /* ⬷ a․𝘬․a `Cast` and `Convert`. ( Rounded towards -inf: floor.l.d; Rounded 
+ towards +inf: ceil.l.d) */
 
 #ifdef __x86_64__
 union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits; };
@@ -698,6 +699,8 @@ inline uint32_t ᵗᵍᵍˡendian(uint32_t x) { return __builtin_bswap32(x); }
 inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
 /* ⇇ a․𝘬․a `toggleNetworkAndNative`. */
 
+/* ⤮ time-transaction 'hinner-upp' time-ruminated-whilst-jotting-valid. */
+
 /* #include <Source/fiber₁> */
 #include <Source/coroutine>
 
@@ -840,7 +843,7 @@ InstantToText(
 typedef Chronology Chronology🚀; /* I.𝘦 'Celestial fractional' with 'identical' epoc. */
 
 typedef Chronology Chronology🦠; /* With 2⁻⁶⁵ 𝘢․𝘬․𝘢 `UQ65`; light
-  travels approximately 8.126 𝑝m ('pico meter') per increment. */
+  travels approximately 8.126 pm ('pico meter') per increment. */
 
 /**  The unperturbed — yet based on ¹³³Caesium — chronology. */
 
