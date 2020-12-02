@@ -1,12 +1,12 @@
-#  laptop.ninja | Compilation directives.
+#  laptop-big.ninja | Compilation directives.
 
 rule cc
-  command = $compiler-macos -std=c++2a -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
+  command = $compiler-macos -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
   depfile = $out.d
   deps = gcc
 
 rule ccms
-  command = $compiler-macos -std=c++2a -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -fms-extensions -c $in -o $out
+  command = $compiler-macos -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -fms-extensions -c $in -o $out
   depfile = $out.d
   deps = gcc
 
