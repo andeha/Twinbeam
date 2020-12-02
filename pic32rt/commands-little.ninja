@@ -1,4 +1,4 @@
-# commands.ninja — Targeting encased Microchip products.
+# commands-little.ninja — Targeting encased Microchip products.
 
 rule emitsyms
     command = $tools/llvm-nm $progname
@@ -22,7 +22,7 @@ rule emitsource
 build source: emitsource
 
 rule cc
-    command = $compiler-pic32 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags --std=c++2a -c $in -o $out
+    command = $compiler-pic32 -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
     depfile = $out.d
     deps = gcc
 
