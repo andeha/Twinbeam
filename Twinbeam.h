@@ -1,8 +1,8 @@
 /*  Twinbeam.h (libTwinbeam_X_cdcdc7f.a)
-    C++20 for clang to x86_64 and MIPS
-    MIPS compiled using clang version 10.0.0
+    C++20 for clang to x86_64, Arm Cortex M0+, AAPL M1, ESP32 and MIPS.
+    MIPS compiled using clang version 11.0.0
     x86_64 compiled using Xcode Version 10.2.1 (10E1001) 
-    and/or clang-1100.0.33.8. */
+    and/or clang-11.0.0. */
 
 #ifndef __TWINBEAM_H
 #define __TWINBEAM_H
@@ -19,13 +19,13 @@ typedef signed char         int8_t;
 typedef unsigned char       uint8_t;
 typedef unsigned long long  uint64_t;
 typedef long long           int64_t;
-#ifdef  __mips__
+#if defined  __mips__ || defined __armv6__ || defined espressif
 typedef unsigned long       uint32_t;
 typedef long                int32_t;
 typedef uint32_t            __builtin_uint_t;
 typedef int32_t             __builtin_int_t;
 #define TriboolUnknown 0xFFFFFFFF
-#elif defined __x86_64__
+#elif defined __armv8a__ || defined __x86_64__
 typedef unsigned int        uint32_t;
 typedef int                 int32_t; /* ≡`long` */
 typedef uint64_t            __builtin_uint_t;
@@ -57,7 +57,9 @@ void print_bignum(𝓵₋bignum * n, void (^output)(char c));
 /* int hw₋fractions₁(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
 /* int sw₋fractions₂(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
 int fractions(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); /* ⬷ Requires `sw₋fractions₂` and/or `hw₋fractions₁`. */
+#if __has_builtin(__uint128_t)
 int sw₋fractions(__uint128_t num, __uint128_t denom, __uint128_t &ℕ, __uint128_t &modula);
+#endif
 int hw₋fractions(int64_t num, int64_t denom, int64_t &ℤ, int64_t &modula, int * sum₋negative);
 int hw₋fractions(int32_t num, int32_t denom, int32_t &ℤ, int32_t &modula, int * sum₋negative);
 int IADD(short id, int32_t addend, int32_t augend, int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * sum₋negative);
@@ -80,6 +82,8 @@ __builtin_int_t bi₋normal(int8_t ℂ);
 #elif defined __x86_64__
 #define Intel👈 __asm { .intel_syntax noprefix /* Requires -fms-extensions */
 #define IntelPlusATT👉 asm { .att_syntax .text
+#elif defined __armv6__ || defined __armv8a__
+#define ArmDS1S2 asm { 
 #endif
 #define APPEND_PIMPL                                                         \
   struct Internals;                                                          \
@@ -136,8 +140,8 @@ template <typename T> struct SemanticPointer { T ref; }; /* a․𝘬․a `Disjun
 #define METABOLIUNIFICATIVE /* Disjunct relative METABOLISUBTRACTIONAL. */
 #define IMPLICATIVE /* I-ER-ANDE: ISOMORPHIC and INFOR. */
 #define AMBIVALENTOBFUSCATIVE /* BOLL:IG. */
-#define INCASED /* C․𝖿 project and 'operation'; and Scandinavian 'radiokälla'. */
-#define EUCLIDEANINCOHERENT /* C․𝖿 subversive follows incoherence. */
+#define INCASED /* 𝘊․𝖿 project and 'operation'; and Scandinavian 'radiokälla'. */
+#define EUCLIDEANINCOHERENT /* 𝘊․𝖿 subversive follows incoherence. */
 #define INTENTIONCORRELATIVE /* 𝘊․𝖿 Scandinavian alt. German ₍gestalt₎ stimulus. */
 #define ALTERNATESTRUCTURAL /* 𝘊․𝖿 'alternate-encased`. Carriage-returns one symbol, possibly two symbols. */
 #define EN₋VE₋LO₍U₎PE
@@ -146,17 +150,23 @@ template <typename T> struct SemanticPointer { T ref; }; /* a․𝘬․a `Disjun
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; /*  ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
+#elif defined __armv6__
+typedef uint32_t arm_context[9];
+typedef arm_context jmp_buf2;
+#elif defined __armv8a__
+typedef int64_t arm_context[9];
+typedef arm_context jmp_buf2;
 #elif defined __x86_64__
-typedef int64_t x86_64_context[37];
+typedef int64_t x86_64_context[(9 * 2) + 3 + 16];
 typedef x86_64_context jmp_buf2;
 #endif
 extern "C" { int setjmp2(jmp_buf2 env); void longjmp2(jmp_buf2 env,
   __builtin_int_t val); /* `__builtin_longjmp` requires last arg to be 
   const and bounded by `int`. Determined 𝑎₋𝑝𝑟𝑖𝑜𝑟𝑖 to be 𝙞𝙣𝙩. */ }
-#ifdef  __mips__
+#if defined __armv6__ || defined  __mips__ || defined espressif
 #define BLURT(str) { tetra t; t.bits = (uint32_t)(const char *)str;          \
   longjmp2(*JmpBuf(), int(t.unsigned_little_endian.lsh)); }
-#elif defined __x86_64__
+#elif defined __x86_64__ || defined __armv8a__
 #define BLURT(str) { octa o; o.bits = (uint64_t)(const char *)str;           \
   longjmp2(*JmpBuf(), int(o.unsigned_little_endian.lst)); }
 #endif
@@ -170,10 +180,10 @@ extern "C" { int setjmp2(jmp_buf2 env); void longjmp2(jmp_buf2 env,
 extern "C" jmp_buf2 * /* volatile */ JmpBuf(); /* ⬷ A great symbol for a project break! */
 structᵢ SharedOptional { bool populated; explicit SharedOptional() : populated(
   false) { } explicit operator bool() const { return populated; } };
-#ifdef  __mips__
+#if defined  __mips__ || defined __armv6__ | defined espressif
 typedef unsigned int size_t;
 void * operator new(unsigned int size, void * here) noexcept;
-#elif defined __x86_64__
+#elif defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
 typedef unsigned long size_t;
 void * operator new(unsigned long size, void * here) noexcept;
 #endif /* On `Opt` minus `void *`: See 𝐶𝑟𝑎𝑠ℎ 𝑓𝑟𝑒𝑞𝑢𝑒𝑛𝑛𝑐𝑦, 𝑐𝑜𝑝𝑦/𝑝𝑎𝑠𝑡𝑒 and 𝑒𝑥𝑝𝑙𝑜𝑖𝑡𝑖𝚤𝑛𝑔 𝑢𝑛𝑖𝑛𝑖𝑡𝑖𝑎𝑙𝑖𝑧𝑒𝑑. */
@@ -239,11 +249,18 @@ struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮�
  typedef void (^Output)(Unicode set, void * context); union { __builtin_int_t d; 
  __builtin_uint_t x, b; const char * utf8; struct /* Unicodes */ { char32_t * 
  unicodes; __builtin_int_t tetras; } ucs; char c; char32_t uc; double f₁; float f₂; 
- uint8_t bytes[16]; __uint128_t U; __int128_t I; uint64_t pair[2]; struct { Output 
- scalar; void * context; } λ; } value; int kind; };
+ struct { Output scalar; void * context; } λ; } value; 
+ uint8_t bytes[16]; uint64_t pair[2]; int kind; 
+#if __has_builtin(__int128_t) && __has_builtin(__uint128_t)
+ __uint128_t U; __int128_t I;
+#endif
+};
 Argᴾ ﹟d(__builtin_int_t d); Argᴾ ﹟x(__builtin_uint_t x); Argᴾ ﹟b(__builtin_uint_t 
 b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(__builtin_int_t tetras, char32_t * uc); Argᴾ 
-﹟c(char c); Argᴾ ﹟C(char32_t C); Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
+﹟c(char c); Argᴾ ﹟C(char32_t C); 
+#if __has_builtin(__int128_t) && __has_builtin(__uint128_t)
+Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
+#endif
 Argᴾ ﹟regs(__builtin_uint_t mask); Argᴾ ﹟λ(Argᴾ::Output scalar, void * context);
 extern "C" { int atexit(void(*func)(void)); void exit(int); } 
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fall⒪⒲)(void *);
@@ -272,7 +289,7 @@ typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
 FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memory(
   ByteAlignedRef dst, /* const */ ByteAlignedRef src, __builtin_int_t bytes) {
   ByteAlignedRef org = dst; __asm__ __volatile__ ("rep movsb" : "+D"(dst),
-  "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* A․k․a `memcopy`. */
+  "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* a․k․a `memcopy`. */
 FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
   ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uint_t bytes); /* ⏱😐🏁 */
 #define MEASURE_START(prefix) int64_t prefix##Start = __rdtsc(); /* 𝚜𝚒𝚐𝚗𝚎𝚍 ⟵ Comparision */
@@ -281,6 +298,9 @@ FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
   int64_t prefix##Nanos = prefix##End - prefix##Start;                       \
   print(#prefix " measures ⬚ ns\n", ﹟d(prefix##Nanos));
 #define 🎭𝑋𝟾𝟼(storage,symmsk,...) 🎭((__builtin_uint_t *)(storage), INTEL_##symmsk __VA_OPT__(,) __VA_ARGS__)
+#elif defined __armv6__ || defined __armv8a__
+FOCAL ByteAlignedRef Copy8Memory(ByteAlignedRef dst, ByteAlignedRef src, __builtin_int_t bytes);
+FOCAL int Compare8Memory(ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uint_t bytes);
 #elif defined __mips__
 FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef 
   dst, ByteAlignedRef src, __builtin_int_t bytes);
@@ -320,20 +340,15 @@ typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
 __builtin_int_t constexpr SystemInfoPagesize() { return 4096; } /* One definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
-#ifdef  __mips__
-typedef uint32_t mips32_context[32];
-typedef mips32_context jmp_buf2;
-#elif defined __x86_64__
-typedef int64_t x86_64_context[(9 * 2) + 3 + 16];
-typedef x86_64_context jmp_buf2;
-#endif
 FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned 
   short base, unsigned short digitsOr0, /* Not more than 32 alt. 64 digits 
   depending on word size! (Or set to `0` to skip leading zeros.) */ void
   (^out)(char 𝟶to𝟿)); /* See --<Print.cpp> for a 128-bit version. */
 void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿and₋));
+#if __has_builtin(__uint128_t) && __has_builtin(__int128_t)
 void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿and₋));
 void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿));
+#endif
 #define OVERLOADABLE __attribute__ ((overloadable))
 #define SIGNBIT_INT32 0x80000000
 #define SIGNBIT_INT64 0x8000000000000000 
@@ -359,6 +374,10 @@ template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋compl(x) : x; 
 #elif defined __mips__
 #define READONLY __attribute__ ((section(".rodata")))
 #define COHERENT __attribute__ ((section(".coherent")))
+#elif defined __armv6__ || defined __armv8a__
+#define READONLY __attribute__ ((section(".rodata")))
+#elif defined espressif
+#define READONLY __attribute__ ((section(".rodata")))
 #endif
 #define IsOdd(x) ((x) & 0b1) /* ⬷ For simultaneously int32_t ∧ int64_t. H: x & 0b010 ⟷̸ ◻️⃞. See also --<math>--<erf.cpp>{⁽₋1⁾ᵏ|alt}. */
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
@@ -368,7 +387,7 @@ template <typename T> T relative(T x₁, T x₂) { return x₂/x₁; }
 template <typename T> T difference(T x₁, T x₂) { return x₁ - x₂; }
 template <typename T> T ˡchange(T x₁, T x₂) { return (x₁ - x₂) / x₂; } /* ∈[0,1]. */
 template <typename T> T ʳchange(T x₁, T x₂) { return (x₂ - x₁) / x₁; } /* ∉[0,1]. */
-#if defined __mips__ && defined __cpp_concepts
+#if (defined __mips__ || defined __armv6__ || defined espressif) && defined __cpp_concepts
 #define innominate auto /* a․𝘬․a `innominate-type`. */
 template <typename T> concept Relative₋accumulative = requires (T x₁, T x₂) {
  x₁ + x₂ /* -> int */; /*{*/ x₁ - x₂ /*} -> Same<bool>*/; Zero(x₂) /* -> T*/; };
@@ -459,7 +478,9 @@ struct Octa { uint32_t l, h; };
 MACRO int64_t nearest₋naive(double measure) { return (int64_t)measure; } 
  ⬷ Truncates fraction. */
 
+#if !(defined __armv6__ || defined _MM_ || defined espressif)
 #define IEEE754_ARITHMETICS_INSIDE
+#endif
 #define GENERAL
 
 MACRO double Nearest(int64_t measure)
@@ -522,14 +543,19 @@ MACRO int64_t Nearest(double measure, int * reciproc)
      fistp rax              /* ⬷ Not Intel.ROUNDSD and not Intel.FRNDINT. */
    }                                                                         
 #endif
-} /* ⬷ a․𝘬․a `Cast` and `Convert`. ( Rounded towards -inf: floor.l.d; Rounded 
+} /* ⬷ a․𝘬․a `Cast` and `Convert`. (Rounded towards -inf: floor.l.d; rounded 
  towards +inf: ceil.l.d) */
 
-#ifdef __x86_64__
+#undef IEEE754_ARITHMETICS_INSIDE
+#undef GENERAL
+
+#if defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
 union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits; };
+#ifdef __x86_64__
 #include <xmmintrin.h>  /* ≥ SSE 4.2 */
 #include <immintrin.h>  /* The `crc_u32` intrinsic in smmintrin.h. */
-#elif defined __mips__
+#endif
+#elif defined __mips__ || defined __armv6__ | defined espressif
 union Treeint { struct { int32_t key; uint32_t val; } keyvalue; uint64_t bits; };
 #endif /* a․𝘬․a `Autumn` and `Treeℤ`. */
 
@@ -540,20 +566,20 @@ Treeint * Lookup(void ᶿ﹡ opaque, Treeint leafkey);
 /*  Big endian ⟷ 'most significant first', little endian ⟷ 'least sigificant first'. */
 
 typedef union {
-#ifdef __x86_64__
-  __m128 intel; /* Sixteen (possibly unaligned) bytes divided into `float` slots. */
-#elif defined __mips__
-#endif
+#if __has_builtin(__int128_t) && __has_builtin(__uint128_t)
   __uint128_t bits;
+#endif
   struct { octa lso, mso; } little₋endian;
   struct { octa mso, lso; } big₋endian;
   struct { Octa l, h; } parts;
+#if defined __x86_64__
+  __m128 intel; /* Sixteen po̲s̲s̲i̲b̲l̲y ̲u̲n̲a̲l̲i̲gn̲e̲d̲ divided into `float` slots. */
+#endif
 } sexdeca;
 
 typedef union {
 #ifdef __x86_64__
   __m256 intel; /* Thirty-two (possibly unaligned) bytes divided into `float` slots. */
-#elif defined __mips__
 #endif
   uint32_t eight₋tetra[8];
   uint8_t thirtytwo₋bytes[32];
@@ -567,9 +593,9 @@ typedef union {
 int Hash(uint8_t * material, __builtin_int_t bytes, void (^ping𝘖r𝖭𝖴𝖫𝖫)(bool &stop), 
   void (^complete)(ditriaconta digest)); /* a․𝘬․a `Fineprint`. */
 
-#ifdef  __mips__
+#if defined  __mips__ || defined __armv6__ || defined espressif
 #define BUILTIN_INT_MAX 2147483647
-#elif defined __x86_64__
+#elif defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
 #define BUILTIN_INT_MAX 0x7FFFFFFFFFFFFFFF
 #endif /* ~0b0>>1 */
 
@@ -628,7 +654,7 @@ struct Memorydelegate {
 struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max4MB and Nonbound.) */
    Scatter(unsigned 🅧ᵖ, void * 𝟺kbPages[], __builtin_int_t ﹟, __builtin_int_t lastpagebytes) FALLIBLE;
    Scatter(unsigned 🅧ᵖ, Memorydelegate * delegate = NULL);
-   int 𝟺kb₋init(void * the𝟺kbpage, short unusedbytes);
+   int 𝟺kb₋init(void * the𝟺kbpage, short unused₋bytes);
    int 𝟷₋tile₋init(__builtin_int_t ref₋bytes, void * ref₋store, void * 𝟺kbPages[], __builtin_int_t ﹟, __builtin_int_t lastpage₋bytes); /* a․𝘬․a `𝟺Mbinit` and `𝟷₋ref-scatter`. */
    int n₋tile₋init(void * 𝟺kbpages[], __builtin_int_t ﹟, __builtin_int_t lastpage₋bytes, __builtin_int_t * fifo₋pages); /* a․𝘬․a `𝟺Gbinit` and `𝟸₋ref₋scatter`. */
    int incorp(__builtin_int_t bytes₋to₋tail, __builtin_int_t bytes, void (^sometimes)(short bytes, uint8_t * virtue));
@@ -639,12 +665,16 @@ struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max
    int oncewired(__builtin_int_t ﹟, uint8_t **start, __builtin_int_t *bytes) const; /* 𝘊․𝘧 predictive cache. */
    __builtin_int_t bytes() const; __builtin_int_t ᵇdebris() const;
    ~Scatter(); Memorydelegate * delegate; Scatter(const Scatter& other); /* Required by `pristine`. */
-😐; /* Disjunct, sediment and segments. A `Scatter` is 
+😐; /*  On disjunct, sediment and segments: The `Scatter` retrieve memories via 
+    
+   ・ n₋tiled a․𝘬․a 2₋read a․𝘬․a indexed a․𝘬․a infinitely₋growable₋scatter; 
+   ・ 1₋tiled a․𝘬․a re₋seedable₋by₋copying₋for₋example₋with₋realloc₋scatter; 
+   ・ 𝟺kb₋tile a․𝘬․a swiftly₋allocable₋scatter.
+    
+  For n₋tiled, a synthesized pointer consisting of a page index and an offset.
   
-  1) an `n-tile-fifo` and o-mi₍ss₎tted evaluated 'Augment' operation.
-  2) a synthesized pointer consisting of a page index and an offset.
-  3) a partially enfoiled fifo and a byte-address accessor. Note that the 
-    accessor is not called from `push` and `pop`. */
+  A partially enfoiled fifo and a byte-address accessor. Note that the accessor 
+  is not called from `push` and `pop`. */
 
 int Augment(Scatter& s, __builtin_int_t bytes, void (^once𝘖rMultiple)(short bytes, 
   uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage));
@@ -701,7 +731,7 @@ inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
 
 /* ⤮ time-transaction 'hinner-upp' time-ruminated-whilst-jotting-valid. */
 
-/* #include <Source/fiber₁> */
+/* #include <Source/fiber₁> a․𝘬․a 'solid-gas'. */
 #include <Source/coroutine>
 
 namespace Scheduler { void Init(); 
@@ -709,7 +739,7 @@ namespace Scheduler { void Init();
   /* typedef 𝟄₋int₁ (*Coroutine₋1)(void * ctx); /‌* ⬷ and at least one 
     of 'co_await', 'co_yield' and 'co_return'. */
   
-  extern void * ʰᵚcollection; /* a․𝘬․a Map<irq₋no, Corout₋task>. */
+  extern void * ʰᵚcollection; /* ⬷ a․𝘬․a Map<irq₋no, Coroutine₋task>. */
   
   /*  𝟄₋int₁ y = co_await coroutine₋name(ctx);
    auto retrieved = ^(𝟄₋int₁& y) { return y.coroutine.promise().cached; };
@@ -732,7 +762,7 @@ namespace Scheduler { void Init();
 
 #define bye co_return
 #define co₋await co_await
-#define initierad co_await
+#define initiera co_await
 #define feedback co_yield
 #define adjö co_return
 #define STRINGIFY(str) #str
