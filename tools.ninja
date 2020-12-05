@@ -8,8 +8,10 @@ moduleflags = -fmodules-ts -fimplicit-modules -fmodule-map-file=../🗿.modules
 pic32nda = -fforce-enable-int128 -mmsa -mdspr2 -gdwarf-5
 pic32cflags = -target mipsel -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32       $
  -mfp64 $pic32nda $gencdflags
-# The M-chip and the traditional Intel workforce:
-macos_arm = -target arm64-apple-macos11
+# The M-chip and the traditional Intel workforce: 
+pic32m0cflags = -target arm-none-eabi -mcpu=cortex-m0 -mfloat-abi=soft       $
+ -mthumb $gencdflags
+macosarmcflags = -target arm64-apple-macos11 -mfpu=neon $gencdflags
 macoscflags_withxcode = $gencdflags -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mmacosx-version-min=11.0.1
 macoscflags_commandline-xcode = $gencdflags -mmacosx-version-min=11.0.1
 macoscflags_llvm-dot-org = $gencdflags 
