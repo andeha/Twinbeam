@@ -8,8 +8,9 @@ include ../tools.ninja
 flags = $optflags $macoscflags $platflags -Wno-c++2a-designator -std=c++2a
 include ../macOS/laptop-big.ninja
 
+progname = $library-root\_$sha1git.a
 rule toc
-  command = $librarian-mac t $progname.a
+  command = $librarian-mac t $progname
 # ⬷ monitor/Apps> ninja -C Source -f build_macos.ninja emit-content
 
 rule library
@@ -20,17 +21,17 @@ rule library
 build $library-root: library $objs/Tree.o $objs/Memory.o $objs/Print.o       $
   $objs/Utf8.o $objs/Chronology.o $objs/bignum.o $objs/sha256.o              $
   $objs/macOS.o $objs/exception.o $objs/fifo.o $objs/System.o
-build $objs/Tree.o: cc ../Source/Tree.cpp
-build $objs/Memory.o: cc ../Source/Memory.cpp
-build $objs/Print.o: cc ../Source/Print.cpp
-build $objs/Utf8.o: cc ../Source/Utf8.cpp
-build $objs/Chronology.o: cc ../Source/Chronology.cpp
-build $objs/bignum.o: cc ../Source/bignum.cpp
-build $objs/sha256.o: cc ../Source/sha256.cpp
-build $objs/macOS.o: cc ../Source/macOS.cpp
-build $objs/exception.o: asm ../Source/exception.S
-build $objs/fifo.o: cc ../Source/fifo.cpp
-build $objs/System.o: ccms ../Source/System.cpp
+build $objs/Tree.o: cc Tree.cpp
+build $objs/Memory.o: cc Memory.cpp
+build $objs/Print.o: cc Print.cpp
+build $objs/Utf8.o: cc Utf8.cpp
+build $objs/Chronology.o: cc Chronology.cpp
+build $objs/bignum.o: cc bignum.cpp
+build $objs/sha256.o: cc sha256.cpp
+build $objs/macOS.o: cc macOS.cpp
+build $objs/exception.o: asm exception.S
+build $objs/fifo.o: cc fifo.cpp
+build $objs/System.o: ccms System.cpp
 build emit-content: toc
 default $library-root
 
