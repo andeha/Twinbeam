@@ -83,7 +83,7 @@ __builtin_int_t bi₋normal(int8_t ℂ);
 #define Intel👈 __asm { .intel_syntax noprefix /* Requires -fms-extensions */
 #define IntelPlusATT👉 asm { .att_syntax .text
 #elif defined __armv6__ || defined __armv8a__
-#define ArmDS1S2 asm { 
+#define ArmDS1S2 asm {
 #endif
 #define APPEND_PIMPL                                                         \
   struct Internals;                                                          \
@@ -180,7 +180,7 @@ extern "C" { int setjmp2(jmp_buf2 env); void longjmp2(jmp_buf2 env,
 extern "C" jmp_buf2 * /* volatile */ JmpBuf(); /* ⬷ A great symbol for a project break! */
 structᵢ SharedOptional { bool populated; explicit SharedOptional() : populated(
   false) { } explicit operator bool() const { return populated; } };
-#if defined  __mips__ || defined __armv6__ | defined espressif
+#if defined  __mips__ || defined __armv6__ || defined espressif
 typedef unsigned int size_t;
 void * operator new(unsigned int size, void * here) noexcept;
 #elif defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
@@ -478,9 +478,9 @@ struct Octa { uint32_t l, h; };
 MACRO int64_t nearest₋naive(double measure) { return (int64_t)measure; } 
  ⬷ Truncates fraction. */
 
-#if !(defined __armv6__ || defined _MM_ || defined espressif)
+#if !(defined __armv6__ || defined __MM__ || defined espressif)
 #define IEEE754_ARITHMETICS_INSIDE
-#endif
+#endif /* ⬷ Tensilica Lx6 is IEEE754 single-precision only. */
 #define GENERAL
 
 MACRO double Nearest(int64_t measure)
@@ -550,12 +550,12 @@ MACRO int64_t Nearest(double measure, int * reciproc)
 #undef GENERAL
 
 #if defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
-union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits; };
 #ifdef __x86_64__
-#include <xmmintrin.h>  /* ≥ SSE 4.2 */
-#include <immintrin.h>  /* The `crc_u32` intrinsic in smmintrin.h. */
+#include <xmmintrin.h> /* ≥ SSE 4.2 */
+#include <immintrin.h> /* The `crc_u32` intrinsic in smmintrin.h. */
 #endif
-#elif defined __mips__ || defined __armv6__ | defined espressif
+union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits; };
+#elif defined __mips__ || defined __armv6__ || defined espressif
 union Treeint { struct { int32_t key; uint32_t val; } keyvalue; uint64_t bits; };
 #endif /* a․𝘬․a `Autumn` and `Treeℤ`. */
 
@@ -563,16 +563,16 @@ void * Insert(void * opaque, Treeint valkey, void * (^alloc)(int bytes));
 void Forall(void ᶿ﹡ opaque, void (^dfs)(Treeint valkey, bool& stop));
 Treeint * Lookup(void ᶿ﹡ opaque, Treeint leafkey);
 
-/*  Big endian ⟷ 'most significant first', little endian ⟷ 'least sigificant first'. */
+#pragma mark - Big endian ⟷ 'most signif. first', little endian ⟷ 'least sigif. first'
 
 typedef union {
-#if __has_builtin(__int128_t) && __has_builtin(__uint128_t)
+#if __has_builtin(__uint128_t)
   __uint128_t bits;
 #endif
   struct { octa lso, mso; } little₋endian;
   struct { octa mso, lso; } big₋endian;
   struct { Octa l, h; } parts;
-#if defined __x86_64__
+#ifdef __x86_64__
   __m128 intel; /* Sixteen po̲s̲s̲i̲b̲l̲y ̲u̲n̲a̲l̲i̲gn̲e̲d̲ divided into `float` slots. */
 #endif
 } sexdeca;

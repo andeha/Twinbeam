@@ -1,0 +1,36 @@
+# build.ninja - Building for Arm Cortex M0+ embedded chips.
+
+optflags = -g
+arm-library = libTwinbeam_arm
+objs = ./.objs/7703a312-559A-43ca-A991-eaccf7f87663_$arm-library
+include ../tools.ninja
+platflags = -D__armv6__ -I ..
+flags = $optflags $pic32m0cflags $platflags -Wno-c++20-designator -std=c++2a
+include $runtime/command-little.ninja
+
+progname = $arm-library\_$sha1git.a
+rule toc
+  command = $librarian-pic32 t Releases/$progname
+# ⬷ monitor/Apps> ninja -C Source -f build_mchp.ninja emit-content
+
+rule library
+  command = $librarian-pic32 rcs Releases/$out\_$sha1git.a $in             ; $
+  ln -f Releases/$out\_$sha1git.a Relases/$out.a; printf $sha1git
+
+build $arm-library: library $objs/Utf8.o $objs/Tree.o $objs/Memory.o         $
+  $objs/Chronology.o $objs/bignum.o $objs/sha256.o $objs/Print.o             $
+  $objs/exception.o $objs/System.o $objs/armlog.o $objs/fifo.o
+build $objs/Utf8.o: cc Utf8.cpp
+build $objs/Tree.o: cc Tree.cpp
+build $objs/Chronology.o: cc Chronology.cpp
+build $objs/Memory.o: cc Memory.cpp
+build $objs/bignum.o: cc bignum.cpp
+build $objs/sha256.o: cc sha256.cpp
+build $objs/Print.o: cc Print.cpp
+build $objs/exception.o: cc exception.S
+build $objs/System.o: cc System.cpp
+build $objs/armlog.o: cc logarm.cpp
+build $objs/fifo.o: cc fifo.cpp
+build emit-content: toc
+default $arm-library
+

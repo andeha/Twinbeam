@@ -25,21 +25,23 @@ DISORDERABLE extern void platform₋reflect() { } /* ⬷ Alternative definition
   case 1: out𝕫(a.value.d); break;                                           \
   case 2: out𝕟(a.value.x); break;                                           \
   case 3: 𝟷𝟶𝟷𝟷𝟶₋out(a.value.b); break;                                       \
-  case 4: streamout_utf8(a.value.utf8); break;                              \
-  case 5: streamout_unicodes(a.value.ucs.tetras, a.value.ucs.unicodes); break; \
-  case 6: streamout_char(a.value.c); break;                                 \
-  case 7: streamout_unicode(a.value.uc); break;                             \
+  case 4: utf8₋stream(a.value.utf8); break;                                 \
+  case 5: unicode₋stream₂(a.value.ucs.tetras, a.value.ucs.unicodes); break; \
+  case 6: char₋stream(a.value.c); break;                                    \
+  case 7: unicode₋stream₁(a.value.uc); break;                               \
   case 8: out𝕕(double(a.value.f₂)); break;                                  \
   case 9: out𝕕(a.value.f₁); break;                                          \
   case 10: { Argᴾ::Unicode set = ^(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, \
     void * context) { if (!anfang) { print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); }   \
     else { Anfang(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, NULL); } }; a.value.λ.scalar(set,       \
     a.value.λ.context); break; }                                            \
+#if __has_builtin(__int128_t) && __has_builtin(__uint128_t)                 \
   case 11: 𝟷𝟸𝟾₋out𝕟(a.value.U); break;                                      \
   case 12: 𝟷𝟸𝟾₋out𝕫(a.value.I); break;                                      \
+#endif                                                                      \
   case 13: register₋reflect(a.value.x); break;                              \
   default: /* if (a.kind >= 0) imprint[a.kind](a); else */                  \
-    streamout_unicode(U'?'); break; }
+    unicode₋stream₁(U'?'); break; }
 
 Argᴾ ﹟d(__builtin_int_t d) { return Argᴾ { .value.d=d, .kind=1 }; }
 Argᴾ ﹟x(__builtin_uint_t x) { return Argᴾ { { .x=x }, 2 }; }
@@ -49,8 +51,10 @@ Argᴾ ﹟S(__builtin_int_t tetras, char32_t * uc) { return Argᴾ { { .ucs={ uc
 Argᴾ ﹟S(__builtin_int_t tetras, const char32_t * uc) { return Argᴾ { { .ucs={ Critic(uc), tetras } }, 5 }; }
 Argᴾ ﹟c(char c) { return Argᴾ { { .c=c }, 6 }; }
 Argᴾ ﹟C(char32_t C) { return Argᴾ { { .uc=C }, 7 }; }
+#if __has_builtin(__int128_t) && __has_builtin(__uint128_t)
 Argᴾ ﹟U(__uint128_t U) { return Argᴾ { { .U=U }, 11 }; }
 Argᴾ ﹟I(__int128_t I) { return Argᴾ { { .I=I }, 12 }; }
+#endif
 Argᴾ ﹟regs(__builtin_uint_t mask) { return Argᴾ { { .x=mask }, 13 }; }
 /* ⬷ Print between 0 and 31 non-high-volatile registers. */
 Argᴾ ﹟λ(Argᴾ::Output scalar, void * context) { return Argᴾ { { .λ={ scalar, context } }, 10 }; }
@@ -81,19 +85,21 @@ print﹟(
        32
 #endif
       , ^(char s) { out₂(&s, 1); }); };
-    auto streamout_char = ^(char c) { out₂(&c, 1); };
-    auto streamout_utf8 = ^(const char * utf8) { char * p = (char *)utf8; while (*p) { out₂(p,1); p++; } };
-    auto streamout_unicode = ^(char32_t u) { UnicodeToUtf8(u, ^(const uint8_t * u8s, 
-      short bytes) { out₂((const char *)u8s, bytes); }); };
+    auto char₋stream = ^(char c) { out₂(&c, 1); };
+    auto utf8₋stream = ^(const char * utf8) { char * p = (char *)utf8; while (*p) { out₂(p,1); p++; } };
+    auto unicode₋stream₁ = ^(char32_t u) { UnicodeToUtf8(u, ^(const uint8_t * u8s, 
+     short bytes) { out₂((const char *)u8s, bytes); }); };
 /* #ifndef AVOID_IEEE754 */
-    auto out𝕕 = ^(double ℝ) { Format(ℝ, Ieee754Form::Scientific, ^(char32_t uc) { streamout_unicode(uc); }); };
+    auto out𝕕 = ^(double ℝ) { Format(ℝ, Ieee754Form::Scientific, ^(char32_t uc) { unicode₋stream₁(uc); }); };
 /* #endif */
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
-    auto streamout_unicodes = ^(int tetras, char32_t 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 * unicodes) { __builtin_int_t 
-      beam=0; while (beam < tetras) { char32_t uc = *(unicodes + beam); streamout_unicode(uc); 
+    auto unicode₋stream₂ = ^(int tetras, char32_t 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 * unicodes) { __builtin_int_t 
+      beam=0; while (beam < tetras) { char32_t uc = *(unicodes + beam); unicode₋stream₁(uc); 
       ++beam; } }; /* { int, (bytes, symbols) } */
+#if __has_builtin(__int128_t) && __has_builtin(__uint128_t)
     auto 𝟷𝟸𝟾₋out𝕫 = ^(__int128_t I) { Base𝕫(I, 10, 0, ^(char 𝟶to𝟿) { out₂(&𝟶to𝟿,1); }); };
     auto 𝟷𝟸𝟾₋out𝕟 = ^(__uint128_t U) { Base𝕟(U, 16, 0, ^(char 𝟶to𝟿and₋) { out₂(&𝟶to𝟿and₋,1); }); };
+#endif
 again:
     auto leadOr8Bit = i + (uint8_t *)utf8format;
     if (*leadOr8Bit == 0x0) { goto unagain; }
@@ -102,7 +108,7 @@ again:
     incr = followers + 1;
     uc = Utf8ToUnicode(leadOr8Bit,incr);
     if (uc == 0xFFFE || uc == 0xFFFF) { return -2; }
-    else if (uc != U'⬚') { streamout_unicode(uc); }
+    else if (uc != U'⬚') { unicode₋stream₁(uc); }
     else { ⁺⁼PrintArgAndPop }
     i += incr; goto again;
 unagain:
