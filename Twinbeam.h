@@ -249,12 +249,11 @@ struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮�
  typedef void (^Output)(Unicode set, void * context); union { __builtin_int_t d; 
  __builtin_uint_t x, b; const char * utf8; struct /* Unicodes */ { char32_t * 
  unicodes; __builtin_int_t tetras; } ucs; char c; char32_t uc; double f₁; float f₂; 
- struct { Output scalar; void * context; } λ; } value; 
- uint8_t bytes[16]; uint64_t pair[2]; int kind; 
+ uint8_t bytes[16]; 
 #if __has_builtin(__int128_t) && __has_builtin(__uint128_t)
  __uint128_t U; __int128_t I;
 #endif
-};
+ uint64_t pair[2]; struct { Output scalar; void * context; } λ; } value; int kind; };
 Argᴾ ﹟d(__builtin_int_t d); Argᴾ ﹟x(__builtin_uint_t x); Argᴾ ﹟b(__builtin_uint_t 
 b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(__builtin_int_t tetras, char32_t * uc); Argᴾ 
 ﹟c(char c); Argᴾ ﹟C(char32_t C); 

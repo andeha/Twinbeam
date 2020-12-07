@@ -19,29 +19,7 @@ DISORDERABLE extern void Format(double ℝ, Ieee754Form f, void (^out)(char32_t 
 DISORDERABLE extern void platform₋reflect() { } /* ⬷ Alternative definition 
  in --<Additions>--<Presentᵃᵘˣ.cpp>. */
 
-#define ⁺⁼PrintArgAndPop /* DISORDERABLE OVERLOADED */                      \
-  const Argᴾ a = __builtin_va_arg(arg, Argᴾ);                               \
-  switch (a.kind) {                                                         \
-  case 1: out𝕫(a.value.d); break;                                           \
-  case 2: out𝕟(a.value.x); break;                                           \
-  case 3: 𝟷𝟶𝟷𝟷𝟶₋out(a.value.b); break;                                       \
-  case 4: utf8₋stream(a.value.utf8); break;                                 \
-  case 5: unicode₋stream₂(a.value.ucs.tetras, a.value.ucs.unicodes); break; \
-  case 6: char₋stream(a.value.c); break;                                    \
-  case 7: unicode₋stream₁(a.value.uc); break;                               \
-  case 8: out𝕕(double(a.value.f₂)); break;                                  \
-  case 9: out𝕕(a.value.f₁); break;                                          \
-  case 10: { Argᴾ::Unicode set = ^(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, \
-    void * context) { if (!anfang) { print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); }   \
-    else { Anfang(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, NULL); } }; a.value.λ.scalar(set,       \
-    a.value.λ.context); break; }                                            \
-#if __has_builtin(__int128_t) && __has_builtin(__uint128_t)                 \
-  case 11: 𝟷𝟸𝟾₋out𝕟(a.value.U); break;                                      \
-  case 12: 𝟷𝟸𝟾₋out𝕫(a.value.I); break;                                      \
-#endif                                                                      \
-  case 13: register₋reflect(a.value.x); break;                              \
-  default: /* if (a.kind >= 0) imprint[a.kind](a); else */                  \
-    unicode₋stream₁(U'?'); break; }
+#pragma mark - Inte₋ger₋s
 
 Argᴾ ﹟d(__builtin_int_t d) { return Argᴾ { .value.d=d, .kind=1 }; }
 Argᴾ ﹟x(__builtin_uint_t x) { return Argᴾ { { .x=x }, 2 }; }
@@ -59,6 +37,8 @@ Argᴾ ﹟regs(__builtin_uint_t mask) { return Argᴾ { { .x=mask }, 13 }; }
 /* ⬷ Print between 0 and 31 non-high-volatile registers. */
 Argᴾ ﹟λ(Argᴾ::Output scalar, void * context) { return Argᴾ { { .λ={ scalar, context } }, 10 }; }
 
+#pragma mark - Hidden yet simple in /retrospect/
+
 inexorable
 int
 print﹟(
@@ -70,22 +50,22 @@ print﹟(
     int 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 printedBytesExcept0=0; /* bool may𝘖𝘳DidEscape=false; */
     auto out₂ = ^(const char * utf8, __builtin_int_t bytes) {
       out((uint8_t *)utf8, bytes); printedBytesExcept0 += bytes; };
-    auto out𝕫 = ^(__builtin_int_t x) { Base𝕫(x, 10, 0, ^(char s) { out₂(&s, 1); }); };
+    auto out𝕫 = ^(__builtin_int_t x) { Base𝕫(x, 10, 0, ^(char s) { out₂(&s,1); }); };
     auto out𝕟 = ^(__builtin_uint_t x) { Base𝕟(x, 16, 
 #ifdef __x86_64__
       16
 #elif defined __mips__
        8
 #endif
-      , ^(char s) { out₂(&s, 1); }); };
+      , ^(char s) { out₂(&s,1); }); };
     auto 𝟷𝟶𝟷𝟷𝟶₋out = ^(__builtin_uint_t b) { Base𝕟(b, 2,
 #ifdef __x86_64__
        64
 #elif defined __mips__
        32
 #endif
-      , ^(char s) { out₂(&s, 1); }); };
-    auto char₋stream = ^(char c) { out₂(&c, 1); };
+      , ^(char s) { out₂(&s,1); }); };
+    auto char₋stream = ^(char c) { out₂(&c,1); };
     auto utf8₋stream = ^(const char * utf8) { char * p = (char *)utf8; while (*p) { out₂(p,1); p++; } };
     auto unicode₋stream₁ = ^(char32_t u) { UnicodeToUtf8(u, ^(const uint8_t * u8s, 
      short bytes) { out₂((const char *)u8s, bytes); }); };
@@ -109,7 +89,30 @@ again:
     uc = Utf8ToUnicode(leadOr8Bit,incr);
     if (uc == 0xFFFE || uc == 0xFFFF) { return -2; }
     else if (uc != U'⬚') { unicode₋stream₁(uc); }
-    else { ⁺⁼PrintArgAndPop }
+    else { /* Reflecting natives /to/ terminal. */
+      const Argᴾ a = __builtin_va_arg(arg, Argᴾ);                               \
+      switch (a.kind) {                                                         \
+      case 1: out𝕫(a.value.d); break;                                           \
+      case 2: out𝕟(a.value.x); break;                                           \
+      case 3: 𝟷𝟶𝟷𝟷𝟶₋out(a.value.b); break;                                       \
+      case 4: utf8₋stream(a.value.utf8); break;                                 \
+      case 5: unicode₋stream₂(a.value.ucs.tetras, a.value.ucs.unicodes); break; \
+      case 6: char₋stream(a.value.c); break;                                    \
+      case 7: unicode₋stream₁(a.value.uc); break;                               \
+      case 8: out𝕕(double(a.value.f₂)); break;                                  \
+      case 9: out𝕕(a.value.f₁); break;                                          \
+      case 10: { Argᴾ::Unicode set = ^(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, \
+        void * context) { if (!anfang) { print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); }   \
+        else { Anfang(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, NULL); } }; a.value.λ.scalar(set,       \
+        a.value.λ.context); break; }
+#if __has_builtin(__int128_t) && __has_builtin(__uint128_t)
+      case 11: 𝟷𝟸𝟾₋out𝕟(a.value.U); break;                                      \
+      case 12: 𝟷𝟸𝟾₋out𝕫(a.value.I); break;
+#endif
+      case 13: register₋reflect(a.value.x); break;                              \
+      default: /* if (a.kind >= 0) imprint[a.kind](a); else */                  \
+        unicode₋stream₁(U'?'); break; }
+    }
     i += incr; goto again;
 unagain:
     return printedBytesExcept0;
