@@ -29,7 +29,7 @@ Argᴾ ﹟S(__builtin_int_t tetras, char32_t * uc) { return Argᴾ { { .ucs={ uc
 Argᴾ ﹟S(__builtin_int_t tetras, const char32_t * uc) { return Argᴾ { { .ucs={ Critic(uc), tetras } }, 5 }; }
 Argᴾ ﹟c(char c) { return Argᴾ { { .c=c }, 6 }; }
 Argᴾ ﹟C(char32_t C) { return Argᴾ { { .uc=C }, 7 }; }
-#if __has_builtin(__int128_t) && __has_builtin(__uint128_t)
+#ifdef simd₋integers
 Argᴾ ﹟U(__uint128_t U) { return Argᴾ { { .U=U }, 11 }; }
 Argᴾ ﹟I(__int128_t I) { return Argᴾ { { .I=I }, 12 }; }
 #endif
@@ -76,7 +76,7 @@ print﹟(
     auto unicode₋stream₂ = ^(int tetras, char32_t 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 * unicodes) { __builtin_int_t 
       beam=0; while (beam < tetras) { char32_t uc = *(unicodes + beam); unicode₋stream₁(uc); 
       ++beam; } }; /* { int, (bytes, symbols) } */
-#if __has_builtin(__int128_t) && __has_builtin(__uint128_t)
+#ifdef simd₋integers
     auto 𝟷𝟸𝟾₋out𝕫 = ^(__int128_t I) { Base𝕫(I, 10, 0, ^(char 𝟶to𝟿) { out₂(&𝟶to𝟿,1); }); };
     auto 𝟷𝟸𝟾₋out𝕟 = ^(__uint128_t U) { Base𝕟(U, 16, 0, ^(char 𝟶to𝟿and₋) { out₂(&𝟶to𝟿and₋,1); }); };
 #endif
@@ -105,7 +105,7 @@ again:
         void * context) { if (!anfang) { print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); }   \
         else { Anfang(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, NULL); } }; a.value.λ.scalar(set,       \
         a.value.λ.context); break; }
-#if __has_builtin(__int128_t) && __has_builtin(__uint128_t)
+#ifdef simd₋integers
       case 11: 𝟷𝟸𝟾₋out𝕟(a.value.U); break;                                      \
       case 12: 𝟷𝟸𝟾₋out𝕫(a.value.I); break;
 #endif

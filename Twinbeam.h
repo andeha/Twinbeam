@@ -57,7 +57,8 @@ void print_bignum(𝓵₋bignum * n, void (^output)(char c));
 /* int hw₋fractions₁(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
 /* int sw₋fractions₂(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
 int fractions(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); /* ⬷ Requires `sw₋fractions₂` and/or `hw₋fractions₁`. */
-#if __has_builtin(__uint128_t)
+#if __has_builtin(__uint128_t) && __has_builtin(__int128_t)
+#define simd₋integers
 int sw₋fractions(__uint128_t num, __uint128_t denom, __uint128_t &ℕ, __uint128_t &modula);
 #endif
 int hw₋fractions(int64_t num, int64_t denom, int64_t &ℤ, int64_t &modula, int * sum₋negative);
@@ -146,6 +147,8 @@ template <typename T> struct SemanticPointer { T ref; }; /* a․𝘬․a `Disjun
 #define ALTERNATESTRUCTURAL /* 𝘊․𝖿 'alternate-encased`. Carriage-returns one symbol, possibly two symbols. */
 #define EN₋VE₋LO₍U₎PE
 #define FILIBUSTER
+#define ANTIMATERIELL /* /group/. Intervall amorf möte arr-mot radio. */
+#define INTERFERENTIALCOGNITIVE /* 𝘊․𝖿 'alla-fel-sätten' and 'eventellsam' färd. */
 /* Cogitat, given, giv-et, ruminat (abbrevia ⤪ and 'rum.'). */
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; /*  ∎: mx=11 ∧ mz=23! */
@@ -156,6 +159,9 @@ typedef arm_context jmp_buf2;
 #elif defined __armv8a__
 typedef int64_t arm_context[9];
 typedef arm_context jmp_buf2;
+#elif defined espressif
+typdef int32_t tensilica_context[9];
+typedef tensilica_context jmp_buf2;
 #elif defined __x86_64__
 typedef int64_t x86_64_context[(9 * 2) + 3 + 16];
 typedef x86_64_context jmp_buf2;
@@ -250,14 +256,14 @@ struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮�
  __builtin_uint_t x, b; const char * utf8; struct /* Unicodes */ { char32_t * 
  unicodes; __builtin_int_t tetras; } ucs; char c; char32_t uc; double f₁; float f₂; 
  uint8_t bytes[16]; 
-#if __has_builtin(__int128_t) && __has_builtin(__uint128_t)
+#ifdef simd₋integers
  __uint128_t U; __int128_t I;
 #endif
  uint64_t pair[2]; struct { Output scalar; void * context; } λ; } value; int kind; };
 Argᴾ ﹟d(__builtin_int_t d); Argᴾ ﹟x(__builtin_uint_t x); Argᴾ ﹟b(__builtin_uint_t 
 b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(__builtin_int_t tetras, char32_t * uc); Argᴾ 
 ﹟c(char c); Argᴾ ﹟C(char32_t C); 
-#if __has_builtin(__int128_t) && __has_builtin(__uint128_t)
+#ifdef simd₋integers
 Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
 #endif
 Argᴾ ﹟regs(__builtin_uint_t mask); Argᴾ ﹟λ(Argᴾ::Output scalar, void * context);
@@ -344,7 +350,7 @@ FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned
   depending on word size! (Or set to `0` to skip leading zeros.) */ void
   (^out)(char 𝟶to𝟿)); /* See --<Print.cpp> for a 128-bit version. */
 void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿and₋));
-#if __has_builtin(__uint128_t) && __has_builtin(__int128_t)
+#ifdef simd₋integers
 void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿and₋));
 void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿));
 #endif
@@ -565,7 +571,7 @@ Treeint * Lookup(void ᶿ﹡ opaque, Treeint leafkey);
 #pragma mark - Big endian ⟷ 'most signif. first', little endian ⟷ 'least sigif. first'
 
 typedef union {
-#if __has_builtin(__uint128_t)
+#ifdef simd₋integers
   __uint128_t bits;
 #endif
   struct { octa lso, mso; } little₋endian;
@@ -768,6 +774,8 @@ namespace Scheduler { void Init();
 #define va_prologue(symbol)                                                 \
   __builtin_va_list __various;                                              \
   __builtin_va_start(__various, symbol);
+
+/* Refined-trap-apparatus, trap, apparatus. */
 
 /**  Return objects allocated from consecutive frames or from the heap. (DISJUNCT-ADJACENT-STUFFED) */
 template <typename T> T * Elements𝘖𝘳Heap(int expeditionary, 
