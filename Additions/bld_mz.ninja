@@ -6,9 +6,9 @@ include ../tools.ninja
 platflags = -D__MZ__ -I $runtime/.. -I $additions -I $runtime
 objs = ./.objs/7703a312-559A-42ca-A992-eabcf7f87663_$encased-library
 flags = $optflags $pic32cflags $platflags -Wno-c++20-designator -std=c++2a
-progname = $libroot\_$sha1git.a
-include $runtime/commands-little.ninja
+include $runtime/command-little.ninja
 
+progname = $encased-library\_$sha1git.a
 rule toc
   command = $librarian-pic32 t $progname
 # ⬷ monitor/Apps> ninja -C Additions -f bld_mz.ninja emit-content
