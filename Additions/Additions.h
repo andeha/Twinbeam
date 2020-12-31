@@ -338,7 +338,7 @@ struct Utf8Terminal {
       void (^ping𝘖r𝖭𝖴𝖫𝖫)(bool &stop), /* Cyclically whilst time passes. */
       void (^input)(char32_t unicode, bool &stop) /* After a key press. */
       /* void (^ctrl₋keys)(uint32_t Ctrlkeys₋former, uint32_t Ctrlkeys₋current) / * After occuring change. */
-    ) const; /* 𝘊.𝘧 `readOne𝘖rManylines`, password`, `getc`/`ungetc` and `readline`. */
+    ) const; /* 𝘊.𝘧 `readOne𝘖rManylines`, password`, `readline` and `getc`/`ungetc`. */
     
     int write(uint8_t * utf8s, __builtin_int_t bytes) const; /* ⬷ Optionally NULL-termination included. */
     
