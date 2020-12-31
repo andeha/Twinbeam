@@ -51,7 +51,7 @@ Binary32_MAN ␣␣␣␣|␣␣␣␣|␣xxx|xxxx|xxxx|xxxx|xxxx|xxxx| Fraction
 #define IEEE754BASE2_64BIT_PINF   0x7FF0000000000000L /* Positive */
 #define IEEE754BASE2_64BIT_NINF   0xFFF0000000000000L /* Negative */
 #define IEEE754BASE2_64BIT_QNAN₂  0x7ff8000000000002L /* Quiet */
-#define IEEE754BASE2_32BIT_QNAN₂  0x7FC00002 /* ⬷ See Chapter~50, 12.2.2.2.1 for additional text. */
+#define IEEE754BASE2_32BIT_QNAN₂  0x7FC00002 /* ⬷ See chapter~50, 12.2.2.2.1 for additional text. */
 
 MACRO int is₋pairwise₋inf(double x, double y, int * bipolar) {
   octa o₁, o₂; o₁.base﹟𝟸=x, o₂.base﹟𝟸=y; *bipolar=1;
@@ -160,11 +160,11 @@ unagain:                                                                    \
 auto utf8ToUnicode = ^(const char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 utf8, char32_t unicodes[],        \
   bool prune, __builtin_int_t maxUCs, __builtin_int_t * tetra) {            \
    __builtin_int_t followers, incr, ⁸b=0, Ɀtetra; char32_t uc;              \
-  *tetra /* 𝘈․𝘬․a ³²b */ = 0;                                               \
+  *tetra /* a․𝘬․a ³²b */ = 0;                                               \
 again:                                                                      \
    const uint8_t * leadOr8Bit = (const uint8_t *)utf8 + ⁸b;                 \
    if (*leadOr8Bit == 0x0) { goto unagain; }                                \
-   Ɀtetra = *tetra; /* ⬷ Sampled tetra! (A․𝘬․a `⁑deref`, `𐂚` , `𝛶`, `⏘deref`, and `🥉tetra`) */  \
+   Ɀtetra = *tetra; /* ⬷ Sampled tetra! (a․𝘬․a `⁑deref`, `𐂚` , `𝛶`, `⏘deref`, and `🥉tetra`) */  \
    if (!prune && maxUCs < Ɀtetra) { return -1; }                            \
    if (prune && maxUCs < Ɀtetra) { goto unagain; }                          \
    followers = Utf8Followers(*leadOr8Bit);                                  \
@@ -315,7 +315,15 @@ namespace Raster { enum { mm, lines, nonuniform₋mm, none }; }
 
 #pragma mark - The Terminal
 
-namespace Inputctrl { enum { Stopped=1, Timedout, Keyboard₋terminated, Indication₋terminated }; }
+namespace 𝟾x𝟾₋matrix₋AAPL { 
+  
+  enum /* Inputctrl */ { Stopped=1, Timedout, Keyboard₋terminated, Indication₋terminated }; 
+  
+  BITMASK (uint32_t) { Left = 0b1<<9, Up = 0b1<<7, Down = 0b1<<6, 
+    Right = 0b1<<8, Return = 0b1<<5, Shift = 0b1<<4, Fn = 0b1<<3, 
+    Control = 0b1<<2, Option = 0b1<<1, Command = 0b1<<0 };
+  
+}
 
 struct Utf8Terminal {
     
@@ -323,13 +331,14 @@ struct Utf8Terminal {
     
     ~Utf8Terminal();
     
-    int /* Inputctrl */ 
-    interaction( /* See also --<Fossilate.h|cpp>{TerminalIn ∧ WaitTerminal}. */
+    𝟄₋int₁ /* Inputctrl */ 
+    corout₋Interaction( /* See also --<Fossilate.h|cpp>{TerminalIn ∧ WaitTerminal}. */
       int periods𝘖rZero,
       int 𝟷𝟶ᵗʰ₋seconds,
       void (^ping𝘖r𝖭𝖴𝖫𝖫)(bool &stop), /* Cyclically whilst time passes. */
       void (^input)(char32_t unicode, bool &stop) /* After a key press. */
-    ) const; /* 𝘊․𝘧 `readOne𝘖rManylines`, password`, `getc`/`ungetc` and `readline`. */
+      /* void (^ctrl₋keys)(uint32_t Ctrlkeys₋former, uint32_t Ctrlkeys₋current) / * After occuring change. */
+    ) const; /* 𝘊.𝘧 `readOne𝘖rManylines`, password`, `getc`/`ungetc` and `readline`. */
     
     int write(uint8_t * utf8s, __builtin_int_t bytes) const; /* ⬷ Optionally NULL-termination included. */
     
@@ -442,27 +451,23 @@ Guid Newguid();
 
 struct Chronology₋peg { __builtin_int_t soon=0; }; /* ⬷ a․𝘬․a `Sequent`. */
 
-__builtin_int_t Pression(Chronology₋peg * act, bool * wrapped); /* ⬷ a․𝘬․a `I₋m₋print`, `Ordinal`. */
+__builtin_int_t Pression(Chronology₋peg * act, bool * wrapped); /* ⬷ a․𝘬․a `I₋m₋print` and `Ordinal`. */
 
-namespace after₋Retrospectives {
+namespace Messaging { /* ⬷ a․𝘬․a Transceiver, /lear-n-i-n-g/, static-telluric and after₋Retrospectives. */
    
-   int Init(void * ˢᵚsignals, 
-     void * (^node₋alloc)(int bytes), 
-     void * (^kiddle₋alloc)(int bytes)
+   int Init(void * ˢᵚsignals, /* Recall --<Twinbeam.h>{Scheduler::ʰᵚcollection}. */
+     void * (^node₋alloc)(int bytes)
    );
    
-   /* typedef 𝟄₋int₁ (*Coroutine₋1)(void * ctx); /‌* ⬷ and at least one. */
+   int Informed(int32_t /* Guid */ signal, 𝟄₋int₁ * 𝟷₋coroutineToInfluence, 
+     void * (^node₋alloc)(int bytes)); /* Formerly 'with₋Indicate' and 'Trap'. */
    
-   int Trap(Guid signal, 𝟄₋int₁ * 𝟷₋coroutine, 
-     void * (^node₋alloc)(int bytes));
-   
-   extern void * ˢᵚsignals; n₋tile₋fifo<Guid> leafs;
-   
-   int Indicate(Guid signal, void * ctx);
+   int Entrust(int32_t /* Guid */ signal, void * ctx); /* ⬷ a․𝘬․a 'Stifta', 'Mature', 
+     'Scribble', 'Pierce', 'Drive₋lead', 'Fuel' and not 'Indicate'. */
    
 } /* ⬷ a․𝘬․a `messaging`, `Victorian`, `jurisprudence`, 
  `coroutines₋required`, 'ʰᵚcollection₋required', 'Unix-signal', 
- 'sw-interrupt', 'notification' and 'event'. */
+ 'sw-interrupt', 'notification', e₋v₋en₋t and /v-ote/. */
 
 void GuidToText(const Guid& guid, void (^out)(char digit𝘖rHyphen));
 

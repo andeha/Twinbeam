@@ -53,6 +53,7 @@ void divide_bignum(𝓵₋bignum * a, 𝓵₋bignum * b, 𝓵₋bignum * c);
 void digit_shift(𝓵₋bignum * n, __builtin_int_t I); /* ⬷ multiplies n by 10ᵈ. */
 int compare_bignum(𝓵₋bignum * a, 𝓵₋bignum * b);
 void print_bignum(𝓵₋bignum * n, void (^output)(char c));
+struct Schoolbook { int64_t ℤ; uint64_t modula, denom; int sum₋negative; enum { Sum=0, Deduct=1 }; };
 /* int sw₋fractions(uint64_t num, uint64_t denom, uint64_t &ℕ, uint64_t &modula); */
 /* int hw₋fractions₁(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
 /* int sw₋fractions₂(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
@@ -137,19 +138,6 @@ template <typename T> struct SemanticPointer { T ref; }; /* a․𝘬․a `Disjun
 #define OPTIONALSCHEDULATIVE
 #define CIRCULATIVE /* a․𝘬․a 'Averaged' ∧ '␣'. */
 #define CONTEXTDESTILLATIVE
-#define SILHOUETTED /* a․𝘬․a `SILLHOUETIC` and AL₋GE₋BR₋A/AL₋GOR₋IT₋H₋M. */
-#define METABOLIUNIFICATIVE /* Disjunct relative METABOLISUBTRACTIONAL. */
-#define IMPLICATIVE /* I-ER-ANDE: ISOMORPHIC and INFOR. */
-#define AMBIVALENTOBFUSCATIVE /* BOLL:IG. */
-#define INCASED /* 𝘊․𝖿 project and 'operation'; and Scandinavian 'radiokälla'. */
-#define EUCLIDEANINCOHERENT /* 𝘊․𝖿 subversive follows incoherence. */
-#define INTENTIONCORRELATIVE /* 𝘊․𝖿 Scandinavian alt. German ₍gestalt₎ stimulus. */
-#define ALTERNATESTRUCTURAL /* 𝘊․𝖿 'alternate-encased`. Carriage-returns one symbol, possibly two symbols. */
-#define EN₋VE₋LO₍U₎PE
-#define FILIBUSTER
-#define ANTIMATERIELL /* /group/. Intervall amorf möte arr-mot radio. */
-#define INTERFERENTIALCOGNITIVE /* 𝘊․𝖿 'alla-fel-sätten' and 'eventellsam' färd. */
-/* Cogitat, given, giv-et, ruminat (abbrevia ⤪ and 'rum.'). */
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; /*  ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
@@ -310,7 +298,7 @@ FOCAL int Compare8Memory(ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uin
 FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef 
   dst, ByteAlignedRef src, __builtin_int_t bytes);
 FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁, 
-  ByteAlignedRef p₂, __builtin_uint_t bytes); /* a․k․a `memcmp`. */
+  ByteAlignedRef p₂, __builtin_uint_t bytes); /* a․𝘬․a `memcmp`. */
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
   constexpr uint32_t PIC32##serie##_##symbol = vaddr;                        \
   constexpr uint32_t PIC32##serie##_##symbol##CLR = (vaddr + 0x4);           \
@@ -326,17 +314,13 @@ MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /* a․
 ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
 ByteAlignedRef Overwrite8Memory(ByteAlignedRef src, uint8_t val,
   __builtin_int_t bytes);
-MACRO __builtin_int_t Frame(__builtin_uint_t size, __builtin_uint_t framesize) {
-  return __builtin_int_t((size + framesize - 1) & ~(framesize - 1)); }
-MACRO __builtin_int_t HowMany(__builtin_uint_t index, __builtin_uint_t width) {
-  return (index % width == 0) ? index/width : index/width + 1; }
 #define Block_copy(...) ((__typeof(__VA_ARGS__))_Block_copy((const void *)(__VA_ARGS__)))
 #define Block_release(...) _Block_release((const void *)(__VA_ARGS__))
 struct Block_descriptor { unsigned long int reserved; unsigned long int size;
   void (*copy)(void *dst, void *src); void (*dispose)(void *); };
-struct Block_layout { void *isa; int flags; int reserved; void (*invoke)(void *,
-  ...); struct Block_descriptor *descriptor; /* Imported variables. */ };
-MACRO void * _Block_copy(const void *arg) { struct Block_layout *block = (struct
+struct Block_layout { void * isa; int flags; int reserved; void (*invoke)(void *,
+  ...); struct Block_descriptor * descriptor; /* Imported variables. */ };
+MACRO void * _Block_copy(const void * arg) { struct Block_layout *block = (struct
   Block_layout *)arg; struct Block_layout *res = (struct Block_layout *)Alloc(
   block->descriptor->size); Copy8Memory((ByteAlignedRef)res, (ByteAlignedRef)
   block, block->descriptor->size); return res; }
@@ -430,13 +414,12 @@ __builtin_int_t LeastPossibleResidue(__builtin_int_t dividend, __builtin_int_t d
 /* ⬷ See --<Wiki>--<Essays>--<On Clocks and Time> and 'circular reasoning'. */
 #define auto₋rollback(variable) decltype(variable)
 #define ᶿ﹡ const * /* #define *⥃ const char * /​* a․𝘬․a `*⥆` and `*⫩`. */
-#define overlay union
 
 #pragma mark Utf-8
 
 int UnicodeToUtf8(char32_t Ξ, void (^sometime₋valid)(const uint8_t *ξ, short bytes));
 
-short Utf8Followers(uint8_t lead𝘖r8Bit); /* Recognize modern `char8_t` and later `uchar`. */
+short Utf8Followers(uint8_t lead𝘖r8Bit); /* ⬷ Recognize modern `char8_t`. */
 
 char32_t Utf8ToUnicode(const uint8_t *ξ, __builtin_int_t bytes);
 
@@ -499,7 +482,7 @@ MACRO double Nearest(int64_t measure)
    unsigned biased₋2ⁿexp = wordbytes*8 - leading₋zeros; /* ⤪ 32 alt. 64 bits wide words. */
    int64_t mantissa = measure << leading₋zeros; mantissa >>= 12;
    Octa man₋bits; man₋bits.l = 𝟹𝟸₋bits & mantissa; man₋bits.h = mantissa>>32;
-   octa real { .binary64 = { man₋bits.l, man₋bits.h, biased₋2ⁿexp, sign ? 1 : 0 } };
+   octa real { .binary64 = { man₋bits.l, man₋bits.h, biased₋2ⁿexp, sign ? 1u : 0u } };
    return real.base﹟𝟸;
 #elif defined __mips__
    Mips                                                                      
@@ -528,10 +511,11 @@ MACRO int64_t Nearest(double measure, int * reciproc)
    unsigned biased₋exp = integer.binary64.exponent;
    int32_t unbiased₋exp = biased₋exp - 1022;
    *reciproc = biased₋exp < 1022 ? 1 : 0; /* also -0. */
-   int64_t shifted = integer.binary64.mantissal | (integer.binary64.mantissah<<32);
+   int64_t shifted = integer.binary64.mantissah; shifted <<= 32; 
+   shifted |= integer.binary64.mantissal;
    uint64_t 🥈 sign₋bit = 0b1LL<<32;
-   if (*reciproc) { shifted << (unbiased₋exp & sign₋bit); }
-   else { shifted << (unbiased₋exp & sign₋bit); }
+   if (*reciproc) { shifted <<= (unbiased₋exp & sign₋bit); }
+   else { shifted <<= (unbiased₋exp & sign₋bit); }
    int sign = integer.binary64.sign;
    return sign ? -shifted : shifted;
 #elif defined __mips__
@@ -670,16 +654,16 @@ struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max
    int oncewired(__builtin_int_t ﹟, uint8_t **start, __builtin_int_t *bytes) const; /* 𝘊․𝘧 predictive cache. */
    __builtin_int_t bytes() const; __builtin_int_t ᵇdebris() const;
    ~Scatter(); Memorydelegate * delegate; Scatter(const Scatter& other); /* Required by `pristine`. */
-😐; /*  On disjunct, sediment and segments: The `Scatter` retrieve memories via 
+😐; /*  On disjunct, sediment and segments: the `Scatter` retrieve memories via 
     
    ・ n₋tiled a․𝘬․a 2₋read a․𝘬․a indexed a․𝘬․a infinitely₋growable₋scatter; 
    ・ 1₋tiled a․𝘬․a re₋seedable₋by₋copying₋for₋example₋with₋realloc₋scatter; 
    ・ 𝟺kb₋tile a․𝘬․a swiftly₋allocable₋scatter.
     
-  For n₋tiled, a synthesized pointer consisting of a page index and an offset.
-  
-  A partially enfoiled fifo and a byte-address accessor. Note that the accessor 
-  is not called from `push` and `pop`. */
+  For n₋tiled, a synthesized pointer consisting of a page index and an offset. */
+
+/* When change/delete/type, see --<2ᵈ-𝔣ow.hpp>. A partially enfoiled fifo and a 
+ byte-address accessor. Note that the accessor is not called from `push` and `pop`. */
 
 int Augment(Scatter& s, __builtin_int_t bytes, void (^once𝘖rMultiple)(short bytes, 
   uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage));
@@ -759,9 +743,13 @@ namespace Scheduler { void Init();
   
   extern Necklace *first, *curr, *last;
   
-  int Start(𝟄₋int₁ * coroutine₋err, void * (^necklace₋alloc)(int bytes));
+  int Operational(𝟄₋int₁ * coroutine₋err, void * (^necklace₋alloc)(int bytes)); /* a․𝘬․a `Start` and `Cyclic`. */
   
-  MACRO void Timer₋fired() { curr=curr->nxt; Resume(curr->err.coroutine.address()); }
+  MACRO void Proceed() { curr=curr->nxt; Resume(curr->err.coroutine.address()); }
+  
+  MACRO void Timer₋fired₁() { /* Save-ctx(curr->err) */ Proceed(); }
+  
+  MACRO void Timer₋fired₂() { /* context_t ctx; int y=getcontext(&ctx); */ Proceed(); /* setcontext(&ctx); */ }
   
 }
 
@@ -772,13 +760,11 @@ namespace Scheduler { void Init();
 #define adjö co_return
 #define STRINGIFY(str) #str
 #define va_prologue(symbol)                                                 \
-  __builtin_va_list __various;                                              \
-  __builtin_va_start(__various, symbol);
-
-/* Refined-trap-apparatus, trap, apparatus. */
+ __builtin_va_list __various;                                               \
+ __builtin_va_start(__various, symbol);
 
 /**  Return objects allocated from consecutive frames or from the heap. (DISJUNCT-ADJACENT-STUFFED) */
-template <typename T> T * Elements𝘖𝘳Heap(int expeditionary, 
+template <typename T> T * /* ⤪_ */ Elements𝘖𝘳Heap(int expeditionary, 
   int count, void (^default𝘖rNull)(T * elem)
 ) {  T * location = NULL;
    if (expeditionary == -1) { location = (T *)Alloc(count*sizeof(T)); } else { 
@@ -793,7 +779,25 @@ template <typename T> T * Elements𝘖𝘳Heap(int expeditionary,
    for (__builtin_int_t i=0; i<count; ++i) { T * elem = new (i + location) T(); }
    if (default𝘖rNull) { for (__builtin_int_t i=0; i<count; ++i) { default𝘖rNull(i + location); } }
    return location;
-} /* a․𝘬․a `malloc`, `StartupAlloc` and `Frame𝘈𝘭𝘵𝙉ew`. */
+} /* ⬷ a․𝘬․a `malloc`, `StartupAlloc` and `Frame𝘈𝘭𝘵𝙉ew`. */
+
+constexpr __builtin_int_t Frame(__builtin_uint_t size, __builtin_uint_t framesize)
+{ return __builtin_int_t((size + framesize - 1) & ~(framesize - 1)); } 
+/* ⬷ May be evaluated at compile-time. (constexpr) */
+
+constexpr __builtin_int_t Ceil(__builtin_int_t num, __builtin_int_t denom) 
+{  int num₋neg=num<+0, denom₋neg=denom<+0;
+  if (num₋neg) { num = -num; } if (denom₋neg) { denom = -denom; }
+  __builtin_uint_t ℕ=num/denom, modula=num%denom; /* ⬷ also in sw/hw₋fractions. */
+  int negative = denom₋neg ^ num₋neg ? 1 : 0;
+  return (ℕ + (modula != 0 ? 1 : 0)) * (negative ? -1 : 1);
+} /* ⬷ E․𝘨 ceil(sizeof(E)/4) = words, sizeof(E)/4 - 1 < words <= sizeof(E)/4 */
+
+__builtin_int_t 🥈 Wordbytes=sizeof(__builtin_uint_t);
+
+constexpr __builtin_int_t HowMany(__builtin_uint_t index, __builtin_uint_t width) {
+  return (index % width == 0) ? index/width : index/width + 1; } 
+/* ⬷ See all the multiple flavors of 'fraction' in --<System.cpp>. */
 
 #pragma mark - 😐😇
 
@@ -903,7 +907,7 @@ typedef float float⁺ʳ; typedef double double⁺ʳ;
 
 /**  Relative-fixative types: */
 
-typedef uint8_t uchar; typedef uint32_t uint32; typedef uint8_t byte;
+typedef char8_t uchar; typedef uint32_t uint32; typedef uint8_t byte;
 
 #endif
 
