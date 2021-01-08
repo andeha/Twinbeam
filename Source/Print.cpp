@@ -119,8 +119,7 @@ unagain:
 }
 
 #ifdef __x86_64__
-typedef size_t ssize_t;
-extern "C" ssize_t write(int fd, const void * s, size_t nbyte);
+extern "C" long write(int fd, const void * s, long unsigned nbyte);
 #elif defined __mips__
 extern void (^Putₒ)(uint8_t * u8s, __builtin_int_t bytes);
 extern void (^Traceₒ)(uint8_t * u8s, __builtin_int_t bytes);
