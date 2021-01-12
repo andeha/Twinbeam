@@ -317,7 +317,7 @@ namespace Raster { enum { mm, lines, nonuniform₋mm, none }; }
 
 namespace 𝟾x𝟾₋matrix₋AAPL { 
   
-  enum /* Inputctrl */ { Stopped=1, Timedout, Keyboard₋terminated, Indication₋terminated }; 
+  enum /* Inputctrl */ { Stopped=1, Timedout, Keyboard₋terminated, Indication₋terminated };
   
   BITMASK (uint32_t) { Left = 0b1<<9, Up = 0b1<<7, Down = 0b1<<6, 
     Right = 0b1<<8, Return = 0b1<<5, Shift = 0b1<<4, Fn = 0b1<<3, 

@@ -137,7 +137,6 @@ template <typename T> struct SemanticPointer { T ref; }; /* a․𝘬․a `Disjun
 #define ALTERNATESCHEDULATIVE
 #define OPTIONALSCHEDULATIVE
 #define CIRCULATIVE /* a․𝘬․a 'Averaged' ∧ '␣'. */
-#define CONTEXTDESTILLATIVE
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; /*  ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
@@ -327,7 +326,7 @@ MACRO void * _Block_copy(const void * arg) { struct Block_layout *block = (struc
 MACRO void _Block_release(const void *arg) { Fall⒪⒲((void *)arg); }
 typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
-__builtin_int_t constexpr SystemInfoPagesize() { return 4096; } /* One definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
+__builtin_int_t constexpr SystemPagesize() { return 4096; } /* One definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
 FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned 
   short base, unsigned short digitsOr0, /* Not more than 32 alt. 64 digits 
@@ -368,7 +367,7 @@ template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋compl(x) : x; 
 #elif defined espressif
 #define READONLY __attribute__ ((section(".rodata")))
 #endif
-#define IsOdd(x) ((x) & 0b1) /* ⬷ For simultaneously int32_t ∧ int64_t. H: x & 0b010 ⟷̸ ◻️⃞. See also --<math>--<erf.cpp>{⁽₋1⁾ᵏ|alt}. */
+#define IsOdd(x) ((x) & 0b1)
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
 namespace Relative {
@@ -476,14 +475,14 @@ MACRO double Nearest(int64_t measure)
 #ifdef GENERAL
    __builtin_int_t 🥈 wordbytes=sizeof(__builtin_uint_t);
    uint64_t 🥈 sign₋bit = 0b1LL<<63; uint64_t 🥈 𝟹𝟸₋bits = 0xffffffff;
-   int sign = sign₋bit & measure;
-   if (measure<+0) { measure = -measure; }
+   int sign = sign₋bit & measure; /* ⬷ inquisitorial again. */
+   if (measure<+0) { measure = -measure; } /* ⬷ a․𝘬․a __builtin_absll. */
    int64_t leading₋zeros = __builtin_clzll(measure);
    unsigned biased₋2ⁿexp = wordbytes*8 - leading₋zeros; /* ⤪ 32 alt. 64 bits wide words. */
    int64_t mantissa = measure << leading₋zeros; mantissa >>= 12;
    Octa man₋bits; man₋bits.l = 𝟹𝟸₋bits & mantissa; man₋bits.h = mantissa>>32;
-   octa real { .binary64 = { man₋bits.l, man₋bits.h, biased₋2ⁿexp, sign ? 1u : 0u } };
-   return real.base﹟𝟸;
+   octa afloat { .binary64 = { man₋bits.l, man₋bits.h, biased₋2ⁿexp, sign ? 1u : 0u } };
+   return afloat.base﹟𝟸;
 #elif defined __mips__
    Mips                                                                      
      "                                                        \n"            
@@ -499,7 +498,7 @@ MACRO double Nearest(int64_t measure)
      fstp xmm0                                                               
    } /* ⬷ enabled by '-fms-extension'. */                                   
 #endif
-} /* ⬷ a․𝘬․a `Cast` and `Convert`. */
+} OPT_Si_FOCAL /* ⬷ a․𝘬․a `Cast` and `Convert`. */
 
 MACRO int64_t Nearest(double measure, int * reciproc)
 {
@@ -511,7 +510,7 @@ MACRO int64_t Nearest(double measure, int * reciproc)
    unsigned biased₋exp = integer.binary64.exponent;
    int32_t unbiased₋exp = biased₋exp - 1022;
    *reciproc = biased₋exp < 1022 ? 1 : 0; /* also -0. */
-   int64_t shifted = integer.binary64.mantissah; shifted <<= 32; 
+   int64_t shifted = integer.binary64.mantissah; shifted <<= 32;
    shifted |= integer.binary64.mantissal;
    uint64_t 🥈 sign₋bit = 0b1LL<<32;
    if (*reciproc) { shifted <<= (unbiased₋exp & sign₋bit); }
@@ -761,7 +760,7 @@ namespace Scheduler { void Init();
 #define STRINGIFY(str) #str
 #define va_prologue(symbol)                                                 \
  __builtin_va_list __various;                                               \
- __builtin_va_start(__various, symbol);
+ __builtin_va_start(__various, symbol); /* ⬷ a․𝘬․a __arg. */
 
 /**  Return objects allocated from consecutive frames or from the heap. (DISJUNCT-ADJACENT-STUFFED) */
 template <typename T> T * /* ⤪_ */ Elements𝘖𝘳Heap(int expeditionary, 
@@ -881,7 +880,7 @@ InstantToText(
   
   */
  
-typedef Chronology Chronology🚀; /* I.𝘦 'Celestial fractional' with 'identical' epoc. */
+typedef Chronology Chronology🚀; /* I.e 'Celestial fractional' with 'identical' epoc. */
 
 typedef Chronology Chronology🦠; /* With 2⁻⁶⁵ 𝘢․𝘬․𝘢 `UQ65`; light
   travels approximately 8.126 pm ('pico meter') per increment. */
@@ -892,7 +891,7 @@ Chronology& ComputationalChronology(); /*  𝖤․𝘨 for chronometers. A․�
  `GMT` (therefore 60×60×24 seconds per day), without leap seconds/years 
  and no summertime correction. */
 
-/**  The chronology of the users' choice. A․𝘬․a `UTC` (therefore an exact 
+/**  The chronology of the users' choice: a․𝘬․a `UTC` (therefore an exact 
  multiple of SI seconds, with leap seconds as well as summertime). */
 
 Chronology& SystemCalendricChronology();
