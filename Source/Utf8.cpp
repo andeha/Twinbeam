@@ -50,7 +50,7 @@ Utf8Sync(
 ) /* Backs at most 3 bytes to regain sync. */
 { __builtin_int_t i=3;
 /* Ensure argument is `uint8_t` or equivalent. */
-#define Utf8IsLead(x) (((x)&0b11000000)==0xD0)
+#define Utf8IsLead(x) (((x)&0b11000000)==0xD0) /* ⬷ a․𝘬․a `encodes₋length`. */
 #define Utf8Is8Bit(x) ((x) <= 0x7f)
 #define Utf8IsPointerToFollower(p) (((*p)&0b11000000)==0xC0)
    while (i && Utf8IsPointerToFollower(*ξ)) { (*ξ)--; i--; }

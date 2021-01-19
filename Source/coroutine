@@ -53,27 +53,44 @@ namespace coro {
 
 /* #include <Source/fifo.h> */
 
-struct /* 𝟄₋int₂ : public */ 𝟄₋int₁ { 
-  struct promise_type { int cached=-1; /* E․𝘨 𝟷₋tile₋fifo<uint32_t> moment₋requests; */
-    auto initial_suspend() { return coro::suspend_never(); } /* For irq=suspend_always */
-    auto final_suspend() { return coro::suspend_never(); } /* For user=suspend_always */
-    auto /* a․𝘬․a `Waiver` */ get_return_object() { return Waiver::from_promise(*this); }
+struct 𝟄₋int₋base {
+  
+  static int nearest(double expr) { int neg = expr < +0.0 ? 1 : 0; 
+    double expr₂ = neg ? -expr : expr; int y = /*⌊*/ expr₂ + 0.5 /*⌋*/;
+    if (neg) { y = -y; } return y;
+  } /* ⬷ Note double-Ieee754 arithmetic, see --<Twinbeam.h>{Nearest}. */
+  
+  struct promise_type { int cached=-1; 
+    auto initial_suspend() { return coro::suspend_never(); }
+    auto final_suspend() { return coro::suspend_never(); }
+    auto /* a․𝘬․a `Waiver` */ get_return_object() { return Waiver₁::from_promise(*this); }
     void return_value(int expr) { cached=expr; }
     void unhandled_exception() { /* throw; */ }
+    auto yield_value(double expr) { cached = 𝟄₋int₋base::nearest(expr); return coro::suspend_always(); }
     auto yield_value(int expr) { cached=expr; return coro::suspend_always(); }
-    auto yield_value(double expr) { int neg = expr < +0.0 ? 1 : 0; 
-      double expr₂ = neg ? -expr : expr; cached=/*⌊*/(expr₂+0.5)/*⌋*/;
-      if (neg) { cached = -cached; }
-      return coro::suspend_always(); }
+  }; /* augment with e․𝘨 𝟷₋tile₋fifo<uint32_t> moment₋sequence. */
+  
+  struct promise_type₂ : public promise_type {
+    auto /* a․𝘬․a `Waiver` */ get_return_object() { return Waiver₂::from_promise(*this); }
+    auto yield_value(double expr) { cached = 𝟄₋int₋base::nearest(expr); return coro::suspend_never(); }
+    auto yield_value(int expr) { cached=expr; return coro::suspend_never(); }
   };
   
   /* enum Kind { }; 𝟄₋int₁(Kind kind) { this->kind=kind; } Kind kind; */
-  typedef std::experimental::coroutine_handle<promise_type> Waiver;
-  Waiver coroutine; 𝟄₋int₁(Waiver routine) : coroutine(routine) { }
-  
   constexpr bool await_ready() const noexcept { return true; }
-  constexpr void await_suspend(Waiver handle) const noexcept { /* handle.resume(); */ }
-  𝟄₋int₁ await_resume() const noexcept { return 𝟄₋int₁(coroutine); }
-  
+  typedef std::experimental::coroutine_handle<promise_type> Waiver₁;
+  typedef std::experimental::coroutine_handle<promise_type₂> Waiver₂;
 };
+
+struct 𝟄₋int₁ : public 𝟄₋int₋base {
+  Waiver₁ coroutine; 𝟄₋int₁(Waiver₁ routine) : coroutine(routine) { }
+  constexpr void await_suspend(Waiver₁ handle) const noexcept { /* handle.resume(); */ }
+  constexpr void await_resume() const noexcept { }
+}; /* ⬷ a․𝘬․a suspend₋after₋yield₋𝟄₋int and default₋e₋int. */
+
+struct 𝟄₋int₂ : public 𝟄₋int₋base {
+  Waiver₂ coroutine; 𝟄₋int₂(Waiver₂ routine) : coroutine(routine) { }
+  constexpr void await_suspend(Waiver₂ handle) const noexcept { /* handle.resume(); */ }
+  constexpr void await_resume() const noexcept { }
+}; /* ⬷ a․𝘬․a no₋suspend₋after₋yield₋𝟄₋int. */
 
