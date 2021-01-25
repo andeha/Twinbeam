@@ -60,49 +60,43 @@ struct 𝟄₋int₋base {
     if (neg) { y = -y; } return y;
   } /* ⬷ Note double-Ieee754 arithmetic, see --<Twinbeam.h>{Nearest}. */
   
-  struct promise_type { int cached=-1; 
+  union cargo₋payload { int ℤ; char32_t symbol; }; /* ⬷ may augment with e․𝘨 '𝟷₋tile₋fifo<uint32_t> moment₋sequence'. */
+  
+  struct promise_type { int kind; cargo₋payload transport; /* ⬷ a․𝘬․a /schema/. */
     auto initial_suspend() { return coro::suspend_never(); }
     auto final_suspend() { return coro::suspend_never(); }
-    auto /* a․𝘬․a `Waiver` alt․ 'hänvisning' */ get_return_object() { return Waiver₁::from_promise(*this); }
-    void return_value(int expr) { cached=expr; }
     void unhandled_exception() { /* throw; */ }
-    auto yield_value(double expr) { cached = 𝟄₋int₋base::nearest(expr); return coro::suspend_always(); }
-    auto yield_value(int expr) { cached=expr; return coro::suspend_always(); }
-  }; /* augment with e․𝘨 𝟷₋tile₋fifo<uint32_t> moment₋sequence. */
-  
-  struct promise_type₂ : public promise_type {
-    auto /* a․𝘬․a `Waiver` */ get_return_object() { return Waiver₂::from_promise(*this); }
-    auto yield_value(double expr) { cached = 𝟄₋int₋base::nearest(expr); return coro::suspend_never(); }
-    auto yield_value(int expr) { cached=expr; return coro::suspend_never(); }
+    void return_value(char32_t uc) { transport.symbol = uc; }
+    void return_value(int expr) { transport.ℤ = expr; }
+    coro::base₋suspend branch₋for₋yield() { if (kind) return coro::suspend_never(); else return coro::suspend_always(); }
+    auto /* a․𝘬․a `Waiver` alt. 'hänvisning' */ get_return_object() { return Waiver::from_promise(*this); }
+    auto yield_value(char32_t uc) { transport.symbol = uc; return branch₋for₋yield(); }
+    auto yield_value(int expr) { transport.ℤ = expr; return branch₋for₋yield(); }
+    auto yield_value(double expr) { transport.ℤ = 𝟄₋int₋base::nearest(expr); return branch₋for₋yield(); }
   };
   
-  struct promise_type₃ { char32_t uc₋cached; 
-    auto /* a․𝘬․a `Waiver` */ get_return_object() { return Waiver₃::from_promise(*this); }
-    auto yield_value(char32_t uc) { uc₋cached=uc; return coro::suspend_never(); }
-  };
+  enum { no₋suspend₋after₋yield, suspend₋after₋yield }; /* ⬷ a․𝘬․a /pond/. */
   
-  /* enum Kind { }; 𝟄₋int₁(Kind kind) { this->kind=kind; } Kind kind; */
   constexpr bool await_ready() const noexcept { return true; }
-  typedef std::experimental::coroutine_handle<promise_type> Waiver₁;
-  typedef std::experimental::coroutine_handle<promise_type₂> Waiver₂;
-  typedef std::experimental::coroutine_handle<promise_type₃> Waiver₃;
+  typedef std::experimental::coroutine_handle<promise_type> Waiver;
 };
 
 struct 𝟄₋int₁ : public 𝟄₋int₋base {
-  Waiver₁ coroutine; 𝟄₋int₁(Waiver₁ routine) : coroutine(routine) { }
-  constexpr void await_suspend(Waiver₁ handle) const noexcept { /* handle.resume(); */ }
+  Waiver coroutine; 𝟄₋int₁(Waiver routine) : coroutine(routine) { }
+  constexpr void await_suspend(Waiver handle) const noexcept { /* handle.resume(); */ }
   constexpr void await_resume() const noexcept { }
-}; /* ⬷ a․𝘬․a suspend₋after₋yield₋𝟄₋int and default₋e₋int. */
+}; /* ⬷ a․𝘬․a default₋𝟄₋int and suspend₋after₋yield₋𝟄₋int. */
 
 struct 𝟄₋int₂ : public 𝟄₋int₋base {
-  Waiver₂ coroutine; 𝟄₋int₂(Waiver₂ routine) : coroutine(routine) { }
-  constexpr void await_suspend(Waiver₂ handle) const noexcept { /* handle.resume(); */ }
+  Waiver coroutine; 𝟄₋int₂(Waiver routine) : coroutine(routine) { }
+  constexpr void await_suspend(Waiver handle) const noexcept { /* handle.resume(); */ }
   constexpr void await_resume() const noexcept { }
 }; /* ⬷ a․𝘬․a no₋suspend₋after₋yield₋𝟄₋int. */
 
 struct convention₋𝟄₋int : public 𝟄₋int₋base {
-  Waiver₃ coroutine; convention₋𝟄₋int(Waiver₃ routine) : coroutine(routine) { }
-  constexpr void await_suspend(Waiver₃ handle) const noexcept { /* handle.resume(); */ }
+  Waiver coroutine; convention₋𝟄₋int(Waiver routine) : coroutine(routine) { }
+  constexpr void await_suspend(Waiver handle) const noexcept { /* handle.resume(); */ }
   constexpr void await_resume() const noexcept { }
 }; /* ⬷ a․𝘬․a pipe₋and₋symbols₋𝟄₋int. */
+
 
