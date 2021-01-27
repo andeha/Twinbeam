@@ -68,7 +68,7 @@ struct 𝟄₋int₋base {
     constexpr void await_resume() const noexcept { }
     constexpr void await_suspend(std::experimental::coroutine_handle<>) const noexcept { }
     }; /* ⬷ a․𝘬․a grand₋i₋₍os₎₋episod, sch₋e₋ma, visk₋o₋slump, radio₋entropi, ha₋d₋a₋dd₋e, 
-     Södermalms scoutkår, skiva₋lutning, deportationsunderlåtelse. */
+     Scoutkår, skiva₋lutning, deportationsunderlåtelse. */
   };
   
   enum { suspend₋after₋yield, no₋suspend₋after₋yield }; /* ⬷ a․𝘬․a /pond/. */
