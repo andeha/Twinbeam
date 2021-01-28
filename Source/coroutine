@@ -1,4 +1,4 @@
-/*  coroutine - Non-experimental in C⁺⁺₂₀. */
+/*  coroutine - Non-experimental in C++20. */
 
 namespace std::experimental {
   
@@ -48,48 +48,49 @@ struct 𝟄₋int₋base {
   static int nearest(double expr) { int neg = expr < +0.0 ? 1 : 0; 
     double expr₂ = neg ? -expr : expr; int y = /*⌊*/ expr₂ + 0.5 /*⌋*/;
     if (neg) { y = -y; } return y;
-  } /* ⬷ Note double-Ieee754 arithmetic, see --<Twinbeam.h>{Nearest}. */
+  } /* ⬷ Resorts to double-Ieee754 arithmetic and doubles --<Twinbeam.h>{Nearest}. */
   
-  union cargo₋payload { int ℤ; char32_t symbol; }; /* ⬷ may augment with e․𝘨 '𝟷₋tile₋fifo<uint32_t> moment₋sequence'. */
+  union cargo₋payload { int ℤ; char32_t symbol; }; /* ⬷ may augment with '𝟷₋tile₋fifo<uint32_t> moment₋sequence'. */
   
- /* måtte-namne */ struct promise_type { int kind; cargo₋payload transport; /* ⬷ a․𝘬․a /schema/. */
-    auto initial_suspend() { return Y₋b₋Ej₋b₋Key { 1 }; }
-    auto final_suspend() { return Y₋b₋Ej₋b₋Key { 1 }; }
+ /* måtte-namne */ struct promise_type { cargo₋payload transport; /* ⬷ a․𝘬․a /schema/. */ 
+    int kind, emanates; /* ⬷ a․𝘬․a ray₋possibly₋scatter and 'thread𝘖rSolfjäder'. */
+    /* enum { suspend₋after₋yield, no₋suspend₋after₋yield }; ⬷ a․𝘬․a /pond/. */
+    auto initial_suspend() { return Tonart { 0 }; }
+    auto final_suspend() { return Tonart { 0 }; }
     void unhandled_exception() { /* throw; */ }
     void return_value(char32_t uc) { transport.symbol = uc; }
     void return_value(int expr) { transport.ℤ = expr; }
-    /* coro::element, ladder, a-page-e, sekvens, bort₋för₋klar₋i₋ng, fullfölja, branch₋for₋yield *‌/ nyckel() { if (kind) return coro::suspend_never(); else return coro::suspend_always(); } */
     auto /* a․𝘬․a `Waiver` alt. 'hänvisning' */ get_return_object() { return Waiver::from_promise(*this); }
-    auto yield_value(char32_t uc) { transport.symbol = uc; return Y₋b₋Ej₋b₋Key { kind }; }
-    auto yield_value(int expr) { transport.ℤ = expr; return Y₋b₋Ej₋b₋Key { kind }; }
-    auto yield_value(double expr) { transport.ℤ = 𝟄₋int₋base::nearest(expr); return Y₋b₋Ej₋b₋Key { kind }; }
-    struct Y₋b₋Ej₋b₋Key { int kind; 
-    constexpr bool await_ready() const noexcept { return kind ? false : true; } /* ⬷ 2-a måste-tvinga. */
+    auto yield_value(char32_t uc) { transport.symbol = uc; return Tonart { emanates }; }
+    auto yield_value(int expr) { transport.ℤ = expr; return Tonart { emanates }; }
+    auto yield_value(double expr) { transport.ℤ = 𝟄₋int₋base::nearest(expr); return Tonart { emanates }; }
+    struct /* Y₋b₋Ej₋b₋ */ Tonart { int emanates; 
+    constexpr bool await_ready() const noexcept { return emanates ? false : true; } /* ⬷ 2-a måste-tvinga. */
     constexpr void await_resume() const noexcept { }
-    constexpr void await_suspend(std::experimental::coroutine_handle<>) const noexcept { }
-    }; /* ⬷ a․𝘬․a grand₋i₋₍os₎₋episod, sch₋e₋ma, visk₋o₋slump, radio₋entropi, ha₋d₋a₋dd₋e, 
-     scoutkår, skiva₋lutning, deportationsunderlåtelse. */
+    constexpr void await_suspend(std::experimental::coroutine_handle<promise_type>) const noexcept { }
+    };
   };
   
-  enum { suspend₋after₋yield, no₋suspend₋after₋yield }; /* ⬷ a․𝘬․a /pond/. */
-  
-  constexpr bool await_ready() const noexcept { return true; }
   typedef std::experimental::coroutine_handle<promise_type> Waiver;
-  Waiver coroutine; 𝟄₋int₋base(Waiver routine) : coroutine(routine) { }
-  constexpr void await_resume() const noexcept { }
+  Waiver coroutine; 𝟄₋int₋base(int emanates, int kind, Waiver routine) : coroutine(routine) { 
+   coroutine.promise().emanates = emanates; coroutine.promise().kind = kind; }
+  constexpr bool await_ready() const noexcept { return true; }
   constexpr void await_suspend(Waiver handle) const noexcept { /* handle.resume(); */ }
 };
 
 struct 𝟄₋int₁ : public 𝟄₋int₋base {
-  𝟄₋int₁(Waiver routine) : 𝟄₋int₋base(routine) { }
+  𝟄₋int₁(Waiver routine) : 𝟄₋int₋base(1,0,routine) { }
+  𝟄₋int₁ await_resume() const noexcept { return 𝟄₋int₁(coroutine); }
 }; /* ⬷ a․𝘬․a `default₋𝟄₋int` and `suspend₋after₋yield₋𝟄₋int`. */
 
 struct 𝟄₋int₂ : public 𝟄₋int₋base {
-  𝟄₋int₂(Waiver routine) : 𝟄₋int₋base(routine) { }
+  𝟄₋int₂(Waiver routine) : 𝟄₋int₋base(0,0,routine) { }
+  𝟄₋int₂ await_resume() const noexcept { return 𝟄₋int₂(coroutine); }
 }; /* ⬷ a․𝘬․a `no₋suspend₋after₋yield₋𝟄₋int`. */
 
 struct convention₋𝟄₋int : public 𝟄₋int₋base {
-  convention₋𝟄₋int(Waiver routine) : 𝟄₋int₋base(routine) { }
+  convention₋𝟄₋int(Waiver routine) : 𝟄₋int₋base(0,1,routine) { }
+  convention₋𝟄₋int await_resume() const noexcept { return convention₋𝟄₋int(coroutine); }
 }; /* ⬷ a․𝘬․a `pipe₋and₋symbols₋𝟄₋int`. */
 
 
