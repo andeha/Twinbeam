@@ -73,9 +73,9 @@ extern void (^𝖿𝗆̲𝖺₋ℚ𝟷𝟻)(gpr r₁, gpr r₂, gpr r₌, void (
 extern void (^𝖿𝗆̲𝖺₋ℤ₆₄₍𝚖𝚘𝚍𝟸⁶³₎𝚠𝚒𝚝𝚑𝚘𝚞𝚝𝚄𝙼𝙰𝚇)(gpr 𝚛₁, gpr 𝚛₂, gpr rʰ, gpr rˡ, void (^overflow)(void *) /* = µProcᵖ::nothing𝘖rNull */);
 extern void (^𝖿𝗆̲𝖺₋ℝ²)(gpr 𝚛₁, gpr 𝚛₂, gpr r₌, void (^overflow)(void *) /* = µProcᵖ::nothing𝘖rNull */);
 extern void (^𝗋𝖾𝖼𝗂𝗉𝗋𝗈𝖼)(gpr r, gpr inv, 𝗚𝗿𝗮𝗻𝘂𝗹 g, gpr r₌); /* ⬷ Ieee754 𝘦․𝘨 simd_tᵦ. */
-extern void (^𝗇𝖾𝗀𝖺𝗍𝖾)(gpr r, gpr neg, 𝗚𝗿𝗮𝗻𝘂𝗹 g, gpr r₌); /* ⬷ alternates sign. */
-extern void (^𝖺𝖽𝖽)(gpr 𝚛₁, gpr 𝚛₂, gpr r₌, 𝗦𝗼𝗿𝘁 s, 𝗚𝗿𝗮𝗻𝘂𝗹 g, void (^carry𝘖rOverflow)(void *) /* = µProcᵖ::nothing𝘖rNull */);
-extern void (^𝗌𝗎𝖻)(gpr 𝚛₁, gpr 𝚛₂, gpr r₌, 𝗦𝗼𝗿𝘁 s, 𝗚𝗿𝗮𝗻𝘂𝗹 g, void (^carry𝘖rOverflow)(void *) /* = µProcᵖ::nothing𝘖rNull */);
+extern void (^𝗇𝖾𝗀𝖺𝗍𝖾)(gpr r, gpr neg, 𝗦𝗼𝗿𝘁 s, 𝗚𝗿𝗮𝗻𝘂𝗹 g, gpr r₌); /* ⬷ alternates sign. */
+extern void (^𝗌𝗂𝗀𝗇𝖾𝖽₋𝖺𝖽𝖽)(gpr 𝚛₁, gpr 𝚛₂, gpr r₌, 𝗦𝗼𝗿𝘁 s, 𝗚𝗿𝗮𝗻𝘂𝗹 g, void (^carry𝘖rOverflow)(void *) /* = µProcᵖ::nothing𝘖rNull */);
+extern void (^𝗌𝗂𝗀𝗇𝖾𝖽₋𝗌𝗎𝖻)(gpr 𝚛₁, gpr 𝚛₂, gpr r₌, 𝗦𝗼𝗿𝘁 s, 𝗚𝗿𝗮𝗻𝘂𝗹 g, void (^carry𝘖rOverflow)(void *) /* = µProcᵖ::nothing𝘖rNull */);
 extern void (^𝗋𝖾𝖺𝗹₋𝗆𝗎𝗅)(gpr 𝚛₁, gpr 𝚛₂, gpr r₌, 𝗦𝗼𝗿𝘁 s, 𝗚𝗿𝗮𝗻𝘂𝗹 g, void (^overflow)(void *) /* = µProcᵖ::nothing𝘖rNull */);
 extern void (^𝖿𝗂𝗑₋𝗆𝗎𝗅)(gpr 𝚛₁, gpr 𝚛₂, gpr rʰ, gpr rˡ, 𝗦𝗼𝗿𝘁 s, 𝗚𝗿𝗮𝗻𝘂𝗹 g, void (^overflow)(void *) /* = µProcᵖ::nothing𝘖rNull */);
 extern void (^𝖿𝗂𝗑₋𝖽𝗂𝗏)(gpr 𝚛₁, gpr 𝚛₂, gpr modula, gpr ℕ, 𝗦𝗼𝗿𝘁 s, 𝗚𝗿𝗮𝗻𝘂𝗹 g, void (^underflow)(void *) /* = µProcᵖ::nothing𝘖rNull */);
