@@ -76,8 +76,7 @@ int64_t Large₋𝟺₋cookie(__builtin_uint_t ℕ, int * overflow);
 uint32_t Small₋𝟺₋cookie(__builtin_int_t ℤ, int * negative, int * overflow);
 int32_t Small₋𝟺₋cookie(__builtin_uint_t ℕ, int * overflow);
 __builtin_int_t bi₋normal(int64_t ℂ, void (^sometime)(int32_t distorsion));
-__builtin_int_t bi₋normal(int32_t ℂ); __builtin_int_t bi₋normal(int16_t ℂ);
-__builtin_int_t bi₋normal(int8_t ℂ);
+/* __builtin_int_t bi₋normal(int32_t ℂ); __builtin_int_t bi₋normal(int16_t ℂ); __builtin_int_t bi₋normal(int8_t ℂ); */
 #define BITMASK(type) enum : type
 #ifdef  __mips__
 #define Mips __asm__ __volatile__ (/* ".set noat   \n" */ ".set noreorder  \n" ".set nomacro    \n"
@@ -416,11 +415,11 @@ __builtin_int_t LeastPossibleResidue(__builtin_int_t dividend, __builtin_int_t d
 
 #pragma mark Utf-8
 
-int UnicodeToUtf8(char32_t Ξ, void (^sometime₋valid)(const uint8_t *ξ, short bytes));
+int UnicodeToUtf8(char32_t Ξ, void (^sometime₋valid)(const char8_t *ξ, short bytes));
 
-short Utf8Followers(uint8_t lead𝘖r8Bit); /* ⬷ Recognize modern `char8_t`. */
+short Utf8Followers(char8_t lead𝘖r8Bit); /* ⬷ Recognize modern `char8_t`, formerly `uint8_t`. */
 
-char32_t Utf8ToUnicode(const uint8_t *ξ, __builtin_int_t bytes);
+char32_t Utf8ToUnicode(const char8_t * ξ, __builtin_int_t bytes);
 
 struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; };
 
@@ -436,7 +435,7 @@ struct 𝟽bit₋text { __builtin_int_t bytes; 𝟽bit₋pointer segment; };
 struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * segment; }; /* ⬷ Type 
  'char' C implementation dependent whether signed/unsigned. See '-fno-signed-char'. */
 
-struct utf8₋text { __builtin_int_t bytes; uint8_t * segment; }; /* Unicode signed. */
+struct utf8₋text { __builtin_int_t bytes; char8_t * segment; };
 
 typedef union {
    double base﹟𝟸; /* Captures 2⁻¹⁰²² and 2¹⁰²³ or in engineering: 2․23×10⁻³⁰⁸ to 1․79×10³⁰⁸. */
@@ -719,7 +718,7 @@ inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
 
 /* ⤮ time-transaction 'hinner-upp' time-ruminated-whilst-jotting-valid. */
 
-/* #include <Source/fiber₁> a․𝘬․a 'solid-gas'. */
+/* #include <Source/fiber₁> */
 #include <Source/coroutine>
 
 namespace Scheduler { void Init(); 
@@ -727,7 +726,7 @@ namespace Scheduler { void Init();
   /* typedef 𝟄₋int₁ (*Coroutine₋1)(void * ctx); /‌* ⬷ and at least one 
     of 'co_await', 'co_yield' and 'co_return'. */
   
-  extern void * ʰᵚcollection; /* ⬷ a․𝘬․a Map<irq₋no, Coroutine₋task>. */
+  extern void * hw₋collection; /* ⬷ a․𝘬․a Map<irq₋no, Coroutine₋task>. */
   
   /*  𝟄₋int₁ y = co_await coroutine₋name(ctx);
    auto retrieved = ^(𝟄₋int₁& y) { return y.coroutine.promise().cached; };
