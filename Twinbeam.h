@@ -29,7 +29,7 @@ typedef int32_t             __builtin_int_t;
 typedef unsigned int        uint32_t;
 typedef int                 int32_t; /* ≡`long` */
 typedef uint64_t            __builtin_uint_t;
-typedef int64_t             __builtin_int_t; /* a․𝘬․a `sequential`. */
+typedef int64_t             __builtin_int_t; /* ⬷ a․𝘬․a `sequential`. */
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
 #endif /* ⬷ Consider 32- alt. 64-bits with an extra sign bit for `Frame`, `leqAndPowerOfTwo`, `geqAndPowerOfTwo` and `isPowerOfTwo`. */
 typedef unsigned short      uint16_t;
@@ -236,19 +236,18 @@ MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
 enum class Ieee754Form { Scientific, Saturn, Monetary }; /* ⬷ Occasionally `intrinsic_and_base₋10`. */
 DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t 𝟷𝟶₋base));
 int print(const char * utf8format,...); int mfprint(const char * utf8format,...);
-int print(void (^out)(uint8_t * u8s, __builtin_int_t bytes), const char * utf8format, ...);
+int print(void (^out)(char8_t * u8s, __builtin_int_t bytes), const char * utf8format, ...);
 struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, void * context); 
  typedef void (^Output)(Unicode set, void * context); union { __builtin_int_t d; 
- __builtin_uint_t x, b; const char * utf8; struct /* Unicodes */ { char32_t * 
- unicodes; __builtin_int_t tetras; } ucs; char c; char32_t uc; double f₁; float f₂; 
- uint8_t bytes[16]; 
+ __builtin_uint_t x, b; const char8_t * utf8; struct /* Unicodes */ { char32_t * unicodes; 
+ __builtin_int_t tetras; } ucs; char8_t c; char32_t uc; double f₁; float f₂; uint8_t bytes[16]; 
 #ifdef simd₋integers
  __uint128_t U; __int128_t I;
 #endif
  uint64_t pair[2]; struct { Output scalar; void * context; } λ; } value; int kind; };
 Argᴾ ﹟d(__builtin_int_t d); Argᴾ ﹟x(__builtin_uint_t x); Argᴾ ﹟b(__builtin_uint_t 
-b); Argᴾ ﹟s(const char * utf8); Argᴾ ﹟S(__builtin_int_t tetras, char32_t * uc); Argᴾ 
-﹟c(char c); Argᴾ ﹟C(char32_t C); 
+b); Argᴾ ﹟s(const char8_t * utf8); Argᴾ ﹟S(__builtin_int_t tetras, char32_t * uc); 
+Argᴾ ﹟c(char8_t c); Argᴾ ﹟C(char32_t C); 
 #ifdef simd₋integers
 Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
 #endif
@@ -331,10 +330,10 @@ FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned
   short base, unsigned short digitsOr0, /* Not more than 32 alt. 64 digits 
   depending on word size! (Or set to `0` to skip leading zeros.) */ void
   (^out)(char 𝟶to𝟿)); /* See --<Print.cpp> for a 128-bit version. */
-void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿and₋));
+void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char8_t 𝟶to𝟿and₋));
 #ifdef simd₋integers
-void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿and₋));
-void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿));
+void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char8_t 𝟶to𝟿and₋));
+void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digitsOr0, void (^out)(char8_t 𝟶to𝟿));
 #endif
 #define OVERLOADABLE __attribute__ ((overloadable))
 #define SIGNBIT_INT32 0x80000000
@@ -408,7 +407,7 @@ template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* a․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 🎿 'jurid' and 'förekomst'. Also 'machinal'. */
 template <typename T> T * Critic(const T * x) { return const_cast<T*>(x); }
 template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* a․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
-__builtin_int_t LeastPossibleResidue(__builtin_int_t dividend, __builtin_int_t divisor);
+__builtin_int_t least₋possible₋residue(__builtin_int_t dividend, __builtin_int_t divisor);
 /* ⬷ See --<Wiki>--<Essays>--<On Clocks and Time> and 'circular reasoning'. */
 #define auto₋rollback(variable) decltype(variable)
 #define ᶿ﹡ const * /* #define *⥃ const char * /​* a․𝘬․a `*⥆` and `*⫩`. */
@@ -417,7 +416,7 @@ __builtin_int_t LeastPossibleResidue(__builtin_int_t dividend, __builtin_int_t d
 
 int UnicodeToUtf8(char32_t Ξ, void (^sometime₋valid)(const char8_t *ξ, short bytes));
 
-short Utf8Followers(char8_t lead𝘖r8Bit); /* ⬷ Recognize modern `char8_t`, formerly `uint8_t`. */
+short Utf8Followers(char8_t lead𝘖r8Bit); /* ⬷ Recognize modern `char8_t` formerly `uint8_t`. */
 
 char32_t Utf8ToUnicode(const char8_t * ξ, __builtin_int_t bytes);
 
@@ -462,7 +461,7 @@ struct Octa { uint32_t l, h; };
 
 /*  MACRO double nearest₋naive(int64_t measure) { return (double)measure; }
 MACRO int64_t nearest₋naive(double measure) { return (int64_t)measure; } 
- ⬷ Truncates fraction. */
+ ⬷ Incorrect truncation for negative fractions. */
 
 #if !(defined __armv6__ || defined __MM__ || defined espressif)
 #define IEEE754_ARITHMETICS_INSIDE
@@ -609,7 +608,7 @@ enum class Endianness { Native, Network };
 
 #pragma mark - 📖😐 ”𝑈𝑛𝑖𝑐𝑜𝑑𝑒”
 
-int Utf8Sync(uint8_t **p); /* Backs at most 3 bytes to regain sync. */
+int Utf8Sync(char8_t **p); /* Backs at most 3 bytes to regain sync. */
 
 inline char32_t Superscript(short 𝟶to𝟿) { return U'⁰'+𝟶to𝟿; } /* ⁰¹⋯⁹ */
 
@@ -620,7 +619,7 @@ struct Unicodes { __builtin_int_t tetras; char32_t * unicodes; }; /* For
  and parsing and editing, see --<Kiddle.hpp> and --<2ᵈ-𝔣ow.hpp> respectively. 
  See also: --<🥽 Cordal.cpp>. */
 
-enum { END_OF_TRANSMISSION = U'\u0004' }; /* ⬷ hex ∧ dec; Also A․|incorrectly/𝘬․a '\x4', '\x41', '\x42', … */
+enum { END_OF_TRANSMISSION = U'\u0004' }; /* ⬷ hex ∧ dec; also a․|incorrectly/𝘬․a '\x4', '\x41', '\x42', … */
 
 #pragma mark - For 𝑝𝑖𝑔𝑒𝑜𝑛 𝑟𝑒𝑐𝑜𝑛𝑛𝑎𝑖𝑠𝑠𝑎𝑛𝑐𝑒, 𝑠𝑐𝑜𝑢𝑡𝑖𝑛𝑔 and other missions
 #pragma mark - Still images, timeseries and language analysis
@@ -866,7 +865,7 @@ int
 InstantToText(
   Chronology chronology,
   Chronology::Instant ts, bool incl₋frac,
-  void (^out)(char digitHyphenColonPeriod𝘖rSpace)
+  void (^out)(char8_t digitHyphenColonPeriod𝘖rSpace)
 );
 
  /*
