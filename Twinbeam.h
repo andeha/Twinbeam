@@ -335,26 +335,29 @@ void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short digitsOr0
 void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char8_t 𝟶to𝟿and₋));
 void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digitsOr0, void (^out)(char8_t 𝟶to𝟿));
 #endif
-#define OVERLOADABLE __attribute__ ((overloadable))
 #define SIGNBIT_INT32 0x80000000
 #define SIGNBIT_INT64 0x8000000000000000 
-/* ⬷ a․𝘬․a -0, 'FURTHEST_AWAY +1 alt․ ++', '0b1<<31alt63' and ♯`INT_MIN`. */
-MACRO int64_t abs64i(int64_t x) { return x & ~SIGNBIT_INT64; }
-MACRO int32_t abs32i(int32_t x) { return x & ~SIGNBIT_INT32; }
-/* template <typename ℤ> ℤ abs₁(ℤ x) { return x < 0 ? -x : x; }
-template <typename ℝ> T abs(ℝ x) { return x <= -0.0 ? -x : x; }  */
-template <typename ℕ> void invert(ℕ & x) { x = ~x; } /* a․𝘬․a `toggle₋all`. */
+/* ⬷ a․𝘬․a INT_MIN and '0b1<<31alt63'. */
+MACRO int64_t 𝟸₋compl(int64_t x) { x=~x; return ++x; }
+MACRO int32_t 𝟸₋compl(int32_t x) { x=~x; return ++x; }
+MACRO int64_t abs64i₁(int64_t x) { return x < 0 ? 𝟸₋compl(x) : x; }
+MACRO int32_t abs32i₁(int32_t x) { return x < 0 ? 𝟸₋compl(x) : x; }
+MACRO int64_t abs64i₂(int64_t x) { return __builtin_labs(x); }
+MACRO int32_t abs32i₂(int32_t x) { return __builtin_abs(x); }
+template <typename ℕ> void invert(ℕ & x) { x = ~x; } /* ⬷ a․𝘬․a `toggle₋all`. */
 template <typename ℕ> void 𝟸₋compl(ℕ & x) { invert(x); ++x; }
 template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋compl(x) : x; }
 /* ⬷ Notice `x` = INT_MIN is not representable as a positive number¹ and maps 
  back to the same bit pattern. (Similar with 'identity a․𝘬․a zero'.) */
-#define /* PROVOCATIVE */ ASSEMBLERONLY __attribute__((naked)) /* a․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN, NEITHER_PROLOGUE_NOR_EPILOGUE. */
+#define /* PROVOCATIVE */ ASSEMBLERONLY __attribute__((naked)) 
+/* ⬷ a․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN, NEITHER_PROLOGUE_NOR_EPILOGUE. */
 /* #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error"))) */
+#define Sourpatch(sym,msg) /* ⬷ a․𝘬․a link-forget. */
 /* #define STRANGE_MAIN void _Noreturn main */
-#define MOMENT /* Attribute-at-end for method declarations; a․𝘬․a `LEAF` and 'do not follow'. */
-#define moment /* Initial attribute for function definitions and declarations; a․𝘬․a `leaf`. */
-#define half₋moment /* a․𝘬․a `half₋leaf`. Multiple attempts-w(as)-silicon-based. */
-/* ⬷ ...except intrinsic functions! */
+#define MOMENT /* ⬷ attribute-at-end for method declarations a․𝘬․a `LEAF` and 'do not follow'. */
+#define moment /* ⬷ initial attribute for function definitions and declarations a․𝘬․a `leaf`. */
+#define intrinsic₋leaf /* ⬷ a․𝘬․a `half₋leaf`. Multiple attempts-w(as)-silicon-based. */
+#define leaf₋function /* ⬷ ...except intrinsic functions! */
 #ifdef __x86_64__
 #define READONLY __attribute__ ((section(".rodata,.rodata")))
 #elif defined __mips__
@@ -374,7 +377,7 @@ template <typename T> T difference(T x₁, T x₂) { return x₁ - x₂; }
 template <typename T> T ˡchange(T x₁, T x₂) { return (x₁ - x₂) / x₂; } /* ∈[0,1]. */
 template <typename T> T ʳchange(T x₁, T x₂) { return (x₂ - x₁) / x₁; } /* ∉[0,1]. */
 #if (defined __mips__ || defined __armv6__ || defined espressif) && defined __cpp_concepts
-#define innominate auto /* a․𝘬․a `innominate-type`. */
+#define innominate auto /* ⬷ a․𝘬․a `innominate-type`. */
 template <typename T> concept Relative₋accumulative = requires (T x₁, T x₂) {
  x₁ + x₂ /* -> int */; /*{*/ x₁ - x₂ /*} -> Same<bool>*/; Zero(x₂) /* -> T*/; };
  /* ⬷ a․𝘬․a `Turtle` and 'algebraic category'. To instatiate write similar to 
