@@ -136,6 +136,7 @@ template <typename T> struct SemanticPointer { T ref; }; /* a․𝘬․a `Disjun
 #define ALTERNATESCHEDULATIVE
 #define OPTIONALSCHEDULATIVE
 #define CIRCULATIVE /* a․𝘬․a 'Averaged' ∧ '␣'. */
+#define CONTEXTDESTILLATIVE
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; /*  ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
@@ -336,7 +337,7 @@ void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short digitsOr0, voi
 void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digitsOr0, void (^out)(char8_t 𝟶to𝟿));
 #endif
 #define SIGNBIT_INT32 0x80000000
-#define SIGNBIT_INT64 0x8000000000000000 
+#define SIGNBIT_INT64 0x8000000000000000
 /* ⬷ a․𝘬․a INT_MIN and '0b1<<31alt63'. */
 MACRO int64_t 𝟸₋compl(int64_t x) { x=~x; return ++x; }
 MACRO int32_t 𝟸₋compl(int32_t x) { x=~x; return ++x; }
@@ -345,18 +346,15 @@ MACRO int32_t abs32i₁(int32_t x) { return x < 0 ? 𝟸₋compl(x) : x; }
 MACRO int64_t abs64i₂(int64_t x) { return __builtin_labs(x); }
 MACRO int32_t abs32i₂(int32_t x) { return __builtin_abs(x); }
 template <typename ℕ> void invert(ℕ & x) { x = ~x; } /* ⬷ a․𝘬․a `toggle₋all`. */
-template <typename ℕ> void 𝟸₋compl(ℕ & x) { invert(x); ++x; }
-template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋compl(x) : x; }
-/* ⬷ Notice `x` = INT_MIN is not representable as a positive number¹ and maps 
- back to the same bit pattern. (Similar with 'identity a․𝘬․a zero'.) */
-#define /* PROVOCATIVE */ ASSEMBLERONLY __attribute__((naked)) 
-/* ⬷ a․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN, NEITHER_PROLOGUE_NOR_EPILOGUE. */
-/* #define indisponible(D) __attribute__((diagnose_if(!__is_identifier(D), "Indisponible function call", "error"))) */
-#define Sourpatch(sym,msg) /* ⬷ a․𝘬․a link-forget. */
-/* #define STRANGE_MAIN void _Noreturn main */
+template <typename ℕ> void 𝟸₋Compl(ℕ & x) { invert(x); ++x; }
+template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋Compl(x) : x; }
+/* ⬷ When x is set to INT_MIN, the interpretation is not representable as a positive 
+ number and maps back to the same bit pattern when 2-complemented. (Two-complementing 
+'identity a․𝘬․a zero' wraps and equals 0 when pattern is assumed unsigned.) */
+/* ⬷ a․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN and NEITHER_PROLOGUE_NOR_EPILOGUE. */
 #define MOMENT /* ⬷ attribute-at-end for method declarations a․𝘬․a `LEAF` and 'do not follow'. */
 #define moment /* ⬷ initial attribute for function definitions and declarations a․𝘬․a `leaf`. */
-#define intrinsic₋leaf /* ⬷ a․𝘬․a `half₋leaf`. Multiple attempts-w(as)-silicon-based. */
+#define intrinsic₋leaf /* ⬷ a․𝘬․a `half₋leaf`; multiple attempts-w(as)-silicon-based. */
 #define leaf₋function /* ⬷ ...except intrinsic functions! */
 #ifdef __x86_64__
 #define READONLY __attribute__ ((section(".rodata,.rodata")))
@@ -368,7 +366,10 @@ template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋compl(x) : x; 
 #elif defined espressif
 #define READONLY __attribute__ ((section(".rodata")))
 #endif
-#define IsOdd(x) ((x) & 0b1)
+/* #define STRANGE_MAIN void _Noreturn main */
+#define Sourpatch(sym,msg) /* ⬷ a․𝘬․a link-forget. */
+#define IsOdd(x) ((x) & 0b1) /* ⬷ Simultaneously int32_t ∧ int64_t. 
+ H: x & 0b010 ⟷̸ ◻️⃞. See --<math>--<erf.cpp>{⁽₋1⁾ᵏ|alt}. */
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
 namespace Relative {
@@ -757,7 +758,7 @@ namespace Scheduler { void Init();
 #define co₋await co_await
 #define initiera co_await
 #define feedback co_yield
-#define adjö co_return
+#define adjö co_return /* ⬷ s․a 'självet anser' and j.mfr 'jämför'. */
 #define STRINGIFY(str) #str
 #define va_prologue(symbol)                                                 \
  __builtin_va_list __various;                                               \
