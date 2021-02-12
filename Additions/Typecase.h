@@ -1,6 +1,6 @@
 /**  Acceptable and Enclavable Platform ✁ until ✂️
                                              ͡                                
-    ■ = 1, □ = 0, ⬚ = Unknown, Ɀ = Sampled/dereferenced, Ç=Reconciled        
+    ■ = 1, □ = 0, ⬚ = Unknown, Ɀ = Sampled/dereferenced, Ç=Reconciled, and ⤪ 
     Logic and one-liners: ≅ ≠ ⋍ ~ ⟶ ⟷ ⊂⊄⊆⊈ ⊃ (Małuszyński inclusion) ∩∪ ∈∉
       ¬∧∨ ≤≥ ≰ ≱ ∞ ∀∃∄ ⊨ ∅ 𝟄 √ ∑∏ ∂∆ ∇𝛻 ∫∬∭ ℕℤℂℍℝ ℚ ¶ ⌈⌉ ⌊⌋ log₁₀ log₃ logρ₍ₓ₎
       𝘦․𝘨 𝐊 (ᵃ𝑛/ᵇ𝑛), where n∈[1,∞) = a₁/(b₁ + a₂/(b₂ + …)
@@ -19,17 +19,18 @@
     Parentheses and temporals: ⎛⎜⎝   ⎞⎟⎠        ◯ ♢ ▢ (...also: 'valid' and 'transaction'.)
     Sub/super: ⁻⁺⁽¹ˣ⁾⁼ⁱⁿ ᵢᵣᵤᵥᵦᵧᵨᵩᵪ₊₋₌₍₎⨧ₐₑₒₓₔⱼ ᵃⁿᵈᵉʰᵊᵇⁱʲˡˢᵋᵌᵍᵎᵏᵐⁿᵒᵖʳᵗᵘᵙᵚᵛˣʸᴬᴮᴴᴵᴺᵅᵝᵞᵟᵋᶿᵠᵡ
     Matrices and conditionals: ⎡⎢⎣ ⋱ ⋰ ⋮ ⎤⎥⎦  ⎧⎨⎩  ⎫⎬⎭  ⎪
-    Misc¹: ℃/˚C/ºC ℉/˚F/ºF ® © ™ № ºª µ Ω ℊ ϵε϶— ∁ ≙ ⋈ ⫝ ⦣⧄⧅⧆⧇ ⧈ ⧉ ╳ ☩ ₧ ₥
+    Misc¹: ℃/˚C/ºC ℉/˚F/ºF ® © ™ № ºª pµ Ω ℊ ϵε϶— ∁ ≙ ⋈ ⫝ ⦣⧄⧅⧆⧇ ⧈ ⧉ ╳ ☩ ₧ ₥
     Chemistry hobbyist: ⇾ ₀₁₂₃₄₅₆₇₈₉
     Math additionals: ± ∓ ∔ ×
                                                                              
     print "The brown ⬚ jumped over the lazy ⬚\n", ﹟s("fox"), ﹟s("dog")      
       ﹟d(__builtin_int_t d)                     ﹟b(__builtin_uint_t b)      
-      ﹟S(int tetras, const char32_t * uc)       ﹟s(const char * utf8)       
+      ﹟S(int tetras, const char32_t * uc)      ﹟s(const char8_t/char * utf8)
    Scientific and Monetary: ﹟F(double f) and ﹟F(float r)                    
       ﹟reᵍ(__builtin_int_t r) ﹟λ(Argᴾ::Output scalar, void * context)       
                                                                              
-   Also: U(__uint128_t),x(__builtin_uint_t),c(char),C(char32_t),I(__int128_t)
+   Also: U(__uint128_t), x(__builtin_uint_t), c(char8_t/char), C(char32_t),  
+          I(__int128_t)                                                      
                                                                              
     E․𝘨  auto set💰 = ^(Argᴾ::Unicode set, void * context) { … };            
                                                                              
