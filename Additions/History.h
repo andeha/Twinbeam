@@ -35,7 +35,7 @@ struct History { /* ⬷ consideration success! */
       struct { Bignum right; Bignum left; } doublebig;                   12 */
       struct Mixedradix { float small; int32_t 𝟷𝟶ᵐ; }; /* ⬷ alt. double and __builtin_int_t. */
       struct { Mixedradix right; Mixedradix left; } detail;           /* 17 */
-      struct Small₋schoolbook { int32_t ℤ; uint16_t modula, denom; }; /* see --<Twinbeam.h>{Schoolbook} for a traditional schoolbook. */
+      struct Small₋schoolbook { int32_t ℤ; uint16_t modula, denom; }; /* ⬷ see --<Twinbeam.h>{Schoolbook} for a traditional schoolbook. */
       struct { Small₋schoolbook starboard, port; } financials;        /* 19 */
       struct { Chronology::UQ32 starboard, port; } maxmin₋latency;    /* 24 */
     };
@@ -46,7 +46,7 @@ struct History { /* ⬷ consideration success! */
     typedef __builtin_int_t 𝟽₋bit₋ref;
     typedef Kiddle::Nonabsolute Unicode₋ref;
     
-    Timeserie<Unicode₋ref, Pod, 𝟽₋bit₋ref> serie; /* see also --<Kiddie.hpp>. */
+    Timeserie<Unicode₋ref, Pod, 𝟽₋bit₋ref> serie; /* ⬷ see also --<Kiddie.hpp>. */
     
     History::Pod add(History::Pod& left, History::Pod& right, 𝟽bit₋string ref, Kind kind);
     
@@ -70,7 +70,7 @@ struct ComputationalIndex {
     
     explicit ComputationalIndex() noexcept;
     
-    typedef 𝟽bit₋text Serie; /* a․𝘬․a `Name`. */
+    typedef 𝟽bit₋text Serie; /* ⬷ a․𝘬․a `Name`. */
     
     typedef Fossilate Arguments[4];
     
@@ -96,13 +96,13 @@ struct ComputationalIndex {
       Opt<Unicodes> pathᵚ, /* a․𝘬․a `primary𝘖𝘳𝑆econd` and `similar`. */
       void (^ping)(double⁺ʳ percent, bool& stop), 
       int (^completion)(__builtin_int_t bytes, bool& no₋go)
-    ); /* a․𝘬․a `preserve` and `syncronize`; 𝖼․𝘧 `msync` and `Snapshot`. */
+    ); /* ⬷ a․𝘬․a `preserve` and `syncronize`; 𝖼․𝘧 `msync` and `Snapshot`. */
     
 #pragma mark Time and space
     
     /* Subgraph<Seriekey> organization; */
     
-    void * series; /* a․𝘬․a Map<Serie, History>; with `succumb` and `branch`. */
+    void * series; /* ⬷ a․𝘬․a Map<Serie, History>; with `succumb` and `branch`. */
     
 😐;
 
@@ -141,7 +141,7 @@ int /* Opt<ComputationalIndex> requires copy-constructible object. */
   int (^modernize)(Memoryregion original, ComputationalIndex & shoot), 
   void (^ping₂)(double⁺ʳ percent, bool& stop), 
   void (^completion)(__builtin_int_t bytes, bool& no₋go)
-); /* a․𝘬․a `clone₋unpack` and `Reflect`. */
+); /* ⬷ a․𝘬․a `clone₋unpack` and `Reflect`. */
 
 #endif
 
