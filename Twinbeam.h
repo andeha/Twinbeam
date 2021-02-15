@@ -69,14 +69,6 @@ int IMUL(short id, int32_t multipliand, int32_t multiplier, int32_t &ℕ₋hi, u
 int Fused₋IMUL(short id, int32_t augend, int32_t multiplier, int invMultiplyThenAdd, int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * accumulator₋negative);
 /* FOCAL int Initiate₋Zero(short id, int32_t &ℕ₋hi, uint32_t &ℕ₋lo) { extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4]; __ℕ₋🅷[id]=0, __ℕ₋🅻[id]=0; /​* also IMUL(0,0,...). *​/ }
 FOCAL int Initiate₋One(short id, int32_t &ℕ₋hi, uint32_t &ℕ₋lo) { extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4]; __ℕ₋🅷[id]=0, __ℕ₋🅻[id]=1; /​* also IMUL(1,1,...) } */
-/* The constant INT_MAX is an odd number. Also: 'odd' is closed under multiplication. */
-int32_t bi₋transition⁻¹Ɣ(int64_t ℍ); int64_t bi₋transition₋Ɣ(int32_t ℍ);
-uint64_t Large₋𝟺₋cookie(__builtin_int_t ℤ, int * negative);
-int64_t Large₋𝟺₋cookie(__builtin_uint_t ℕ, int * overflow);
-uint32_t Small₋𝟺₋cookie(__builtin_int_t ℤ, int * negative, int * overflow);
-int32_t Small₋𝟺₋cookie(__builtin_uint_t ℕ, int * overflow);
-__builtin_int_t bi₋normal(int64_t ℂ, void (^sometime)(int32_t distorsion));
-/* __builtin_int_t bi₋normal(int32_t ℂ); __builtin_int_t bi₋normal(int16_t ℂ); __builtin_int_t bi₋normal(int8_t ℂ); */
 #define BITMASK(type) enum : type
 #ifdef  __mips__
 #define Mips __asm__ __volatile__ (/* ".set noat   \n" */ ".set noreorder  \n" ".set nomacro    \n"
@@ -240,15 +232,16 @@ int print(const char * utf8format,...); int mfprint(const char * utf8format,...)
 int print(void (^out)(char8_t * u8s, __builtin_int_t bytes), const char * utf8format, ...);
 struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, void * context); 
  typedef void (^Output)(Unicode set, void * context); union { __builtin_int_t d; 
- __builtin_uint_t x, b; const char8_t * utf8; struct /* Unicodes */ { char32_t * unicodes; 
+ __builtin_uint_t x, b; char8_t * utf8; struct /* Unicodes */ { char32_t * ucs; 
  __builtin_int_t tetras; } ucs; char8_t c; char32_t uc; double f₁; float f₂; uint8_t bytes[16]; 
 #ifdef simd₋integers
  __uint128_t U; __int128_t I;
 #endif
  uint64_t pair[2]; struct { Output scalar; void * context; } λ; } value; int kind; };
-Argᴾ ﹟d(__builtin_int_t d); Argᴾ ﹟x(__builtin_uint_t x); Argᴾ ﹟b(__builtin_uint_t 
-b); Argᴾ ﹟s(const char8_t * utf8); Argᴾ ﹟S(__builtin_int_t tetras, char32_t * uc); 
-Argᴾ ﹟c(char8_t c); Argᴾ ﹟C(char32_t C); 
+Argᴾ ﹟d(__builtin_int_t d); Argᴾ ﹟x(__builtin_uint_t x); Argᴾ ﹟b(__builtin_uint_t b);
+Argᴾ ﹟s(char8_t * utf8); Argᴾ ﹟s(const char8_t * utf8); Argᴾ ﹟s(const char * utf8);
+Argᴾ ﹟S(__builtin_int_t tetras, char32_t * uc); Argᴾ ﹟S(__builtin_int_t tetras, const char32_t * uc);
+Argᴾ ﹟c(char8_t c); Argᴾ ﹟c(char c); Argᴾ ﹟C(char32_t C);
 #ifdef simd₋integers
 Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
 #endif
@@ -296,7 +289,7 @@ FOCAL int Compare8Memory(ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uin
 FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef 
   dst, ByteAlignedRef src, __builtin_int_t bytes);
 FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁, 
-  ByteAlignedRef p₂, __builtin_uint_t bytes); /* a․𝘬․a `memcmp`. */
+  ByteAlignedRef p₂, __builtin_uint_t bytes); /* ⬷ a․𝘬․a `memcmp`. */
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
   constexpr uint32_t PIC32##serie##_##symbol = vaddr;                        \
   constexpr uint32_t PIC32##serie##_##symbol##CLR = (vaddr + 0x4);           \
@@ -306,8 +299,8 @@ FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁
 #define 🔎🎭𝑀𝑋(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__) 
 #define 🔎🎭𝑀𝑍𝐷𝐴(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
 #define 🔎🎭𝑀𝑍(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
-MACRO uint32_t AsUncached(uint32_t vaddr) { return vaddr | 0x20000000; } /* a․𝘬․a `KSEG0ToKSEG1`. */
-MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /* a․𝘬․a `VToP`. */
+MACRO uint32_t AsUncached(uint32_t vaddr) { return vaddr | 0x20000000; } /* ⬷ a․𝘬․a `KSEG0ToKSEG1`. */
+MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /* ⬷ a․𝘬․a `VToP`. */
 #endif
 ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
 ByteAlignedRef Overwrite8Memory(ByteAlignedRef src, uint8_t val,
@@ -331,10 +324,10 @@ FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned
   short base, unsigned short digitsOr0, /* Not more than 32 alt. 64 digits 
   depending on word size! (Or set to `0` to skip leading zeros.) */ void
   (^out)(char 𝟶to𝟿)); /* See --<Print.cpp> for a 128-bit version. */
-void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char8_t 𝟶to𝟿and₋));
+void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿and₋));
 #ifdef simd₋integers
-void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char8_t 𝟶to𝟿and₋));
-void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digitsOr0, void (^out)(char8_t 𝟶to𝟿));
+void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿and₋));
+void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿));
 #endif
 #define SIGNBIT_INT32 0x80000000
 #define SIGNBIT_INT64 0x8000000000000000
@@ -356,6 +349,7 @@ template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋Compl(x) : x; 
 #define moment /* ⬷ initial attribute for function definitions and declarations a․𝘬․a `leaf`. */
 #define intrinsic₋leaf /* ⬷ a․𝘬․a `half₋leaf`; multiple attempts-w(as)-silicon-based. */
 #define leaf₋function /* ⬷ ...except intrinsic functions! */
+#define /* PROVOCATIVE */ ASSEMBLERONLY __attribute__((naked)) 
 #ifdef __x86_64__
 #define READONLY __attribute__ ((section(".rodata,.rodata")))
 #elif defined __mips__
@@ -547,7 +541,7 @@ MACRO int64_t Nearest(double measure, int * reciproc)
 union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits; };
 #elif defined __mips__ || defined __armv6__ || defined espressif
 union Treeint { struct { int32_t key; uint32_t val; } keyvalue; uint64_t bits; };
-#endif /* a․𝘬․a `Autumn` and `Treeℤ`. */
+#endif /* ⬷ a․𝘬․a `Autumn` and `Treeℤ`. */
 
 void * Insert(void * opaque, Treeint valkey, void * (^alloc)(int bytes));
 void Forall(void ᶿ﹡ opaque, void (^dfs)(Treeint valkey, bool& stop));
@@ -581,7 +575,7 @@ typedef union {
   "Secure Hash Standard (SHS)", August 2015. */
 
 int Hash(uint8_t * material, __builtin_int_t bytes, void (^ping𝘖r𝖭𝖴𝖫𝖫)(bool &stop), 
-  void (^complete)(ditriaconta digest)); /* a․𝘬․a `Fineprint`. */
+  void (^complete)(ditriaconta digest)); /* ⬷ a․𝘬․a `Fineprint`. */
 
 #if defined  __mips__ || defined __armv6__ || defined espressif
 #define BUILTIN_INT_MAX 2147483647
@@ -634,11 +628,11 @@ enum { END_OF_TRANSMISSION = U'\u0004' }; /* ⬷ hex ∧ dec; also a․|incorrec
 
 typedef __builtin_uint_t virtuaddr;
 
-typedef SemanticPointer<virtuaddr> byteaddress; /* a․𝘬․a `metaaddress`. */
+typedef SemanticPointer<virtuaddr> byteaddress; /* ⬷ a․𝘬․a `metaaddress`. */
 
 struct Memorydelegate {
-  virtual void statistics(Scatter * ṩ, char32_t unicode) = 0;
-  virtual void issue(Scatter * ṩ, byteaddress unaligned, int nº) = 0;
+  virtual void statistics(Scatter * s, char32_t unicode) = 0;
+  virtual void issue(Scatter * s, byteaddress unaligned, int nº) = 0;
 };
 
 struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max4MB and Nonbound.) */
@@ -654,8 +648,8 @@ struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max
    int keep(byteaddress unaligned, __builtin_uint_t word) const;
    int oncewired(__builtin_int_t ﹟, uint8_t **start, __builtin_int_t *bytes) const; /* 𝘊․𝘧 predictive cache. */
    __builtin_int_t bytes() const; __builtin_int_t ᵇdebris() const;
-   ~Scatter(); Memorydelegate * delegate; Scatter(const Scatter& other); /* Required by `pristine`. */
-😐; /*  On disjunct, sediment and segments: the `Scatter` retrieve memories via 
+   ~Scatter(); Memorydelegate * delegate; Scatter(const Scatter& other); /* ⬷ required by `pristine` convention. */
+😐; /*  On disjunct, sediment and segments: the `Scatter` retrieve memory via 
     
    ・ n₋tiled a․𝘬․a 2₋read a․𝘬․a indexed a․𝘬․a infinitely₋growable₋scatter; 
    ・ 1₋tiled a․𝘬․a re₋seedable₋by₋copying₋for₋example₋with₋realloc₋scatter; 
@@ -663,7 +657,7 @@ struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max
     
   For n₋tiled, a synthesized pointer consisting of a page index and an offset. */
 
-/* When change/delete/type, see --<2ᵈ-𝔣ow.hpp>. A partially enfoiled fifo and a 
+/*  When 'change', 'delete' and 'type', see --<2ᵈ-𝔣ow.hpp>. A partially enfoiled fifo and a 
  byte-address accessor. Note that the accessor is not called from `push` and `pop`. */
 
 int Augment(Scatter& s, __builtin_int_t bytes, void (^once𝘖rMultiple)(short bytes, 
@@ -784,7 +778,7 @@ template <typename T> T * /* ⤪_ */ Elements𝘖𝘳Heap(int expeditionary,
 
 constexpr __builtin_int_t Frame(__builtin_uint_t size, __builtin_uint_t framesize)
 { return __builtin_int_t((size + framesize - 1) & ~(framesize - 1)); } 
-/* ⬷ May be evaluated at compile-time. (constexpr) */
+/* ⬷ May be evaluated at compile-time a․𝘬․a 'constexpr'. */
 
 constexpr __builtin_int_t Ceil(__builtin_int_t num, __builtin_int_t denom) 
 {  int num₋neg=num<+0, denom₋neg=denom<+0;
@@ -889,7 +883,7 @@ typedef Chronology Chronology🦠; /* With 2⁻⁶⁵ 𝘢․𝘬․𝘢 `UQ65`;
 
 /**  The unperturbed — yet based on ¹³³Caesium — chronology. */
 
-Chronology& ComputationalChronology(); /*  𝖤․𝘨 for chronometers. A․𝘬․a 
+Chronology& ComputationalChronology(); /* 𝖤․𝘨 for chronometers; a․𝘬․a 
  `GMT` (therefore 60×60×24 seconds per day), without leap seconds/years 
  and no summertime correction. */
 
