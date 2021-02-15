@@ -364,6 +364,7 @@ template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋Compl(x) : x; 
 #define Sourpatch(sym,msg) /* ⬷ a․𝘬․a link-forget. */
 #define IsOdd(x) ((x) & 0b1) /* ⬷ Simultaneously int32_t ∧ int64_t. 
  H: x & 0b010 ⟷̸ ◻️⃞. See --<math>--<erf.cpp>{⁽₋1⁾ᵏ|alt}. */
+/* ⬷ also: 'odd' is closed under multiplication. */
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
 template <typename T> T min(T x₁, T x₂) { return x₂ < x₁ ? x₂ : x₁; }
 namespace Relative {
@@ -582,6 +583,7 @@ int Hash(uint8_t * material, __builtin_int_t bytes, void (^ping𝘖r𝖭𝖴𝖫
 #elif defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
 #define BUILTIN_INT_MAX 0x7FFFFFFFFFFFFFFF
 #endif /* ~0b0>>1 */
+/* ⬷ the constant INT_MAX is an odd number. */
 
 typedef union {
    float base﹟𝟸; /* For 2⁻¹²⁶ to 2¹²⁷ or 1․18×10⁻³⁸ to 3․40×10³⁸. */
@@ -593,10 +595,10 @@ typedef union {
      unsigned mantissa : 23;
      unsigned exponent :  8;
      unsigned sign     :  1;
-   } binary32; /* a․𝘬․a `ieee754base₋2`. */
+   } binary32; /* ⬷ a․𝘬․a `ieee754base₋2`. */
    struct { /* For ±1×10⁻⁹⁵ to ±9.999999×10⁹⁶. */
      /* ⫝ */
-   } decimal32; /* a․𝘬․a `ieee754_2008₋base₋10`. */
+   } decimal32; /* ⬷ a․𝘬․a `ieee754_2008₋base₋10`. */
    uint32_t bits;
 } tetra;
 
@@ -883,7 +885,7 @@ typedef Chronology Chronology🦠; /* With 2⁻⁶⁵ 𝘢․𝘬․𝘢 `UQ65`;
 
 /**  The unperturbed — yet based on ¹³³Caesium — chronology. */
 
-Chronology& ComputationalChronology(); /* 𝖤․𝘨 for chronometers; a․𝘬․a 
+Chronology& ComputationalChronology(); /*  𝖤․𝘨 for chronometers; a․𝘬․a 
  `GMT` (therefore 60×60×24 seconds per day), without leap seconds/years 
  and no summertime correction. */
 
