@@ -804,8 +804,8 @@ struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
     
     union Q1615 { uint32_t bits; int32_t frac; }; /* ⬷ 0 to ±65535.9999694822. */ 
     
-    struct Relative { int32_t seconds; Q1615 frac; }; /* ⬷ a․𝘬․a 'Interval'. Is 
-  calendric alt. monotonically increasing non-rooting temporal relative. */
+    struct Relative { Q1615 seconds₋and₋frac; }; /* ⬷ a․𝘬․a 'Interval'. Is calendric alt. 
+     monotonically increasing non-rooting temporal relative. */
     
     static double Q1615ToFloat(Q1615 q) { return double(q.frac)*1.0/16384.0; }
     
