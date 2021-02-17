@@ -31,6 +31,7 @@ typedef int                 int32_t; /* ≡`long` */
 typedef uint64_t            __builtin_uint_t;
 typedef int64_t             __builtin_int_t; /* ⬷ a․𝘬․a `sequential`. */
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
+#define simd₋integers
 #endif /* ⬷ Consider 32- alt. 64-bits with an extra sign bit for `Frame`, `leqAndPowerOfTwo`, `geqAndPowerOfTwo` and `isPowerOfTwo`. */
 typedef unsigned short      uint16_t;
 typedef short               int16_t; /* ≡`ᵐⁱᵖˢint` */
@@ -59,7 +60,6 @@ struct Schoolbook { int64_t ℤ; uint64_t modula, denom; int sum₋negative; enu
 /* int sw₋fractions₂(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
 int fractions(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); /* ⬷ Requires `sw₋fractions₂` and/or `hw₋fractions₁`. */
 #if __has_builtin(__uint128_t) && __has_builtin(__int128_t)
-#define simd₋integers
 int sw₋fractions(__uint128_t num, __uint128_t denom, __uint128_t &ℕ, __uint128_t &modula);
 #endif
 int hw₋fractions(int64_t num, int64_t denom, int64_t &ℤ, int64_t &modula, int * sum₋negative);
@@ -413,11 +413,11 @@ __builtin_int_t least₋possible₋residue(__builtin_int_t dividend, __builtin_i
 
 #pragma mark Utf-8
 
-int UnicodeToUtf8(char32_t Ξ, void (^sometime₋valid)(const char8_t *ξ, short bytes));
+int UnicodeToUtf8(char32_t Ξ, void (^sometime₋valid)(char8_t *ξ, short bytes));
 
 short Utf8Followers(char8_t lead𝘖r8Bit); /* ⬷ Recognize modern `char8_t` formerly `uint8_t`. */
 
-char32_t Utf8ToUnicode(const char8_t * ξ, __builtin_int_t bytes);
+char32_t Utf8ToUnicode(char8_t * ξ, __builtin_int_t bytes);
 
 struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; };
 
@@ -800,10 +800,22 @@ constexpr __builtin_int_t HowMany(__builtin_uint_t index, __builtin_uint_t width
 
 struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ }; 
     
-    typedef octa Instant; typedef octa Interval; /**  Second is calendric 
-      alt. monotonically increasing non-rooting temporal relative. */
+    typedef octa Instant; typedef uint32_t UQ32; /* E․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
     
-    typedef uint32_t UQ32; /* E․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
+    union Q1615 { uint32_t bits; int32_t frac; }; /* ⬷ 0 to ±65535.9999694822. */ 
+    
+    struct Relative { int32_t seconds; Q1615 frac; }; /* ⬷ a․𝘬․a 'Interval'. Is 
+  calendric alt. monotonically increasing non-rooting temporal relative. */
+    
+    static double Q1615ToFloat(Q1615 q) { return double(q.frac)*1.0/16384.0; }
+    
+    static Q1615 FloatToQ1615(long double x) { int reciproc; 
+       
+       int64_t y = Nearest(x*16384.0, &reciproc);
+       
+       return Chronology::Q1615 { .frac = (int32_t)y };
+       
+     }
     
     /**  Given a timestamp, return year, month (1-12) and day (1-31). */
     
@@ -860,6 +872,8 @@ struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
      methods recognized'. */
     
 };
+
+inline Chronology::Q1615 operator "" _Q1615(long double x) { return Chronology::FloatToQ1615(x); }
 
 int
 InstantToText(
