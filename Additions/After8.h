@@ -44,5 +44,7 @@ struct Bitset { std::vector<bool> inner;
   
 };
 
+/* #elif defined __mips__ */
+
 #endif /* ⬷ all 'man' pages unwritten, instead http://cppreference.com and cached versions of the latter. */
 
