@@ -170,7 +170,7 @@ typedef unsigned int size_t;
 void * operator new(unsigned int size, void * here) noexcept;
 #elif defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
 typedef unsigned long size_t;
-void * operator new(unsigned long size, void * here) noexcept;
+/* void * operator new(unsigned long size, void * here) noexcept; */
 #endif /* On `Opt` minus `void *`: See 𝐶𝑟𝑎𝑠ℎ 𝑓𝑟𝑒𝑞𝑢𝑒𝑛𝑛𝑐𝑦, 𝑐𝑜𝑝𝑦/𝑝𝑎𝑠𝑡𝑒 and 𝑒𝑥𝑝𝑙𝑜𝑖𝑡𝑖𝚤𝑛𝑔 𝑢𝑛𝑖𝑛𝑖𝑡𝑖𝑎𝑙𝑖𝑧𝑒𝑑. */
 template <typename T> struct Opt : public SharedOptional { explicit Opt() = 
   default; template <typename...A> constexpr Opt(A&&... args) { new (content) 
@@ -199,7 +199,7 @@ template <class... Ts> struct Tuple {}; template <class T, class... Ts>
   k != 0, typename elem_type_holder<k, Tuple<T, Ts...>>::type&>::type
   get(Tuple<T, Ts...>& t) { Tuple<Ts...> &base = t; return get<k-1>(base); }
 template <class ...T> Tuple<T...> Tie(T... t) { return Tuple<T...>(t...); }      /* ☜😐: 🔅 ⬷ 𝘋𝘰 𝑛𝑜𝑡 move sun. (146) */
-namespace std { /* The Standard Residual */ typedef ::size_t size_t;
+namespace std₋ᵢ { /* The standard residual */ typedef ::size_t size_t;
   template<class T> class initializer_list { const T *beg; size_t sz;
   initializer_list(const T * b, size_t s) : beg(b), sz(s) { } public: typedef
   T value_type; typedef const T& reference; typedef const T& const_reference;
@@ -207,8 +207,8 @@ namespace std { /* The Standard Residual */ typedef ::size_t size_t;
   const_iterator; initializer_list() : beg(0), sz(0) { } size_t size() const {
   return sz; } const T * begin() const { return beg; } const T * end() const {
   return beg + sz; } }; template<class T> inline const T * begin(
-  std::initializer_list<T> i) { return i.begin(); } template<class T> inline
-  const T * end(std::initializer_list<T> i) { return i.end(); } }
+  initializer_list<T> i) { return i.begin(); } template<class T> inline
+  const T * end(initializer_list<T> i) { return i.end(); } }
 /* ☜😐: 🔅 ⬷ Earlier remark still valid? */
 struct Scatter; struct Memoryview { Scatter * scatter; __builtin_int_t 
   bytesoffset; __builtin_int_t bytecount; };
@@ -597,7 +597,10 @@ typedef union {
      unsigned sign     :  1;
    } binary32; /* ⬷ a․𝘬․a `ieee754base₋2`. */
    struct { /* For ±1×10⁻⁹⁵ to ±9.999999×10⁹⁶. */
-     /* ⫝ */
+     unsigned combination : 5; /* msb-exp */
+     unsigned exponent    : 6; /* ×10ⁱ⁻¹⁰¹ */
+     unsigned mantissa    : 20;
+     unsigned sign        : 1;
    } decimal32; /* ⬷ a․𝘬․a `ieee754_2008₋base₋10`. */
    uint32_t bits;
 } tetra;
