@@ -41,7 +41,7 @@ struct Kiddle { __builtin_int_t tetras₋per₋tile, uc₋brk=0, tile₋brk=0, t
       (uc₋brk + tiles[tile₋brk])->uc = cs[i];
     }
     return 0;
-  } /* a.k.a 
+  }
   
   int substract(short tetras, __builtin_int_t * uc₋pos, __builtin_int_t * tile₋idx) { }
   
