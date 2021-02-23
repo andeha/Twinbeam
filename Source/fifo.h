@@ -1,4 +1,4 @@
-/*  fifo.h | A duplicate required and included in --<Additions.h>. (TO-BE-PUBLISHED) */
+/*  fifo.h | a duplicate required and included in --<Additions.h>. (TO-BE-PUBLISHED) */
 
 #ifndef __FIFO_H
 #define __FIFO_H
@@ -6,14 +6,14 @@
 struct ᵒfᵗᵉⁿ𝟺kb₋embroidery { __builtin_int_t ﹟, pct₋w₋ord₋s; void **Kbtiles; };
 /* ⬷ c․𝘧 'motsols', 'medsols' and 'haphazardly' also 'covert-lazily'. */
 
-struct fifo {  /* first the single-tile fifo ⤐ */ 
+struct fifo {  /* first the single-tile fifo ⤐ */
    
-   __builtin_int_t max₋words=0, 𝟷₋count=0, brk=0; __builtin_uint_t * 𝟷₋tile; 
+   __builtin_int_t max₋words=0, 𝟷₋count=0, brk=0; __builtin_uint_t * 𝟷₋tile;
    
    /* secondly the segmented fifos possibly with padding at end of 
     last frame in embroidery ⤐ */
    
-   __builtin_int_t tile₋brk=0, words₋brk=0, alloc₋brk=0, words₋to₋unity; 
+   __builtin_int_t tile₋brk=0, words₋brk=0, alloc₋brk=0, words₋to₋unity;
    
    ᵒfᵗᵉⁿ𝟺kb₋embroidery * n₋tiles;
    
@@ -23,10 +23,7 @@ struct fifo {  /* first the single-tile fifo ⤐ */
    int 𝟷₋tile₋copy₋include(__builtin_int_t words, __builtin_uint_t * Ɀ);
    int n₋tile₋copy₋include(__builtin_int_t words, __builtin_uint_t * Ɀ);
    
-   int 𝟷₋tile₋fifo₋pop(__builtin_int_t words, void (^once)(__builtin_uint_t * bottom₋elem));
-   int n₋tile₋fifo₋pop(__builtin_int_t words, void (^topdown₋many₋embroiderie)(
-    __builtin_int_t total, __builtin_int_t ﹟, __builtin_uint_t * bottom₋elem, 
-    __builtin_int_t words));
+   void 𝟷₋tile₋fifo₋pop(); void n₋tile₋fifo₋pop();
    
    /* int lazily₋enfoil₋NULL₋n₋tiles(unsigned expeditionary, __builtin_int_t ﹟); /‌* ⬷ compare 
     further --<Additions>--<2ᵈ-𝔣ow.hpp>, `Scatter` and change/delete/insert. */
@@ -35,22 +32,21 @@ struct fifo {  /* first the single-tile fifo ⤐ */
    
    __builtin_int_t count() const; /* ⬷ occational-inkvisitorial alt․ 'intervallic patterns' inside. */
    
-}; /*  ⬷ a․𝘬․a fifoⁱⁿcorp: Note that three areas where one precomputed 
- area always separates the 'producer' from the 'consumer' enables a 'stable 
- external projection' without visible fluctuations a․𝘬․a 'flickering'; whereas 
- two areas lead to the need to induce 'lock' as well as the other contra-
- tranquistimulantic constraints. 'efterhandskonstruktion'/hack. 
+}; /* ⬷ a․𝘬․a fifoⁱⁿcorp: note that three areas where one precomputed 
+ area always separates the 'producer' from the 'consumer' enables a 
+ 'stable external projection' without visible fluctuations a․𝘬․a 'flick-
+ ering'; whereas two areas lead to the need to induce 'lock' as well as the 
+ other contra-tranquistimulantic constraints. 'efterhandskonstruktion'/hack.
  (ret-ro-spect = [stimulu-tranqui-jello]). */
 
-bool Empty(const fifo& q);
-__builtin_uint_t * n₋tile₋Bank(__builtin_int_t idx, const fifo& q);
-__builtin_uint_t * n₋tile₋Chronologic(const fifo& q, __builtin_int_t idx);
-__builtin_uint_t * n₋tile₋Youngest(const fifo& q);
-__builtin_uint_t * n₋tile₋Oldest(const fifo& q);
+bool Empty(const fifo& 𝟷₋tile₋q); /* ⬷ inquistitorial. */
+__builtin_uint_t * 𝟷₋tile₋Bank(__builtin_int_t idx, const fifo& q);
+__builtin_uint_t * 𝟷₋tile₋Chronologic(const fifo& q, __builtin_int_t idx);
+__builtin_uint_t * 𝟷₋tile₋Youngest(const fifo& q);
+__builtin_uint_t * 𝟷₋tile₋Oldest(const fifo& q);
+int 𝟷₋tile₋𝟺₋Chronologic(int unused, int actual, const fifo& q, char8_t * little₋endian₋𝟺to1₋bytes);
 enum class fifo₋flavor { allinorder, latest }; /* ⬷ c․𝘧 'randomized' and 'random accessible'. */
 int 𝟷₋tile₋Retrospect(fifo₋flavor f, const fifo& q, __builtin_uint_t * t, __builtin_uint_t * t₋₁);
-int 𝟷₋tile₋𝟺₋Chronologic₁(int unused, int actual, const fifo& q, char8_t * little₋endian₋𝟺to1₋bytes);
-int 𝟷₋tile₋𝟺₋Chronologic₂(int unused, int actual, const fifo& q, char8_t * little₋endian₋𝟺to1₋bytes);
 
 inline int n₋tile₋apriori(unsigned expeditionary, __builtin_int_t alloca̲t̲ed₋count, 
   __builtin_int_t maximum₋count, fifo& 🅠, int size) {
