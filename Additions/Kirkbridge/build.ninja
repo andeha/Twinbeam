@@ -1,0 +1,27 @@
+# build.ninja - Building Kirkbridge for macos.
+
+optflags = -g
+progname = kb911
+objsdir = ./.objs/7703a312-559A-41ca-A992-eabcf7f87663_$progname
+libtwinbeam = ../Source/Releases/libTwinbeam_macos.a
+libadditions = ../../Additions/Releases/libAdditions_macos.a
+libauxiliaries = ../../Additions/Releases/libAdditions-aux_macos.a
+# libtwinbeam = ../Source/Releases/libTwinbeam_macos_6f0724e.a
+# libadditions = ../../Additions/Releases/libAdditions_macos_6f0724e.a
+# libauxiliaries = ../../Additions/Releases/libAdditions-aux_macos_6f0724e.a
+# libTBAdditions_macos libAAdditions_macos
+
+include ../../../tools.ninja
+platflags = -I $additions/.. -I $additions
+flags = $optflags $macoscflags $platflags
+include ../../../macOS/laptop.ninja
+
+rule link
+   command = xcrun ld -macosx_version_min 10.14.0 -lSystem -lc++ -o $out $in $
+     $libtwinbeam $libadditions $libauxiliaries
+
+build $progname: link $objsdir/911.o $objsdir/main.o
+build $objsdir/911.o: cc 911.cpp
+build $objsdir/main.o: cc main.cpp
+default $progname
+
