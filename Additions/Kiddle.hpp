@@ -157,6 +157,8 @@ struct Kiddle {  typedef __builtin_int_t Nonabsolute;
     @param leaf₋alloc The dynamic memory allocator to-use when creating 
       a new post-it jot
     
+    @param inflate Block to allocate tiles and call the 'inflate' method
+    
     @return a pointer to a post-it jot. Returns NULL on various errors.
     
  */
@@ -215,7 +217,7 @@ inline int Setup₋shattered(unsigned expeditionary, Kiddle& kiddle)
    return 0;
 }
 
-inline int Setup₋file₋enough(Kiddle& kiddle, __builtin_int_t bytes)
+inline int Setup₋filelength₋enough(Kiddle& kiddle, __builtin_int_t bytes)
 {
    __builtin_int_t tetras₋per₋tile = bytes/4;
    void * tiles[] = { Alloc(bytes) };
