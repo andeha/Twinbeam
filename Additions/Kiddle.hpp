@@ -1,10 +1,11 @@
 /*  Kiddle.hpp | dictionary of Unicode symbols on equal-sized frames divisible by four bytes. */
 
-struct Kiddle { typedef __builtin_int_t Nonabsolute; void * tiletree=NULL; 
+struct Kiddle {  typedef __builtin_int_t Nonabsolute; 
   
   union Tetra𝘖rUnicode { int32_t count; char32_t uc; } * cached₋tile; 
   
-  __builtin_int_t cached₋number=-1, tile₋count=0, uc₋brk=0, tetras₋per₋tile;
+  void * tiletree=NULL; __builtin_int_t cached₋number=-1, tile₋count=0, uc₋brk=0, 
+   tetras₋per₋tile;
   
   int init(__builtin_int_t tetras₋per₋tile, 
     __builtin_int_t count, 
@@ -65,7 +66,7 @@ struct Kiddle { typedef __builtin_int_t Nonabsolute; void * tiletree=NULL;
     if (uc₋overflow > 0) { bool cancel = false; 
       __builtin_int_t modula = uc₋overflow % tetras₋per₋tile, 
        ﹟ = uc₋overflow/tetras₋per₋tile;
-      inflate(﹟ + (modula==0 ? 1 : 0), cancel);
+      inflate(1 + ﹟ + (modula == 0 ? 0 : 0), cancel);
       if (cancel) { return -1; }
     }
     for (int i=0; i<count; ++i, ++uc₋brk) {
@@ -135,7 +136,7 @@ struct Kiddle { typedef __builtin_int_t Nonabsolute; void * tiletree=NULL;
      return insert((Node *)legato, fineprint, leaf₋alloc);
   }
   
-  Node * seek₋impresson(__uint128_t fineprint)
+  Node * seek₋impression(__uint128_t fineprint)
   {
      return lookup((Node *)legato, fineprint);
   }
@@ -160,10 +161,9 @@ struct Kiddle { typedef __builtin_int_t Nonabsolute; void * tiletree=NULL;
     
  */
 
-FOCAL
 template <typename JOT>
 JOT * 
-Match(Kiddle kiddle, Unicodes uc, 
+Match(Kiddle& kiddle, Unicodes uc, 
   void * (^jot₋alloc)(int bytes), 
   void * (^leaf₋alloc)(int bytes), 
   void (^inflate)(__builtin_int_t ﹟, bool& cancel) 
@@ -184,7 +184,7 @@ Match(Kiddle kiddle, Unicodes uc,
    
 again: /* zero, one or multiple matches may occur ⤐ */
    
-   agree = kiddle.seek₋impresson(h);
+   agree = kiddle.seek₋impression(h);
    
    if (agree == NULL) { goto ended; }
    
@@ -204,6 +204,24 @@ ended: /* include a fresh and formerly non-existing entry ⤐ */
    if (kiddle.datum₋text(uc.tetras)) { return NULL; }
    
    return agree->jot;
+}
+
+inline int Setup₋shattered(unsigned expeditionary, Kiddle& kiddle)
+{ __builtin_int_t 🥈 tetras₋per₋tile = 4096/4;
+   __builtin_int_t ﹟=100; void * 𝟺kbframes[﹟];
+   if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { return -1; }
+   auto leaf₋alloc = ^(int bytes) { return Alloc(bytes); };
+   if (kiddle.init(tetras₋per₋tile,﹟,𝟺kbframes,leaf₋alloc)) { return -2; }
+   return 0;
+}
+
+inline int Setup₋file₋enough(Kiddle& kiddle, __builtin_int_t bytes)
+{
+   __builtin_int_t tetras₋per₋tile = bytes/4;
+   void * tiles[] = { Alloc(bytes) };
+   auto leaf₋alloc = ^(int bytes) { return Alloc(bytes); };
+   if (kiddle.init(tetras₋per₋tile,1,tiles,leaf₋alloc)) { return -1; }
+   return 0;
 }
 
 
