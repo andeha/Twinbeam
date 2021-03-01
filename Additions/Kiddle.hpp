@@ -1,91 +1,209 @@
-/*  Kiddle.hpp | unicode fragments a․𝘬․a 'symbols' and the 2ⁿ-sized frame. */
+/*  Kiddle.hpp | dictionary of Unicode symbols on equal-sized frames divisible by four bytes. */
 
-/* #include <Source/fifo.h> */
-
-struct Kiddle { __builtin_int_t tetras₋per₋tile, uc₋brk=0, tile₋brk=0, 
+struct Kiddle { typedef __builtin_int_t Nonabsolute; void * tiletree=NULL; 
   
-  tile₋count=0; typedef __builtin_int_t Nonabsolute;
+  union Tetra𝘖rUnicode { int32_t count; char32_t uc; } * cached₋tile; 
   
-  union Tetra𝘖rUnicode { int32_t count; char32_t uc; } **Kbtiles; 
-  /* ⬷ a․𝘬․a 'void * Kbtiles[]'. */
+  __builtin_int_t cached₋number=-1, tile₋count=0, uc₋brk=0, tetras₋per₋tile;
   
-  int 
-  prealloced₋init(
-    __builtin_int_t tetras₋per₋tile, 
-   void * ᵒfᵗᵉⁿ𝟺kb₋tilesTerminatedNULL[]
+  int init(__builtin_int_t tetras₋per₋tile, 
+    __builtin_int_t count, 
+    void * ᵒfᵗᵉⁿ𝟺kb₋tiles[], 
+    void * (^leaf₋alloc)(int bytes)
+  )
+  {  this->tetras₋per₋tile = tetras₋per₋tile; 
+     if (inflate(count,ᵒfᵗᵉⁿ𝟺kb₋tiles,leaf₋alloc)) { return -1; }
+     return 0;
+  } /* ⬷ a corresponding utf-8 files' byte length always indicates enough space. */
+  
+  /* int optional₋uninit(void * (^unalloc)(int bytes)) { } ⬷ operating system releases 
+   allocated memory space when program ends. */
+  
+#pragma mark tile collection
+  
+  int inflate(
+    __builtin_int_t count, 
+    void * ᵒfᵗᵉⁿ𝟺kb₋tiles[], 
+    void * (^leaf₋alloc)(int bytes)
   )
   {
-    while (ᵒfᵗᵉⁿ𝟺kb₋tilesTerminatedNULL[tile₋count++]); int tiles=100;
-    Kbtiles = (Tetra𝘖rUnicode *)Alloc(tiles * sizeof(void *));
-    __builtin_int_t i=0; while (ᵒfᵗᵉⁿ𝟺kb₋tilesTerminatedNULL[i]) {
-      Kbtiles[i] = (Tetra𝘖rUnicode *)ᵒfᵗᵉⁿ𝟺kb₋tilesTerminatedNULL[i]; ++i;
-    }
-    this->tetras₋per₋tile = tetras₋per₋tile;
-    return 0;
+     for (__builtin_int_t i=0; i<count; ++i, ++tile₋count) {
+       Treeint leaf { .keyvalue = { tile₋count , __builtin_uint_t(ᵒfᵗᵉⁿ𝟺kb₋tiles[i]) } };
+       Insert(tiletree, leaf, leaf₋alloc);
+     }
+     return 0;
   }
   
-  /* int enfoil(void * (^alloc)(int bytes)) { return 0; }
-  
-  int enfoiling₋init(unsigned expeditionary) { return 0; } */
-  
-  ~Kiddle() { for (__builtin_int_t i=0; i<tile₋count; ++i) { 
-    Fall⒪⒲(tiles[i]); } Fall⒪⒲(tiles); }
-  
-  int copy₋include(int count, char32_t cs[]) {
-    if (count + uc₋brk >= tetras₋per₋tile && tile₋brk == tile₋count) { return -1; }
-    for (int i=0; i<count; ++i) {
-      if (i + uc₋brk >= tetras₋per₋tile) {
-        if (i + tile₋brk >= tile₋count) { return -2; }
-        ++tile₋brk; uc₋brk=0;
-      }
-      (uc₋brk + tiles[tile₋brk])->uc = cs[i];
-    }
-    return 0;
-  } /* ⬷ a․𝘬․a 'n₋tile₋copy₋include'. */
-  
-  int substract(short tetras, __builtin_int_t * uc₋pos, __builtin_int_t * tile₋idx) { }
-  
-  int after₋math(short tetras) { __builtin_int_t uc₋pos, tile₋idx; 
-    if (substract(tetras, &uc₋pos, &tile₋idx)) { return -1; }
-    (uc₋pos + tiles[tile₋idx])->count = tetras;
-    return 0;
-  }
-  
-  int copy₋prepare(short & tetras) { tetras=0; return 0; } /* ⬷ a․𝘬․a 'commit⁻¹'. */
-  
-#pragma mark - recollection
-  
-  void * details; /* =Map<int128_t, Nonabsolute> */
-  
-  __uint128_t FNV₋1a(void * dataToHash, __builtin_int_t bytes)
+  Tetra𝘖rUnicode * particular(__builtin_int_t exact)
   {
-    __uint128_t prime = (__uint128_t)0b1<<88 | 0b1<<8 | 0x3b, 
-     h = __uint128_t(0x6c62272e07bb0142)<<64 | 0x62b821756295c58d;
-    uint8_t * p = (uint8_t *)dataToHash;
-    for (__builtin_int_t i=0; i<bytes; ++i) { h = (h ^ prime) * p[i]; }
-    return h;
-  } /* ⬷ collision-resistant. */
+     if (exact == cached₋number) { return cached₋tile; }
+     Treeint leafkey { exact, 0 };
+     Treeint * seeked = Lookup(tiletree, leafkey);
+     if (seeked == NULL) { return (Tetra𝘖rUnicode *)NULL; }
+     return (Tetra𝘖rUnicode *)(seeked->keyvalue.val);
+  }
   
-  union leaf { __uint128_t bits; __int128_t integer; };
+#pragma mark indexing
   
-  int association(leaf fineprint, Nonabsolute * loc) { return 0; }
+  Tetra𝘖rUnicode& at(__builtin_int_t slot₋idx, __builtin_int_t tile₋idx) 
+    { return *(slot₋idx + particular(tile₋idx)); }
   
-  int include(leaf fineprint, void * (^alloc)(int bytes)) { return 0; }
+  Tetra𝘖rUnicode& at(Nonabsolute relative) { __builtin_int_t 
+    tile₋idx=relative/tetras₋per₋tile, slot₋idx=relative%tetras₋per₋tile;
+    return at(slot₋idx,tile₋idx);
+  }
   
-}; /* ⬷ a․𝘬․a 'non₋àpriori₋alloced₋stringpool' an 'non-inpass-strings'. */
+#pragma mark input
+  
+  int copy₋append₋text(int count, char32_t cs[], 
+    void (^inflate)(__builtin_int_t ﹟, bool& cancel) 
+  )
+  {
+    /* optionally grow with a few pages ⤐ */
+    __builtin_int_t max₋uc = tile₋count * tetras₋per₋tile;
+    __builtin_int_t uc₋overflow = uc₋brk + count - max₋uc;
+    if (uc₋overflow > 0) { bool cancel = false; 
+      __builtin_int_t modula = uc₋overflow % tetras₋per₋tile, 
+       ﹟ = uc₋overflow/tetras₋per₋tile;
+      inflate(﹟ + (modula==0 ? 1 : 0), cancel);
+      if (cancel) { return -1; }
+    }
+    for (int i=0; i<count; ++i, ++uc₋brk) {
+      if (uc₋brk >= tetras₋per₋tile) { ++tile₋count; uc₋brk=0; }
+      at(uc₋brk,tile₋count).uc = cs[i];
+    }
+    return 0;
+  }
+  
+  int datum₋text(short tetras) {
+    Nonabsolute relative = uc₋brk + (tile₋count - 1)*tetras₋per₋tile - tetras;
+    at(relative).count = tetras;
+    return 0;
+  }
+  
+#pragma mark comparision
+  
+  int textual₋similar(Unicodes uc₁, Nonabsolute relative) {
+    __builtin_int_t tetras = at(relative).count;
+    if (uc₁.tetras != tetras) { return 0; }
+    for (__builtin_int_t i=0; i<tetras; ++i) {
+      if (*(i + uc₁.unicodes) != at(relative + i).uc) { return 0; }
+    }
+    return 1;
+  } /* ⬷ see Unicode normalization. */
+  
+#pragma mark inner recollection (possibly --<Additions/treeᵚ.hpp>)
+  
+  void * legato=NULL; /* =Map<int128_t, { Nonabsolute,jot,... }> */
+  
+  struct Node { union Key { __int128_t sgned; __uint128_t bits; } key; 
+   Nonabsolute offset; void * jot; Node *right, *left; };
+  
+   Node * newNode(__uint128_t fineprint, void * (^alloc)(int bytes)) {
+     Node * nodeloc = (Node *)alloc(sizeof(Node));
+     if (nodeloc) { return NULL; }
+     Node * node = new (nodeloc) struct Node;
+     node->key.bits = fineprint; node->left = NULL; node->right = NULL;
+     return node;
+   }
+  
+   Node * insert(Node * node, __uint128_t fineprint, void * (^alloc)(int bytes)) {
+     /* 1. If the tree is empty, return a new, single node */
+     if (node == NULL) { return newNode(fineprint, alloc); }
+     else { /* 2. otherwise, recur down the tree */
+       if (fineprint <= node->key.bits) {
+         node->left = insert(node->left, fineprint, alloc); }
+       else { node->right = insert(node->right, fineprint, alloc); }
+       return node; /* Return the (unchanged) node pointer. */
+     }
+   }
+  
+   Node * lookup(Node * node, __uint128_t target) {
+     if (node == NULL) { return NULL; }
+     else { if (target == node->key.bits) { return node; } 
+        else {
+          if (target < node->key.bits) return lookup(node->left, target);
+          else return lookup(node->right, target);
+        }
+     }
+   }
+   
+#pragma mark recollection
+  
+  Node * store₋impression(__uint128_t fineprint, void * (^leaf₋alloc)(int bytes))
+  {
+     return insert((Node *)legato, fineprint, leaf₋alloc);
+  }
+  
+  Node * seek₋impresson(__uint128_t fineprint)
+  {
+     return lookup((Node *)legato, fineprint);
+  }
+  
+}; /* ⬷ a․𝘬․a 'a-lot-plus-a-reminiscence'. */
 
-/*
- 
- adverb: handling action snabbt, otroligt and mycket, c.f 'const' and carefully, easily, sadly.
- konjunktion: 
- noun=substantiv e.g 'en kontrollant', an underwriter, a syndicated loan and a plaintiff.
- 
+/**
+    
+    Finds the corresponding post-it JOT for a given Unicode fragment.
+    
+    @param kiddle The collection to search
+    
+    @param uc The symbolic fragment under analysis
+    
+    @param jot₋alloc The dynamic memory allocator used when creating a new 
+      post-it jot
+    
+    @param leaf₋alloc The dynamic memory allocator to-use when creating 
+      a new post-it jot
+    
+    @return a pointer to a post-it jot. Returns NULL on various errors.
+    
  */
 
-/* Further: 
- 
- bool Bloomfilter::possiblyContainsOrDefinitelyNotIn(__builtin_uint_t value);
- 
-*/
+FOCAL
+template <typename JOT>
+JOT * 
+Match(Kiddle kiddle, Unicodes uc, 
+  void * (^jot₋alloc)(int bytes), 
+  void * (^leaf₋alloc)(int bytes), 
+  void (^inflate)(__builtin_int_t ﹟, bool& cancel) 
+)
+{
+   𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __uint128_t prime = (__uint128_t)0b1<<88 | 0b1<<8 | 0x3b, 
+      h = __uint128_t(0x6c62272e07bb0142)<<64 | 0x62b821756295c58d;
+   
+     auto FNV₋1b = ^(void * materialToHash, __builtin_int_t bytes)
+     {
+       uint8_t * p = (uint8_t *)materialToHash;
+       for (__builtin_int_t i=0; i<bytes; ++i) { h = (h ^ prime) * p[i]; }
+     }; /* ⬷ possibly-maybe collision-resistant as a prime. */
+   
+   FNV₋1b((void *)(uc.unicodes), uc.tetras*4);
+   
+   Kiddle::Node * agree; uint8_t eot=0x4;
+   
+again: /* zero, one or multiple matches may occur ⤐ */
+   
+   agree = kiddle.seek₋impresson(h);
+   
+   if (agree == NULL) { goto ended; }
+   
+   if (kiddle.textual₋similar(uc,agree->offset)) { return agree->jot; }
+   
+   /* identical yet non-similar ⤐ */ FNV₋1b(&eot,1);
+   
+   goto again;
+   
+ended: /* include a fresh and formerly non-existing entry ⤐ */
+   
+   agree = kiddle.store₋impression(h,leaf₋alloc);
+   if (agree == NULL) { return NULL; }
+   agree->jot = (JOT *)jot₋alloc(sizeof(JOT));
+   /*  ⬷ include₁ and include₂ ⤐ */
+   if (kiddle.copy₋append₋text(uc.tetras,uc.unicodes,inflate)) { return NULL; }
+   if (kiddle.datum₋text(uc.tetras)) { return NULL; }
+   
+   return agree->jot;
+}
 
 
