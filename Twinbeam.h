@@ -162,7 +162,7 @@ extern "C" { int setjmp2(jmp_buf2 env); void longjmp2(jmp_buf2 env,
 #define CATCH } else {
 #define END_TRY } }
 #define PULT💡(x) ++x /* ⬷ todo: Add atomic enclosure. */
-extern "C" jmp_buf2 * /* volatile */ JmpBuf(); /* ⬷ A great symbol for a project break! */
+extern "C" jmp_buf2 * /* volatile */ JmpBuf(); /* ⬷ a great symbol for a project break! */
 structᵢ SharedOptional { bool populated; explicit SharedOptional() : populated(
   false) { } explicit operator bool() const { return populated; } };
 #if defined  __mips__ || defined __armv6__ || defined espressif
@@ -170,7 +170,7 @@ typedef unsigned int size_t;
 void * operator new(unsigned int size, void * here) noexcept;
 #elif defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
 typedef unsigned long size_t;
-/* void * operator new(unsigned long size, void * here) noexcept; */
+void * operator new(unsigned long size, void * here) noexcept;
 #endif /* On `Opt` minus `void *`: See 𝐶𝑟𝑎𝑠ℎ 𝑓𝑟𝑒𝑞𝑢𝑒𝑛𝑛𝑐𝑦, 𝑐𝑜𝑝𝑦/𝑝𝑎𝑠𝑡𝑒 and 𝑒𝑥𝑝𝑙𝑜𝑖𝑡𝑖𝚤𝑛𝑔 𝑢𝑛𝑖𝑛𝑖𝑡𝑖𝑎𝑙𝑖𝑧𝑒𝑑. */
 template <typename T> struct Opt : public SharedOptional { explicit Opt() = 
   default; template <typename...A> constexpr Opt(A&&... args) { new (content) 
@@ -213,26 +213,27 @@ namespace std₋ᵢ { /* The standard residual */ typedef ::size_t size_t;
 struct Scatter; struct Memoryview { Scatter * scatter; __builtin_int_t 
   bytesoffset; __builtin_int_t bytecount; };
 MACRO __builtin_uint_t 🔎(__builtin_uint_t var) { return *((__builtin_uint_t 
-  /* volatile */ *) var); }
+ /* volatile */ *) var); }
 MACRO __builtin_uint_t&  🔧(__builtin_uint_t var) { return (__builtin_uint_t&) 
-  *(__builtin_uint_t /* volatile */ *)var; }
+ *(__builtin_uint_t /* volatile */ *)var; }
 MACRO __builtin_uint_t TrailingZeros(__builtin_uint_t x) { if (x == 0) { return 
-  8*sizeof(x); } x=(x^(x-1))>>1; int c=0; for (; x; c++) { x >>= 1; } return c; }
+ sizeof(x)*8; } x=(x^(x-1))>>1; int c=0; for (; x; c++) { x >>= 1; } return c; }
 /* ⬷ Not `__builtin_clzl` for Mips and `__builtin_clz` for Intel.  And for 
   contemplative consumption of abstraction, 𝑃𝑖𝑛𝑐𝑒 𝑎𝑏𝑠𝑡𝑟𝑎𝑖𝑡: */
 MACRO void Envelop(__builtin_uint_t & x) { x=(x^(x-1)); }
-MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
-  void (^update)(__builtin_uint_t& shifted) = ^(__builtin_uint_t&) { } ) {
-  __builtin_uint_t word = *symbol, shift=TrailingZeros(mask), orig = mask&word,
-  shifted = orig>>shift; if (update) update(shifted); __builtin_uint_t fresh =
-  (shifted<<shift)&mask; *symbol = (word & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL
-enum class Ieee754Form { Scientific, Saturn, Monetary }; /* ⬷ Occasionally `intrinsic_and_base₋10`. */
+MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask, 
+ void (^update)(__builtin_uint_t& shifted) = ^(__builtin_uint_t&) { } ) {
+ __builtin_uint_t word = *symbol, shift=TrailingZeros(mask), orig = mask&word,
+ shifted = orig>>shift; if (update) update(shifted); __builtin_uint_t fresh =
+ (shifted<<shift)&mask; *symbol = (word & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL
+/* Integer types char8_t and char32_t are both unsigned ⤐ */
+enum class Ieee754Form { Scientific, Saturn, Monetary, Scandinavian₋monetary }; /* ⬷ occasionally `intrinsic_and_base₋10`. */
 DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t 𝟷𝟶₋base));
 int print(const char * utf8format,...); int mfprint(const char * utf8format,...);
 int print(void (^out)(char8_t * u8s, __builtin_int_t bytes), const char * utf8format, ...);
 struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, void * context); 
  typedef void (^Output)(Unicode set, void * context); union { __builtin_int_t d; 
- __builtin_uint_t x, b; char8_t * utf8; struct /* Unicodes */ { char32_t * ucs; 
+ __builtin_uint_t x, b; char8_t * utf8; struct /* Unicodes */ { char32_t * unicodes; 
  __builtin_int_t tetras; } ucs; char8_t c; char32_t uc; double f₁; float f₂; uint8_t bytes[16]; 
 #ifdef simd₋integers
  __uint128_t U; __int128_t I;
@@ -250,11 +251,11 @@ extern "C" { int atexit(void(*func)(void)); void exit(int); }
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fall⒪⒲)(void *);
 __builtin_int_t 𝟺𝟶𝟿𝟼₋aligned₋frame(__builtin_int_t byte₋number, __builtin_int_t * modulo);
 int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
-  __builtin_uint_t avails[], void (^every)(uint8_t * 𝟸ⁿframe, bool& stop));
+ __builtin_uint_t avails[], void (^every)(uint8_t * 𝟸ⁿframe, bool& stop));
 int Release𝟷ᵈ(void * 𝟸ⁿframe, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
-  __builtin_uint_t avails[], bool secure);
+ __builtin_uint_t avails[], bool secure);
 struct Expeditionary { __builtin_int_t 𝑙𝑜𝑔₂Pages; __builtin_int_t Idxs; 
-  __builtin_uint_t * pages; __builtin_uint_t * avails; };
+ __builtin_uint_t * pages; __builtin_uint_t * avails; };
 void InitFrames(int count, unsigned expeditionaries[]);
 int ContiguousAcquire(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟);
 int CoalescingAcquire(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟);
@@ -271,16 +272,17 @@ __builtin_int_t ByteoffsetMips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t �
 typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
 #ifdef __x86_64__
 FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memory(
-  ByteAlignedRef dst, /* const */ ByteAlignedRef src, __builtin_int_t bytes) {
-  ByteAlignedRef org = dst; __asm__ __volatile__ ("rep movsb" : "+D"(dst),
-  "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* a․k․a `memcopy`. */
+ ByteAlignedRef dst, /* const */ ByteAlignedRef src, __builtin_int_t bytes) {
+ ByteAlignedRef org = dst; __asm__ __volatile__ ("rep movsb" : "+D"(dst),
+ "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* a․k․a `memcopy`. */
 FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
-  ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uint_t bytes); /* ⏱😐🏁 */
+ ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uint_t bytes); /* ⏱😐🏁 */
 #define MEASURE_START(prefix) int64_t prefix##Start = __rdtsc(); /* 𝚜𝚒𝚐𝚗𝚎𝚍 ⟵ Comparision */
 #define MEASURE_END(prefix)                                                  \
-  int64_t prefix##End = (int64_t)__rdtsc();                                  \
-  int64_t prefix##Nanos = prefix##End - prefix##Start;                       \
-  print(#prefix " measures ⬚ ns\n", ﹟d(prefix##Nanos));
+ int64_t prefix##End = (int64_t)__rdtsc();                                   \
+ int64_t prefix##Nanos = prefix##End - prefix##Start;                        \
+ print(#prefix " measures ⬚ ns\n", ﹟d(prefix##Nanos));
+/* #define PIC32SYMBOL(serie,symbol,vaddr) */
 #define 🎭𝑋𝟾𝟼(storage,symmsk,...) 🎭((__builtin_uint_t *)(storage), INTEL_##symmsk __VA_OPT__(,) __VA_ARGS__)
 #elif defined __armv6__ || defined __armv8a__
 FOCAL ByteAlignedRef Copy8Memory(ByteAlignedRef dst, ByteAlignedRef src, __builtin_int_t bytes);
@@ -289,12 +291,12 @@ FOCAL int Compare8Memory(ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uin
 FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef 
   dst, ByteAlignedRef src, __builtin_int_t bytes);
 FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁, 
-  ByteAlignedRef p₂, __builtin_uint_t bytes); /* ⬷ a․𝘬․a `memcmp`. */
+ ByteAlignedRef p₂, __builtin_uint_t bytes); /* ⬷ a․𝘬․a `memcmp`. */
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
-  constexpr uint32_t PIC32##serie##_##symbol = vaddr;                        \
-  constexpr uint32_t PIC32##serie##_##symbol##CLR = (vaddr + 0x4);           \
-  constexpr uint32_t PIC32##serie##_##symbol##SET = (vaddr + 0x8);           \
-  constexpr uint32_t PIC32##serie##_##symbol##INV = (vaddr + 0xc);
+ constexpr uint32_t PIC32##serie##_##symbol = vaddr;                         \
+ constexpr uint32_t PIC32##serie##_##symbol##CLR = (vaddr + 0x4);            \
+ constexpr uint32_t PIC32##serie##_##symbol##SET = (vaddr + 0x8);            \
+ constexpr uint32_t PIC32##serie##_##symbol##INV = (vaddr + 0xc);
 #define PortRectifyAsOutputs(serie,X,tris) (*((uint32_t *)PIC32##serie##_##TRIS##X##CLR) = (uint16_t)(tris))
 #define 🔎🎭𝑀𝑋(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__) 
 #define 🔎🎭𝑀𝑍𝐷𝐴(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
@@ -318,7 +320,7 @@ MACRO void * _Block_copy(const void * arg) { struct Block_layout *block = (struc
 MACRO void _Block_release(const void *arg) { Fall⒪⒲((void *)arg); }
 typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
-__builtin_int_t constexpr SystemPagesize() { return 4096; } /* One definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
+__builtin_int_t constexpr SystemPagesize() { return 4096; } /* ⬷ one definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
 FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned 
   short base, unsigned short digitsOr0, /* Not more than 32 alt. 64 digits 
@@ -403,26 +405,26 @@ template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 🥇 NOT_EVERYTIME
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
 #define 🥈 WHEN_COMPILING /* Must be assigned to a `const` and no inline assembler. */
-#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* a․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 🎿 'jurid' and 'förekomst'. Also 'machinal'. */
+#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* ⬷ a․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 🎿 'jurid' and 'förekomst'. Also 'machinal'. */
 template <typename T> T * Critic(const T * x) { return const_cast<T*>(x); }
-template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* a․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
+template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* ⬷ a․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
 __builtin_int_t least₋possible₋residue(__builtin_int_t dividend, __builtin_int_t divisor);
 /* ⬷ See --<Wiki>--<Essays>--<On Clocks and Time> and 'circular reasoning'. */
 #define auto₋rollback(variable) decltype(variable)
-#define ᶿ﹡ const * /* #define *⥃ const char * /​* a․𝘬․a `*⥆` and `*⫩`. */
+#define ᶿ﹡ const * /* #define *⥃ const char * /​* ⬷ a․𝘬․a `*⥆` and `*⫩`. */
 
 #pragma mark Utf-8
 
 int UnicodeToUtf8(char32_t Ξ, void (^sometime₋valid)(char8_t *ξ, short bytes));
 
-short Utf8Followers(char8_t lead𝘖r8Bit); /* ⬷ Recognize modern `char8_t` formerly `uint8_t`. */
+short Utf8Followers(char8_t lead𝘖r8Bit); /* ⬷ recognize modern `char8_t` formerly `uint8_t`. */
 
 char32_t Utf8ToUnicode(char8_t * ξ, __builtin_int_t bytes);
 
 struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; };
 
 typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast, 
-  bytesOffsetInclLast; } Utf8Interval; /* ⬷ E․𝘨 wrongly coded utf-8. */
+  bytesOffsetInclLast; } Utf8Interval; /* ⬷ e․𝘨 wrongly coded utf-8. */
 
 #pragma mark Seven-bit keyput/file and Utf-8 strings
 
@@ -430,7 +432,7 @@ typedef signed char * 𝟽bit₋pointer;
 
 struct 𝟽bit₋text { __builtin_int_t bytes; 𝟽bit₋pointer segment; };
 
-struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * segment; }; /* ⬷ Type 
+struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * segment; }; /* ⬷ type 
  'char' C implementation dependent whether signed/unsigned. See '-fno-signed-char'. */
 
 struct utf8₋text { __builtin_int_t bytes; char8_t * segment; };
@@ -446,7 +448,7 @@ typedef union {
       unsigned mantissah : 20;
       unsigned exponent  : 11;
       unsigned sign      :  1;
-   } binary64; /* a․𝘬․a `ieee754b﹟𝟸`. */
+   } binary64; /* ⬷ a․𝘬․a `ieee754b﹟𝟸`. */
    /* struct { … } ieee754b﹟𝟷𝟶; a․𝘬․a `decimal64`. */
    /* struct { 
       unsigned absolute  : 31;
@@ -462,20 +464,21 @@ struct Octa { uint32_t l, h; };
 MACRO int64_t nearest₋naive(double measure) { return (int64_t)measure; } 
  ⬷ Incorrect truncation for negative fractions. */
 
+__builtin_int_t 🥈 Wordbytes=sizeof(__builtin_uint_t);
+
 #if !(defined __armv6__ || defined __MM__ || defined espressif)
-#define IEEE754_ARITHMETICS_INSIDE
-#endif /* ⬷ Tensilica Lx6 is IEEE754 single-precision only. */
+#define IEEE754₋ARITHMETICS₋INSIDE
+#endif /* ⬷ Tensilica Lx6 is Ieee754 single-precision only. */
 #define GENERAL
 
 MACRO double Nearest(int64_t measure)
 {
 #ifdef GENERAL
-   __builtin_int_t 🥈 wordbytes=sizeof(__builtin_uint_t);
    uint64_t 🥈 sign₋bit = 0b1LL<<63; uint64_t 🥈 𝟹𝟸₋bits = 0xffffffff;
    int sign = sign₋bit & measure; /* ⬷ inquisitorial again. */
    if (measure<+0) { measure = -measure; } /* ⬷ a․𝘬․a __builtin_absll. */
    int64_t leading₋zeros = __builtin_clzll(measure);
-   unsigned biased₋2ⁿexp = wordbytes*8 - leading₋zeros; /* ⤪ 32 alt. 64 bits wide words. */
+   unsigned biased₋2ⁿexp = Wordbytes*8 - leading₋zeros; /* ⤪ 32 alt. 64 bits wide words. */
    int64_t mantissa = measure << leading₋zeros; mantissa >>= 12;
    Octa man₋bits; man₋bits.l = 𝟹𝟸₋bits & mantissa; man₋bits.h = mantissa>>32;
    octa afloat { .binary64 = { man₋bits.l, man₋bits.h, biased₋2ⁿexp, sign ? 1u : 0u } };
@@ -500,7 +503,7 @@ MACRO double Nearest(int64_t measure)
 MACRO int64_t Nearest(double measure, int * reciproc)
 {
 #ifdef GENERAL
-#ifdef IEEE754_ARITHMETICS_INSIDE
+#ifdef IEEE754₋ARITHMETICS₋INSIDE
    measure += 0.5; /* Add 0.5 before scissor for 'nearest', otherwise rounds towards zero. */
 #endif /* ⬷ and 1.5 when negative and 'round towards -inf'. */
    octa integer { .base﹟𝟸=measure };
@@ -528,10 +531,10 @@ MACRO int64_t Nearest(double measure, int * reciproc)
      fistp rax              /* ⬷ Not Intel.ROUNDSD and not Intel.FRNDINT. */
    }                                                                         
 #endif
-} /* ⬷ a․𝘬․a `Cast` and `Convert`. (Rounded towards -inf: floor.l.d; rounded 
+} /* ⬷ a․𝘬․a 'Cast' and 'Convert'. (Rounded towards -inf: floor.l.d; rounded 
  towards +inf: ceil.l.d) */
 
-#undef IEEE754_ARITHMETICS_INSIDE
+#undef IEEE754₋ARITHMETICS₋INSIDE
 #undef GENERAL
 
 #if defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
@@ -542,7 +545,7 @@ MACRO int64_t Nearest(double measure, int * reciproc)
 union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits; };
 #elif defined __mips__ || defined __armv6__ || defined espressif
 union Treeint { struct { int32_t key; uint32_t val; } keyvalue; uint64_t bits; };
-#endif /* ⬷ a․𝘬․a `Autumn` and `Treeℤ`. */
+#endif /* ⬷ a․𝘬․a 'Autumn' and 'Treeℤ'. */
 
 void * Insert(void * opaque, Treeint valkey, void * (^alloc)(int bytes));
 void Forall(void ᶿ﹡ opaque, void (^dfs)(Treeint valkey, bool& stop));
@@ -579,11 +582,11 @@ int Hash(uint8_t * material, __builtin_int_t bytes, void (^ping𝘖r𝖭𝖴𝖫
   void (^complete)(ditriaconta digest)); /* ⬷ a․𝘬․a `Fineprint`. */
 
 #if defined  __mips__ || defined __armv6__ || defined espressif
-#define BUILTIN_INT_MAX 2147483647
+#define BUILTIN₋INT₋MAX 2147483647
 #elif defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
-#define BUILTIN_INT_MAX 0x7FFFFFFFFFFFFFFF
+#define BUILTIN₋INT₋MAX 0x7FFFFFFFFFFFFFFF
 #endif /* ~0b0>>1 */
-/* ⬷ the constant INT_MAX is an odd number. */
+/* ⬷ the constant INT₋MAX is an odd number. */
 
 typedef union {
    float base﹟𝟸; /* For 2⁻¹²⁶ to 2¹²⁷ or 1․18×10⁻³⁸ to 3․40×10³⁸. */
@@ -611,84 +614,83 @@ enum class Endianness { Native, Network };
 
 #pragma mark - 📖😐 ”𝑈𝑛𝑖𝑐𝑜𝑑𝑒”
 
-int Utf8Sync(char8_t **p); /* Backs at most 3 bytes to regain sync. */
+int Utf8Sync(char8_t **p); /* ⬷ backs at most 3 bytes to regain sync. */
 
 inline char32_t Superscript(short 𝟶to𝟿) { return U'⁰'+𝟶to𝟿; } /* ⁰¹⋯⁹ */
 
 inline char32_t Subscript(short 𝟶to𝟿) { return U'₀'+𝟶to𝟿; } /* ₀₁…₉; ⬷ For the computational chemistry inclined. */
 
-struct Unicodes { __builtin_int_t tetras; char32_t * unicodes; }; /* For 
- textual material stored in a read-only memory, see `ᵊ` in --<Additions.h>; 
- and parsing and editing, see --<Kiddle.hpp> and --<2ᵈ-𝔣ow.hpp> respectively. 
- See also: --<🥽 Cordal.cpp>. */
+struct Unicodes { __builtin_int_t tetras; char32_t * unicodes; };
 
-enum { END_OF_TRANSMISSION = U'\u0004' }; /* ⬷ hex ∧ dec; also a․|incorrectly/𝘬․a '\x4', '\x41', '\x42', … */
+enum { END_OF_TRANSMISSION = U'\u0004' };
 
 #pragma mark - For 𝑝𝑖𝑔𝑒𝑜𝑛 𝑟𝑒𝑐𝑜𝑛𝑛𝑎𝑖𝑠𝑠𝑎𝑛𝑐𝑒, 𝑠𝑐𝑜𝑢𝑡𝑖𝑛𝑔 and other missions
 #pragma mark - Still images, timeseries and language analysis
 #pragma mark - 𝘊․𝘧 Scandinavian 'by₋tes' a․𝘬․a '✠✠'
 #pragma mark - Touting strong radio (🦠)
-#pragma mark - ³⁰Clotty
-#pragma mark - Mutating
 
-typedef __builtin_uint_t virtuaddr;
+struct structure {
+  void * (^leaf₋alloc)(int bytes) = ^(int bytes) { return Alloc(bytes); };
+  int lengthen(__builtin_int_t ﹟, void * fixedKbframes[]);
+  uint8_t * relative(__builtin_int_t byte₋offset);
+  int copy₋append(__builtin_int_t bytes, uint8_t * material, void (^inflate)(
+   __builtin_int_t ﹟, bool& cancel)); __builtin_int_t bytes() const;
+  void * treelist=NULL, *cached₋tile; __builtin_int_t cached₋number=-1, 
+   tile₋count=0, bytes₋per₋tile, unusedbytes=0; 
+  struct Legator { __builtin_int_t tree₋out=0; } leg;
+}; /* ⬷ a․𝘬․a 'Sequence', 'Array', '𝟺kbTiles' and 'reflecto₋tiles. */
 
-typedef SemanticPointer<virtuaddr> byteaddress; /* ⬷ a․𝘬․a `metaaddress`. */
+inline int Copy₋append₁(unsigned expeditionary, structure& sequence, 
+  __builtin_int_t bytes, uint8_t * material
+)
+{
+  auto amend = ^(__builtin_int_t ﹟, bool& cancel) { void * 𝟺kbframes[﹟]; 
+   if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { cancel=true; }
+   if (sequence.lengthen(﹟,𝟺kbframes)) { cancel=true; } };
+  return sequence.copy₋append(bytes,material,amend);
+}
 
-struct Memorydelegate {
-  virtual void statistics(Scatter * s, char32_t unicode) = 0;
-  virtual void issue(Scatter * s, byteaddress unaligned, int nº) = 0;
-};
+inline int Copy₋append₂(structure& sequence, __builtin_int_t bytes, uint8_t * material)
+{
+  auto amend = ^(__builtin_int_t ﹟, bool& cancel) { void * 𝟺kbpages[﹟]; 
+   for (__builtin_int_t i=0; i<﹟; ++i) { 𝟺kbpages[i] = Alloc(sequence.bytes₋per₋tile); }
+   if (sequence.lengthen(﹟,𝟺kbpages)) { cancel=true; } };
+  return sequence.copy₋append(bytes,material,amend);
+}
 
-struct Scatter { /* Enclosable in one page as 'thing plus padding'. (Max4kB, Max4MB and Nonbound.) */
-   Scatter(unsigned 🅧ᵖ, void * 𝟺kbPages[], __builtin_int_t ﹟, __builtin_int_t lastpagebytes) FALLIBLE;
-   Scatter(unsigned 🅧ᵖ, Memorydelegate * delegate = NULL);
-   int 𝟺kb₋init(void * the𝟺kbpage, short unused₋bytes);
-   int 𝟷₋tile₋init(__builtin_int_t ref₋bytes, void * ref₋store, void * 𝟺kbPages[], __builtin_int_t ﹟, __builtin_int_t lastpage₋bytes); /* a․𝘬․a `𝟺Mbinit` and `𝟷₋ref-scatter`. */
-   int n₋tile₋init(void * 𝟺kbpages[], __builtin_int_t ﹟, __builtin_int_t lastpage₋bytes, __builtin_int_t * fifo₋pages); /* a․𝘬․a `𝟺Gbinit` and `𝟸₋ref₋scatter`. */
-   int incorp(__builtin_int_t bytes₋to₋tail, __builtin_int_t bytes, void (^sometimes)(short bytes, uint8_t * virtue));
-   int shiftout(__builtin_int_t bytes, void (^left)(short bytes, uint8_t * partial𝘈𝘯𝘥𝘖r𝟺kbPage)); /* Also `𝘗𝘰𝘴𝘴𝘪𝘣𝘭𝘺`. */
-   byteaddress relative(__builtin_int_t byte₋offset, void (^relissue)(int nº)) const;
-   __builtin_uint_t& word(byteaddress unaligned, short &lshbits, void (^issue)(int nº,byteaddress));
-   int keep(byteaddress unaligned, __builtin_uint_t word) const;
-   int oncewired(__builtin_int_t ﹟, uint8_t **start, __builtin_int_t *bytes) const; /* 𝘊․𝘧 predictive cache. */
-   __builtin_int_t bytes() const; __builtin_int_t ᵇdebris() const;
-   ~Scatter(); Memorydelegate * delegate; Scatter(const Scatter& other); /* ⬷ required by `pristine` convention. */
-😐; /*  On disjunct, sediment and segments: the `Scatter` retrieve memory via 
-    
-   ・ n₋tiled a․𝘬․a 2₋read a․𝘬․a indexed a․𝘬․a infinitely₋growable₋scatter; 
-   ・ 1₋tiled a․𝘬․a re₋seedable₋by₋copying₋for₋example₋with₋realloc₋scatter; 
-   ・ 𝟺kb₋tile a․𝘬․a swiftly₋allocable₋scatter.
-    
-  For n₋tiled, a synthesized pointer consisting of a page index and an offset. */
+inline int Setup₋shattered(unsigned expeditionary, __builtin_int_t ﹟, 
+ structure& sequence) { void * 𝟺kbpages[﹟]; 
+   sequence.bytes₋per₋tile = SystemPagesize();
+   if (CoalescingAcquire(expeditionary,𝟺kbpages,﹟)) { return -1; }
+   if (sequence.lengthen(﹟,𝟺kbpages)) { return -2; }
+   return 0;
+}
+
+inline int Setup₋initially₋one(__builtin_int_t bytes, structure& sequence)
+{  sequence.bytes₋per₋tile = bytes;
+   void * fixedKbframes[] = { Alloc(bytes) };
+   if (sequence.lengthen(1,fixedKbframes)) { return -1; }
+   return 0;
+}
+
+int Snapshot(const structure& original, structure & pristine);
+int ToggleNetworkAndNative(structure &region, __builtin_int_t bytes₋skip, __builtin_int_t 
+  bytes, void (^ping)(bool &stop), void (^completion)(__builtin_int_t bytes)); 
+
+struct Bits { structure * scatter; uint8_t& operator[](__builtin_int_t idx);
+uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, 
+  __builtin_int_t totbytes, uint8_t * towrite𝘖r𝖭𝖴𝖫𝖫=NULL);
+uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, 
+  __builtin_int_t totmips, uint32_t * towrite𝘖r𝖭𝖴𝖫𝖫=NULL);
+uint64_t /* a․𝘬․a `ieee754dbl₋pattern` */ intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) 
+ { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
+}; /* ⬷ a․𝘬․a 'Memoryregion'. */
 
 /*  When 'change', 'delete' and 'type', see --<2ᵈ-𝔣ow.hpp>. A partially enfoiled fifo and a 
  byte-address accessor. Note that the accessor is not called from `push` and `pop`. */
 
-int Augment(Scatter& s, __builtin_int_t bytes, void (^once𝘖rMultiple)(short bytes, 
-  uint8_t * partial𝘈𝘯𝘥𝘖𝘳𝟺kbPage));
-int Foreach(const Scatter& s, void (^nought𝘖rMany)(__builtin_int_t bytes, 
-  uint8_t * material, bool& stop));
-int Snapshot(const Scatter& original, Scatter & pristine);
-
-int Abduct(unsigned expeditionary, __builtin_int_t bytes, Memorydelegate * delegate, Scatter &pattern);
-int ToggleNetworkAndNative(Scatter &region, __builtin_int_t bytes₋skip, __builtin_int_t 
-  bytes, void (^ping)(bool &stop), void (^completion)(__builtin_int_t bytes)); 
-/* See also --<🥽 Störung.cpp>. */
-
-struct Bits { Bits(Scatter * s); Scatter * scatter; uint8_t& operator[](__builtin_int_t idx);
-  uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel wrap, 
-    __builtin_int_t totbytes, uint8_t * towrite𝘖r𝖭𝖴𝖫𝖫=NULL);
-  uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, 
-    __builtin_int_t totmips, uint32_t * towrite𝘖r𝖭𝖴𝖫𝖫=NULL);
-  uint64_t /* a․𝘬․a `ieee754dbl₋pattern` */ intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
-}; /* a․𝘬․a `Memoryregion`. */
-
 void * ExactSeek₂(const void *key, const void *base, size_t num, 
  size_t size, int (^cmp)(const void *key, const void *elt));
-
-int Sediment(unsigned expeditionary, __builtin_int_t bytes, void (^once𝘖rNought)(Bits& bits));
-/* ⬷ a․𝘬․a `Otherref`; Similar-to `alloca`. */
 
 int IsPrefixOrEqual(const char *𝟽alt𝟾₋bitstring, const char *𝟽alt𝟾₋bitprefix);
 /* Returns `int` indicating difference at branch, -1 if equal and `0` when string 
@@ -793,8 +795,6 @@ constexpr __builtin_int_t Ceil(__builtin_int_t num, __builtin_int_t denom)
   return (ℕ + (modula != 0 ? 1 : 0)) * (negative ? -1 : 1);
 } /* ⬷ E․𝘨 ceil(sizeof(E)/4) = words, sizeof(E)/4 - 1 < words <= sizeof(E)/4 */
 
-__builtin_int_t 🥈 Wordbytes=sizeof(__builtin_uint_t);
-
 constexpr __builtin_int_t HowMany(__builtin_uint_t index, __builtin_uint_t width) {
   return (index % width == 0) ? index/width : index/width + 1; } 
 /* ⬷ See all the multiple flavors of 'fraction' in --<System.cpp>. */
@@ -895,9 +895,9 @@ InstantToText(
   
   */
  
-typedef Chronology Chronology🚀; /* I.e 'Celestial fractional' with 'identical' epoc. */
+typedef Chronology Chronology🚀; /* ⬷ i․𝘦 'celestial fractional' with 'identical' epoc. */
 
-typedef Chronology Chronology🦠; /* With 2⁻⁶⁵ 𝘢․𝘬․𝘢 `UQ65`; light
+typedef Chronology Chronology🦠; /* ⬷ with an 2⁻⁶⁵ 𝘢․𝘬․𝘢 `UQ65`; light
   travels approximately 8.126 pm ('pico meter') per increment. */
 
 /**  The unperturbed — yet based on ¹³³Caesium — chronology. */
