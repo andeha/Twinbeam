@@ -199,7 +199,7 @@ template <class... Ts> struct Tuple {}; template <class T, class... Ts>
   k != 0, typename elem_type_holder<k, Tuple<T, Ts...>>::type&>::type
   get(Tuple<T, Ts...>& t) { Tuple<Ts...> &base = t; return get<k-1>(base); }
 template <class ...T> Tuple<T...> Tie(T... t) { return Tuple<T...>(t...); }      /* ☜😐: 🔅 ⬷ 𝘋𝘰 𝑛𝑜𝑡 move sun. (146) */
-namespace std₋ᵢ { /* The standard residual */ typedef ::size_t size_t;
+namespace std { /* The standard residual */ typedef ::size_t size_t;
   template<class T> class initializer_list { const T *beg; size_t sz;
   initializer_list(const T * b, size_t s) : beg(b), sz(s) { } public: typedef
   T value_type; typedef const T& reference; typedef const T& const_reference;
@@ -636,7 +636,7 @@ struct structure {
   int copy₋append(__builtin_int_t bytes, uint8_t * material, void (^inflate)(
    __builtin_int_t ﹟, bool& cancel)); __builtin_int_t bytes() const;
   void * treelist=NULL, *cached₋tile; __builtin_int_t cached₋number=-1, 
-   tile₋count=0, bytes₋per₋tile, unusedbytes=0; 
+   tile₋count=0, bytes₋per₋tile, unusedbytes=0;
   struct Legator { __builtin_int_t tree₋out=0; } leg;
 }; /* ⬷ a․𝘬․a 'Sequence', 'Array', '𝟺kbTiles' and 'reflecto₋tiles. */
 
@@ -673,6 +673,53 @@ inline int Setup₋initially₋one(__builtin_int_t bytes, structure& sequence)
    return 0;
 }
 
+/* enum { 𝟾, 𝟷𝟼, 𝟹𝟸, 𝟼𝟺, lo𝟼𝟺, hi𝟼𝟺, lo𝟷𝟸𝟾, hi𝟷𝟸𝟾, utf8 } */
+
+struct Convoj { structure material, vitruvi; __builtin_int_t count=0; 
+  int init(__builtin_int_t bytes₋material, __builtin_int_t initial₋count);
+  uint8_t * at(__builtin_int_t idx, __builtin_int_t * bytes); void pop() { --count; }
+  int copy₋include(__builtin_int_t count, __builtin_int_t bytes[], ...);
+};
+
+inline uint8_t * Convoj::at(__builtin_int_t idx, __builtin_int_t * bytes)
+{ const __builtin_int_t genesis=0; __builtin_int_t & acclast₋₁ = Critic(genesis);
+   if (idx > 0) { acclast₋₁ = *(__builtin_int_t *)vitruvi.relative((idx-1)*sizeof(__builtin_int_t)); }
+   __builtin_int_t & acclast = *(__builtin_int_t *)vitruvi.relative(idx*sizeof(__builtin_int_t));
+   *bytes = acclast - acclast₋₁; return material.relative(acclast₋₁);
+}
+
+template <typename G/*riller*/>
+struct ˢConvoj { structure inner; __builtin_int_t count=0; 
+  ˢConvoj(std::initializer_list<G> lst) { init(lst); }
+  ˢConvoj& operator=(std::initializer_list<G> lst) { init(lst); return *this; }
+  /* Convoj& operator=(G * other) { return *this; } */
+  G& operator[](int idx) { return (G *)inner.relative(idx*sizeof(G)); }
+  void pop() { --count; } int init(std::initializer_list<G> lst);
+  int copy₋include(int count, G * Ɀ, int cycles=1);
+};
+
+template <typename G>
+int ˢConvoj<G>::init(std::initializer_list<G> lst)
+{
+   /* int Setup₋shattered(unsigned expeditionary, __builtin_int_t ﹟, 
+    structure& sequence); */
+   const G * b = begin(lst); const G * e = end(lst);
+   __builtin_int_t count = e - b;
+   if (Setup₋initially₋one(sizeof(G)*count,inner)) { return -1; }
+   if (copy₋include(count,Critic(b),1)) { return -2; }
+   return 0;
+}
+
+template <typename G> 
+int ˢConvoj<G>::copy₋include(int count, G * Ɀ, int cycles)
+{
+   for (int i=0; i<cycles; ++i) { if (Copy₋append₂(inner,sizeof(G)*count,
+    (uint8_t *)Ɀ)) { return -1; } } return 0; /* int Copy₋append₁(unsigned 
+   expeditionary, structure& sequence, __builtin_int_t bytes, uint8_t * material); */
+}
+
+template <typename E> using ˢKnots𝟷ᵈ = ˢConvoj<E>; using Knots𝟷ᵈ = Convoj;
+
 int Snapshot(const structure& original, structure & pristine);
 int ToggleNetworkAndNative(structure &region, __builtin_int_t bytes₋skip, __builtin_int_t 
   bytes, void (^ping)(bool &stop), void (^completion)(__builtin_int_t bytes)); 
@@ -686,8 +733,8 @@ uint64_t /* a․𝘬․a `ieee754dbl₋pattern` */ intel(uint32_t ˡᵒword, uin
  { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
 }; /* ⬷ a․𝘬․a 'Memoryregion'. */
 
-/*  When 'change', 'delete' and 'type', see --<2ᵈ-𝔣ow.hpp>. A partially enfoiled fifo and a 
- byte-address accessor. Note that the accessor is not called from `push` and `pop`. */
+/*  When 'change', 'delete' and 'type', see --<2ᵈ-𝔣ow.hpp>.  Note that the accessor is 
+ not called from 'push' and 'pop'. */
 
 void * ExactSeek₂(const void *key, const void *base, size_t num, 
  size_t size, int (^cmp)(const void *key, const void *elt));
@@ -719,8 +766,6 @@ struct Monoton { Monoton(__builtin_int_t oldest=0); __builtin_int_t
 inline uint32_t ᵗᵍᵍˡendian(uint32_t x) { return __builtin_bswap32(x); }
 inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
 /* ⇇ a․𝘬․a `toggleNetworkAndNative`. */
-
-/* ⤮ time-transaction 'hinner-upp' time-ruminated-whilst-jotting-valid. */
 
 /* #include <Source/fiber₁> */
 #include <Source/coroutine>
@@ -785,7 +830,7 @@ template <typename T> T * /* ⤪_ */ Elements𝘖𝘳Heap(int expeditionary,
 
 constexpr __builtin_int_t Frame(__builtin_uint_t size, __builtin_uint_t framesize)
 { return __builtin_int_t((size + framesize - 1) & ~(framesize - 1)); } 
-/* ⬷ May be evaluated at compile-time a․𝘬․a 'constexpr'. */
+/* ⬷ may be evaluated at compile-time a․𝘬․a 'constexpr'. */
 
 constexpr __builtin_int_t Ceil(__builtin_int_t num, __builtin_int_t denom) 
 {  int num₋neg=num<+0, denom₋neg=denom<+0;
@@ -793,11 +838,14 @@ constexpr __builtin_int_t Ceil(__builtin_int_t num, __builtin_int_t denom)
   __builtin_uint_t ℕ=num/denom, modula=num%denom; /* ⬷ also in sw/hw₋fractions. */
   int negative = denom₋neg ^ num₋neg ? 1 : 0;
   return (ℕ + (modula != 0 ? 1 : 0)) * (negative ? -1 : 1);
-} /* ⬷ E․𝘨 ceil(sizeof(E)/4) = words, sizeof(E)/4 - 1 < words <= sizeof(E)/4 */
+} /* ⬷ e․𝘨 ceil(sizeof(E)/4) = words, sizeof(E)/4 - 1 < words <= sizeof(E)/4 */
 
 constexpr __builtin_int_t HowMany(__builtin_uint_t index, __builtin_uint_t width) {
   return (index % width == 0) ? index/width : index/width + 1; } 
-/* ⬷ See all the multiple flavors of 'fraction' in --<System.cpp>. */
+/* ⬷ see all the multiple flavors of 'fraction' in --<System.cpp>. */
+
+__builtin_int_t 🥈 Pagewords=SystemPagesize()/Wordbytes; /* ⬷ a․𝘬․a 'arrangemang-
+ possibly-window', 'ElemsInside4kb' and '𝟻𝟷𝟸alt𝟷𝟶𝟸𝟺'. */
 
 #pragma mark - 😐😇
 
