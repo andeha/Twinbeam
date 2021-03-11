@@ -12,8 +12,7 @@
 #define MACRO inline INLINED
 #define structᵢ struct __attribute__((internal_linkage))
 #define unionᵢ union __attribute__ ((internal_linkage))
-#define inexorable static __attribute__ ((internal_linkage)) /* embedded */
-/* Line above replaces `INNER_DATA` ∧ `INNER_FUNCTION`. 'See 𝗇𝗆 for details'. */
+#define inexorable static __attribute__ ((internal_linkage)) /* ⬷ see 𝗇𝗆 for details. */
 #define DISORDERABLE __attribute__((weak))
 typedef signed char         int8_t;
 typedef unsigned char       uint8_t;
@@ -27,15 +26,15 @@ typedef int32_t             __builtin_int_t;
 #define TriboolUnknown 0xFFFFFFFF
 #elif defined __armv8a__ || defined __x86_64__
 typedef unsigned int        uint32_t;
-typedef int                 int32_t; /* ≡`long` */
+typedef int                 int32_t; /* ≢'long'. */
 typedef uint64_t            __builtin_uint_t;
-typedef int64_t             __builtin_int_t; /* ⬷ a․𝘬․a `sequential`. */
+typedef int64_t             __builtin_int_t; /* ⬷ a․𝘬․a 'sequential'. */
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
 #define simd₋integers
-#endif /* ⬷ Consider 32- alt. 64-bits with an extra sign bit for `Frame`, `leqAndPowerOfTwo`, `geqAndPowerOfTwo` and `isPowerOfTwo`. */
+#endif
 typedef unsigned short      uint16_t;
-typedef short               int16_t; /* ≡`ᵐⁱᵖˢint` */
-typedef __builtin_uint_t Tribool; /*  𝘊․𝘧 'obekant', 'icke-lös' and 'embargo ₍im₎material'. (🎿) */
+typedef short               int16_t; /* ≡ ᵐⁱᵖˢint. */
+typedef __builtin_uint_t Tribool; /*  c․𝘧 'obekant', 'icke-lös' and 'embargo ₍im₎material'. (🎿) */
 typedef struct bignum { /* Artificial: Scandinavian 'med-vet-ande'. */
   constexpr static int maxdigits = 628; /* To not: 'templates', … */
   char digits[maxdigits]; /* Unpacked binary coded decimals. */
@@ -348,8 +347,8 @@ template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋Compl(x) : x; 
 'identity a․𝘬․a zero' wraps and equals 0 when pattern is assumed unsigned.) */
 /* ⬷ a․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN and NEITHER_PROLOGUE_NOR_EPILOGUE. */
 #define MOMENT /* ⬷ attribute-at-end for method declarations a․𝘬․a `LEAF` and 'do not follow'. */
-#define moment /* ⬷ initial attribute for function definitions and declarations a․𝘬․a `leaf`. */
-#define intrinsic₋leaf /* ⬷ a․𝘬․a `half₋leaf`; multiple attempts-w(as)-silicon-based. */
+#define moment /* ⬷ initial attribute for function definitions and declarations a․𝘬․a 'leaf'. */
+#define intrinsic₋leaf /* ⬷ a․𝘬․a 'half₋leaf'; multiple attempts-w(as)-silicon-based. */
 #define leaf₋function /* ⬷ ...except intrinsic functions! */
 #define /* PROVOCATIVE */ ASSEMBLERONLY __attribute__((naked)) 
 #ifdef __x86_64__
@@ -375,7 +374,7 @@ template <typename T> T difference(T x₁, T x₂) { return x₁ - x₂; }
 template <typename T> T ˡchange(T x₁, T x₂) { return (x₁ - x₂) / x₂; } /* ∈[0,1]. */
 template <typename T> T ʳchange(T x₁, T x₂) { return (x₂ - x₁) / x₁; } /* ∉[0,1]. */
 #if (defined __mips__ || defined __armv6__ || defined espressif) && defined __cpp_concepts
-#define innominate auto /* ⬷ a․𝘬․a `innominate-type`. */
+#define innominate auto /* ⬷ a․𝘬․a 'innominate-type'. */
 template <typename T> concept Relative₋accumulative = requires (T x₁, T x₂) {
  x₁ + x₂ /* -> int */; /*{*/ x₁ - x₂ /*} -> Same<bool>*/; Zero(x₂) /* -> T*/; };
  /* ⬷ a․𝘬․a `Turtle` and 'algebraic category'. To instatiate write similar to 
@@ -413,20 +412,20 @@ __builtin_int_t least₋possible₋residue(__builtin_int_t dividend, __builtin_i
 #define auto₋rollback(variable) decltype(variable)
 #define ᶿ﹡ const * /* #define *⥃ const char * /​* ⬷ a․𝘬․a `*⥆` and `*⫩`. */
 
-#pragma mark Utf-8
+#pragma mark utf-8
 
-int UnicodeToUtf8(char32_t Ξ, void (^sometime₋valid)(char8_t *ξ, short bytes));
+int UnicodeToUtf8(char32_t Ξ, void (^sometime₋valid)(char8_t * ξ, short bytes));
 
 short Utf8Followers(char8_t lead𝘖r8Bit); /* ⬷ recognize modern `char8_t` formerly `uint8_t`. */
 
 char32_t Utf8ToUnicode(char8_t * ξ, __builtin_int_t bytes);
 
-struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; };
+struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; }; /* ⬷ a․𝘬․a 'Utf8Location'. */
 
 typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast, 
-  bytesOffsetInclLast; } Utf8Interval; /* ⬷ e․𝘨 wrongly coded utf-8. */
+  bytesOffsetInclLast; } Utf8Interval; /* ⬷ a․𝘬․a 'Sourcelocation'; e․𝘨 wrongly coded utf-8. */
 
-#pragma mark Seven-bit keyput/file and Utf-8 strings
+#pragma mark seven-bit keyput/file and utf-8 strings
 
 typedef signed char * 𝟽bit₋pointer;
 
@@ -448,7 +447,7 @@ typedef union {
       unsigned mantissah : 20;
       unsigned exponent  : 11;
       unsigned sign      :  1;
-   } binary64; /* ⬷ a․𝘬․a `ieee754b﹟𝟸`. */
+   } binary64; /* ⬷ a․𝘬․a 'ieee754b﹟𝟸'. */
    /* struct { … } ieee754b﹟𝟷𝟶; a․𝘬․a `decimal64`. */
    /* struct { 
       unsigned absolute  : 31;
@@ -498,7 +497,7 @@ MACRO double Nearest(int64_t measure)
      fstp xmm0                                                               
    } /* ⬷ enabled by '-fms-extension'. */                                   
 #endif
-} OPT_Si_FOCAL /* ⬷ a․𝘬․a `Cast` and `Convert`. */
+} OPT_Si_FOCAL /* ⬷ a․𝘬․a 'Cast' and 'Convert'. */
 
 MACRO int64_t Nearest(double measure, int * reciproc)
 {
@@ -579,7 +578,7 @@ typedef union {
   "Secure Hash Standard (SHS)", August 2015. */
 
 int Hash(uint8_t * material, __builtin_int_t bytes, void (^ping𝘖r𝖭𝖴𝖫𝖫)(bool &stop), 
-  void (^complete)(ditriaconta digest)); /* ⬷ a․𝘬․a `Fineprint`. */
+  void (^complete)(ditriaconta digest)); /* ⬷ a․𝘬․a 'Fineprint'. */
 
 #if defined  __mips__ || defined __armv6__ || defined espressif
 #define BUILTIN₋INT₋MAX 2147483647
@@ -847,6 +846,8 @@ constexpr __builtin_int_t HowMany(__builtin_uint_t index, __builtin_uint_t width
 
 __builtin_int_t 🥈 Pagewords=SystemPagesize()/Wordbytes; /* ⬷ a․𝘬․a 'arrangemang-
  possibly-window', 'ElemsInside4kb' and '𝟻𝟷𝟸alt𝟷𝟶𝟸𝟺'. */
+
+/* ⬷ Consider 32- alt. 64-bits with an extra sign bit for `Frame`, `leqAndPowerOfTwo`, `geqAndPowerOfTwo` and `isPowerOfTwo`. */
 
 #pragma mark - 😐😇
 
