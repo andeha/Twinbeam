@@ -53,7 +53,7 @@ void divide_bignum(𝓵₋bignum * a, 𝓵₋bignum * b, 𝓵₋bignum * c);
 void digit_shift(𝓵₋bignum * n, __builtin_int_t I); /* ⬷ multiplies n by 10ᵈ. */
 int compare_bignum(𝓵₋bignum * a, 𝓵₋bignum * b);
 void print_bignum(𝓵₋bignum * n, void (^output)(char c));
-struct Schoolbook { int64_t ℤ; uint64_t modula, denom; int sum₋negative; enum { Sum=0, Deduct=1 }; };
+struct Schoolbook { int64_t ℤ; int64_t modula, denom; int total₋nonpositive; };
 /* int sw₋fractions(uint64_t num, uint64_t denom, uint64_t &ℕ, uint64_t &modula); */
 /* int hw₋fractions₁(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
 /* int sw₋fractions₂(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
@@ -81,8 +81,8 @@ FOCAL int Initiate₋One(short id, int32_t &ℕ₋hi, uint32_t &ℕ₋lo) { exte
   struct Internals;                                                          \
   Internals * impl_;
 #define 😐 APPEND_PIMPL }
-template <typename T> struct SemanticPointer { T ref; }; /* a․𝘬․a `DisjunctPointer` and `OptionalIntervallicPointer`. */
-#define VISITISR(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + call */
+template <typename T> struct SemanticPointer { T ref; }; /* ⬷ a․𝘬․a `DisjunctPointer` and `OptionalIntervallicPointer`. */
+#define VISITISR(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + ftn-call. */
 #define UNITTEST(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
 #define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",            \
   ﹟s(s), ﹟s(__FUNCTION__), ﹟s(__FILE__), ﹟d(__LINE__)); exit(-1); }
@@ -637,7 +637,7 @@ struct structure {
   void * treelist=NULL, *cached₋tile; __builtin_int_t cached₋number=-1, 
    tile₋count=0, bytes₋per₋tile, unusedbytes=0;
   struct Legator { __builtin_int_t tree₋out=0; } leg;
-}; /* ⬷ a․𝘬․a 'Sequence', 'Array', '𝟺kbTiles' and 'reflecto₋tiles. */
+}; /* ⬷ a․𝘬․a 'Sequence', 'Array', '𝟺kbTiles' and 'reflecto₋tiles'. */
 
 inline int Copy₋append₁(unsigned expeditionary, structure& sequence, 
   __builtin_int_t bytes, uint8_t * material
