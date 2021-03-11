@@ -718,7 +718,8 @@ int ˢConvoj<G>::copy₋include(int count, G * Ɀ, int cycles)
    expeditionary, structure& sequence, __builtin_int_t bytes, uint8_t * material); */
 }
 
-template <typename E> using ˢKnots𝟷ᵈ = ˢConvoj<E>; using Knots𝟷ᵈ = Convoj;
+template <typename E> using ˢKnots𝟷ᵈ = ˢConvoj<E>; /* ⬷ a․𝘬․a 'Sequence'. */
+using Knots𝟷ᵈ = Convoj; /* ⬷ a․k․a 'Convenient-for-bloodknots'. */
 
 int Snapshot(const structure& original, structure & pristine);
 int ToggleNetworkAndNative(structure &region, __builtin_int_t bytes₋skip, __builtin_int_t 
@@ -790,7 +791,7 @@ namespace Scheduler { void Init();
   
   extern Necklace *first, *curr, *last;
   
-  int Operational(𝟄₋int₁ * coroutine₋err, void * (^necklace₋alloc)(int bytes)); /* a․𝘬․a `Start` and `Cyclic`. */
+  int Operational(𝟄₋int₁ * coroutine₋err, void * (^pearl₋alloc)(int bytes)); /* ⬷ a․𝘬․a `Start` and `Cyclic`. */
   
   MACRO void Proceed() { curr=curr->nxt; Resume(curr->err.coroutine.address()); }
   
@@ -808,7 +809,7 @@ namespace Scheduler { void Init();
 #define STRINGIFY(str) #str
 #define va_prologue(symbol)                                                 \
  __builtin_va_list __various;                                               \
- __builtin_va_start(__various, symbol); /* ⬷ a․𝘬․a __arg. */
+ __builtin_va_start(__various, symbol);
 
 /**  Return objects allocated from consecutive frames or from the heap. (DISJUNCT-ADJACENT-STUFFED) */
 template <typename T> T * /* ⤪_ */ Elements𝘖𝘳Heap(int expeditionary, 
