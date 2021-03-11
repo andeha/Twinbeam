@@ -9,15 +9,14 @@ progname = Twinbeam-units
 objs = ./.objs/7703a312-55B9-44da-A792-ebbcf9f87663_$progname
 platflags = -I ..
 include ../tools.ninja
-flags = $optflags $macoscflags $platflags
+flags = $optflags $macoscflags $platflags -Wno-c++2a-designator -std=c++2a
 include laptop-big.ninja
 
 rule link
-  command = xcrun ld -macosx_version_min 10.14.0 -lSystem -lc++ -o $out     $
-    $in $libtwinbeam
+  command = xcrun ld $linkflags -o $out $in $libtwinbeam
 
 # Consider x87math ⟷ bignum and ∩- exception.o
-build Twinbeamunits: link $objs/harness.o $objs/Tree.o $objs/Memory.o       $
+build Twinbeam-units: link $objs/harness.o $objs/Tree.o $objs/Memory.o      $
   $objs/Print.o $objs/Utf8.o $objs/Chronology.o $objs/bignum.o              $
   $objs/sha256.o $objs/macOS.o $objs/exception.o $objs/fifo.o               $
   $objs/System.o $objs/x87math.o $objs/llvm-rt3.o                           $
@@ -50,7 +49,8 @@ build $objs/exception.o: asm $src/exception.S
 build $objs/fifo.o: cc $src/fifo.cpp
 build $objs/System.o: cc $src/System.cpp
 build $objs/x87math.o: ccms $adds/x87math.cpp
-build $objs/llvm-rt3.o: cc ../../ia64+pic32rt/llvm-rt3.cpp
+build $objs/llvm-rt3.o: cc ../../../℮$ ia64+pic32rt/llvm-rt3.cpp
 build $objs/harness.o: cc main.cpp
 default $progname
+
 

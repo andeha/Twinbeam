@@ -15,11 +15,11 @@ rule toc
 
 rule library
   command = $librarian-pic32 rcs Releases/$out\_$sha1git.a $in             ; $
-  ln -f Releases/$out\_$sha1git.a Relases/$out.a; printf $sha1git
+  ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
 
 build $arm-library: library $objs/Utf8.o $objs/Tree.o $objs/Memory.o         $
   $objs/Chronology.o $objs/bignum.o $objs/sha256.o $objs/Print.o             $
-  $objs/exception.o $objs/System.o $objs/armlog.o $objs/fifo.o
+  $objs/exception.o $objs/System.o $objs/fifo.o
 build $objs/Utf8.o: cc Utf8.cpp
 build $objs/Tree.o: cc Tree.cpp
 build $objs/Chronology.o: cc Chronology.cpp
@@ -29,7 +29,7 @@ build $objs/sha256.o: cc sha256.cpp
 build $objs/Print.o: cc Print.cpp
 build $objs/exception.o: cc exception.S
 build $objs/System.o: cc System.cpp
-build $objs/armlog.o: cc logarm.cpp
+# build $objs/armlog.o: cc log.cpp
 build $objs/fifo.o: cc fifo.cpp
 build emit-content: toc
 default $arm-library

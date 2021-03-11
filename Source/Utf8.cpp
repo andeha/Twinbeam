@@ -4,7 +4,7 @@
 
 FOCAL
 short
-Utf8Followers(uint8_t leadOr8Bit)
+Utf8Followers(char8_t leadOr8Bit)
 {
     if (leadOr8Bit < 128) { return 0; }
     if (128 <= leadOr8Bit && leadOr8Bit < 192) return -1;
@@ -30,13 +30,13 @@ Utf8Followers(uint8_t leadOr8Bit)
 FOCAL
 char32_t
 Utf8ToUnicode(
-  const uint8_t *ξ,
+  char8_t *ξ,
   __builtin_int_t bytes
 )
 {
-    uint8_t first = *ξ;
+    char8_t first = *ξ;
     if (248 <= first || (128 <= first && first < 192)) return 0x0000FFFF;
-    switch (bytes) { case 1: return (char32_t)(uint8_t)*ξ; case 2: return 
+    switch (bytes) { case 1: return (char32_t)(char8_t)*ξ; case 2: return 
     (0b11111&*ξ) << 6 | (0b111111&(*(ξ + 1))); case 3: return (0b1111&*ξ) << 
     12 | (0b111111&(*(ξ + 1))) << 6 | (0b111111&(*(ξ + 2))); case 4: return 
     (0b111&*ξ) << 18 | (0b111111&(*(ξ + 1))) << 12 | (0b111111&(*(ξ + 2))) << 
@@ -46,7 +46,7 @@ Utf8ToUnicode(
 FOCAL
 int
 Utf8Sync(
-  uint8_t **ξ
+  char8_t **ξ
 ) /* Backs at most 3 bytes to regain sync. */
 { __builtin_int_t i=3;
 /* Ensure argument is `uint8_t` or equivalent. */
@@ -61,7 +61,7 @@ FOCAL
 int
 UnicodeToUtf8(
   char32_t Ξ,
-  void (^sometime₋valid)(const uint8_t *u8s, short bytes)
+  void (^sometime₋valid)(char8_t *u8s, short bytes)
 )
 {
     unsigned char 🥈 firstByteMark[7] = { 0x00, 0x00, 0xC0, 0xE0, 0xF0, 
@@ -71,19 +71,19 @@ UnicodeToUtf8(
     
     short bytesToWrite=0;
     
-    if (Ξ < (char32_t)0x80) { bytesToWrite=1; }
-    else if (Ξ < (char32_t)0x800) { bytesToWrite=2; }
-    else if (Ξ < (char32_t)0x10000) { bytesToWrite=3; }
-    else if (Ξ <= (char32_t)0x0010FFFF) { bytesToWrite=4; }
+    if (Ξ < 0x80L) { bytesToWrite=1; }
+    else if (Ξ < 0x800L) { bytesToWrite=2; }
+    else if (Ξ < 0x10000L) { bytesToWrite=3; }
+    else if (Ξ <= 0x0010FFFFL) { bytesToWrite=4; }
     else { return 1; }
     
-    uint8_t target[4];
+    char8_t target[4];
     
     switch (bytesToWrite) {
-    case 4: target[3] = (uint8_t)((Ξ | byteMark) & byteMask); Ξ >>= 6;
-    case 3: target[2] = (uint8_t)((Ξ | byteMark) & byteMask); Ξ >>= 6;
-    case 2: target[1] = (uint8_t)((Ξ | byteMark) & byteMask); Ξ >>= 6;
-    case 1: target[0] = (uint8_t) (Ξ | firstByteMark[bytesToWrite]);
+    case 4: target[3] = (char8_t)((Ξ | byteMark) & byteMask); Ξ >>= 6;
+    case 3: target[2] = (char8_t)((Ξ | byteMark) & byteMask); Ξ >>= 6;
+    case 2: target[1] = (char8_t)((Ξ | byteMark) & byteMask); Ξ >>= 6;
+    case 1: target[0] = (char8_t) (Ξ | firstByteMark[bytesToWrite]);
     }
     
     sometime₋valid(target,bytesToWrite);

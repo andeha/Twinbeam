@@ -1,36 +1,43 @@
-/*  fifo.h | a duplicate required and included in --<Additions.h>. (TO-BE-PUBLISHED) */
+/*  fifo.h | a duplicate required and included in --<Additions.h>. */
 
 #ifndef __FIFO_H
 #define __FIFO_H
 
-struct ᵒfᵗᵉⁿ𝟺kb₋embroidery { __builtin_int_t ﹟, pct₋w₋ord₋s; void **Kbtiles; };
-/* ⬷ c․𝘧 'motsols', 'medsols' and 'haphazardly' also 'covert-lazily'. */
+struct ᵒfᵗᵉⁿ𝟺kb₋embroidery { __builtin_int_t ﹟, pct₋w₋ord₋s; void **𝟺kbtiles; };
+/* ⬷ a․𝘬․a void * Kbtiles[]. */
 
-struct fifo {  /* first the single-tile fifo ⤐ */
+struct fifo { __builtin_int_t words₋to₋unity; /* ⬷ a․𝘬․a 'max₋word', 
    
-   __builtin_int_t max₋words=0, 𝟷₋count=0, brk=0; __builtin_uint_t * 𝟷₋tile;
+ first the single-tile fifo ⤐ */
    
-   /* secondly the segmented fifos possibly with padding at end of 
+   __builtin_int_t 𝟷₋count=0, brk=0; __builtin_uint_t * 𝟷₋tile;
+   
+   int init(__builtin_int_t words, void * 𝟷₋tile);
+   
+   int 𝟷₋tile₋copy₋include(__builtin_int_t words, __builtin_uint_t * Ɀ);
+   
+   void 𝟷₋tile₋fifo₋pop();
+   
+   int 𝟷₋tile₋shiftout(__builtin_int_t words); /* ⬷ abbrev․ 'by-tes' and 'strategy' alt․ 'occational'. */
+   
+ /* secondly the segmented fifos possibly with padding at end of 
     last frame in embroidery ⤐ */
    
-   __builtin_int_t tile₋brk=0, words₋brk=0, alloc₋brk=0, words₋to₋unity;
+   __builtin_int_t tile₋brk=0, words₋brk=0, alloc₋brk=0, n₋count=0, words₋enfoiled=0;
    
    ᵒfᵗᵉⁿ𝟺kb₋embroidery * n₋tiles;
    
-   int init(__builtin_int_t words, void * 𝟷₋tile);
    int init(ᵒfᵗᵉⁿ𝟺kb₋embroidery * 𝗇₋tiles);
    
-   int 𝟷₋tile₋copy₋include(__builtin_int_t words, __builtin_uint_t * Ɀ);
    int n₋tile₋copy₋include(__builtin_int_t words, __builtin_uint_t * Ɀ);
    
-   void 𝟷₋tile₋fifo₋pop(); void n₋tile₋fifo₋pop();
+   void n₋tile₋fifo₋pop();
    
-   /* int lazily₋enfoil₋NULL₋n₋tiles(unsigned expeditionary, __builtin_int_t ﹟); /‌* ⬷ compare 
-    further --<Additions>--<2ᵈ-𝔣ow.hpp>, `Scatter` and change/delete/insert. */
+   int lazily₋enfoil₋NULL₋n₋tiles(unsigned expeditionary, __builtin_int_t ﹟);
    
-   int shiftout(__builtin_int_t words); /* ⬷ abbrev․ 'by-tes' and 'strategy' alt․ 'occational'. */
+   int n₋tile₋append₋in₋middle₋alt₋atend(__builtin_int_t ﹟);
    
-   __builtin_int_t count() const; /* ⬷ occational-inkvisitorial alt․ 'intervallic patterns' inside. */
+   /* ⬷ compare further --<Additions>--<2ᵈ-𝔣ow.hpp>, change/delete/insert and 'Scatter'. */
    
 }; /* ⬷ a․𝘬․a fifoⁱⁿcorp: note that three areas where one precomputed 
  area always separates the 'producer' from the 'consumer' enables a 
@@ -73,47 +80,12 @@ inline int n₋tile₋apriori(unsigned expeditionary, __builtin_int_t alloca̲t�
    return 0;
 }
 
-__builtin_int_t 🥈 Pagewords=SystemPagesize()/Wordbytes; 
-/* ⬷ a․𝘬․a 'arrangemang-possibly-window', 'ElemsInside4kb' and '𝟻𝟷𝟸alt𝟷𝟶𝟸𝟺'. */
-
-/* enum class Arrangement { 𝟾, 𝟷𝟼, 𝟹𝟸, 𝟼𝟺, lo𝟼𝟺, hi𝟼𝟺, lo𝟷𝟸𝟾, hi𝟷𝟸𝟾, utf8 }; */
-
-template <typename E> struct n₋tile₋fifo { fifo 🅠; 
-   int apriori₋init(unsigned expeditionary, __builtin_int_t alloca̲t̲ed₋count, 
-    __builtin_int_t maximum₋count) { return n₋tile₋apriori(expeditionary, 
-    alloca̲t̲ed₋count,maximum₋count,🅠,sizeof(E)); }
-   int copy₋include(unsigned expeditionary, __builtin_int_t count, E * Ɀ, __builtin_int_t cycles) { 
-    return 🅠.n₋tile₋copy₋include(expeditionary,count,(__builtin_uint_t *)Ɀ); }
-   int pop(__builtin_int_t count, void (^many₋𝟺kb₋etiolates)(__builtin_int_t tot, 
-   __builtin_int_t ﹟, E * bottom₋elem)) { auto chim = ^(__builtin_int_t tot, 
-   __builtin_int_t ﹟, __builtin_uint_t * bottom₋elem) { 
-     many₋𝟺kb₋etiolates(tot,﹟,(E *)bottom₋elem); };
-     return 🅠.n₋tile₋fifo₋pop(count,chim); }
-}; /* ⬷ a․𝘬․a `vector` and `ref₋vector` and `non-bit-vector`. */
-
 template <typename E> struct 𝟷₋tile₋fifo { fifo 🅠; 
   int init(__builtin_int_t maximum₋count, void * 𝟷₋tile) { return 🅠.init(maximum₋count,𝟷₋tile); }
   int copy₋include(int count, E * Ɀ, int cycles) { return 🅠.𝟷₋tile₋copy₋include(count,(__builtin_uint_t *)Ɀ); }
-  int move₋include(int count, E * Ɀ, /* int cycles */ void (^semantic₋moved)(E * orig₋Ɀ)) {  }
-  int pop(int count, void (^once)(E * bottom₋elem)) {
-    auto chim = ^(__builtin_uint_t * bottom₋elem) { once((E *)bottom₋elem); };
-    return 🅠.𝟷₋tile₋fifo₋pop(count,chim);
-  }
-  
-  consteval __builtin_int_t sometime₋log₂(__builtin_int_t 𝟸ⁿ) { return 𝟸ⁿ==8 ? 3 : (𝟸ⁿ==4 ? 2 : -1); }
-  /* ⬷ must produce a compile-time constant a․𝘬․a 'consteval'. */
-  
-  constexpr __builtin_int_t ceil(__builtin_int_t num, __builtin_int_t 𝟸ⁿ) { return Frame(num,𝟸ⁿ)>>sometime₋log₂(𝟸ⁿ); }
-  
-  constexpr int words(__builtin_int_t count) { return ceil(sizeof(E),Wordbytes)*count; }
-  
-  int shiftout(int count) { __builtin_int_t w = words(count); return 🅠.shiftout(w); }
-  
+  void pop() { 🅠.𝟷₋tile₋fifo₋pop(); }
+  int shiftout(int count) { return 🅠.𝟷₋tile₋shiftout(count); }
 }; /* ⬷ deceptive 'default, move and copy' vs. 'register passable'. */
-
-/* template <typename E> struct referential₋𝟷/n₋tile₋fifo { }; */
-
-template <typename E> using Knots¹ᵈ = n₋tile₋fifo<E>;
 
 #endif
 

@@ -1,12 +1,12 @@
-/*  exception.S | For Unicode parsers and product-related matters. */
+/*  exception.S | for Unicode parsers and product-related matters. */
 
-#ifdef __mips__
+#if defined __mips__
 
 #define v0   $2   /* The 'returned value' of a subroutine. Also in v1 when two words are required. */
 #define a0   $4   /* Integer argument register: Pass 64-bit values in a register pair. For little-endian: a1:a0 and a3:a2. */
 #define a1   $5   /* Second argument. The first four args are passed in regs. */
 #define t0   $8   /* Temporary register that must not be preserved. */
-#define s0  $16   /* Saved registers, 𝘪․𝘦 function prologue copies …*/
+#define s0  $16   /* Saved registers, i.e function prologue copies …*/
 #define s1  $17   /* the register value to the stack frame and the …*/
 #define s2  $18   /* function epilogue copies the values back to the register. */
 #define s3  $19
@@ -15,9 +15,8 @@
 #define s6  $22
 #define s7  $23
 #define s8  $24
-#define sp  $29   /* The last pushed argument on the stack. */
-#define ra  $31   /* The address to return to when inside a function. */
-/* See [Wiki]--<🔬 Twinbeam Intricacies> for more info. */
+#define sp  $29   /* the last pushed argument on the stack. */
+#define ra  $31   /* the address to return to when inside a function. */
     
     
     .text
@@ -127,7 +126,7 @@ _setjmp2:
     
     fnstcw  64(%rax)
     stmxcsr 68(%rax)
-    xorq    %rax,%rax         /* Return 0 in rax. */
+    xorq    %rax,%rax         /* return 0 in rax. */
     
     ret
     
@@ -167,3 +166,4 @@ _longjmp2:
     ret
     
 #endif
+

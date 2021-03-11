@@ -1,5 +1,7 @@
 #  laptop-big.ninja | Compilation directives.
 
+linkflags = -macosx_version_min 11.0.1 -lSystem -lc++
+
 rule cc
   command = $compiler-macos -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
   depfile = $out.d

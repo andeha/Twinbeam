@@ -10,12 +10,12 @@ adds = ../Additions
 objs = ./.objs/7703a312-55B9-44da-A793-ebbcf9f87663_$progname
 platflags = -I ..
 include ../tools.ninja
-flags = $optflags $macoscflags $platflags -I ../Thirdparty/include
+flags = $optflags $macoscflags $platflags -Wno-c++2a-designator -std=c++2a  $
+  -I ../Thirdparty/include
 include laptop-big.ninja
 
 rule link
-  command = xcrun ld -macosx_version_min 10.14.0 -lSystem -lc++ -o $out     $
-    $libtwinbeam $in
+  command = xcrun ld $linkflags -o $out $libtwinbeam $in
 
 build AdditionsUnits: link $objs/harness.o $objs/x87math.o $objs/llvm-rt3.o $
   $objs/Additions.o $objs/Automata.o $objs/Ieee754₆₄bits.o $objs/Random.o   $
@@ -64,7 +64,7 @@ build $objs/sincos.o: cc $adds/math/sincos.cpp
 build $objs/tan.o: cc $adds/math/tan.cpp
 build $objs/tanh.o: cc $adds/math/tanh.cpp
 
-build $objs/llvm-rt3.o: cc ../../ia64+pic32rt/llvm-rt3.cpp
+build $objs/llvm-rt3.o: cc ../../../℮$ ia64+pic32rt/llvm-rt3.cpp
 build $objs/x87math.o: ccms $adds/x87math.cpp
 build $objs/harness.o: cc main.cpp
 default $progname

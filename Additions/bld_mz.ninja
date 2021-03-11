@@ -19,7 +19,7 @@ rule library
   printf $sha1git
 
 build $encased-library: library $objs/Additions.o $objs/Ieee754₆₄bits.o     $
-  $objs/Guid.o $objs/photo-d3.o $objs/Terminal.o  $objs/VT99.o              $
+  $objs/Guid.o $objs/photo-d3.o $objs/Terminal.o  $objs/Vt99.o              $
   $objs/Streams.o $objs/Present.o $objs/Presentᵃᵘˣ.o $objs/Automata.o       $
   $objs/Ornaments.o $objs/Randomˢᵚ.o $objs/Random.o $objs/⌊𝑥⌋+nearest.o     $
   $objs/arctan.o $objs/cherry.o $objs/atan₂.o $objs/ℯ🔭².o $objs/logₑ.o     $
