@@ -1,6 +1,6 @@
 /*  Twinbeam.h (libTwinbeam_X_cdcdc7f.a)
     C++20 for clang to x86_64, Arm Cortex M0+, AAPL M1, ESP32 and MIPS.
-    MIPS compiled using clang version 11.0.0
+    MIPS compiled using clang version 11.0.1
     x86_64 compiled using Xcode Version 10.2.1 (10E1001) 
     and/or clang-11.0.0. */
 
