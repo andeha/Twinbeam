@@ -22,6 +22,9 @@ host = /Users/<User- or project name>/macOS
 sha1git = `git log -1 '--pretty=format:%h'`
 librarian-pic32 = $tools/llvm-ar
 librarian-mac = xcrun ar
-compiler-macos = xcrun clang $moduleflags
-compiler-pic32 = $tools/clang-11 $moduleflags
+compiler-macos = xcrun clang 
+compiler-pic32 = $tools/clang-11
+# The flag 'moduleflags' required in project setting files such 
+# as --<Projects>--<ccargs_mac>.
+
 
