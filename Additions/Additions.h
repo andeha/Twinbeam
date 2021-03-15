@@ -1,6 +1,6 @@
 /*
- *  Additions.h to Twinbeam: Includes the IEEE754 `double` type.
- *  C++2a to clang to x86_64 and Mips.
+ *  Additions.h to Twinbeam with the Ieee754 'double' alt. 'float' type.
+ *  C++20 to clang to x86_64 and Mips.
  *  Version 10.0.0 to Mips.
  *  Xcode Version 10.2.1 (10E1001) to x86_64.
  */
@@ -9,9 +9,9 @@
 #define __ADDITIONS_H
 
 void CastᵈᵇˡToText(double value, 
-  void (^digits)(bool neg, int e, char * 𝟶to𝟿s), 
+  void (^digits)(bool neg, int 𝟷𝟶ˣ, char * 𝟶to𝟿s), 
   void (^zero)(bool neg), void (^inf)(bool neg), void (^nan)()
-); /* a․𝘬․a `CastToText`. */
+); /* ⬷ a․𝘬․a 'CastToText'. */
 
 /* The next smallest value after `1`. */
 #define DOUBLE_EPS1  1.00000000000000011102230246251565 /* 1+2⁻⁵³ */
@@ -21,12 +21,12 @@ void CastᵈᵇˡToText(double value,
 #define Q15_EPS1     1.000030517578125                  /* 1+2⁻¹⁵ */
 #define Q7_EPS1      1.0078125                          /* 1+2⁻⁷ */
 #define X86FP80_EPS1 1.0000000000000000000542101        /* 1+2⁻⁶⁴ */
-#define BINARY128_EPS1 1.000000000000000000000000000000000096296 /* 754-2008 */
-/* decimal128/binary128, 𝜀b₂≈log₁₀(2¹¹³)≈34.16 decimal digits, BSM. */
+#define BINARY128_EPS1 1.000000000000000000000000000000000096296 /* ⬷ Ieee754-2008 
+decimal128/binary128 and the occasional 'long double', 𝜀b₂≈log₁₀(2¹¹³)≈34.16 decimal digits; BSM. */
 
 /*
                                                                              
-*** 'Big-Endian Ieee 754 Base-2 double with double-Zero (-1)ˢ(1+m*2⁻⁵²)×2ˣ⁻¹⁰²³ ***
+*** 'Big-endian Ieee 754 Base-2 double with double-Zero (-1)ˢ(1+m*2⁻⁵²)×2ˣ⁻¹⁰²³ ***
                                                                              
 Binary64_SGN x␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|
             |␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣| Sign bit               
@@ -37,7 +37,7 @@ Binary64_EXP ␣xxx|xxxx|xxxx|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣�
 Binary64_MAN ␣␣␣␣|␣␣␣␣|␣␣␣␣|xxxx|xxxx|xxxx|xxxx|xxxx|
             |xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx| Fraction/mantissa/significand (52 bits)
                                                                              
-*** IEEE 754 Base-2 single with Double-zero (-1)ˢ(1+m*2⁻²³)×2ˣ⁻¹²⁷ ***
+*** Ieee 754 base-2 single with double-zero (-1)ˢ(1+m*2⁻²³)×2ˣ⁻¹²⁷ ***
                                                                              
 Binary32_SGN x␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣| Sign bit
 Binary32_EXP ␣xxx|xxxx|x␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣|␣␣␣␣| Signed exponent -126 to 127 (biased)
@@ -45,13 +45,13 @@ Binary32_MAN ␣␣␣␣|␣␣␣␣|␣xxx|xxxx|xxxx|xxxx|xxxx|xxxx| Fraction
                                                                              
 */
 
-#define IEEE754BASE2_64BIT_PZERO  0x0000000000000000L /* ⬷ Big endian */
+#define IEEE754BASE2_64BIT_PZERO  0x0000000000000000L /* ⬷ big endian */
 #define IEEE754BASE2_64BIT_NZERO  0x8000000000000000L 
-#define IEEE754BASE2_64BIT_SNAN₂  0x7FF0000000000002L /* Signalling */
-#define IEEE754BASE2_64BIT_PINF   0x7FF0000000000000L /* Positive */
-#define IEEE754BASE2_64BIT_NINF   0xFFF0000000000000L /* Negative */
-#define IEEE754BASE2_64BIT_QNAN₂  0x7ff8000000000002L /* Quiet */
-#define IEEE754BASE2_32BIT_QNAN₂  0x7FC00002 /* ⬷ See chapter~50, 12.2.2.2.1 for additional text. */
+#define IEEE754BASE2_64BIT_SNAN₂  0x7FF0000000000002L /* signalling */
+#define IEEE754BASE2_64BIT_PINF   0x7FF0000000000000L /* positive */
+#define IEEE754BASE2_64BIT_NINF   0xFFF0000000000000L /* negative */
+#define IEEE754BASE2_64BIT_QNAN₂  0x7ff8000000000002L /* quiet */
+#define IEEE754BASE2_32BIT_QNAN₂  0x7FC00002 /* ⬷ see chapter~50, 12.2.2.2.1 for additional text. */
 
 MACRO int is₋pairwise₋inf(double x, double y, int * bipolar) {
   octa o₁, o₂; o₁.base﹟𝟸=x, o₂.base﹟𝟸=y; *bipolar=1;
@@ -65,8 +65,8 @@ MACRO int is₋pairwise₋inf(double x, double y, int * bipolar) {
 }
 
 MACRO int isnan(double x) { octa o; o.base﹟𝟸=x; return (o.binary64.mantissah != 0 || 
- o.binary64.mantissal != 0) && o.binary64.exponent == 0x7ff; }  /* Exponent 
- is eleven bits. Sign not relevant; and IEEE 754-2008: MSB is `is_quiet`. */
+ o.binary64.mantissal != 0) && o.binary64.exponent == 0x7ff; }  /* ⬷ exponent 
+ is eleven bits. Sign not relevant; and IEEE 754-2008: MSB is 'is_quiet'. */
 
 MACRO int iszero(double x) { octa o; o.base﹟𝟸=x; return o.bits == 
  IEEE754BASE2_64BIT_PZERO || o.bits == IEEE754BASE2_64BIT_NZERO; }
@@ -74,7 +74,7 @@ MACRO int iszero(double x) { octa o; o.base﹟𝟸=x; return o.bits ==
 MACRO int isnegone(double x) { octa o; o.base﹟𝟸=x; 
   return o.binary64.sign && o.binary64.exponent == 0b1111111 && 
     o.binary64.mantissal == 0 && o.binary64.mantissah == 0;
-} /* See also `isone`. */
+} /* ⬷ see also 'isone'. */
 
 MACRO double abs64d₁(double x) { return x < +0.0 ? -x : x; }
 MACRO double abs64d₂(double x) { return __builtin_fabs(x); }
@@ -89,7 +89,7 @@ enum GaussianApproximate { AbramowitzStegun, ZogheibHlynka };
 int Gaussian(GaussianApproximate approximate, double *out);
 int Uniform(double *out); /* *out ∈ [0, 1) */
 
-#pragma mark - In cases of 'high-precision IEEE754'
+#pragma mark - In cases of 'high-precision Ieee754'
 
 typedef long double binary128; /* 2⁻¹⁶³⁸² ≈ 
   3.3621 × 10⁻⁴⁹³² - 2⁻¹⁶³⁸⁴ − 2⁻¹⁶²⁷¹ ≈ 1.1897 × 10⁻⁴⁹³² */
@@ -128,32 +128,33 @@ Similar(
 
 int Roman(__builtin_int_t n, void (^out)(char numeral));
 
-#pragma mark - Conversions given --<Additions>--<Filesystem.hpp>
+#pragma mark - Unicodes: in-case literal, terminated with 0x0000
 
-#define ⁺⁼UnicodeToUtf8(Buffer,³²B,⁸B,T,UCS)                                \
+#define ⁺⁼UnicodeToUtf8(Buffer,³²B,⁸B,TRS,UCS)                              \
 auto unicodeToUtf8 = ^(char8_t buffer[], __builtin_int_t& ³²b,              \
-  __builtin_int_t& ⁸b, __builtin_int_t tetras, char32_t * /* 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 */ ucs) { \
+ __builtin_int_t& ⁸b, __builtin_int_t tetras, char32_t * /* 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 */ ucs) { \
 again:                                                                      \
    char32_t uc = *(ucs + ³²b);                                              \
    if (uc == 0x0000 || uc == END_OF_TRANSMISSION) { goto unagain; }         \
    if (UnicodeToUtf8(uc, ^(char8_t * p, short bytes) {                      \
-      *(buffer + ⁸b) = *p;                                                  \
-      if (bytes >= 2) { *(buffer + ⁸b + 1) = *(p + 1); }                    \
-      if (bytes >= 3) { *(buffer + ⁸b + 2) = *(p + 2); }                    \
-      if (bytes >= 4) { *(buffer + ⁸b + 3) = *(p + 3); }                    \
-      ⁸b += bytes; })) { return -1; }                                       \
+     *(buffer + ⁸b) = *p;                                                   \
+     if (bytes >= 2) { *(buffer + ⁸b + 1) = *(p + 1); }                     \
+     if (bytes >= 3) { *(buffer + ⁸b + 2) = *(p + 2); }                     \
+     if (bytes >= 4) { *(buffer + ⁸b + 3) = *(p + 3); }                     \
+     ⁸b += bytes; })) { return -1; }                                        \
    if (++³²b < tetras) goto again;                                          \
 unagain:                                                                    \
-   *(buffer + ⁸b) = '\0';                                                   \
+   *(buffer + ⁸b) = '\0'; /* ⬷ unincluded in '⁸b'. */                      \
    return 0;                                                                \
-}(Buffer,³²B,⁸B,T,UCS) /* ⬷ implicits in block expression: none. */
+}(Buffer,³²B,⁸B,TRS,UCS) /* ⬷ implicits in block expression: none. */
 
-#define ⁺⁼Utf8ToUnicode(UCS,TETRAS,⁸B,U8B)                                  \
+#define ⁺⁼Utf8ToUnicode(UCS,TRS,⁸B,U8B,U8MAX)                               \
 auto utf8ToUnicode = ^(char32_t unicodes[], __builtin_int_t& tetras,        \
-  __builtin_int_t& ⁸b, char8_t * /* 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 */ utf8) {                        \
-   char32_t uc; __builtin_int_t followers, incr;                            \
+  __builtin_int_t& ⁸b, char8_t * /* 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 */ utf8, __builtin_int_t u8max) { \
+   char32_t uc; __builtin_int_t followers, incr; char8_t * leadOr8Bit;      \
 again:                                                                      \
-   char8_t * leadOr8Bit = utf8 + ⁸b;                                        \
+   if (u8max >= ⁸b) { goto unagain; }                                       \
+   leadOr8Bit = utf8 + ⁸b;                                                  \
    if (*leadOr8Bit == 0x0) { goto unagain; }                                \
    followers = Utf8Followers(*leadOr8Bit);                                  \
    if (followers < 0) { return -1; }                                        \
@@ -164,10 +165,11 @@ again:                                                                      \
    goto again;                                                              \
 unagain:                                                                    \
    return 0;                                                                \
-}(UCS,TETRAS,⁸B,U8B) /* ⬷ implicits in block statement: none. */
+}(UCS,TRS,⁸B,U8B,U8MAX) /* ⬷ implicits in block statement: none. */
 
 __builtin_int_t Utf8BytesUntilNull(char8_t * u8s, __builtin_int_t maxutf8bytes);
-/* ⬷ returns `maxutf8bytes` in case NULL is not earlier found. */
+/* ⬷ non-equivalent to 'strlen' and returns 'maxutf8bytes' in case NULL is not 
+  earlier found. */
 
 __builtin_int_t TetrasUntilNull(char32_t * ucs, __builtin_int_t maxtetras);
 /* ⬷ actually until 0x0000 or 'passed EOT'. */
@@ -179,11 +181,11 @@ Utf8ToUnicode(
   void (^out)(__builtin_int_t tetras, char32_t * ucs, __builtin_int_t utf8bytes)
 )
 {
-   __builtin_int_t bytes = maxutf8bytes𝘖rZero ? maxutf8bytes𝘖rZero : 
-     Utf8BytesUntilNull(u8s, BUILTIN_INT_MAX);
+  __builtin_int_t bytes = maxutf8bytes𝘖rZero ? maxutf8bytes𝘖rZero : 
+    Utf8BytesUntilNull(u8s,BUILTIN₋INT₋MAX);
    if (bytes < 0) { return -1; }
-   __builtin_int_t tetras=0,⁸b=0; char32_t ucs[bytes];
-   if (⁺⁼Utf8ToUnicode(ucs,tetras,⁸b,u8s)) { return -2; }
+   __builtin_int_t tetras=0,⁸b=0; char32_t ucs[bytes+1];
+   if (⁺⁼Utf8ToUnicode(ucs,tetras,⁸b,u8s,bytes)) { return -2; }
    out(tetras,ucs,⁸b);
    return 0;
 }
@@ -191,31 +193,33 @@ Utf8ToUnicode(
 inline
 int
 UnicodeToUtf8(
-  char32_t * ucs, /* ⬷ terminated with 0x0000. */
+  char32_t * ucs, /* ⬷ in-case literal, terminated with 0x0000. */
   __builtin_int_t maxtetras𝘖rZero, 
   void (^out)(__builtin_int_t utf8bytes, char8_t * u8s, __builtin_int_t tetras)
 )
 {
-   __builtin_int_t tetras = maxtetras𝘖rZero ? maxtetras𝘖rZero : 
-     TetrasUntilNull(ucs, BUILTIN_INT_MAX), ᵇutf8 = 4*tetras;
-   char8_t u8s[ᵇutf8]; __builtin_int_t ³²idx=0, ⁸idx=0;
+  __builtin_int_t tetras = maxtetras𝘖rZero ? maxtetras𝘖rZero : 
+    TetrasUntilNull(ucs,BUILTIN₋INT₋MAX), ᵇutf8 = 4*tetras;
+   char8_t u8s[1+ᵇutf8]; __builtin_int_t ⁸idx=0, ³²idx=0;
    if (⁺⁼UnicodeToUtf8(u8s,³²idx,⁸idx,tetras,ucs)) { return -1; }
    out(⁸idx,u8s,³²idx);
    return 0;
 }
 
-/* When toggling representation, string is traversed at-least twice ⤐ */
+/* when toggling representation, the symbols are traversed at least twice ⤐ */
 __builtin_int_t ExactUtf8bytes(char32_t * ucs, __builtin_int_t maxtetras);
+/* ⬷ a․𝘬․a 'Utf8bytesExceptNULL'. */
 __builtin_int_t ExactTetras(char8_t * u8s, __builtin_int_t maxutf8bytes); 
-/* ⬷ the `ExactTetras` may return less than zero and `ExactTetras` may 
+/* ⬷ the 'ExactTetras' may return less than zero and 'ExactTetras' may 
  traverse undefined code points and return '-1'. */
 
-MACRO Unicodes ᵊ(const char32_t * ucs) { char32_t * uc = Critic(ucs); 
-  int count = TetrasUntilNull(uc,BUILTIN_INT_MAX); return Unicodes { count, uc }; }
+MACRO Unicodes ᵊ(const char32_t * literal) { char32_t * ucs = Critic(literal); 
+ __builtin_int_t count = TetrasUntilNull(ucs, BUILTIN₋INT₋MAX); 
+ return Unicodes { count, ucs }; }
 
-MACRO int ᵊ(const char8_t * utf8, void (^sometime)(Unicodes uc)) {
-  char8_t * u8s = Critic(utf8);
-  if (Utf8ToUnicode(u8s, BUILTIN_INT_MAX, 
+MACRO int ᵊ(const char8_t * literal, void (^sometime)(Unicodes uc)) {
+  char8_t * u8s = Critic(literal);
+  if (Utf8ToUnicode(u8s, BUILTIN₋INT₋MAX, 
     ^(__builtin_int_t tetras, char32_t * ucs, __builtin_int_t utf8bytes) {
       Unicodes unicode { tetras, ucs };
       sometime(unicode);
@@ -224,46 +228,44 @@ MACRO int ᵊ(const char8_t * utf8, void (^sometime)(Unicodes uc)) {
   return 0;
 }
 
-#pragma mark Fine print for well-versed readers a․𝘬․a 'intervals and dots'
+#pragma mark fine print for well-versed readers a․𝘬․a 'intervals and dots'
 
 typedef struct UnicodeIntervalAnd𝑂rLocation {
   __builtin_int_t tetrasRelativeFirst, tetrasRelativeLast;
-} UnicodeSelection; /* See also --<Preserves.h>{Utf8Interval|Sourcelocation} */
+} UnicodeSelection; /* ⬷ see also --<Preserves.h>{Utf8Interval|Sourcelocation}. */
 
-typedef struct UnicodeBlock {
+typedef struct Unicodeblock {
   __builtin_int_t linesOffsetFirst, linesOffsetLast, col₁, col₂;
-} UnicodeBlock;
+} Unicodeblock;
 
-typedef struct UnicodeBlock⁻¹ {
+typedef struct Unicodeblock⁻¹ {
   __builtin_int_t colL𝟷, colL𝟸, linesOffsetFirst, linesOffsetLast;
-} UnicodeColBlock; /* See again --<Preserves.h>{Utf8Interval|Sourcelocation} */
+} UnicodeColBlock; /* ⬷ see again --<Preserves.h>{Utf8Interval|Sourcelocation}. */
 
-#include <Source/fifo.h>
-
-FINAL struct Ornaments { /* a․𝘬․a `Intervallic`, `SpatialIntervals`, …       
+FINAL struct Ornaments { /* ⬷ a․𝘬․a 'Intervallic' …                         
                                                                              
          ⎡      😐≅       ⎤                                                  
-        ♢⎢    😐?😐≅😐    ⎥                                                  
-         ⎣ 😐?😐≅😐?😐?😐?⎦, `Spatsitemporal₋relative`, */
+        ♢⎢    😐?😐≅😐    ⎥                                                 
+         ⎣ 😐?😐≅😐?😐?😐?⎦                                                 
+                                                                            */
     
-    Ornaments(const char32_t * nativeEndianUnicodes, 
-      __builtin_int_t tetras, bool readonly);
+    Ornaments(Unicodes native₋temp₋endians, bool readonly₋eg₋non₋striped);
     
     Ornaments() = delete;
     
-    struct {
+    struct { ˢKnots𝟷ᵈ<char32_t> unicodes; /* ⬷ alt. 'Kiddle 𝟷₋fragment'. */
       
-      Knots¹ᵈ<Utf8Symbol> original;
+      Knots𝟷ᵈ utf8₋symbol₋original; /* ⬷ alt. ˢKnots𝟷ᵈ<Utf8Symbol> original. */
       
-      Knots¹ᵈ<UnicodeIntervalAnd𝑂rLocation> parsed;
+      ˢKnots𝟷ᵈ<UnicodeIntervalAnd𝑂rLocation> parsed; /* alt. 'void * lines'. */
       
-      Knots¹ᵈ<UnicodeBlock> rendered;
+      ˢKnots𝟷ᵈ<Unicodeblock> rendered;
       
-      /* typedef __builtin_int_t Parsedᴵᵈˣ; */
+      /* typedef __builtin_int_t ParsedIdx; */
       
-      void * namedruns₁; /* a․𝘬․a Map<const char32_t *, Parsedᴵᵈˣ>. */
+      void * namedruns₁; /* ⬷ a․𝘬․a Map<const char32_t *, ParsedIdx>. */
       
-      void * namedruns₂; /* a․𝘬․a Map<const char *, Parsedᴵᵈˣ>. */
+      void * namedruns₂; /* ⬷ a․𝘬․a Map<const char *, ParsedIdx>. */
       
       struct {
         
@@ -277,49 +279,66 @@ FINAL struct Ornaments { /* a․𝘬․a `Intervallic`, `SpatialIntervals`, …
     
     MACRO static void Error(Errorcode code) { /* ⭐️ */ Sheriff(); }
     
-    int text(void (^zero𝘖rMany)(__builtin_int_t tetras, char32_t * unicodes, 
-     bool& stop)) const; /* See also [github.com]>--<fmtlib>--<fmt>. */
+    int text(void (^none𝘖rMany)(__builtin_int_t tetras, char32_t * unicodes, 
+     bool& stop)) const; /* ⬷ see also [github.com]>--<fmtlib>--<fmt>. */
     
-😐; /* …, `DecoratedString` and `Recording`. */
+😐; /* … 'decorated₋string' and 'recording', 𝖼𝖿. 'insert', 'update' and 'delete'. */
 
 template <typename T> struct rectangle { T height, width; int /* Unit */ unit; };
 template <typename T> struct measure { T value; int /* Unit */ unit; };
+
+#define INCLUDE₋TYPESET __has_include(<Additions/Typeset.hpp>)
+#define INCLUDE₋COLOR __has_include(<Additions/Color.hpp>)
+#define INCLUDE₋KIDDLE __has_include(<Additions/Kiddle.hpp>)
+
+namespace Directions { typedef __builtin_uint_t Cross; 
+  BITMASK(Cross) { CrossLeftToRight = 0b0001, CrossRightToLeft = 0b0010, 
+   CrossTopToBottom = 0b0100, CrossBottomToTop = 0b1000 };
+}
+
+#if INCLUDE₋TYPESET && INCLUDE₋COLOR && INCLUDE₋KIDDLE
+#include <Additions/Kiddle.hpp>
+#include <Additions/Color.hpp>
+#include <Additions/Typeset.hpp>
+#endif
 
 #if __has_include(<Additions/Impressions.hpp>)
 #include <Additions/Impressions.hpp>
 #endif
 
-#if __has_include(<Additions/Typeset.hpp>) && __has_include(<Additions/Color.hpp>)
-/* #include <Additions/Color.hpp>
-#include <Additions/Typeset.hpp> */
-#endif
-
-namespace Unit { enum { thou, mm, in, pc, pt, px, 𝑜𝑝𝑡lp }; }
+namespace Unit { enum { thou, mm, in, pc, pt, px, 𝑜𝑝tlp }; }
 /* int Width(const Ornaments& o, Unit unit, double &width, double &kerning) WESTERN;
 int Width(const Unicodes& uc, Unit unit, double &width, double &kerning) WESTERN; */
 /* 1/log²(2) 'pavoni'=distance between copy and its header. */
 /* 1 thou = 1/100'th inch; 1pc=1/6 inch, 1/12pc=1pt. */
 /* 1 shilling ⟷ 1/12 pound ∧ 1 shilling ⟷ 12 pence. (DE-MORGAN's law) */
-/* Hydrogen a․𝘬․a ²H: 0 0 0, 1 2 1. (a․𝘬․a 'toggling isotopes'.) */
-/* Intervals and dots: 0 0, 0 1, 1 2, 3 3, ﹇ 4.  See also OEIS. */
+/* Hydrogen a․𝘬․a ²H: 0 0 0, 1 2 1. ⬷ a․𝘬․a 'toggling isotopes'. */
+/* Intervals and dots: 0 0, 0 1, 1 2, 3 3, ﹇ 4.  ⬷ see OEIS. */
 namespace Raster { enum { mm, lines, nonuniform₋mm, none }; }
 
-#pragma mark - Terminal views
+#pragma mark - The scientists' terminal
 
-namespace 𝟾x𝟾₋matrix₋AAPL { 
+namespace 𝟾x𝟾₋matrix₋AAPL {
   
   BITMASK (uint32_t) { Left = 0b1<<9, Up = 0b1<<7, Down = 0b1<<6, 
-    Right = 0b1<<8, Return = 0b1<<5, Shift = 0b1<<4, Fn = 0b1<<3, 
-    Control = 0b1<<2, Option = 0b1<<1, Command = 0b1<<0 };
+   Right = 0b1<<8, Return = 0b1<<5, Shift = 0b1<<4, Fn = 0b1<<3, 
+   Control = 0b1<<2, Option = 0b1<<1, Command = 0b1<<0 };
   
 }
 
 namespace Inputctrl {
-  
+ 
   enum /* Inputctrl */ { user₋stopped=1, timedout, keyboard₋terminated, 
    indication₋terminated, material₋terminated };
   
+  int 🥈 ﹟inf₋periods = 0; /* ⬷ for 'periods𝘖rZero' below. */
+ 
 }
+
+#include <Additions/maths.hpp>
+#if __has_include(<Additions/crisp-d3.cxx>)
+#include <Additions/crisp-d3.cxx>
+#endif /* ⬷ text₋image, infographics, UI and perception. */
 
 struct Utf8Terminal {
     
@@ -328,25 +347,22 @@ struct Utf8Terminal {
     ~Utf8Terminal();
     
    𝟄₋int₁ /* Inputctrl */ 
-    corout₋Interaction( /* See also --<Fossilate.h|cpp>{TerminalIn ∧ WaitTerminal}. */
-      int periods𝘖rZero,
-      int 𝟷𝟶ᵗʰ₋seconds,
-      void (^ping𝘖r𝖭𝖴𝖫𝖫)(bool &stop), /* Cyclically whilst time passes. */
-      void (^input)(char32_t unicode, bool &stop) /* After a key press. */
-      /* void (^ctrl₋keys)(uint32_t Ctrlkeys₋former, uint32_t Ctrlkeys₋current) / * After occuring change. */
-      /* void (^track₋pad)(doubleʳ locX, doubleʳ locY, double⁺ʳ pressure, bool is₋up) */
-      /* void (^touch₋barᵧ)() */
-    ) const; /* 𝘊.𝘧 `readOne𝘖rManylines`, password`, `getc`/`ungetc` and `readline`. */
+    corout₋Symbols( /* ⬷ see also --<Fossilate.h|cpp>{TerminalIn ∧ WaitTerminal}. */
+      int periods𝘖rZero, 
+      int 𝟷𝟶ᵗʰ₋seconds, 
+      void (^ping𝘖r𝖭𝖴𝖫𝖫)(bool &stop), /* ⬷ cyclically whilst time passes. */
+      void (^keyput𝘖rRecieved)(char32_t unicode, bool &stop) /* ⬷ a․𝘬․a 'after₋a₋keypress'. */
+    ) const; /* ⬷ 𝘤𝘧․ 'readOne𝘖rManylines', 'interaction', 'password', 'getc'/'ungetc' and 'readline'. */
     
-    int write(char8_t * utf8s, __builtin_int_t bytes) const; /* ⬷ Optionally NULL-termination included. */
+    int write(char8_t * serie, __builtin_int_t bytes) const;
     
-    void (^format)(double x, Utf8Terminal &stream);
+    void (^format)(double ℝ, Utf8Terminal &stream);
     
-#if __has_include(<Additions/photo-d3.cxx>) && __has_include(<Additions/VT99.cxx>)
+#if __has_include(<Additions/VT99.cxx>)
 #include <Additions/VT99.cxx>
 #endif
     
-😐;
+😐; /* ⬷ for rendering sediment, isaritm and discrete dissection. */
 
 namespace NumberformatCatalogue { 
  void Scientific(double ℝ, void (^out)(char32_t uc));
@@ -355,62 +371,62 @@ namespace NumberformatCatalogue {
  void Interval(double ℝ₁, double ℝ₂, bool openend, void (^out)(char32_t uc));
  void Percentile(double ₋𝟯σ, double ₋𝟮σ, double ₋σ, double 𝟶, double σ, 
    double 𝟮σ, double 𝟯σ, __builtin_int_t * 𝟭𝟬ⁱ, void (^out)(char32_t uc));
- /* ⬷ See also `Quantile`. */
+ /* ⬷ See also 'Quantile'. */
  void Normal(double μ, double σ, void (^out)(char32_t uc));
- /* log-normal distribution = draped `logₑ` is N(μ,σ²). */
+ /* log-normal distribution = draped 'logₑ' is N(μ,σ²). */
  extern void (^Default)(double, Utf8Terminal&); }
 enum class Base { dec, hex, oct, bin };
 void Present(Utf8Terminal &term, __builtin_int_t ℤ);
 void Present(Utf8Terminal &term, __builtin_uint_t ℕ, Base base);
-void Present(Utf8Terminal &term, double value);
-void Present(Utf8Terminal &term, char32_t unicode);
-void Present(Utf8Terminal &term, const char * utf8, __builtin_int_t maxbytes=BUILTIN_INT_MAX);
+void Present(Utf8Terminal &term, double ℝ);
+void Present(Utf8Terminal &term, char32_t uc);
+void Present(Utf8Terminal &term, char8_t * u8s, __builtin_int_t maxbytes=BUILTIN₋INT₋MAX);
 /* Struct assignment ⟶ Memory (shallow) copy. */
-void Present(Utf8Terminal &term, const Ornaments & ds);
+void Present(Utf8Terminal &term, Ornaments& o);
 /* void Present(Utf8Terminal &term, UnicodeBlock location); */
 /* enum Register { rtcc, dma0, … }; void Present(Utf8Terminal &term, Register reg); */
-void Present(Utf8Terminal &term, const AnnotatedRegister& ar, uint32_t value, bool 𝟷𝟼₋bits=false);
+void Present(Utf8Terminal &term, AnnotatedRegister& ar, uint32_t value, bool 𝟷𝟼₋bits=false);
 void Presentᵧ(Utf8Terminal &term, double 𝕏);
 void Presentᵧ(Utf8Terminal &term, float 𝕏);
 
 #pragma mark - Conveniences
 
-MACRO Utf8Terminal & operator<<(Utf8Terminal &term, __builtin_int_t z)
-{ Present(term,z); return term; }
+MACRO Utf8Terminal & operator<<(Utf8Terminal &term, __builtin_int_t ℤ)
+{ Present(term,ℤ); return term; }
 
-MACRO Utf8Terminal & operator<<(Utf8Terminal &term, __builtin_uint_t n)
-{ Present(term, n, Base::hex); return term; }
+MACRO Utf8Terminal & operator<<(Utf8Terminal &term, __builtin_uint_t ℕ)
+{ Present(term, ℕ, Base::hex); return term; }
 
 /* MACRO Utf8Terminal & operator<<(Utf8Terminal &term, double x)
 { Present(term,x); return term; } */
 
-MACRO Utf8Terminal & operator<<(Utf8Terminal &term, char32_t unicode)
-{ Present(term,unicode); return term; }
+MACRO Utf8Terminal & operator<<(Utf8Terminal &term, char32_t uc)
+{ Present(term,uc); return term; }
 
-MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char * utf8)
-{ Present(term,utf8); return term; }
+MACRO Utf8Terminal & operator<<(Utf8Terminal &term, char8_t * u8s)
+{ Present(term,u8s); return term; }
 
 /* MACRO LONGTOOTH Utf8Terminal & operator<<(Utf8Terminal &term, char c)
-{ Present(term,(char32_t)c); return term; } A․𝘬․a `ascii7ToUnicode`.
+{ Present(term,(char32_t)c); return term; } ⬷ a․𝘬․a 'ascii7ToUnicode'.
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, float x)
 { Present(term,(double)x); return term; } */
 
 inline void Present(Utf8Terminal &term, 
-  const char32_t * ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳, bool emit𝖤𝖮𝖳=true
+  char32_t * ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳, bool emit𝖤𝖮𝖳=true
 )
-{  char32_t uc; int i=0;
-   if (!ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳) { return; }
+{  char32_t uc; __builtin_int_t i=0;
+   if (ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳 == NULL) { return; }
 again:
    uc = *(ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳 + i);
    if (uc == 0x0000) { return; }
-   if (!emit𝖤𝖮𝖳 && uc == END_OF_TRANSMISSION) { return; }
+   if (emit𝖤𝖮𝖳 == 0 && uc == END_OF_TRANSMISSION) { return; }
    Present(term,uc);
    i++; goto again;
 }
 
-MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char32_t * ucs)
-{ Present(term,ucs,false); return term; }
+MACRO Utf8Terminal & operator<<(Utf8Terminal &term, char32_t * ucs)
+{ Present(term,ucs,true); return term; }
 
 /* Utf8Terminal & operator<<(Utf8Terminal &term, const String& s) {
   __builtin_int_t tetras = s.﹟unicodes(); for (int i=0; i<tetras; i++)
@@ -424,18 +440,19 @@ Utf8Terminal & operator<<(Utf8Terminal &u8os, Utf8Terminal present)
   { return u8os; } */
 
 struct 𝗵fill { }; struct 𝘃fill { double val; int /* Unit */ unit; };
-struct 𝗣𝒂𝒈𝒆 { bool versoNotRecto; }; /* ⬷ a․𝘬․a `formfeed` and U+0x000c. */
+struct 𝗣𝒂𝒈𝒆 { bool versoNotRecto; }; /* ⬷ a․𝘬․a 'formfeed' and U+0x000c. */
 𝗣𝒂𝒈𝒆 ᵖ𝗴(bool); 𝘃fill vfill(double, /* Unit */ int); 𝗵fill hfill();
 /* ⬷ a․𝘬․a the Unicodes `␋` , `␉` and `␌`. */
 Utf8Terminal & operator<<(Utf8Terminal&,𝗵fill);
 Utf8Terminal & operator<<(Utf8Terminal&,𝘃fill);
 Utf8Terminal & operator<<(Utf8Terminal&, 𝗣𝒂𝒈𝒆);
 
-extern "C" { extern const char *tab, *eol, *sep; } /* Also: ↹ ↩︎ ¶ and hfill: ⎓ alt. ﹇. */
+extern "C" { extern const char *tab, *eol, *sep; } /* later possibly-maybe: ↹ ↩︎ ¶ and hfill: ⎓ alt. ﹇. */
 
-extern Utf8Terminal _myOutput, _myTrace;
+namespace Terminal { extern Utf8Terminal myOutput, myTrace₁, myTrace₂; }
+namespace Vt100 { const char * bright, *dim, *fgBlue, *fgRed, *reset, *reverse; }
 
-#define Termlog _myTrace
+#define Termlog Terminal::myTrace₂
 
 #pragma mark - A globally unique identifier
 
@@ -443,13 +460,13 @@ typedef sexdeca Guid;
 
 Guid Newguid();
 
-#pragma mark Chronological sequences
+#pragma mark - Chronological sequences
 
 /**  Retrieves a unique value in a 'strict monotonically increasing' serie. ⤐ */
 
-struct Chronology₋peg { __builtin_int_t soon=0; }; /* ⬷ a․𝘬․a `Sequent`. */
+struct Chronology₋peg { __builtin_int_t soon=0; }; /* ⬷ a․𝘬․a 'Sequent'. */
 
-__builtin_int_t Pression(Chronology₋peg * act, bool * wrapped); /* ⬷ a․𝘬․a `I₋m₋print` and `Ordinal`. */
+__builtin_int_t Pression(Chronology₋peg * act, bool * wrapped); /* ⬷ a․𝘬․a 'I₋m₋print' and 'Ordinal'. */
 
 namespace Messaging { /* ⬷ a․𝘬․a Transceiver, /lear-n-i-n-g/, static-telluric and after₋Retrospectives. */
    
@@ -479,17 +496,18 @@ enum class CastToIntOpinion { accept, rejecting, negate, commit, annul };
 Opt<__builtin_int_t>
 CastTˣᵗToInt(
   CastToIntOpinion (^feeder)(unsigned short &digit)
-); /* a․𝘬․a `CastToInt`. Incorp. also 'Swap 𝑣𝑠․ ♚♜ and X'. */
+); /* a․𝘬․a `CastToInt`. Incorp. also 'Swap 𝑣𝑠․ ♚♜ and X', '±2021-01-17 09:56' and '2021-01-07--2021-01-09. */
 
 enum class Inputcontrol { ok, quit };
 
 enum class Readlineopinion { accept, rejecting, commit, quit };
 
-int ReadUtf8(Readlineopinion (^feeder)(char &utf8), Inputcontrol (^line)
-  (char * line)); int ReadUnicode(Readlineopinion (^feeder)(char32_t &unicode),
-  Inputcontrol (^line)(char32_t * line)); /* Count symbols with __block inside `feeder`. */
+int ReadUtf8(Readlineopinion (^feeder)(char &utf8), Inputcontrol (^line)(char * line));
 
-#pragma mark Tri-cameral tokenizer
+int ReadUnicode(Readlineopinion (^feeder)(char32_t &unicode), Inputcontrol (^line)(char32_t * line)); 
+/* count symbols with __block inside `feeder`. */
+
+#pragma mark tri-cameral tokenizer
 
 enum class Tokenizefact { fragment, rejecting, separator, error, eol };
 
@@ -502,7 +520,7 @@ Tokenize(
 
 #pragma mark - Recollection and associativity
 
-struct Bitsetˢᵘᵖ { /* a․𝘬․a `Capped-ET-Bitset`. */
+struct Bitsetˢᵘᵖ { /* ⬷ a․𝘬․a 'Capped-ET-Bitset'. */
   
   __builtin_uint_t state;
   
@@ -513,9 +531,9 @@ struct Bitsetˢᵘᵖ { /* a․𝘬․a `Capped-ET-Bitset`. */
      short cnt = (short)TrailingZeros(state);
      toggle(cnt);
      return cnt;
-  } /* Toggles a `non-toggled` bit. */
+  } /* ⬷ toggles a 'non-toggled' bit. */
   
-}; /* For --<🥽 Memclone.cpp> ∧ --<🥽 Bookshelf.cpp>. */
+}; /* ⬷ for --<🥽 Memclone.cpp> ∧ --<🥽 Bookshelf.cpp>. */
 
 #pragma mark - Volatile memory copying (asynchronous)
 
@@ -527,17 +545,17 @@ OptimisticAsync8Copy(
   bool ᵗᵍᵍˡendian,
   void (^ping)(int bytes, bool &reset, bool &suspend),
   void (^error)(), void (^complete)()
-); /* a․𝘬․a `Copy8Async` and `BasicTransfer`. */
+); /* ⬷ a․𝘬․a Copy8Async and Basictransfer. */
 
 #pragma mark - Dispatch, priorities and interrupts
 
-typedef void (^Async₋job)(); /* a․𝘬․a 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀 and `CHandler`. */
+typedef void (^Async₋job)(); /* ⬷ a․𝘬․a 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀 and 'CHandler'. */
 
 typedef int (^TransformAndResolve)(Unicodes pathᵚᵍ, void (^final)(const char * regular𝘖rLinkpath));
 
 int Reflect(Unicodes primary𝘖𝘳𝑆econd, TransformAndResolve tr, __builtin_int_t * 
   totalbytes, void (^zero𝘖rSeveral)(__builtin_int_t byteOffset, int count, 
-  char32_t unicodes[], bool& stop)); /* ⬷ a․𝘬․a `TextualReflect` and `RadioReflect`. */
+  char32_t unicodes[], bool& stop)); /* ⬷ a․𝘬․a 'TextualReflect' and 'RadioReflect'. */
 int Reflect(Unicodes primary𝘖𝘳𝑆econd, unsigned expeditionary, __builtin_int_t bytesOffset, 
  __builtin_int_t pages𝘖𝘳Zero, __builtin_int_t bytesAugment, __builtin_int_t * totalbytes, 
  TransformAndResolve tr, void (^pages)(__builtin_int_t count, uint8_t **𝟺kbframes, 
@@ -559,7 +577,7 @@ enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
   const Knots¹ᵈ<int>& ss, void * / * a․𝘬․a Map<char32_t *, __builtin_uint_t>& * / stab,
   __builtin_int_t byteoffset, bool edge₁, bool& stop)); */
 
-int TokenizeUtf8ToUnicode(char8_t * material, short bytes, void (^zero𝘖rSeveral)(
+int TokenizeUtf8ToUnicode(char8_t * material, short bytes, void (^none𝘖rSeveral)(
  __builtin_int_t byteOffset, char32_t unicode, __builtin_int_t utf8bytes, bool& stop));
 
 enum class Encoding { utf8, unicode };
@@ -571,13 +589,13 @@ struct Jagged { Jagged(); ~Jagged();
   int include(__builtin_int_t tetra₋idx, __builtin_int_t δ₋tetracount);
   __builtin_int_t count() const;
   int 𝟺kbtile(__builtin_int_t ﹟, __builtin_int_t &tetra₋idx, __builtin_int_t &δ₋tetracount);
-😐; /* a․𝘬․a `Linebreaks`. */
+😐; /* ⬷ a․𝘬․a Linebreaks. */
 
 Opt<Chronology::Instant>
 TS( /* E․𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232. */
   Encoding encoding,
   Chronology chronology,
-  Memoryview datetime
+  memoryview datetime
 ) NEVERBLURTS;
 
 #pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
