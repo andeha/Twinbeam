@@ -87,17 +87,17 @@ template <typename T> struct SemanticPointer { T ref; }; /* ⬷ a․𝘬․a `Di
 #define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",            \
   ﹟s(s), ﹟s(__FUNCTION__), ﹟s(__FILE__), ﹟d(__LINE__)); exit(-1); }
 #define ENSURE(c,s) { if (!(c)) { Panic(Testlog,s); } }
-#define FINAL /*  …or DO_NOT_DESTABBILIZE */
+#define FINAL /*  …or DO₋NOT₋DESTABBILIZE. */
 #define LONGTOOTH /* __attribute__ ((deprecated("Marked LONGTOOTH."))) */
 #define FOCAL
 #define Si_FOCAL
 #define OPT_Si_FOCAL
 #define ENCLAVED
-/* #define ⚠️_IMPLICATIONS_WHILE_HARDTIMES */
-#define ARGUMENTATIVE /* a․𝘬․a `ONLY_FOR_SOFT_REALTIME`. */
+/* #define ⚠️₋IMPLICATIONS₋WHILE₋HARDTIMES */
+#define ARGUMENTATIVE /* ⬷ a․𝘬․a 'ONLY₋FOR₋SOFT₋REALTIME'. */
 #define MAY_CONTAIN_TRACES_OF_FIRM_REALTIME
 #define INFLATABBLE
-#define SYNTESIZABLE /* i.e no loops, … */
+#define SYNTESIZABLE /* ⬷ i․𝘦 no loops, … */
 #define FOSSILATED
 #define CONTEMPLATE
 #define 🚫🔌 ARGUMENTATIVE /* ⏲ */
@@ -107,11 +107,11 @@ template <typename T> struct SemanticPointer { T ref; }; /* ⬷ a․𝘬․a `Di
 #define EVENTUALRETROSPECTIVE
 #define ROTATIONAL
 #define IRREVERSIb /* IRREVERSI♭ alt․ IRREVERSIꙎ. */
-#define TRAJECTORAL /* Also: TRAJECTORAL🝑 */
+#define TRAJECTORAL /* also: TRAJECTORAL🝑 */
 #define INITIALPROJECTIVE
-#define IRREPABEL /* In German: 'reparierbar'. */
-#define AMBIVALENT /* Native: 'contra-polarisative'. */
-#define DEFLECTIVE /* E․𝘨 `Auntie`. */
+#define IRREPABEL /* in German: 'reparierbar'. */
+#define AMBIVALENT /* native: 'contra-polarisative'. */
+#define DEFLECTIVE /* ⬷ e․𝘨 `Auntie`. */
 #define ANTIPOLARISATIVE
 #define DUALREFLECTIVE
 #define CEDILLEPOSITIVE
@@ -126,8 +126,9 @@ template <typename T> struct SemanticPointer { T ref; }; /* ⬷ a․𝘬․a `Di
 #define PRIMALTRANSLATIVE
 #define ALTERNATESCHEDULATIVE
 #define OPTIONALSCHEDULATIVE
-#define CIRCULATIVE /* a․𝘬․a 'Averaged' ∧ '␣'. */
+#define CIRCULATIVE /* ⬷ a․𝘬․a 'averaged' ∧ '␣'. */
 #define CONTEXTDESTILLATIVE
+#define STEERING₋GOLD /* ⬷ Catholic₋gregorian keys. */
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; /*  ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
@@ -209,8 +210,6 @@ namespace std { /* The standard residual */ typedef ::size_t size_t;
   initializer_list<T> i) { return i.begin(); } template<class T> inline
   const T * end(initializer_list<T> i) { return i.end(); } }
 /* ☜😐: 🔅 ⬷ Earlier remark still valid? */
-struct Scatter; struct Memoryview { Scatter * scatter; __builtin_int_t 
-  bytesoffset; __builtin_int_t bytecount; };
 MACRO __builtin_uint_t 🔎(__builtin_uint_t var) { return *((__builtin_uint_t 
  /* volatile */ *) var); }
 MACRO __builtin_uint_t&  🔧(__builtin_uint_t var) { return (__builtin_uint_t&) 
@@ -226,8 +225,8 @@ MACRO __builtin_uint_t 🎭(__builtin_uint_t * symbol, __builtin_uint_t mask,
  shifted = orig>>shift; if (update) update(shifted); __builtin_uint_t fresh =
  (shifted<<shift)&mask; *symbol = (word & ~mask) | fresh; return orig>>shift; } OPT_Si_FOCAL
 /* Integer types char8_t and char32_t are both unsigned ⤐ */
-enum class Ieee754Form { Scientific, Saturn, Monetary, Scandinavian₋monetary }; /* ⬷ occasionally `intrinsic_and_base₋10`. */
-DISORDERABLE void Format(double ℝ, Ieee754Form f, void (^out)(char32_t 𝟷𝟶₋base));
+enum class Ieee754form { Scientific, Saturn, Monetary, Scandinavian₋monetary }; /* ⬷ occasionally `intrinsic_and_base₋10`. */
+DISORDERABLE void Format(double ℝ, Ieee754form f, void (^out)(char32_t 𝟷𝟶₋base));
 int print(const char * utf8format,...); int mfprint(const char * utf8format,...);
 int print(void (^out)(char8_t * u8s, __builtin_int_t bytes), const char * utf8format, ...);
 struct Argᴾ { typedef void (^Unicode)(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, void * context); 
@@ -273,7 +272,7 @@ typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
 FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memory(
  ByteAlignedRef dst, /* const */ ByteAlignedRef src, __builtin_int_t bytes) {
  ByteAlignedRef org = dst; __asm__ __volatile__ ("rep movsb" : "+D"(dst),
- "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* a․k․a `memcopy`. */
+ "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* ⬷ a․k․a 'memcopy'. */
 FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
  ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uint_t bytes); /* ⏱😐🏁 */
 #define MEASURE_START(prefix) int64_t prefix##Start = __rdtsc(); /* 𝚜𝚒𝚐𝚗𝚎𝚍 ⟵ Comparision */
@@ -290,7 +289,7 @@ FOCAL int Compare8Memory(ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uin
 FOCAL ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef 
   dst, ByteAlignedRef src, __builtin_int_t bytes);
 FOCAL int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁, 
- ByteAlignedRef p₂, __builtin_uint_t bytes); /* ⬷ a․𝘬․a `memcmp`. */
+ ByteAlignedRef p₂, __builtin_uint_t bytes); /* ⬷ a․𝘬․a 'memcmp'. */
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
  constexpr uint32_t PIC32##serie##_##symbol = vaddr;                         \
  constexpr uint32_t PIC32##serie##_##symbol##CLR = (vaddr + 0x4);            \
@@ -322,24 +321,24 @@ typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
 __builtin_int_t constexpr SystemPagesize() { return 4096; } /* ⬷ one definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
 FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned 
-  short base, unsigned short digitsOr0, /* Not more than 32 alt. 64 digits 
-  depending on word size! (Or set to `0` to skip leading zeros.) */ void
-  (^out)(char 𝟶to𝟿)); /* See --<Print.cpp> for a 128-bit version. */
+ short base, unsigned short digitsOr0, /* Not more than 32 alt. 64 digits 
+ depending on word size! (Or set to `0` to skip leading zeros.) */ void
+ (^out)(char 𝟶to𝟿));
 void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿and₋));
-#ifdef simd₋integers
+#if defined simd₋integers
 void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿and₋));
 void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digitsOr0, void (^out)(char 𝟶to𝟿));
 #endif
 #define SIGNBIT_INT32 0x80000000
 #define SIGNBIT_INT64 0x8000000000000000
-/* ⬷ a․𝘬․a INT_MIN and '0b1<<31alt63'. */
+/* ⬷ a․𝘬․a INT₋MIN and '0b1<<31alt63'. */
 MACRO int64_t 𝟸₋compl(int64_t x) { x=~x; return ++x; }
 MACRO int32_t 𝟸₋compl(int32_t x) { x=~x; return ++x; }
 MACRO int64_t abs64i₁(int64_t x) { return x < 0 ? 𝟸₋compl(x) : x; }
 MACRO int32_t abs32i₁(int32_t x) { return x < 0 ? 𝟸₋compl(x) : x; }
 MACRO int64_t abs64i₂(int64_t x) { return __builtin_labs(x); }
 MACRO int32_t abs32i₂(int32_t x) { return __builtin_abs(x); }
-template <typename ℕ> void invert(ℕ & x) { x = ~x; } /* ⬷ a․𝘬․a `toggle₋all`. */
+template <typename ℕ> void invert(ℕ & x) { x = ~x; } /* ⬷ a․𝘬․a 'toggle₋all'. */
 template <typename ℕ> void 𝟸₋Compl(ℕ & x) { invert(x); ++x; }
 template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋Compl(x) : x; }
 /* ⬷ When x is set to INT_MIN, the interpretation is not representable as a positive 
@@ -362,8 +361,8 @@ template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋Compl(x) : x; 
 #define READONLY __attribute__ ((section(".rodata")))
 #endif
 /* #define STRANGE_MAIN void _Noreturn main */
-#define Sourpatch(sym,msg) /* ⬷ a․𝘬․a link-forget. */
-#define IsOdd(x) ((x) & 0b1) /* ⬷ Simultaneously int32_t ∧ int64_t. 
+#define Sourpatch(sym,msg) /* ⬷ a․𝘬․a 'link-forget' and 'retrospective-invisible' . */
+#define IsOdd(x) ((x) & 0b1) /* ⬷ simultaneously int32_t ∧ int64_t. 
  H: x & 0b010 ⟷̸ ◻️⃞. See --<math>--<erf.cpp>{⁽₋1⁾ᵏ|alt}. */
 /* ⬷ also: 'odd' is closed under multiplication. */
 template <typename T> T max(T x₁, T x₂) { return x₁ < x₂ ? x₂ : x₁; }
@@ -377,19 +376,18 @@ template <typename T> T ʳchange(T x₁, T x₂) { return (x₂ - x₁) / x₁; 
 #define innominate auto /* ⬷ a․𝘬․a 'innominate-type'. */
 template <typename T> concept Relative₋accumulative = requires (T x₁, T x₂) {
  x₁ + x₂ /* -> int */; /*{*/ x₁ - x₂ /*} -> Same<bool>*/; Zero(x₂) /* -> T*/; };
- /* ⬷ a․𝘬․a `Turtle` and 'algebraic category'. To instatiate write similar to 
+ /* ⬷ a․𝘬․a 'Turtle' and 'algebraic category'. To instatiate write similar to 
  'template <Relative₋accumulative T>' ... , 
  'template <typename T> requires Relative₋accumulative<T> T operator... and 
  'void foo(Relative₋accumulative innominate & x) { ... }'. */
 #endif
 template <typename T> int collate₋coalesce(__builtin_int_t count, T xᵣ[], T * acc, 
  int (^port)(T x, T & acc)) { for (__builtin_int_t i=0; i<count; i++) { 
- int ok=port(xᵣ[i],*acc); if (!ok) { return ok; } } } /* Also known as: `Norm`, 
- `linear-combine`, also `gaussian₋combination`, `irreversive₋combination` and 
- permutative₋combination`. */
+ int ok=port(xᵣ[i],*acc); if (!ok) { return ok; } } } /* ⬷ also known as: 'norm', 
+ 'linear-combine', also 'gaussian₋combination', 'irreversive₋combination' and 
+ 'permutative₋combination'. */
 template <typename ℚ> ℚ arithmetic(ℚ x₁, ℚ x₂) { return (x₁ + x₂) / 2; }
 /* template <typename T> T geometric(T x₁, T x₂) { return sqrt(x₁*x₂); }; */
-/* C․𝘧 the two files --<🥽 Argentum.cpp> (TO-BE-TYPED) and --<🥽 Newton.cpp>. */
 template <typename T> bool rel₋eq(T x₁, T x₂) { return !(x₁ < x₂ || x₂ < x₁); }
 template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 #define WHEN_COMPILING constexpr static
@@ -403,14 +401,14 @@ template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 #define 🧵(...) /* ✠ */ CARDINALS(__VA_ARGS__) NEARBYCROSS
 #define 🥇 NOT_EVERYTIME
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
-#define 🥈 WHEN_COMPILING /* Must be assigned to a `const` and no inline assembler. */
-#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* ⬷ a․𝘬․a `__block`, 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 🎿 'jurid' and 'förekomst'. Also 'machinal'. */
+#define 🥈 WHEN_COMPILING /* ⬷ must be assigned to a 'const' and no inline assembler. */
+#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* ⬷ a․𝘬․a '__block', 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 🎿 'jurid' and 'förekomst'. Also 'machinal'. */
 template <typename T> T * Critic(const T * x) { return const_cast<T*>(x); }
 template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* ⬷ a․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
 __builtin_int_t least₋possible₋residue(__builtin_int_t dividend, __builtin_int_t divisor);
-/* ⬷ See --<Wiki>--<Essays>--<On Clocks and Time> and 'circular reasoning'. */
+/* ⬷ see --<Wiki>--<Essays>--<On clocks and time> and 'circular reasoning'. */
 #define auto₋rollback(variable) decltype(variable)
-#define ᶿ﹡ const * /* #define *⥃ const char * /​* ⬷ a․𝘬․a `*⥆` and `*⫩`. */
+#define ᶿ﹡ const * /* #define *⥃ const char * /​* ⬷ a․𝘬․a '*⥆' and '*⫩'. */
 
 #pragma mark utf-8
 
@@ -423,7 +421,7 @@ char32_t Utf8ToUnicode(char8_t * ξ, __builtin_int_t bytes);
 struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; }; /* ⬷ a․𝘬․a 'Utf8Location'. */
 
 typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast, 
-  bytesOffsetInclLast; } Utf8Interval; /* ⬷ a․𝘬․a 'Sourcelocation'; e․𝘨 wrongly coded utf-8. */
+  bytesOffsetInclLast; } Utf8Interval; /* ⬷ a․𝘬․a 'Sourcelocation', e․𝘨 wrongly coded utf-8. */
 
 #pragma mark seven-bit keyput/file and utf-8 strings
 
@@ -539,7 +537,7 @@ MACRO int64_t Nearest(double measure, int * reciproc)
 #if defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
 #ifdef __x86_64__
 #include <xmmintrin.h> /* ≥ SSE 4.2 */
-#include <immintrin.h> /* The `crc_u32` intrinsic in smmintrin.h. */
+#include <immintrin.h> /* ⬷ the 'crc_u32' intrinsic in smmintrin.h. */
 #endif
 union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits; };
 #elif defined __mips__ || defined __armv6__ || defined espressif
@@ -550,7 +548,7 @@ void * Insert(void * opaque, Treeint valkey, void * (^alloc)(int bytes));
 void Forall(void ᶿ﹡ opaque, void (^dfs)(Treeint valkey, bool& stop));
 Treeint * Lookup(void ᶿ﹡ opaque, Treeint leafkey);
 
-#pragma mark - Big endian ⟷ 'most signif. first', little endian ⟷ 'least sigif. first'
+#pragma mark - big endian ⟷ 'most signif. first', little endian ⟷ 'least sigif. first'
 
 typedef union {
 #ifdef simd₋integers
@@ -631,7 +629,7 @@ enum { END_OF_TRANSMISSION = U'\u0004' };
 struct structure {
   void * (^leaf₋alloc)(int bytes) = ^(int bytes) { return Alloc(bytes); };
   int lengthen(__builtin_int_t ﹟, void * fixedKbframes[]);
-  uint8_t * relative(__builtin_int_t byte₋offset);
+  uint8_t * relative(__builtin_int_t byte₋offset) const;
   int copy₋append(__builtin_int_t bytes, uint8_t * material, void (^inflate)(
    __builtin_int_t ﹟, bool& cancel)); __builtin_int_t bytes() const;
   void * treelist=NULL, *cached₋tile; __builtin_int_t cached₋number=-1, 
@@ -672,6 +670,8 @@ inline int Setup₋initially₋one(__builtin_int_t bytes, structure& sequence)
    return 0;
 }
 
+struct memoryview { structure * scatter; __builtin_int_t bytesoffset, bytecount; };
+  
 /* enum { 𝟾, 𝟷𝟼, 𝟹𝟸, 𝟼𝟺, lo𝟼𝟺, hi𝟼𝟺, lo𝟷𝟸𝟾, hi𝟷𝟸𝟾, utf8 } */
 
 struct Convoj { structure material, vitruvi; __builtin_int_t count=0; 
@@ -689,7 +689,7 @@ inline uint8_t * Convoj::at(__builtin_int_t idx, __builtin_int_t * bytes)
 
 template <typename G/*riller*/>
 struct ˢConvoj { structure inner; __builtin_int_t count=0; 
-  ˢConvoj(std::initializer_list<G> lst) { init(lst); }
+  ˢConvoj(std::initializer_list<G> lst) { init(lst); } ˢConvoj() { init({}); }
   ˢConvoj& operator=(std::initializer_list<G> lst) { init(lst); return *this; }
   /* Convoj& operator=(G * other) { return *this; } */
   G& operator[](int idx) { return (G *)inner.relative(idx*sizeof(G)); }
@@ -729,18 +729,18 @@ uint8_t ⁸𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥bytes, Sentinel 
   __builtin_int_t totbytes, uint8_t * towrite𝘖r𝖭𝖴𝖫𝖫=NULL);
 uint32_t mips𝟷ᵈ(__builtin_int_t byteNº, __builtin_int_t 𝛥mips, Sentinel wrap, 
   __builtin_int_t totmips, uint32_t * towrite𝘖r𝖭𝖴𝖫𝖫=NULL);
-uint64_t /* a․𝘬․a `ieee754dbl₋pattern` */ intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) 
+uint64_t /* a․𝘬․a 'ieee754dbl₋pattern' */ intel(uint32_t ˡᵒword, uint32_t wordʰⁱ) 
  { return uint64_t(wordʰⁱ)<<32 | ˡᵒword; }
 }; /* ⬷ a․𝘬․a 'Memoryregion'. */
 
-/*  When 'change', 'delete' and 'type', see --<2ᵈ-𝔣ow.hpp>.  Note that the accessor is 
- not called from 'push' and 'pop'. */
+/* When 'change', 'delete' and 'type', see --<2ᵈ-𝔣ow.hpp>. Note that the accessor 
+ is not called from 'push' and 'pop'. */
 
 void * ExactSeek₂(const void *key, const void *base, size_t num, 
  size_t size, int (^cmp)(const void *key, const void *elt));
 
 int IsPrefixOrEqual(const char *𝟽alt𝟾₋bitstring, const char *𝟽alt𝟾₋bitprefix);
-/* Returns `int` indicating difference at branch, -1 if equal and `0` when string 
+/* ⬷ returns `int` indicating difference at branch, -1 if equal and `0` when string 
     contains neither prefix nor is equal. */
 
 #pragma mark - 😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
@@ -750,22 +750,20 @@ extern "C" void ASSEMBLERONLY Sheriff();
 /* #define ⭐️ Sheriff();  After delivery, a non-inquisitorial system is assumed. */
 enum Impediment { MustBeOrdered, JustSwap };
 int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂, Impediment it);
-/* Non-atomic, yet consistent and gracefully failing indicated through a non-
-zero return value. */
+/* ⬷ non-atomic, yet consistent and gracefully failing indicated through a 
+ non-zero return value. */
 /* struct Peekey { __builtin_int_t 🥈 ⬚=2, 🗝=1; __builtin_int_t board₁, palm₂; }; */
 #define 🔒(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, MustBeOrdered)
-#define 🔓(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, JustSwap);
-struct Bitfield { const char32_t * ident; uint32_t mask; 
-  const char32_t * text; }; typedef Bitfield Register[];
-struct AnnotatedRegister { const char32_t * header; int regcnt; const 
-  Bitfield * regs; uint32_t init; const char32_t * footnote; };
+#define 🔓(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, JustSwap)
+struct Bitfield { const char32_t * ident; uint32_t mask; const char32_t * text; }; typedef Bitfield Register[];
+struct AnnotatedRegister { const char32_t * header; int regcnt; Bitfield * regs; uint32_t init; const char32_t * footnote; };
 struct Monoton { Monoton(__builtin_int_t oldest=0); __builtin_int_t 
- ordinal(bool * wrapped); /* ⬷ Retrieve a - since the program started and given 
+ ordinal(bool * wrapped); /* ⬷ retrieve a - since the program started and given 
  a chronology - unique value in a 'strict monotonic increasing serie.  Wraps (𝄇) 
- at `BUILTIN_INT_MAX`; a․𝘬․a 'stilistic chronology'. */ 😐;
+ at BUILTIN₋INT₋MAX; a․𝘬․a 'stilistic chronology'. */ 😐;
 inline uint32_t ᵗᵍᵍˡendian(uint32_t x) { return __builtin_bswap32(x); }
 inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
-/* ⇇ a․𝘬․a `toggleNetworkAndNative`. */
+/* ⇇ a․𝘬․a 'toggleNetworkAndNative'. */
 
 /* #include <Source/fiber₁> */
 #include <Source/coroutine>
@@ -790,7 +788,7 @@ namespace Scheduler { void Init();
   
   extern Necklace *first, *curr, *last;
   
-  int Operational(𝟄₋int₁ * coroutine₋err, void * (^pearl₋alloc)(int bytes)); /* ⬷ a․𝘬․a `Start` and `Cyclic`. */
+  int Operational(𝟄₋int₁ * coroutine₋err, void * (^pearl₋alloc)(int bytes)); /* ⬷ a․𝘬․a 'Start' and 'Cyclic'. */
   
   MACRO void Proceed() { curr=curr->nxt; Resume(curr->err.coroutine.address()); }
   
@@ -804,7 +802,7 @@ namespace Scheduler { void Init();
 #define co₋await co_await
 #define initiera co_await
 #define feedback co_yield
-#define adjö co_return /* ⬷ s․a 'självet anser' and j.mfr 'jämför'. */
+#define adjö co_return /* ⬷ s․a 'självet anser' and jmfr. 'jämför'. */
 #define STRINGIFY(str) #str
 #define va_prologue(symbol)                                                 \
  __builtin_va_list __various;                                               \
@@ -817,7 +815,7 @@ template <typename T> T * /* ⤪_ */ Elements𝘖𝘳Heap(int expeditionary,
    if (expeditionary == -1) { location = (T *)Alloc(count*sizeof(T)); } else { 
      __builtin_int_t bytes=sizeof(T)*count,﹟,modula; int sum₋negative;
      if (hw₋fractions(bytes, 4096, ﹟, modula, &sum₋negative)) { return NULL; }
-     void * 𝟺kbframes[﹟ + (bytes % 4096 ? 1 : 0)]; /* ⬷ Always positive so ⌊⌋. */
+     void * 𝟺kbframes[﹟ + (bytes % 4096 ? 1 : 0)]; /* ⬷ positive so ⌊⌋. */
      if (ContiguousAcquire(expeditionary,𝟺kbframes,﹟)) { return NULL; }
      /* if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { return NULL; }
       ⬷ First-fit, most-recently-used and closest-fit. */
@@ -826,7 +824,7 @@ template <typename T> T * /* ⤪_ */ Elements𝘖𝘳Heap(int expeditionary,
    for (__builtin_int_t i=0; i<count; ++i) { T * elem = new (i + location) T(); }
    if (default𝘖rNull) { for (__builtin_int_t i=0; i<count; ++i) { default𝘖rNull(i + location); } }
    return location;
-} /* ⬷ a․𝘬․a `malloc`, `StartupAlloc` and `Frame𝘈𝘭𝘵𝙉ew`. */
+} /* ⬷ a․𝘬․a 'malloc', 'StartupAlloc' and 'Frame𝘈𝘭𝘵𝙉ew'. */
 
 constexpr __builtin_int_t Frame(__builtin_uint_t size, __builtin_uint_t framesize)
 { return __builtin_int_t((size + framesize - 1) & ~(framesize - 1)); } 
@@ -847,15 +845,16 @@ constexpr __builtin_int_t HowMany(__builtin_uint_t index, __builtin_uint_t width
 __builtin_int_t 🥈 Pagewords=SystemPagesize()/Wordbytes; /* ⬷ a․𝘬․a 'arrangemang-
  possibly-window', 'ElemsInside4kb' and '𝟻𝟷𝟸alt𝟷𝟶𝟸𝟺'. */
 
-/* ⬷ Consider 32- alt. 64-bits with an extra sign bit for `Frame`, `leqAndPowerOfTwo`, `geqAndPowerOfTwo` and `isPowerOfTwo`. */
+/* ⬷ Consider 32- alt. 64-bits with an extra sign bit for `Frame`, `leqAndPowerOfTwo`, 
+ `geqAndPowerOfTwo` and `isPowerOfTwo`. */
 
 #pragma mark - 😐😇
 
 struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ }; 
     
-    typedef octa Instant; typedef uint32_t UQ32; /* E․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
+    typedef octa Instant; typedef uint32_t UQ32; /* e․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
     
-    union Q1615 { uint32_t bits; int32_t frac; }; /* ⬷ 0 to ±65535.9999694822. */ 
+    union Q1615 { uint32_t bits; int32_t frac; }; /* ⬷ captures 0 to ±65535.9999694822. */ 
     
     struct Relative { Q1615 seconds₋and₋frac; }; /* ⬷ a․𝘬․a 'Interval'. Is calendric alt. 
      monotonically increasing non-rooting temporal relative. */
@@ -891,9 +890,6 @@ struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
        minutes (0-59) and seconds (0-59)
      
      @param frac  The number of 1/2³² second ticks (≈232.83 ps) to add
-     
-     Epoch for the modified Julian day is 03/23/1955 at 15.00: When Saab J29 
-     travels in 900.660 km/h.
      
      A correct abbreviation for the unit of time and also the measurements of 
      duration is 's'. It is not 'S' which stands for Siemens and admittance.
