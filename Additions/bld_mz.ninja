@@ -18,24 +18,26 @@ rule library
   ln -f Releases/$out\_$sha1git.a Releases/$out.a                         ; $
   printf $sha1git
 
-build $encased-library: library $objs/Additions.o $objs/Ieee754₆₄bits.o     $
-  $objs/Guid.o $objs/photo-d3.o $objs/Terminal.o  $objs/Vt99.o              $
-  $objs/Streams.o $objs/Present.o $objs/Presentᵃᵘˣ.o $objs/Automata.o       $
-  $objs/Ornaments.o $objs/Randomˢᵚ.o $objs/Random.o $objs/⌊𝑥⌋+nearest.o     $
-  $objs/arctan.o $objs/cherry.o $objs/atan₂.o $objs/ℯ🔭².o $objs/logₑ.o     $
-  $objs/log𝛤.o $objs/mod.o $objs/sincos.o $objs/tan.o $objs/tanh.o          $
-  $objs/Erf.o
+build libAdditions_pic32mz: library $objs/Additions.o $objs/Ieee754₆₄bits.o $
+ $objs/Guid.o $objs/crisp-d3.o $objs/Terminal.o $objs/Vt99.o $objs/Roman.o  $
+ $objs/Streams.o $objs/Present-1.o $objs/Present-2.o $objs/Presentᵃᵘˣ.o     $
+ $objs/Automata.o $objs/Ornaments.o $objs/Bezier.o $objs/Randomˢᵚ.o         $
+ $objs/Random.o  $objs/⌊𝑥⌋+nearest.o $objs/arctan.o $objs/cherry.o          $
+ $objs/atan₂.o $objs/ℯ🔭².o $objs/logₑ.o $objs/log𝛤.o $objs/mod.o           $
+ $objs/sincos.o $objs/tan.o $objs/tanh.o $objs/Erf.o
  
 build $objs/Additions.o: cc Additions.cpp
 build $objs/Ieee754₆₄bits.o: cc Ieee754₆₄bits.cpp
 build $objs/Randomˢᵚ.o: cc Randomˢᵚ.cpp
 build $objs/Random.o: cc Random.cpp
 build $objs/Guid.o: cc Guid.cpp
-build $objs/photo-d3.o: cc photo-d3.cpp
+build $objs/crisp-d3.o: cc crisp-d3.cpp
 build $objs/Terminal.o: cc Terminal.cpp
-build $objs/VT99.o: cc VT99.cpp
+build $objs/Vt99.o: cc Vt99.cpp
 build $objs/Automata.o: cc Automata.cpp
 build $objs/Ornaments.o: cc Ornament.cpp
+build $objs/Bezier.o: cc Bezier.cpp
+build $objs/Roman.o: cc Roman.cpp
 build $objs/Streams.o: cc Streams.cpp
 build $objs/⌊𝑥⌋+nearest.o: cc math/⌊𝑥⌋+nearest.cpp
 build $objs/arctan.o: cc math/arctan.cpp
@@ -50,7 +52,8 @@ build $objs/sincos.o: cc math/sincos.cpp
 build $objs/tan.o: cc math/tan.cpp
 build $objs/tanh.o: cc math/tanh.cpp
 # …and more non-math folders:
-build $objs/Present.o: cc Present.cpp
+build $objs/Present-1.o: cc Present-1.cpp
+build $objs/Present-2.o: cc Present-2.cpp
 build $objs/Presentᵃᵘˣ.o: cc Presentᵃᵘˣ.cpp
 build emit-content: toc
 default $encased-library
