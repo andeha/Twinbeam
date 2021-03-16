@@ -1,18 +1,17 @@
-/*  Ieee754₆₄bits.cpp | Addition[s]. */
+/*  Ieee754₆₄bits.cpp | addition[s]. */
 
 #include <Twinbeam.h>
 #include <Additions/Additions.h>
 
-#pragma mark - Textual 64-bit IEEE 754 base-2 
+#pragma mark - textual 64-bit IEEE 754 base-2
 
 enum { Bignum_prec=157, magic_offset=2112, origin=37 };
-typedef structᵢ { int a; int b; Tetra dat[Bignum_prec]; } Bignum;
+typedef structᵢ { int a, b; Tetra dat[Bignum_prec]; } Bignum;
 
 inexorable
 void
-print_float(
-  Octa x,
-  void (^digits)(bool neg, int e, const char *s),
+print₋float₋variant₁(Octa x,
+  void (^digits)(bool neg, int e, char * s), /* when not zero, inf nor nan. */
   void (^zero)(bool neg), void (^inf)(bool neg), void (^nan)()
 ) /* MMMIX-ARITH § 54-67 */
 {
@@ -157,20 +156,110 @@ print_float(
         *p++ = ((ff.dat[origin]+1+gg.dat[origin])>>1)+'0';
     }
     
-    *p = '\0';
-    
-    digits(neg, e, s);
+    *p = '\0'; digits(neg,e,s);
 }
 
+inexorable
 void
-CastᵈᵇˡToText( 
-  double value,
-  void (^digits)(bool neg, int e, const char * 𝟶to𝟿s),
+print₋float₋variant₂(
+  octa x,
+  void (^digits)(bool neg, int 𝟷𝟶ˣalt𝟸ⁿ, char * s, int len), 
+  /* ⬷ when not 'zero', 'inf' nor 'nan'. */
+  void (^zero)(bool neg), void (^inf)(bool neg), void (^nan)()
+)
+{  int bipolar; int neg=0;
+   if (isnan(x.base﹟𝟸)) { nan(); return; }
+   if (iszero(x.base﹟𝟸)) { zero(x.binary64.sign ? 1 : 0); return; }
+   if (is₋pairwise₋inf(x.base﹟𝟸,x.base﹟𝟸,&bipolar)) { inf(x.binary64.sign ? 1 : 0); return; }
+   if (x.binary64.sign) { neg=1; }
+   /* double y = x.base﹟𝟸 < 0 ? -x.base﹟𝟸 : x.base﹟𝟸; */
+   char 𝟶to𝟿[64]; char * txt=𝟶to𝟿; int 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 i;
+   auto 𝟸ⁿ₋𝟷𝟶ˣ = ^(unsigned 𝟸ⁿ) /* -> int */ { return (𝟸ⁿ - 1023); };
+   /* 2^exp = 10^(exp*log₁₀(2)) = 10^(0,301029995663981 * exp) */
+   auto base𝕟 = ^(__uint64_t ℕ, unsigned short base)
+   {
+     unsigned short cycle[64] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; short k=0; 
+     do { cycle[k] = ℕ % 10; ℕ /= 10; k++; } while (ℕ);
+     for (i=0; i<k; --i) { *(txt+i)=cycle[i] + '0'; }
+   }; /* ⬷ mantissa × 2^exp. */
+   
+   uint64_t ℕ = (x.binary64.mantissah << 32) | x.binary64.mantissal; base𝕟(ℕ,10); 
+   𝟶to𝟿[i]='\0'; int 𝟷𝟶ˣ=𝟸ⁿ₋𝟷𝟶ˣ(x.binary64.exponent); digits(neg,𝟷𝟶ˣ,𝟶to𝟿,i);
+} /* (−1)*sign bit*(1+fraction)×2^(exponent - bias) */
+
+FOCAL
+void
+CastᵈᵇˡToText(double value, 
+  void (^digits)(bool neg, int 𝟷𝟶ˣ, char * 𝟶to𝟿s), 
   void (^zero)(bool neg), void (^inf)(bool neg), void (^nan)()
 )
 {
-    octa y { .base₂=value };
-    Octa x; x.h = y.unsigned_little_endian.mst; x.l = y.unsigned_little_endian.lst;
-    print_float(x, digits, zero, inf, nan);
+   octa y { .base﹟𝟸=value }; Octa x;
+   x.h = y.unsigned_little_endian.mst;
+   x.l = y.unsigned_little_endian.lst;
+   print₋float₋variant₁(x,digits,zero,inf,nan);
+   /* print₋float₋variant₂(y,digits,zero,inf,nan); */
 }
+
+DISORDERABLE void Format(double ℝ, Ieee754form f, void (^out)(char32_t uc)) {
+  const char32_t zero=U'0', inf=U'∞', *nan=U"NaN", minus=U'-', decimal=U'.', 
+    *base=U"10", base₋mul=U'×', neg₋pow=U'⁻', expo=U'e', *additive₋abelian=U"0.00", 
+  *multiplex₋abelian=U"1.00"; /* ⬷ a․𝘬․a 'the additive and multiplicative abelian element'. */
+  auto emit₋zeros = ^(int n) { for (int i=0; i<n; ++i) { out(zero); } };
+  auto emit₋uc₋until₋𝖭𝖴𝖫𝖫 = ^(const char32_t * ucs) { int i=0; again: 
+   char32_t uc = *(ucs + i); if (uc == 0x0) { return; } out(uc); goto again; };
+  auto 𝟽₋bit₋strlen = ^(char * s) { const char * p=s; while (*p) { ++p; } return (int)(p - s); };
+  auto emit₋𝟽₋bits₋until₋𝖭𝖴𝖫𝖫𝘖rN = ^(char * s, int N) { int i=0; again: char c = *(s + i);
+   if (i == N || c == 0) { return; } out((char32_t)c); goto again; };
+  auto opt₋subscript₋styled₋ℕ = ^(__builtin_uint_t ℕ, int superscript) { Base𝕟(ℕ, 10, 0, 
+   ^(char c) { out(superscript ? Superscript(c - '0') : (char32_t)c); }); };
+  auto engineering = ^(bool neg, int 𝟷𝟶ˣ, char * 𝟶to𝟿s) {
+   if (neg) { out(minus); } int bytesExcptNULL = 𝟽₋bit₋strlen(𝟶to𝟿s);
+   emit₋𝟽₋bits₋until₋𝖭𝖴𝖫𝖫𝘖rN(𝟶to𝟿s,1); out(decimal);
+   emit₋𝟽₋bits₋until₋𝖭𝖴𝖫𝖫𝘖rN(𝟶to𝟿s+1,bytesExcptNULL-1);
+   out(U'×'); emit₋uc₋until₋𝖭𝖴𝖫𝖫(base);
+   if (𝟷𝟶ˣ < 0) { out(neg₋pow); 𝟷𝟶ˣ=-𝟷𝟶ˣ; } opt₋subscript₋styled₋ℕ(𝟷𝟶ˣ,1); };
+  auto scientific = ^(bool neg, int 𝟷𝟶ˣ, char * 𝟶to𝟿s) {
+   if (neg) { out(minus); } int bytesExcptNULL = 𝟽₋bit₋strlen(𝟶to𝟿s);
+   if (𝟷𝟶ˣ > 17 || 𝟷𝟶ˣ < bytesExcptNULL-17) { engineering(neg,𝟷𝟶ˣ,𝟶to𝟿s); }
+   else if (𝟷𝟶ˣ<0) { out(decimal); emit₋zeros(-𝟷𝟶ˣ); emit₋𝟽₋bits₋until₋𝖭𝖴𝖫𝖫𝘖rN(𝟶to𝟿s,1024); }
+   else if (bytesExcptNULL>=𝟷𝟶ˣ) { emit₋𝟽₋bits₋until₋𝖭𝖴𝖫𝖫𝘖rN(𝟶to𝟿s,𝟷𝟶ˣ); out(decimal); emit₋𝟽₋bits₋until₋𝖭𝖴𝖫𝖫𝘖rN(𝟶to𝟿s + 𝟷𝟶ˣ,1024); }
+   else { emit₋𝟽₋bits₋until₋𝖭𝖴𝖫𝖫𝘖rN(𝟶to𝟿s,1024); emit₋zeros(𝟷𝟶ˣ-bytesExcptNULL); out(decimal); } };
+  auto saturn₋negotiated = ^(bool neg, int 𝟷𝟶ˣ, char * 𝟶to𝟿s) {
+   if (neg) { out(minus); } int bytesExcptNULL = 𝟽₋bit₋strlen(𝟶to𝟿s);
+   auto cross₋zeroes₋from₋end = ^(char * 𝟶to𝟿s, int len) { int i,tot=0; 
+    for (i=len-1; i>=0 && (*(i+𝟶to𝟿s) == '0'); --i,tot++) { *(i+𝟶to𝟿s) = '\0'; } };
+   cross₋zeroes₋from₋end(𝟶to𝟿s, bytesExcptNULL); scientific(neg,𝟷𝟶ˣ,𝟶to𝟿s); };
+  auto cents₋schilling = ^(int 𝟷𝟶ˣ, char * 𝟶to𝟿s, int scandinavian) {
+   int bytesExcptNULL = 𝟽₋bit₋strlen(𝟶to𝟿s);
+   if (𝟷𝟶ˣ<0) { out(zero); out(zero); if (scandinavian) { out(zero); } }
+   else if (scandinavian && 𝟷𝟶ˣ+2 < bytesExcptNULL) { out(𝟶to𝟿s[𝟷𝟶ˣ]); out(𝟶to𝟿s[𝟷𝟶ˣ+1]); out(𝟶to𝟿s[𝟷𝟶ˣ+2]); }
+   else if (𝟷𝟶ˣ+1 < bytesExcptNULL) { out(𝟶to𝟿s[𝟷𝟶ˣ]); out(𝟶to𝟿s[𝟷𝟶ˣ+1]); if (scandinavian) { out(zero); } }
+   else if (𝟷𝟶ˣ < bytesExcptNULL) { out(𝟶to𝟿s[𝟷𝟶ˣ]); out(zero); if (scandinavian) { out(zero); } } };
+  auto monetary = ^(bool neg, int 𝟷𝟶ˣ, char * 𝟶to𝟿s, int scandinavian) {
+   if (neg) { out(minus); } int bytesExcptNULL = 𝟽₋bit₋strlen(𝟶to𝟿s);
+   if (𝟷𝟶ˣ<0) { out(zero); }
+   else if (bytesExcptNULL >= 𝟷𝟶ˣ) { emit₋𝟽₋bits₋until₋𝖭𝖴𝖫𝖫𝘖rN(𝟶to𝟿s,𝟷𝟶ˣ); }
+   else { emit₋𝟽₋bits₋until₋𝖭𝖴𝖫𝖫𝘖rN(𝟶to𝟿s,1024); emit₋zeros(𝟷𝟶ˣ-bytesExcptNULL); }
+   out(decimal); cents₋schilling(𝟷𝟶ˣ,𝟶to𝟿s,scandinavian); };
+  auto american₋exchange = ^(bool neg, int 𝟷𝟶ˣ, char * 𝟶to𝟿s) { };
+  auto scientific₋zero = ^(bool neg) { if (neg) { out(minus); } out(zero); };
+  auto monetary₋zero = ^(bool neg) { if (neg) { out(minus); } emit₋uc₋until₋𝖭𝖴𝖫𝖫(additive₋abelian); };
+  auto uc₋inf = ^(bool neg) { if (neg) { out(minus); } out(inf); };
+  auto uc₋nan = ^{ emit₋uc₋until₋𝖭𝖴𝖫𝖫(nan); };
+  switch (f) {
+  case Ieee754form::Scientific: CastᵈᵇˡToText(ℝ, ^(bool neg, int 𝟷𝟶ˣ, char * 𝟬to𝟵s) {
+   scientific(neg,𝟷𝟶ˣ,𝟬to𝟵s); }, scientific₋zero, uc₋inf, uc₋nan); break;
+  case Ieee754form::Saturn: CastᵈᵇˡToText(ℝ, ^(bool neg, int 𝟷𝟶ˣ, char * 𝟬to𝟵s) {
+   saturn₋negotiated(neg,𝟷𝟶ˣ,𝟬to𝟵s); }, scientific₋zero, uc₋inf, uc₋nan); break;
+  case Ieee754form::Monetary: CastᵈᵇˡToText(ℝ, ^(bool neg, int 𝟷𝟶ˣ, char * 𝟬to𝟵s) {
+   monetary(neg,𝟷𝟶ˣ,𝟬to𝟵s,0); }, monetary₋zero, uc₋inf, uc₋nan); break;
+  case Ieee754form::Scandinavian₋monetary: CastᵈᵇˡToText(ℝ, ^(bool neg, int 𝟷𝟶ˣ, 
+   char * 𝟬to𝟵s) { monetary(neg,𝟷𝟶ˣ,𝟬to𝟵s,1); }, monetary₋zero, uc₋inf, uc₋nan); break;
+  }
+} /* ⬷ a․𝘬․a MMIX-ARITH § 67. */
+
 
