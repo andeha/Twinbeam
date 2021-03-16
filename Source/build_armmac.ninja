@@ -1,0 +1,37 @@
+#  build.ninja - for the 'well-integrated' cooperative Apple M1 chip. 
+
+optflags = -g
+M1-library = libTwinbeam_M1
+objs = ./.objs/7703a312-559A-43ca-A991-eaccf7f77663_$M1-library
+include ../tools.ninja
+platflags = -D__armv8a__ -I ..
+flags = $optflags $macosarmcflags $platflags -Wno-c++2a-designator -std=c++2a
+include ../macOS/laptop-big.ninja
+
+progname = $M1-library\_$sha1git.a
+rule toc
+  command = $librarian-mac t Releases/$progname
+# ⬷ monitor/Apps> ninja -C Source -f build_armmac.ninja emit-content
+
+rule library
+  command = $librarian-mac rcs Releases/$out\_$sha1git.a $in               ; $
+  ln -f Releases/$out\_$sha1git.a Releases/$out.a ; printf $sha1git
+
+build libTwinbeam_M1: library $objs/Utf8.o $objs/Tree.o $objs/Memory.o       $
+  $objs/Chronology.o $objs/bignum.o $objs/sha256.o $objs/Print.o             $
+  $objs/macOS.o $objs/exception.o $objs/System.o $objs/fifo.o
+build $objs/Utf8.o: cc Utf8.cpp
+build $objs/Tree.o: cc Tree.cpp
+build $objs/Memory.o: cc Memory.cpp
+build $objs/Chronology.o: cc Chronology.cpp
+build $objs/bignum.o: cc bignum.cpp
+build $objs/sha256.o: cc sha256.cpp
+build $objs/Print.o: cc Print.cpp
+build $objs/macOS.o: cc macOS.cpp
+build $objs/exception.o: asm exception.S
+build $objs/fifo.o: cc fifo.cpp
+build $objs/System.o: cc System.cpp
+build emit-content: toc
+default $M1-library
+
+
