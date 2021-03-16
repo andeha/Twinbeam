@@ -13,7 +13,7 @@ DISORDERABLE extern void Anfang(char32_t prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶�
 DISORDERABLE extern void register₋reflect(__builtin_uint_t mask) { print("∎"); }
 /* Alternative definition in --<Additions>--<Presentᵃᵘˣ.cpp>. */
 
-DISORDERABLE extern void Format(double ℝ, Ieee754Form f, void (^out)(char32_t uc)) 
+DISORDERABLE extern void Format(double ℝ, Ieee754form f, void (^out)(char32_t uc)) 
 { out(U'∎'); } /* Alternative definition in --<Additions>--<Ieee754₆₄bits.cpp>. */
 
 DISORDERABLE extern void platform₋reflect() { } /* ⬷ Alternative definition 
@@ -73,7 +73,7 @@ print﹟(
     auto unicode₋symbol = ^(char32_t u) { UnicodeToUtf8(u, ^(char8_t * u8s, 
      short bytes) { out(Critic(u8s),bytes); }); };
 /* #ifndef UNEXISTING₋IEEE754 */
-    auto out𝕕 = ^(double ℝ) { Format(ℝ, Ieee754Form::Scientific, ^(char32_t uc) { unicode₋symbol(uc); }); };
+    auto out𝕕 = ^(double ℝ) { Format(ℝ, Ieee754form::Scientific, ^(char32_t uc) { unicode₋symbol(uc); }); };
 /* #endif */
     auto unicode₋stream = ^(int tetras, char32_t 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 * unicodes) { __builtin_int_t 
       beam=0; while (beam < tetras) { char32_t uc = *(unicodes + beam); unicode₋symbol(uc); 
