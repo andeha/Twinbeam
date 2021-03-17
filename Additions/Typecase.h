@@ -72,26 +72,26 @@
       ⎮ 𝘦⁻ˣ 𝘥𝑥 ≅ √𝘹 + › ⁣1/k² ≅ @w Sum[, … ∈ ℝ (DOUBLE-STRUCK CAPITAL R)   (0)
       ⌡              /͟                                                      
      -∞             k=1                                                     
-   
-      ⎡n₁₁     ⎤    ⎧ ⎫    ⎛   ⎞      ⸑                                
-      ⎢        ⎥    ⎨ ⎬    ⎜   ⎟     ⎸    ⎲                           
-      ⎣     nᵤᵥ⎦    ⎩ ⎭    ⎝   ⎠    ⎷    ⎳                            
+                                                                            
+      ⎡n₁₁     ⎤    ⎧ ⎫    ⎛   ⎞      ⸑                                    
+      ⎢        ⎥    ⎨ ⎬    ⎜   ⎟     ⎸    ⎲                                
+      ⎣     nᵤᵥ⎦    ⎩ ⎭    ⎝   ⎠    ⎷    ⎳                                
    
    Further, consider:
    
    Dashes: ‒ Figure Dash, – En Dash, — Em Dash, ⁓ Swung Dash, ⸺ Two-em Dash,
      ⸻ Three-em Dash, 〰 Wavy Dash, - Hyphen Minus. Also 𝟄-soft-hyphen: ⥗­⥖.
      
-     ˥ ˦ ˧ ˨ ˩ (Tone letters)
-     ⎔⃚ (Combining anticlockwise ring overlay)
-     ⬚ Placemark for `print`
+     ˥ ˦ ˧ ˨ ˩ (Tone letters)                      ⬷ c․f <half-opaque > unicode?
      ﹟ 'Number-of' in 𝘦․𝘨 variable names
+     ⎔⃚ 'Combining anticlockwise ring overlay'
+     ⬚ Placemark for 'print'
      
    Arrows: ⇽ ⇾ ⟲⟳ ↗︎↘︎↙︎↖︎ ⸔⸕ ⤡⤢ ⤺⤻ ↰↱↲↳ ↴ ↩︎ ↵  ⮐ ↹ ←↑→↓
-     ↼ (Leftward harpoon with barb upwards) ↽↾↿⇀⇁⇂⇃⇄⇅⇆⇇⇈⇉⇊⇋⇌⇍⇏⇐⇑⇒⇓⇚⇛⇜⇝⇤⇥⇦⇧
+     ↼ 'Leftward harpoon with barb upwards' ↽↾↿⇀⇁⇂⇃⇄⇅⇆⇇⇈⇉⇊⇋⇌⇍⇏⇐⇑⇒⇓⇚⇛⇜⇝⇤⇥⇦⇧
      '⇨⇩⇪⇵⇶ ⎔ ➔➙➛➜➝➞➟➠⟰ ⤶ ⤷  ↔︎'
      '📲📩📈📉🔃➡︎⬅︎⬆︎⬇︎↩︎⤴︎⤵︎⤴⤵ (牮筏)'
-     ⬷ ⤐ (Leftwards two-headed triple dash arrow)
+     ⬷ ⤐ 'Leftwards two-headed triple dash arrow'
     
    Extensions: ⁌⁍ ⊸ ⫰ ⫱ ⿱⿳⿶  ⃦ a⃮ b⃯ a͍ (Combining left and right arrow below),
      a̫b̫c̫ ⬷ 'Combining inverted double arch below' a⃨b⃨c⃨ a⃩ a⃪
