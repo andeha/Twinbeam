@@ -30,7 +30,7 @@ Copy8Memory(
   ByteAlignedRef dst,
   ByteAlignedRef src,
   __builtin_int_t bytes
-) /* A․𝘬․a `memcpy`. */
+) /* ⬷ a․𝘬․a 'memcpy'. */
 {
     char *dp = (char *)dst;
     const char *sp = (const char *)src;
@@ -45,12 +45,12 @@ Compare8Memory(
   ByteAlignedRef l,
   ByteAlignedRef r,
   __builtin_uint_t bytes
-) /* A․𝘬․a `memcmp`. */
+) /* ⬷ a․𝘬․a 'memcmp'. */
 {
-    const unsigned char *p1 = l, *p2 = r;
+    const unsigned char *p₁ = l, *p₂ = r;
     while (bytes--) {
-        if (*p1 != *p2) return *p1 - *p2;
-        else p1++,p2++;
+      if (*p₁ != *p₂) return *p₁ - *p₂;
+      else p₁++,p₂++;
     }
     return 0;
 } /* Notice that this method is 'too cristalline' when dealing with Unicodes. */

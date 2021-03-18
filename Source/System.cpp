@@ -1,237 +1,178 @@
-/*  System.cpp | Mandatory-required and non-specific. (DO-NOT-CIRCULATE) */
+/*  System.cpp | mandatory-required and non-specific. (DO-NOT-CIRCULATE) */
 
 #include <Twinbeam.h>
 
-struct TwinbeamContext {
-  jmp_buf2 /* volatile */ singleTaskProgramState;
-  Chronology calendricChronology, computationalChronology;
-} __twinbeamContext;
+extern jmp_buf2 /* volatile */ singleTaskProgramState;
+extern Chronology calendricChronology, computationalChronology;
+extern "C" DISORDERABLE /* ⬷ overridden when linked together with 𝘦․𝘨 `SlimScheduler.o`. */
+jmp_buf2 * /* volatile */ JmpBuf() { return &(singleTaskProgramState); }
 
-extern "C" DISORDERABLE /* Overridden when linked together with 𝘦․𝘨 `SlimScheduler.o`. */
-jmp_buf2 * /* volatile */
-JmpBuf() { return &(__twinbeamContext.singleTaskProgramState); }
+FOCAL int IADD(short id, int32_t addend, int32_t augend, 
+  int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * sum₋negative) {
+    extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4];
+    return 0;
+}
 
-#pragma mark - See --<🥽 ¹𝙁𝘿𝙄𝙑.cpp> for 64-bits and 32-bits 𝗳𝗹𝗼𝗮𝘁𝗶𝗻𝗴-𝗽𝗼𝗶𝗻𝘁 division
+FOCAL int Fused₋IMUL(short id, int32_t augend, int32_t multiplier, int invMultiplyThenAdd, 
+  int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * accumulator₋negative
+)
+{
+   extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4];
+   if (invMultiplyThenAdd) { return -1; }
+   return 0;
+} /* ⬷ a․𝘬․a 'linear-combine'. */
+
+#pragma mark - F-old-err/f-i-le, m-a-p and gr-o-u-p/in-di-vid-u-all
 
 FOCAL
 int
-fractions(
-  uint32_t num, uint32_t denom, /* ⬷ a․𝘬․a `dividend` and `divisor`. */
-  uint32_t &ℕ, uint32_t &modula /* ⬷ Sometimes called 'quotient` and `remainder`. */
-)
-{ ℕ=0;
-   if (denom == 0) { return -1; }
-   while (num >= denom) { ℕ++; num -= denom; }
-   modula = num;
-   return 0;
-#ifdef WHEN_IDIV_ROUNDS_TOWARDS_NINF /* Suitable for a UDIV and UMUL  ⃫ HW architecture ⤐ */
-   if (denom == 0) { return -1; }
-   if (denom > num) { ℕ=0; modula=num; }
-   ℕ = num / denom;
-   /* Given a 'signed integer division' did 'rounds towards -∞' a․𝘬․a 'a floored division': */
-   modula = num - denom * ℕ;
-   return 0;
-#endif /* ⬷ `divmod`: 'Simultaneous division and multiplication in HW'. */
-} /* 
- 
- Om mips, when multu, mfhi access the upper part and mflo the lower part.
- On mips, when divu, mfhi holds the remainder and mflo the quotient.
- 
- In C and for 'signed fractions' when either num` or `denom` is negative, the 
- result after '%' is implementation-dependent. The `LeastPossibleResidue` gives 
- a well-defined result.
-
- The Pascal/Algol68 always gives a positive 'modula' when performing 'mod' on 
- an sign-alternating `num` and denom`. The signed version of 'div' rounds 
- towards -∞ or zero.
- 
- Below, the signed `fractions₁` and `fractions₂` gives `modula` that is equal 
- to `LeastPossibleResidue` when Euclidean division is selected. The sign enclosing 
- the integer with fraction sum is returned separately in `sum₋negative`.
- 
- */
-
-inexorable int fractions₁(
-  int32_t num, int32_t denom, int32_t &ℤ, int32_t &modula, bool &sum₋negative
-) {
-   uint32_t numᵢ=(uint32_t)abs32i(num),denomᵢ=(uint32_t)abs32i(denom),ℕ,modulaᵢ;
-   if (fractions(numᵢ,denomᵢ,ℕ,modulaᵢ)) { return -1; }
-   ℤ=int32_t(ℕ), modula=int32_t(modulaᵢ);
-   bool negn=num<+0, negd=denom<+0;
-   sum₋negative = negn ^ negd;
-   return 0;
-}
-
-#ifdef __mips__
-inexorable int mips₋fractions(
-  uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula
-) {
-    if (denom == 0) { return -1; }
-    Mips
- "    divu $4, $5            \n"      /* Division: divu a0, a1. */
-/*    nop, nop in MIPS I to MIPS III. */
- "    mfhi $8                \n"      /* Retrieve modulo: mfhi t0. */
- "    mflo $9                \n"      /* Retrieve quotient: mflo t1. */
- "    sw $9, 0($6)           \n"      /* Write through pointer: sw $t1, 0($6). */
- "    sw $8, 0($7)           \n"      /* Write through pointer: sw $t0, 0($7). */
-    );
-    return 0;
-} /* Removed according to 'The MIPS32® Instruction Set Manual, Revision 6.06'. */
+Acquire𝟷ᵈ(
+  __builtin_int_t ﹟, /* a․𝘬․a `#shatters`, `﹟skeletons` and `﹟turnstiles'. */
+  __builtin_int_t 𝑙𝑜𝑔₂Pages, 
+  __builtin_uint_t pages[], __builtin_uint_t avails[], 
+  void (^every)(uint8_t * 𝟸ⁿ₋frame, bool& stop)
+) /* Given a transactional memory, reconsider acquire with and without rollback. */
+{  __builtin_int_t 🥈 BytesPerWord=sizeof(__builtin_uint_t), Bits=BytesPerWord<<3;
+   __builtin_int_t Pages=0b1<<𝑙𝑜𝑔₂Pages, Idxs=(Pages/BytesPerWord)>>3;
+     if (﹟ <= 0) { return -1; } bool stop=false;
+     for (int i=0; i<Idxs; i++) {
+again:
+       __builtin_int_t occupied = ~avails[i];
+       if (occupied == TriboolUnknown) { continue; }
+#if defined __mips__ || defined __armv6__ || defined espressif
+       __builtin_int_t onesUntilZero = __builtin_ctz(~occupied);
+#elif defined __x86_64__ || defined __armv8a__
+       __builtin_int_t onesUntilZero = __builtin_ctzll(~occupied);
 #endif
+       avails[i] ^= 1<<onesUntilZero; /* ⬷ See also note at --<Additions.h>{Bitsetˢᵘᵖ}. */
+       __builtin_int_t byteOffset = SystemPagesize()*(Bits*i + onesUntilZero);
+       every((uint8_t *)pages+byteOffset, stop);
+       if (stop) { return -3; }
+       if (--﹟ == 0) { return 0; } else { goto again; }
+    }
+    return -2;
+} /* ⬷ similar to `new` and `malloc` but returns multiple same-sized and non-
+  consecutive memory areas. */
 
-inexorable void invert(int32_t & x) { x = ~x; } /* a․𝘬․a `toggle₋all`. */
-inexorable void increment₁(int32_t & x) { ++x; } /* a․𝘬․a `möbius-at-intmax`. */
-inexorable void 𝟸₋compl(int32_t & x) { invert(x); increment₁(x); }
-
-inexorable int
-fractions₂(
-  int32_t num, int32_t denom, 
-  int32_t &ℤ, int32_t &modula, 
-  int * sum₋negative
-)
-{ /* Beware of 0b10000...01: */
-   /* int32_t 🥈 intmax = 0b01111111111111111111111111111111; */
-   int32_t 🥈 intmin = 0b10000000000000000000000000000001;
-   if (num==intmin || denom==intmin) { return -1; }
-   int32_t d=denom,n=num,negd=(d&SIGNBIT_INT32),negn=(n&SIGNBIT_INT32);
-   if (negd) { 𝟸₋compl(d); } /* alt. return x < 0 ? 𝟸₋compl(x) : x */
-   if (negn) { 𝟸₋compl(n); } /* alt. x < 0 ? -x : x */
-   /* alt. return x <= -0.0 ? -x : x */
-   uint32_t numᵢ=uint32_t(n),denomᵢ=uint32_t(d),ℕ,modulaᵢ;
-   /* if mips-fractions(numᵢ,denomᵢ,ℕ,modulaᵢ)) { return -2; } */
-   if (fractions(numᵢ,denomᵢ,ℕ,modulaᵢ)) { return -2; }
-   ℤ=int32_t(ℕ); modula=int32_t(modulaᵢ);
-   *sum₋negative = negn ^ negd ? 1 : 0;
-   return 0;
-}
-
-FOCAL int fractions(int32_t num, int32_t denom, int32_t &ℤ, int32_t &modula, 
-int * sum₋negative) { return fractions₂(num,denom,ℤ,modula,sum₋negative); }
-
+FOCAL
 int
-fractions(
-  uint64_t num, uint64_t denom,
-  uint64_t &ℕ, uint64_t &modula
+Release𝟷ᵈ(
+  void * 𝟸ⁿ₋frame, 
+  __builtin_int_t 𝑙𝑜𝑔₂Pages, 
+  __builtin_uint_t pages[], __builtin_uint_t avails[], 
+  bool secure
 )
-{ ℕ=0;
-   if (denom == 0) { return -1; }
-   while (num >= denom) { ℕ++; num -= denom; }
-   modula = num;
-   return 0;
-}
+{  __builtin_int_t 🥈 BytesPerWord=sizeof(__builtin_uint_t);
+    __builtin_int_t Pages=0b1<<𝑙𝑜𝑔₂Pages, Idxs=(Pages/BytesPerWord)>>3, 
+    ᵇoffset = 1 + (uint8_t *)(𝟸ⁿ₋frame)-(uint8_t *)pages, 
+       ᵚidx = (__builtin_int_t)Frame(ᵇoffset,8*BytesPerWord) - 1, 
+       bitᵚ = ᵇoffset - ᵚidx*BytesPerWord;
+    __builtin_uint_t toggle = 0b1<<bitᵚ;
+    /* *** 🎿-begin *** */
+    if (avails[ᵚidx] & toggle) { return -2; }
+    avails[ᵚidx] ^= toggle;
+    /* *** 🎿-end *** */
+    if (secure) { Overwrite8Memory((ByteAlignedRef)𝟸ⁿ₋frame, 0x0, SystemPagesize()); }
+    return 0; /* See also --<Virtual.cxx>{Forget} for a frame-granular overwrite method. */
+} /* ⬷ similar to `Fallow` and `free` but assumes same-sized areas. */
 
-int fractions(
-  __uint128_t num, __uint128_t denom, 
-  __uint128_t &ℕ, __uint128_t &modula)
-{ ℕ=0;
-   if (denom == 0) { return -1; }
-   while (num >= denom) { ℕ++; num -= denom; }
-   modula = num;
-   return 0;
-} /* a․𝘬․a (in llvm): '__udivmodti4' with friends. */
+#pragma mark - Therapeutic grip for one realization:
 
-/*  Requires: if (!IsOdd(x)) { x >>= 1; } */
+extern void Reservoir(unsigned expeditionary, __builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_int_t *Idxs, 
+  __builtin_uint_t **pages, __builtin_uint_t **avails); /* ⬷ a․𝘬․a `Universe` and defined in --<llvm-rt3.cpp>. */
 
-#pragma mark - …and one more signed counterparts a․𝘬․a `IDIV` for 64-bits:
-
-FOCAL int fractions(int64_t num, int64_t denom, int64_t &ℤ, int64_t &modula, 
- bool &sum₋negative) {
-   uint64_t numᵢ=(uint64_t)abs64i(num),denomᵢ=(uint64_t)abs64i(denom),ℕ,modulaᵢ;
-   if (fractions(numᵢ,denomᵢ,ℕ,modulaᵢ)) { return -1; }
-   ℤ=int64_t(ℕ), modula=int64_t(modulaᵢ);
-   int negn=num<+0, negd=denom<+0;
-   sum₋negative = negn ^ negd;
-   return 0;
-}
-
-/*  Not required... ⤐ 
-  
-  FOCAL int fractions(__builtin_int_t num, __builtin_int_t denom, __builtin_int_t &ℤ, 
-    __builtin_int_t &modula, bool * sum₋negative)
-  
-  and
-  
-  FOCAL int fractions(int num, int denom, int &ℤ, int &modula, bool * sum₋negative)
-  
-  ⬷ ...type is inferred. */
-
-#pragma mark - Reasons weave --<🥽 ¹𝙐𝙈𝙐𝙇.cpp>
-
-uint8_t 🥈ᵢ mulu15x15[] = { /* i+16*j == i + j<<4 𝘪․𝘦 i + j*2⁴ */
- /*     0   1   2   3   4   5   6    7    8    9   10   11   12   13   14   15 */
- /* 0*/ 0,  0,  0,  0,  0,  0,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
- /* 1*/ 0,  1,  2,  3,  4,  5,  6,   7,   8,   9,  10,  11,  12,  13,  14,  15,
- /* 2*/ 0,  2,  4,  6,  8, 10, 12,  14,  16,  18,  20,  22,  24,  26,  28,  30,
- /* 3*/ 0,  3,  6,  9, 12, 15, 18,  21,  24,  27,  30,  33,  36,  39,  42,  45,
- /* 4*/ 0,  4,  8, 12, 16, 20, 24,  28,  32,  36,  40,  44,  48,  52,  56,  60,
- /* 5*/ 0,  5, 10, 15, 20, 25, 30,  35,  40,  45,  50,  55,  60,  65,  70,  75,
- /* 6*/ 0,  6, 12, 18, 24, 30, 36,  42,  48,  54,  60,  66,  72,  78,  84,  90,
- /* 7*/ 0,  7, 14, 21, 28, 35, 42,  49,  56,  63,  70,  77,  84,  91,  98, 105,
- /* 8*/ 0,  8, 16, 24, 32, 40, 48,  56,  64,  72,  80,  88,  96, 104, 112, 120,
- /* 9*/ 0,  9, 18, 27, 36, 45, 54,  63,  72,  81,  90,  99, 108, 117, 126, 135,
- /*10*/ 0, 10, 20, 30, 40, 50, 60,  70,  80,  90, 100, 110, 120, 130, 140, 150,
- /*11*/ 0, 11, 22, 33, 44, 55, 66,  77,  88,  99, 110, 121, 132, 143, 154, 165,
- /*12*/ 0, 12, 24, 36, 48, 60, 72,  84,  96, 108, 120, 132, 144, 156, 168, 180,
- /*13*/ 0, 13, 26, 39, 52, 65, 78,  91, 104, 117, 130, 143, 156, 169, 182, 195,
- /*14*/ 0, 14, 28, 42, 56, 70, 84,  98, 112, 126, 140, 154, 168, 182, 196, 210,
- /*15*/ 0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225
-  }; /* Note triangular: mx = max(a,b), mn = min(a,b); Test (i + j<<3)>>2. */
-
-int UMUL(uint8_t x₁, uint8_t x₂, uint8_t &ℕ₋hi, uint8_t &ℕ₋lo)
-{ uint8_t 🥈 l=0x0f, r=0xf0;
-   uint8_t A=x₁&r, B=x₁&l, C=x₂&r, D=x₂&l; A >>= 4; C >>= 4;
-   auto prod₄ = ^(int i, int j) { int k = i + (j<<4); return (uint16_t)mulu15x15[k]; };
-   uint16_t y = ((prod₄(A,D) + prod₄(B,C))<<3) + (prod₄(A,C)<<4) + prod₄(B,D);
-   ℕ₋hi = y>>8; ℕ₋lo = y;
-   return 0;
-}
-
-int UMUL(uint16_t x₁, uint16_t x₂, uint16_t &ℕ₋hi, uint16_t &ℕ₋lo)
-{ uint16_t 🥈 l=0x00ff, r=0xff00; 
-   uint16_t A=x₁&r, B=x₁&l, C=x₂&r, D=x₂&l; A >>= 8; C >>= 8;
-   uint16_t ℕ₋hiAD, ℕ₋loAD, ℕ₋hiBC, ℕ₋loBC, ℕ₋hiAC, ℕ₋loAC, ℕ₋hiBD, ℕ₋loBD;
-   if (UMUL(A,D, ℕ₋hiAD, ℕ₋loAD)) { return -1; }
-   if (UMUL(B,C, ℕ₋hiBC, ℕ₋loBC)) { return -2; }
-   if (UMUL(A,C, ℕ₋hiAC, ℕ₋loAC)) { return -3; }
-   if (UMUL(B,D, ℕ₋hiBD, ℕ₋loBD)) { return -4; }
-   uint32_t prod₄AD=(ℕ₋hiAD<<8) & ℕ₋loAD, prod₄BC=(ℕ₋hiBC<<8) & ℕ₋loBC, 
-     prod₄AC=(ℕ₋hiAC<<8) & ℕ₋loAC, prod₄BD=(ℕ₋hiBD<<8) & ℕ₋loBD;
-   uint32_t y = ((prod₄AD + prod₄BC)<<7) + (prod₄AC<<8) + prod₄BD;
-   ℕ₋lo = y; ℕ₋hi = y>>16;
-   return 0;
-} /* ...and now to be expanded in the detail-fork --<System¹.cpp>. */
-
-int UMUL(uint32_t x₁, uint32_t x₂, uint32_t &ℕ₋hi, uint32_t &ℕ₋lo) { return 0; }
-int UMUL(uint64_t x₁, uint64_t x₂, uint64_t &ℕ₋hi, uint64_t &ℕ₋lo) { return 0; }
-
-FOCAL int IMUL(int32_t multiplicand, int32_t multiplier, 
-  int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * product₋negative)
+int CoalescingAcquire(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟)
 {
-   int32_t lier=multiplier,icand=multiplicand;
-   int32_t lierneg=(lier&SIGNBIT_INT32), negand=(icand&SIGNBIT_INT32);
-   *product₋negative = lierneg ^ negand ? 1 : 0;
-   auto absolutes = ^(int32_t & x₁, int32_t & x₂) {
-     if (lierneg) { 𝟸₋compl(x₁); } /* alt. return x < 0 ? 𝟸₋compl(x) : x */
-     if (negand) { 𝟸₋compl(x₂); } /* alt. x < 0 ? -x : x */
-   }; /* alt. return x <= -0.0 ? -x : x */
-   absolutes(lier,icand);
-   uint32_t icandᵢ=uint32_t(icand),lierᵢ=uint32_t(lier),ℕ₋hiᵢ,ℕ₋loᵢ;
-   if (UMUL(icandᵢ,lierᵢ,ℕ₋hiᵢ,ℕ₋loᵢ)) { return -1; }
-   /* Computations 'max*max' and 'min*min' is 0x3FFFFFFF00000001 so 'if (0x8000 0000 & ℕ₋hiᵢ) { return -2; }' redundant. */
-   ℕ₋hi=ℕ₋hiᵢ; ℕ₋lo=ℕ₋loᵢ;
-   return 0;
+    __builtin_int_t 𝑙𝑜𝑔₂Pages, Idxs; __builtin_uint_t *pages, *avails;
+    Reservoir(expeditionary,&𝑙𝑜𝑔₂Pages,&Idxs,&pages,&avails); /* *** 🎿-start *** */
+    auto rollback = ^(__builtin_int_t count, void * frames[], __builtin_int_t 𝑙𝑜𝑔₂Pages, 
+      __builtin_uint_t pages[], __builtin_uint_t avails[]) /* -> int */ { 
+      for (__builtin_int_t i=0; i<count; i++) { if (Release𝟷ᵈ(frames[i], 𝑙𝑜𝑔₂Pages, 
+        pages, avails, false)) { return -1; } } return 0; };
+    __builtin_uint_t * frms = (__builtin_uint_t *)𝟺kbframes; 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __builtin_int_t brk=0;
+    if (Acquire𝟷ᵈ(﹟, 𝑙𝑜𝑔₂Pages, pages, avails, ^(uint8_t * frm, bool& stop) { 
+      *(frms + brk++) = (__builtin_uint_t)frm;
+    })) { if (rollback(brk,𝟺kbframes,𝑙𝑜𝑔₂Pages,pages,avails)) { return -2; } return -1; }
+    /* *** 🎿-end *** */ return 0;
+} /* ⬷ a․𝘬․a `Coalesce`. */
+
+int 🄕allo⒲(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟)
+{
+    __builtin_int_t 𝑙𝑜𝑔₂Pages, Idxs; __builtin_uint_t *pages, *avails;
+    Reservoir(expeditionary,&𝑙𝑜𝑔₂Pages,&Idxs,&pages,&avails);
+    for (__builtin_int_t i=0; i<﹟; i++) {
+      if (Release𝟷ᵈ(𝟺kbframes[i],𝑙𝑜𝑔₂Pages,pages,avails,false)) { return -(i+1); }
+    }
+    return 0;
 }
 
-#pragma mark - Circular reasoning
+int ContiguousAcquire(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟)
+{
+    __builtin_int_t 𝑙𝑜𝑔₂Pages, Idxs; __builtin_uint_t *pages, *avails;
+    Reservoir(expeditionary,&𝑙𝑜𝑔₂Pages,&Idxs,&pages,&avails); /* *** 🎿-start *** */
+    if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { return -1; }
+    if (﹟ >= 2) { for (__builtin_int_t i=0; i<﹟; ++i) {
+      uint8_t * next = (uint8_t *)𝟺kbframes[i+1], * present = (uint8_t *)𝟺kbframes[i];
+      if (next - present != 4096) { return -2; }
+    } }
+    return 0;
+}
 
-__builtin_int_t LeastPossibleResidue(
+void InitFrames(int count, unsigned expeditionaries[])
+{
+   __builtin_int_t 𝑙𝑜𝑔₂Pages, Idxs; __builtin_uint_t *pages, *avails;
+   for (int i=0; i<count; i++) {
+     Reservoir(expeditionaries[i],&𝑙𝑜𝑔₂Pages,&Idxs,&pages,&avails);
+     for (__builtin_int_t i=0; i<Idxs; i++) { avails[i]=~0x0; }
+   }
+}
+
+#pragma mark - anglosaxians and circular reasoning\n\t/sl inner workings of
+
+__builtin_int_t least₋possible₋residue(
   __builtin_int_t dividend, __builtin_int_t divisor)
 {
-    __builtin_int_t y = dividend % divisor;
-    return y < 0 ? y + divisor : y;
+   __builtin_int_t y = dividend % divisor;
+   return y < 0 ? y + divisor : y;
 } /* ⬷ Patch to the '%' operator in a C language undefined case. */
 
-#pragma mark - Utility functions
+#pragma mark - saturation equal-to min(2ⁿ - 1, x₁ + x₂) and max(-(2ⁿ - 1), x₁ + x₂)
+
+int saturating₋24bits₋add(int32_t 𝟸𝟺₋bits₋biased₋x₁, int32_t 𝟸𝟺₋bits₋biased₋x₂, 
+ int32_t * 𝟸𝟺₋bits₋biased₋y) {
+   /* int neg = x₁ & x₂ & SIGNBIT_INT64; */
+   int32_t 🥈 dynamic = (0b1<<23) - 1;
+   int32_t y = 𝟸𝟺₋bits₋biased₋x₁ + 𝟸𝟺₋bits₋biased₋x₂; /* ⬷ See also '24-bit-carry-add'. */
+   y = min(dynamic, y);
+   y = max(-dynamic, y); /* ⬷ Note abelian value pass-through. */
+   *𝟸𝟺₋bits₋biased₋y = y;
+   return 0;
+} /* ⬷ a.k.a 'typedef signed short _Sat saturated16bit' in ISO/IEC TR 18037 and stdfix.h. 
+ also _ExtInt(24). */
+
+#pragma mark - time series and peg collections
+
+struct Monoton::Internals { __builtin_int_t soon; 
+   
+   void init₂(__builtin_int_t oldest) { soon=oldest; }
+   
+   __builtin_int_t ordinal(bool * wrapped) { __builtin_int_t Ɀ=soon; 
+     if (Ɀ == BUILTIN₋INT₋MAX) { soon=0; *wrapped=true; }
+     else { *wrapped=false; } soon++; return Ɀ;
+   }
+   
+};
+
+Monoton::Monoton(__builtin_int_t oldest)
+{
+   auto init₁ = ^(Internals * elem) { impl_=elem; };
+   Elements𝘖𝘳Heap(1,1,init₁); impl_->init₂(oldest);
+}
+
+__builtin_int_t Monoton::ordinal(bool * wrapped) 
+{ return impl_->ordinal(wrapped); }
+
+#pragma mark - utility functions
 
 void
 Base𝕟( /* TeX §64, §65 and §67. */
@@ -256,7 +197,7 @@ Base𝕟( /* TeX §64, §65 and §67. */
       output); } } else { k = 63; while (cycle[k] == 0 && k > 0) { k--; }
        for (; k >= 0; k--) { 𝟬to𝗙(cycle[k], output); }
     }
-} /*  Note 128-bit duplicate in --<🥽 𝙋𝙧𝙞𝙣𝙩⁺.cpp> and --<Print.cpp>. */
+} /*  ⬷ note 128-bit duplicate in --<🥽 𝙋𝙧𝙞𝙣𝙩⁺.cpp> and --<Print.cpp>. */
 
 void
 Base𝕫(
@@ -266,44 +207,87 @@ Base𝕫(
   void (^output)(char 𝟬to𝟵and₋)
 )
 {
-    if (ℤ < 0) { output('-'); ℤ = -ℤ; }
-    Base𝕟((__builtin_uint_t)ℤ, base, digitsOr0, output);
+   if (ℤ < 0) { output('-'); ℤ = -ℤ; }
+   Base𝕟((__builtin_uint_t)ℤ, base, digitsOr0, output);
 }
+
+#ifdef simd₋integers
+
+void
+Base𝕟(
+  __uint128_t ℕ, 
+  unsigned short base, 
+  unsigned short digitsOr0, 
+  void (^out)(char 𝟶to𝟿)
+)
+{
+    auto 𝟶to𝖥 = ^(unsigned short r, void (^out)(char utf8)) { r < 10 ? 
+      out('0' + r) : out('a' - 10 + r); };
+    
+    unsigned short cycle[128] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    
+    short k = 0;
+    
+    do { cycle[k] = ℕ % base; ℕ /= base; k++; } while (ℕ);
+    /* if (fractions(uint64_t num, 𝟷𝟶, uint64_t &ℕ, uint64_t &modula)) { return 0; } */
+    if (digitsOr0) { for (k = digitsOr0 - 1; k >= 0; k--) { 
+      𝟶to𝖥(cycle[k], out); } }
+    else { k = 127; while (cycle[k] == 0 && k > 0) { k--; }
+      for (; k >= 0; k--) { 𝟶to𝖥(cycle[k], out); }
+    }
+} /* ⬷ requires 128-bits-`fractions`, { `__umodti3`, `__udivti3` }, `__udivmodti4`. */
+
+void Base𝕫(__int128_t ℤ, 
+  unsigned short base, unsigned short digitsOr0, 
+  void (^out)(char 𝟶to𝟿and₋)
+)
+{
+  if (ℤ < +0) { out('-'); ℤ = -ℤ; }
+  Base𝕟((__builtin_uint_t)ℤ, base, digitsOr0, out);
+}
+
+#endif
 
 int
 #ifdef __x86_64__
-__attribute__((target("rtm")))
+__attribute__((target("rtm"))) /* Arm "tme": uint64_t __tstart(), 
+ void __tcommit(), void __tcancel(uint64_t); */
 #endif
 OptimisticSwap(
   __builtin_int_t /* volatile */ * p₁,
   __builtin_int_t /* volatile */ * p₂,
   Impediment it
-)
-{
+) {
 #ifdef __x86_64__
     int y=-1; unsigned status = _xbegin();
     if (status == _XBEGIN_STARTED) {
-        if (it != MustBeOrdered) { __atomic_exchange(p₁, p₂, p₂, __ATOMIC_SEQ_CST); }
-        if (it == MustBeOrdered && (*p₁ > *p₂)) { _xabort(0xff); }
-        y = 0;
-        *p₁ = *p₁ ^ *p₂;
-        *p₂ = *p₁ ^ *p₂;
-        *p₁ = *p₁ ^ *p₂;
-        _xend(); /* Also, reconsider the swapping above using a temporary storage location again. */
+      if (it != MustBeOrdered) { __atomic_exchange(p₁, p₂, p₂, __ATOMIC_SEQ_CST); }
+      if (it == MustBeOrdered && (*p₁ > *p₂)) { _xabort(0xff); }
+      y = 0;
+      *p₁ = *p₁ ^ *p₂;
+      *p₂ = *p₁ ^ *p₂;
+      *p₁ = *p₁ ^ *p₂;
+      _xend(); /* Also, reconsider the swapping above using a temporary storage location again. */
     } else { _xabort(0xfe); }
     return y;
-#elif defined __mips__
+#elif defined __armv8a__ || defined __mips__ || defined espressif || defined __armv6__
     static __builtin_int_t may₋not₋lock=0;
     if (__sync_bool_compare_and_swap(&may₋not₋lock, 0, 1)) {
-        /* Core-exclusive: */
-        if (it != MustBeOrdered) { __atomic_exchange(p₁, p₂, p₂, __ATOMIC_SEQ_CST); }
-        else { if (*p₁ <= *p₂) __atomic_exchange(p₁, p₂, p₂, __ATOMIC_SEQ_CST); }
-        /* Leaving critical-section */
-        __sync_lock_release(&may₋not₋lock);
-        return 0;
+      /* Core-exclusive: */
+      if (it != MustBeOrdered) { __atomic_exchange(p₁, p₂, p₂, __ATOMIC_SEQ_CST); }
+      else { if (*p₁ <= *p₂) __atomic_exchange(p₁, p₂, p₂, __ATOMIC_SEQ_CST); }
+      /* Leaving critical-section */
+      __sync_lock_release(&may₋not₋lock);
+      return 0;
     } else { return -1; }
 #endif
-}
+} /* ⬷ for/in iso/iec ts: Synchronized { } and atomic_noexcept|cance|commit { }. */
 
 __builtin_int_t
 ByteoffsetMips𝟷ᵈ(
@@ -360,15 +344,15 @@ ExactSeek₂(
      num >>= 1;
    }
    return NULL;
-} /* TODO: Add to Pinecone implementation and switch to interpolation search
+} /* ⬷ todo: Add to Pinecone implementation and switch to interpolation search
  (that is log log instead of log that according to Knuth delivers somewhere 
  around N > 64K). */
 
 int
 IsPrefixOrEqual(
-  const char * 𝟽alt𝟾₋bitstring, /* Possibly `normalizedUtf8` */
-  const char * 𝟽alt𝟾₋bitprefix  /* Smiley appears when `prompt> nm`! */
-) /* Consider changing dwarf-'.elf' to 'trie' instead of 'table'. */
+  const char * 𝟽alt𝟾₋bitstring, /* ⬷ possibly `normalizedUtf8` */
+  const char * 𝟽alt𝟾₋bitprefix  /* ⬷ smiley appears when `prompt> nm`! */
+) /* ⬷ consider changing dwarf-'.elf' to 'trie' instead of 'table'. */
 {  const char *s=𝟽alt𝟾₋bitstring, *p=𝟽alt𝟾₋bitprefix;
     if (*s == 0 && *p == 0) { return -1; }  /* Parameters `string` and `prefix` are both empty therefore equal. */
     if (!*s) { return 0; } /* Non-equal since the string is empty and a prefix exists. */
@@ -389,7 +373,7 @@ Overwrite8Memory(
   ByteAlignedRef src,
   uint8_t val,
   __builtin_int_t bytes
-) /* a․𝘬․a `memset`. */
+) /* ⬷ a․𝘬․a `memset`. */
 {
     uint8_t *s = (uint8_t *)src;
 again:
@@ -403,23 +387,87 @@ ByteAlignedRef
 Clear8Memory(
   ByteAlignedRef mem, 
   __builtin_int_t bytes
-) /* a․𝘬․a `bzero`. */
+) /* ⬷ a․𝘬․a `bzero`. */
 {
     if (!bytes) { return mem; }
-#ifdef  __mips__
+#if defined __armv8a__ || defined __mips__ || defined espressif || defined __armv6__
     return Overwrite8Memory(mem, 0, bytes);
 #elif defined __x86_64__
     asm("rep stosl;"::"a"(0),"D"((size_t)mem),"c"(bytes / 4));
     asm("rep stosb;"::"a"(0),"D"(((size_t)mem) + ((bytes / 4) * 4)),"c"(bytes - ((bytes / 4) * 4)));
     return mem;
 #endif
+} /* ⬷ a․𝘬․a 'clear₋page'. */
+
+#pragma mark - Coroutine-based schedulers and the formerly-named 'fiber':
+
+int
+Scheduler::Incubate(
+  𝟄₋int₁ * coroutine₋err, int32_t ﹟irq, 
+  void * (^node₋alloc)(int bytes)
+)
+{
+#if defined  __mips__ || defined __armv6__ || defined espressif
+   int32_t val = (int32_t)﹟irq;
+#elif defined __x86_64__ || defined __armv8a__
+   int64_t val = (int64_t)﹟irq;
+#endif
+   Treeint valkey { .keyvalue = { val, (__builtin_uint_t)coroutine₋err } };
+   void * node = Insert(hw₋collection,valkey,node₋alloc);
+   if (node == NULL) { return -1; }
+   return 0;
 }
 
-#pragma mark - Mortem analysis and set-up
+int Scheduler::Process(int32_t ﹟irq)
+{
+#if defined  __mips__ || defined __armv6__ || defined espressif
+   int32_t key=(int32_t)﹟irq; tetra val;
+#elif defined __x86_64__ || defined __armv8a__
+   int64_t key=(int64_t)﹟irq; octa val;
+#endif
+   Treeint keyvalue { .keyvalue = { key, 0x0 } };
+   Treeint * leaf = Lookup(hw₋collection,keyvalue);
+   val.bits = leaf->keyvalue.val;
+   𝟄₋int₁ * coroutine₋err = (𝟄₋int₁ *)val.bits;
+   Resume(coroutine₋err->coroutine.address());
+   return 0;
+}
+
+int 
+Scheduler::Operational(
+  𝟄₋int₁ * coroutine₋err, 
+  void * (^perl₋alloc)(int bytes)
+)
+{
+   Necklace * box = (Necklace *)perl₋alloc(sizeof(Necklace));
+   if (box == NULL) { return -1; }
+   box->err = (𝟄₋int₁ &)coroutine₋err;
+   box->nxt = last;
+   if (first == NULL || last == NULL) {
+     Scheduler::first = curr = last = box;
+   }
+   Scheduler::last = box;
+   return 0;
+}
+
+void Scheduler::Init() { hw₋collection = first = curr = last = NULL; }
+
+#pragma mark - Miscellaneous initialization functions
+
+void InitFpu()
+{
+#ifdef __x86_64__
+   asm {
+     finit
+   }
+#endif
+}
+
+#pragma mark - Analysis: post-mortem and single-stepping
 
 extern "C" void ASSEMBLERONLY Sheriff()
 {
-#ifdef __mips__ // Snapshot and reference using `DeSAVE`.
+#ifdef __mips__ /* ⬷ snapshot and reference using the `DeSAVE` register. */
     Mips
  "    sdbbp 13    \n" /* Enters debug mode (CP0 DM will be set) 0xBFC0_0480. */
     );
@@ -427,16 +475,17 @@ extern "C" void ASSEMBLERONLY Sheriff()
    Intel👈
      int 3
    } /* Unavailable: __builtin_trap(), raise(SIGTRAP), __builtin_debugtrap() */
+#elif defined __armv6__ || defined espressif || defined __armv8a__
 #endif
-} /*  For details peek on --<pic32rt>--<Control.cpp>. */
+} /* ⬷ details given in --<pic32rt>--<Control.cpp>. */
 
-Chronology& ComputationalChronology() { return 
-  __twinbeamContext.computationalChronology; }
+Chronology& ComputationalChronology() { return computationalChronology; }
 
-Chronology& SystemCalendricChronology() { return 
-  __twinbeamContext.calendricChronology; }
+Chronology& SystemCalendricChronology() { return calendricChronology; }
 
-void ResetSetLongjmp() 
-{ Clear8Memory((ByteAlignedRef)JmpBuf(), sizeof(jmp_buf2)); }
+void Tuned₋longjmp()
+{
+   Clear8Memory((ByteAlignedRef)JmpBuf(), sizeof(jmp_buf2));
+}
 
 
