@@ -8,9 +8,7 @@
 #define PROGRESS_START_YEAR __STRING(2016)
 #define PROGRESS_BUILD_YEAR __STRING(2019)
 
-inexorable
-void
-printGreetings()
+inexorable void printGreetings()
 {
     print("\nTest harness and Enclave collection for Twinbeam, release "
       "⬚\n⬚\n\n", ﹟s(SHA1GIT), ﹟s(BUILDINFO_COPYRIGHT_MESSAGE));
@@ -31,9 +29,7 @@ runUnitTest(
     completion(symbol, dt);
 }
 
-inexorable
-void
-lastChance()
+inexorable void lastChance()
 {
 #if _DEBUG
     print("\nThe binary is a debug build.\n\n");
