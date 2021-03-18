@@ -5,7 +5,7 @@ optflags = -g
 cases = ../Unittests
 src = ../Source
 adds = ../Additions
-progname = Twinbeam-units-one
+progname = Twinbeam-units
 objs = ./.objs/7703a312-55B9-44da-A792-ebbcf9f87663_$progname
 platflags = -I ..
 include ../tools.ninja
@@ -16,7 +16,7 @@ rule link
   command = xcrun ld $linkflags -o $out $in $libtwinbeam
 
 # Consider x87math ⟷ bignum and ∩- exception.o
-build Twinbeam-units-one: link $objs/harness.o $objs/Tree.o $objs/Memory.o  $
+build Twinbeam-units: link $objs/harness.o $objs/Tree.o $objs/Memory.o  $
   $objs/Print.o $objs/Utf8.o $objs/Chronology.o $objs/bignum.o              $
   $objs/sha256.o $objs/macOS.o $objs/exception.o $objs/fifo.o               $
   $objs/System.o $objs/x87math.o $objs/llvm-rt3.o                           $
