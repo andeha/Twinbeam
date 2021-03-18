@@ -1,4 +1,4 @@
-#  build.ninja — Building libTwinbeam_macos.a.
+#  build.ninja — Building libTwinbeam_macos.a for Intel processors.
 
 optflags = -g 
 library-root = libTwinbeam_macos
