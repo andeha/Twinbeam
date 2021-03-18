@@ -1,4 +1,4 @@
-#  harnessᵗᵇ-2.ninja | building units tests for experimental twinbeams.
+#  harness-2.ninja | building units tests for experimental twinbeams.
 
 optflags = -g
 

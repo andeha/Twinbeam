@@ -1,4 +1,4 @@
-#  laptop-big.ninja | Compilation directives.
+#  laptop-big.ninja | directives towards compilation.
 
 linkflags = -macosx_version_min 11.0.1 -lSystem -lc++
 
