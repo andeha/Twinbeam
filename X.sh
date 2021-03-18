@@ -21,7 +21,8 @@ ninja -C Examples/radio
 # ninja -C Examples/attokernel
 # ninja -C Examples/😐/
 ninja -C Examples/sdhc
-ninja -C macOS -f harnessᵗᵇ.ninja                                   || exit 1
+ninja -C macOS -f harness-1.ninja                                   || exit 1
+ninja -C macOS -f harness-2.ninja                                   || exit 1
 ninja -C macOS -f harnessᵃᵈᵈˢ.ninja                                 || exit 1
 ninja -C macOS -f harnessᵃᵘˣ.ninja                                  || exit 1
 ninja -C Additions/History -f seismic_mac.ninja                     || exit 1
