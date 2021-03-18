@@ -1,4 +1,4 @@
-/*  macOS.cpp | Specializations and unique. */
+/*  macOS.cpp | specializations and unique. */
 
 #include <Twinbeam.h>
 #define USE_LOCKS           0
@@ -28,13 +28,14 @@ Compare8Memory(
 #include <fcntl.h>
 #include <sys/stat.h>
 
+inexorable
 void *
 mapfileʳᵚ( /* ⬷ a․𝘬․a 'findAndmap', 'mapregularfile', 'mapfileʳᵚ₊₀'. */
   const char * canonicalUtf8RegularOrLinkpath, /* todo `canonicalRegularOrLinkpathᵚ`. */
   __builtin_int_t bytesOffset, /* pagesOffset is for sector-based physical non-volatility (💰). */
   __builtin_int_t pages𝘖rZero, __builtin_int_t bytesAugment, 
   __builtin_int_t * bytesActual
-/*  bool optionallyAppend𝙴𝙾𝚃at𝙴𝙾𝙵 I․𝘦 0x00000004 (Unicode) or 0x4 (utf-8). */
+/*  bool optionallyAppend𝙴𝙾𝚃at𝙴𝙾𝙵 i․𝘦 0x00000004 (Unicode) or 0x4 (utf-8). */
 ) /* Optionally asynchronous, essential also in run-time and not 
   between the sheets of sysenters. */
 { void * p; 
@@ -52,15 +53,17 @@ mapfileʳᵚ( /* ⬷ a․𝘬․a 'findAndmap', 'mapregularfile', 'mapfileʳᵚ�
     p = mmap(0, bytesAugment + *bytesActual, PROT_READ, MAP_SHARED, fd, bytesOffset);
     if (p == MAP_FAILED) { goto err; }
 #elif defined __mips__
-    /* See --<🥽 Memclone.cpp>{Copy} */
+    /* ⬷ see --<🥽 Memclone.cpp>{Copy} */
 #endif
-    return p; /* For additional background: 'man munmap' and `man msync`. */
+    return p; /* ⬷ additional background: `man munmap` and `man msync`. */
 err:
 #ifdef __x86_64__
-    if (close(fd) == -1) { return NULL; } /* TODO: Close when not error. */
+    if (close(fd) == -1) { return NULL; } /* todo: close when not error. */
 #endif
     return NULL;
-} /* see --<🥽 Cordal.cpp> when ⁻ᵚ and also the version for Unicode and Pic32. */
+} /* ⬷ see --<🥽 Cordal.cpp> when ⁻ᵚ and also the version for Unicode and Pic32. */
+
+#pragma mark - automatically /for units testing/
 
 #include <mach-o/loader.h>
 #include <mach-o/nlist.h>
@@ -68,7 +71,7 @@ err:
 void
 Symbols(
   const char * utf8exepath,
-  void (^callback)(const char *, uint64_t, bool&))
+  void (^callback)(const char * sym, uint64_t addr, bool& stop))
 { __builtin_int_t bytesActual;
     uint8_t * obj = (uint8_t *)mapfileʳᵚ(utf8exepath, 0, 0, 0, &bytesActual);
     uint8_t * obj_p = obj;
@@ -78,9 +81,9 @@ Symbols(
     struct section * sections = 0;
     uint32_t nsects;
     
-    __block bool outerStop = false;
+    bool 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 outerStop = false;
     
-    for (int i = 0; i < header->ncmds; ++i) {
+    for (int i=0; i<header->ncmds; ++i) {
         struct load_command *lc = (struct load_command *)obj_p;
         if (lc->cmd == LC_SYMTAB) {
            struct symtab_command *symtab = (struct symtab_command *)obj_p;
@@ -95,7 +98,7 @@ Symbols(
               if (outerStop) { return; }
            }
         } else if (lc->cmd == LC_SEGMENT) {
-           segment_command *segment = (struct segment_command *)obj_p;
+           segment_command * segment = (struct segment_command *)obj_p;
            obj_p += sizeof *segment;
            nsects = segment->nsects;
            sections = (struct section *)obj_p;
