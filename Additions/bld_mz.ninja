@@ -1,4 +1,4 @@
-#  build.ninja | Building traditional additions for MIPS/Pic32Mz.
+#  build.ninja | building traditional additions for MIPS/Pic32Mz.
 
 optflags = -g -D__MZDAStarterBoard__
 encased-library = libAdditions_pic32mz
@@ -20,15 +20,15 @@ rule library
 
 build libAdditions_pic32mz: library $objs/Additions.o $objs/Ieee754₆₄bits.o $
  $objs/Guid.o $objs/crisp-d3.o $objs/Terminal.o $objs/Vt99.o $objs/Roman.o  $
- $objs/Streams.o $objs/Present-1.o $objs/Present-2.o $objs/Presentᵃᵘˣ.o     $
- $objs/Automata.o $objs/Ornaments.o $objs/Bezier.o $objs/Randomˢᵚ.o         $
+ $objs/Streams.o $objs/Present-1.o $objs/Present-2.o $objs/Present-hw.o     $
+ $objs/Automata.o $objs/Ornaments.o $objs/Bezier.o $objs/Random-sw.o        $
  $objs/Random.o  $objs/⌊𝑥⌋+nearest.o $objs/arctan.o $objs/cherry.o          $
  $objs/atan₂.o $objs/ℯ🔭².o $objs/logₑ.o $objs/log𝛤.o $objs/mod.o           $
  $objs/sincos.o $objs/tan.o $objs/tanh.o $objs/Erf.o
  
 build $objs/Additions.o: cc Additions.cpp
 build $objs/Ieee754₆₄bits.o: cc Ieee754₆₄bits.cpp
-build $objs/Randomˢᵚ.o: cc Randomˢᵚ.cpp
+build $objs/Random-sw.o: cc Random-sw.cpp
 build $objs/Random.o: cc Random.cpp
 build $objs/Guid.o: cc Guid.cpp
 build $objs/crisp-d3.o: cc crisp-d3.cpp
@@ -51,10 +51,10 @@ build $objs/mod.o: cc math/mod.cpp
 build $objs/sincos.o: cc math/sincos.cpp
 build $objs/tan.o: cc math/tan.cpp
 build $objs/tanh.o: cc math/tanh.cpp
-# …and more non-math folders:
+# …and additional non-math folders:
 build $objs/Present-1.o: cc Present-1.cpp
 build $objs/Present-2.o: cc Present-2.cpp
-build $objs/Presentᵃᵘˣ.o: cc Presentᵃᵘˣ.cpp
+build $objs/Present-hw.o: cc Present-hw.cpp
 build emit-content: toc
 default $encased-library
 
