@@ -30,7 +30,7 @@ typedef int                 int32_t; /* ≢'long'. */
 typedef uint64_t            __builtin_uint_t;
 typedef int64_t             __builtin_int_t; /* ⬷ a․𝘬․a 'sequential'. */
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
-#define 𝟷𝟸𝟾₋bit₋integers
+#define 𝟷𝟸𝟾₋bit₋integers /* and not '__is_identifier(__uint128_t)'. */
 #endif
 typedef unsigned short      uint16_t;
 typedef short               int16_t; /* ≡ ᵐⁱᵖˢint. */
@@ -40,7 +40,7 @@ typedef struct bignum { /* Artificial: Scandinavian 'med-vet-ande'. */
   char digits[maxdigits]; /* Unpacked binary coded decimals. */
   int signbit; /* Indicates with 𝟷 if positive and with -𝟷 if negative. */
   int lastdigit; /* High-order digit index. */
-} bignum; /* ⬷ A very-long integer type. */
+} bignum; /* ⬷ a very-long integer type. */
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
 #define 𝓵₋bignum 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 bignum
 void initialize_bignum(𝓵₋bignum * n);
@@ -128,6 +128,7 @@ template <typename T> struct SemanticPointer { T ref; }; /* ⬷ a․𝘬․a `Di
 #define OPTIONALSCHEDULATIVE
 #define CIRCULATIVE /* ⬷ a․𝘬․a 'averaged' ∧ '␣'. */
 #define CONTEXTDESTILLATIVE
+#define EUCLIDEANINCOHERENT /* ⬷ c𝖿․ subversive follows incoherence. */
 #define STEERING₋GOLD /* ⬷ Catholic₋gregorian keys. */
 #define KONTRA₋REPUDIAT /* ⬷ sensor-bonanza. */
 #define MKULTRA₋ALGA /* ⬷ cf. 'iconic qualities'. */
