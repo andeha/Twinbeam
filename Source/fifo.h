@@ -33,7 +33,7 @@ struct fifo { __builtin_int_t words₋to₋unity; /* ⬷ a․𝘬․a 'max₋wor
    
    void n₋tile₋fifo₋pop();
    
-   int lazily₋enfoil₋NULL₋n₋tiles(unsigned expeditionary, __builtin_int_t ﹟);
+   int lazily₋enfoil₋NULL₋n₋tiles(unsigned expeditionary, __builtin_int_t augment₋﹟);
    
    int n₋tile₋append₋in₋middle₋alt₋atend(__builtin_int_t ﹟);
    
@@ -82,7 +82,10 @@ inline int n₋tile₋apriori(unsigned expeditionary, __builtin_int_t alloca̲t�
 
 template <typename E> struct 𝟷₋tile₋fifo { fifo 🅠; 
   int init(__builtin_int_t maximum₋count, void * 𝟷₋tile) { return 🅠.init(maximum₋count,𝟷₋tile); }
-  int copy₋include(int count, E * Ɀ, int cycles) { return 🅠.𝟷₋tile₋copy₋include(count,(__builtin_uint_t *)Ɀ); }
+  int copy₋include(int count, E * Ɀ, int cycles) {
+    __builtin_int_t bytes = count*sizeof(E), modula = bytes % Wordbytes, 
+     words = (bytes/Wordbytes) + (modula != 0 ? 1 : 0);
+    return 🅠.𝟷₋tile₋copy₋include(words,(__builtin_uint_t *)Ɀ); }
   void pop() { 🅠.𝟷₋tile₋fifo₋pop(); }
   int shiftout(int count) { return 🅠.𝟷₋tile₋shiftout(count); }
 }; /* ⬷ deceptive 'default, move and copy' vs. 'register passable'. */
@@ -101,5 +104,8 @@ template <typename E> struct 𝟷₋tile₋fifo { fifo 🅠;
     
   See also 'man mkfifo' and 'man mknod'.
   
-  Further, see --<🥽 Romberg.cpp> for a ∫-method that is not on-line. */
+  Further, see --<🥽 Romberg.cpp> for a ∫-method that is not on-line.
+  
+ */
+
 
