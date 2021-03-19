@@ -30,7 +30,7 @@ build $objs/sha256.o: cc sha256.cpp
 build $objs/Print.o: cc Print.cpp
 build $objs/pic32mz.o: cc pic32mz.cpp
 build $objs/exception.o: asm exception.S
-build $objs/Paging.o: asm Paging.S
+build $objs/Paging.o: asm optPaging.S
 build $objs/System.o: cc System.cpp
 build $objs/Sheriff.o: cc ../pic32rt/⭐️.cpp
 build $objs/fifo.o: cc fifo.cpp
