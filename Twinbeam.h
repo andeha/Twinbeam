@@ -52,7 +52,7 @@ void multiply_bignum(𝓵₋bignum * a, 𝓵₋bignum * b, 𝓵₋bignum * c);
 void divide_bignum(𝓵₋bignum * a, 𝓵₋bignum * b, 𝓵₋bignum * c);
 void digit_shift(𝓵₋bignum * n, __builtin_int_t I); /* ⬷ multiplies n by 10ᵈ. */
 int compare_bignum(𝓵₋bignum * a, 𝓵₋bignum * b);
-void print_bignum(𝓵₋bignum * n, void (^output)(char c));
+void print_bignum(𝓵₋bignum * n, void (^out)(char c));
 struct Schoolbook { int64_t ℤ; int64_t modula, denom; int total₋nonpositive; };
 /* int sw₋fractions(uint64_t num, uint64_t denom, uint64_t &ℕ, uint64_t &modula); */
 /* int hw₋fractions₁(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
@@ -863,7 +863,7 @@ namespace Fixpoint {
    union Q1615 { uint32_t bits; int32_t frac; }; /* ⬷ captures 0 to ±65535.9999694822. */
    union Q4815 { uint64_t bits; int64_t frac; }; /* ⬷ captures 0 to ±281474976710656.9999694822. */
    union Q3231 { uint64_t bits; int64_t frac; }; /* ⬷ captures 0 to ±4294967295.9999999995343387126922607421875. */
-   union UQ3232 { uint64_t bits; int64_t frac; }; /* ⬷ a․𝘬․a 'Ntp₋stomp', captures 0 to +4294967295.99999999976716935634613037109375. */
+   union UQ3232 { uint64_t bits; struct { uint32_t l, h; } parts; }; /* ⬷ a․𝘬․a 'Ntp₋stomp', captures 0 to +4294967295.99999999976716935634613037109375. */
    
 #ifdef IEEE754₋ARITHMETICS₋INSIDE
    
@@ -893,6 +893,8 @@ inline Fixpoint::Q1615 operator "" _Q1615(long double x) { return Fixpoint::Floa
 struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ }; 
     
     typedef Octa instant; typedef uint32_t UQ32; /* e․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
+    
+    typedef Fixpoint::Q1615 relative;
     
     /**  Given a timestamp, return year, month (1-12) and day (1-31). */
     

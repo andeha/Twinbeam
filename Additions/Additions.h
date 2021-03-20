@@ -594,7 +594,7 @@ struct Jagged { Jagged(); ~Jagged();
   int 𝟺kbtile(__builtin_int_t ﹟, __builtin_int_t &tetra₋idx, __builtin_int_t &δ₋tetracount);
 😐; /* ⬷ a․𝘬․a Linebreaks. */
 
-Opt<Chronology::Instant>
+Opt<Chronology::instant>
 TS( /* ⬷ e․𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232. */
   Encoding encoding,
   Chronology chronology,
