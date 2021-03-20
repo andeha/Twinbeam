@@ -51,14 +51,14 @@ struct Bitset { std::vector<bool> inner;
 
 typedef time_t Unix₋instant; /* ⬷ epoc is 00:00:00 UTC Jan 1, 1970. */
 
-Tuple<int32_t, int32_t, int32_t> chronology₋Date(Unix₋instant I)
+inline Tuple<int32_t, int32_t, int32_t> chronology₋Date(Unix₋instant I)
 {
    struct tm * y = gmtime(&I);
    return Tuple<int32_t(y->tm_hour /* 0 - 23 */), int32_t(y->tm_min /* 0 - 59 */), 
     int32_t(y->tm_sec /* 0 - 60 */)>();
 } /* seconds-to-calendric in prematurely 'set' time-zone: 'struct tm * localtime(const time_t *)'. */
 
-Opt<Unix₋instant> chronology₋Timestamp(int32_t parts[6] /*, Chronology::UQ32 fract */)
+inline Opt<Unix₋instant> chronology₋Timestamp(int32_t parts[6] /*, Chronology::UQ32 fract */)
 { /* ⬷ year, month (1-12), day (1-31), hour (0-23), minutes (0-59) and seconds (0-59) */
    int tm_sec=(int)parts[5], tm_min=(int)parts[4], tm_hour=(int)parts[3], 
     tm_mday=(int)parts[2], tm_mon=(int)parts[1], tm_year=(int)parts[0];
@@ -67,7 +67,7 @@ Opt<Unix₋instant> chronology₋Timestamp(int32_t parts[6] /*, Chronology::UQ32
    return Opt<Unix₋instant>(t₂);
 } /* calendric-to-seconds in prematurely 'set' time-zone: 'time_t timelocal(struct tm * const)'. */
 
-char * chronology₋InstantToText(Unix₋instant I) { return ctime(I); } /* ⬷ time2posix/posix2time. */
+inline char * chronology₋InstantToText(Unix₋instant I) { return ctime(I); } /* ⬷ time2posix/posix2time. */
 
 #else
 
