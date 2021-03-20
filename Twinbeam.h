@@ -861,11 +861,8 @@ __builtin_int_t 🥈 Pagewords=SystemPagesize()/Wordbytes; /* ⬷ a․𝘬․a '
 namespace Fixpoint {
    
    union Q1615 { uint32_t bits; int32_t frac; }; /* ⬷ captures 0 to ±65535.9999694822. */
-   
    union Q4815 { uint64_t bits; int64_t frac; }; /* ⬷ captures 0 to ±281474976710656.9999694822. */
-   
    union Q3231 { uint64_t bits; int64_t frac; }; /* ⬷ captures 0 to ±4294967295.9999999995343387126922607421875. */
-   
    union UQ3232 { uint64_t bits; int64_t frac; }; /* ⬷ a․𝘬․a 'Ntp₋stomp', captures 0 to +4294967295.99999999976716935634613037109375. */
    
 #ifdef IEEE754₋ARITHMETICS₋INSIDE
@@ -895,11 +892,11 @@ inline Fixpoint::Q1615 operator "" _Q1615(long double x) { return Fixpoint::Floa
 
 struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ }; 
     
-    typedef octa Instant; typedef uint32_t UQ32; /* e․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
+    typedef Octa instant; typedef uint32_t UQ32; /* e․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
     
     /**  Given a timestamp, return year, month (1-12) and day (1-31). */
     
-    Tuple<int32_t, int32_t, int32_t> date(Instant timestamp) const;
+    Tuple<int32_t, int32_t, int32_t> date(instant timestamp) const;
     
     /**
      
@@ -908,7 +905,7 @@ struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
      
      */
     
-    Tuple<int32_t, int32_t, int32_t, UQ32> sinceMidnight(Instant ts) const;
+    Tuple<int32_t, int32_t, int32_t, UQ32> sinceMidnight(instant ts) const;
     
     /**
      
@@ -926,26 +923,26 @@ struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
      
      */
     
-    Opt<Chronology::Instant> timestamp(int32_t parts[6], UQ32 frac = 0) const;
+    Opt<Chronology::instant> timestamp(int32_t parts[6], UQ32 frac=0) const;
     
     /**  Return a future instant.  The NTP defines epoch starting at the year 
       1900 at midnight before sunrise January the 1ˢᵗ and with a 32-bit unsigned 
       integer track 0 to 2³² - 1 = 4.294,967,295 seconds (approximately 136 earth 
       years) until a wrap occurs. */
     
-    Instant
-    addSeconds(Instant relative, 
+    instant
+    addSeconds(instant relative, 
       uint32_t seconds, UQ32 frac
     ) const;
     
     /**  Only for unperturbed chronologies. For non-reversable chronologies, 
       subtract throws an error. */
     
-    Instant subtractSeconds(Instant relative, uint32_t seconds, UQ32 frac) const BLURTS;
+    instant subtractSeconds(instant relative, uint32_t seconds, UQ32 frac) const BLURTS;
     
     /**  Return weekday assuming a week starts on a Wednesday. (Encoded as 0.) */
     
-    int dayofweek(Instant instant, int &wd) const; /*  May return ≠0 ⟷ 'divergent 
+    int dayofweek(instant timestamp, int &wd) const; /*  May return ≠0 ⟷ 'divergent 
      methods recognized'. */
     
 };
@@ -953,7 +950,7 @@ struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
 int
 InstantToText(
   Chronology chronology,
-  Chronology::Instant ts, bool incl₋frac,
+  Chronology::instant ts, bool incl₋frac,
   void (^out)(char8_t digitHyphenColonPeriod𝘖rSpace)
 );
 
@@ -985,13 +982,13 @@ Chronology& SystemCalendricChronology();
 
 /**  Translate an instant between a particular time zone and Unix UTC. */
 
-Chronology::Instant Timezone(Chronology chronology, Chronology::Instant t, 
+Chronology::instant Timezone(Chronology chronology, Chronology::instant ts, 
  short quarters₋of₋hours₋offset);
 
 /**  Relative-time interval when running from instant t₁ to instant t₂ given 
  preferable according to the 'ComputationalChronology'. */
 
-Fixpoint::Q1615 Computational₋Δ(Chronology::Instant t₁, Chronology::Instant t₂);
+Fixpoint::Q1615 Computational₋Δ(Chronology::instant t₁, Chronology::instant t₂);
 /* ⬷ a․𝘬․a 'Interval', 'relative' and 'seconds₋and₋frac' and is calendric alt. 
  monotonically increasing non-rooting temporal relative. */
 
