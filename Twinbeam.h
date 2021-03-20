@@ -905,7 +905,7 @@ struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
      
      */
     
-    Tuple<int32_t, int32_t, int32_t, UQ32> sinceMidnight(instant ts) const;
+    Tuple<int32_t, int32_t, int32_t, UQ32> sinceMidnight(instant timestamp) const;
     
     /**
      
@@ -923,12 +923,12 @@ struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
      
      */
     
-    Opt<Chronology::instant> timestamp(int32_t parts[6], UQ32 frac=0) const;
+    Opt<Chronology::instant> integers₋encode(int32_t parts[6], UQ32 frac=0) const;
     
     /**  Return a future instant.  The NTP defines epoch starting at the year 
-      1900 at midnight before sunrise January the 1ˢᵗ and with a 32-bit unsigned 
-      integer track 0 to 2³² - 1 = 4.294,967,295 seconds (approximately 136 earth 
-      years) until a wrap occurs. */
+     1900 at midnight before sunrise January the 1ˢᵗ and with a 32-bit unsigned 
+     integer track 0 to 2³² - 1 = 4.294,967,295 seconds (approximately 136 earth 
+     years) until a wrap occurs. */
     
     instant
     addSeconds(instant relative, 
@@ -942,7 +942,7 @@ struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
     
     /**  Return weekday assuming a week starts on a Wednesday. (Encoded as 0.) */
     
-    int dayofweek(instant timestamp, int &wd) const; /*  May return ≠0 ⟷ 'divergent 
+    int dayofweek(instant timestamp, int &wd) const; /* ⬷ may return ≠0 ⟷ 'divergent 
      methods recognized'. */
     
 };
