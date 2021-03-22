@@ -1,8 +1,8 @@
-/**  Simd-two.hpp | two accurate and concurrent with 52-bit significands. */
+/**  Simd-two.hpp | two non-accurates and concurrent with 52-bit significands. */
 
 #if defined NON₋SIMD
 typedef __uint128_t simd_tᵦ;
-/* struct simd_tᵦ { __uint128_t inner; }; / * ...not 'typedef'. */
+/* struct simd_tᵦ { __uint128_t inner; }; /‌* ⬷ and not 'typedef'⁇ */
 union 𝛽₋simd { double doubles[2]; simd_tᵦ 𝟷𝟸𝟾bit; };
 #include <Additions/math/simd-none.hpp>
 #elif defined __x86_64__
@@ -91,7 +91,7 @@ MACRO double simd_scalarᵦ(simd_tᵦ 𝒙)
 #endif
 }
 
-union double² 
+union 𝟸₋double
 {
   double doubles[2];
   simd_tᵦ simd;

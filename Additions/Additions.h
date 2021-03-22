@@ -409,6 +409,9 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, char32_t uc)
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, char8_t * u8s)
 { Present(term,u8s); return term; }
 
+MACRO Utf8Terminal & operator<<(Utf8Terminal &term, const char * 𝟽bit₋literal)
+{ Present(term,(char8_t *)𝟽bit₋literal); return term; }
+
 /* MACRO LONGTOOTH Utf8Terminal & operator<<(Utf8Terminal &term, char c)
 { Present(term,(char32_t)c); return term; } ⬷ a․𝘬․a 'ascii7ToUnicode'.
 

@@ -2,8 +2,6 @@
 
 extern double n₋sqrtᵥ₂(double x, double n); /* ⬷ see --<sqrt-simd-0.cpp> for details. */
 
-#pragma mark - the simd_tᵦ type 
-
 MACRO simd_tᵦ simd_initᵦ(double c) { return 𝛽₋simd { .doubles={c,c} }.𝟷𝟸𝟾bit; } 
 MACRO simd_tᵦ __builtin_simd_addᵦ(simd_tᵦ a, simd_tᵦ b) { 𝛽₋simd a₂ {.𝟷𝟸𝟾bit=a},
   b₂={.𝟷𝟸𝟾bit=b}, y { .doubles={ a₂.doubles[0]+b₂.doubles[0], a₂.doubles[1]+    
