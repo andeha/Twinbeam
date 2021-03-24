@@ -1,8 +1,8 @@
-/*  After8.cpp | detail and two 'processes' a․𝘬․a 'expressive timeserie'. */
+/*  after8.cpp | detail and two 'processes' a․𝘬․a 'expressive timeserie'. */
 
 /* #define ADDITIONAL₋LINKERSYMBOLS */
 
-#if defined ADDITIONAL₋LINKERSYMBOLS && defined __x86_64__
+#ifdef ADDITIONAL₋LINKERSYMBOLS
 
 #include <vector>
 #include <map>
@@ -10,9 +10,9 @@
 template <typename K, typename V> struct Map { std::map<K,V> inner;
   
   int exists(K key) { return inner.contains(key); }
-  int include(K key, V val, bool * refresh) {
+  int include(K key, V val, bool * didrefresh) {
     std::pair<typename std::map<K,V>::iterator, bool> y = 
-     inner.insert_or_assign(key,val); *refresh = !y.second; }
+     inner.insert_or_assign(key,val); *didrefresh = !y.second; }
   void assoc(K key, void (^seek)(V * agent)) { auto it = inner.find(key); 
     if (it != std::map<K,V>::const_iterator.end()) { seek((V *)&*it); } }
   
@@ -30,15 +30,16 @@ template <typename E> struct Vector { std::vector<E> inner;
   
 };
 
-struct Bitset { std::vector<bool> inner;
+struct Bitset { std::vector<bool> inner; 
   
-  Bitset(__builtin_int_t bits₋initial) { inner.reserve(bits₋initial); }
-  
+  Bitset(__builtin_int_t bits₋initial) { adjust(bits₋initial); }
+  void adjust(__builtin_int_t new₋bits₋size) {
+    inner.reserve(new₋bits₋size); resize(new₋bits₋size); }
   void set (__builtin_int_t slot, int val) {
-    if (slot >= inner.size()) { inner.reserve(slot); }
+    if (slot >= inner.size()) { adjust(slot); }
     inner[slot] = (bool)val; }
   int get (__builtin_int_t slot, int * val) {
-    if (slot >= inner.size()) { return -1; }
+    if (slot >= inner.size()) { adjust(slot); }
     *val = (int)inner[slot];
     return 0;
   }
@@ -49,7 +50,7 @@ struct Bitset { std::vector<bool> inner;
 
 #include <time.h>
 
-typedef time_t Unix₋instant; /* ⬷ epoc is 00:00:00 UTC Jan 1, 1970. */
+typedef time_t Unix₋instant; /* ⬷ epoch is 00:00:00 UTC Jan 1, 1970. */
 
 inline Tuple<int32_t, int32_t, int32_t> chronology₋Date(Unix₋instant I)
 {
@@ -71,21 +72,21 @@ inline char * chronology₋InstantToText(Unix₋instant I) { return ctime(I); } 
 
 #else
 
-template <typename K, typename V> struct Map { void ᶿ* inner; 
+template <typename K, typename V> struct Map { void * inner; 
   /* ⬷ a․𝘬․a std::map<K,V> inner. */
   int exists(K key) {
 #if defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
-    Treeint leafkey { .keyvalue = { int64_t key, 0 } };
+    Treeint leafkey { .keyvalue = { int64_t(key), 0 } };
 #elif defined __mips__ || defined __armv6__ || defined espressif
-    Treeint leafkey { .keyvalue = { int32_t key, 0 } };
+    Treeint leafkey { .keyvalue = { int32_t(key), 0 } };
 #endif
     Treeint * found = Lookup(inner,leafkey);
     return found == NULL; }
-  int include(K key, V val, bool * refresh) {
+  int include(K key, V val, bool * didrefresh) {
 #if defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
-    Treeint leafkey { .keyvalue = { int64_t key, int64_t(0) } };
+    Treeint leafkey { .keyvalue = { int64_t(key), uint64_t(val) } };
 #elif defined __mips__ || defined __armv6__ || defined espressif
-    Treeint leafkey { .keyvalue = { int32_t key, int32_t(0) } };
+    Treeint leafkey { .keyvalue = { int32_t(key), uint32_t(val) } };
 #endif
     auto alloc = ^(int bytes) { return Alloc(bytes); };
     void * y = Insert(inner,leafkey,alloc);
@@ -93,49 +94,74 @@ template <typename K, typename V> struct Map { void ᶿ* inner;
   }
   void assoc(K key, void (^seek)(V * agent)) {
 #if defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
-    Treeint leafkey { .keyvalue = { int64_t key, 0 } };
+    Treeint leafkey { .keyvalue = { int64_t(key), 0 } };
 #elif defined __mips__ || defined __armv6__ || defined espressif
-    Treeint leafkey { .keyvalue = { int32_t key, 0 } };
+    Treeint leafkey { .keyvalue = { int32_t(key), 0 } };
 #endif
     Treeint * found = Lookup(inner,leafkey);
     seek(found);
   }
   
-}; /* ⬷ sometime referential map such as map<const char *, Unicodes>. */
+}; /* ⬷ sometime referential map such as std::map<const char *, Unicodes>. */
 
 template <typename E> struct Vector { ˢConvoj<E> inner;
   
   void push(E elem) { inner.copy₋include(1, { elem }); }
   int pop() { if (inner.count == 0) { return -1; }
     inner.pop(); return 0; }
-  int relative(__builtin_int_t n, E ** reference) {
-    if (n >= inner.count) { return -1; }
-    *reference = &inner[n]; return 0;
+  int relative(__builtin_int_t idx, E ** reference) {
+    if (idx >= inner.count) { return -1; }
+    *reference = &inner[idx]; return 0;
   }
   
-};
+}; /* ⬷ similar to std::vector and not c++11's std::array in <array>. */
 
-struct Bitset { __builtin_int_t 🥈 wordbits=Wordbytes*8; structure inner; 
+struct Bitset { unsigned expeditionary=1; 
   
- /* if (Setup₋shattered(unsigned expeditionary __builtin_int_t ﹟, 
-  structure& sequence) * Setup₋initially₋one */
+  __builtin_int_t 🥈 wordbits=Wordbytes*8; structure inner;
   
-  Bitset(__builtin_int_t bits₋initial) { inner.reserve(bits₋initial); }
+  Bitset(__builtin_int_t bits₋initial) { adjust₁(bits₋initial); }
   
-  void set (__builtin_int_t slot, int val) {
-    if (slot >= inner.size()) { inner.reserve(slot); }
-    /* uint8_t * relative(__builtin_int_t byte₋offset); */
-    inner[slot] = (bool)val; }
+  void adjust₁(__builtin_int_t encompassing₋bit) {
+    auto additional₋﹟₋count = ^(__builtin_int_t bit₋﹟) {
+      return 1 + (encompassing₋bit / wordbits); };
+    int ﹟ = additional₋﹟₋count(encompassing₋bit); void * 𝟺kbframes[﹟];
+    using namespace panel₁; extern panel₁::bitset₋noncoalescable; 
+     extern panel₁::bitset₋still₋short;
+    if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { PULT💡(panel₁::bitset₋noncoalescable); }
+    if (inner.lengthen(﹟,𝟺kbframes)) { PULT💡(panel₁::bitset₋still₋short); }
+  }
   
-  int get (__builtin_int_t slot, int * val) {
-    if (slot >= inner.size()) { return -1; }
-    /* uint8_t * relative(__builtin_int_t byte₋offset); */
-    __builtin_int_t w = slot / wordbits, b = slot % wordbits;
-    *val = inner[w] & (0b1<<b) ? 1 : 0;
+  void adjust₂(__builtin_int_t deduct₋bits) { inner.unused₋bytes = deduct₋bits; }
+  
+  __builtin_int_t maxbitcount() { return 8*inner.tile₋count*inner.bytes₋per₋tile; }
+  
+  int get(__builtin_int_t slot, int * value) {
+    __builtin_int_t ﹟ = maxbitcount();
+    if (slot >= ﹟) { inner.unused₋bytes=0; adjust₁(slot); }
+    else if (slot >= ﹟ - inner.unused₋bytes) { adjust₂(﹟ - slot); }
+    __builtin_int_t word = slot / wordbits, bit = slot % wordbits;
+    __builtin_int_t byte₋number = word*Wordbytes;
+    uint8_t * loc₋𝟾 = inner.relative(byte₋number);
+    __builtin_uint_t orig = *(__builtin_uint_t *)loc₋𝟾;
+    *value = (orig & (0b1<<bit)) ? 1 : 0;
     return 0;
   }
   
-}; /* bitsets may grow relatively-absolutely and in bits-words steps. */
+  void set(__builtin_int_t slot, int value) {
+    __builtin_int_t ﹟ = maxbitcount();
+    if (slot >= ﹟) { inner.unused₋bytes=0; adjust₁(slot); }
+    else if (slot >= ﹟ - inner.unused₋bytes) { adjust₂(﹟ - slot); }
+    __builtin_int_t word₋number = slot / wordbits, bit = slot % wordbits;
+    __builtin_int_t byte₋number = word₋number*Wordbytes;
+    uint8_t * loc₋𝟾 = inner.relative(byte₋number);
+    __builtin_uint_t * loc₋32 = (__builtin_uint_t *)loc₋𝟾;
+    __builtin_uint_t orig = *loc₋32;
+    if (value) { *loc₋32 = (orig | (0b1<<bit)); }
+    else { *loc₋32 = (orig & ~(0b1<<bit)); }
+  }
+  
+}; /* ⬷ bitsets grows in steps of pages and in wordbits steps. */
 
 #endif /* ⬷ all 'man' pages unwritten, instead http://cppreference.com and 
  cached versions of the latter. */
