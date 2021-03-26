@@ -82,7 +82,7 @@ FOCAL int Initiate₋One(short id, int32_t &ℕ₋hi, uint32_t &ℕ₋lo) { exte
   Internals * impl_;
 #define 😐 APPEND_PIMPL }
 template <typename T> struct SemanticPointer { T ref; }; /* ⬷ a․𝘬․a `DisjunctPointer` and `OptionalIntervallicPointer`. */
-#define VISITISR(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + ftn-call. */
+#define Salt(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + ftn-call. */
 #define UNITTEST(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
 #define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",            \
   ﹟s(s), ﹟s(__FUNCTION__), ﹟s(__FILE__), ﹟d(__LINE__)); exit(-1); }
@@ -129,9 +129,12 @@ template <typename T> struct SemanticPointer { T ref; }; /* ⬷ a․𝘬․a `Di
 #define CIRCULATIVE /* ⬷ a․𝘬․a 'averaged' ∧ '␣'. */
 #define CONTEXTDESTILLATIVE
 #define EUCLIDEANINCOHERENT /* ⬷ c𝖿․ subversive follows incoherence. */
+#define NEXUS₋EBBERÖD /* ⬷ abstrakt maskin. */
 #define STEERING₋GOLD /* ⬷ Catholic₋gregorian keys. */
 #define KONTRA₋REPUDIAT /* ⬷ sensor-bonanza. */
 #define MKULTRA₋ALGA /* ⬷ cf. 'iconic qualities' and not SHIPOLDHASHOME. */
+#define APPLIED₋ATTR /* and LEGATO₋SOURCES. */
+#define CIRKULATIV₋DEKRET /* ''' alt. 3 🌎. 12 9. */
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; /*  ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
@@ -149,14 +152,14 @@ typedef int64_t x86_64_context[(9 * 2) + 3 + 16];
 typedef x86_64_context jmp_buf2;
 #endif
 extern "C" { int setjmp2(jmp_buf2 env); void longjmp2(jmp_buf2 env,
-  __builtin_int_t val); /* `__builtin_longjmp` requires last arg to be 
-  const and bounded by `int`. Determined 𝑎₋𝑝𝑟𝑖𝑜𝑟𝑖 to be 𝙞𝙣𝙩. */ }
+ __builtin_int_t val); /* `__builtin_longjmp` requires last arg to be 
+ const and bounded by `int`. Determined 𝑎₋𝑝𝑟𝑖𝑜𝑟𝑖 to be 𝙞𝙣𝙩. */ }
 #if defined __armv6__ || defined  __mips__ || defined espressif
 #define BLURT(str) { tetra t; t.bits = (uint32_t)(const char *)str;          \
-  longjmp2(*JmpBuf(), int(t.unsigned_little_endian.lsh)); }
+ longjmp2(*JmpBuf(), int(t.unsigned_little_endian.lsh)); }
 #elif defined __x86_64__ || defined __armv8a__
 #define BLURT(str) { octa o; o.bits = (uint64_t)(const char *)str;           \
-  longjmp2(*JmpBuf(), int(o.unsigned_little_endian.lst)); }
+ longjmp2(*JmpBuf(), int(o.unsigned_little_endian.lst)); }
 #endif
 #define BLURTS /* Mandatory */
 #define NEVERBLURTS /* Fortunately optional. */
@@ -164,7 +167,7 @@ extern "C" { int setjmp2(jmp_buf2 env); void longjmp2(jmp_buf2 env,
 #define TRY { int __e = setjmp2(*JmpBuf()); if (!__e) {
 #define CATCH } else {
 #define END_TRY } }
-#define PULT💡(x) ++x /* ⬷ todo: Add atomic enclosure. */
+#define Pult💡(x) ++x /* ⬷ todo: Add atomic enclosure to 'non-advertised locality-preserving margin-note'. see also the non-advertised call: 'Salt'. */
 extern "C" jmp_buf2 * /* volatile */ JmpBuf(); /* ⬷ a great symbol for a project break! */
 structᵢ SharedOptional { bool populated; explicit SharedOptional() : populated(
   false) { } explicit operator bool() const { return populated; } };
@@ -261,8 +264,8 @@ void InitFrames(int count, unsigned expeditionaries[]);
 int ContiguousAcquire(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟);
 int CoalescingAcquire(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟);
 int 🄕allo⒲(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟);
-/* void Reservoir(unsigned expeditionary, __builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_int_t *
-  Idxs, __builtin_uint_t **pages, __builtin_uint_t **avails); */
+/* void Reservoir(unsigned expeditionary, __builtin_int_t * pagecount, 
+ void **pages, __builtin_uint_t **avails); */
 extern "C" { void * malloc(size_t); void free(void *); }
 /* Pointer arithmetics and the pointers inner intrinsics implicits. */
 enum class Sentinel { cyclic, last, /*, linear, bilinear, */ crash, bound };
@@ -321,7 +324,7 @@ MACRO void * _Block_copy(const void * arg) { struct Block_layout *block = (struc
 MACRO void _Block_release(const void *arg) { Fall⒪⒲((void *)arg); }
 typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
-__builtin_int_t constexpr SystemPagesize() { return 4096; } /* ⬷ one definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
+__builtin_int_t constexpr Syspagesize() { return 4096; } /* ⬷ one definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
 FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned 
  short base, unsigned short digitsOr0, /* Not more than 32 alt. 64 digits 
@@ -348,7 +351,7 @@ template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋Compl(x) : x; 
  number and maps back to the same bit pattern when 2-complemented. (Two-complementing 
 'identity a․𝘬․a zero' wraps and equals 0 when pattern is assumed unsigned.) */
 /* ⬷ a․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN and NEITHER_PROLOGUE_NOR_EPILOGUE. */
-#define MOMENT /* ⬷ attribute-at-end for method declarations a․𝘬․a `LEAF` and 'do not follow'. */
+#define MOMENT /* ⬷ attribute-at-end for method declarations a․𝘬․a 'LEAF' and 'do not follow'. */
 #define moment /* ⬷ initial attribute for function definitions and declarations a․𝘬․a 'leaf'. */
 #define intrinsic₋leaf /* ⬷ a․𝘬․a 'half₋leaf'; multiple attempts-w(as)-silicon-based. */
 #define leaf₋function /* ⬷ ...except intrinsic functions! */
@@ -391,6 +394,7 @@ template <typename T> int collate₋coalesce(__builtin_int_t count, T xᵣ[], T 
  'permutative₋combination'. */
 template <typename ℚ> ℚ arithmetic(ℚ x₁, ℚ x₂) { return (x₁ + x₂) / 2; }
 /* template <typename T> T geometric(T x₁, T x₂) { return sqrt(x₁*x₂); }; */
+template <typename T> T biorythm₋average(T xt) { return sin(xt)*cos(xt); }
 /* ⬷ c․𝘧 the two files --<🥽 Argentum.cpp> (TO-BE-TYPED) and --<🥽 Newton.cpp>. */
 template <typename T> bool rel₋eq(T x₁, T x₂) { return !(x₁ < x₂ || x₂ < x₁); }
 template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
@@ -450,7 +454,7 @@ typedef union {
       unsigned exponent  : 11;
       unsigned sign      :  1;
    } binary64; /* ⬷ a․𝘬․a 'ieee754b﹟𝟸'. */
-   /* struct { … } ieee754b﹟𝟷𝟶; a․𝘬․a `decimal64`. */
+   /* struct { … } ieee754b﹟𝟷𝟶; a․𝘬․a 'decimal64'. */
    /* struct { 
       unsigned absolute  : 31;
       unsigned sign      :  1;
@@ -463,7 +467,7 @@ struct Octa { uint32_t l, h; };
 
 /*  MACRO double nearest₋naive(int64_t measure) { return (double)measure; }
 MACRO int64_t nearest₋naive(double measure) { return (int64_t)measure; } 
- ⬷ Incorrect truncation for negative fractions. */
+ ⬷ incorrect truncation for negative fractions. */
 
 __builtin_int_t 🥈 Wordbytes=sizeof(__builtin_uint_t);
 
@@ -495,7 +499,7 @@ MACRO double Nearest(int64_t measure)
    );                                                                        
 #elif defined __x86_64__
    asm {                                                                     
-     fild rdi                   /* ⬷ See Intel.FBLD and Intel.FBSTP. */     
+     fild rdi                   /* ⬷ see Intel.FBLD and Intel.FBSTP. */     
      fstp xmm0                                                               
    } /* ⬷ enabled by '-fms-extension'. */                                   
 #endif
@@ -608,13 +612,10 @@ typedef union {
      unsigned mantissa : 23;
      unsigned exponent :  8;
      unsigned sign     :  1;
-   } binary32; /* ⬷ a․𝘬․a `ieee754base₋2`. */
-   struct { /* For ±1×10⁻⁹⁵ to ±9.999999×10⁹⁶. */
-     unsigned combination : 5; /* msb-exp */
-     unsigned exponent    : 6; /* ×10ⁱ⁻¹⁰¹ */
-     unsigned mantissa    : 20;
-     unsigned sign        : 1;
-   } decimal32; /* ⬷ a․𝘬․a `ieee754_2008₋base₋10`. */
+   } binary32; /* ⬷ a․𝘬․a 'ieee754base₋2'. */
+   struct { /* for ±1×10⁻⁹⁵ to ±9.999999×10⁹⁶. */
+     /* … */
+   } decimal32; /* ⬷ a․𝘬․a 'ieee754_2008₋base₋10'. */
    uint32_t bits;
 } tetra;
 
@@ -634,10 +635,10 @@ struct Unicodes { __builtin_int_t tetras; char32_t * unicodes; };
 
 enum { END_OF_TRANSMISSION = U'\u0004' };
 
-#pragma mark - For 𝑝𝑖𝑔𝑒𝑜𝑛 𝑟𝑒𝑐𝑜𝑛𝑛𝑎𝑖𝑠𝑠𝑎𝑛𝑐𝑒, 𝑠𝑐𝑜𝑢𝑡𝑖𝑛𝑔 and other missions
-#pragma mark - Still images, timeseries and language analysis
-#pragma mark - 𝘊․𝘧 Scandinavian 'by₋tes' a․𝘬․a '✠✠'
-#pragma mark - Touting strong radio (🦠)
+#pragma mark - for 𝑝𝑖𝑔𝑒𝑜𝑛 𝑟𝑒𝑐𝑜𝑛𝑛𝑎𝑖𝑠𝑠𝑎𝑛𝑐𝑒, 𝑠𝑐𝑜𝑢𝑡𝑖𝑛𝑔 and other missions
+#pragma mark - still images, timeseries and language analysis
+#pragma mark - c․𝘧 Scandinavian 'by₋tes' a․𝘬․a '✠✠'
+#pragma mark - touting strong radio (🦠)
 
 struct structure {
   void * (^leaf₋alloc)(int bytes) = ^(int bytes) { return Alloc(bytes); };
@@ -645,8 +646,8 @@ struct structure {
   uint8_t * relative(__builtin_int_t byte₋offset);
   int copy₋append(__builtin_int_t bytes, uint8_t * material, void (^inflate)(
    __builtin_int_t ﹟, bool& cancel)); __builtin_int_t bytes();
-  void * treelist=NULL, *cached₋tile; __builtin_int_t cached₋number=-1, 
-   tile₋count=0, bytes₋per₋tile, unusedbytes=0;
+  void *treelist=NULL, *cached₋tile; __builtin_int_t cached₋number=-1, 
+   tile₋count=0, bytes₋per₋tile, unused₋bytes=0;
   struct Legator { __builtin_int_t tree₋out=0; } leg;
 }; /* ⬷ a․𝘬․a 'Sequence', 'Array', '𝟺kbTiles' and 'reflecto₋tiles'. */
 
@@ -670,7 +671,7 @@ inline int Copy₋append₂(structure& sequence, __builtin_int_t bytes, uint8_t 
 
 inline int Setup₋shattered(unsigned expeditionary, __builtin_int_t ﹟, 
  structure& sequence) { void * 𝟺kbpages[﹟]; 
-   sequence.bytes₋per₋tile = SystemPagesize();
+   sequence.bytes₋per₋tile = Syspagesize();
    if (CoalescingAcquire(expeditionary,𝟺kbpages,﹟)) { return -1; }
    if (sequence.lengthen(﹟,𝟺kbpages)) { return -2; }
    return 0;
@@ -855,7 +856,7 @@ constexpr __builtin_int_t HowMany(__builtin_uint_t index, __builtin_uint_t width
   return (index % width == 0) ? index/width : index/width + 1; } 
 /* ⬷ see all the multiple flavors of 'fraction' in --<System.cpp>. */
 
-__builtin_int_t 🥈 Pagewords=SystemPagesize()/Wordbytes; /* ⬷ a․𝘬․a 'arrangemang-
+__builtin_int_t 🥈 Pagewords=Syspagesize()/Wordbytes; /* ⬷ a․𝘬․a 'arrangemang-
  possibly-window', 'ElemsInside4kb' and '𝟻𝟷𝟸alt𝟷𝟶𝟸𝟺'. */
 
 namespace Fixpoint {
@@ -1006,6 +1007,8 @@ typedef float float⁺ʳ; typedef double double⁺ʳ;
 
 typedef char8_t uchar; typedef uint32_t uint32; typedef uint8_t byte;
 
-#endif
+/* typedef int32_t i32; typedef uint32_t u32; typedef int64_t i64; 
+typedef uint64_t u64; */
 
+#endif
 
