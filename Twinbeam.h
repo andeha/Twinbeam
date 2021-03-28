@@ -2,7 +2,7 @@
     C++20 for clang to x86_64, Arm Cortex M0+, AAPL M1, ESP32 and MIPS.
     MIPS compiled using clang version 11.0.1
     x86_64 compiled using Xcode Version 10.2.1 (10E1001) 
-    and/or clang-11.0.0. */
+    and/or clang-11.0.1. */
 
 #ifndef __TWINBEAM_H
 #define __TWINBEAM_H
@@ -54,6 +54,7 @@ void digit_shift(𝓵₋bignum * n, __builtin_int_t I); /* ⬷ multiplies n by 1
 int compare_bignum(𝓵₋bignum * a, 𝓵₋bignum * b);
 void print_bignum(𝓵₋bignum * n, void (^out)(char c));
 struct Schoolbook { int64_t ℤ; int64_t modula, denom; int total₋nonpositive; };
+typedef int32_t i32; typedef uint32_t u32; typedef int64_t i64; typedef uint64_t u64;
 /* int sw₋fractions(uint64_t num, uint64_t denom, uint64_t &ℕ, uint64_t &modula); */
 /* int hw₋fractions₁(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
 /* int sw₋fractions₂(uint32_t num, uint32_t denom, uint32_t &ℕ, uint32_t &modula); */
@@ -83,6 +84,13 @@ FOCAL int Initiate₋One(short id, int32_t &ℕ₋hi, uint32_t &ℕ₋lo) { exte
 #define 😐 APPEND_PIMPL }
 template <typename T> struct SemanticPointer { T ref; }; /* ⬷ a․𝘬․a `DisjunctPointer` and `OptionalIntervallicPointer`. */
 #define Salt(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + ftn-call. */
+#define Pult💡(x) ++x /* ⬷ todo: Add atomic enclosure-history to 'non-advertised locality-preserving margin-note'. */
+/* typedef timeserie<char32_t *, int, char *> Error₋timeserie, eps₋serie;
+auto didRuckpultCommit = ^(char * ref, const int& error₋code, Version version) { }; */
+#define gutter₋return₋init(serie,ref,code,complex) { extern eps₋serie complex; complex.create(serie,code,ref); }
+#define gutter₋return₋stamp(serie,ref,code,complex) { extern eps₋serie complex; complex.update(serie,code,ref); }
+#define gutter₋return₋close(serie,ref,code,complex) { extern eps₋serie complex; complex.update(serie,code,ref); complex.commit(didRuckpultCommit); }
+#define Ruckpult💡(x,r) /* ⬷ a․𝘬․a 'error-gutter', 𝘪․e History with sequence and timestamps. */
 #define UNITTEST(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
 #define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",            \
   ﹟s(s), ﹟s(__FUNCTION__), ﹟s(__FILE__), ﹟d(__LINE__)); exit(-1); }
@@ -167,7 +175,6 @@ extern "C" { int setjmp2(jmp_buf2 env); void longjmp2(jmp_buf2 env,
 #define TRY { int __e = setjmp2(*JmpBuf()); if (!__e) {
 #define CATCH } else {
 #define END_TRY } }
-#define Pult💡(x) ++x /* ⬷ todo: Add atomic enclosure to 'non-advertised locality-preserving margin-note'. see also the non-advertised call: 'Salt'. */
 extern "C" jmp_buf2 * /* volatile */ JmpBuf(); /* ⬷ a great symbol for a project break! */
 structᵢ SharedOptional { bool populated; explicit SharedOptional() : populated(
   false) { } explicit operator bool() const { return populated; } };
@@ -394,8 +401,7 @@ template <typename T> int collate₋coalesce(__builtin_int_t count, T xᵣ[], T 
  'permutative₋combination'. */
 template <typename ℚ> ℚ arithmetic(ℚ x₁, ℚ x₂) { return (x₁ + x₂) / 2; }
 /* template <typename T> T geometric(T x₁, T x₂) { return sqrt(x₁*x₂); }; */
-template <typename T> T biorythm₋average(T xt) { return sin(xt)*cos(xt); }
-/* ⬷ c․𝘧 the two files --<🥽 Argentum.cpp> (TO-BE-TYPED) and --<🥽 Newton.cpp>. */
+template <typename T> T biorythm₋average(T xt) { return sin(xt)*cos(xt); } /* ⬷ a․𝘬․a AB*sin(ω*t)*cos(ω*t). */
 template <typename T> bool rel₋eq(T x₁, T x₂) { return !(x₁ < x₂ || x₂ < x₁); }
 template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 #define WHEN_COMPILING constexpr static
@@ -417,6 +423,7 @@ __builtin_int_t least₋possible₋residue(__builtin_int_t dividend, __builtin_i
 /* ⬷ see --<Wiki>--<Essays>--<On clocks and time> and 'circular reasoning'. */
 #define auto₋rollback(variable) decltype(variable)
 #define ᶿ﹡ const * /* #define *⥃ const char * /​* ⬷ a․𝘬․a '*⥆' and '*⫩'. */
+#define rt₋namespace namespace
 
 #pragma mark utf-8
 
@@ -593,7 +600,7 @@ typedef union {
   "Secure Hash Standard (SHS)", August 2015. */
 
 int Hash(uint8_t * material, __builtin_int_t bytes, void (^ping𝘖r𝖭𝖴𝖫𝖫)(bool &stop), 
-  void (^complete)(ditriaconta digest)); /* ⬷ a․𝘬․a 'Fineprint'. */
+  void (^complete)(ditriaconta digest)); /* ⬷ a․𝘬․a 'fineprint'. */
 
 #if defined  __mips__ || defined __armv6__ || defined espressif
 #define BUILTIN₋INT₋MAX 2147483647
@@ -868,9 +875,9 @@ namespace Fixpoint {
    
 #ifdef IEEE754₋ARITHMETICS₋INSIDE
    
-   inline double Q1615ToFloat(Q1615 q) { return double(q.frac)*1.0/16384.0; }
+   inline double q1615ToIeee754(Q1615 q) { return double(q.frac)*1.0/16384.0; }
    
-   inline Q1615 FloatToQ1615(long double x) { int reciproc; 
+   inline Q1615 Ieee754ToQ1615(long double x) { int reciproc; 
       
       int64_t y = Nearest(x*16384.0, &reciproc);
       
@@ -883,7 +890,7 @@ namespace Fixpoint {
 }
 
 #ifdef IEEE754₋ARITHMETICS₋INSIDE
-inline Fixpoint::Q1615 operator "" _Q1615(long double x) { return Fixpoint::FloatToQ1615(x); }
+inline Fixpoint::Q1615 operator "" _Q1615(long double x) { return Fixpoint::Ieee754ToQ1615(x); }
 #endif
 
 /* ⬷ consider 32- alt. 64-bits with an extra sign bit for abstractions such as 'Frame', 
@@ -1006,9 +1013,6 @@ typedef float float⁺ʳ; typedef double double⁺ʳ;
 /**  Relative-fixative types: */
 
 typedef char8_t uchar; typedef uint32_t uint32; typedef uint8_t byte;
-
-/* typedef int32_t i32; typedef uint32_t u32; typedef int64_t i64; 
-typedef uint64_t u64; */
 
 #endif
 

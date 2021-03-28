@@ -11,15 +11,15 @@ flags = $optflags -target mipsel -mips32r2 -fno-rtti -fno-exceptions -fblocks $p
 include ../tools.ninja
 
 rule asm
-    command = $tools/clang-8 $flags -c $in -o $out
+    command = $tools/clang-11 $flags -c $in -o $out
 
 # The last line (:00000001FF) is not emitted since no -b flag is 
 # given when llvm2pic32.
 rule link
-    command = $tools/ld.lld -T $loadscript -o $out $in;                      $
-    $tools/llvm2pic32 $progname > Releases/$progname\_$sha1git.hex;          $
+    command = $tools/ld.lld -T $loadscript -o $out $in                     ; $
+    $tools/../llvm2pic32 $progname > Releases/$progname\_$sha1git.hex      ; $
     printf $sha1git
 
 build $progname: link $objsdir/bootloader.o
-build $objsdir/bootloader.o: asm bootloader.S
+build $objsdir/bootloader.o: asm loader_pic32.S
 default $progname

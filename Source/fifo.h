@@ -61,7 +61,7 @@ inline int n₋tile₋apriori(unsigned expeditionary, __builtin_int_t alloca̲t�
    alloced₋bytes=alloca̲t̲ed₋count*size, max₋bytes=maximum₋count*size;
    extern int fractions(__builtin_int_t num, __builtin_int_t denom, 
     __builtin_int_t &ℤ, __builtin_int_t &modula, bool &sum₋negative);
-    __builtin_int_t num = SystemPagesize();
+    __builtin_int_t num = Syspagesize();
    if (alloca̲t̲ed₋count > maximum₋count) { return -1; }
    if (fractions(alloca̲t̲ed₋count,num,ℤ₁,modula₁,dummy₋negative)) { return -2; }
    if (fractions(max₋bytes,num,ℤ₂,modula₂,dummy₋negative)) { return -3; }
@@ -83,9 +83,9 @@ inline int n₋tile₋apriori(unsigned expeditionary, __builtin_int_t alloca̲t�
 template <typename E> struct 𝟷₋tile₋fifo { fifo 🅠; 
   int init(__builtin_int_t maximum₋count, void * 𝟷₋tile) { return 🅠.init(maximum₋count,𝟷₋tile); }
   int copy₋include(int count, E * Ɀ, int cycles) {
-    __builtin_int_t bytes = count*sizeof(E), modula = bytes % Wordbytes, 
-     words = (bytes/Wordbytes) + (modula != 0 ? 1 : 0);
-    return 🅠.𝟷₋tile₋copy₋include(words,(__builtin_uint_t *)Ɀ); }
+   __builtin_int_t bytes = count*sizeof(E), modula = bytes % Wordbytes, 
+   words = (bytes/Wordbytes) + (modula != 0 ? 1 : 0);
+   return 🅠.𝟷₋tile₋copy₋include(words,(__builtin_uint_t *)Ɀ); }
   void pop() { 🅠.𝟷₋tile₋fifo₋pop(); }
   int shiftout(int count) { return 🅠.𝟷₋tile₋shiftout(count); }
 }; /* ⬷ deceptive 'default, move and copy' vs. 'register passable'. */

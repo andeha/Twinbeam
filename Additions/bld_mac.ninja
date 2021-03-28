@@ -22,8 +22,8 @@ build libAdditions_macos : library $objs/Additions.o $objs/Ieee754₆₄bits.o  
  $objs/Streams.o $objs/Present-1.o $objs/Present-2.o $objs/Present-hw.o     $
  $objs/Automata.o $objs/Ornaments.o $objs/Bezier.o $objs/Random-sw.o        $
  $objs/Random.o $objs/⌊𝑥⌋+nearest.o $objs/arctan.o $objs/cherry.o           $
- $objs/atan₂.o $objs/ℯ🔭².o $objs/logₑ.o $objs/log𝛤.o $objs/mod.o           $
- $objs/sincos.o $objs/tan.o $objs/tanh.o $objs/Erf.o $objs/x87math.o
+ $objs/atan₂.o $objs/ℯ🔭².o $objs/logₑ.o $objs/log𝛤.o $objs/modulo.o        $
+ $objs/sincos.o $objs/tan.o $objs/tanh.o $objs/Erf.o $objs/x87math.o $objs/sqrt-simd-0.o
  
 build $objs/Additions.o: cc Additions.cpp
 build $objs/Ieee754₆₄bits.o: cc Ieee754₆₄bits.cpp
@@ -46,15 +46,17 @@ build $objs/ℯ🔭².o: cc math/ℯ🔭².cpp
 build $objs/Erf.o: cc math/erf.cpp
 build $objs/logₑ.o: cc math/logₑ.cpp
 build $objs/log𝛤.o: cc math/log𝛤.cpp
-build $objs/mod.o: cc math/mod.cpp
+build $objs/modulo.o: cc math/modulo.cpp
 build $objs/sincos.o: cc math/sincos.cpp
 build $objs/tan.o: cc math/tan.cpp
 build $objs/tanh.o: cc math/tanh.cpp
+build $objs/sqrt-simd-0.o: cc math/sqrt-simd-0.cpp
 # …and additional non-math folders:
 build $objs/Present-1.o: cc Present-1.cpp
 build $objs/Present-2.o: cc Present-2.cpp
 build $objs/Present-hw.o: cc Present-hw.cpp
 build $objs/x87math.o: ccms x87math.cpp
 build emit-content: toc
-default $extra-library 
+default $extra-library
+
 

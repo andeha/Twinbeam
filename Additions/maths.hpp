@@ -13,8 +13,8 @@ namespace Natural {
 simd_tᵦ 𝟷𝟸𝟹𝟺₋atan(simd_tᵦ 𝒚, simd_tᵦ 𝒙); /* ≈ atan(𝒚/𝒙) ∧ is well-defined for x=0. */
 leaf₋function simd_tᵦ arctan(simd_tᵦ 𝒙);
 leaf₋function simd_t arctan(simd_t 𝒙);
-simd_tᵦ mod(simd_tᵦ 𝒙, simd_tᵦ 𝒚); /* = 𝒙 𝑚𝑜𝑑 𝒚 = 𝒙 - 𝒚 ⌊𝒙/𝒚⌋ ⬷ requires a call to 'floor'. */
-leaf₋function void sincos(simd_tᵦ 𝜃, simd_tᵦ &𝒔, simd_tᵦ &𝒄); /* s,c ∈ [-1,1]. */
+simd_tᵦ modulo(simd_tᵦ 𝒙, simd_tᵦ 𝒚); /* = 𝒙 𝑚𝑜𝑑 𝒚 = 𝒙 - 𝒚 ⌊𝒙/𝒚⌋ ⬷ requires a call to 'floor'. */
+leaf₋function void sincos(simd_tᵦ 𝜃, simd_tᵦ * 𝒔, simd_tᵦ * 𝒄); /* s,c ∈ [-1,1]. */
 /* ⬷ Eulers' formula: ℯˣⁱ = cos x + 𝓲 sin x (= 𝑧) */
 leaf₋function simd_tᵦ floor₋ℝ(simd_tᵦ 𝒙);
 leaf₋function simd_tᵢₐ floor₋ℤ(simd_tᵦ 𝒙);
@@ -28,7 +28,7 @@ leaf₋function simd_tᵢₐ nearest(simd_tᵦ 𝒙);
 
 #pragma mark formerly in file named --<Additions>--<Watts.hpp>
 
-inline simd_tᵦ substandard₋pow(simd_tᵦ 𝒃, simd_tᵦ 𝒙)
+inline simd_tᵦ substandard₋power(simd_tᵦ 𝒃, simd_tᵦ 𝒙)
 {
   simd_tᵦ acc=logₑ(𝒃); acc = __builtin_simd_mulᵦ(𝒙,acc); return ℯ🔭²(acc);
 } /* todo: 'int pow(simd_tᵦ 𝒃, simd_tᵦ 𝒙, v2i64 &𝟷𝟶ᵐ, simd_tᵦ &significand)'. 
@@ -63,8 +63,8 @@ MACRO simd_tᵦ sign(simd_tᵦ 𝒙)
   return Cherry::pickᵦ(₋𝟷,₊𝟷,𝗰𝗼𝗻𝗱ᵦ);
 } /* ⬷ sometimes in literature called 'sgn'. */
 
-MACRO simd_tᵦ sin(simd_tᵦ 𝒙) { simd_tᵦ s,c; sincos(𝒙,s,c); return s; }
-MACRO simd_tᵦ cos(simd_tᵦ 𝒙) { simd_tᵦ s,c; sincos(𝒙,s,c); return c; }
+MACRO simd_tᵦ sin(simd_tᵦ 𝒙) { simd_tᵦ s,c; sincos(𝒙,&s,&c); return s; }
+MACRO simd_tᵦ cos(simd_tᵦ 𝒙) { simd_tᵦ s,c; sincos(𝒙,&s,&c); return c; }
 
 inline simd_tᵦ asin(simd_tᵦ 𝒙)
 { /* asin(x) = 2 arctan(x/(1 + √(1-x²))), where x≤1 leads to complex later. */
@@ -91,12 +91,12 @@ inline simd_tᵦ acos(simd_tᵦ 𝒙)
   return __builtin_simd_mulᵦ(𝟸,𝖺𝗍𝖺𝗇);
 } /* ⬷ see also --<khinchin.cpp>: double khinchin_arccos(double x) { return π/2 - khinchin_arcsin(x); } */
 
-MACRO simd_tᵦ frac(simd_tᵦ 𝒙) { simd_tᵦ 🥇 𝟷 = simd_initᵦ(1.0); return mod(𝒙,𝟷); }
+MACRO simd_tᵦ frac(simd_tᵦ 𝒙) { simd_tᵦ 🥇 𝟷 = simd_initᵦ(1.0); return modulo(𝒙,𝟷); }
 
 #pragma mark formerly in --<Additions>--<Stirlings.hpp>, primititives for the single 𝗱𝗼𝘂𝗯𝗹𝗲 type
 
-MACRO double substandard₋pow(double b, double x) { simd_tᵦ 𝒃 = simd_initᵦ(b), 𝒙 = simd_initᵦ(x), 
- 𝒚 = substandard₋pow(𝒃,𝒙); return simd_scalarᵦ(𝒚); }
+MACRO double substandard₋power(double b, double x) { simd_tᵦ 𝒃 = simd_initᵦ(b), 𝒙 = simd_initᵦ(x), 
+ 𝒚 = substandard₋power(𝒃,𝒙); return simd_scalarᵦ(𝒚); }
 MACRO double sqrt(double x) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = __builtin_simd_sqrtᵦ(𝒙); 
  return simd_scalarᵦ(𝒚); }
 MACRO double ℯ(double x) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = ℯ🔭²(𝒙); return simd_scalarᵦ(𝒚); }
@@ -111,7 +111,7 @@ MACRO double tanh(double x) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = tanh(𝒙
 MACRO double tanh⁻¹(double x) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = tanh⁻¹(𝒙); return simd_scalarᵦ(𝒚); }
 MACRO double 𝟷𝟸𝟹𝟺₋atan(double y, double x) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = simd_initᵦ(y), 
  𝒓 = 𝟷𝟸𝟹𝟺₋atan(𝒚,𝒙); return simd_scalarᵦ(𝒓); }
-MACRO double mod(double x, double y) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = simd_initᵦ(y), 𝒓 = mod(𝒙,𝒚);
+MACRO double modulo(double x, double y) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = simd_initᵦ(y), 𝒓 = modulo(𝒙,𝒚);
  return simd_scalarᵦ(𝒓); }
 MACRO double floor₋ℝ(double x) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = floor₋ℝ(𝒙); return simd_scalarᵦ(𝒚); }
 MACRO int64_t nearest(double x) { simd_tᵦ 𝒙 = simd_initᵦ(x); simd_tₒ 𝒚 = nearest(𝒙); return simd_scalarᵢₐ(𝒚); }

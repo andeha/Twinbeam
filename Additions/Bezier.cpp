@@ -12,8 +12,8 @@ Render(double⁺ʳ t, Bezierᵦ c,
 )
 { /* Also: Fifo<> + 🥽 Bilinear.cpp instead. */
     static simd_tᵦ prev=simd_initᵦ(0), *p=&prev;
-    double t²=t*t,omg=(1-t),tt1mt=3*omg;
-    simd_tᵦ c₁=simd_initᵦ(omg*omg*omg), c₂=simd_initᵦ(tt1mt*t²), 
+    double t²=t*t,drive=(1-t),tt1mt=3*drive;
+    simd_tᵦ c₁=simd_initᵦ(drive*drive*drive), c₂=simd_initᵦ(tt1mt*t²), 
       c₃=simd_initᵦ(t*t²), z11 = __builtin_simd_mulᵦ(c₁,c.z₁), 
        z12 = __builtin_simd_mulᵦ(c₂,c.z₂), 
      z1112 = __builtin_simd_addᵦ(z11,z12), 
@@ -48,4 +48,3 @@ void Antialias(int x0, int y0, int x1, int y1)
         }
     }
 }
-
