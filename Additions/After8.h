@@ -116,7 +116,7 @@ template <typename E> struct Vector { ˢConvoj<E> inner;
   
 }; /* ⬷ similar to std::vector and not c++11's std::array in <array>. */
 
-rt₋namespace panel₁ { extern __builtin_int_t bitset₋still₋short, bitset₋noncoalescable; }
+rt₋namespace After₋8 { extern __builtin_int_t bitset₋still₋short, bitset₋noncoalescable; }
 
 struct Bitset { unsigned expeditionary=1; 
   
@@ -131,8 +131,8 @@ struct Bitset { unsigned expeditionary=1;
     /* using namespace panel₁; ⬷ appears to be defined outside function for 
      extern to function ⤐ extern panel₁::bitset₋noncoalescable, 
      panel₁::bitset₋still₋short; */
-    if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { Pult💡(panel₁::bitset₋noncoalescable); }
-    if (inner.lengthen(﹟,𝟺kbframes)) { Pult💡(panel₁::bitset₋still₋short); }
+    if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { Pult💡(After₋8::bitset₋noncoalescable); }
+    if (inner.lengthen(﹟,𝟺kbframes)) { Pult💡(After₋8::bitset₋still₋short); }
   }
   
   void adjust₂(__builtin_int_t deduct₋bits) { inner.unused₋bytes = deduct₋bits; }
