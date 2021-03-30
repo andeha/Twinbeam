@@ -18,7 +18,7 @@ rule library
   ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
 
 build libAdditions_macos : library $objs/Additions.o $objs/Ieee754₆₄bits.o  $
- $objs/Guid.o $objs/crisp-d3.o $objs/Terminal.o $objs/Vt99.o $objs/Roman.o  $
+ $objs/Guid.o $objs/grün-d3.o $objs/Terminal.o $objs/Vt99.o $objs/Roman.o   $
  $objs/Streams.o $objs/Present-1.o $objs/Present-2.o $objs/Present-hw.o     $
  $objs/Automata.o $objs/Ornaments.o $objs/Bezier.o $objs/Random-sw.o        $
  $objs/Random.o $objs/⌊𝑥⌋+nearest.o $objs/arctan.o $objs/cherry.o           $
@@ -31,7 +31,7 @@ build $objs/Guid.o: cc Guid.cpp
 build $objs/Random.o: ccms Random.cpp
 build $objs/Random-sw.o: cc Random-sw.cpp
 build $objs/Vt99.o: cc Vt99.cpp
-build $objs/crisp-d3.o: cc crisp-d3.cpp
+build $objs/grün-d3.o: cc grün-d3.cpp
 build $objs/Terminal.o: cc Terminal.cpp
 build $objs/Automata.o: cc Automata.cpp
 build $objs/Ornaments.o: cc Ornament.cpp
