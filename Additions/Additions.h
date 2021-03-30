@@ -1,7 +1,7 @@
 /*
  *  Additions.h to Twinbeam with the Ieee754 'double' alt. 'float' type.
  *  C++20 to clang to x86_64 and Mips.
- *  Version 10.0.0 to Mips.
+ *  clang version 11.0.1 to Mips.
  *  Xcode Version 10.2.1 (10E1001) to x86_64.
  */
 
@@ -339,8 +339,8 @@ namespace Inputctrl {
 }
 
 #include <Additions/maths.hpp>
-#if __has_include(<Additions/crisp-d3.cxx>)
-#include <Additions/crisp-d3.cxx>
+#if __has_include(<Additions/grün-d3.cxx>)
+#include <Additions/grün-d3.cxx>
 #endif /* ⬷ text₋image, infographics, UI and perception. */
 
 struct Utf8Terminal {
@@ -368,16 +368,16 @@ struct Utf8Terminal {
 😐; /* ⬷ for rendering sediment, isaritm and discrete dissection. */
 
 namespace NumberformatCatalogue { 
- void Scientific(double ℝ, void (^out)(char32_t uc));
- void Monetary(double ℝ, void (^out)(char32_t uc));
- void Regional(double ℝ, void (^out)(char32_t uc));
- void Interval(double ℝ₁, double ℝ₂, bool openend, void (^out)(char32_t uc));
- void Percentile(double ₋𝟯σ, double ₋𝟮σ, double ₋σ, double 𝟶, double σ, 
-   double 𝟮σ, double 𝟯σ, __builtin_int_t * 𝟭𝟬ⁱ, void (^out)(char32_t uc));
- /* ⬷ See also 'Quantile'. */
- void Normal(double μ, double σ, void (^out)(char32_t uc));
- /* log-normal distribution = draped 'logₑ' is N(μ,σ²). */
- extern void (^Default)(double, Utf8Terminal&); }
+void Scientific(double ℝ, void (^out)(char32_t uc));
+void Monetary(double ℝ, void (^out)(char32_t uc));
+void Regional(double ℝ, void (^out)(char32_t uc));
+void Interval(double ℝ₁, double ℝ₂, bool openend, void (^out)(char32_t uc));
+void Percentile(double ₋𝟯σ, double ₋𝟮σ, double ₋σ, double 𝟶, double σ, 
+ double 𝟮σ, double 𝟯σ, __builtin_int_t * 𝟭𝟬ⁱ, void (^out)(char32_t uc));
+/* ⬷ See also 'Quantile'. */
+void Normal(double μ, double σ, void (^out)(char32_t uc));
+/* log-normal distribution = draped 'logₑ' is N(μ,σ²). */
+extern void (^Default)(double, Utf8Terminal&); } /* ⬷ NumberformatCatalogue. */
 enum class Base { dec, hex, oct, bin };
 void Present(Utf8Terminal &term, __builtin_int_t ℤ);
 void Present(Utf8Terminal &term, __builtin_uint_t ℕ, Base base);
@@ -386,11 +386,20 @@ void Present(Utf8Terminal &term, char32_t uc);
 void Present(Utf8Terminal &term, char8_t * u8s, __builtin_int_t maxbytes=BUILTIN₋INT₋MAX);
 /* Struct assignment ⟶ Memory (shallow) copy. */
 void Present(Utf8Terminal &term, Ornaments& o);
-/* void Present(Utf8Terminal &term, UnicodeBlock location); */
+/* void Present(Utf8Terminal &term, Unicodeblock location); */
 /* enum Register { rtcc, dma0, … }; void Present(Utf8Terminal &term, Register reg); */
 void Present(Utf8Terminal &term, AnnotatedRegister& ar, uint32_t value, bool 𝟷𝟼₋bits=false);
 void Presentᵧ(Utf8Terminal &term, double 𝕏);
 void Presentᵧ(Utf8Terminal &term, float 𝕏);
+
+struct statistics { double min, q1, mean, q3, max; };
+DISORDERABLE void Present(Utf8Terminal &term, statistics& details, 
+ Ieee754form f, Unicodes separator);
+
+enum class Simdformᵦ { normal₋distribution, approximation₋follow₋accuracy, 
+ max₋to₋min, complex, cartesian2ᵈ, polar2ᵈ, polar₋and₋contracyclicity };
+/* ⬷ angular components always within [-pi/2, pi/2]. */
+void Present(Utf8Terminal &term, simd_tᵦ 𝕏, Simdformᵦ semantic);
 
 #pragma mark - Conveniences
 
@@ -455,12 +464,13 @@ Utf8Terminal & operator<<(Utf8Terminal&, 𝗣𝒂𝒈𝒆);
 
 extern "C" { extern const char *tab, *eol, *sep; } /* later possibly-maybe: ↹ ↩︎ ¶ and hfill: ⎓ alt. ﹇. */
 
-namespace Terminal { extern Utf8Terminal myOutput, myTrace₁, myTrace₂; }
-namespace Vt100 { const char * bright, *dim, *fgBlue, *fgRed, *reset, *reverse; }
+rt₋namespace Terminal { extern Utf8Terminal myOutput, myTrace₁, myTrace₂; }
+rt₋namespace Vt100 { const char * bright, *dim, *fgBlue, *fgRed, *reset, *reverse; }
 
 #define Termlog Terminal::myTrace₂
+#define Termtail Terminal::myTrace₁
 
-#pragma mark - A globally unique identifier
+#pragma mark - A globally unique identifier for small and big
 
 typedef sexdeca Guid;
 
