@@ -16,8 +16,8 @@ struct History { /* ⬷ consideration success! */
     explicit History(version₋ts & revision) noexcept;
     
     enum Kind { machineunsigned, single₋ℝ, double₋ℝ, 𝟺₋𝗵𝗮𝗹𝗳s=4, 𝟾Q7=3, 𝟺Q15=5, 
-      𝟸Q31=8, 𝛥𝘵=9, Q79=10, Temporalˡ=11, /* ⟤⟥ */ machinesigned=23, 
-      ChronoUQ32²=24 };
+     𝟸Q31=8, 𝛥𝘵=9, Q79=10, Temporalˡ=11, /* ⟤⟥ */ machinesigned=23, 
+     ChronoUQ32²=24 };
     
     union Pod {
       __builtin_uint_t machineunsigned;                               /*  0 */
@@ -37,18 +37,16 @@ struct History { /* ⬷ consideration success! */
       struct { Bignum right; Bignum left; } doublebig;                   12 */
       struct Mixedradix { float small; int32_t 𝟷𝟶ᵐ; }; /* ⬷ alt. 'double' and '__builtin_int_t'. */
       struct { Mixedradix right; Mixedradix left; } detail;           /* 17 */
-      struct Small₋schoolbook { uint32_t ℤ; uint16_t modula, denom; int total₋nonpositive; }; /* ⬷ see --<Twinbeam.h>{Schoolbook} for a traditional schoolbook. */
+      struct Small₋schoolbook { int32_t ℤ; uint16_t modula, denom; int quotient₋nonpositive; }; /* ⬷ see --<Twinbeam.h>{Schoolbook} for a traditional schoolbook. */
       struct { Small₋schoolbook starboard, port; } financials;        /* 19 */
-      struct { Chronology::UQ32 starboard, port; } maxmin₋latency;    /* 24 */
+      struct { Chronology::UQ32 port, starboard; } maxmin₋latency;    /* 24 */
     };
     
-    ˢConvoj<signed char> 𝟽bit₋pool; Kiddle unicode₋pool; /* ⬷ compares to 
-     compulsive cases of 'Alloc' and 'Fallow`. */
+    Kiddle 𝟽bit₋pool, unicode₋pool; /* ⬷ compares to compulsive cases of 'Alloc' and 'Fallow`. */
     
-    typedef __builtin_int_t 𝟽₋bit₋ref;
-    typedef Kiddle::Nonabsolute Unicode₋ref;
+    typedef Kiddle::Nonabsolute 𝟽₋bit₋ref, Unicode₋ref;
     
-    Timeserie<Unicode₋ref, Pod, 𝟽₋bit₋ref> serie; /* ⬷ see also --<Kiddie.hpp>. */
+    Timeserie<Unicode₋ref,Pod,𝟽₋bit₋ref> serie; /* ⬷ see also --<Kiddie.hpp>. */
     
     History::Pod add(History::Pod& left, History::Pod& right, 𝟽bit₋text ref, Kind kind);
     
