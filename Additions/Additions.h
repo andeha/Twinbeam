@@ -465,7 +465,7 @@ Utf8Terminal & operator<<(Utf8Terminal&, 𝗣𝒂𝒈𝒆);
 extern "C" { extern const char *tab, *eol, *sep; } /* later possibly-maybe: ↹ ↩︎ ¶ and hfill: ⎓ alt. ﹇. */
 
 rt₋namespace Terminal { extern Utf8Terminal myOutput, myTrace₁, myTrace₂; }
-rt₋namespace Vt100 { const char * bright, *dim, *fgBlue, *fgRed, *reset, *reverse; }
+rt₋namespace Vt100 { extern const char * bright, *dim, *fgBlue, *fgRed, *reset, *reverse; }
 
 #define Termlog Terminal::myTrace₂
 #define Termtail Terminal::myTrace₁

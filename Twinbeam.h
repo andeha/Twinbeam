@@ -1,6 +1,6 @@
 /*  Twinbeam.h (libTwinbeam_X_cdcdc7f.a)
-    C++20 for clang to x86_64, Arm Cortex M0+, AAPL M1, ESP32 and MIPS.
-    MIPS compiled using clang version 11.0.1
+    c++20 for clang to x86_64, Arm Cortex M0+, AAPL M1, Esp32 and Mips.
+    Mips compiled using clang version 11.0.1
     x86_64 compiled using Xcode Version 10.2.1 (10E1001) 
     and/or clang-11.0.1. */
 
@@ -258,7 +258,7 @@ Argᴾ ﹟c(char8_t c); Argᴾ ﹟c(char c); Argᴾ ﹟C(char32_t C);
 Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
 #endif
 Argᴾ ﹟regs(__builtin_uint_t mask); Argᴾ ﹟λ(Argᴾ::Output scalar, void * context);
-extern "C" { int atexit(void(*func)(void)); void exit(int); } 
+extern "C" { int atexit(void(*func)(void)); void exit(int); }
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fall⒪⒲)(void *);
 __builtin_int_t 𝟺𝟶𝟿𝟼₋aligned₋frame(__builtin_int_t byte₋number, __builtin_int_t * modulo);
 int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
@@ -318,17 +318,17 @@ MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /* ⬷ 
 ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
 ByteAlignedRef Overwrite8Memory(ByteAlignedRef src, uint8_t val,
   __builtin_int_t bytes);
-#define Block_copy(...) ((__typeof(__VA_ARGS__))_Block_copy((const void *)(__VA_ARGS__)))
-#define Block_release(...) _Block_release((const void *)(__VA_ARGS__))
-struct Block_descriptor { unsigned long int reserved; unsigned long int size;
+#define copy₋block(...) ((__typeof(__VA_ARGS__))_Block₋copy((const void *)(__VA_ARGS__)))
+#define release₋block(...) _Block₋release((const void *)(__VA_ARGS__))
+struct Block₋descriptor { unsigned long int reserved; unsigned long int size;
   void (*copy)(void *dst, void *src); void (*dispose)(void *); };
-struct Block_layout { void * isa; int flags; int reserved; void (*invoke)(void *,
-  ...); struct Block_descriptor * descriptor; /* Imported variables. */ };
-MACRO void * _Block_copy(const void * arg) { struct Block_layout *block = (struct
-  Block_layout *)arg; struct Block_layout *res = (struct Block_layout *)Alloc(
-  block->descriptor->size); Copy8Memory((ByteAlignedRef)res, (ByteAlignedRef)
-  block, block->descriptor->size); return res; }
-MACRO void _Block_release(const void *arg) { Fall⒪⒲((void *)arg); }
+struct Block₋layout { void * isa; int flags; int reserved; void (*invoke)(void *,
+  ...); struct Block₋descriptor * descriptor; /* Imported variables. */ };
+MACRO void * _Block₋copy(const void * arg) { struct Block₋layout * block = (struct
+  Block₋layout *)arg; struct Block₋layout * y = (struct Block₋layout *)Alloc(
+  block->descriptor->size); Copy8Memory((ByteAlignedRef)y, (ByteAlignedRef)
+  block, block->descriptor->size); return y; }
+MACRO void _Block₋release(const void *arg) { Fall⒪⒲((void *)arg); }
 typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
 __builtin_int_t constexpr Syspagesize() { return 4096; } /* ⬷ one definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
@@ -713,7 +713,7 @@ struct ˢConvoj { structure inner; __builtin_int_t count=0;
   ˢConvoj(std::initializer_list<G> lst) { init(lst); } ˢConvoj() { init({}); }
   ˢConvoj& operator=(std::initializer_list<G> lst) { init(lst); return *this; }
   /* Convoj& operator=(G * other) { return *this; } */
-  G& operator[](int idx) { return (G *)inner.relative(idx*sizeof(G)); }
+  G& operator[](int idx) { return (G &)*(G *)inner.relative(idx*sizeof(G)); }
   void pop() { --count; } int init(std::initializer_list<G> lst);
   int copy₋include(int count, G * Ɀ, int cycles=1);
 };
@@ -789,12 +789,15 @@ inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
 /* #include <Source/fiber₁> */
 #include <Source/coroutine>
 
+rt₋namespace Scheduler {
+  extern void * hw₋collection; /* ⬷ a․𝘬․a Map<irq₋no, Coroutine₋task>. */
+  extern Necklace *first, *curr, *last;
+}
+
 namespace Scheduler { void Init(); 
   
   /* typedef 𝟄₋int₁ (*Coroutine₋1)(void * ctx); /‌* ⬷ and at least one 
     of 'co_await', 'co_yield' and 'co_return'. */
-  
-  extern void * hw₋collection; /* ⬷ a․𝘬․a Map<irq₋no, Coroutine₋task>. */
   
   /*  𝟄₋int₁ y = co_await coroutine₋name(ctx);
    auto retrieved = ^(𝟄₋int₁& y) { return y.coroutine.promise().cached; };
@@ -806,8 +809,6 @@ namespace Scheduler { void Init();
   int Process(int32_t ﹟irq, 𝟄₋int₁::Waiver * ref);
   
   struct Necklace { 𝟄₋int₁ & err; Necklace * nxt; };
-  
-  extern Necklace *first, *curr, *last;
   
   int Operational(𝟄₋int₁ * coroutine₋err, void * (^pearl₋alloc)(int bytes)); /* ⬷ a․𝘬․a 'Start' and 'Cyclic'. */
   
