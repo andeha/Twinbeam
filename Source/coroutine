@@ -57,7 +57,7 @@ struct 𝟄₋int₋base { /* ⬷ a․𝘬․a 𝟄₋int₋error. */
     int cargo₋kind, emanates; /* ⬷ a․𝘬․a ray₋possibly₋scatter and 'thread𝘖rSolfjäder'. */
     /* enum { suspend₋after₋yield, no₋suspend₋after₋yield }; ⬷ a․𝘬․a /pond/. */
     auto initial_suspend() { return Tonart { 0 }; }
-    auto final_suspend() { return Tonart { 0 }; }
+    auto final_suspend() noexcept { return Tonart { 0 }; }
     void unhandled_exception() { /* throw; */ }
     void initialize(char32_t uc) { transport.symbol = uc; cargo₋kind = 1; }
     void initialize(int ℤ) { transport.ℤ = ℤ; cargo₋kind = 0; }

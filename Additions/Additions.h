@@ -467,6 +467,7 @@ extern "C" { extern const char *tab, *eol, *sep; } /* later possibly-maybe: ↹ 
 rt₋namespace Terminal { extern Utf8Terminal myOutput, myTrace₁, myTrace₂; }
 rt₋namespace Vt100 { extern const char * bright, *dim, *fgBlue, *fgRed, *reset, *reverse; }
 
+#define Termout Terminal::myOutput
 #define Termlog Terminal::myTrace₂
 #define Termtail Terminal::myTrace₁
 
@@ -486,7 +487,7 @@ __builtin_int_t Pression(Chronology₋peg * act, bool * wrapped); /* ⬷ a․�
 
 namespace Messaging { /* ⬷ a․𝘬․a Transceiver, /lear-n-i-n-g/, static-telluric and after₋Retrospectives. */
    
-   int Init(void * sw₋signals, /* recall --<Twinbeam.h>{Scheduler::hw₋collection}. */
+   int Init(void * sw₋signals, /* ⬷ recall --<Twinbeam.h>{Scheduler::hw₋collection}. */
      void * (^node₋alloc)(int bytes)
    );
    

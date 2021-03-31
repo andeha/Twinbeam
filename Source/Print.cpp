@@ -32,7 +32,7 @@ Argᴾ ﹟S(__builtin_int_t tetras, const char32_t * uc) { return Argᴾ { { .uc
 Argᴾ ﹟c(char8_t c) { return Argᴾ { { .c=c }, 6 }; }
 Argᴾ ﹟c(char c) { return Argᴾ { { .c=(char8_t)c }, 6 }; }
 Argᴾ ﹟C(char32_t C) { return Argᴾ { { .uc=C }, 7 }; }
-#ifdef simd₋integers
+#if defined 𝟷𝟸𝟾₋bit₋integers
 Argᴾ ﹟U(__uint128_t U) { return Argᴾ { { .U=U }, 11 }; }
 Argᴾ ﹟I(__int128_t I) { return Argᴾ { { .I=I }, 12 }; }
 #endif
@@ -78,7 +78,7 @@ print﹟(
     auto unicode₋stream = ^(int tetras, char32_t 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 * unicodes) { __builtin_int_t 
       beam=0; while (beam < tetras) { char32_t uc = *(unicodes + beam); unicode₋symbol(uc); 
       ++beam; } }; /* { int, (bytes, symbols) } */
-#ifdef simd₋integers
+#ifdef 𝟷𝟸𝟾₋bit₋integers
     auto 𝟷𝟸𝟾₋out𝕫 = ^(__int128_t I) { Base𝕫(I, 10, 0, ^(char 𝟶to𝟿) { out₂(&𝟶to𝟿,1); }); };
     auto 𝟷𝟸𝟾₋out𝕟 = ^(__uint128_t U) { Base𝕟(U, 16, 0, ^(char 𝟶to𝟿and₋) { out₂(&𝟶to𝟿and₋,1); }); };
 #endif
@@ -107,7 +107,7 @@ again:
        void * context) { if (!anfang) { print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); }    \
        else { Anfang(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, NULL); } }; a.value.λ.scalar(set,        \
        a.value.λ.context); break; }
-#ifdef simd₋integers
+#ifdef 𝟷𝟸𝟾₋bit₋integers
       case 11: 𝟷𝟸𝟾₋out𝕟(a.value.U); break;                                      \
       case 12: 𝟷𝟸𝟾₋out𝕫(a.value.I); break;
 #endif
@@ -124,7 +124,8 @@ unagain:
 extern "C" long write(int fd, const void * s, long unsigned nbyte);
 #elif defined __armv8a__ || defined __mips__ || defined espressif || defined __armv6__
 extern void (^Putₒ)(char8_t * u8s, __builtin_int_t bytes);
-extern void (^Traceₒ)(char8_t * u8s, __builtin_int_t bytes);
+extern void (^Trace₁)(char8_t * u8s, __builtin_int_t bytes);
+extern void (^Trace₂)(char8_t * u8s, __builtin_int_t bytes);
 #endif
 
 FOCAL
@@ -139,7 +140,7 @@ mfprint(
    int 🥇 descript = original ? 1 /* stdout */ : 2 /* stderr */;
    auto out = ^(char8_t * u8s, __builtin_int_t bytes) { write(descript, (const void *)u8s, bytes); };
 #elif defined __armv8a__ || defined __mips__ || defined espressif || defined __armv6__
-   auto out = ^(char8_t * u8s, __builtin_int_t bytes) { Traceₒ(u8s,bytes); };
+   auto out = ^(char8_t * u8s, __builtin_int_t bytes) { Trace₁(u8s,bytes); };
 #endif
    y = print﹟(out,utf8format,__various);
    va_epilogue return y;
