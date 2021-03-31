@@ -1,106 +1,174 @@
-/*  Kiddle.hpp | dictionary of Unicode symbols on equal-sized frames divisible by four bytes. */
+/*  Kiddle.hpp | dictionary of Unicode symbols alternatively signed 7-bits characters 
+ on equal-sized frames divisible by four bytes. */
 
-struct Kiddle {  typedef __builtin_int_t Nonabsolute; 
+struct Kiddle { typedef __builtin_int_t Nonabsolute; void *tiletree=NULL, *cached₋tile;
   
-  union Tetra𝘖rUnicode { int32_t count; char32_t uc; } * cached₋tile; 
+  union Tetra𝘖rUnicode { int32_t count; char32_t uc; };
+  union Smallpool { uint8_t count₋hi₋to₋lo; signed char 𝟽bit₋char; };
+  union Synthesizer { uint8_t count₋hi₋to₋lo[4]; int32_t * count; };
   
-  void * tiletree=NULL; __builtin_int_t cached₋number=-1, tile₋count=0, uc₋brk=0, 
-   tetras₋per₋tile;
+  __builtin_int_t cached₋number=-1, tile₋count=0, ucAlt𝟽bit₋brk₋count=0, tetras₋per₋tile;
   
-  int init(__builtin_int_t tetras₋per₋tile, 
-    __builtin_int_t count, 
-    void * ᵒfᵗᵉⁿ𝟺kb₋tiles[], 
+  int
+  init(__builtin_int_t tetras₋per₋tile, 
+    __builtin_int_t count, void * kbXtiles[], 
     void * (^leaf₋alloc)(int bytes)
   )
   {  this->tetras₋per₋tile = tetras₋per₋tile; 
-     if (inflate(count,ᵒfᵗᵉⁿ𝟺kb₋tiles,leaf₋alloc)) { return -1; }
+     if (inflate(count,kbXtiles,leaf₋alloc)) { return -1; }
      return 0;
   } /* ⬷ a corresponding utf-8 files' byte length always indicates enough space. */
   
-  /* int optional₋uninit(void * (^unalloc)(int bytes)) { } ⬷ operating system releases 
-   allocated memory space when program ends. */
+  int optional₋uninit(void * (^unalloc)(int bytes)) { return 0; }
+  /* ⬷ operating system releases allocated memory space when program ends. */
   
-#pragma mark tile collection
+#pragma mark the tile collection
   
-  int inflate(
+  FOCAL
+  int
+  inflate(
     __builtin_int_t count, 
-    void * ᵒfᵗᵉⁿ𝟺kb₋tiles[], 
+    void * kbXtiles[], 
     void * (^leaf₋alloc)(int bytes)
   )
   {
      for (__builtin_int_t i=0; i<count; ++i, ++tile₋count) {
-       Treeint leaf { .keyvalue = { tile₋count , __builtin_uint_t(ᵒfᵗᵉⁿ𝟺kb₋tiles[i]) } };
-       Insert(tiletree, leaf, leaf₋alloc);
+       Treeint leaf { .keyvalue = { tile₋count , __builtin_uint_t(kbXtiles[i]) } };
+       void * node = Insert(tiletree,leaf,leaf₋alloc);
+       if (node == NULL) { return -1; }
      }
      return 0;
   }
   
-  Tetra𝘖rUnicode * particular(__builtin_int_t exact)
+  void * particular₋tile(__builtin_int_t exact)
   {
-     if (exact == cached₋number) { return cached₋tile; }
-     Treeint leafkey { exact, 0 };
-     Treeint * seeked = Lookup(tiletree, leafkey);
-     if (seeked == NULL) { return (Tetra𝘖rUnicode *)NULL; }
-     return (Tetra𝘖rUnicode *)(seeked->keyvalue.val);
+    if (exact == cached₋number) { return cached₋tile; }
+    Treeint leafkey { exact, 0 };
+    Treeint * seeked = Lookup(tiletree,leafkey);
+    if (seeked == NULL) { return NULL; }
+    return (void *)(seeked->keyvalue.val);
   }
   
-#pragma mark indexing
+#pragma mark tiles and offsets
   
-  Tetra𝘖rUnicode& at(__builtin_int_t slot₋idx, __builtin_int_t tile₋idx) 
-    { return *(slot₋idx + particular(tile₋idx)); }
-  
-  Tetra𝘖rUnicode& at(Nonabsolute relative) { __builtin_int_t 
-    tile₋idx=relative/tetras₋per₋tile, slot₋idx=relative%tetras₋per₋tile;
-    return at(slot₋idx,tile₋idx);
+  void * at(__builtin_int_t slot₋idx, __builtin_int_t tile₋idx, int flavor)
+  {
+    if (flavor) { return slot₋idx + ((Smallpool *)(particular₋tile(tile₋idx))); }
+    else { return slot₋idx + ((Tetra𝘖rUnicode *)(particular₋tile(tile₋idx))); }
   }
   
-#pragma mark input
+  Smallpool& at₁(Nonabsolute relative)
+  {
+    __builtin_int_t tile₋idx=relative/tetras₋per₋tile, slot₋idx=relative%tetras₋per₋tile;
+    return (Smallpool&)*(Smallpool *)at(slot₋idx,tile₋idx,0);
+  }
   
-  int copy₋append₋text(int count, char32_t cs[], 
-    void (^inflate)(__builtin_int_t ﹟, bool& cancel) 
+  Tetra𝘖rUnicode& at₂(Nonabsolute relative)
+  {
+    __builtin_int_t tile₋idx=relative/tetras₋per₋tile, slot₋idx=relative%tetras₋per₋tile;
+    return (Tetra𝘖rUnicode&)*(Tetra𝘖rUnicode *)at(slot₋idx,tile₋idx,1);
+  }
+  
+#pragma mark controlling and linearly traverse text
+  
+  int copy₋append₋text(int count, signed char cs[], Kiddle::Nonabsolute * ref, 
+  /* ⬷ a․𝘬․a '𝟽bit₋pointer' except semantic on inclusion of NULL. */
+    void (^inflate)(__builtin_int_t ﹟, void **kbXtiles, bool& cancel)
+  )
+  { /* optionally grow with a few pages ⤐ */
+    __builtin_int_t max₋bytes = 4 * tile₋count * tetras₋per₋tile;
+    __builtin_int_t bytes₋overflow = ucAlt𝟽bit₋brk₋count + count - max₋bytes;
+    __builtin_int_t bytes₋per₋tile = 4*tetras₋per₋tile;
+    if (bytes₋overflow > 0) { bool cancel = false; 
+      __builtin_int_t modula = bytes₋overflow % bytes₋per₋tile, 
+       ﹟ = bytes₋overflow/bytes₋per₋tile; void * kbXtiles[﹟];
+       inflate(1 + ﹟ + (modula == 0 ? 0 : 0), kbXtiles, cancel);
+       if (cancel) { return -1; }
+    }
+    for (int i=0; i<count; ++i, ++ucAlt𝟽bit₋brk₋count) {
+      if (ucAlt𝟽bit₋brk₋count == bytes₋per₋tile) { ++tile₋count; ucAlt𝟽bit₋brk₋count=0; }
+      /* at₁(ucAlt𝟽bit₋brk₋count,tile₋count).𝟽bit₋char = cs[i]; */
+      ((Smallpool *)at(ucAlt𝟽bit₋brk₋count,tile₋count,0))->𝟽bit₋char = cs[i];
+    }
+    return 0;
+  }
+  
+  int copy₋append₋text(int count, char32_t cs[], Kiddle::Nonabsolute * ref, 
+    void (^inflate)(__builtin_int_t ﹟, void **kbXtiles, bool& cancel)
   )
   {
     /* optionally grow with a few pages ⤐ */
     __builtin_int_t max₋uc = tile₋count * tetras₋per₋tile;
-    __builtin_int_t uc₋overflow = uc₋brk + count - max₋uc;
+    __builtin_int_t uc₋overflow = ucAlt𝟽bit₋brk₋count + count - max₋uc;
     if (uc₋overflow > 0) { bool cancel = false; 
       __builtin_int_t modula = uc₋overflow % tetras₋per₋tile, 
-       ﹟ = uc₋overflow/tetras₋per₋tile;
-      inflate(1 + ﹟ + (modula == 0 ? 0 : 0), cancel);
+       ﹟ = uc₋overflow/tetras₋per₋tile; void * kbXtiles[﹟];
+      inflate(1 + ﹟ + (modula == 0 ? 0 : 0), kbXtiles, cancel);
       if (cancel) { return -1; }
     }
-    for (int i=0; i<count; ++i, ++uc₋brk) {
-      if (uc₋brk >= tetras₋per₋tile) { ++tile₋count; uc₋brk=0; }
-      at(uc₋brk,tile₋count).uc = cs[i];
+    for (int i=0; i<count; ++i, ++ucAlt𝟽bit₋brk₋count) {
+      if (ucAlt𝟽bit₋brk₋count == tetras₋per₋tile) { ++tile₋count; ucAlt𝟽bit₋brk₋count=0; }
+      /* at₂(ucAlt𝟽bit₋brk₋count,tile₋count).uc = cs[i]; */
+      ((Tetra𝘖rUnicode *)at(ucAlt𝟽bit₋brk₋count,tile₋count,1))->uc = cs[i];
     }
     return 0;
   }
   
-  int datum₋text(short tetras) {
-    Nonabsolute relative = uc₋brk + (tile₋count - 1)*tetras₋per₋tile - tetras;
-    at(relative).count = tetras;
+  int datum₋text₁(int32_t bytes)
+  {
+    Nonabsolute relative = ucAlt𝟽bit₋brk₋count + 4*(tile₋count - 1)*tetras₋per₋tile - bytes;
+    int32_t bytes2=bytes; Synthesizer synth { .count=&bytes2 };
+    Smallpool * first = &at₁(relative);
+    (first + 0)->𝟽bit₋char = synth.count₋hi₋to₋lo[0];
+    (first + 1)->𝟽bit₋char = synth.count₋hi₋to₋lo[1];
+    (first + 2)->𝟽bit₋char = synth.count₋hi₋to₋lo[2];
+    (first + 3)->𝟽bit₋char = synth.count₋hi₋to₋lo[3];
     return 0;
   }
   
-#pragma mark comparision
+  int datum₋text₂(int32_t tetras)
+  {
+    Nonabsolute relative = ucAlt𝟽bit₋brk₋count + (tile₋count - 1)*tetras₋per₋tile - tetras;
+    at₂(relative).count = tetras;
+    return 0;
+  }
   
-  int textual₋similar(Unicodes uc₁, Nonabsolute relative) {
-    __builtin_int_t tetras = at(relative).count;
+#pragma mark text comparision
+  
+  int textual₋similar(𝟽bit₋text txt₁, Nonabsolute relative)
+  {
+     uint8_t * count₋hi₋to₋lo₋ptr = (uint8_t *)&(at₁(relative).count₋hi₋to₋lo);
+     Synthesizer synth;
+     synth.count₋hi₋to₋lo[0] = *(count₋hi₋to₋lo₋ptr + 0);
+     synth.count₋hi₋to₋lo[1] = *(count₋hi₋to₋lo₋ptr + 1);
+     synth.count₋hi₋to₋lo[2] = *(count₋hi₋to₋lo₋ptr + 2);
+     synth.count₋hi₋to₋lo[3] = *(count₋hi₋to₋lo₋ptr + 3);
+     __builtin_int_t bytes = *synth.count;
+     if (txt₁.bytes != bytes) { return 0; }
+     for (__builtin_int_t i=0; i<bytes; ++i) {
+       if (*(i + txt₁.segment) != at₁(relative + i).𝟽bit₋char) { return 0; }
+     }
+     return 1;
+  }
+  
+  int textual₋similar(Unicodes uc₁, Nonabsolute relative)
+  {
+    __builtin_int_t tetras = at₂(relative).count;
     if (uc₁.tetras != tetras) { return 0; }
     for (__builtin_int_t i=0; i<tetras; ++i) {
-      if (*(i + uc₁.unicodes) != at(relative + i).uc) { return 0; }
+      if (*(i + uc₁.unicodes) != at₂(relative + i).uc) { return 0; }
     }
     return 1;
-  } /* ⬷ see Unicode normalization. */
+  } /* ⬷ continue further with Unicode normalization. */
   
-#pragma mark inner recollection (possibly --<Additions/treeᵚ.hpp>)
+#pragma mark inner recollection a․𝘬․a --<Additions/treeᵚ.hpp>
   
   void * legato=NULL; /* =Map<int128_t, { Nonabsolute,jot,... }> */
   
   struct Node { union Key { __int128_t sgned; __uint128_t bits; } key; 
    Nonabsolute offset; void * jot; Node *right, *left; };
   
-   Node * newNode(__uint128_t fineprint, void * (^alloc)(int bytes)) {
+   Node * new₋node(__uint128_t fineprint, void * (^alloc)(int bytes)) {
      Node * nodeloc = (Node *)alloc(sizeof(Node));
      if (nodeloc) { return NULL; }
      Node * node = new (nodeloc) struct Node;
@@ -110,7 +178,7 @@ struct Kiddle {  typedef __builtin_int_t Nonabsolute;
   
    Node * insert(Node * node, __uint128_t fineprint, void * (^alloc)(int bytes)) {
      /* 1. If the tree is empty, return a new, single node */
-     if (node == NULL) { return newNode(fineprint, alloc); }
+     if (node == NULL) { return new₋node(fineprint, alloc); }
      else { /* 2. otherwise, recur down the tree */
        if (fineprint <= node->key.bits) {
          node->left = insert(node->left, fineprint, alloc); }
@@ -168,7 +236,7 @@ JOT *
 Match(Kiddle& kiddle, Unicodes uc, 
   void * (^jot₋alloc)(int bytes), 
   void * (^leaf₋alloc)(int bytes), 
-  void (^inflate)(__builtin_int_t ﹟, bool& cancel) 
+  void (^inflate)(__builtin_int_t ﹟, void **kbXtiles, bool& cancel)
 )
 {
    𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __uint128_t prime = (__uint128_t)0b1<<88 | 0b1<<8 | 0x3b, 
@@ -201,9 +269,9 @@ ended: /* include a fresh and formerly non-existing entry ⤐ */
    agree = kiddle.store₋impression(h,leaf₋alloc);
    if (agree == NULL) { return NULL; }
    agree->jot = (JOT *)jot₋alloc(sizeof(JOT));
-   /*  ⬷ include₁ and include₂ ⤐ */
-   if (kiddle.copy₋append₋text(uc.tetras,uc.unicodes,inflate)) { return NULL; }
-   if (kiddle.datum₋text(uc.tetras)) { return NULL; }
+   /*  ⬷ include₁ and include₂ ⤐ */ Kiddle::Nonabsolute ref;
+   if (kiddle.copy₋append₋text(uc.tetras,uc.unicodes,&ref,inflate)) { return NULL; }
+   if (kiddle.datum₋text₂(uc.tetras)) { return NULL; }
    
    return agree->jot;
 }
