@@ -442,7 +442,7 @@ typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffse
 
 typedef signed char * 𝟽bit₋pointer;
 
-struct 𝟽bit₋text { __builtin_int_t bytes; 𝟽bit₋pointer segment; };
+struct 𝟽bit₋text { __builtin_int_t bytes; signed char * segment; };
 
 struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * segment; }; /* ⬷ type 
  'char' C implementation dependent whether signed/unsigned. See '-fno-signed-char'. */
@@ -791,7 +791,7 @@ inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
 
 rt₋namespace Scheduler {
   extern void * hw₋collection; /* ⬷ a․𝘬․a Map<irq₋no, Coroutine₋task>. */
-  extern Necklace *first, *curr, *last;
+  extern struct Necklace *first, *curr, *last;
 }
 
 namespace Scheduler { void Init(); 
