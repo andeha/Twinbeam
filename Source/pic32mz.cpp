@@ -32,26 +32,10 @@ Copy8Memory(
   __builtin_int_t bytes
 ) /* ⬷ a․𝘬․a 'memcpy'. */
 {
-    char *dp = (char *)dst;
-    const char *sp = (const char *)src;
-    while (bytes--) *dp++ = *sp++;
-    return dst;
-} /* See also --<Additions.h>{OptimisticAsync8Copy} 𝘪․𝘦 copying using DMA. */
+   char * dp = (char *)dst;
+   const char * sp = (const char *)src;
+   while (bytes--) *dp++ = *sp++;
+   return dst;
+} /* ⬷ see also --<Additions.h>{OptimisticAsync8Copy} 𝘪․𝘦 copying using a DMA-facility. */
 
-/* µA("mips", "r2", x₃, x₄) */
-FOCAL
-int
-Compare8Memory(
-  ByteAlignedRef l,
-  ByteAlignedRef r,
-  __builtin_uint_t bytes
-) /* ⬷ a․𝘬․a 'memcmp'. */
-{
-    const unsigned char *p₁ = l, *p₂ = r;
-    while (bytes--) {
-      if (*p₁ != *p₂) return *p₁ - *p₂;
-      else p₁++,p₂++;
-    }
-    return 0;
-} /* Notice that this method is 'too cristalline' when dealing with Unicodes. */
 

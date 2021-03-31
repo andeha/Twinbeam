@@ -8,13 +8,15 @@ extern "C" DISORDERABLE /* ⬷ overridden when linked together with 𝘦․𝘨 
 jmp_buf2 * /* volatile */ JmpBuf() { return &(singleTaskProgramState); }
 
 FOCAL int IADD(short id, int32_t addend, int32_t augend, 
-  int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * sum₋negative) {
-    extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4];
-    return 0;
+  int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * sum₋negative
+)
+{
+   extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4];
+   return 0;
 }
 
-FOCAL int Fused₋IMUL(short id, int32_t augend, int32_t multiplier, int invMultiplyThenAdd, 
-  int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * accumulator₋negative
+FOCAL int Fused₋IMUL(short id, int32_t augend, int32_t multiplier, 
+ int invMultiplyThenAdd, int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * accumulator₋negative
 )
 {
    extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4];
@@ -27,11 +29,11 @@ FOCAL int Fused₋IMUL(short id, int32_t augend, int32_t multiplier, int invMult
 FOCAL
 int
 Acquire𝟷ᵈ(
-  __builtin_int_t ﹟, /* a․𝘬․a `#shatters`, `﹟skeletons` and `﹟turnstiles'. */
+  __builtin_int_t ﹟, /* ⬷ a․𝘬․a '#shatters', '﹟skeletons' and '﹟turnstiles'. */
   __builtin_int_t 𝑙𝑜𝑔₂Pages, 
   __builtin_uint_t pages[], __builtin_uint_t avails[], 
   void (^every)(uint8_t * 𝟸ⁿ₋frame, bool& stop)
-) /* Given a transactional memory, reconsider acquire with and without rollback. */
+) /* ⬷ given a transactional memory, reconsider acquire with and without rollback. */
 {  __builtin_int_t 🥈 BytesPerWord=sizeof(__builtin_uint_t), Bits=BytesPerWord<<3;
    __builtin_int_t Pages=0b1<<𝑙𝑜𝑔₂Pages, Idxs=(Pages/BytesPerWord)>>3;
      if (﹟ <= 0) { return -1; } bool stop=false;
@@ -44,8 +46,8 @@ again:
 #elif defined __x86_64__ || defined __armv8a__
        __builtin_int_t onesUntilZero = __builtin_ctzll(~occupied);
 #endif
-       avails[i] ^= 1<<onesUntilZero; /* ⬷ See also note at --<Additions.h>{Bitsetˢᵘᵖ}. */
-       __builtin_int_t byteOffset = SystemPagesize()*(Bits*i + onesUntilZero);
+       avails[i] ^= 1<<onesUntilZero; /* ⬷ see also note at --<Additions.h>{Bitsetˢᵘᵖ}. */
+       __builtin_int_t byteOffset = Syspagesize()*(Bits*i + onesUntilZero);
        every((uint8_t *)pages+byteOffset, stop);
        if (stop) { return -3; }
        if (--﹟ == 0) { return 0; } else { goto again; }
@@ -72,14 +74,14 @@ Release𝟷ᵈ(
     if (avails[ᵚidx] & toggle) { return -2; }
     avails[ᵚidx] ^= toggle;
     /* *** 🎿-end *** */
-    if (secure) { Overwrite8Memory((ByteAlignedRef)𝟸ⁿ₋frame, 0x0, SystemPagesize()); }
+    if (secure) { Overwrite8Memory((ByteAlignedRef)𝟸ⁿ₋frame, 0x0, Syspagesize()); }
     return 0; /* See also --<Virtual.cxx>{Forget} for a frame-granular overwrite method. */
-} /* ⬷ similar to `Fallow` and `free` but assumes same-sized areas. */
+} /* ⬷ similar to 'Fallow' and 'free' but assumes same-sized areas. */
 
 #pragma mark - Therapeutic grip for one realization:
 
 extern void Reservoir(unsigned expeditionary, __builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_int_t *Idxs, 
-  __builtin_uint_t **pages, __builtin_uint_t **avails); /* ⬷ a․𝘬․a `Universe` and defined in --<llvm-rt3.cpp>. */
+  __builtin_uint_t **pages, __builtin_uint_t **avails); /* ⬷ a․𝘬․a 'Universe' and defined in --<llvm-rt3.cpp>. */
 
 int CoalescingAcquire(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟)
 {
@@ -94,7 +96,7 @@ int CoalescingAcquire(unsigned expeditionary, void **𝟺kbframes, __builtin_int
       *(frms + brk++) = (__builtin_uint_t)frm;
     })) { if (rollback(brk,𝟺kbframes,𝑙𝑜𝑔₂Pages,pages,avails)) { return -2; } return -1; }
     /* *** 🎿-end *** */ return 0;
-} /* ⬷ a․𝘬․a `Coalesce`. */
+} /* ⬷ a․𝘬․a 'Coalesce'. */
 
 int 🄕allo⒲(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟)
 {
@@ -134,7 +136,7 @@ __builtin_int_t least₋possible₋residue(
 {
    __builtin_int_t y = dividend % divisor;
    return y < 0 ? y + divisor : y;
-} /* ⬷ Patch to the '%' operator in a C language undefined case. */
+} /* ⬷ patch to the '%' operator in a C language undefined case. */
 
 #pragma mark - saturation equal-to min(2ⁿ - 1, x₁ + x₂) and max(-(2ⁿ - 1), x₁ + x₂)
 
@@ -142,12 +144,12 @@ int saturating₋24bits₋add(int32_t 𝟸𝟺₋bits₋biased₋x₁, int32_t �
  int32_t * 𝟸𝟺₋bits₋biased₋y) {
    /* int neg = x₁ & x₂ & SIGNBIT_INT64; */
    int32_t 🥈 dynamic = (0b1<<23) - 1;
-   int32_t y = 𝟸𝟺₋bits₋biased₋x₁ + 𝟸𝟺₋bits₋biased₋x₂; /* ⬷ See also '24-bit-carry-add'. */
+   int32_t y = 𝟸𝟺₋bits₋biased₋x₁ + 𝟸𝟺₋bits₋biased₋x₂; /* ⬷ see also '24-bit-carry-add'. */
    y = min(dynamic, y);
-   y = max(-dynamic, y); /* ⬷ Note abelian value pass-through. */
+   y = max(-dynamic, y); /* ⬷ note abelian value pass-through. */
    *𝟸𝟺₋bits₋biased₋y = y;
    return 0;
-} /* ⬷ a.k.a 'typedef signed short _Sat saturated16bit' in ISO/IEC TR 18037 and stdfix.h. 
+} /* ⬷ a․𝘬․a 'typedef signed short _Sat saturated16bit' in ISO/IEC TR 18037 and stdfix.h. 
  also _ExtInt(24). */
 
 #pragma mark - time series and peg collections
@@ -178,7 +180,7 @@ void
 Base𝕟( /* TeX §64, §65 and §67. */
   __builtin_uint_t ℕ,
   unsigned short base,
-  unsigned short digitsOr0, /* Not more than 32 or 64 digits depending on 
+  unsigned short digitsOr0, /* ⬷ not more than 32 or 64 digits depending on 
     your machines' word size! (Or set to `0` to skip leading zeros.) */
   void (^output)(char 𝟬to𝟵)
 )
@@ -211,7 +213,7 @@ Base𝕫(
    Base𝕟((__builtin_uint_t)ℤ, base, digitsOr0, output);
 }
 
-#ifdef simd₋integers
+#ifdef 𝟷𝟸𝟾₋bit₋integers
 
 void
 Base𝕟(
@@ -344,23 +346,23 @@ ExactSeek₂(
      num >>= 1;
    }
    return NULL;
-} /* ⬷ todo: Add to Pinecone implementation and switch to interpolation search
+} /* ⬷ todo: add to Pinecone implementation and switch to interpolation search
  (that is log log instead of log that according to Knuth delivers somewhere 
  around N > 64K). */
 
 int
 IsPrefixOrEqual(
-  const char * 𝟽alt𝟾₋bitstring, /* ⬷ possibly `normalizedUtf8` */
-  const char * 𝟽alt𝟾₋bitprefix  /* ⬷ smiley appears when `prompt> nm`! */
+  const char * 𝟽alt𝟾₋bitstring, /* ⬷ possibly 'normalizedUtf8' */
+  const char * 𝟽alt𝟾₋bitprefix  /* ⬷ smiley appears when 'prompt> nm'! */
 ) /* ⬷ consider changing dwarf-'.elf' to 'trie' instead of 'table'. */
 {  const char *s=𝟽alt𝟾₋bitstring, *p=𝟽alt𝟾₋bitprefix;
     if (*s == 0 && *p == 0) { return -1; }  /* Parameters `string` and `prefix` are both empty therefore equal. */
     if (!*s) { return 0; } /* Non-equal since the string is empty and a prefix exists. */
     if (!*p) { return *s; } /* The prefix is empty but not the string, return dist(0, non-end). */
 again:
-    if (*s == 0 && *p == 0) { return -1; }  /* Parameters `string` and `prefix` are non-empty and equal. */
+    if (*s == 0 && *p == 0) { return -1; }  /* Parameters 'string' and 'prefix' are non-empty and equal. */
     if (*s == 0 && *p != 0) { return 0; }   /* The prefix continues after string. */
-    if (*s != 0 && *p == 0) { return *s; }  /* All characters in `prefix` equal to `string`. Return first character following `eightbitPrefix`. */
+    if (*s != 0 && *p == 0) { return *s; }  /* All characters in 'prefix' equal to 'string'. Return first character following 'eightbitPrefix'. */
     /* *p != 0 && *s != 0 */
     char diff = *s - *p;
     if (diff) { return 0; } /* Savannah and Samura. */
@@ -399,7 +401,25 @@ Clear8Memory(
 #endif
 } /* ⬷ a․𝘬․a 'clear₋page'. */
 
-#pragma mark - Coroutine-based schedulers and the formerly-named 'fiber':
+/* µA("x86_64", "haswell", x₁, x₂)
+µA("mips", "r2", x₃, x₄) */
+FOCAL
+int
+Compare8Memory(
+  ByteAlignedRef l,
+  ByteAlignedRef r,
+  __builtin_uint_t bytes
+) /* ⬷ a․𝘬․a 'memcmp'. */
+{
+    const unsigned char *p₁ = l, *p₂ = r;
+    while (bytes--) {
+      if (*p₁ != *p₂) return *p₁ - *p₂;
+      else p₁++,p₂++;
+    }
+    return 0;
+} /* ⬷ notice that this method is 'too cristalline' when dealing with Unicodes. */
+
+#pragma mark - coroutine-based schedulers and the formerly-named 'fiber':
 
 int
 Scheduler::Incubate(
@@ -418,7 +438,7 @@ Scheduler::Incubate(
    return 0;
 }
 
-int Scheduler::Process(int32_t ﹟irq)
+int Scheduler::Process(int32_t ﹟irq, 𝟄₋int₁::Waiver * ref)
 {
 #if defined  __mips__ || defined __armv6__ || defined espressif
    int32_t key=(int32_t)﹟irq; tetra val;
@@ -452,7 +472,7 @@ Scheduler::Operational(
 
 void Scheduler::Init() { hw₋collection = first = curr = last = NULL; }
 
-#pragma mark - Miscellaneous initialization functions
+#pragma mark - miscellaneous initialization functions
 
 void InitFpu()
 {
@@ -463,13 +483,13 @@ void InitFpu()
 #endif
 }
 
-#pragma mark - Analysis: post-mortem and single-stepping
+#pragma mark - analysis: post-mortem and single-stepping
 
 extern "C" void ASSEMBLERONLY Sheriff()
 {
-#ifdef __mips__ /* ⬷ snapshot and reference using the `DeSAVE` register. */
+#ifdef __mips__ /* ⬷ snapshot and reference using the 'DeSAVE' register. */
     Mips
- "    sdbbp 13    \n" /* Enters debug mode (CP0 DM will be set) 0xBFC0_0480. */
+ "    sdbbp 13    \n" /* ⬷ transition debug mode (CP0 DM will be set) 0xBFC0_0480. */
     );
 #elif defined  __x86_64_
    Intel👈
