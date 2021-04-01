@@ -9,6 +9,7 @@ struct Kiddle { typedef __builtin_int_t Nonabsolute; void *tiletree=NULL, *cache
   
   __builtin_int_t cached₋number=-1, tile₋count=0, ucAlt𝟽bit₋brk₋count=0, tetras₋per₋tile;
   
+  FOCAL
   int
   init(__builtin_int_t tetras₋per₋tile, 
     __builtin_int_t count, void * kbXtiles[], 
@@ -24,7 +25,6 @@ struct Kiddle { typedef __builtin_int_t Nonabsolute; void *tiletree=NULL, *cache
   
 #pragma mark the tile collection
   
-  FOCAL
   int
   inflate(
     __builtin_int_t count, 
@@ -294,4 +294,6 @@ inline int Setup₋filelength₋enough(Kiddle& kiddle, __builtin_int_t bytes)
    return 0;
 }
 
+/* ✁ until ✂️ and store --<shoebox>{Kiddle.hpp} */
+/* ✂️ */
 
