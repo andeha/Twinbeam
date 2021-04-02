@@ -10,6 +10,8 @@
 #endif
 #include <Additions/Conformal.h>
 #include <Additions/Fossilate.h>
+#include <Source/steganograph.h>
+#include <Source/re₋use.h>
 
 struct History { /* ⬷ consideration success! */
     
@@ -48,15 +50,15 @@ struct History { /* ⬷ consideration success! */
     
     Timeserie<Unicode₋ref,Pod,𝟽₋bit₋ref> serie; /* ⬷ see also --<Kiddie.hpp>. */
     
-    History::Pod add(History::Pod& left, History::Pod& right, 𝟽bit₋text ref, Kind kind);
+    History::Pod add(History::Pod left, History::Pod right, 𝟽bit₋text ref, Kind kind);
     
-    History::Pod add(History::Pod&, 𝟽bit₋text ref, Kind kind);
+    History::Pod add(History::Pod single₋strand, 𝟽bit₋text ref, Kind kind);
     /* ⬷ a․𝘬․a 'bias' for mixed single and left/right series. */
     
 #pragma mark - querying and 'uumph⁻¹' and strength-variance
     
-    void hypothesis(History::Pod probe, void (^evaluable)());
-    /* ⬷ a․𝘬․a `man` and --<Projects>--<🥽⋆UQL.cpp>. */
+    void hypothesis(Unicodes probe, void (^evaluable)(utf8₋text json));
+    void attach₋subscription(void (^evaluable)(utf8₋text json));
     
 #pragma mark implicits currently non-inherent
     
@@ -64,7 +66,7 @@ struct History { /* ⬷ consideration success! */
     
     History() = delete; */
     
-};
+}; /* ⬷ a․𝘬․a Interpretative₋computational₋index. */
 
 struct ComputationalIndex {
     
