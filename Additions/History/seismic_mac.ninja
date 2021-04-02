@@ -1,4 +1,4 @@
-#  seismic_mac.ninja | Building timeseries for macOS.
+#  seismic_mac.ninja | timeseries and the amorph structure for macOS.
 
 optflags = -g
 seismic-library = libSeismic_macos
@@ -17,9 +17,10 @@ rule library
   command = $librarian-mac rcs Releases/$out\_$sha1git.a $in              ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
 
-build libSeismic_macos : library $objs/History.o $objs/subgraph.o
+build libSeismic_macos : library $objs/History.o $objs/security.o $objs/subgraph.o
  
 build $objs/History.o: cc History.cpp
+build $objs/security.o: cc security.cpp
 build $objs/subgraph.o: cc subgraph.cpp
 build emit-content: toc
 default $seismic-library

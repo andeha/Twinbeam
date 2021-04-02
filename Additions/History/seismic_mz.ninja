@@ -1,4 +1,4 @@
-#  seismic_mz.ninja | Building timeseries for Mips Pic32mz.
+#  seismic_mz.ninja | timeseries and the amorph for Mips Pic32mz.
 
 optflags = -g -D__MZDAStarterBoard__
 encased-library = libSeismic_pic32mz
@@ -18,9 +18,10 @@ rule library
   ln -f Releases/$out\_$sha1git.a Releases/$out.a                         ; $
   printf $sha1git
 
-build libSeismic_pic32mz: library $objs/History.o $objs/subgraph.o
+build libSeismic_pic32mz: library $objs/History.o $objs/security.o $objs/subgraph.o
  
 build $objs/History.o: cc History.cpp
+build $objs/security.o: cc security.cpp
 build $objs/subgraph.o: cc subgraph.cpp
 build emit-content: toc
 default $encased-library
