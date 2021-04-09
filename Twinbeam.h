@@ -30,7 +30,7 @@ typedef int                 int32_t; /* ≢'long'. */
 typedef uint64_t            __builtin_uint_t;
 typedef int64_t             __builtin_int_t; /* ⬷ a․𝘬․a 'sequential'. */
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
-#define 𝟷𝟸𝟾₋bit₋integers /* and not '__is_identifier(__uint128_t)'. */
+#define 𝟷𝟸𝟾₋bit₋integers /* and not '__is_identifier(__uint128_t)' nor __SIZEOF_INT128__. */
 #endif
 typedef unsigned short      uint16_t;
 typedef short               int16_t; /* ≡ ᵐⁱᵖˢint. */
@@ -260,19 +260,18 @@ Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
 Argᴾ ﹟regs(__builtin_uint_t mask); Argᴾ ﹟λ(Argᴾ::Output scalar, void * context);
 extern "C" { int atexit(void(*func)(void)); void exit(int); }
 extern "C" void * (^Alloc)(__builtin_int_t); extern "C" void (^Fall⒪⒲)(void *);
-__builtin_int_t 𝟺𝟶𝟿𝟼₋aligned₋frame(__builtin_int_t byte₋number, __builtin_int_t * modulo);
-int Acquire𝟷ᵈ(__builtin_int_t ﹟, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
- __builtin_uint_t avails[], void (^every)(uint8_t * 𝟸ⁿframe, bool& stop));
-int Release𝟷ᵈ(void * 𝟸ⁿframe, __builtin_int_t 𝑙𝑜𝑔₂Pages, __builtin_uint_t pages[], 
- __builtin_uint_t avails[], bool secure);
-struct Expeditionary { __builtin_int_t 𝑙𝑜𝑔₂Pages; __builtin_int_t Idxs; 
- __builtin_uint_t * pages; __builtin_uint_t * avails; };
-void InitFrames(int count, unsigned expeditionaries[]);
+/* __builtin_int_t 𝟺𝟶𝟿𝟼₋aligned₋frame(__builtin_int_t byte₋number, __builtin_int_t * modulo); */
+struct 𝟺kbframes { __builtin_int_t page₋count; __builtin_uint_t *pages₋base, * idx₋avails; };
+/* ⬷ a․𝘬․a expeditionary and 'void * pages[]'/'uint32_t avails[]'. */
+int Acquire𝟷ᵈ(__builtin_int_t ﹟, 𝟺kbframes& one₋set, void (^every)(uint8_t 
+ * 𝟸ⁿ₋frame, bool& stop));
+int Release𝟷ᵈ(void * 𝟸ⁿ₋frame, 𝟺kbframes& one₋set, bool secure);
+void Init₋frames(unsigned count, unsigned expeditionaries[]);
 int ContiguousAcquire(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟);
 int CoalescingAcquire(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟);
-int 🄕allo⒲(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟);
-/* void Reservoir(unsigned expeditionary, __builtin_int_t * pagecount, 
- void **pages, __builtin_uint_t **avails); */
+int 🄕allo⒲(unsigned expeditionary, void **𝟺kbpages, __builtin_int_t ﹟);
+/* void intel₋/mips₋mzda₋Reservoir(unsigned expeditionary, 𝟺kbframes * one₋set, 
+ __builtin_int_t * pages₋in₋expedition); */
 extern "C" { void * malloc(size_t); void free(void *); }
 /* Pointer arithmetics and the pointers inner intrinsics implicits. */
 enum class Sentinel { cyclic, last, /*, linear, bilinear, */ crash, bound };
@@ -317,21 +316,42 @@ MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /* ⬷ 
 #endif
 ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
 ByteAlignedRef Overwrite8Memory(ByteAlignedRef src, uint8_t val,
-  __builtin_int_t bytes);
+ __builtin_int_t bytes);
+#define WHEN_COMPILING constexpr static
+#define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
+#define 🥈 WHEN_COMPILING /* ⬷ must be assigned to a 'const' and no inline assembler. */
+__builtin_int_t constexpr Syspagesize() { return 4096; }
+/* ⬷ one definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when Nand vs. Nor.) */
+/** place a type along frame₍consecutives₎ alternatively on heap: */
+template <typename T> T /* ⤪_ */ * Multiple(short exp𝗔ltNeg, 
+  __builtin_int_t count, void (^default𝘖rNull)(T * elem)
+)
+{ T * base = NULL;
+  if (exp𝗔ltNeg == -1) { base = (T *)Alloc(count*sizeof(T)); }
+  else {  __builtin_int_t 🥈 𝟺𝟶𝟿𝟼 = Syspagesize();
+    __builtin_int_t bytes=sizeof(T)*count,﹟=bytes/𝟺𝟶𝟿𝟼;
+    void * 𝟺kbframes[1 + ﹟ + (bytes % 𝟺𝟶𝟿𝟼 ? 0 : 0)]; /* ⬷ the variable '﹟' is positive so ⌊⌋. */
+    if (ContiguousAcquire(exp𝗔ltNeg,𝟺kbframes,﹟)) { return NULL; }
+    base = (T *)𝟺kbframes[0];
+  } /* ⬷ first-fit, most-recently-used and closest-fit. */
+  for (__builtin_int_t i=0; i<count; ++i) { T * elem = new (i + base) T(); 
+    if (default𝘖rNull) { for (__builtin_int_t i=0; i<count; ++i) { default𝘖rNull(base+i); } }
+  }
+  return base;
+} /* ⬷ a․𝘬․a malloc, Startupalloc and Elements𝘖𝘳Heap. */
 #define copy₋block(...) ((__typeof(__VA_ARGS__))_Block₋copy((const void *)(__VA_ARGS__)))
 #define release₋block(...) _Block₋release((const void *)(__VA_ARGS__))
 struct Block₋descriptor { unsigned long int reserved; unsigned long int size;
-  void (*copy)(void *dst, void *src); void (*dispose)(void *); };
-struct Block₋layout { void * isa; int flags; int reserved; void (*invoke)(void *,
-  ...); struct Block₋descriptor * descriptor; /* Imported variables. */ };
-MACRO void * _Block₋copy(const void * arg) { struct Block₋layout * block = (struct
-  Block₋layout *)arg; struct Block₋layout * y = (struct Block₋layout *)Alloc(
-  block->descriptor->size); Copy8Memory((ByteAlignedRef)y, (ByteAlignedRef)
-  block, block->descriptor->size); return y; }
+ void (*copy)(void *dst, void *src); void (*dispose)(void *); };
+struct Block₋layout { void * isa; int flags; int reserved; void (*invoke)(void *, 
+ ...); struct Block₋descriptor * descriptor; /* Imported variables. */ };
+MACRO void * _Block₋copy(const void * arg) { struct Block₋layout * block = (struct 
+ Block₋layout *)arg; struct Block₋layout * y = (struct Block₋layout *)Alloc(
+ block->descriptor->size); Copy8Memory((ByteAlignedRef)y, (ByteAlignedRef)
+ block, block->descriptor->size); return y; }
 MACRO void _Block₋release(const void *arg) { Fall⒪⒲((void *)arg); }
 typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
-__builtin_int_t constexpr Syspagesize() { return 4096; } /* ⬷ one definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when NAND vs. NOR.) */
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
 FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned 
  short base, unsigned short digitsOr0, /* Not more than 32 alt. 64 digits 
@@ -404,7 +424,6 @@ template <typename ℚ> ℚ arithmetic(ℚ x₁, ℚ x₂) { return (x₁ + x₂
 template <typename T> T biorythm₋average(T xt) { return sin(xt)*cos(xt); } /* ⬷ a․𝘬․a AB*sin(ω*t)*cos(ω*t). */
 template <typename T> bool rel₋eq(T x₁, T x₂) { return !(x₁ < x₂ || x₂ < x₁); }
 template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
-#define WHEN_COMPILING constexpr static
 #define NOT_EVERYTIME const static
 #define CARDINALS(...) enum Cardinal { __🄦hole=0, __VA_ARGS__ };            \
   static jmp_buf2 __snapshot;                                                \
@@ -414,8 +433,6 @@ template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
   switch (__ctrl)
 #define 🧵(...) /* ✠ */ CARDINALS(__VA_ARGS__) NEARBYCROSS
 #define 🥇 NOT_EVERYTIME
-#define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
-#define 🥈 WHEN_COMPILING /* ⬷ must be assigned to a 'const' and no inline assembler. */
 #define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* ⬷ a․𝘬․a '__block', 𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 🎿 'jurid' and 'förekomst'. Also 'machinal'. */
 template <typename T> T * Critic(const T * x) { return const_cast<T*>(x); }
 template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* ⬷ a․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
@@ -582,13 +599,13 @@ typedef union {
   struct { octa mso, lso; } big₋endian;
   struct { Octa l, h; } parts;
 #ifdef __x86_64__
-  __m128 intel; /* Sixteen po̲s̲s̲i̲b̲l̲y ̲u̲n̲a̲l̲i̲gn̲e̲d̲ divided into `float` slots. */
+  __m128 intel; /* ⬷ 'sixteen po̲s̲s̲i̲b̲l̲y ̲u̲n̲a̲l̲i̲gn̲e̲d̲ divided into 𝙛𝙡𝙤𝙖𝙩 slots'. */
 #endif
 } sexdeca;
 
 typedef union {
 #ifdef __x86_64__
-  __m256 intel; /* Thirty-two (possibly unaligned) bytes divided into `float` slots. */
+  __m256 intel; /* ⬷ 'thirty-two (p߫o߫s߫s߫i߫b߫l߫y߫ ߫u߫n߫a߫l߫i߫g߫n߫e߫d߫) bytes d͟i͟v͟i͟d͟e͟d͟ into 𝗳𝗹𝗼𝗮𝘁 slots'. */
 #endif
   uint32_t eight₋tetra[8];
   uint8_t thirtytwo₋bytes[32];
@@ -790,9 +807,9 @@ inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
 #include <Source/coroutine>
 
 rt₋namespace Scheduler {
-  extern void * hw₋collection; /* ⬷ a․𝘬․a Map<irq₋no, Coroutine₋task>. */
-  extern struct Necklace *first, *curr, *last;
-}
+extern void * hw₋collection; /* ⬷ a․𝘬․a Map<irq₋no, Coroutine₋task>. */
+extern struct Necklace *first, *curr, *last;
+} /* ⬷ allocated by --<℮ ia64+pic32rt>--<llvm-rt3.cpp>. */
 
 namespace Scheduler { void Init(); 
   
@@ -830,24 +847,6 @@ namespace Scheduler { void Init();
  __builtin_va_list __various;                                               \
  __builtin_va_start(__various, symbol);
 
-/**  Return objects allocated from consecutive frames or from the heap. (DISJUNCT-ADJACENT-STUFFED) */
-template <typename T> T * /* ⤪_ */ Elements𝘖𝘳Heap(int expeditionary, 
-  int count, void (^default𝘖rNull)(T * elem)
-) {  T * location = NULL;
-   if (expeditionary == -1) { location = (T *)Alloc(count*sizeof(T)); } else { 
-     __builtin_int_t bytes=sizeof(T)*count,﹟,modula; int sum₋negative;
-     if (hw₋fractions(bytes, 4096, ﹟, modula, &sum₋negative)) { return NULL; }
-     void * 𝟺kbframes[﹟ + (bytes % 4096 ? 1 : 0)]; /* ⬷ positive so ⌊⌋. */
-     if (ContiguousAcquire(expeditionary,𝟺kbframes,﹟)) { return NULL; }
-     /* if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { return NULL; }
-      ⬷ First-fit, most-recently-used and closest-fit. */
-     location = (T *)𝟺kbframes[0];
-   }
-   for (__builtin_int_t i=0; i<count; ++i) { T * elem = new (i + location) T(); }
-   if (default𝘖rNull) { for (__builtin_int_t i=0; i<count; ++i) { default𝘖rNull(i + location); } }
-   return location;
-} /* ⬷ a․𝘬․a 'malloc', 'StartupAlloc' and 'Frame𝘈𝘭𝘵𝙉ew'. */
-
 constexpr __builtin_int_t Frame(__builtin_uint_t size, __builtin_uint_t framesize)
 { return __builtin_int_t((size + framesize - 1) & ~(framesize - 1)); } 
 /* ⬷ may be evaluated at compile-time a․𝘬․a 'constexpr'. */
@@ -872,15 +871,18 @@ namespace Fixpoint {
    union Q1615 { uint32_t bits; int32_t frac; }; /* ⬷ captures 0 to ±65535.9999694822. */
    union Q4815 { uint64_t bits; int64_t frac; }; /* ⬷ captures 0 to ±281474976710656.9999694822. */
    union Q3231 { uint64_t bits; int64_t frac; }; /* ⬷ captures 0 to ±4294967295.9999999995343387126922607421875. */
-   union UQ3232 { uint64_t bits; struct { uint32_t l, h; } parts; }; /* ⬷ a․𝘬․a 'Ntp₋stomp', captures 0 to +4294967295.99999999976716935634613037109375. */
+   union UQ3232 { uint64_t bits; struct { uint32_t lo, hi; } parts; }; /* ⬷ a․𝘬․a 'Ntp₋stomp', captures 0 to +4294967295.99999999976716935634613037109375. */
+#if defined 𝟷𝟸𝟾₋bit₋integers
+   union Q6364 { __uint128_t bits; __int128_t frac; }; /* ⬷ a․𝘬․a 'scientific₋sequential₋2'. */
+#endif
    
 #ifdef IEEE754₋ARITHMETICS₋INSIDE
    
-   inline double q1615ToIeee754(Q1615 q) { return double(q.frac)*1.0/16384.0; }
+   inline double q1615ToIeee754(Q1615 ℤ) { return double(ℤ.frac)*1.0/16384.0; }
    
-   inline Q1615 Ieee754ToQ1615(long double x) { int reciproc; 
+   inline Q1615 Ieee754ToQ1615(long double ℤ) { int reciproc; 
       
-      int64_t y = Nearest(x*16384.0, &reciproc);
+      int64_t y = Nearest(ℤ*16384.0, &reciproc);
       
       return Chronology::Q1615 { .frac = (int32_t)y };
       
@@ -889,9 +891,11 @@ namespace Fixpoint {
 #endif
    
 }
+/* ⬷ type 'Q6364' adequate for measurements and computations for grids as small as 0.5 nm. */
+/* ⬷ type 'Q3231' adequate representing 𝘦․𝘨 the 297 m non-linearity of earthly matters. */
 
 #ifdef IEEE754₋ARITHMETICS₋INSIDE
-inline Fixpoint::Q1615 operator "" _Q1615(long double x) { return Fixpoint::Ieee754ToQ1615(x); }
+inline Fixpoint::Q1615 operator "" _Q1615(long double ℝ) { return Fixpoint::Ieee754ToQ1615(ℝ); }
 #endif
 
 /* ⬷ consider 32- alt. 64-bits with an extra sign bit for abstractions such as 'Frame', 
