@@ -13,7 +13,7 @@ void CastᵈᵇˡToText(double value,
   void (^zero)(bool neg), void (^inf)(bool neg), void (^nan)()
 ); /* ⬷ a․𝘬․a 'CastToText'. */
 
-/* The next smallest value after `1`. */
+/* The next smallest value after '1'. */
 #define DOUBLE_EPS1  1.00000000000000011102230246251565 /* 1+2⁻⁵³ */
 #define FLOAT_EPS1   1.0000000119                       /* 1+2⁻²³ …possibly 2⁻²⁴. */
 #define HALF_EPS1    1.0009765625                       /* 1+2⁻¹⁰ …maybe 2⁻¹¹. */
@@ -92,7 +92,7 @@ enum GaussianApproximate { AbramowitzStegun, ZogheibHlynka };
 int Gaussian(GaussianApproximate approximate, double *out);
 int Uniform(double *out); /* *out ∈ [0, 1) */
 
-#pragma mark - In cases of 'high-precision Ieee754'
+#pragma mark in cases of 'high-precision Ieee754'
 
 typedef long double binary128; /* 2⁻¹⁶³⁸² ≈ 
   3.3621 × 10⁻⁴⁹³² - 2⁻¹⁶³⁸⁴ − 2⁻¹⁶²⁷¹ ≈ 1.1897 × 10⁻⁴⁹³² */
@@ -102,7 +102,7 @@ typedef binary128 maxprec;
 typedef double maxprec;
 #endif
 
-#pragma mark - Gauss' K𝑒𝑡𝑡𝑒𝑛𝑏𝑟𝑢𝑐ℎ
+#pragma mark Gauss' K𝑒𝑡𝑡𝑒𝑛𝑏𝑟𝑢𝑐ℎ
 
 /* MACRO void Khinchin(double * A, int count, double &acc) { for (int i=count-1;
   i >= 0; i--) { acc = 1/(A[i] + acc); } } */
@@ -127,11 +127,11 @@ Similar(
    return diff < eps;
 }
 
-#pragma mark - Figures in compliance with Mediterranean laws
+#pragma mark figures in compliance with Mediterranean laws
 
 int Roman(__builtin_int_t n, void (^out)(char numeral));
 
-#pragma mark - Unicodes: in-case literal, terminated with 0x0000
+#pragma mark Unicodes: in-case literal, terminated with 0x0000
 
 #define ⁺⁼UnicodeToUtf8(Buffer,³²B,⁸B,TRS,UCS)                              \
 auto unicodeToUtf8 = ^(char8_t buffer[], __builtin_int_t& ³²b,              \
@@ -231,7 +231,7 @@ MACRO int ᵊ(const char8_t * literal, void (^sometime)(Unicodes uc)) {
   return 0;
 }
 
-#pragma mark fine print for well-versed readers a․𝘬․a 'intervals and dots'
+#pragma mark fine print for well-versed readers ('intervals and dots')
 
 typedef struct UnicodeIntervalAnd𝑂rLocation {
   __builtin_int_t tetrasRelativeFirst, tetrasRelativeLast;
@@ -272,7 +272,7 @@ FINAL struct Ornaments { /* ⬷ a․𝘬․a 'Intervallic' …
       
       struct {
         
-        /* 𝟺𝚔𝚋Quadtreenode quadtrees[2]; */
+        /* 𝟺𝚔𝚋Quadtreenode quadtrees[2]; */ /* ⬷ 𝘦․𝘨 Uv and Ir. */
         
       } exegesis;
       
@@ -285,7 +285,7 @@ FINAL struct Ornaments { /* ⬷ a․𝘬․a 'Intervallic' …
     int text(void (^none𝘖rMany)(__builtin_int_t tetras, char32_t * unicodes, 
      bool& stop)); /* ⬷ see also [github.com]>--<fmtlib>--<fmt>. */
     
-😐; /* … 'decorated₋string' and 'recording', 𝖼𝖿. 'insert', 'update' and 'delete'. */
+😐; /* … 'decorated₋string' and 'recording', 𝘤𝘧․ 'insert', 'update' and 'delete'. */
 
 template <typename T> struct rectangle { T height, width; int /* Unit */ unit; };
 template <typename T> struct measure { T value; int /* Unit */ unit; };
@@ -299,7 +299,7 @@ namespace Directions { typedef __builtin_uint_t Cross;
    CrossTopToBottom = 0b0100, CrossBottomToTop = 0b1000 };
 }
 
-#if INCLUDE₋TYPESET && INCLUDE₋COLOR && INCLUDE₋KIDDLE
+#if defined(INCLUDE₋TYPESET) && defined(INCLUDE₋COLOR) && defined(INCLUDE₋KIDDLE)
 #include <Additions/Kiddle.hpp>
 #include <Additions/Color.hpp>
 #include <Additions/Typeset.hpp>
@@ -319,7 +319,7 @@ int Width(const Unicodes& uc, Unit unit, double &width, double &kerning) WESTERN
 /* Intervals and dots: 0 0, 0 1, 1 2, 3 3, ﹇ 4.  ⬷ see OEIS. */
 namespace Raster { enum { mm, lines, nonuniform₋mm, none }; }
 
-#pragma mark - The scientists' terminal
+#pragma mark the terminal
 
 namespace 𝟾x𝟾₋matrix₋AAPL {
   
@@ -344,28 +344,29 @@ namespace Inputctrl {
 #endif /* ⬷ text₋image, infographics, UI and perception. */
 
 struct Utf8Terminal {
+   
+   Utf8Terminal();
+   
+   ~Utf8Terminal();
     
-    Utf8Terminal();
-    
-    ~Utf8Terminal();
-    
-   𝟄₋int₁ /* Inputctrl */ 
-    corout₋Symbols( /* ⬷ see also --<Fossilate.h|cpp>{TerminalIn ∧ WaitTerminal}. */
-      int periods𝘖rZero, 
-      int 𝟷𝟶ᵗʰ₋seconds, 
-      void (^ping𝘖r𝖭𝖴𝖫𝖫)(bool &stop), /* ⬷ cyclically whilst time passes. */
-      void (^keyput𝘖rRecieved)(char32_t unicode, bool &stop) /* ⬷ a․𝘬․a 'after₋a₋keypress'. */
-    ) const; /* ⬷ c𝘧․ 'readOne𝘖rManylines', 'interaction', 'password', 'getc'/'ungetc' and 'readline'. */
-    
-    int write(char8_t * serie, __builtin_int_t bytes) const;
-    
-    void (^format)(double ℝ, Utf8Terminal &stream);
-    
+  𝟄₋int₁ /* Inputctrl */ 
+    corout₋Symbols(int periods𝘖rZero, int 𝟷𝟶ᵗʰ₋seconds, 
+      void (^ping𝘖r𝖭𝖴𝖫𝖫)(bool &stop), 
+      void (^child₋keyput𝘖rRecieved)(char32_t unicode, bool &stop)
+    ) const; /* ⬷ c𝘧․ 'readOne𝘖rManylines', 'interaction', 'password', 
+  'getc'/'ungetc' and 'readline'. */
+   
+  int write(char8_t * serie, __builtin_int_t bytes) const;
+  
+  void (^format)(double ℝ, Utf8Terminal &stream);
+  
 #if __has_include(<Additions/VT99.cxx>)
 #include <Additions/Vt99.cxx>
 #endif
-    
+   
 😐; /* ⬷ for rendering sediment, isaritm and discrete dissection. */
+
+int oldschool₋WaitTerminal(char32_t * uc); /* ⬷ a․𝘬․a 'simple␣for␣debugger₋keyput'. */
 
 namespace NumberformatCatalogue { 
 void Scientific(double ℝ, void (^out)(char32_t uc));
@@ -400,8 +401,9 @@ enum class Simdformᵦ { normal₋distribution, approximation₋follow₋accurac
  max₋to₋min, complex, cartesian2ᵈ, polar2ᵈ, polar₋and₋contracyclicity };
 /* ⬷ angular components always within [-pi/2, pi/2]. */
 void Present(Utf8Terminal &term, simd_tᵦ 𝕏, Simdformᵦ semantic);
+/* ⬷ adequate for the [28,473] ºK temperature range. */
 
-#pragma mark - Conveniences
+#pragma mark conveniences
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, __builtin_int_t ℤ)
 { Present(term,ℤ); return term; }
@@ -455,58 +457,62 @@ Utf8Terminal & operator<<(Utf8Terminal &u8os, Utf8Terminal present)
   { return u8os; } */
 
 struct 𝗵fill { }; struct 𝘃fill { double val; int /* Unit */ unit; };
-struct 𝗣𝒂𝒈𝒆 { bool versoNotRecto; }; /* ⬷ a․𝘬․a 'formfeed' and U+0x000c. */
-𝗣𝒂𝒈𝒆 ᵖ𝗴(bool); 𝘃fill vfill(double, /* Unit */ int); 𝗵fill hfill();
-/* ⬷ a․𝘬․a the Unicodes `␋` , `␉` and `␌`. */
+struct 𝗣age { bool versoNotRecto; }; /* ⬷ a․𝘬․a 'formfeed' and U+0x000c. */
+𝗣age ᵖ𝗴(bool); 𝘃fill vfill(double, /* Unit */ int); 𝗵fill hfill();
+/* ⬷ a․𝘬․a the Unicodes ␋ , ␉ and ␌. */
 Utf8Terminal & operator<<(Utf8Terminal&,𝗵fill);
 Utf8Terminal & operator<<(Utf8Terminal&,𝘃fill);
-Utf8Terminal & operator<<(Utf8Terminal&, 𝗣𝒂𝒈𝒆);
+Utf8Terminal & operator<<(Utf8Terminal&, 𝗣age);
 
-extern "C" { extern const char *tab, *eol, *sep; } /* later possibly-maybe: ↹ ↩︎ ¶ and hfill: ⎓ alt. ﹇. */
+extern "C" { extern const char *tab, *eol, *sep; } 
+/* later possibly-maybe: ↹ ↩︎ ¶ and hfill: ⎓ alt. ﹇. */
 
-rt₋namespace Terminal { extern Utf8Terminal myOutput, myTrace₁, myTrace₂; }
-rt₋namespace Vt100 { extern const char * bright, *dim, *fgBlue, *fgRed, *reset, *reverse; }
+rt₋namespace Terminal { extern Utf8Terminal µOutput, µTrace₁, µTrace₂; }
+rt₋namespace Vt100 { extern const char * bright, *dim, *fgBlue, *fgRed, *reset, 
+ *reverse; }
+rt₋namespace Vt99 { extern const char * v₋correctional, *picante₋spark₋begin, 
+ *depthening₋display₋begin, *picante₋spark₋end, *depthening₋display₋end, *hfill; }
 
-#define Termout Terminal::myOutput
-#define Termlog Terminal::myTrace₂
-#define Termtail Terminal::myTrace₁
+#define Termout Terminal::µOutput
+#define Termlog Terminal::µTrace₂
+#define Termdetail Terminal::µTrace₁
 
-#pragma mark - A globally unique identifier for small and big
+#pragma mark a globally unique identifier for small and big
 
 typedef sexdeca Guid;
 
 Guid Newguid();
 
-#pragma mark - Chronological sequences
+#pragma mark sequences (blue and red chronology possibly a 'planning' orange)
 
 /**  Retrieves a unique value in a 'strict monotonically increasing' serie. ⤐ */
 
 struct Chronology₋peg { __builtin_int_t soon=0; }; /* ⬷ a․𝘬․a 'Sequent'. */
 
-__builtin_int_t Pression(Chronology₋peg * act, bool * wrapped); /* ⬷ a․𝘬․a 'I₋m₋print' and 'Ordinal'. */
+__builtin_int_t Ordinal(Chronology₋peg * act, bool * wrapped);
 
-namespace Messaging { /* ⬷ a․𝘬․a Transceiver, /lear-n-i-n-g/, static-telluric and after₋Retrospectives. */
+rt₋namespace Scheduler { extern void * sw₋collection; }
+/* ⬷ a․𝘬․a Map<sexdeca, 𝟄₋int₁ *>. In --<Additions>--<Fossilate.cpp>. */
+
+namespace Messaging { void Init(); 
    
-   int Init(void * sw₋signals, /* ⬷ recall --<Twinbeam.h>{Scheduler::hw₋collection}. */
+   int Inform(int32_t signal, 
+     𝟄₋int₁ * 𝟷₋coroutineToInfluence, 
      void * (^node₋alloc)(int bytes)
-   );
+   ); /* ⬷ formerly 'Trap' and 'with₋Indicate'. */
    
-   int Informed(Guid signal, 𝟄₋int₁ * 𝟷₋coroutineToInfluence, 
-     void * (^node₋alloc)(int bytes)); /* Formerly 'with₋Indicate' and 'Trap'. */
+   int Entrust(int32_t signal, void * ctx = NULL); /* ⬷ a․𝘬․a 'sigint'. */
    
-   int Entrust(Guid signal, void * ctx = NULL); /* ⬷ a․𝘬․a 'Stifta', 'Mature', 
-     'Scribble', 'Pierce', 'Drive₋lead', 'Fuel' and not 'Indicate'. */
+   void * GetContext();
    
-} /* ⬷ a․𝘬․a 'messaging', 'Victorian', 'jurisprudence', 
- 'coroutines₋required', 'ʰᵚcollection₋required', 'Unix-signal', 
- 'sw-interrupt', 'notification', e₋v₋en₋t and /v-ote/. */
+}
 
 void GuidToText(const Guid& guid, void (^out)(char digit𝘖rHyphen));
 
 void Present(Utf8Terminal &term, const Guid& mp);
 /* …not: MACRO Argᴾ ﹟Ref(Guid& g) { ⟶⟵ } */
 
-#pragma mark - Input feeding in practice
+#pragma mark input feeding in practice
 
 enum class CastToIntOpinion { accept, rejecting, negate, commit, annul };
 
@@ -535,7 +541,7 @@ Tokenize(
   Inputcontrol (^token)(char32_t * unicodes, __builtin_int_t count)
 ); /* 'tokenize' - 'readUnicode' = Opt<𝑓𝑢𝑡𝑢𝑟𝑒 𝑡𝑒𝑛𝑠𝑒> */
 
-#pragma mark - Recollection and associativity
+#pragma mark recollection and associativity
 
 struct Bitset₋suprenum { /* ⬷ a․𝘬․a 'Capped-ET-bitset'. */
   
@@ -552,7 +558,7 @@ struct Bitset₋suprenum { /* ⬷ a․𝘬․a 'Capped-ET-bitset'. */
   
 }; /* ⬷ for --<🥽 Memclone.cpp> ∧ --<🥽 Bookshelf.cpp>. */
 
-#pragma mark - Volatile memory copying (asynchronous)
+#pragma mark volatile memory copying (asynchronous)
 
 int
 OptimisticAsync8Copy(
@@ -564,7 +570,7 @@ OptimisticAsync8Copy(
   void (^error)(), void (^complete)()
 ); /* ⬷ a․𝘬․a Copy8Async and Basictransfer. */
 
-#pragma mark - Dispatch, priorities and interrupts
+#pragma mark dispatch, priorities and interrupts
 
 typedef void (^Async₋job)(); /* ⬷ a․𝘬․a 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀 and 'CHandler'. */
 
@@ -580,13 +586,14 @@ int Reflect(Unicodes primary𝘖𝘳𝑆econd, unsigned expeditionary, __builtin
 
 /* int Pamphlet(unsigned expeditionary, __builtin_int_t bytes, Ensemble &details);
 int Branch(Unicodes primary𝘖𝘳𝑆econd, TransformAndResolve tr, 
-  void (^ping)(double⁺ʳ 𝟬₋𝟭percent, bool& stop), 
-  AsyncJob stopped, Ensemble &ensemble, AsyncJob completed);
+ void (^ping)(double⁺ʳ 𝟬₋𝟭percent, bool& stop), 
+ AsyncJob stopped, Ensemble &ensemble, AsyncJob completed);
 int Reconcile(Opt<Unicodes> primary𝘖𝘳𝑆econd, TransformAndResolve tr, 
-  void (^ping)(double⁺ʳ 𝟬₋𝟭percent, bool& stop), 
-  AsyncJob repented, Ensemble& branch, AsyncJob completed); */ /* --<Ensemble.h>. */
+ void (^ping)(double⁺ʳ 𝟬₋𝟭percent, bool& stop), 
+ AsyncJob repented, Ensemble& branch, AsyncJob completed); */ 
+/* --<Ensemble.h>. */
 
-#pragma mark - Language translation --<Automata.cpp>
+#pragma mark language translation --<Automata.cpp>
 
 enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
 
@@ -602,11 +609,10 @@ enum class Encoding { utf8, unicode };
 /* int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content, __builtin_int_t& beam, 
   void (^zero𝘖rSeveral)(char32_t unicode, __builtin_int_t byteOffset, bool& stop)); */
 
-struct Jagged { Jagged(); ~Jagged(); 
-  int include(__builtin_int_t tetra₋idx, __builtin_int_t δ₋tetracount);
-  __builtin_int_t count() const;
-  int 𝟺kbtile(__builtin_int_t ﹟, __builtin_int_t &tetra₋idx, __builtin_int_t &δ₋tetracount);
-😐; /* ⬷ a․𝘬․a Linebreaks. */
+int Bite(memoryview text, Clipbytes * 𝟹𝟸alt𝟾₋censors𝘖rNULL, Unicodes anchor₁, 
+  Unicodes anchor₂, void (^found)(__builtin_int_t idx, __builtin_int_t byte₋idx, 
+  __builtin_int_t δ₋count, __builtin_int_t total, bool& stop));
+/* --<hypergeo.hpp ҂ Knot.h>{int, main} */
 
 Opt<Chronology::instant>
 TS( /* ⬷ e․𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232. */
@@ -615,7 +621,7 @@ TS( /* ⬷ e․𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 
   memoryview datetime
 ) NEVERBLURTS;
 
-#pragma mark Trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
+#pragma mark trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
 /* ✂️ << --<shoebox>{Fiber} ✃ */
 
 #endif

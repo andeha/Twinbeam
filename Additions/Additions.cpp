@@ -1,7 +1,10 @@
-/*  Additions.cpp | Twinbeam (c++2a for clang to x86_64 or Mips.) */
+/*  Additions.cpp | Twinbeam (c++20 for clang to x86_64 or Mips.) */
 
 #include <Twinbeam.h>
 #include <Additions/Additions.h>
+#include <Source/fifo.h>
+
+rt₋namespace Messages { extern void *sw₋signals, * context; }
 
 #pragma mark conversions for --<Additions>--<Filesystem.hpp>
 
@@ -65,41 +68,38 @@ __builtin_int_t Ordinal(Chronology₋peg * /* act a․𝘬․a */ sequent, bool 
 
 #pragma mark software interrupts a․𝘬․a 'notifications' and 'signals'
 
-#include <Source/fifo.h>
-
-namespace Messaging {
-   
-   int Init(int fifo₋words, void * 𝟷₋fifo₋tile)
-   {  extern void * sw₋signals; /* = Map<int32_t, 𝟄₋int₁ * 𝟷₋coroutine> */
-      extern fifo jobs; sw₋signals=NULL;
-      if (jobs.init(fifo₋words,𝟷₋fifo₋tile)) { return -1; }
-      return 0;
-   }
-   
-   int
-   Informed(int32_t signal, 𝟄₋int₁ * 𝟷₋coroutineToInfluence, 
-     void * (^node₋alloc)(int bytes)
-   ) {
-#if defined __x86_64__ || defined __armv8a__
-      Treeint valkey { .keyvalue = { (int64_t)signal, uint64_t(𝟷₋coroutineToInfluence) } };
-#elif defined __mips__ || defined __armv6__ || defined espressif
-      Treeint valkey { .keyvalue = { signal, uint32_t(𝟷₋coroutineToInfluence) } };
-#endif
-      extern void * sw₋signals;
-      void * node = Insert(sw₋signals,valkey,node₋alloc);
-      if (node == NULL) { return -1; }
-      return 0;
-   } /* void (^influence)(void * ctx) */
-   
-   int Entrust(int32_t signal, void * ctx)
-   {
-     Treeint leafkey { signal, 0ull };
-     extern void * sw₋signals;
-     Treeint * node = Lookup(sw₋signals,leafkey);
-     𝟄₋int₁ * 𝟷₋coroutine = (𝟄₋int₁ *)node->keyvalue.val; /* 𝟷₋coroutine->ctx=ctx; */
-     Resume(𝟷₋coroutine->coroutine.address());
-     return 0;
-   }
-   
+void Messaging::Init()
+{
+   Messages::sw₋signals=NULL;
 }
+
+int Messaging::Inform(int32_t signal, 
+  𝟄₋int₁ * 𝟷₋coroutineToInfluence, 
+  void * (^node₋alloc)(int bytes))
+{
+#if defined __x86_64__ || defined __armv8a__
+    Treeint valkey { .keyvalue = { signal, uint64_t(𝟷₋coroutineToInfluence) } };
+#elif defined __mips__ || defined __armv6__ || defined espressif
+    Treeint valkey { .keyvalue = { signal, uint32_t(𝟷₋coroutineToInfluence) } };
+#endif
+    void * node = Insert(Messages::sw₋signals,valkey,node₋alloc);
+    if (node == NULL) { return -1; }
+    return 0;
+}
+
+int Messaging::Entrust(int32_t signal, void * ctx)
+{
+#if defined __x86_64__ || defined __armv8a__
+   Treeint leafkey { signal, 0ull };
+#elif defined __mips__ || defined __armv6__ || defined espressif
+   Treeint leafkey { signal, 0ull };
+#endif
+   Treeint * node = Lookup(Messages::sw₋signals,leafkey);
+   𝟄₋int₁ * 𝟷₋coroutine = (𝟄₋int₁ *)node->keyvalue.val; /* 𝟷₋coroutine->ctx=ctx; */
+   Resume(𝟷₋coroutine->coroutine.address());
+   Messages::context=ctx;
+   return 0;
+}
+
+void * Messaging::GetContext() { return Messages::context; }
 

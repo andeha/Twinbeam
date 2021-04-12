@@ -101,6 +101,8 @@ MACRO double sqrt(double x) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = __builtin
  return simd_scalarᵦ(𝒚); }
 MACRO double ℯ(double x) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = ℯ🔭²(𝒙); return simd_scalarᵦ(𝒚); }
 MACRO double logₑ(double x) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = logₑ(𝒙); return simd_scalarᵦ(𝒚); }
+MACRO void sincos(double x, double * s, double * c) { simd_tᵦ 𝒔,𝒄,𝒙=simd_initᵦ(x); 
+ sincos(𝒙,&𝒔,&𝒄); *s=simd_scalarᵦ(𝒔), *c=simd_scalarᵦ(𝒄); }
 MACRO double sin(double x) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = sin(𝒙); return simd_scalarᵦ(𝒚); }
 MACRO double cos(double x) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = cos(𝒙); return simd_scalarᵦ(𝒚); }
 MACRO double tan(double x) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = tan(𝒙); return simd_scalarᵦ(𝒚); }
@@ -123,4 +125,19 @@ typedef double (^Computational)(double x);
 FOCAL int Newton(Computational f, Computational f₋prime, 
   double * x₀, void (^ping)(Newtoncontrol &ctrl)
 );
+
+double romberg(__builtin_int_t N, __builtin_int_t m, 
+ /* ⬷ variables a․𝘬․a 'step' and 'order'. */
+ double (^f)(double x), double min, double max, double * epsilon
+);
+
+typedef double (^𝟷₋computational)(double x);
+typedef double (^𝟸₋computational)();
+
+int trapezoid(double (^f)(double t), double Δt, double min, 
+ void (^sum)(double integrale, double t₋acc, bool& stop));
+
+int Simpson(double (^f)(double t), double Δt, double min, 
+ void (^sum)(double integrale, double t₋acc, bool& stop));
+
 

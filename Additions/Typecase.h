@@ -82,10 +82,10 @@
    Dashes: ‒ Figure Dash, – En Dash, — Em Dash, ⁓ Swung Dash, ⸺ Two-em Dash,
      ⸻ Three-em Dash, 〰 Wavy Dash, - Hyphen Minus. Also 𝟄-soft-hyphen: ⥗­⥖.
      
-     ˥ ˦ ˧ ˨ ˩ (Tone letters)                      ⬷ c․f <half-opaque > unicode?
+     ˥ ˦ ˧ ˨ ˩ (Tone letters)                      ⬷ cf․ <half-opaque > unicode?
      ﹟ 'Number-of' in 𝘦․𝘨 variable names
      ⎔⃚ 'Combining anticlockwise ring overlay'
-     ⬚ Placemark for 'print'
+     ⬚  Placemark for 'print'
      
    Arrows: ⇽ ⇾ ⟲⟳ ↗︎↘︎↙︎↖︎ ⸔⸕ ⤡⤢ ⤺⤻ ↰↱↲↳ ↴ ↩︎ ↵  ⮐ ↹ ←↑→↓
      ↼ 'Leftward harpoon with barb upwards' ↽↾↿⇀⇁⇂⇃⇄⇅⇆⇇⇈⇉⇊⇋⇌⇍⇏⇐⇑⇒⇓⇚⇛⇜⇝⇤⇥⇦⇧
