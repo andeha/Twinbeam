@@ -13,16 +13,16 @@ struct Pixelation {
     
     struct Bounds { signed long xMin, yMin, xMax, yMax; };
     
-    int renderMonocrome(int width, int height, memoryview otf₋font, char32_t 
-      (^text)(int index), void (^bitmap)(int width, int rows, uint8_t * buffer, 
+    int renderMonocrome(int width, int height, uint8_t * otf₋font, int bytes₋otf₋font, 
+      Unicodes text, void (^bitmap)(int width, int rows, uint8_t * buffer, 
       int pitch, int horz₋kern));
     
-    int renderAA256(int width, int height, memoryview otf₋font, char32_t 
-      (^text)(int index), void (^bitmap)(int width, int rows, uint8_t * buffer, 
+    int renderAA256(int width, int height, uint8_t * otf₋font, int bytes₋otf₋font, 
+      Unicodes text, void (^bitmap)(int width, int rows, uint8_t * buffer, 
       int pitch, int horz₋kern));
     
-    int renderOutline(int width, int height, memoryview otf₋font, char32_t 
-      (^text)(int index), void (^outline)(Bounds box, int horz₋kern));
+    int renderOutline(int width, int height, uint8_t * otf₋font, int bytes₋otf₋font, 
+      Unicodes text, void (^outline)(Bounds box, int horz₋kern));
     
 😐;
 

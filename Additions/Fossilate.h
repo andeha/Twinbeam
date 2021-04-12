@@ -20,7 +20,7 @@ typedef long long           __builtin_int_t;
 /* ONETIMEPAD */ typedef struct Fossilate FINAL {
     /* DISJUNCT */ union Value {
         /* ...Interesting. FINAL below often                        ☜😐🔅¹ */
-        struct { __builtin_int_t tetras; char32_t * unicodes; } machineString; // ⬷ Not stored in SI™
+        struct { __builtin_int_t tetras; char32_t * unicodes; } machineString; /* ⬷ Not stored in SI™. */
         const char *eightbitCString; /* ⬷ still zero-terminated. */
         __builtin_uint_t bitmap;
         double real;
@@ -29,7 +29,7 @@ typedef long long           __builtin_int_t;
             struct { __builtin_int_t tetras; char32_t *unicodes; } canonizedTypename;
         } Reference;
     } value;
-    __builtin_int_t kind; // ∈ [0, ⃨,k-1]
+    __builtin_int_t kind; /* ∈ [0, ⃨,k-1] */
     Fossilate *optUnit;
     struct { __builtin_int_t tetras; char32_t *unicodes; } optUnitNameOrIdent;
     /* ↸ But not neccessarily FINAL here...                         ☜😐🔅² */
@@ -55,18 +55,20 @@ typedef long long           __builtin_int_t;
 
 struct Envelop { uint8_t utf8Address[4]; Fossilate content; };
 
-/* Overridable prepacked lambdas. */
+/* Overridable prepacked lambdas: */
 DISORDERABLE extern void (^ᵗᵚⁱⁿᵝᵉᵃᵐInit)();
-DISORDERABLE extern void (^Putₒ)(uint8_t * u8s, __builtin_int_t bytes);
+DISORDERABLE extern void (^Putₒ)(char8_t * u8s, __builtin_int_t bytes);
 DISORDERABLE extern void (^Trace₁)(char8_t * u8s, __builtin_int_t bytes);
 DISORDERABLE extern void (^Trace₂)(char8_t * u8s, __builtin_int_t bytes);
-DISORDERABLE extern 𝟄₋int₁ Reciever(int frequency, void (^effektreglering₋done)(
- char32_t unicode, bool &stop));
+extern 𝟄₋int₁ Reciever(int program₋frequency, void (^effect₋regulation₋done)(
+ char32_t unicode, bool &stop)); /* ⬷ a․𝘬․a Viterbi and Capital. */
 /* DISORDERABLE extern void (^Reciever)(void (*isr)(Fiber::fiber_t * self)); */
-DISORDERABLE extern void (^📡 /*♬*/)(Chronology::relative t, const Modulation::Variat& V, float &c, float &s);
+/* DISORDERABLE extern void (^📡 /​*♬*​/)(Chronology::relative t, const 
+ Modulation::Variat& V, Fixpoint::Q1615 * fc, Fixpoint::Q1615 * fs); */
 DISORDERABLE extern void (^SetPixelAA)(int x, int y, long err);
-DISORDERABLE extern int (^InitiateMesmerization)(Chronology::instant t, float version, 
-  void (^videoᵐᵒᵈ¹⁻³)(int x, int y, long err), void (^audio)(Q79 latency, int chnls, uint16_t * RtoL));
+/* DISORDERABLE extern int (^InitiateMesmerization)(Chronology::instant t, float 
+ version, void (^videoᵐᵒᵈ¹⁻³)(int x, int y, long err), void (^audio)(Q79 latency, 
+ int chnls, uint16_t * RtoL)); */
 #ifdef __mips__
 DISORDERABLE extern void (^TuneOscillator)(int8_t signandfivebits);
 DISORDERABLE extern void (^InteractivelySetChronometer)(unsigned& y, unsigned& M,
@@ -77,7 +79,6 @@ DISORDERABLE extern void (^TuneChronometer)(void (^ping)(int16_t &tenbitSignedOf
 #endif
 DISORDERABLE extern int (^Resolve𝟷Or𝙽Reflectionᴸ)(Unicodes pathᵚ, void (^final)(
   const char * canonicalUtf8Regular𝘖rLinkpath)) /* -> int */;
-/* Non-overridable mandatory prepacked lambdas include `Alloc`, `LocalNow`,
-   `RandomInteger` and `Fallow`.  See --<Fossilate.cpp> and --<llvm-rt3.cpp> for 
-   details. */
+/* ⬷ non-overridable mandatory prepacked lambdas include `Alloc`, `LocalNow`, `RandomInteger` 
+ and `Fallow`.  See --<Fossilate.cpp> and --<llvm-rt3.cpp> for details. */
 #endif

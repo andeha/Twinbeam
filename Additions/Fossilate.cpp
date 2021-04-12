@@ -2,60 +2,83 @@
 
 #include <Twinbeam.h>
 #include <Additions/Additions.h>
-namespace Setup { __builtin_int_t subgraph₋uninitialized; }
+namespace Setup { __builtin_int_t subgraph₋uninitialized, history₋uninitialized; }
 namespace After₋8 { __builtin_int_t bitset₋still₋short, bitset₋noncoalescable; }
-namespace Messages { fifo jobs; void * sw₋signals; /* = Map<int32_t, 𝟄₋int₁ * 𝟷₋coroutine> */ }
+namespace Messages { void * context, * sw₋signals; /* = Map<int32_t, 𝟄₋int₁ * 𝟷₋coroutine> */ }
 namespace Mesmerization { void * impressions; /* ⬷ a․𝘬․a Map<int32_t, Plate *>. */ }
-namespace Terminal { Utf8Terminal myTrace₁, myTrace₂, myOutput; }
+namespace Terminal { Utf8Terminal µTrace₁, µTrace₂, µOutput; __builtin_int_t distribution₋error; }
 namespace Mathart { double cordic_ctab[64]; }
 namespace Vt100 { const char * bright = "\x1B[1m", *dim = "\x1B[2m", 
  *fg₋blue = "\x1B[34m", *fg₋red = "\x1B[31m", *reset = "\x1B[0m", 
  *reverse = "\x1B[7m"; }
-unionᵢ Ntp₋stomp { octa bits; struct { uint32_t seconds; Chronology::UQ32 frac; } ᐦΔ; };
+namespace Vt99 { const char * v₋correctional = "\x1B[1n", *hfill = "\x1B[2n", 
+ *picante₋spark₋begin = "\x1B[3n(", *depthening₋display₋begin = "\x1B[4n(", 
+ *picante₋spark₋end = ")]", *depthening₋display₋end = ")]"; }
+namespace Histories { __builtin_int_t unknown₋pod; extern void * pad₋history; }
 #include <Additions/math/cherry.h>
 #include <Additions/Conformal.h>
+
+/* #define INCLUDE₋SUBGRAPH __has_include(<Additions/History/Subgraph.h2>)
+#define INCLUDE₋HISTORY __has_include(<Additions/History/History.h2>)
+
+#if defined(INCLUDE₋SUBGRAPH) && defined(INCLUDE₋HISTORY)
+#include <Additions/History/Subgraph.h>
+#include <Additions/History/History.h>
+#endif */
 
 #pragma mark - initializations and customizations
 
 DISORDERABLE auto ᵗᵚⁱⁿᵝᵉᵃᵐInit = ^{
   Salt(Initmath);
   Salt(Tuned₋longjmp);
-#ifdef  __mips__
+#if defined  __mips__
   /* Salt(TLB_Reset); */
   Salt(InitMZDAStarterboard);
   Salt(StartTrng);
 #endif
-  /* Salt(Scheduler::Init); */
-  /* extern int SubgraphHearken(); 
-  if (SubgraphHearken()) { Pult💡(After₋8::subgraph₋uninitialized); } ⬷ ⚠️ */
-  Salt(InitFrames);
+  Scheduler::Init();
+  Messaging::Init();
+#if defined(INCLUDE₋HISTORY)
+  Salt(InitHistory);
+#endif
+#if defined(INCLUDE₋SUBGRAPH)
+  extern int SubgraphHearken();
+  if (SubgraphHearken()) { Pult💡(Setup::subgraph₋uninitialized); }
+#endif
+#if defined  __mips__
+  unsigned exps[]={ 1, 2 }; Init₋frames(2,exps);
+#else
+  unsigned exps[]={ 1 }; Init₋frames(1,exps);
+#endif
 };
 
 auto Resolve𝟷Or𝙽Reflectionᴸ = ^( /* Resolve𝟷Or𝙽Reflectionᴿ */
   Unicodes path, void (^final)(const char * regular𝘖rLinkpath)
-) {  __builtin_int_t ᵇutf8=4*tetras,³²idx=0,⁸idx=0; char8_t u8s[1+ᵇutf8];
-  if (⁺⁼UnicodeToUtf8(u8s,³²idx,⁸idx,path.tetras,ucs)) { return -1; }
-  const char * regular𝘖rLinkpath = u8s;
-  final(regular𝘖rLinkpath);
-  return 0;
+) {
+   if (UnicodeToUtf8(path.unicodes, path.tetras, ^(__builtin_int_t utf8bytes, 
+    char8_t * u8s, __builtin_int_t tetras) { final((const char *)u8s); }
+   )) { return -1; }
+   return 0;
 }; /* --<Additions>--<Filesystem.hpp> */
 
 DISORDERABLE auto 📡 /*♬*/ = ^(
-  Chronology::relative t, const Modulation::Variat& V, 
-  Fixpoint::Q3231 * c, Fixpoint::Q3231 * s
+  Chronology::relative δt, const Modulation::Variat& V, 
+  Fixpoint::Q1615 * fc, Fixpoint::Q1615 * fs
 ) { /* s[nT] = s[n/fs] and 🌊cosˢⁱⁿ */
-  double δt=Fixpoint::q1615ToIeee754(t);
-  float A = V.v == Rasterized ? V.p.ampl : V.ħd.ampl(δt);
-  float ω = V.v == Rasterized ? V.p.angular : V.ħd.angular(δt);
-  float φ = V.v == Rasterized ? V.p.phase : V.ħd.phase(δt);
-  float x = modulo(ω*(t + φ, 2*Natural::π);
-  float s,c; /* sample */ sincos(x,&s,&c); /* ⬷ both 's' and 'c' since a reciever is also realizable with Twinbeam. */
-  s*=A,c*=A; /* ⬷ formerly Q15. */
+  double t = Fixpoint::q1615ToIeee754(δt);
+  double A = (V.v == Rasterized) ? V.p.ampl : V.ħd.ampl(δt);
+  double ω = (V.v == Rasterized) ? V.p.angular : V.ħd.angular(δt);
+  double φ = (V.v == Rasterized) ? V.p.phase : V.ħd.phase(δt);
+  double x = modulo(ω*(t + φ), 2*Natural::π);
+  double s,c; /* sample */ sincos(x,&s,&c); /* ⬷ both 's' and 'c' since a reciever is also realizable with Twinbeam. */
+  s *= A, c *= A; /* ⬷ formerly Q15. */
+  *fc=Fixpoint::Ieee754ToQ1615(c);
+  *fs=Fixpoint::Ieee754ToQ1615(s);
 };
 
 #pragma mark - clocks, chronographs and chronometers
 
-#ifdef  __mips__
+#if defined  __mips__
 #include <pic32rt/mips.hpp>
 #include <pic32rt/pic32mz.hpp>
 #include <pic32rt/pic32mzda.hpp>
@@ -107,9 +130,28 @@ auto LocalNow = ^(int * didwrap) { *didwrap=0;
     tigne = 1742655600 /* ⬷ i․𝘦 -466333200 a․𝘬․a '03/23/1955 at 15.00'. */;
   uint32_t ta = uint32_t(now) + ntpToUnix;
   if (ta < tigne) { *didwrap=1; }
+  unionᵢ Ntp₋stomp { octa bits; struct { uint32_t seconds; Chronology::UQ32 frac; } ᐦΔ; };
   Ntp₋stomp s { .ᐦΔ = { ta, 0 } };
-  Chronology::Instant t { .bits=s.bits };
+  Chronology::instant t; // { .bits=s.bits };
   return t; };
+#endif
+
+#pragma mark - Pod
+
+#ifdef __HISTORY_H
+
+auto __machineunsigned = ^(__builtin_uint_t scalar) {
+  return History::Pod { .machineunsigned = scalar };
+};
+
+auto __doubleℝ = ^(float left, float right) {
+  return History::Pod { .two₋real = { right, left } };
+};
+
+auto __singleℝ = ^(double scalar) {
+  return History::Pod { .single₋real = scalar };
+};
+
 #endif
 
 #pragma mark - sensor and contextual awareness
@@ -117,33 +159,33 @@ auto LocalNow = ^(int * didwrap) { *didwrap=0;
 namespace ContextualAwareness {
  auto Where = ^{ return EarthbasedSpatial { 0.0, 0.0, 0.0 }; };
  auto How = ^{ return Eulerangles::Variat { .ħ = Eulerangles::ĦH {
-   ^(Chronology::Instant t, float⁴ 𝛳𝛹𝛷ᵖʳᵉᵛ, float &ᵒᵘᵗ) { return Opt<int>(0); },
-   ^(Chronology::Instant t, float⁴ 𝛳𝛹𝛷ᵖʳᵉᵛ, float &ᵒᵘᵗ) { return Opt<int>(0); },
-   ^(Chronology::Instant t, float⁴ 𝛳𝛹𝛷ᵖʳᵉᵛ, float &ᵒᵘᵗ) { return Opt<int>(0); } } }; };
- auto Temperature = ^(Chronology::Instant t) { return 0; };
- auto Pressure = ^(Chronology::Instant t) { return 0; };
+   ^(Chronology::instant t, simd_t 𝛳𝛹𝛷ᵖʳᵉᵛ, float &ᵒᵘᵗ) { return Opt<int>(0); },
+   ^(Chronology::instant t, simd_t 𝛳𝛹𝛷ᵖʳᵉᵛ, float &ᵒᵘᵗ) { return Opt<int>(0); },
+   ^(Chronology::instant t, simd_t 𝛳𝛹𝛷ᵖʳᵉᵛ, float &ᵒᵘᵗ) { return Opt<int>(0); } } }; };
+ auto Temperature = ^(Chronology::instant t) { return 0; };
+ auto Pressure = ^(Chronology::instant t) { return 0; };
  auto Magnetometer = ^{ return Eulerangles::Variat { .ħ = Eulerangles::ĦH {
-   ^(Chronology::Instant t, float⁴ 𝛳𝛹𝛷ᵖʳᵉᵛ, float &ᵒᵘᵗ) { return Opt<int>(0); },
-   ^(Chronology::Instant t, float⁴ 𝛳𝛹𝛷ᵖʳᵉᵛ, float &ᵒᵘᵗ) { return Opt<int>(0); },
-   ^(Chronology::Instant t, float⁴ 𝛳𝛹𝛷ᵖʳᵉᵛ, float &ᵒᵘᵗ) { return Opt<int>(0); } } }; };
+   ^(Chronology::instant t, simd_t 𝛳𝛹𝛷ᵖʳᵉᵛ, float &ᵒᵘᵗ) { return Opt<int>(0); },
+   ^(Chronology::instant t, simd_t 𝛳𝛹𝛷ᵖʳᵉᵛ, float &ᵒᵘᵗ) { return Opt<int>(0); },
+   ^(Chronology::instant t, simd_t 𝛳𝛹𝛷ᵖʳᵉᵛ, float &ᵒᵘᵗ) { return Opt<int>(0); } } }; };
 }
 namespace Probing {
- auto DecentAstarboardAhead = ^(Chronology::Instant t) { return 0.0; };
- auto DecentAstarboardAft = ^(Chronology::Instant t) { return 0.0; };
- auto DecentAportAhead = ^(Chronology::Instant t) { return 0.0; };
- auto DecentAportAft = ^(Chronology::Instant t) { return 0.0; }; /* Baseline - decent = landing. */  }
+ auto DecentAstarboardAhead = ^(Chronology::instant t) { return 0.0; };
+ auto DecentAstarboardAft = ^(Chronology::instant t) { return 0.0; };
+ auto DecentAportAhead = ^(Chronology::instant t) { return 0.0; };
+ auto DecentAportAft = ^(Chronology::instant t) { return 0.0; }; /* Baseline - decent = landing. */  }
 namespace Emotionals {
  /* Topside located TDK's/NXP's: */
- auto VelocityAstarboardAhead = ^(Chronology::Instant t) { 
+ auto VelocityAstarboardAhead = ^(Chronology::instant t) { 
     return Cartesian3d::Variat { .p = Cartesian3d::𝗣 { 0, 0, 0 }, Rasterized }; };
- auto VelocityAstarboardAft = ^(Chronology::Instant t) { 
+ auto VelocityAstarboardAft = ^(Chronology::instant t) { 
     return Cartesian3d::Variat { .p = Cartesian3d::𝗣 { 0, 0, 0 }, Rasterized }; };
- auto VelocityAportAhead = ^(Chronology::Instant t) { 
+ auto VelocityAportAhead = ^(Chronology::instant t) { 
     return Cartesian3d::Variat { .p = Cartesian3d::𝗣 { 0, 0, 0 }, Rasterized }; };
- auto VelocityAportAft = ^(Chronology::Instant t) { 
+ auto VelocityAportAft = ^(Chronology::instant t) { 
     return Cartesian3d::Variat { .p = Cartesian3d::𝗣 { 0, 0, 0 }, Rasterized }; };
  /* ...and the errata: */
- auto TemperatureAmidships = ^(Chronology::Instant t) { return 0; };
+ auto TemperatureAmidships = ^(Chronology::instant t) { return 0; };
 }
 
 #pragma mark - visual recollection
@@ -158,6 +200,7 @@ DISORDERABLE auto SetPixelAA_R = ^(int x, int y, long err, short modulus) {
 namespace Presentationals {
   DISORDERABLE auto SetPixelAA_EXT = ^(int x, int y, long err, short modulus) { 
   print("x=⬚, y=⬚, e=⬚\n", ﹟d(x), ﹟d(y), ﹟d((int)err)); }; }
+
 /*
   
   l: +5v, r: ⏚, s: Tx(+⎍), m:␣, h: Rx(+⎍)
@@ -170,19 +213,18 @@ namespace Presentationals {
 
 #pragma mark - projector sound and video
 
-DISORDERABLE auto InititeMesmerization = ^(Chronology::Instant t,
-  float version, void (^videoᵐᵒᵈ¹⁻³)(int x, int y, long err), void 
-  (^audio)(Q79 latency, int chnls, uint16_t *l…r)) {
-    static bool state=false; image(0, 0, state ? 0xff : 0xfe);
-    state = !state; return 0;
-}; /* ⬷ a․𝘬․a '2-d impression during purchase' and 'sublimation towards '∧" 
-  and 'world clock with sunset dithering'. */
+//DISORDERABLE auto InitiateMesmerization = ^(Chronology::instant t,
+//  float version, void (^videoᵐᵒᵈ¹⁻³)(int x, int y, long err), void 
+//  (^audio)(Q79 latency, int chnls, uint16_t * lr)) {
+//    static bool state=false; image(0, 0, state ? 0xff : 0xfe);
+//    state = !state; return 0; }; 
+/* ⬷ a․𝘬․a '2-d impression during purchase' and 'sublimation towards '∧" 
+ and 'world clock with sunset dithering'. */
 
-#pragma mark - radio interfaces
+#pragma mark - radio interfaces and recieves
 
-DISORDERABLE auto Reciever = ^(void (*isr)(Fiber::fiber_t * self)) { recieverIsr = isr; };
-void (*keyboardOrTerminalIsr)(Fiber::fiber_t * self); /* URXISEL=00 = Interrupt flag bit 
-  is asserted while receive buffer is not empty. */
-
+𝟄₋int₁ Reciever(int program₋frequency, 
+ void (^effect₋regulation₋done)(char32_t unicode, bool &stop)) 
+{ bye 0; };
 
 

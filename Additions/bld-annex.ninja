@@ -1,0 +1,26 @@
+# build.ninja - building Kirkbridge for macos.
+
+optflags = -g
+src = Kirkbridge
+progname = kirk911
+objs = ./.objs/7703a312-559A-41ca-A992-eabcf7f87663_$progname
+libtwinbeam = ../Source/Releases/libTwinbeam_macos.a
+libadditions = Releases/libAdditions_macos.a
+
+include ../tools.ninja
+platflags = -I $additions/..
+flags = $optflags $macoscflags $platflags -Wno-c++2a-designator -std=c++2a
+include ../macOS/laptop-big.ninja
+
+rule link
+   command = xcrun ld $linkflags -o $out $in $libtwinbeam $libadditions      $
+    $libauxiliaries
+
+build kirk911: link $objs/911.o $objs/arithmetic.o $objs/derrived.o          $
+ $objs/main.o
+
+build $objs/911.o: cc $src/911.cpp
+build $objs/arithmetic.o: cc $src/arithmetic.cpp
+build $objs/derrived.o: cc $src/derrived.cpp
+build $objs/main.o: cc $src/main.cpp
+default $progname
