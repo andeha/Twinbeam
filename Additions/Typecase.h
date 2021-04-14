@@ -17,7 +17,7 @@
     Greek₂: αβγδεζηθικλμνξοπρςστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ
     Models and mathematics: ⊏ ⊑ ⊢ ⊨ ⊿ ª0 + … + ªn₋1 n₍2k₊1₎ ª1⋯ªk ∴ (tf) ∵ (b) ∎ ⇀↽
     Parentheses and temporals: ⎛⎜⎝   ⎞⎟⎠        ◯ ♢ ▢ (...also: 'valid' and 'transaction'.)
-    Sub/super: ⁻⁺⁽¹ˣ⁾⁼ⁱⁿ ᵢᵣᵤᵥᵦᵧᵨᵩᵪ₊₋₌₍₎⨧ₐₑₒₓₔⱼ ᵃⁿᵈᵉʰᵊᵇⁱʲˡˢᵋᵌᵍᵎᵏᵐⁿᵒᵖʳᵗᵘᵙᵚᵛˣʸᴬᴮᴴᴵᴺᵅᵝᵞᵟᵋᶿᵠᵡ
+    Sub/super: ⁻⁺⁽¹ˣ⁾⁼ⁱⁿ ᵢᵣᵤᵥᵦᵧᵨᵩᵪ₊₋₌₍₎⨧ₐₑₒₓₔⱼᵃⁿᵈᵉʰᵊᵇⁱʲˡˢᵋᵌᵍᵎᵏᵐⁿᵒᵖʳᵗᵘᵙᵚᵛˣʸᴬᴮᴴᴵᴺᵅᵝᵞᵟᵋᶿᵠᵡ
     Matrices and conditionals: ⎡⎢⎣ ⋱ ⋰ ⋮ ⎤⎥⎦  ⎧⎨⎩  ⎫⎬⎭  ⎪
     Misc¹: ℃/˚C/ºC ℉/˚F/ºF ® © ™ № ºª pµ Ω ℊ ϵε϶— ∁ ≙ ⋈ ⫝ ⦣⧄⧅⧆⧇ ⧈ ⧉ ╳ ☩ ₧ ₥
     Chemistry hobbyist: ⇾ ₀₁₂₃₄₅₆₇₈₉
@@ -93,6 +93,8 @@
      '📲📩📈📉🔃➡︎⬅︎⬆︎⬇︎↩︎⤴︎⤵︎⤴⤵ (牮筏)'
      ⬷ ⤐ 'Leftwards two-headed triple dash arrow'
     
+    Punch: ■=1, □=0.
+    
    Extensions: ⁌⁍ ⊸ ⫰ ⫱ ⿱⿳⿶  ⃦ a⃮ b⃯ a͍ (Combining left and right arrow below),
      a̫b̫c̫ ⬷ 'Combining inverted double arch below' a⃨b⃨c⃨ a⃩ a⃪
      1゚ (Combining Katakana Sound Mark)
@@ -113,7 +115,7 @@
      ⇀ ↽ (Medium mathematical space), ⇀　↽ (Ideographic space), ⇀〿↽
      (Ideographic half-fill space). ␣ (Knuths' constant.) ﹇ (Silver space)
     ⇀⁤,⁣,⁢↽ (Non-visible-plus|separator|*) ⥗ ⥖ (Paragraph separator)    
-                                                                             
+     ⸐⸏⸑  ⇀ ↽ (No-break space)                                            
    Language: ' APOSTROPHE " QUOTATION MARK, ` GRAVE ACCENT,                  
        todo: RABIT LEFT, RABIT RIGHT, SUBSCRIPTED RABIT LFT, SUBSCRIPT RABIT RGHT
                                                                              
