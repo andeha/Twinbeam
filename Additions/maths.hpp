@@ -66,7 +66,7 @@ MACRO simd_tᵦ sign(simd_tᵦ 𝒙)
 MACRO simd_tᵦ sin(simd_tᵦ 𝒙) { simd_tᵦ s,c; sincos(𝒙,&s,&c); return s; }
 MACRO simd_tᵦ cos(simd_tᵦ 𝒙) { simd_tᵦ s,c; sincos(𝒙,&s,&c); return c; }
 
-inline simd_tᵦ asin(simd_tᵦ 𝒙)
+MACRO simd_tᵦ asin(simd_tᵦ 𝒙)
 { /* asin(x) = 2 arctan(x/(1 + √(1-x²))), where x≤1 leads to complex later. */
   simd_tᵦ 🥇 𝟷=simd_initᵦ(1.0), 𝟸=simd_initᵦ(2.0);
   simd_tᵦ x² = __builtin_simd_mulᵦ(𝒙,𝒙);
@@ -79,7 +79,7 @@ inline simd_tᵦ asin(simd_tᵦ 𝒙)
 } /* also: arcsin(x) = π/2 - sqrt(1 - x)(a₀ + a₁*x + a₂*x² + a₃*x³), 
   a₀=1.5707288, a₁=-0.2121144, a₂=0.0742610, a₃=-0.0187293 */
 
-inline simd_tᵦ acos(simd_tᵦ 𝒙)
+MACRO simd_tᵦ acos(simd_tᵦ 𝒙)
 { /* acos(x) = 2 arctan(√(1-x²) / (1+x)) */
   simd_tᵦ 🥇 𝟷=simd_initᵦ(1.0), 𝟸=simd_initᵦ(2.0);
   simd_tᵦ x² = __builtin_simd_mulᵦ(𝒙,𝒙);
@@ -119,6 +119,14 @@ MACRO double floor₋ℝ(double x) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = fl
 MACRO int64_t nearest(double x) { simd_tᵦ 𝒙 = simd_initᵦ(x); simd_tₒ 𝒚 = nearest(𝒙); return simd_scalarᵢₐ(𝒚); }
 MACRO double sign(double x) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = sign(𝒙); return simd_scalarᵦ(𝒚); }
 MACRO double frac(double x) { simd_tᵦ 𝒙 = simd_initᵦ(x), 𝒚 = frac(𝒙); return simd_scalarᵦ(𝒚); }
+
+#if __has_include(<Additions/knapsack/normal.hpp>)
+#include <Additions/knapsack/normal.hpp>
+#endif
+
+#if __has_include(<Additions/knapsack/interval.hpp>)
+#include <Additions/knapsack/interval.hpp>
+#endif
 
 enum class Newtoncontrol { ok, done, abort };
 typedef double (^Computational)(double x);

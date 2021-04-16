@@ -140,11 +140,10 @@ auto didRuckpultCommit = ^(char * ref, const int& error₋code, Version version)
 #define NEXUS₋EBBERÖD /* ⬷ abstrakt maskin. */
 #define STEERING₋GOLD /* ⬷ Catholic₋gregorian keys. */
 #define KONTRA₋REPUDIAT /* ⬷ sensor-bonanza. */
-#define MKULTRA₋ALGA /* ⬷ cf. 'iconic qualities' and not SHIPOLDHASHOME. */
 #define APPLIED₋ATTR /* and LEGATO₋SOURCES. */
 #define CIRKULATIV₋DEKRET /* ''' alt. 3 🌎. 12 9. */
 #ifdef  __mips__
-typedef uint32_t mips32_context[32]; /*  ∎: mx=11 ∧ mz=23! */
+typedef uint32_t mips32_context[32]; /* ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
 #elif defined __armv6__
 typedef uint32_t arm_context[9];
@@ -563,7 +562,7 @@ MACRO int64_t Nearest(double measure, int * reciproc)
 } /* ⬷ a․𝘬․a 'Cast' and 'Convert'. (Rounded towards -inf: floor.l.d; rounded 
  towards +inf: ceil.l.d) */
 
-#undef IEEE754₋ARITHMETICS₋INSIDE
+/* #undef IEEE754₋ARITHMETICS₋INSIDE */
 #undef GENERAL
 
 #if defined __MZ__ || defined __armv6__ || defined espressif
@@ -756,7 +755,7 @@ int ˢConvoj<G>::copy₋include(int count, G * Ɀ, int cycles)
 }
 
 template <typename E> using ˢKnots𝟷ᵈ = ˢConvoj<E>; /* ⬷ a․𝘬․a 'Sequence'. */
-using Knots𝟷ᵈ = Convoj; /* ⬷ a․k․a 'Convenient-for-bloodknots'. */
+using Knots𝟷ᵈ = Convoj; /* ⬷ a․𝘬․a 'Convenient-for-bloodknots'. */
 
 int Snapshot(const structure& original, structure & pristine);
 int ToggleNetworkAndNative(structure &region, __builtin_int_t bytes₋skip, __builtin_int_t 
@@ -795,10 +794,10 @@ int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂, Impediment it
 #define 🔓(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, JustSwap)
 struct Bitfield { const char32_t * ident; uint32_t mask; const char32_t * text; }; typedef Bitfield Register[];
 struct AnnotatedRegister { const char32_t * header; int regcnt; Bitfield * regs; uint32_t init; const char32_t * footnote; };
-struct Monoton { Monoton(__builtin_int_t oldest=0); __builtin_int_t 
- ordinal(bool * wrapped); /* ⬷ retrieve a - since the program started and given 
- a chronology - unique value in a 'strict monotonic increasing serie.  Wraps (𝄇) 
- at BUILTIN₋INT₋MAX; a․𝘬․a 'stilistic chronology'. */ 😐;
+/* Time series and peg collections ⤐ */
+struct Monoton { __builtin_int_t oldest=0; __builtin_int_t ordinal(bool * wrapped); };
+/* ⬷ retrieve a unique value in a 'strict monotonic increasing serie. Wraps (𝄇) at 
+BUILTIN₋INT₋MAX; a․𝘬․a 'stilistic chronology'. */
 inline uint32_t ᵗᵍᵍˡendian(uint32_t x) { return __builtin_bswap32(x); }
 inline uint64_t ᵗᵍᵍˡendian(uint64_t x) { return __builtin_bswap64(x); }
 /* ⇇ a․𝘬․a 'toggleNetworkAndNative'. */
@@ -857,7 +856,7 @@ constexpr __builtin_int_t Ceil(__builtin_int_t num, __builtin_int_t denom)
   __builtin_uint_t ℕ=num/denom, modula=num%denom; /* ⬷ also in sw/hw₋fractions. */
   int negative = denom₋neg ^ num₋neg ? 1 : 0;
   return (ℕ + (modula != 0 ? 1 : 0)) * (negative ? -1 : 1);
-} /* ⬷ e․𝘨 ceil(sizeof(E)/4) = words, sizeof(E)/4 - 1 < words <= sizeof(E)/4 */
+} /* ⬷ e․𝘨 ceil(sizeof(E)/4) = words, sizeof(E)/4 - 1 < words <= sizeof(E)/4. */
 
 constexpr __builtin_int_t HowMany(__builtin_uint_t index, __builtin_uint_t width) {
   return (index % width == 0) ? index/width : index/width + 1; } 
@@ -884,10 +883,15 @@ namespace Fixpoint {
       
       int64_t y = Nearest(ℤ*16384.0, &reciproc);
       
-      return Chronology::Q1615 { .frac = (int32_t)y };
+      return Fixpoint::Q1615 { .frac = (int32_t)y };
       
     }
    
+#endif
+   
+#if defined 𝟷𝟸𝟾₋bit₋integers
+   int suitable₋for₋nitpick(Q6364 ℤ, void (^easy₋read)(int neg, int count, 
+    char groups[], char * unit₋name)); /* ⬷ a․𝘬․a Saturn-2. */
 #endif
    
 }
