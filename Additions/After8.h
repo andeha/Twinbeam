@@ -128,9 +128,6 @@ struct Bitset { unsigned expeditionary=1;
     auto additional₋﹟₋count = ^(__builtin_int_t bit₋﹟) {
       return 1 + (encompassing₋bit / wordbits); };
     int ﹟ = additional₋﹟₋count(encompassing₋bit); void * 𝟺kbframes[﹟];
-    /* using namespace panel₁; ⬷ appears to be defined outside function for 
-     extern to function ⤐ extern panel₁::bitset₋noncoalescable, 
-     panel₁::bitset₋still₋short; */
     if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { Pult💡(After₋8::bitset₋noncoalescable); }
     if (inner.lengthen(﹟,𝟺kbframes)) { Pult💡(After₋8::bitset₋still₋short); }
   }
