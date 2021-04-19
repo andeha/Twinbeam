@@ -1,10 +1,10 @@
 # tools.ninja — settings for macos and Pic32.
-tools = /Users/<User- or project name>/11.0.1
+tools = /Users/<User- or project name>/12.0.0
 runtime = /Users/<User- or project name>/pic32rt
 additions = $runtime/../Additions
 gencdflags = -fno-rtti -fblocks -fcoroutines-ts -fno-exceptions -Wno-format  $
  -fno-signed-char -Wno-c99-designator -fno-builtin
-# moduleflags = -fmodules-ts -fimplicit-modules -fmodule-map-file=../🗿.modules
+moduleflags = -fmodules-ts -fimplicit-modules -fmodule-map-file=../🗿.modules
 pic32nda = -fforce-enable-int128 -mmsa -mdspr2 -gdwarf-5
 pic32cflags = -target mipsel -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32       $
  -mfp64 $pic32nda $gencdflags
@@ -14,7 +14,7 @@ pic32m0cflags = -target arm-none-eabi -mcpu=cortex-m0 -mfloat-abi=soft       $
 macosarmcflags = -target arm64-apple-macos11 $gencdflags
 macoscflags_withxcode = $gencdflags -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mmacosx-version-min=11.0.1
 macoscflags_commandline-xcode = $gencdflags -mmacosx-version-min=11.0.1
-macoscflags_llvm-dot-org = $gencdflags 
+macoscflags_llvm-dot-org = $gencdflags
 macoscflags = $macoscflags_commandline-xcode
 host = /Users/<User- or project name>/macOS
 # Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git 
@@ -22,9 +22,7 @@ host = /Users/<User- or project name>/macOS
 sha1git = `git log -1 '--pretty=format:%h'`
 librarian-pic32 = $tools/llvm-ar
 librarian-mac = xcrun ar
-compiler-macos = xcrun clang 
-compiler-pic32 = $tools/clang-11
-# The flag 'moduleflags' required in project setting files such 
-# as --<Projects>--<ccargs_mac>.
+compiler-macos = xcrun clang $moduleflags
+compiler-pic32 = $tools/clang-12 $moduleflags
 
 
