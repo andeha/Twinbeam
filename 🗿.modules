@@ -1,98 +1,67 @@
-/*  module.module-map | Conjectured art: In₋te₋r₋net and 
+/*  module.module-map | conjectured art: In₋te₋r₋net and 
  the '-fmodule₍-map₎-file'. */
 
-module Twinbeam_camp [system] [no_undeclared_includes]
-{ export * header "Twinbeam.h" }
+module Twinbeam_camp [system] /* [no_undeclared_includes] */
+{ export * header "Twinbeam.h" link "Twinbeam_macos" }
 /* ⬷ also: '#define generally header' and '#define run use'. */
 
-module Twinbeam_with_Additions [system] [no_undeclared_includes]
-{ export * header "Twinbeam.h"
-  header "Source/timeserie.hpp"
-  /* ⬷ Im-ple-m-en-ta-tio-n he-l-p and in₁₃-ter₂-face. */
-  header "Additions/Additions.h"
-  /* ⬷ and 'Kiddle.hpp', 'Color.hpp', 'Typeset.hpp' and 'Impressions.hpp'. */
-  /* ⬷ together with 'math.hpp', 'grün-d3.cxx' and 'Vt99.cxx'. */
-  header "Additions/History/History.h"
-  /* ⬷ together with 'two-epsilon.h'. */
-  header "Additions/Conformal.h"
-  header "Additions/Fossilate.h"
-  
-  header "Additions/Preserves.h"
-  
-  header "Additions/Storage/Ensemble.h"
-  header "Additions/Storage/Shoebox.h"
-  header "Additions/Storage/Nimble.hpp"
-  header "Additions/Filesystem.hpp"
-  header "Additions/Subgraph.h"
-  
-  header "Additions/Font⋮⋮⋮.h"
-  header "Additions/Formatting.hpp"
-  
-  header "Additions/Serious.h"
-  
-/* Possibly-maybe 'more compressed:' */
-  header "Additions/System.h"
-  header "Additions/Tape.h"
-  header "Additions/Mipsmath.hpp"
-  header "Additions/hyperg.hpp"
-  /* header "Additions/complex.hpp" */
-  header "Additions/Geologics.hpp"
-  header "Additions/Harmonic.hpp"
+module Twinbeam_embeds [system] [no_undeclared_includes]
+{ export * header "Twinbeam.h" link "Twinbeam_macos" }
+
+module TwinbeamWithAdditionaltypes
+{
+  header "../Apps/Twinbeam.h"
+  header "../Apps/Additions/Additions.h"
+  header "../Apps/Source/sequent.hpp"
+  header "../Apps/Source/sequent–2.hpp"
 }
 
-module Twinbeam_with_Minimaladditions {
-  use Twinbeam_camp header "Twinbeam.h"
-  header "Additions/Additions.h" /* ⬷ also 'Kiddle.hpp', 'Color.hpp', 'Typeset.hpp', 'Impressions.hpp', 'math.hpp', 'grün-d3.cxx' and 'Additions/Vt99.cxx'. */
-  requires cplusplus20, c17, coroutines
-  use actually_bound_set
-  export * module Twinbeam_camp { export * }
+module Additionals
+{
+  header "../Apps/Additions/Kiddle.hpp"
+  header "../Apps/Additions/Color.hpp"
+  header "../Apps/Additions/Typeset.hpp"
+  header "../Apps/Additions/Impressions.hpp"
 }
 
-module Textsearch_and_censorship {
-  use Twinbeam_camp header "Twinbeam.h"
-  header "Additions/Additions.h"
-  header "Additions/Formatting.hpp"
-  header "Additions/Kiddle.hpp"
-  requires cplusplus20, c17, coroutines
-  use possibly_encompassed
-  export * module Twinbeam_camp { export * }
-} /* ⬷ additional module declarations are in --<🅰𝔷.modules> and --<🚦.modules>. */
+module Maths
+{
+  header "../Apps/Twinbeam.h"
+  header "../Apps/Additions/math/simdⁱ.hpp"
+  header "../Apps/Additions/math/simd².hpp"
+  header "../Apps/Additions/math/simd⁴.hpp"
+  header "../Apps/Additions/math/logic.hpp"
+  header "../Apps/Additions/math/cherry.h"
+  header "../Apps/Additions/maths.hpp"
+}
 
-module Infographics_in_terminal { /* incl. sediments and timeseries. */
-  use Twinbeam_camp header "Twinbeam.h"
-  header "Additions/Additions.h"
-  /* ⬷ and 'Color.hpp', 'Impressions.hpp' and 'Typeset.hpp'. */
-  header "Additions/Kiddle.hpp"
-  header "Additions/Font⋮⋮⋮.h"
-  header "/Users/<User- or project name>/vt99/vt99-c++/vt99-c.h"
-  header "/Users/<User- or project name>/vt99/vt99-c++/vt99-c++.h"
-  export * module Twinbeam_camp { export * }
-} /* ⬷ a․𝘬․a 'Infographics₋in₋terminal', 'Pixelperfect', 'VT99', 
-  'On 'terminally ill" and 'Inside_Terminalfun'. */
-
-module Twinbeam_with_Additions_and_top [system] {
-  use Twinbeam_with_Additions header "Twinbeam.h" header "Source/timeserie.hpp" header "Additions/Additions.h" 
-  header "Additions/System.h"
-  requires cplusplus20, c17, coroutines
-  use possibly_encompassed
-  export * module Twinbeam_with_Additions { export * }
+module Twinbeam
+{
+  header "../Apps/Twinbeam.h"
+  header "../Apps/Additions/Additions.h"
+  header "../Apps/Source/sequent.hpp"
+  header "../Apps/Source/sequent–2.hpp"
 }
 
 module actually_bound_set {
-  link "Twinbeam_pic32mz" link "Twinbeam_macOS"
-  link "Additions_pic32mz" link "Additions_macOS"
+  link "Twinbeam_pic32mz" link "Twinbeam_macos"
+  link "Additions_pic32mz" link "Additions_macos"
 } /* ⬷ a․𝘬․a 'bound₋library₋set'. */
 
 module possibly_encompassed {
-  link "Twinbeam_pic32mz" link "Twinbeam_macOS"
-  link "Auxiliaries_macos" link "Auxiliaries_pic32mz"
-  link "Additions_pic32mz" link "Additions_macOS"
+  link "Twinbeam_pic32mz" link "Twinbeam_macos"
+  link "Storage_pic32mz" link "Storage_macos"
+  link "Seismic_pic32mz" link "Seismic_macos"
+  link "Auxiliaries_pic32mz" link "Auxiliaries_pic32mz"
+  link "Additions_pic32mz" link "Additions_macos"
 } /* ⬷ a․𝘬․a 'all₋libraries'. */
 
-/*  Executables form for mips, x86_64/arm64 and other to be linked with: 
+/*  Executable form for mips, x86_64/arm64 and other to be linked with: 
  
- [github]>--<℮ ia64+pic32rt>--<llvm-rt3.cpp>.
- [private]>--<℮ arm-tensilica>--<llvm-rt3.cpp>.
- --<Monitor>--<Apps>--<Additions>--<Fossilate.cpp>.
+ [github]>--<℮ ia64+pic32rt>--<llvm-rt3.cpp optionally pic32-one/two.ld>
+ [private]>--<℮ arm-tensilica>--<llvm-rt3.cpp>
+ --<Monitor>--<Apps>--<Additions>--<Fossilate.cpp> and optionally
+ --<Monitor>--<Apps>--<pic32rt>--<start.S>.
+ 
  */
 
