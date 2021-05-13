@@ -8,12 +8,16 @@ module Twinbeam_camp [system] /* [no_undeclared_includes] */
 module Twinbeam_embeds [system] [no_undeclared_includes]
 { export * header "Twinbeam.h" link "Twinbeam_macos" }
 
-module TwinbeamWithAdditionaltypes
+module TwinbeamWithAdditionaltype
 {
-  header "../Apps/Twinbeam.h"
-  header "../Apps/Additions/Additions.h"
+  header "../Apps/Twinbeam.h" /* includes */
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Additions/Additions.h" /* includes */
+  textual header "../Apps/Additions/Vt99.cxx"
   header "../Apps/Source/sequent.hpp"
   header "../Apps/Source/sequent–2.hpp"
+  header "../Apps/Additions/maths.hpp" /* includes */
+  textual header "../Apps/Additions/math/cherry.h"
 }
 
 module Additionals
@@ -24,23 +28,76 @@ module Additionals
   header "../Apps/Additions/Impressions.hpp"
 }
 
-module Maths
+module interaction
 {
   header "../Apps/Twinbeam.h"
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Additions/math/simd².hpp" /* includes in an early stage */
+  textual header "../Apps/Additions/math/simd-none.hpp" /* later-even-also */
+  textual header "../Apps/Additions/math/𝚏⟷𝚒.hpp"
+  header "../Apps/Additions/Impressions.hpp"
+  header "../Apps/Additions/Color.hpp"
   header "../Apps/Additions/math/simdⁱ.hpp"
-  header "../Apps/Additions/math/simd².hpp"
+  header "../Apps/Additions/grün-partial.h"
+}
+
+module Series
+{
+  header "../Apps/Twinbeam.h" /* includes */
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Source/timeserie.hpp"
+}
+
+module Fifo
+{ header "../Apps/Twinbeam.h" /* includes */
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Source/fifo.h"
+}
+
+module Radiocompute
+{
+  header "../Apps/Twinbeam.h" /* includes */
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Additions/Additions.h"
+  header "../Apps/Additions/math/simdⁱ.hpp"
+  header "../Apps/Additions/math/simd².hpp" /* includes in an early stage */
+  textual header "../Apps/Additions/math/simd-none.hpp" /* later-even-also */
+  textual header "../Apps/Additions/math/𝚏⟷𝚒.hpp"
   header "../Apps/Additions/math/simd⁴.hpp"
   header "../Apps/Additions/math/logic.hpp"
-  header "../Apps/Additions/math/cherry.h"
+  header "../Apps/Additions/math/cherry.h" /* included-by */
+  header "../Apps/Source/sequent.hpp"
   header "../Apps/Additions/maths.hpp"
-}
+} /* ⬷ a․𝘬․a Radioräkning. */
 
 module Twinbeam
 {
-  header "../Apps/Twinbeam.h"
-  header "../Apps/Additions/Additions.h"
+  header "../Apps/Twinbeam.h" /* includes */
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Additions/Kiddle.hpp" /* followed-by */
+  header "../Apps/Additions/Color.hpp" /* followed-by */
+  header "../Apps/Additions/Typeset.hpp" /* followed-by */
+  header "../Apps/Additions/Impressions.hpp" /* pre-includes */
+  header "../Apps/Additions/Additions.h" /* that-includes */
+  textual header "../Apps/Additions/Vt99.cxx"
   header "../Apps/Source/sequent.hpp"
   header "../Apps/Source/sequent–2.hpp"
+  header "../Apps/Additions/math/simd².hpp"
+  header "../Apps/Additions/maths.hpp"
+  textual header "../Apps/Additions/math/cherry.h"
+  
+  module Twinbeam_and_random
+  { requires !macos requires Twinbeam 
+    header "../Apps/pic32rt/pic32mzda.hpp"
+    header "../Apps/pic32rt/trng.hpp"
+  }
+  
+  module Twinbeam_and_torah
+  { requires macos requires Twinbeam
+    header "../Apps/Twinbeam.h"
+    header "../Apps/Additions/Additions.h" /* that-includes */
+    textual header "../Apps/Additions/Vt99.cxx"
+  }
 }
 
 module actually_bound_set {
@@ -58,9 +115,9 @@ module possibly_encompassed {
 
 /*  Executable form for mips, x86_64/arm64 and other to be linked with: 
  
- [github]>--<℮ ia64+pic32rt>--<llvm-rt3.cpp optionally pic32-one/two.ld>
+ [github]>--<℮ ia64+pic32rt>--<llvm-rt3.cpp opt. pic32-one/two.ld>
  [private]>--<℮ arm-tensilica>--<llvm-rt3.cpp>
- --<Monitor>--<Apps>--<Additions>--<Fossilate.cpp> and optionally
+ --<Monitor>--<Apps>--<Additions>--<Fossilate.cpp> and eventually 
  --<Monitor>--<Apps>--<pic32rt>--<start.S>.
  
  */
