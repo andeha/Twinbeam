@@ -12,13 +12,15 @@ module TwinbeamWithAdditionaltype
 {
   header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
-  header "../Apps/Additions/Additions.h" /* includes */
+  header "../Apps/Additions/Additions.h" /* includes via `struct` */
   textual header "../Apps/Additions/Vt99.cxx"
   header "../Apps/Source/sequent.hpp"
   header "../Apps/Source/sequent–2.hpp"
+  header "../Apps/Additions/math/simd².hpp"
   header "../Apps/Additions/maths.hpp" /* includes */
   textual header "../Apps/Additions/math/cherry.h"
-}
+  /* header "../Apps/Additions/multitouch.hpp" */
+} /* ⬷ a․𝘬․a experimentally_included. */
 
 module Additionals
 {
@@ -28,10 +30,11 @@ module Additionals
   header "../Apps/Additions/Impressions.hpp"
 }
 
-module interaction
+module Interaction
 {
-  header "../Apps/Twinbeam.h"
+  header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
+  header "../Apps/Additions/Additions.h" /* includes via `struct` */
   header "../Apps/Additions/math/simd².hpp" /* includes in an early stage */
   textual header "../Apps/Additions/math/simd-none.hpp" /* later-even-also */
   textual header "../Apps/Additions/math/𝚏⟷𝚒.hpp"
@@ -41,20 +44,7 @@ module interaction
   header "../Apps/Additions/grün-partial.h"
 }
 
-module Series
-{
-  header "../Apps/Twinbeam.h" /* includes */
-  textual header "../Apps/Source/coroutine"
-  header "../Apps/Source/timeserie.hpp"
-}
-
-module Fifo
-{ header "../Apps/Twinbeam.h" /* includes */
-  textual header "../Apps/Source/coroutine"
-  header "../Apps/Source/fifo.h"
-}
-
-module Radiocompute
+module Radiocomputen
 {
   header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
@@ -65,13 +55,35 @@ module Radiocompute
   textual header "../Apps/Additions/math/𝚏⟷𝚒.hpp"
   header "../Apps/Additions/math/simd⁴.hpp"
   header "../Apps/Additions/math/logic.hpp"
-  header "../Apps/Additions/math/cherry.h" /* included-by */
   header "../Apps/Source/sequent.hpp"
-  header "../Apps/Additions/maths.hpp"
-} /* ⬷ a․𝘬․a Radioräkning. */
+  header "../Apps/Additions/maths.hpp" /* includes */
+  textual header "../Apps/Additions/math/cherry.h"
+} /* ⬷ a․𝘬․a radioräkning. */
+
+module Series
+{
+  header "../Apps/Twinbeam.h" /* includes */
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Source/fifo.h"
+  header "../Apps/Additions/After8.h"
+  header "../Apps/Source/timeserie.hpp"
+  header "../Apps/Source/timeserie₂.hpp"
+}
+
+module Fifo
+{ header "../Apps/Twinbeam.h" /* includes */
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Source/fifo.h"
+}
+
+module Signalling
+{ header "../Apps/Twinbram.h" /* includes */
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Harmonic.hpp"
+}
 
 module Twinbeam
-{
+{ umbrella header "../Apps/Source/Twinbeam.h"
   header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
   header "../Apps/Additions/Kiddle.hpp" /* followed-by */
@@ -83,21 +95,87 @@ module Twinbeam
   header "../Apps/Source/sequent.hpp"
   header "../Apps/Source/sequent–2.hpp"
   header "../Apps/Additions/math/simd².hpp"
-  header "../Apps/Additions/maths.hpp"
+  header "../Apps/Additions/maths.hpp" /* includes */
   textual header "../Apps/Additions/math/cherry.h"
-  
-  module Twinbeam_and_random
-  { requires !macos requires Twinbeam 
+   
+  explicit module Twinbeam_and_random
+  { requires !macos
     header "../Apps/pic32rt/pic32mzda.hpp"
     header "../Apps/pic32rt/trng.hpp"
+    export * export Twinbeam.*
   }
   
-  module Twinbeam_and_torah
-  { requires macos requires Twinbeam
-    header "../Apps/Twinbeam.h"
-    header "../Apps/Additions/Additions.h" /* that-includes */
-    textual header "../Apps/Additions/Vt99.cxx"
+}
+
+module Calligraphy
+{ requires macos
+  header "Thirdparty/source/freetype-2.10.1/include/ft2build.h" /* disjunct with */
+  header "../Apps/Additions/Font⋮⋮⋮.h"
+  export *
+} /* ⬷ a․𝘬․a Twinbeam_and_torah. */
+
+module Traditionalfiling
+{
+  module Unix { requires macos
+    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h"
+    header "../Apps/Additions/Filesystem.hpp"
   }
+} /* ⬷ a․𝘬․a Computerfiles. see the USB spcification for negotiated numbers. */
+
+module Heavyduty
+{
+  module Imagination {
+    requires !macos
+    header "../Apps/Additions/heavy-duty/Mipsmath.hpp"
+  }
+}
+
+module Shoebox
+{
+  header "../Apps/Additions/Storage/Nimble.hpp"
+}
+
+module System
+{
+  header "../Apps/Additions/System.h"
+}
+
+module Minimum
+{
+  
+  module Twinbeam_and_Minimum_2
+  {
+     header "../Apps/Additions/After8.h"
+  }
+  
+  config_macros ADDITIONAL_LINKERSYMBOLS
+  
+  module Twinbeam_and_Minimum_1
+  { requires macos
+    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector"
+    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map"
+    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/time.h"
+    header "../Apps/Additions/After8.h"
+  }
+  
+}
+
+module Macosbase
+{
+  /* header "../Apps/Source/malloc.cxx" / * ⬷ default USE_LOCKS is 0. */
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/mman.h"
+  textual header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types.h"
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h"
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/fcntl.h"
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h"
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/loader.h"
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/nlist.h"
+}
+
+module Twinbase
+{
+  header "../Apps/Twinbeam.h" /* includes */
+  textual header "../Apps/Source/coroutine"
 }
 
 module actually_bound_set {
