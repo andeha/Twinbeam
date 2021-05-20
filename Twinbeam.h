@@ -24,17 +24,18 @@ typedef long                int32_t;
 typedef uint32_t            __builtin_uint_t;
 typedef int32_t             __builtin_int_t;
 #define TriboolUnknown 0xFFFFFFFF
+#define 𝟷𝟸𝟾₋bit₋integers /* ⬷ flag -fforce-enable-int128 when Mips. */
 #elif defined __armv8a__ || defined __x86_64__
 typedef unsigned int        uint32_t;
 typedef int                 int32_t; /* ≢'long'. */
 typedef uint64_t            __builtin_uint_t;
-typedef int64_t             __builtin_int_t; /* ⬷ a․𝘬․a 'sequential'. */
+typedef int64_t             __builtin_int_t; /* ⬷ a․𝘬․a 'sequenta'. */
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
 #define 𝟷𝟸𝟾₋bit₋integers /* and not '__is_identifier(__uint128_t)' nor __SIZEOF_INT128__. */
 #endif
 typedef unsigned short      uint16_t;
 typedef short               int16_t; /* ≡ ᵐⁱᵖˢint. */
-typedef __builtin_uint_t Tribool; /* ⬷ c․𝖿 'obekant', 'icke-lös' and 'embargo ₍im₎material'. (🎿) */
+typedef __builtin_uint_t Tribool; /* ⬷ c𝖿․ 'obekant', 'icke-lös' and 'embargo ₍im₎material'. (🎿) */
 typedef struct bignum { /* Artificial: Scandinavian 'med-vet-ande'. */
   constexpr static int maxdigits = 628; /* To not: 'templates', … */
   char digits[maxdigits]; /* Unpacked binary coded decimals. */
@@ -283,7 +284,7 @@ typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
 FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memory(
  ByteAlignedRef dst, /* const */ ByteAlignedRef src, __builtin_int_t bytes) {
  ByteAlignedRef org = dst; __asm__ __volatile__ ("rep movsb" : "+D"(dst),
- "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* ⬷ a․k․a 'memcopy'. */
+ "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* ⬷ a․𝘬․a 'memcopy'. */
 FOCAL int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
  ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uint_t bytes); /* ⏱😐🏁 */
 #define MEASURE_START(prefix) int64_t prefix##Start = __rdtsc(); /* 𝚜𝚒𝚐𝚗𝚎𝚍 ⟵ Comparision */
@@ -377,7 +378,7 @@ template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋Compl(x) : x; 
  number and maps back to the same bit pattern when 2-complemented. (Two-complementing 
 'identity a․𝘬․a zero' wraps and equals 0 when pattern is assumed unsigned.) */
 /* ⬷ a․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN and NEITHER_PROLOGUE_NOR_EPILOGUE. */
-#define MOMENT /* ⬷ attribute-at-end for method declarations a․𝘬․a 'LEAF' and 'do not follow'. */
+#define MOMENTED /* ⬷ attribute-at-end for method declarations a․𝘬․a 'LEAF' and 'do not follow'. */
 #define moment /* ⬷ initial attribute for function definitions and declarations a․𝘬․a 'leaf'. */
 #define intrinsic₋leaf /* ⬷ a․𝘬․a 'half₋leaf'; multiple attempts-w(as)-silicon-based. */
 #define leaf₋function /* ⬷ ...except intrinsic functions! */
@@ -824,15 +825,18 @@ namespace Scheduler { void Init();
   
   int Process(int32_t ﹟irq, 𝟄₋int₁::Waiver * ref);
   
-  struct Necklace { 𝟄₋int₁ & err; Necklace * nxt; };
+  struct Necklace { 𝟄₋int₁ * err; Necklace * nxt; };
   
-  int Operational(𝟄₋int₁ * coroutine₋err, void * (^pearl₋alloc)(int bytes)); /* ⬷ a․𝘬․a 'Start' and 'Cyclic'. */
+  int Operational(𝟄₋int₁ * coroutine₋err, void * (^necklace₋alloc)(int bytes));
   
-  MACRO void Proceed() { curr=curr->nxt; Resume(curr->err.coroutine.address()); }
+  MACRO void Proceed() { /* __builtin_coro_suspend(0); */
+    if (first == NULL && last == NULL) { return; }
+    if (curr == NULL) { curr = last; }
+    curr = curr->nxt;
+    Resume(curr->err->coroutine.address()); 
+  } /* ⬷ a․k․a WaitaltNext. */
   
-  MACRO void Timer₋fired₁() { /* Save-ctx(curr->err) */ Proceed(); }
-  
-  MACRO void Timer₋fired₂() { /* context_t ctx; int y=getcontext(&ctx); */ Proceed(); /* setcontext(&ctx); */ }
+  MACRO void Timer₋fired() { Proceed(); }
   
 }
 
@@ -905,6 +909,8 @@ inline Fixpoint::Q1615 operator "" _Q1615(long double ℝ) { return Fixpoint::Ie
 /* ⬷ consider 32- alt. 64-bits with an extra sign bit for abstractions such as 'Frame', 
  'isPowerOfTwo', 'leqAndPowerOfTwo' and 'geqAndPowerOfTwo'. */
 
+enum class Newtoncontrol { ok, done, abort };
+
 #pragma mark - 😐😇
 
 struct Chronology { enum Consequence { thus, totient /* a․𝘬․a Ɣ */ }; 
@@ -973,7 +979,9 @@ InstantToText(
   void (^out)(char8_t digitHyphenColonPeriod𝘖rSpace)
 );
 
- /*
+ /*  One sol: 24h, 39 min and 35 sec. (Sundial time.)
+  
+  668 sols ≈ 1.88 Earth years. (approx. 687 Earth days.)
   
   Mars got five days a week and five seasons per year:
   

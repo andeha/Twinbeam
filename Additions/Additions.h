@@ -5,8 +5,7 @@
  *  Xcode Version 10.2.1 (10E1001) to x86_64.
  */
 
-#ifndef __ADDITIONS_H
-#define __ADDITIONS_H
+#pragma once
 
 void CastᵈᵇˡToText(double value, 
   void (^digits)(bool neg, int 𝟷𝟶ˣ, char * 𝟶to𝟿s), 
@@ -55,7 +54,7 @@ Binary32_MAN ␣␣␣␣|␣␣␣␣|␣xxx|xxxx|xxxx|xxxx|xxxx|xxxx| Fraction
 #define IEEE754BASE2_32BIT_QNAN₂  0x7FC00002 /* ⬷ see chapter~50, 12.2.2.2.1 for additional text. */
 
 MACRO int is₋pairwise₋inf(double x, double y, int * bipolar) {
-  octa o₁, o₂; o₁.base﹟𝟸=x, o₂.base﹟𝟸=y; *bipolar=1;
+  octa o₁,o₂; o₁.base﹟𝟸=x, o₂.base﹟𝟸=y; *bipolar=1;
   uint64_t 🥈 P=IEEE754BASE2_64BIT_PINF, N=IEEE754BASE2_64BIT_NINF;
   if (o₁.bits == N && o₂.bits == P) { return true; }
   if (o₁.bits == P && o₂.bits == N) { return true; }
@@ -67,7 +66,7 @@ MACRO int is₋pairwise₋inf(double x, double y, int * bipolar) {
 
 MACRO int isnan(double x) { octa o; o.base﹟𝟸=x; return (o.binary64.mantissah != 0 || 
  o.binary64.mantissal != 0) && o.binary64.exponent == 0x7ff; }  /* ⬷ exponent 
- is eleven bits. Sign not relevant; and IEEE 754-2008: MSB is 'is_quiet'. */
+ is eleven bits. Sign not relevant; and Ieee 754-2008: MSB is 'is_quiet'. */
 
 MACRO int iszero(double x) { octa o; o.base﹟𝟸=x; return o.bits == 
  IEEE754BASE2_64BIT_PZERO || o.bits == IEEE754BASE2_64BIT_NZERO; }
@@ -89,8 +88,8 @@ MACRO Argᴾ ﹟F(float r, int format=Numberformat::Scientific) { return Argᴾ 
 #pragma mark 😐🎲
 
 enum GaussianApproximate { AbramowitzStegun, ZogheibHlynka };
-int Gaussian(GaussianApproximate approximate, double *out);
-int Uniform(double *out); /* *out ∈ [0, 1) */
+void Gaussian(GaussianApproximate approximate, double *out);
+void Uniform(double *out); /* *out ∈ [0, 1) */
 
 #pragma mark in cases of 'high-precision Ieee754'
 
@@ -233,10 +232,6 @@ MACRO int ᵊ(const char8_t * literal, void (^sometime)(Unicodes uc)) {
 
 #pragma mark fine print for well-versed readers ('intervals and dots')
 
-typedef struct UnicodeIntervalAnd𝑂rLocation {
-  __builtin_int_t tetrasRelativeFirst, tetrasRelativeLast;
-} UnicodeSelection; /* ⬷ see also --<Preserves.h>{Utf8Interval|Sourcelocation}. */
-
 typedef struct Unicodeblock {
   __builtin_int_t linesOffsetFirst, linesOffsetLast, col₁, col₂;
 } Unicodeblock;
@@ -290,24 +285,10 @@ FINAL struct Ornaments { /* ⬷ a․𝘬․a 'Intervallic' …
 template <typename T> struct rectangle { T height, width; int /* Unit */ unit; };
 template <typename T> struct measure { T value; int /* Unit */ unit; };
 
-#define INCLUDE₋TYPESET __has_include(<Additions/Typeset.hpp>)
-#define INCLUDE₋COLOR __has_include(<Additions/Color.hpp>)
-#define INCLUDE₋KIDDLE __has_include(<Additions/Kiddle.hpp>)
-
 namespace Directions { typedef __builtin_uint_t Cross; 
   BITMASK(Cross) { CrossLeftToRight = 0b0001, CrossRightToLeft = 0b0010, 
    CrossTopToBottom = 0b0100, CrossBottomToTop = 0b1000 };
 }
-
-#if defined(INCLUDE₋TYPESET) && defined(INCLUDE₋COLOR) && defined(INCLUDE₋KIDDLE)
-#include <Additions/Kiddle.hpp>
-#include <Additions/Color.hpp>
-#include <Additions/Typeset.hpp>
-#endif
-
-#if __has_include(<Additions/Impressions.hpp>)
-#include <Additions/Impressions.hpp>
-#endif
 
 namespace Unit { enum { thou, mm, in, pc, pt, px, 𝑜𝑝tlp }; }
 /* int Width(const Ornaments& o, Unit unit, double &width, double &kerning) WESTERN;
@@ -338,11 +319,6 @@ namespace Inputctrl {
  
 }
 
-#include <Additions/maths.hpp>
-#if __has_include(<Additions/grün-d3.cxx>)
-#include <Additions/grün-d3.cxx>
-#endif /* ⬷ text₋image, infographics, UI and perception. */
-
 struct Utf8Terminal {
    
    Utf8Terminal();
@@ -360,7 +336,7 @@ struct Utf8Terminal {
   
   void (^format)(double ℝ, Utf8Terminal &stream);
   
-#if __has_include(<Additions/VT99.cxx>)
+#if __has_include(<Additions/Vt99.cxx>)
 #include <Additions/Vt99.cxx>
 #endif
    
@@ -375,7 +351,7 @@ void Regional(double ℝ, void (^out)(char32_t uc));
 void Interval(double ℝ₁, double ℝ₂, bool openend, void (^out)(char32_t uc));
 void Percentile(double ₋𝟯σ, double ₋𝟮σ, double ₋σ, double 𝟶, double σ, 
  double 𝟮σ, double 𝟯σ, __builtin_int_t * 𝟭𝟬ⁱ, void (^out)(char32_t uc));
-/* ⬷ See also 'Quantile'. */
+/* ⬷ See also 'quantile'. */
 void Normal(double μ, double σ, void (^out)(char32_t uc));
 /* log-normal distribution = draped 'logₑ' is N(μ,σ²). */
 extern void (^Default)(double, Utf8Terminal&); } /* ⬷ NumberformatCatalogue. */
@@ -397,10 +373,51 @@ struct statistics { double min, q1, mean, q3, max; };
 DISORDERABLE void Present(Utf8Terminal &term, statistics& details, 
  Ieee754form f, Unicodes separator);
 
-enum class Simdformᵦ { normal₋distribution, approximation₋follow₋accuracy, 
- max₋to₋min, complex, cartesian2ᵈ, polar2ᵈ, polar₋and₋contracyclicity };
+#if defined NON₋SIMD
+typedef __uint128_t simd_tᵦ, simd_tᵢₐ, simd_tₐ, simd_tᵥ, simd_tₒ;
+struct simd_t { __uint128_t inner; }; /* ⬷ and not 'typedef'⁉︎ */
+#elif defined __x86_64__
+typedef __m128d simd_tᵦ; typedef __m128i simd_tᵢₐ, simd_tₐ, simd_tₒ, simd_tᵥ;
+typedef __m128 simd_t;
+#elif defined __mips__ && !defined NON₋SIMD
+typedef double v2f64 __attribute__ ((vector_size(16), aligned(16)));
+typedef int v4i32 __attribute__((vector_size(16), aligned(16)));
+typedef signed char v16i8 __attribute__((vector_size(16), aligned(16)));
+typedef unsigned char v16u8 __attribute__((vector_size(16), aligned(16)));
+typedef short v8i16 __attribute__((vector_size(16), aligned(16)));
+typedef unsigned short v8u16 __attribute__((vector_size(16), aligned(16)));
+typedef int64_t v2i64 __attribute__((vector_size(16), aligned(16)));
+typedef v2f64 simd_tᵦ; typedef v4i32 simd_tᵢₐ; typedef v16i8 simd_tᵥ;
+/* 🎞/🎨/📖¹⁶ */ typedef v8i16 simd_tₐ; /* ♫♬ */ typedef v2i64 simd_tₒ;
+/* ...later specializations: simd_init📏, simd_init📏ᵟ simd_init📜, simd_init🗺. */
+typedef float v4f32 __attribute__((vector_size(16), aligned(16)));
+typedef v4f32 simd_t;
+#elif defined __armv8a__ && !defined NON₋SIMD
+typedef int32x4_t simd_tᵢₐ; typedef int64x2_t simd_tₒ;
+typedef int16x8_t simd_tₐ; typedef uint8x16_t simd_tᵥ;
+typedef float64x2_t simd_tᵦ; typedef float32x4_t simd_t;
+#endif
+
+/* union ια₋simd₁ { int32_t integers[4]; simd_tᵢₐ 𝟷𝟸𝟾bit; }; */
+union ια₋simd { int8_t integers[15]; /* 𝟷𝟸𝟶₋bit five₋chnls; */ simd_tᵢₐ 𝟷𝟸𝟾bit; };
+
+MACRO int32_t simd_scalarᵢₐ(simd_tᵢₐ 𝒙)
+{
+#if defined NON₋SIMD
+  return ια₋simd { .𝟷𝟸𝟾bit = 𝒙 }.integers[0];
+#elif defined __mips__ && !defined NON₋SIMD
+  return __builtin_msa_copy_s_w(𝒙,0);
+#elif defined __x86_64__
+  return _mm_extract_epi32(𝒙,0); /* ⬷ also VPEXTRD/PEXTRD. */
+#endif
+}
+
+union 𝛽₋simd { double dbls[2]; double doubles[2]; simd_tᵦ 𝟷𝟸𝟾₋bit; };
+
+enum class simdform { normal₋distribution, approximation₋follow₋accuracy, 
+  max₋to₋min, complex, cartesian2ᵈ, polar2ᵈ, polar₋and₋contracyclicity };
 /* ⬷ angular components always within [-pi/2, pi/2]. */
-void Present(Utf8Terminal &term, simd_tᵦ 𝕏, Simdformᵦ semantic);
+void Present(Utf8Terminal &term, simd_tᵦ 𝕏, simdform semantic);
 /* ⬷ adequate for the [28,473] ºK temperature range. */
 
 #pragma mark conveniences
@@ -409,7 +426,7 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, __builtin_int_t ℤ)
 { Present(term,ℤ); return term; }
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, __builtin_uint_t ℕ)
-{ Present(term, ℕ, Base::hex); return term; }
+{ Present(term,ℕ,Base::hex); return term; }
 
 /* MACRO Utf8Terminal & operator<<(Utf8Terminal &term, double x)
 { Present(term,x); return term; } */
@@ -487,9 +504,9 @@ Guid Newguid();
 
 /**  Retrieves a unique value in a 'strict monotonically increasing' serie. ⤐ */
 
-struct Chronology₋peg { __builtin_int_t soon=0; }; /* ⬷ a․𝘬․a 'Sequent'. */
+struct Intervallic { __builtin_int_t soon=0; };
 
-__builtin_int_t Ordinal(Chronology₋peg * act, bool * wrapped);
+__builtin_int_t Ordinal(Intervallic * act, bool * wrapped);
 
 rt₋namespace Scheduler { extern void * sw₋collection; }
 /* ⬷ a․𝘬․a Map<sexdeca, 𝟄₋int₁ *>. In --<Additions>--<Fossilate.cpp>. */
@@ -624,5 +641,4 @@ TS( /* ⬷ e․𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 
 #pragma mark trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
 /* ✂️ << --<shoebox>{Fiber} ✃ */
 
-#endif
 
