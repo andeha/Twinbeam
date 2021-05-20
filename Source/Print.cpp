@@ -1,6 +1,6 @@
 /*  𝙋𝙧𝙞𝙣𝙩.cpp | 🗞 - Printing and no escapes. */
 
-#include <Twinbeam.h>
+import Twinbase;
 
 DISORDERABLE extern void CastᵈᵇˡToText(double value, void (^digits)(bool neg, 
   int e, const char8_t *𝟶to𝟿s), void (^zero)(bool neg), void (^inf)(bool neg), 
@@ -120,7 +120,7 @@ unagain:
     return printedBytesExcept0;
 }
 
-#ifdef __x86_64__
+#if defined __x86_64__
 extern "C" long write(int fd, const void * s, long unsigned nbyte);
 #elif defined __armv8a__ || defined __mips__ || defined espressif || defined __armv6__
 extern void (^Putₒ)(char8_t * u8s, __builtin_int_t bytes);

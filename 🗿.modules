@@ -68,12 +68,14 @@ module Series
   header "../Apps/Additions/After8.h"
   header "../Apps/Source/timeserie.hpp"
   header "../Apps/Source/timeserie₂.hpp"
+  export_as Twinbeam
 }
 
 module Fifo
 { header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
   header "../Apps/Source/fifo.h"
+  export_as Twinbeam
 }
 
 module Signalling
@@ -97,14 +99,13 @@ module Twinbeam
   header "../Apps/Additions/math/simd².hpp"
   header "../Apps/Additions/maths.hpp" /* includes */
   textual header "../Apps/Additions/math/cherry.h"
-   
-  explicit module Twinbeam_and_random
-  { requires !macos
-    header "../Apps/pic32rt/pic32mzda.hpp"
-    header "../Apps/pic32rt/trng.hpp"
-    export * export Twinbeam.*
-  }
-  
+}
+
+/* explicit */ module Pic32Mzda
+{ requires !macos
+  header "../Apps/Twinbeam.h"
+  header "../Apps/pic32rt/pic32mzda.hpp"
+  header "../Apps/pic32rt/trng.hpp"
 }
 
 module Calligraphy
