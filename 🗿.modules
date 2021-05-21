@@ -1,28 +1,34 @@
 /*  module.module-map | conjectured art: In₋te₋r₋net and 
- the '-fmodule₍-map₎-file'. */
+ the '-fmodule₍-map₎-file. */
 
-module Twinbeam_camp [system] /* [no_undeclared_includes] */
-{ export * header "Twinbeam.h" link "Twinbeam_macos" }
-/* ⬷ also: '#define generally header' and '#define run use'. */
-
-module Twinbeam_embeds [system] [no_undeclared_includes]
-{ export * header "Twinbeam.h" link "Twinbeam_macos" }
-
-module TwinbeamWithAdditionaltype
+module Twinbeamtutorial
 {
   header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
-  header "../Apps/Additions/Additions.h" /* includes via `struct` */
+  header "../Apps/Additions/Additions.h" /* includes via `struct`. */
   textual header "../Apps/Additions/Vt99.cxx"
   header "../Apps/Source/sequent.hpp"
   header "../Apps/Source/sequent–2.hpp"
-  header "../Apps/Additions/math/simd².hpp"
   header "../Apps/Additions/maths.hpp" /* includes */
   textual header "../Apps/Additions/math/cherry.h"
   /* header "../Apps/Additions/multitouch.hpp" */
-} /* ⬷ a․𝘬․a experimentally_included. */
+} /* ⬷ a․𝘬․a experimentally_included and one-additional-type. */
 
-module Additionals
+module Twinbeam_camp [system] /* [no_undeclared_includes] */
+{ export * header "../Apps/Twinbeam.h" /* includes */ 
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Source/sequent.hpp"
+  link "Twinbeam_macos"
+}
+
+module Twinbeam_embeds [system] [no_undeclared_includes]
+{ export * header "../Apps/Twinbeam.h" /* includes */ 
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Source/sequent.hpp"
+  link "Twinbeam_pic32mz" 
+} /* ⬷ also: '#define generally header' and '#define run use'. */
+
+/* framework */ module Textuals
 {
   header "../Apps/Additions/Kiddle.hpp"
   header "../Apps/Additions/Color.hpp"
@@ -30,7 +36,15 @@ module Additionals
   header "../Apps/Additions/Impressions.hpp"
 }
 
-module Interaction
+/* explicit */ module Commandline
+{
+  header "../Apps/Twinbeam.h" /* includes */
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Examples/twinsh/Commandline.h"
+  header "../Apps/Examples/twinsh/Coordinator.h"
+}
+
+/* framework */ module Interaction
 {
   header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
@@ -44,7 +58,7 @@ module Interaction
   header "../Apps/Additions/grün-partial.h"
 }
 
-module Radiocomputen
+/* explicit */ module Radiocomputen
 {
   header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
@@ -56,11 +70,12 @@ module Radiocomputen
   header "../Apps/Additions/math/simd⁴.hpp"
   header "../Apps/Additions/math/logic.hpp"
   header "../Apps/Source/sequent.hpp"
+  header "../Apps/Source/sequent–2.hpp"
   header "../Apps/Additions/maths.hpp" /* includes */
   textual header "../Apps/Additions/math/cherry.h"
 } /* ⬷ a․𝘬․a radioräkning. */
 
-module Series
+/* explicit */ module Series
 {
   header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
@@ -71,18 +86,60 @@ module Series
   export_as Twinbeam
 }
 
-module Fifo
+/* explicit */ module Fifo
 { header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
   header "../Apps/Source/fifo.h"
   export_as Twinbeam
-}
+} /* 2 */
 
-module Signalling
+/* explicit */ module Signalling
 { header "../Apps/Twinbram.h" /* includes */
   textual header "../Apps/Source/coroutine"
   header "../Apps/Harmonic.hpp"
 }
+
+/* explicit */ module Utanram
+{
+  header "../Apps/Twinbeam.h" /* includes */
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Additions/two–epilon.h"
+} /* ⬷ a․𝘬․a f16. */
+
+/* explicit */ module History
+{
+  header "../Apps/Twinbeam.h" /* includes */
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Additions/Additions.h"
+  header "../Apps/Additioner/History/History.h"
+} /* 3 */
+
+/* framework */ module Steganographic_securities
+{
+  header "../Apps/Twinbeam" /* includes */
+  textual header "../App/source/coroutine"
+  header "../Apps/History/steganograph.h"
+  header "../Apps/History/re₋use.h"
+}
+
+module Kirkbridge
+{
+  header "../Apps/Additions/Kirkbridge/911.h"
+}
+
+module Radiosymbol
+{
+  header "../Apps/Additions/Radiosymbol/2ᵈ-𝔣ow₁.hpp"
+  header "../Apps/Additions/Radiosymbol/2ᵈ-𝔣ow₂.hpp"
+  header "../Apps/Additions/Radiosymbol/2ᵈ-𝔣ow₉.hpp"
+  header "../Apps/Additions/Radiosymbol/3½d-fow.hpp"
+  header "../Apps/Additions/Radiosymbol/AST.h"
+}
+
+module Planets
+{
+  header "../Apps/Additions/gray zones/Geologics.hpp"
+} /* ⬷ a․𝘬․a 'spherical-ellipsoidal geometry'. */
 
 module Twinbeam
 { umbrella header "../Apps/Source/Twinbeam.h"
@@ -106,6 +163,18 @@ module Twinbeam
   header "../Apps/Twinbeam.h"
   header "../Apps/pic32rt/pic32mzda.hpp"
   header "../Apps/pic32rt/trng.hpp"
+  /* header "../Apps/pic32rt/adc.hpp"
+  header "../Apps/pic32rt/cm.hpp"
+  header "../Apps/pic32rt/dma.hpp"
+  header "../Apps/pic32rt/dsp.hpp"
+  header "../Apps/pic32rt/flash.hpp"
+  header "../Apps/pic32rt/flowtrace.hpp"
+  header "../Apps/pic32rt/oc.hpp"
+  header "../Apps/pic32rt/pic32mzda⋔₁.hpp"
+  header "../Apps/pic32rt/retrospect.hpp"
+  header "../Apps/pic32rt/rtcc.hpp"
+  header "../Apps/pic32rt/signals.hpp"
+  header "../Apps/pic32rt/stable.hpp" */
 }
 
 module Calligraphy
@@ -121,10 +190,14 @@ module Traditionalfiling
     header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h"
     header "../Apps/Additions/Filesystem.hpp"
   }
-} /* ⬷ a․𝘬․a Computerfiles. see the USB spcification for negotiated numbers. */
+} /* ⬷ a․𝘬․a Computerfiles. see the USB specification for negotiated numbers. */
 
 module Heavyduty
 {
+ /* header "../Apps/Additions/heavy-duty/Serious.h"
+  header "../Apps/Addition/heavy-duty/hyperg.hpp"
+  header "../Apps/Additions/heavy-duty/Tape.h" */
+  
   module Imagination {
     requires !macos
     header "../Apps/Additions/heavy-duty/Mipsmath.hpp"
@@ -134,6 +207,8 @@ module Heavyduty
 module Shoebox
 {
   header "../Apps/Additions/Storage/Nimble.hpp"
+  header "../Apps/Additions/Storage/Shoebox.h"
+  header "../Apps/Additions/Storage/Ensemble.h"
 }
 
 module System
