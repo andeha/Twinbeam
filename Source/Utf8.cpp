@@ -1,6 +1,6 @@
 /*  𝙐𝙩𝙛𝟴.cpp | Unicode and streams. */
 
-#include <Twinbeam.h>
+import Twinbase;
 
 FOCAL
 short

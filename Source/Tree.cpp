@@ -1,6 +1,6 @@
 /*  𝙏𝙧𝙚𝙚.cpp | Search by half and force. (DO-NOT-PUBLISH) */
 
-#include <Twinbeam.h>
+import Twinbase;
 
 inexorable int Equal(const Treeint& l, const Treeint& r)
 { return l.keyvalue.key == r.keyvalue.key; } /* Also (l.bits ^ r.bits) & ~signbit == 0 */

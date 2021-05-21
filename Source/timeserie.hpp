@@ -1,8 +1,5 @@
 /*  timeserie.hpp | for interpolatives and extrapolatives. */
 
-#ifndef __TIMESERIE_HPP
-#define __TIMESERIE_HPP
-
 typedef __builtin_int_t version₋ts;
 
 enum class Operation { create, update, delta, remove };
@@ -12,7 +9,7 @@ enum class Operation { create, update, delta, remove };
 template <typename Key, typename Value, typename Reference>
 struct Timeserie {
     
-    using Temporal = Tuple<Key, Value, version₋ts, version₋ts>; /* ⬷ for certain classifists 'struct' appears clearer. */
+    using Temporal = Tuple<Key, Value, version₋ts, version₋ts>; /* ⬷ for certains 'struct' appears clearer. */
     using Event = Tuple<__builtin_int_t, __builtin_int_t>; /* ⬷ todo: extend the
       following typedef to <int, tuple> to support the temporal join operator. */
     using VersionEventIndexPair = Tuple<version₋ts, __builtin_int_t>;
@@ -139,5 +136,6 @@ Timeserie<Key, Value, Reference>::~Timeserie()
 /* ✁ until ✂️ and store --<shoebox>{timeseries} */
 /* ✂️ */
 
-#endif
+
+
 

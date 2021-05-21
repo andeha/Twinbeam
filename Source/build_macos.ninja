@@ -5,7 +5,7 @@ library-root = libTwinbeam_macos
 objs = ./.objs/7703a312-55A9-44da-A892-ebbcf8f87663_$library-root
 platflags = -I ..
 include ../tools.ninja
-flags = $optflags $macoscflags $platflags -Wno-c++2a-designator -std=c++2a
+flags = $optflags $macoscflags $platflags -std=c++20
 include ../macOS/laptop-big.ninja
 
 progname = $library-root\_$sha1git.a

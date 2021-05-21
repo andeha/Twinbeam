@@ -1,17 +1,17 @@
 /*  System.cpp | mandatory-required and non-specific. (DO-NOT-CIRCULATE) */
 
-#include <Twinbeam.h>
+import Twinbase;
 
 extern jmp_buf2 /* volatile */ singleTaskProgramState;
 extern Chronology calendricChronology, computationalChronology;
-extern "C" DISORDERABLE /* ⬷ overridden when linked together with 𝘦․𝘨 `SlimScheduler.o`. */
+extern "C" DISORDERABLE /* ⬷ overridden when linked together with 𝘦․𝘨 'SlimScheduler.o'. */
 jmp_buf2 * /* volatile */ JmpBuf() { return &(singleTaskProgramState); }
 
 FOCAL int IADD(short id, int32_t addend, int32_t augend, 
-  int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * sum₋negative
+  uint32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * sum₋negative
 )
 {
-   extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4];
+   /* ... */
    return 0;
 }
 
@@ -19,8 +19,7 @@ FOCAL int Fused₋IMUL(short id, int32_t augend, int32_t multiplier,
  int invMultiplyThenAdd, int32_t &ℕ₋hi, uint32_t &ℕ₋lo, int * accumulator₋negative
 )
 {
-   extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4];
-   if (invMultiplyThenAdd) { return -1; }
+   /* ... */
    return 0;
 } /* ⬷ a․𝘬․a 'linear-combine'. */
 
@@ -28,104 +27,117 @@ FOCAL int Fused₋IMUL(short id, int32_t augend, int32_t multiplier,
 
 FOCAL
 int
-Acquire𝟷ᵈ(
-  __builtin_int_t ﹟, /* ⬷ a․𝘬․a '#shatters', '﹟skeletons' and '﹟turnstiles'. */
-  __builtin_int_t 𝑙𝑜𝑔₂Pages, 
-  __builtin_uint_t pages[], __builtin_uint_t avails[], 
-  void (^every)(uint8_t * 𝟸ⁿ₋frame, bool& stop)
+Acquire𝟷ᵈ(__builtin_int_t ﹟, /* ⬷ a․𝘬․a '#shatters', '﹟skeletons' and '﹟turnstiles'. */
+  𝟺kbframes& one₋set, void (^every)(uint8_t * 𝟸ⁿ₋frame, bool& stop)
 ) /* ⬷ given a transactional memory, reconsider acquire with and without rollback. */
-{  __builtin_int_t 🥈 BytesPerWord=sizeof(__builtin_uint_t), Bits=BytesPerWord<<3;
-   __builtin_int_t Pages=0b1<<𝑙𝑜𝑔₂Pages, Idxs=(Pages/BytesPerWord)>>3;
+{  __builtin_int_t 🥈 Bits=Wordbytes<<3;
+   __builtin_int_t Idxs=(one₋set.page₋count/Wordbytes)>>3;
      if (﹟ <= 0) { return -1; } bool stop=false;
      for (int i=0; i<Idxs; i++) {
 again:
-       __builtin_int_t occupied = ~avails[i];
+       __builtin_int_t occupied = ~(one₋set.idx₋avails[i]);
        if (occupied == TriboolUnknown) { continue; }
 #if defined __mips__ || defined __armv6__ || defined espressif
        __builtin_int_t onesUntilZero = __builtin_ctz(~occupied);
 #elif defined __x86_64__ || defined __armv8a__
        __builtin_int_t onesUntilZero = __builtin_ctzll(~occupied);
 #endif
-       avails[i] ^= 1<<onesUntilZero; /* ⬷ see also note at --<Additions.h>{Bitsetˢᵘᵖ}. */
+       one₋set.idx₋avails[i] ^= 1<<onesUntilZero; /* ⬷ see note at --<Additions.h>{Bitsetˢᵘᵖ} for an 
+ alternative interpretation of matters. */
        __builtin_int_t byteOffset = Syspagesize()*(Bits*i + onesUntilZero);
-       every((uint8_t *)pages+byteOffset, stop);
+       every((uint8_t *)one₋set.pages₋base+byteOffset, stop);
        if (stop) { return -3; }
        if (--﹟ == 0) { return 0; } else { goto again; }
     }
     return -2;
-} /* ⬷ similar to `new` and `malloc` but returns multiple same-sized and non-
+} /* ⬷ similar to 'new' and 'malloc' but returns multiple same-sized and non-
   consecutive memory areas. */
 
 FOCAL
 int
-Release𝟷ᵈ(
-  void * 𝟸ⁿ₋frame, 
-  __builtin_int_t 𝑙𝑜𝑔₂Pages, 
-  __builtin_uint_t pages[], __builtin_uint_t avails[], 
-  bool secure
-)
-{  __builtin_int_t 🥈 BytesPerWord=sizeof(__builtin_uint_t);
-    __builtin_int_t Pages=0b1<<𝑙𝑜𝑔₂Pages, Idxs=(Pages/BytesPerWord)>>3, 
-    ᵇoffset = 1 + (uint8_t *)(𝟸ⁿ₋frame)-(uint8_t *)pages, 
-       ᵚidx = (__builtin_int_t)Frame(ᵇoffset,8*BytesPerWord) - 1, 
-       bitᵚ = ᵇoffset - ᵚidx*BytesPerWord;
+Release𝟷ᵈ(void * 𝟸ⁿ₋frame, 𝟺kbframes& one₋set, bool secure)
+{  __builtin_int_t Idxs=(one₋set.page₋count/Wordbytes)>>3, 
+    ᵇoffset = 1 + (uint8_t *)(𝟸ⁿ₋frame)-(uint8_t *)one₋set.pages₋base, 
+       ᵚidx = (__builtin_int_t)Frame(ᵇoffset,8*Wordbytes) - 1, 
+       bitᵚ = ᵇoffset - ᵚidx*Wordbytes;
     __builtin_uint_t toggle = 0b1<<bitᵚ;
-    /* *** 🎿-begin *** */
-    if (avails[ᵚidx] & toggle) { return -2; }
-    avails[ᵚidx] ^= toggle;
-    /* *** 🎿-end *** */
+    if (one₋set.idx₋avails[ᵚidx] & toggle) { return -2; }
+    one₋set.idx₋avails[ᵚidx] ^= toggle;
     if (secure) { Overwrite8Memory((ByteAlignedRef)𝟸ⁿ₋frame, 0x0, Syspagesize()); }
     return 0; /* See also --<Virtual.cxx>{Forget} for a frame-granular overwrite method. */
 } /* ⬷ similar to 'Fallow' and 'free' but assumes same-sized areas. */
 
-#pragma mark - Therapeutic grip for one realization:
+#pragma mark - grips for one realization:
 
-extern void Reservoir(unsigned expeditionary, __builtin_int_t *𝑙𝑜𝑔₂Pages, __builtin_int_t *Idxs, 
-  __builtin_uint_t **pages, __builtin_uint_t **avails); /* ⬷ a․𝘬․a 'Universe' and defined in --<llvm-rt3.cpp>. */
+extern void intel₋Reservoir(unsigned expeditionary, 𝟺kbframes * one₋set, 
+ __builtin_int_t * pages₋in₋expedition);
+
+extern void mips₋mzda₋Reservoir(unsigned expeditionary, 𝟺kbframes * one₋set, 
+ __builtin_int_t * pages₋in₋expedition);
+
+/* ⬷ defined in --<llvm-rt3.cpp>. */
 
 int CoalescingAcquire(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟)
 {
-    __builtin_int_t 𝑙𝑜𝑔₂Pages, Idxs; __builtin_uint_t *pages, *avails;
-    Reservoir(expeditionary,&𝑙𝑜𝑔₂Pages,&Idxs,&pages,&avails); /* *** 🎿-start *** */
-    auto rollback = ^(__builtin_int_t count, void * frames[], __builtin_int_t 𝑙𝑜𝑔₂Pages, 
-      __builtin_uint_t pages[], __builtin_uint_t avails[]) /* -> int */ { 
-      for (__builtin_int_t i=0; i<count; i++) { if (Release𝟷ᵈ(frames[i], 𝑙𝑜𝑔₂Pages, 
-        pages, avails, false)) { return -1; } } return 0; };
+    struct 𝟺kbframes one₋set; __builtin_int_t pages₋in₋expedition;
+#if !defined(__mips__)
+    intel₋Reservoir(expeditionary,&one₋set,&pages₋in₋expedition);
+#else
+    mips₋mzda₋Reservoir(expeditionary,&one₋set,&pages₋in₋expedition);
+#endif
+    auto rollback = ^(__builtin_int_t count, void * frames[], struct 𝟺kbframes& one₋set) {
+      for (__builtin_int_t i=0; i<count; ++i) {
+        if (Release𝟷ᵈ(frames[i], one₋set, false)) { return -1; }
+      } return 0;
+    }; /* <- int. */
     __builtin_uint_t * frms = (__builtin_uint_t *)𝟺kbframes; 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __builtin_int_t brk=0;
-    if (Acquire𝟷ᵈ(﹟, 𝑙𝑜𝑔₂Pages, pages, avails, ^(uint8_t * frm, bool& stop) { 
-      *(frms + brk++) = (__builtin_uint_t)frm;
-    })) { if (rollback(brk,𝟺kbframes,𝑙𝑜𝑔₂Pages,pages,avails)) { return -2; } return -1; }
-    /* *** 🎿-end *** */ return 0;
-} /* ⬷ a․𝘬․a 'Coalesce'. */
+    if (Acquire𝟷ᵈ(﹟, one₋set, ^(uint8_t * 𝟸ⁿ₋frame, bool& stop) { 
+      *(frms + brk++) = (__builtin_uint_t)𝟸ⁿ₋frame;
+    })) { if (rollback(brk,𝟺kbframes,one₋set)) { return -2; } return -1; }
+    return 0;
+} /* ⬷ a․𝘬․a Wholly₋coalescing₋acquire and coalesce₋rollback₋acquire. */
 
 int 🄕allo⒲(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟)
 {
-    __builtin_int_t 𝑙𝑜𝑔₂Pages, Idxs; __builtin_uint_t *pages, *avails;
-    Reservoir(expeditionary,&𝑙𝑜𝑔₂Pages,&Idxs,&pages,&avails);
+    struct 𝟺kbframes one₋set; __builtin_int_t pages₋in₋expedition;
+#if !defined(__mips__)
+    intel₋Reservoir(expeditionary,&one₋set,&pages₋in₋expedition);
+#else
+    mips₋mzda₋Reservoir(expeditionary,&one₋set,&pages₋in₋expedition);
+#endif
     for (__builtin_int_t i=0; i<﹟; i++) {
-      if (Release𝟷ᵈ(𝟺kbframes[i],𝑙𝑜𝑔₂Pages,pages,avails,false)) { return -(i+1); }
+      if (Release𝟷ᵈ(𝟺kbframes[i],one₋set,false)) { return -(i+1); }
     }
     return 0;
 }
 
 int ContiguousAcquire(unsigned expeditionary, void **𝟺kbframes, __builtin_int_t ﹟)
 {
-    __builtin_int_t 𝑙𝑜𝑔₂Pages, Idxs; __builtin_uint_t *pages, *avails;
-    Reservoir(expeditionary,&𝑙𝑜𝑔₂Pages,&Idxs,&pages,&avails); /* *** 🎿-start *** */
-    if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { return -1; }
-    if (﹟ >= 2) { for (__builtin_int_t i=0; i<﹟; ++i) {
-      uint8_t * next = (uint8_t *)𝟺kbframes[i+1], * present = (uint8_t *)𝟺kbframes[i];
-      if (next - present != 4096) { return -2; }
-    } }
-    return 0;
+   struct 𝟺kbframes one₋set; __builtin_int_t pages₋in₋expedition;
+#if !defined(__mips__)
+   intel₋Reservoir(expeditionary,&one₋set,&pages₋in₋expedition);
+#else
+   mips₋mzda₋Reservoir(expeditionary,&one₋set,&pages₋in₋expedition);
+#endif
+   if (CoalescingAcquire(expeditionary,𝟺kbframes,﹟)) { return -1; }
+   if (﹟ >= 2) { for (__builtin_int_t i=0; i<﹟; ++i) { 
+     uint8_t * next = (uint8_t *)𝟺kbframes[i+1], *present = (uint8_t *)𝟺kbframes[i];
+     if (next - present != 4096) { return -2; }
+   } }
+   return 0;
 }
 
-void InitFrames(int count, unsigned expeditionaries[])
+void Init₋frames(unsigned count, unsigned expeditionaries[])
 {
-   __builtin_int_t 𝑙𝑜𝑔₂Pages, Idxs; __builtin_uint_t *pages, *avails;
-   for (int i=0; i<count; i++) {
-     Reservoir(expeditionaries[i],&𝑙𝑜𝑔₂Pages,&Idxs,&pages,&avails);
-     for (__builtin_int_t i=0; i<Idxs; i++) { avails[i]=~0x0; }
+   struct 𝟺kbframes one₋set; __builtin_int_t pages₋in₋expedition;
+   for (unsigned i=0; i<count; ++i) {
+#if !defined(__mips__)
+     intel₋Reservoir(i,&one₋set,&pages₋in₋expedition);
+#else
+     mips₋mzda₋Reservoir(i,&one₋set,&pages₋in₋expedition);
+#endif
+     __builtin_int_t Idxs=(one₋set.page₋count/Wordbytes)>>3;
+     for (__builtin_int_t i=0; i<Idxs; ++i) { one₋set.idx₋avails[i]=~0x0; }
    }
 }
 
@@ -138,41 +150,25 @@ __builtin_int_t least₋possible₋residue(
    return y < 0 ? y + divisor : y;
 } /* ⬷ patch to the '%' operator in a C language undefined case. */
 
-#pragma mark - saturation equal-to min(2ⁿ - 1, x₁ + x₂) and max(-(2ⁿ - 1), x₁ + x₂)
-
-int saturating₋24bits₋add(int32_t 𝟸𝟺₋bits₋biased₋x₁, int32_t 𝟸𝟺₋bits₋biased₋x₂, 
- int32_t * 𝟸𝟺₋bits₋biased₋y) {
-   /* int neg = x₁ & x₂ & SIGNBIT_INT64; */
-   int32_t 🥈 dynamic = (0b1<<23) - 1;
-   int32_t y = 𝟸𝟺₋bits₋biased₋x₁ + 𝟸𝟺₋bits₋biased₋x₂; /* ⬷ see also '24-bit-carry-add'. */
-   y = min(dynamic, y);
-   y = max(-dynamic, y); /* ⬷ note abelian value pass-through. */
-   *𝟸𝟺₋bits₋biased₋y = y;
-   return 0;
-} /* ⬷ a․𝘬․a 'typedef signed short _Sat saturated16bit' in ISO/IEC TR 18037 and stdfix.h. 
- also _ExtInt(24). */
-
 #pragma mark - time series and peg collections
 
-struct Monoton::Internals { __builtin_int_t soon; 
-   
-   void init₂(__builtin_int_t oldest) { soon=oldest; }
-   
-   __builtin_int_t ordinal(bool * wrapped) { __builtin_int_t Ɀ=soon; 
-     if (Ɀ == BUILTIN₋INT₋MAX) { soon=0; *wrapped=true; }
-     else { *wrapped=false; } soon++; return Ɀ;
-   }
-   
-};
-
-Monoton::Monoton(__builtin_int_t oldest)
-{
-   auto init₁ = ^(Internals * elem) { impl_=elem; };
-   Elements𝘖𝘳Heap(1,1,init₁); impl_->init₂(oldest);
+__builtin_int_t Monoton::ordinal(bool * wrapped) { 
+   __builtin_int_t Ɀ=oldest; 
+   if (Ɀ == BUILTIN₋INT₋MAX) { oldest=0; *wrapped=true; }
+   else { *wrapped=false; } oldest++; return Ɀ;
 }
 
-__builtin_int_t Monoton::ordinal(bool * wrapped) 
-{ return impl_->ordinal(wrapped); }
+#pragma mark - advanced processing unit, see --<Kirkbridge>--<arithmetic.cpp>
+
+#if defined 𝟷𝟸𝟾₋bit₋integers
+int Fixpoint::suitable₋for₋nitpick(Fixpoint::Q6364 ℤ, 
+ void (^easy₋read)(int neg, int count, char groups[], char * unit₋name)
+)
+{
+   for (short i=127; i >= 0; --i) { }
+   return 0;
+}
+#endif
 
 #pragma mark - utility functions
 
@@ -456,12 +452,12 @@ int Scheduler::Process(int32_t ﹟irq, 𝟄₋int₁::Waiver * ref)
 int 
 Scheduler::Operational(
   𝟄₋int₁ * coroutine₋err, 
-  void * (^perl₋alloc)(int bytes)
+  void * (^necklace₋alloc)(int bytes)
 )
 {
-   Necklace * box = (Necklace *)perl₋alloc(sizeof(Necklace));
+   Necklace * box = (Necklace *)necklace₋alloc(sizeof(Necklace));
    if (box == NULL) { return -1; }
-   box->err = (𝟄₋int₁ &)coroutine₋err;
+   box->err = coroutine₋err;
    box->nxt = last;
    if (first == NULL || last == NULL) {
      Scheduler::first = curr = last = box;

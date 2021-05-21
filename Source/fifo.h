@@ -93,19 +93,10 @@ template <typename E> struct 𝟷₋tile₋fifo { fifo 🅠;
 #endif
 
 /*
-  
-  Integration using the trapezoid rule is a recursive filter: 
-    
-    yᵢ₊₁ = yᵢ + h (uᵢ₊₁ + uᵢ)/2
-    
-  as well as Simpsons rule:
-    
-    yᵢ₊₁ = yᵢ₋₁ + h (uᵢ₊₁ + 4uᵢ + uᵢ₋₁)/3
-    
-  See also 'man mkfifo' and 'man mknod'.
-  
-  Further, see --<🥽 Romberg.cpp> for a ∫-method that is not on-line.
-  
+ 
+ See also 'man mkfifo' and 'man mknod'.
+ 
+ Further, see --<Additions>--<math>--<romberg.cpp> for a ∫-method that is not on-line.
+ 
  */
-
 

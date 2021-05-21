@@ -1,4 +1,4 @@
-/*  Fiber.cpp | Nutty, yet interesting in detail. */
+/*  Fiber.cpp | nutty, yet interesting in detail. */
 
 #include <Twinbeam.h>
 
@@ -183,7 +183,7 @@ Incubate(
     if (argc > 2) { ucp->ctx.cpu.intel.regs[RDX] = __builtin_va_arg(__arg, __builtin_uint_t); }
     if (argc > 3) { ucp->ctx.cpu.intel.regs[RCX] = __builtin_va_arg(__arg, __builtin_uint_t); }
     va_epilogue
-    uint8_t * sp = Frame(dissection->ctx.irq₋stk + dissection->ctx.bytes₋irq, 16);
+    /* uint8_t * sp = Frame(dissection->ctx.irq₋stk + dissection->ctx.bytes₋irq, 16); */
     uint8_t * sp = Frame(dissection->ctx.rt₋stk + dissection->ctx.bytes₋rt, 16);
     sp -= argc;
     *--sp = 0; /* Return address */

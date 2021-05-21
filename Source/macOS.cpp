@@ -1,14 +1,11 @@
 /*  macOS.cpp | specializations and unique. */
 
-#include <Twinbeam.h>
-#define USE_LOCKS           0
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-#include "malloc.cxx"
+import Twinbase;
+import Macosbase;
 
-#include <sys/mman.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/stat.h>
+void backpack₋free(void * ref) { free(ref); }
+
+void * backpack₋alloc(__builtin_int_t bytes) { return malloc(bytes); }
 
 void *
 mapfileʳᵚ( /* ⬷ a․𝘬․a 'findAndmap', 'mapregularfile', 'mapfileʳᵚ₊₀'. */
@@ -21,7 +18,7 @@ mapfileʳᵚ( /* ⬷ a․𝘬․a 'findAndmap', 'mapregularfile', 'mapfileʳᵚ�
   between the sheets of sysenters. */
 { void * p; 
     /* __builtin_int_t bytesOffset = pagesOffset*SystemInfoPagesize(); */
-#ifdef __x86_64__ 
+#ifdef __x86_64__
     /* if (UnicodeToUtf8(char32_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 ucs𝘈𝘯𝘥𝟶𝚡𝟶𝟶𝟶𝟶𝘖𝘳𝖤𝖮𝖳, Maxpathᵗᵉᵗʳᵃˢ,
       ^(const char * utf8, int tetras, int utf8bytes) { }) { return NULL; } */
     int fd = open(canonicalUtf8RegularOrLinkpath, O_RDONLY);
@@ -38,15 +35,13 @@ mapfileʳᵚ( /* ⬷ a․𝘬․a 'findAndmap', 'mapregularfile', 'mapfileʳᵚ�
     return p; /* ⬷ additional background: `man munmap` and `man msync`. */
 err:
 #ifdef __x86_64__
+    extern int close(int fd); 
     if (close(fd) == -1) { return NULL; } /* todo: close when not error. */
 #endif
     return NULL;
 } /* ⬷ see --<🥽 Cordal.cpp> when ⁻ᵚ and also the version for Unicode and Pic32. */
 
 #pragma mark - automatically /for units testing/
-
-#include <mach-o/loader.h>
-#include <mach-o/nlist.h>
 
 void
 Symbols(
