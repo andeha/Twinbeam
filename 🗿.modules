@@ -163,18 +163,6 @@ module Twinbeam
   header "../Apps/Twinbeam.h"
   header "../Apps/pic32rt/pic32mzda.hpp"
   header "../Apps/pic32rt/trng.hpp"
-  /* header "../Apps/pic32rt/adc.hpp"
-  header "../Apps/pic32rt/cm.hpp"
-  header "../Apps/pic32rt/dma.hpp"
-  header "../Apps/pic32rt/dsp.hpp"
-  header "../Apps/pic32rt/flash.hpp"
-  header "../Apps/pic32rt/flowtrace.hpp"
-  header "../Apps/pic32rt/oc.hpp"
-  header "../Apps/pic32rt/pic32mzda⋔₁.hpp"
-  header "../Apps/pic32rt/retrospect.hpp"
-  header "../Apps/pic32rt/rtcc.hpp"
-  header "../Apps/pic32rt/signals.hpp"
-  header "../Apps/pic32rt/stable.hpp" */
 }
 
 module Calligraphy
