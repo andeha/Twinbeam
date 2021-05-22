@@ -18,7 +18,7 @@ module Twinbase
 {
   header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
-}
+} /* ⬷ for all --<Source> compilation units (𝘐․𝘦 .cpp files). */
 
 module Twinbeam [system]
 { umbrella header "../Apps/Source/Twinbeam.h"
@@ -35,7 +35,7 @@ module Twinbeam [system]
   header "../Apps/Additions/math/simd².hpp"
   header "../Apps/Additions/maths.hpp" /* includes */
   textual header "../Apps/Additions/math/cherry.h"
-}
+} /* ⬷ use 'import Twinbeam;' in your source files. */
 
 module MacosMemorymap
 { requires macos
@@ -46,13 +46,13 @@ module MacosMemorymap
 /* 5 */ header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h"
 /* 6 */ header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h"
 /* 1: mmap; 6: close. */
-}
+} /* ⬷ access written files from a mac drive. */
 
 module UnittestsOnMac
 { requires macos
 /* 1 */ header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/loader.h"
 /* 2 */ header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/nlist.h"
-}
+} /* ⬷ to implement unit testing on mac. */
 
 module Twinbeam_embeds [no_undeclared_includes]
 { requires !macos
@@ -63,7 +63,7 @@ module Twinbeam_embeds [no_undeclared_includes]
   header "../Apps/pic32rt/pic32mzda.hpp"
   /* header "../Apps/pic32rt/pic32mm.hpp" */
   link "Twinbeam_pic32mz"
-}
+} /* ⬷ for the '℮ ia64+pic32rt' run-time file 'llvm-rt3.cpp'. */
 
 module Twinbeam_camp /* [no_undeclared_includes] */
 { requires macos
@@ -72,7 +72,21 @@ module Twinbeam_camp /* [no_undeclared_includes] */
   header "../Apps/Source/sequent.hpp"
 /* write */ header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h"
   link "Twinbeam_macos"
-}
+} /* ⬷ for the '℮ ia64+pic32rt' run-time when on mac. */
+
+/* framework */ module Interaction
+{
+  header "../Apps/Twinbeam.h" /* includes */
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Additions/Additions.h" /* includes via `struct` */
+  header "../Apps/Additions/math/simd².hpp" /* includes in an early stage */
+  textual header "../Apps/Additions/math/simd-none.hpp" /* later-even-also */
+  textual header "../Apps/Additions/math/𝚏⟷𝚒.hpp"
+  header "../Apps/Additions/Impressions.hpp"
+  header "../Apps/Additions/Color.hpp"
+  header "../Apps/Additions/math/simdⁱ.hpp"
+  header "../Apps/Additions/grün-partial.h"
+} /* ⬷ the Grün buttons and switches. */
 
 /* explicit */ module Series
 {
@@ -83,14 +97,85 @@ module Twinbeam_camp /* [no_undeclared_includes] */
   header "../Apps/Source/timeserie.hpp"
   header "../Apps/Source/timeserie₂.hpp"
   export_as Twinbeam
-}
+} /* ⬷ time series and banking 101. */
 
 /* explicit */ module Fifo
 { header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
   header "../Apps/Source/fifo.h"
   export_as Twinbeam
-} /* 2 */
+} /* ⬷ sensors and real-time systems. */
+
+/* explicit */ module Signalling
+{ header "../Apps/Twinbram.h" /* includes */
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Harmonic.hpp"
+} /* ⬷ sometimes called 'synthesizer'. */
+
+module MacosClassicterminal
+{ requires macos
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/termios.h"
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/signal.h"
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h"
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/select.h"
+}
+
+module MacosModernterminal
+{ requires macos
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h"
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/dispatch.h"
+} /* ⬷ the 'dispatch' framework. */
+
+/* framework */ module Steganographic_securities
+{
+  header "../Apps/Twinbeam" /* includes */
+  textual header "../App/source/coroutine"
+  header "../Apps/History/steganograph.h"
+  header "../Apps/History/re₋use.h"
+} /* ⬷ 'that is secret'. */
+
+/* explicit */ module History
+{
+  header "../Apps/Twinbeam.h" /* includes */
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Additions/Additions.h"
+  header "../Apps/Additioner/History/History.h"
+} /* ⬷ time series and banking 201. */
+
+/* explicit */ module Commandline
+{
+  header "../Apps/Twinbeam.h" /* includes */
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Examples/twinsh/Commandline.h"
+  header "../Apps/Examples/twinsh/Coordinator.h"
+  /* header "../Apps/Additions/Formatting.hpp" */
+} /* ⬷ completing inside a deterministic finite automata. */
+
+module Radiosymbol
+{
+  header "../Apps/Additions/Radiosymbol/2ᵈ-𝔣ow₁.hpp"
+  header "../Apps/Additions/Radiosymbol/2ᵈ-𝔣ow₂.hpp"
+  header "../Apps/Additions/Radiosymbol/2ᵈ-𝔣ow₉.hpp"
+  header "../Apps/Additions/Radiosymbol/3½d-fow.hpp"
+  header "../Apps/Additions/Radiosymbol/AST.h"
+}
+
+module Planets
+{
+  header "../Apps/Additions/gray zones/Geologics.hpp"
+} /* ⬷ a․𝘬․a 'spherical-ellipsoidal geometry'. */
+
+module Kirkbridge
+{
+  header "../Apps/Additions/Kirkbridge/911.h"
+} /* ⬷ 'that is not a fab!'. */
+
+/* explicit */ module Utanram
+{
+  header "../Apps/Twinbeam.h" /* includes */
+  textual header "../Apps/Source/coroutine"
+  header "../Apps/Additions/two–epilon.h"
+} /* ⬷ a․𝘬․a f16. */
 
 /* explicit */ module Radiocomputen
 {
@@ -107,20 +192,7 @@ module Twinbeam_camp /* [no_undeclared_includes] */
   header "../Apps/Source/sequent–2.hpp"
   header "../Apps/Additions/maths.hpp" /* includes */
   textual header "../Apps/Additions/math/cherry.h"
-} /* ⬷ a․𝘬․a radioräkning. */
-
-/* explicit */ module Signalling
-{ header "../Apps/Twinbram.h" /* includes */
-  textual header "../Apps/Source/coroutine"
-  header "../Apps/Harmonic.hpp"
-}
-
-/* explicit */ module Utanram
-{
-  header "../Apps/Twinbeam.h" /* includes */
-  textual header "../Apps/Source/coroutine"
-  header "../Apps/Additions/two–epilon.h"
-} /* ⬷ a․𝘬․a f16. */
+} /* ⬷ a․𝘬․a radioräkning and Simd. */
 
 /* framework */ module Textuals
 {
@@ -130,76 +202,11 @@ module Twinbeam_camp /* [no_undeclared_includes] */
   header "../Apps/Additions/Impressions.hpp"
 }
 
-/* explicit */ module History
-{
-  header "../Apps/Twinbeam.h" /* includes */
-  textual header "../Apps/Source/coroutine"
-  header "../Apps/Additions/Additions.h"
-  header "../Apps/Additioner/History/History.h"
-} /* 3 */
-
-/* framework */ module Steganographic_securities
-{
-  header "../Apps/Twinbeam" /* includes */
-  textual header "../App/source/coroutine"
-  header "../Apps/History/steganograph.h"
-  header "../Apps/History/re₋use.h"
-}
-
-module Kirkbridge
-{
-  header "../Apps/Additions/Kirkbridge/911.h"
-}
-
-/* explicit */ module Commandline
-{
-  header "../Apps/Twinbeam.h" /* includes */
-  textual header "../Apps/Source/coroutine"
-  header "../Apps/Examples/twinsh/Commandline.h"
-  header "../Apps/Examples/twinsh/Coordinator.h"
-  /* header "../Apps/Additions/Formatting.hpp" */
-}
-
-module MacosInteraction
-{ requires macos
-  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h"
-  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/dispatch.h"
-}
-
-/* framework */ module Interaction
-{
-  header "../Apps/Twinbeam.h" /* includes */
-  textual header "../Apps/Source/coroutine"
-  header "../Apps/Additions/Additions.h" /* includes via `struct` */
-  header "../Apps/Additions/math/simd².hpp" /* includes in an early stage */
-  textual header "../Apps/Additions/math/simd-none.hpp" /* later-even-also */
-  textual header "../Apps/Additions/math/𝚏⟷𝚒.hpp"
-  header "../Apps/Additions/Impressions.hpp"
-  header "../Apps/Additions/Color.hpp"
-  header "../Apps/Additions/math/simdⁱ.hpp"
-  header "../Apps/Additions/grün-partial.h"
-}
-
-module Radiosymbol
-{
-  header "../Apps/Additions/Radiosymbol/2ᵈ-𝔣ow₁.hpp"
-  header "../Apps/Additions/Radiosymbol/2ᵈ-𝔣ow₂.hpp"
-  header "../Apps/Additions/Radiosymbol/2ᵈ-𝔣ow₉.hpp"
-  header "../Apps/Additions/Radiosymbol/3½d-fow.hpp"
-  header "../Apps/Additions/Radiosymbol/AST.h"
-}
-
-module Planets
-{
-  header "../Apps/Additions/gray zones/Geologics.hpp"
-} /* ⬷ a․𝘬․a 'spherical-ellipsoidal geometry'. */
-
 /* explicit */ module Pic32Mzda
 { requires !macos
   header "../Apps/Twinbeam.h"
   header "../Apps/pic32rt/pic32mzda.hpp"
   header "../Apps/pic32rt/trng.hpp"
-  /* ... */
 }
 
 module Calligraphy
