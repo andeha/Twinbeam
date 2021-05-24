@@ -1,8 +1,6 @@
 /*  Bezier.cpp | for additions. */
 
-#include <Twinbeam.h>
-#include <Additions/Additions.h>
-/* #include <Additions/Artclasses.h> */
+import Radiocomputen;
 
 struct Bezierᵦ { simd_tᵦ z₁, z₂, z₃, z₄; };
 

@@ -75,7 +75,7 @@ DISORDERABLE extern void (^InteractivelySetChronometer)(unsigned& y, unsigned& M
   unsigned& d, unsigned& h, unsigned& m, unsigned& s, uint32_t& key1,
   uint32_t& key2, unsigned& tuner, bool& rollback); 
 /* ⬷ using an oscilloscope, measure the RTCC pin. */
-DISORDERABLE extern void (^TuneChronometer)(void (^ping)(int16_t &tenbitSignedOffset, bool &commit));
+DISORDERABLE extern void (^AdjustChronometer)(int16_t signAndNinebits);
 #endif
 DISORDERABLE extern int (^Resolve𝟷Or𝙽Reflectionᴸ)(Unicodes pathᵚ, void (^final)(
   const char * canonicalUtf8Regular𝘖rLinkpath)) /* -> int */;

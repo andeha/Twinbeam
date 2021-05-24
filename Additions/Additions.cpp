@@ -1,8 +1,7 @@
 /*  Additions.cpp | Twinbeam (c++20 for clang to x86_64 or Mips.) */
 
-#include <Twinbeam.h>
-#include <Additions/Additions.h>
-#include <Source/fifo.h>
+import Twinbeam;
+import Fifo;
 
 rt₋namespace Messages { extern void *sw₋signals, * context; }
 
@@ -60,7 +59,7 @@ again:
 
 #pragma mark still chronological when sequential
 
-__builtin_int_t Ordinal(Chronology₋peg * /* act a․𝘬․a */ sequent, bool * didwrap)
+__builtin_int_t Ordinal(Intervallic * /* act a․𝘬․a */ sequent, bool * didwrap)
 {  __builtin_int_t Ɀ=sequent->soon;
     if (Ɀ == BUILTIN₋INT₋MAX) { sequent->soon=0; *didwrap=true; }
     else { *didwrap=false; } sequent->soon++; return Ɀ;

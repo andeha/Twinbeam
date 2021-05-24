@@ -1,7 +1,5 @@
 /*  Filesystem.hpp | files with Unix. */
 
-#include <sys/stat.h>
-
 MACRO
 int
 FileSystemItemExists(

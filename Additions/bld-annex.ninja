@@ -9,7 +9,7 @@ libadditions = Releases/libAdditions_macos.a
 
 include ../tools.ninja
 platflags = -I $additions/..
-flags = $optflags $macoscflags $platflags -Wno-c++2a-designator -std=c++2a
+flags = $optflags $macoscflags $platflags -std=c++20
 include ../macOS/laptop-big.ninja
 
 rule link

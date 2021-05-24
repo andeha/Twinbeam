@@ -1,7 +1,6 @@
 /*  Automata.cpp | input conversion, tokenization and parsing. */
 
-#include <Twinbeam.h>
-#include <Additions/Additions.h>
+import Twinbeam;
 
 Opt<__builtin_int_t>
 CastTˣᵗToInt(
@@ -143,14 +142,14 @@ int Chess(const char * 𝟽alt𝟾₋bitstring,
 
 Opt<Chronology::instant>
 TS(
-  Encoding encoding,
-  Chronology chronology,
+  Encoding encoding, 
+  Chronology chronology, 
   memoryview datetime
 ) NEVERBLURTS
 { /* …or 'find chronology𝛥 and recursively parse l and r'. */
     
-    𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 enum class State { init, y1_2, y2_3, y3_4, y_hyphen, hyphen_M,
-      M1_2, M2_hyphen, hyphen_d1, d1_2, date_time, h1_2, h2_colon, colon_m1,
+    𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 enum class State { init, y1_2, y2_3, y3_4, y_hyphen, hyphen_M, 
+      M1_2, M2_hyphen, hyphen_d1, d1_2, date_time, h1_2, h2_colon, colon_m1, 
       m1_2, m2_colon, colon_s1, s1_2, s2_optfrac, dot_frac, time, error
     } state = State::init;
     
@@ -169,7 +168,7 @@ TS(
     auto augment = ^(short 𝟶to𝟿, unsigned 𝟷𝟶⁻ˣ, uint32_t frac) { return (𝟶to𝟿*frac)*iⁿbase₂[𝟷𝟶⁻ˣ]; };
     /* 1/10 = 1/16 + 1/32 + 1/256 + 1/512 enum Rounding { RoundNearestUnder, 
       RoundNearestOver, RoundNearestErrorSquared }; */
-    uint32_t 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 acc=0; /* E․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
+    uint32_t 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 acc=0; /* ⬷ e․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
     unsigned 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 𝟷𝟶⁻ˣ=1; int32_t 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 y=0, M=0, d=0, h=0, m=0, s=0;
     /* Also: ∑ f(k)/10⁻k = ∑f₁(k)/2⁻k - ∑f₂(k)/2⁻k */
     /* ...as a 'reduction': NP = P*NP [See also Abramowitz and Stegun]. */
