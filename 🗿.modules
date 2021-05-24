@@ -35,7 +35,13 @@ module Twinbeam [system]
   header "../Apps/Additions/math/simd².hpp"
   header "../Apps/Additions/maths.hpp" /* includes */
   textual header "../Apps/Additions/math/cherry.h"
+  header "../Apps/Additions/math/logic.hpp"
 } /* ⬷ use 'import Twinbeam;' in your source files. */
+
+module Unistd
+{ requires macos
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h"
+}
 
 module MacosMemorymap
 { requires macos
@@ -44,7 +50,6 @@ module MacosMemorymap
 /* 3 */ header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h"
 /* 4 */ header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/fcntl.h"
 /* 5 */ header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h"
-/* 6 */ header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h"
 /* 1: mmap; 6: close. */
 } /* ⬷ access written files from a mac drive. */
 
@@ -59,10 +64,9 @@ module Twinbeam_embeds [no_undeclared_includes]
   header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
   header "../Apps/Source/sequent.hpp"
-  /* header "../Apps/pic32rt/pic32mx.hpp" */
-  header "../Apps/pic32rt/pic32mzda.hpp"
-  /* header "../Apps/pic32rt/pic32mm.hpp" */
-  link "Twinbeam_pic32mz"
+  /* header "../Apps/pic32rt/pic32mx.hpp"
+  header "../Apps/pic32rt/pic32mzda.hpp" */
+  header "../Apps/pic32rt/pic32mm.hpp"
 } /* ⬷ for the '℮ ia64+pic32rt' run-time file 'llvm-rt3.cpp'. */
 
 module Twinbeam_camp /* [no_undeclared_includes] */
@@ -71,7 +75,6 @@ module Twinbeam_camp /* [no_undeclared_includes] */
   textual header "../Apps/Source/coroutine"
   header "../Apps/Source/sequent.hpp"
 /* write */ header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h"
-  link "Twinbeam_macos"
 } /* ⬷ for the '℮ ia64+pic32rt' run-time when on mac. */
 
 /* framework */ module Interaction
@@ -116,7 +119,6 @@ module MacosClassicterminal
 { requires macos
   header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/termios.h"
   header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/signal.h"
-  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h"
   header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/select.h"
 }
 
@@ -140,7 +142,7 @@ module MacosModernterminal
   textual header "../Apps/Source/coroutine"
   header "../Apps/Additions/Additions.h"
   header "../Apps/Additioner/History/History.h"
-} /* ⬷ time series and banking 201. */
+} /* ⬷ time series and banking 201 a․𝘬․a '𝟷ᵈSediment' and 'non₋2ᵈSediment'. */
 
 /* explicit */ module Commandline
 {
@@ -158,7 +160,7 @@ module Radiosymbol
   header "../Apps/Additions/Radiosymbol/2ᵈ-𝔣ow₉.hpp"
   header "../Apps/Additions/Radiosymbol/3½d-fow.hpp"
   header "../Apps/Additions/Radiosymbol/AST.h"
-}
+} /* ⬷ 'copy that'. */
 
 module Planets
 {
@@ -168,7 +170,7 @@ module Planets
 module Kirkbridge
 {
   header "../Apps/Additions/Kirkbridge/911.h"
-} /* ⬷ 'that is not a fab!'. */
+} /* ⬷ 'it is not a fab!'. */
 
 /* explicit */ module Utanram
 {
