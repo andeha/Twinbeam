@@ -1,4 +1,4 @@
-/*  𝙋resent-reg.cpp | similar to -aux but erroneous. */
+/*  Present-reg.cpp | similar to 'Present' but via stdout. */
 
 #include <Twinbeam.h>
 #include <Additions/Additions.h>
@@ -24,7 +24,7 @@ again:
 
 inexorable
 void
-Output₋present(
+Output(
   const Bitfield& field,
   uint32_t value,
   uint32_t init,
@@ -61,7 +61,7 @@ Output₋present(
 
 FOCAL
 void
-Output₋present(
+Output(
   const AnnotatedRegister& ar,
   uint32_t value,
   bool 𝟷𝟼bits
@@ -74,7 +74,7 @@ Output₋present(
         BUILTIN₋INT₋MAX));
       }
       for (int i=0; i<count; ++i) {
-       Output₋present(*(regs + i), value, init, 𝟷𝟼bits, maxwidth);
+       Output(*(regs + i), value, init, 𝟷𝟼bits, maxwidth);
       } };
     fprintf(stderr, "%s\n", bright);
     EmitUnicodesUntil𝟶𝚡𝟶𝟶𝟶𝟶(ar.header);

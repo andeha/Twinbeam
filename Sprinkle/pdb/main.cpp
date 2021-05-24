@@ -10,7 +10,7 @@ const char * mdbpath_default="/Applications/microchip/mplabx/v5.50/mplab_platfor
 bool hw = true;
 
 char8_t * stpcpy(char8_t * dst, const char * src) { while ((*dst++ = *src++)){} return --dst; }
-void Output₋present(const AnnotatedRegister& ar, uint32_t value, bool 𝟷𝟼bits);
+void Output(const AnnotatedRegister& ar, uint32_t value, bool 𝟷𝟼bits);
   
 inexorable
 void
@@ -66,7 +66,7 @@ MdbToUserscreen(
       int len = strlen(prefix); text += len;
       Opt<__builtin_int_t> regOpt = CastTˣᵗToInt(feeder);
       __builtin_int_t regval = *regOpt;
-      if (regOpt) { Output₋present(reg,regval,false); }
+      if (regOpt) { Output(reg,regval,false); }
       else { fprintf(stderr, "Error presenting `%s`\n", prefix); }
     };
     
