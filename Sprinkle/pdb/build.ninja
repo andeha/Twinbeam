@@ -18,11 +18,11 @@ rule link
   -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/           $
   -o $out $in
 
-build pdb: link $objsdir/main.o $objsdir/mips.o $objsdir/mzda.o             $
-  $objsdir/Present-reg.o $objsdir/rt-pdb.o
-build $objsdir/mips.o: cc mips.cpp
-build $objsdir/mzda.o: cc mzda.cpp
+build pdb: link $objsdir/main.o $objsdir/regs-mz.o $objsdir/regs-mm.o       $
+ $objsdir/Presents.o $objsdir/rt-pdb.o
+build $objsdir/regs-mz.o: cc regs-mz.cpp
+build $objsdir/regs-mm.o: cc regs-mm.cpp
 build $objsdir/main.o: cc main.cpp
-build $objsdir/Present-reg.o: cc Present-reg.cpp
+build $objsdir/Presents.o: cc Presents.cpp
 build $objsdir/rt-pdb.o: cc rt-pdb.cpp
 default $progname
