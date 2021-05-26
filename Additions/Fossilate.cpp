@@ -1,7 +1,7 @@
-/*  Fossilate.cpp | conventions for 'Additions'. */
+/*  Fossilate.cpp | conventions and storage-space for 'Additions'. */
 
-#include <Twinbeam.h>
-#include <Additions/Additions.h>
+import Fossilate;
+
 namespace Setup { __builtin_int_t subgraph₋uninitialized, history₋uninitialized; }
 namespace After₋8 { __builtin_int_t bitset₋still₋short, bitset₋noncoalescable; }
 namespace Messages { void * context, * sw₋signals; /* = Map<int32_t, 𝟄₋int₁ * 𝟷₋coroutine> */ }
@@ -15,11 +15,9 @@ namespace Vt99 { const char * v₋correctional = "\x1B[1n", *hfill = "\x1B[2n",
  *picante₋spark₋begin = "\x1B[3n(", *depthening₋display₋begin = "\x1B[4n(", 
  *picante₋spark₋end = ")]", *depthening₋display₋end = ")]"; }
 namespace Histories { __builtin_int_t unknown₋pod; extern void * pad₋history; }
-#include <Additions/math/cherry.h>
-#include <Additions/Conformal.h>
 
-/* #define INCLUDE₋SUBGRAPH __has_include(<Additions/History/Subgraph.h2>)
-#define INCLUDE₋HISTORY __has_include(<Additions/History/History.h2>)
+/* #define INCLUDE₋SUBGRAPH __has_include(<Additions/History/Subgraph.h>)
+#define INCLUDE₋HISTORY __has_include(<Additions/History/History.h>)
 
 #if defined(INCLUDE₋SUBGRAPH) && defined(INCLUDE₋HISTORY)
 #include <Additions/History/Subgraph.h>
@@ -79,15 +77,8 @@ DISORDERABLE auto 📡 /*♬*/ = ^(
 #pragma mark - clocks, chronographs and chronometers
 
 #if defined  __mips__
-#include <pic32rt/mips.hpp>
-#include <pic32rt/pic32mz.hpp>
-#include <pic32rt/pic32mzda.hpp>
-#include <pic32rt/stable.hpp>
-#include <pic32rt/rtcc.hpp>
-DISORDERABLE auto TuneChronometer = ^(void (^ping)(int16_t & signAndNinebits, 
-  bool & commit)) { bool commit=false; int16_t signAndNinebit = 0; 
-  ping(offset, signAndNinebit); if (!commit) return; /* ⬷ see 
- also --<🥽⋆bio.cpp> a detailed exposition on MOR arithmetic shift. */
+DISORDERABLE auto AdjustChronometer = ^(int16_t signAndNinebits) {
+ /* ⬷ see also --<🥽⋆bio.cpp> a detailed exposition on MOR arithmetic shift. */
   /* Note that the chip got 12-bit ADC's where the level is in a 32-bit value 
     `ADCDATAx`. commit = Shift𝚁ₐᵣᵢ(commit, 6); Arithmetic or logic depends on 
     compiler: 0111111111 max 𝘪․𝘦 add 511 real-time clock pulses every minute
@@ -97,8 +88,8 @@ DISORDERABLE auto TuneChronometer = ^(void (^ping)(int16_t & signAndNinebits,
      1000000000 subtracts 512 ...
      𝘪․𝘦 10-bit two's complement. */
   🎭𝑀𝑍𝐷𝐴(RTCCON, CAL, ^(uint32_t& signed10bits) { signed10bits = 
-    signAndNinebit>>6; }); }; /* ⬷ a․𝘬․a '𝑀𝑎𝑟𝑖𝑛𝑒 chronometer'. (To determine 
-    longitude.) */
+    signAndNinebits>>6; });
+}; /* ⬷ a․𝘬․a '𝑀𝑎𝑟𝑖𝑛𝑒 chronometer'. (To determine longitude.) */
 DISORDERABLE auto InteractivelySetChronometer = ^(unsigned& y, unsigned& M, 
   unsigned& d, unsigned& h, unsigned& m, unsigned& s, uint32_t& key1, 
   uint32_t& key2, unsigned& tuner, bool& rollback) { y=2012; M=1; d=24; h=17; 
@@ -108,16 +99,28 @@ DISORDERABLE auto InteractivelySetChronometer = ^(unsigned& y, unsigned& M,
     - Latitude/Longitude in ddmm.mmmm format
     - N/S Indicator, E/W Indicator 
     - Altitude */
-auto LocalNow = ^{ OptInitRTCC(false, ^(unsigned& y, unsigned& M, unsigned& d, 
-  unsigned& h, unsigned& m, unsigned& s, uint32_t& key1, uint32_t& key2, 
-  unsigned& tuner, bool& rollback) { InteractivelySetChronometer(y, M, d, h, m, 
-  s, key1, key2, tuner, rollback); }); int32_t t[6]; GetRTCC(&t[0], &t[1], &t[2], 
-  &t[3], &t[4], &t[5]); Chronology chronology = SystemCalendricChronology();
-  uint32_t halfsec = 🎭𝑀𝑍𝐷𝐴(RTCCON, HALFSEC); Opt<Chronology::Instant> now = 
-  chronology.timestamp(t, halfsec ? 0xBFFFffff : 0x3FFFFFFF); return *now; };
+auto LocalNow = ^{
+  OptInitRTCC(false, ^(unsigned& y, unsigned& M, unsigned& d, unsigned& h, unsigned& m, 
+   unsigned& s, uint32_t& key1, uint32_t& key2, unsigned& tuner, bool& rollback) {
+   
+   InteractivelySetChronometer(y, M, d, h, m, s, key1, key2, tuner, rollback);
+   
+  });
+  
+  int32_t t[6]; GetRTCC(&t[0], &t[1], &t[2], &t[3], &t[4], &t[5]);
+  
+  Chronology chronology = SystemCalendricChronology();
+  
+  uint32_t halfsec = 🎭𝑀𝑍𝐷𝐴(RTCCON, HALFSEC); 
+  
+  Opt<Chronology::instant> now = chronology.integers₋encode(t, halfsec ? 0xBFFFffff : 0x3FFFFFFF);
+  
+  return *now;
+  
+};
 auto TuneOscillator = ^(int8_t signandfivebits) { 🎭𝑀𝑍(OSCTUN, TUN, ^(
-  __builtin_uint_t& shifted) { shifted = signandfivebits>>2; }); } /* ⬷ e․𝘨 to 
-  compensate for FRC temperature effects. */
+ __builtin_uint_t& shifted) { shifted = signandfivebits>>2; }); };
+ /* ⬷ compensates for FRC temperature effects. */
 #elif defined __x86_64__
 #include <time.h>
 auto LocalNow = ^(int * didwrap) { *didwrap=0;
