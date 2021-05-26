@@ -34,5 +34,9 @@ rule c
 rule asm
     command = $compiler-pic32 $flags -c $in -o $out
 
-# ln -fs '/--<Project folder>/℮ ia64+pic32rt/pic32mzda.hpp' pic32mzda.hpp
+# ln -fs '/--<project folder>/℮ ia64+pic32rt/pic32mzda.hpp' pic32mzda.hpp
+# ln -fs '/--<project folder>/℮ ia64+pic32rt/pic32mzda⋔₁.hpp' pic32mzda⋔₁.hpp
+# ln -fs '/--<project folder>/℮ ia64+pic32rt/pic32mm.hpp' pic32mm.hpp
+# ln -fs '/--<project folder>/℮ ia64+pic32rt/start_mm.S' start_mm.S
+# ln -fs '/--<project folder>/℮ ia64+pic32rt/start_mz.S' start_mz.S
 
