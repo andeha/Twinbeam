@@ -23,9 +23,10 @@ struct {
  "/Applications/microchip/mplabx/v5.50/mplab_platform/bin/mdb.sh"
 };
 
-const char * hexfile=NULL; bool hw=true;
+const char * hexfile=NULL, *cmdfile=NULL; bool hw=true;
 
-char8_t * stpcpy(char8_t * dst, const char * src) { while ((*dst++ = *src++)) { } return --dst; }
+char8_t * stpcpy(char8_t * dst, const char * src) { while ((*dst++ = *src++)) {
+} return --dst; }
 
 inexorable Registerset Selected()
 {
@@ -55,8 +56,9 @@ UserkeyedToMdb(
 {
     if (IsPrefixOrEqual(pdb,"init")) { const char * device = Device(); 
       fprintf(stderr, "pdb: starts initing device %s\n", device);
-      char8_t * end=stpcpy(mdb,"device "); end=stpcpy(end,device); end=stpcpy(end,"\n");
-      fprintf(stderr, "pdb: selecting %s\n", hw ? "hardware target" : "software simulator");
+      char8_t * end=stpcpy(mdb,"device "); end=stpcpy(end,device); 
+      end=stpcpy(end,"\n"); fprintf(stderr, "pdb: selecting %s\n", 
+      hw ? "hardware target" : "software simulator");
       if (hw) { end=stpcpy(end,"hwtool SK\n"); }
       else { end=stpcpy(end,"hwtool SIM\n"); }
       if (hexfile) {
@@ -65,7 +67,7 @@ UserkeyedToMdb(
       }
       if (hw) { fprintf(stderr,"Resetting\n"); end=stpcpy(end,"reset MCLR\n"); }
       return;
-    } /* To program, enter 'init' at pdb prompt. */
+    } /* To reprogram, enter 'init' at pdb prompt. */
     Registerset regset = Selected();
     switch (regset) {
     case Registerset::pic32mm:
@@ -90,7 +92,8 @@ Prefix mm_prefixes[] = {
 };
 
 Prefix mz_prefixes[] = {
-  { "Index=", AR_Mips_Index },         { "Random=", AR_Mips_Random },
+  { "Index=", AR_Mips_Index },
+  { "Random=", AR_Mips_Random },
 #include "parse-mz.cxx"
   { "devid=", AR_Microchip_DEVID },
   { NULL, AR_MipsOrMicrochip_LAST }
@@ -114,7 +117,8 @@ MdbToUserscreen(
         CastToIntOpinion::commit;
       return CastToIntOpinion::rejecting; };
     
-    auto strlen = ^(const char *s) { const char *p = s; while (*s) ++s; return s - p; };
+    auto strlen = ^(const char *s) { const char *p = s; while (*s) ++s; 
+     return s - p; };
     
     auto out = ^(const char * prefix, const AnnotatedRegister& reg) {
       int len = strlen(prefix); text += len;
@@ -132,18 +136,20 @@ MdbToUserscreen(
     case Registerset::pic32mzda: transl=mz_prefixes; break;
     }
     
-    for (int i=0; ; ++i) {
-      if (transl[i].prefix == NULL) { fprintf(stderr, "%s", text); return; }
-      if (IsPrefixOrEqual(text,transl[i].prefix)) { out(transl[i].prefix,transl[i].reg); }
+    for (int i=0; ; ++i) { if (transl[i].prefix == NULL) { fprintf(stderr, 
+   "%s", text); return; } if (IsPrefixOrEqual(text,transl[i].prefix)) { 
+      out(transl[i].prefix,transl[i].reg); }
     }
 }
 
 #define ⁺⁼ProcessCommandline()                                              \
 auto process_commandline = ^{ int j;                                        \
-  for (j=1; j<argc && argv[j][0] == '-'; ++j) {                             \
+  for (j=1; j<argc && (argv[j][0] == '-' || argv[j][0] == '@'); ++j) {      \
+    if (argv[j][0] == '@' && argv[j][1] != '\x0') { cmdfile=&(argv[j][1]);  \
+     continue; }                                                            \
     switch (argv[j][1]) {                                                   \
-    case 'h': fprintf(stderr, "Usage: %s [ -s ] %s\n", argv[0],             \
-      "[ program.hex ]"); exit(1);                                          \
+    case 'h': fprintf(stderr, "Usage: %s [ -s ] [ %s ] %s\n", argv[0],      \
+     "@commandfile", "[ program.hex ]"); exit(1);                           \
     case 's': hw=false; break;                                              \
     default: fprintf(stderr, "Unknown command-line argument\n"); exit(2);   \
     }                                                                       \
@@ -217,6 +223,7 @@ main(
        const char * mdbpath₋env = getenv("MDBPATH");
        if (mdbpath₋env) mdbpath = mdbpath₋env;
        fprintf(stderr, "pdb: Starting %s\n", mdbpath);
+       /* if (cmdfile) { "loadscript ./target_mz" } */
        status = execlp(mdbpath, "", (char *)NULL);
        if (status == -1) { fprintf(stderr, "pdb: Error when execlp\n"); exit(1); }
        fflush(stdout);
