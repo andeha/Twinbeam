@@ -12,17 +12,17 @@ pic32mzflags = -target mipsel -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32      $
 pic32m0cflags = -target arm-none-eabi -mcpu=cortex-m0 -mfloat-abi=soft       $
  -mthumb
 # The M-chip and the traditional Intel workforce: 
-root-commandline = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
-root-xcodeapp = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.pl$
-atform/Developer/SDKs/MacOSX.sdk
-versions-rtmac = -mmacosx-version-min=11.4
+commandline-root = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+xcodeapp-root = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.p$
+latform/Developer/SDKs/MacOSX.sdk
+macrt-versions = -mmacosx-version-min=11.4
 macosarmcflags = -target arm64-apple-macos11
-macoscflags_withxcode = -isysroot $root-xcodeapp $versions-rtmac
-macoscflags_commandline = -isysroot $root-commandline $versions-rtmac
+macoscflags_withxcode = -isysroot $xcodeapp-root $macrt-versions
+macoscflags_commandline = -isysroot $commandline-root $macrt-versions
 macoscflags = $macoscflags_commandline
-maclnkflags = $versions-rtmac -lSystem -lc++ -isysroot $root-commandline
-runtime = /<User- or project name>/pic32rt
-host = /<User- or project name>/macOS
+maclnkflags = $macrt-versions -lSystem -lc++ -isysroot $commandline-root
+runtime = /<User- or project name>/Apps/pic32rt
+host = /<User- or project name>/Apps/macOS
 # Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git 
 # reset --hard HEAD^' (alt. in public when unpushed).
 sha1git = `git log -1 '--pretty=format:%h'`
