@@ -48,6 +48,7 @@
 /* list machine instructions with 'x /p100i 0xbfc00000'. */
 /* other commands : Break *0x108 stepi next backtrace halt 
  watch 0xa0007ff0 R */
+/* valid instructions in llvm-12.0.0.src/test/MC/Mips/micromips32r6/valid.s. */
 
 #define START(name) .set at; .set noreorder; .ent name
 #define END(name) .size name,.-name; .end name; .set reorder; .set noat
@@ -73,13 +74,13 @@ __start:
     
     mtc0     $zero, c0_count            /* clear to measure 'time/cycles since boot'. */
     
-    lui      $t0, 0xbd00                /* assign 🔧Ebase(0xBD000000); and must be modulo 4096. */
+    lui      $t0, 0xbd00                /* assign similar to 🔧Ebase(0xBD000000) and must be modulo 4096. */
     addiu    $t0, $t0, 0x0000
     mtc0     $t0, c0_ebase
     nop
     
-    mtc0     $zero, c0_cause            /* reset Cop0's 'Cause' AFTER initialization of opt. WatchHi/Lo. */
-    mtc0     $zero, c0_compare
+    mtc0     $zero, c0_cause            /* reset Cop0's 'Cause' when initialization */
+    mtc0     $zero, c0_compare          /* of opt. WatchHi/Lo is performed. */
     
   /*
     
@@ -92,10 +93,10 @@ __start:
   */
     
     mfc0     $t0, c0_status
-    and      $t0, $t0, 0xffbfffff       /* ⬷ clear BEV pattern. */
+    and      $t0, $t0, 0xffbfffff       /* ⬷ clear BEV patterns. */
     mtc0     $t0, c0_status
     
-    j 0xBD000000 /* ⬷ no 'live update' 𝘪․𝘦 one memory area. */
+    jal      0xbd000000                 /* ⬷ no 'live update' 𝘪․𝘦 one memory area. */
     nop
     END(__start)
     
@@ -105,7 +106,7 @@ boot_Debug:
     nop
 again:
     nop
-    j again
+    b again
     END(boot_Debug)
     
 /*                                                                         */

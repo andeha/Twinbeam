@@ -48,10 +48,11 @@
 /* list machine instructions with 'x /p100i 0xbfc00000'. */
 /* other commands : Break *0x108 stepi next backtrace halt 
  watch 0xa0007ff0 R */
+/* valid instructions in llvm-12.0.0.src/test/MC/Mips/mips32r5/valid.s. */
 
-#define START(name) .set noat; .set noreorder; .ent name
-#define END(name) .size name,.-name; .end name; .set reorder; .set at
-#define MACRO(name) .set noat; .set noreorder; .macro name
+#define START(name) .set at; .set noreorder; .ent name
+#define END(name) .size name,.-name; .end name; .set reorder; .set noat
+#define MACRO(name) .set at; .set noreorder; .macro name
 #define ENDM(name) .endmacro
 
 #define c0_badvaddr $8, 0
@@ -74,9 +75,9 @@ __start:
     
     di                                  /* disable all interrupts. */
     
-    mtc0     $zero, c0_count            /* clear to measure 'time since boot'. */
+    mtc0     $zero, c0_count            /* clear to measure 'time/cycles since boot'. */
     
-    lui      $t0, 0xbd00                /* assign 🔧Ebase(0xBD000000); and must be modulo 4096. */
+    lui      $t0, 0xbd00                /* assign similar to 🔧Ebase(0xBD000000) and must be modulo 4096. */
     addiu    $t0, $t0, 0x0000
     mtc0     $t0, c0_ebase
     nop
@@ -87,8 +88,8 @@ __start:
     beq      $t1, $0, done_watch        /* branch in-case the third bit in c0_config is equal to '0'. */
     li       $t1, 0x7                   /* clear I, R and W conditions bits. */
     
-    /* the 'WatchHi' and 'WatchLo' must be initialized to avoid spurious 
-      exceptions after ERL=0. 
+  /* the 'WatchHi' and 'WatchLo' must be initialized to avoid spur-
+   ious exceptions after ERL=0. 
     
      ⤐ clear Watch Status bits and disable watch exceptions ⤐ */
     
@@ -98,8 +99,8 @@ __start:
     mtc0     $zero, c0_watchlo          /* write C0_WatchLo0 */
 done_watch:
     /* IV, and software interrupts. */
-    mtc0     $zero, c0_cause            /* reset Cop0's 'Cause' AFTER initialization of opt. WatchHi/Lo. */
-    mtc0     $zero, c0_compare
+    mtc0     $zero, c0_cause            /* reset Cop0's 'Cause' when initialization */
+    mtc0     $zero, c0_compare          /* of opt. WatchHi/Lo is performed. */
     
 /*
     
@@ -110,7 +111,7 @@ done_watch:
     🔧Status(status);
     
     mfc0     $t0, _CP0_STATUS
-    and      $t0, $t0, 0xffbfffff       / * clear BEV. * /
+    and      $t0, $t0, 0xffbfffff       / * clear BEV patterns. * /
     mtc0     $t0, _CP0_STATUS
     
  */

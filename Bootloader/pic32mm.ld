@@ -1,4 +1,4 @@
-/*  pic32mm.ld | for the PIC32MM0064GPL036 and PIC32MM0064GPL028 bootloader. */
+/*  pic32mm.ld - for the PIC32MM0064GPL036 and PIC32MM0064GPL028 bootloader. */
 
 __start = 0xBFC00000;
 Pagesize = 4096;
@@ -49,3 +49,4 @@ SECTIONS
   .conf : { LONG(0xFFFFFFFD) } > FICD /* ⬷ PGEC1/PGED1, JTAG disabled. */
   .conf : { LONG(0xFFFFFFFF) } > FDEVOPT /* ⬷ SOSC operates in 'Normal Power' mode. */
 }
+
