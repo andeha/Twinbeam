@@ -3,9 +3,9 @@
 optflags = -g -D__MZDAStarterBoard__
 encased-library = libAdditions_pic32mz
 include ../tools.ninja
-platflags = -D__MZ__ -I $runtime -I $additions/..
+platflags = -D__MZ__ -I $runtime -I $runtime/..
 objs = ./.objs/7703a312-559A-42ca-A992-eabcf7f87663_$encased-library
-flags = $optflags $pic32cflags $platflags -std=c++20
+flags = $optflags $pic32mzflags $platflags -std=c++20
 include $runtime/command-little.ninja
 
 progname = $encased-library\_$sha1git.a

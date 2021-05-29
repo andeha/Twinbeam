@@ -3,7 +3,7 @@
 optflags = -g
 extra-library = libAdditions_macos
 include ../tools.ninja
-platflags = -I $additions/..
+platflags = -I $runtime/..
 objs = ./.objs/7703a312-559A-44ca-A992-eabcf7f87663_$extra-library
 flags = $optflags $macoscflags $platflags -std=c++20
 include ../macOS/laptop-big.ninja

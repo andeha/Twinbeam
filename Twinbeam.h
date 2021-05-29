@@ -7,7 +7,6 @@
 #ifndef __TWINBEAM_H
 #define __TWINBEAM_H
 
-#define NULL 0
 #define INLINED __attribute__((always_inline))
 #define MACRO inline INLINED
 #define structᵢ struct __attribute__((internal_linkage))
@@ -24,14 +23,20 @@ typedef long                int32_t;
 typedef uint32_t            __builtin_uint_t;
 typedef int32_t             __builtin_int_t;
 #define TriboolUnknown 0xFFFFFFFF
+#define NULL 0
 #define 𝟷𝟸𝟾₋bit₋integers /* ⬷ flag -fforce-enable-int128 when Mips. */
+#ifdef __MM__
+#undef 𝟷𝟸𝟾₋bit₋integers
+#endif
 #elif defined __armv8a__ || defined __x86_64__
 typedef unsigned int        uint32_t;
 typedef int                 int32_t; /* ≢'long'. */
 typedef uint64_t            __builtin_uint_t;
 typedef int64_t             __builtin_int_t; /* ⬷ a․𝘬․a 'sequenta'. */
+#define __DARWIN_NULL ((void *)0)
+#define NULL __DARWIN_NULL
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
-#define 𝟷𝟸𝟾₋bit₋integers /* and not '__is_identifier(__uint128_t)' nor __SIZEOF_INT128__. */
+#define 𝟷𝟸𝟾₋bit₋integers
 #endif
 typedef unsigned short      uint16_t;
 typedef short               int16_t; /* ≡ ᵐⁱᵖˢint. */
@@ -71,7 +76,7 @@ int Fused₋IMUL(short id, int32_t augend, int32_t multiplier, int invMultiplyTh
 /* FOCAL int Initiate₋Zero(short id, int32_t &ℕ₋hi, uint32_t &ℕ₋lo) { extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4]; __ℕ₋🅷[id]=0, __ℕ₋🅻[id]=0; /​* also IMUL(0,0,...). *​/ }
 FOCAL int Initiate₋One(short id, int32_t &ℕ₋hi, uint32_t &ℕ₋lo) { extern uint32_t __ℕ₋🅻[4], __ℕ₋🅷[4]; __ℕ₋🅷[id]=0, __ℕ₋🅻[id]=1; /​* also IMUL(1,1,...) } */
 #define BITMASK(type) enum : type
-#ifdef  __mips__
+#if defined  __mips__
 #define Mips __asm__ __volatile__ (/* ".set noat   \n" */ ".set noreorder  \n" ".set nomacro    \n"
 #elif defined __x86_64__
 #define Intel👈 __asm { .intel_syntax noprefix /* Requires -fms-extensions */
@@ -137,12 +142,6 @@ auto didRuckpultCommit = ^(char * ref, const int& error₋code, Version version)
 #define OPTIONALSCHEDULATIVE
 #define CIRCULATIVE /* ⬷ a․𝘬․a 'averaged' ∧ '␣'. */
 #define CONTEXTDESTILLATIVE
-#define EUCLIDEANINCOHERENT /* ⬷ c𝖿․ subversive follows incoherence. */
-#define NEXUS₋EBBERÖD /* ⬷ abstrakt maskin. */
-#define STEERING₋GOLD /* ⬷ Catholic₋gregorian keys. */
-#define KONTRA₋REPUDIAT /* ⬷ sensor-bonanza. */
-#define APPLIED₋ATTR /* and LEGATO₋SOURCES. */
-#define CIRKULATIV₋DEKRET /* ''' alt. 3 🌎. 12 9. */
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; /* ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
@@ -441,6 +440,12 @@ __builtin_int_t least₋possible₋residue(__builtin_int_t dividend, __builtin_i
 #define auto₋rollback(variable) decltype(variable)
 #define ᶿ﹡ const * /* #define *⥃ const char * /​* ⬷ a․𝘬․a '*⥆' and '*⫩'. */
 #define rt₋namespace namespace
+template <typename T> struct rectangle { T height, width; int /* Unit */ unit; };
+template <typename T> struct measure { T value; int /* Unit */ unit; };
+namespace Directions { typedef __builtin_uint_t Cross; 
+  BITMASK(Cross) { CrossLeftToRight = 0b0001, CrossRightToLeft = 0b0010, 
+   CrossTopToBottom = 0b0100, CrossBottomToTop = 0b1000 };
+}
 
 #pragma mark utf-8
 
@@ -709,8 +714,6 @@ inline int Setup₋initially₋one(__builtin_int_t bytes, structure& sequence)
 }
 
 struct memoryview { structure * scatter; __builtin_int_t bytesoffset, bytecount; };
-  
-/* enum { 𝟾, 𝟷𝟼, 𝟹𝟸, 𝟼𝟺, lo𝟼𝟺, hi𝟼𝟺, lo𝟷𝟸𝟾, hi𝟷𝟸𝟾, utf8 } */
 
 struct Convoj { structure material, vitruvi; __builtin_int_t count=0; 
   int init(__builtin_int_t bytes₋material, __builtin_int_t initial₋count);
@@ -877,6 +880,7 @@ namespace Fixpoint {
    union UQ3232 { uint64_t bits; struct { uint32_t lo, hi; } parts; }; /* ⬷ a․𝘬․a 'Ntp₋stomp', captures 0 to +4294967295.99999999976716935634613037109375. */
 #if defined 𝟷𝟸𝟾₋bit₋integers
    union Q6364 { __uint128_t bits; __int128_t frac; }; /* ⬷ a․𝘬․a 'scientific₋sequential₋2'. */
+   union Q6463 { __int128_t frac; __uint128_t bits; }; /* ⬷ a․𝘬․a 'scientific₋sequential₋3'. */
 #endif
    
 #ifdef IEEE754₋ARITHMETICS₋INSIDE
@@ -979,7 +983,7 @@ InstantToText(
   void (^out)(char8_t digitHyphenColonPeriod𝘖rSpace)
 );
 
- /*  One sol: 24h, 39 min and 35 sec. (Sundial time.)
+ /*  One martian sol: 24h, 39 min and 35 sec. (Sundial time.)
   
   668 sols ≈ 1.88 Earth years. (approx. 687 Earth days.)
   
