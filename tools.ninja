@@ -1,29 +1,34 @@
 # tools.ninja — settings for macos and Pic32.
-tools = /Users/<User- or project name>/12.0.0
-runtime = /Users/<User- or project name>/pic32rt
-additions = $runtime/../Additions
+tools = /<User- or project name>/mips-tools/12.0.0
 gencdflags = -fno-rtti -fblocks -fcoroutines-ts -fno-exceptions -Wno-format  $
  -fno-signed-char -fno-builtin -Wno-c++20-designator -Wno-c99-designator     $
- -Wincomplete-umbrella -Wmodule-conflict
+ -Wincomplete-umbrella -Wmodule-conflict -Wno-nullability-completeness
 moduleflags = -fmodules-ts -fimplicit-modules -fmodule-map-file=../🗿.modules
+pic32mmflags = -target mipsel -mfloat-abi=soft -mcpu=mips32r6 -mabi=o32      $
+ -mmicromips
 pic32nda = -fforce-enable-int128 -mmsa -mdspr2 -gdwarf-5
-pic32cflags = -target mipsel -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32       $
- -mfp64 $pic32nda $gencdflags
-# The M-chip and the traditional Intel workforce: 
+pic32mzflags = -target mipsel -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32      $
+ -mfp64 $pic32nda
 pic32m0cflags = -target arm-none-eabi -mcpu=cortex-m0 -mfloat-abi=soft       $
- -mthumb $gencdflags
-macosarmcflags = -target arm64-apple-macos11 $gencdflags
-macoscflags_withxcode = $gencdflags -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mmacosx-version-min=11.3
-macoscflags_commandline-xcode = $gencdflags -mmacosx-version-min=11.3
-macoscflags_llvm-dot-org = $gencdflags
-macoscflags = $macoscflags_commandline-xcode
-host = /Users/<User- or project name>/macOS
+ -mthumb
+# The M-chip and the traditional Intel workforce: 
+root-commandline = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+root-xcodeapp = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.pl$
+atform/Developer/SDKs/MacOSX.sdk
+versions-rtmac = -mmacosx-version-min=11.4
+macosarmcflags = -target arm64-apple-macos11
+macoscflags_withxcode = -isysroot $root-xcodeapp $versions-rtmac
+macoscflags_commandline = -isysroot $root-commandline $versions-rtmac
+macoscflags = $macoscflags_commandline
+maclnkflags = $versions-rtmac -lSystem -lc++ -isysroot $root-commandline
+runtime = /<User- or project name>/pic32rt
+host = /<User- or project name>/macOS
 # Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git 
-# reset --hard HEAD^' (or in public but not committed).
+# reset --hard HEAD^' (alt. in public when unpushed).
 sha1git = `git log -1 '--pretty=format:%h'`
 librarian-pic32 = $tools/llvm-ar
 librarian-mac = xcrun ar
-compiler-macos = xcrun clang $moduleflags
-compiler-pic32 = $tools/clang-12 $moduleflags
+compiler-macos = xcrun clang $gencdflags $moduleflags
+compiler-pic32 = $tools/clang-12 $gencdflags $moduleflags
 
 
