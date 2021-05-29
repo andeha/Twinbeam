@@ -8,7 +8,7 @@ platflags  = -D__MM__
 objsdir = ./.objs/7703a312-5599-44ab-A9A3-eabcf7f87663_$progname
 sha1git = `git log -1 '--pretty=format:%h'`
 flags = -target mipsel -mfloat-abi=soft -mcpu=mips32r6 -mabi=o32 -mmicromips
-tools = /Users/andershansson/Projects/mips-tools/12.0.0
+tools = /<User- or project name>/mips-tools/12.0.0
 
 rule asm
   command = $tools/clang-12 $optflags $flags $platflags -c $in -o $out
