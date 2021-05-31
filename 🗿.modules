@@ -53,6 +53,15 @@ module MacosMemorymap
 /* 1: mmap; 6: close. */
 } /* ⬷ access written files from a mac drive. */
 
+module AsynchronousIO
+{ requires macos
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/aio.h"
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h"
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/fcntl.h"
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/errno.h"
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h"
+}
+
 module UnittestsOnMac
 { requires macos
 /* 1 */ header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/loader.h"
@@ -91,7 +100,7 @@ module Twinbeam_camp /* [no_undeclared_includes] */
   header "../Apps/Additions/grün-partial.h"
 } /* ⬷ the Grün buttons and switches. */
 
-/* explicit */ module Series
+module Series
 {
   header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
@@ -102,14 +111,14 @@ module Twinbeam_camp /* [no_undeclared_includes] */
   export_as Twinbeam
 } /* ⬷ time series and banking 101. */
 
-/* explicit */ module Fifo
+module Fifo
 { header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
   header "../Apps/Source/fifo.h"
   export_as Twinbeam
 } /* ⬷ sensors and real-time systems. */
 
-/* explicit */ module Signalling
+module Signalling
 { header "../Apps/Twinbram.h" /* includes */
   textual header "../Apps/Source/coroutine"
   header "../Apps/Harmonic.hpp"
@@ -136,15 +145,15 @@ module MacosModernterminal
   header "../Apps/History/re₋use.h"
 } /* ⬷ 'that is secret'. */
 
-/* explicit */ module History
+module History
 {
   header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
   header "../Apps/Additions/Additions.h"
-  header "../Apps/Additioner/History/History.h"
+  header "../Apps/Additions/History/History.h"
 } /* ⬷ time series and banking 201 a․𝘬․a '𝟷ᵈSediment' and 'non₋2ᵈSediment'. */
 
-/* explicit */ module Commandline
+module Commandline
 {
   header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
@@ -159,8 +168,12 @@ module Radiosymbol
   header "../Apps/Additions/Radiosymbol/2ᵈ-𝔣ow₂.hpp"
   header "../Apps/Additions/Radiosymbol/2ᵈ-𝔣ow₉.hpp"
   header "../Apps/Additions/Radiosymbol/3½d-fow.hpp"
-  header "../Apps/Additions/Radiosymbol/AST.h"
 } /* ⬷ 'copy that'. */
+
+module Symbolstream
+{
+  header "../Apps/Additions/Radiosymbol/AST.h"  
+}
 
 module Planets
 {
@@ -196,19 +209,18 @@ module Kirkbridge
   textual header "../Apps/Additions/math/cherry.h"
 } /* ⬷ a․𝘬․a radioräkning and Simd. */
 
-/* framework */ module Textuals
-{
-  header "../Apps/Additions/Kiddle.hpp"
-  header "../Apps/Additions/Color.hpp"
-  header "../Apps/Additions/Typeset.hpp"
-  header "../Apps/Additions/Impressions.hpp"
-}
-
 /* explicit */ module Pic32Mzda
 { requires !macos
   header "../Apps/Twinbeam.h"
   header "../Apps/pic32rt/pic32mzda.hpp"
   header "../Apps/pic32rt/trng.hpp"
+}
+
+module Pic32mm
+{
+  requires !macos
+  header "../Apps/Twinbeam.h"
+  header "../Apps/pic32rt/pic32mm.hpp"
 }
 
 module Calligraphy
