@@ -34,7 +34,7 @@
                                                                              
     E․𝘨  auto set💰 = ^(Argᴾ::Unicode set, void * context) { … };            
                                                                              
-    Big no-no: ≈ ≣ ≡ ∝ --<'', '' (Slanted dowsing.)
+    Big no-no: ≈ ≣ ≡ ∝ --<'', '' (slanted dowsing.)
     Signals: ⎍ ⎎ ⊕ ⏚ ҂ ㊉㊀ ㎽ ㎮ ㎯
     Misc²: ª º ✓ ✔︎✓ ☑︎☒ ✕ ✖︎ ✗ ✘ ▲◇□▪︎ △□◇▷▽ ○◦●∙⦁
      à ⬷ The letter 'a' + 'COMBINING GRAVE ACCENT'. See ACUTE and CIRCUMFLEX.
