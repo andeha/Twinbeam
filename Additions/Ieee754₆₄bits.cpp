@@ -1,16 +1,15 @@
 /*  Ieee754₆₄bits.cpp | addition[s]. */
 
-#include <Twinbeam.h>
-#include <Additions/Additions.h>
+import Twinbeam;
 
-#pragma mark - textual 64-bit IEEE 754 base-2
+#pragma mark - textual 64-bit Ieee 754 base-2
 
 enum { Bignum_prec=157, magic_offset=2112, origin=37 };
 typedef structᵢ { int a, b; Tetra dat[Bignum_prec]; } Bignum;
 
 inexorable
 void
-print₋float₋variant₁(Octa x,
+print₋float₋variant₁(Octa x, 
   void (^digits)(bool neg, int e, char * s), /* when not zero, inf nor nan. */
   void (^zero)(bool neg), void (^inf)(bool neg), void (^nan)()
 ) /* MMMIX-ARITH § 54-67 */
@@ -176,7 +175,7 @@ print₋float₋variant₂(
    char 𝟶to𝟿[64]; char * txt=𝟶to𝟿; int 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 i;
    auto 𝟸ⁿ₋𝟷𝟶ˣ = ^(unsigned 𝟸ⁿ) /* -> int */ { return (𝟸ⁿ - 1023); };
    /* 2^exp = 10^(exp*log₁₀(2)) = 10^(0,301029995663981 * exp) */
-   auto base𝕟 = ^(__uint64_t ℕ, unsigned short base)
+   auto base𝕟 = ^(uint64_t ℕ, unsigned short base)
    {
      unsigned short cycle[64] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -186,8 +185,9 @@ print₋float₋variant₂(
      for (i=0; i<k; --i) { *(txt+i)=cycle[i] + '0'; }
    }; /* ⬷ mantissa × 2^exp. */
    
-   uint64_t ℕ = (x.binary64.mantissah << 32) | x.binary64.mantissal; base𝕟(ℕ,10); 
-   𝟶to𝟿[i]='\0'; int 𝟷𝟶ˣ=𝟸ⁿ₋𝟷𝟶ˣ(x.binary64.exponent); digits(neg,𝟷𝟶ˣ,𝟶to𝟿,i);
+   uint64_t ℕ = ((uint64_t)x.binary64.mantissah << 32) | x.binary64.mantissal; 
+   base𝕟(ℕ,10); 𝟶to𝟿[i]='\0'; int 𝟷𝟶ˣ=𝟸ⁿ₋𝟷𝟶ˣ(x.binary64.exponent);
+   digits(neg,𝟷𝟶ˣ,𝟶to𝟿,i);
 } /* (−1)*sign bit*(1+fraction)×2^(exponent - bias) */
 
 FOCAL
