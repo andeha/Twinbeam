@@ -21,8 +21,8 @@ macoscflags_withxcode = -isysroot $xcodeapp-root $macrt-versions
 macoscflags_commandline = -isysroot $commandline-root $macrt-versions
 macoscflags = $macoscflags_commandline
 maclnkflags = $macrt-versions -lSystem -lc++ -isysroot $commandline-root
-runtime = /<User- or project name>/Apps/pic32rt
-host = /<User- or project name>/Apps/macOS
+small-runtime = /<User- or project name>/Apps/pic32rt
+host-big = /<User- or project name>/Apps/macOS
 # Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git 
 # reset --hard HEAD^' (alt. in public when unpushed).
 sha1git = `git log -1 '--pretty=format:%h'`
