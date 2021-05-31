@@ -18,7 +18,7 @@ struct Kiddle { typedef __builtin_int_t Nonabsolute; void *tiletree=NULL, *cache
   {  this->tetras₋per₋tile = tetras₋per₋tile; 
      if (inflate(count,kbXtiles,leaf₋alloc)) { return -1; }
      return 0;
-  } /* ⬷ a corresponding utf-8 files' byte length always indicates enough space. */
+  } /* ⬷ an corresponding utf-8 file byte length always indicates enough space. */
   
   int optional₋uninit(void * (^unalloc)(int bytes)) { return 0; }
   /* ⬷ operating system releases allocated memory space when program ends. */
@@ -294,6 +294,32 @@ inline int Setup₋filelength₋enough(Kiddle& kiddle, __builtin_int_t bytes)
    return 0;
 }
 
-/* ✁ until ✂️ and store --<shoebox>{Kiddle.hpp} */
-/* ✂️ */
+FOCAL
+template <typename JOT>
+JOT * Match(Kiddle& kiddle, Unicodes uc)
+{
+   auto alloc = ^(int bytes) { return Alloc(bytes); };
+   auto inflate = ^(__builtin_int_t ﹟, bool& cancel) { void * tiles[﹟]; 
+    for (int i=0; i<﹟; ++i) { tiles[i] = alloc(4*kiddle.tetras₋per₋tile); }
+    int y = kiddle.inflate(﹟,tiles,alloc);
+    if (y) { cancel=true; } };
+   return Match(kiddle,uc,alloc,alloc,inflate);
+}
+
+inline
+int
+𝟺kbAppend(unsigned expeditionary, 
+  Kiddle& org, Unicodes text, 
+  Kiddle::Nonabsolute * ref
+)
+{
+   if (org.copy₋append₋text(text.tetras,text.unicodes,ref, 
+     ^(__builtin_int_t ﹟, void * XkbAlt𝟺kb₋pages[], bool& cancel) { 
+       if (CoalescingAcquire(expeditionary,XkbAlt𝟺kb₋pages,﹟)) { cancel=true; }
+     }
+   )) { return -2; }
+   
+   return 0;
+}
+
 
