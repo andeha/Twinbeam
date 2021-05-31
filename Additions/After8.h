@@ -1,11 +1,6 @@
 /*  after8.cpp | detail and two 'processes' a․𝘬․a 'expressive timeserie'. */
 
-/* #define ADDITIONAL₋LINKERSYMBOLS */
-
-#ifdef ADDITIONAL₋LINKERSYMBOLS
-
-#include <vector>
-#include <map>
+#ifdef ADDITIONAL_LINKERSYMBOLS
 
 template <typename K, typename V> struct Map { std::map<K,V> inner;
   
@@ -47,8 +42,6 @@ struct Bitset { std::vector<bool> inner;
 };
 
 #pragma mark in Unix named 'time.h' with 'time_t time()-time()' alt. 'difftime()'
-
-#include <time.h>
 
 typedef time_t Unix₋instant; /* ⬷ epoch is 00:00:00 UTC Jan 1, 1970. */
 
