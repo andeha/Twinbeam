@@ -17,10 +17,10 @@ rule library
   command = $librarian-pic32 rcs Releases/$out\_$sha1git.a $in             ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
 
-build $stem-library: library $objs/Utf8.o $objs/Tree.o $objs/Memory.o        $
-  $objs/Chronology.o $objs/bignum.o $objs/sha256.o $objs/Print.o             $
-  $objs/pic32mz.o $objs/exception.o $objs/Paging.o $objs/System.o            $
-  $objs/Sheriff.o $objs/fifo.o
+build libTwinbeam_pic32mz: library $objs/Utf8.o $objs/Tree.o $objs/Memory.o  $
+ $objs/Chronology.o $objs/bignum.o $objs/sha256.o $objs/Print.o              $
+ $objs/pic32mz.o $objs/exception.o $objs/Paging.o $objs/System.o             $
+ $objs/Sheriff.o $objs/fifo.o
 build $objs/Utf8.o: cc Utf8.cpp
 build $objs/Tree.o: cc Tree.cpp
 build $objs/Memory.o: cc Memory.cpp

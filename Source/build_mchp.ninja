@@ -17,9 +17,9 @@ rule library
   command = $librarian-pic32 rcs Releases/$out\_$sha1git.a $in             ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
 
-build $arm-library: library $objs/Utf8.o $objs/Tree.o $objs/Memory.o         $
-  $objs/Chronology.o $objs/bignum.o $objs/sha256.o $objs/Print.o             $
-  $objs/exception.o $objs/System.o $objs/fifo.o
+build libTwinbeam_arm: library $objs/Utf8.o $objs/Tree.o $objs/Memory.o      $
+ $objs/Chronology.o $objs/bignum.o $objs/sha256.o $objs/Print.o              $
+ $objs/exception.o $objs/System.o $objs/fifo.o
 build $objs/Utf8.o: cc Utf8.cpp
 build $objs/Tree.o: cc Tree.cpp
 build $objs/Chronology.o: cc Chronology.cpp

@@ -18,9 +18,9 @@ rule library
   ln -f Releases/$out\_$sha1git.a Releases/$out.a                          ; $
   printf $sha1git
 
-build $library-root: library $objs/Tree.o $objs/Memory.o $objs/Print.o       $
-  $objs/Utf8.o $objs/Chronology.o $objs/bignum.o $objs/sha256.o              $
-  $objs/macOS.o $objs/exception.o $objs/fifo.o $objs/System.o
+build libTwinbeam_macos: library $objs/Tree.o $objs/Memory.o $objs/Print.o   $
+ $objs/Utf8.o $objs/Chronology.o $objs/bignum.o $objs/sha256.o               $
+ $objs/macOS.o $objs/exception.o $objs/fifo.o $objs/System.o
 build $objs/Tree.o: cc Tree.cpp
 build $objs/Memory.o: cc Memory.cpp
 build $objs/Print.o: cc Print.cpp

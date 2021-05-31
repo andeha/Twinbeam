@@ -9,16 +9,16 @@ rule emitsize
 build size: emitsize
 
 rule emitsect
-    command = $tools/llvm-objdump -section-headers $progname
+    command = $tools/llvm-objdump --section-headers $progname
 build sect: emitsect
 
 rule emitlist
-    command = $tools/llvm-objdump -disassemble $progname
+    command = $tools/llvm-objdump --disassemble $progname
 build list: emitlist
 
 # requires -g
 rule emitsource
-    command = $tools/llvm-objdump -source $progname
+    command = $tools/llvm-objdump --source $progname
 build source: emitsource
 
 rule cc
@@ -38,5 +38,7 @@ rule asm
 # ln -fs '/--<project folder>/℮ ia64+pic32rt/pic32mzda⋔₁.hpp' pic32mzda⋔₁.hpp
 # ln -fs '/--<project folder>/℮ ia64+pic32rt/pic32mm.hpp' pic32mm.hpp
 # ln -fs '/--<project folder>/℮ ia64+pic32rt/start_mm.S' start_mm.S
-# ln -fs '/--<project folder>/℮ ia64+pic32rt/start_mz.S' start_mz.S
+# ln -fs '/--<project folder>/℮ ia64+pic32rt/start_mzda.S' start_mzda.S
+# ln -fs '/--<project folder>/℮ ia64+pic32rt/llvm-rt3.cpp' llvm-rt3.cpp
+
 
