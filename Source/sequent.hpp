@@ -1,7 +1,5 @@
 /*  sequent.hpp | arithmetics. */
 
-#pragma once
-
 struct sequent { Fixpoint::Q6463 detail; uint8_t rl₋decimal₋count; int valid; };
 struct cplx₋sequent { sequent magnitude, rad₋angle; };
 typedef sequent percent₋sequent; /* ∈[0, 99.999…]. */
@@ -41,5 +39,16 @@ int round₋𝟸⁻ⁱ₋decimals(short unsigned upto𝟼𝟺, char ᐧ𝟶to�
 sequent rational(Fixpoint::Q1615 ℝ);
 sequent non₋rational(int64_t ℤ);
 void init₋cordic();
+
+#pragma mark - concrete syntax
+
+int operator<(sequent x₁, sequent x₂);
+int operator!=(sequent x₁, sequent x₂);
+int operator==(sequent x₁, sequent x₂);
+sequent sign(sequent x);
+sequent nearest(sequent x);
+sequent floor(sequent x);
+sequent power(sequent b, sequent x);
+sequent tan(sequent x);
 
 

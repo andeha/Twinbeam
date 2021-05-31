@@ -1,4 +1,4 @@
-/*  𝙐𝙩𝙛𝟴.cpp | Unicode and streams. */
+/*  𝙐𝙩𝙛𝟴.cpp | Unicodes and the utf-8 encoding. */
 
 import Twinbase;
 
