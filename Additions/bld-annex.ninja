@@ -8,12 +8,12 @@ libtwinbeam = ../Source/Releases/libTwinbeam_macos.a
 libadditions = Releases/libAdditions_macos.a
 
 include ../tools.ninja
-platflags = -I $runtime/..
+platflags = -I $host-big/..
 flags = $optflags $macoscflags $platflags -std=c++20
 include ../macOS/laptop-big.ninja
 
 rule link
-   command = xcrun ld $linkflags -o $out $in $libtwinbeam $libadditions      $
+   command = xcrun ld $maclnkflags -o $out $in $libtwinbeam $libadditions      $
     $libauxiliaries
 
 build kirk911: link $objs/911.o $objs/arithmetic.o $objs/derrived.o          $
@@ -24,3 +24,4 @@ build $objs/arithmetic.o: cc $src/arithmetic.cpp
 build $objs/derrived.o: cc $src/derrived.cpp
 build $objs/main.o: cc $src/main.cpp
 default $progname
+

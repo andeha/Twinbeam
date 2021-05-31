@@ -3,10 +3,10 @@
 optflags = -g -D__MZDAStarterBoard__
 encased-library = libSeismic_pic32mz
 include ../tools.ninja
-platflags = -D__MZ__ -I $runtime -I $runtime/..
+platflags = -D__MZ__ -I $small-runtime -I $small-runtime/..
 objs = ./.objs/7703a312-559b-42ca-A992-eabcf7f87663_$encased-library
 flags = $optflags $pic32cflags $platflags -std=c++20
-include $runtime/command-little.ninja
+include $small-runtime/command-little.ninja
 
 progname = $encased-library\_$sha1git.a
 rule toc
