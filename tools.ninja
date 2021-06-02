@@ -12,15 +12,15 @@ pic32mzflags = -target mipsel -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32      $
 pic32m0cflags = -target arm-none-eabi -mcpu=cortex-m0 -mfloat-abi=soft       $
  -mthumb
 # The M-chip and the traditional Intel workforce: 
-commandline-root = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
-xcodeapp-root = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.p$
-latform/Developer/SDKs/MacOSX.sdk
+commandline-sdkpath = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+xcodeapp-sdkpath = /Applications/Xcode.app/Contents/Developer/Platforms/MacOS$
+X.platform/Developer/SDKs/MacOSX.sdk
 macrt-versions = -mmacosx-version-min=11.4
 macosarmcflags = -target arm64-apple-macos11
-macoscflags_withxcode = -isysroot $xcodeapp-root $macrt-versions
-macoscflags_commandline = -isysroot $commandline-root $macrt-versions
+macoscflags_withxcode = -isysroot $xcodeapp-sdkpath $macrt-versions
+macoscflags_commandline = -isysroot $commandline-sdkpath $macrt-versions
 macoscflags = $macoscflags_commandline
-maclnkflags = $macrt-versions -lSystem -lc++ -isysroot $commandline-root
+maclnkflags = $macrt-versions -lSystem -lc++ -isysroot $commandline-sdkpath
 small-runtime = /<User- or project name>/Apps/pic32rt
 host-big = /<User- or project name>/Apps/macOS
 # Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git 
