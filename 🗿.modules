@@ -38,9 +38,7 @@ module Twinbeam [system]
   header "../Apps/Additions/math/logic.hpp"
 } /* ⬷ use 'import Twinbeam;' in your source files. */
 
-module ClibTwinbeam [system] {
-  header "../Minimum/ClibTwinbeam/ClibTwinbeam.h"
-}
+module ClibTwinbeam [system] { header "../Minimum/ClibTwinbeam/ClibTwinbeam.h" }
 
 module Unistd
 { requires macos
