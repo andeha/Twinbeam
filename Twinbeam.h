@@ -40,12 +40,12 @@ typedef int64_t             __builtin_int_t; /* ⬷ a․𝘬․a 'sequenta'. */
 #endif
 typedef unsigned short      uint16_t;
 typedef short               int16_t; /* ≡ ᵐⁱᵖˢint. */
-typedef __builtin_uint_t Tribool; /* ⬷ c𝖿․ 'obekant', 'icke-lös' and 'embargo ₍im₎material'. (🎿) */
+typedef __builtin_uint_t Tribool; /* ⬷ 𝘊𝘧․ 'obekant', 'icke-lös' and 'embargo ₍im₎material'. (🎿) */
 typedef struct bignum { /* Artificial: Scandinavian 'med-vet-ande'. */
-  constexpr static int maxdigits = 628; /* To not: 'templates', … */
-  char digits[maxdigits]; /* Unpacked binary coded decimals. */
-  int signbit; /* Indicates with 𝟷 if positive and with -𝟷 if negative. */
-  int lastdigit; /* High-order digit index. */
+  constexpr static int maxdigits = 628; /* to not: 'templates', … */
+  char digits[maxdigits]; /* unpacked binary coded decimals. */
+  int signbit; /* indicates with 𝟷 if positive and with -𝟷 if negative. */
+  int lastdigit; /* high-order digit index. */
 } bignum; /* ⬷ a very-long integer type. */
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 __attribute__ ((nonnull))
 #define 𝓵₋bignum 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 bignum
@@ -142,6 +142,8 @@ auto didRuckpultCommit = ^(char * ref, const int& error₋code, Version version)
 #define OPTIONALSCHEDULATIVE
 #define CIRCULATIVE /* ⬷ a․𝘬․a 'averaged' ∧ '␣'. */
 #define CONTEXTDESTILLATIVE
+#define ASYNC₋AWAIT₋AND₋MAYWAIT /* ⬷ 𝘤𝘧․ 'ÄNDÅ-ÅTMINSTONE'. */
+#define DIPLOMAT₋CHURCH₋CRIMINAL₋WHATEVER
 #ifdef  __mips__
 typedef uint32_t mips32_context[32]; /* ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
