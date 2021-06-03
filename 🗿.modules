@@ -18,7 +18,7 @@ module Twinbase
 {
   header "../Apps/Twinbeam.h" /* includes */
   textual header "../Apps/Source/coroutine"
-} /* ⬷ for all --<Source> compilation units (𝘐․𝘦 .cpp files). */
+} /* ⬷ for all --<Source> compilation units; i․𝘦 .cpp files. */
 
 module Twinbeam [system]
 { umbrella header "../Apps/Source/Twinbeam.h"
