@@ -38,6 +38,10 @@ module Twinbeam [system]
   header "../Apps/Additions/math/logic.hpp"
 } /* ⬷ use 'import Twinbeam;' in your source files. */
 
+module ClibTwinbeam [system] {
+  header "../Minimum/ClibTwinbeam/ClibTwinbeam.h"
+}
+
 module Unistd
 { requires macos
   header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h"
@@ -55,7 +59,10 @@ module MacosMemorymap
 
 module AsynchronousIO
 { requires macos
+  header "../Apps/Twinbeam.h" /* includes */
+  textual header "../Apps/Source/coroutine"
   header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/aio.h"
+  header "../Apps/Additions/heavy-duty/Tape.h"
   header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h"
   header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/fcntl.h"
   header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/errno.h"
@@ -172,7 +179,7 @@ module Radiosymbol
 
 module Symbolstream
 {
-  header "../Apps/Additions/Radiosymbol/AST.h"  
+  header "../Apps/Additions/Radiosymbol/AST.h"
 }
 
 module Planets
@@ -216,6 +223,13 @@ module Kirkbridge
   header "../Apps/pic32rt/trng.hpp"
 }
 
+module Pic32Mzda_storage
+{ requires !macos
+  header "../Apps/Twinbeam.h"
+  header "../Apps/pic32rt/sqi.hpp"
+  header "../Apps/pic32rt/flash.hpp"
+}
+
 module Pic32mm
 {
   requires !macos
@@ -233,6 +247,7 @@ module Traditionalfiling
 { requires macos
   header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h"
   header "../Apps/Additions/Filesystem.hpp"
+  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dirent.h"
 } /* ⬷ a․𝘬․a Computerfiles. see the USB specification for negotiated numbers. */
 
 module Heavyduty
@@ -249,13 +264,20 @@ module Heavyduty
 
 module Shoebox
 {
+  header "../Apps/Twinbeam.h"
   header "../Apps/Additions/Storage/Nimble.hpp"
   header "../Apps/Additions/Storage/Shoebox.h"
+}
+
+module Ensemble
+{
+  header "../Apps/Twinbeam.h"
   header "../Apps/Additions/Storage/Ensemble.h"
 }
 
 module System
 {
+  header "../Apps/Twinbeam.h"
   header "../Apps/Additions/System.h"
 }
 
