@@ -15,12 +15,12 @@ pic32m0cflags = -target arm-none-eabi -mcpu=cortex-m0 -mfloat-abi=soft       $
 commandline-sdkpath = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 xcodeapp-sdkpath = /Applications/Xcode.app/Contents/Developer/Platforms/MacOS$
 X.platform/Developer/SDKs/MacOSX.sdk
-macrt-versions = -mmacosx-version-min=11.4
+tmacr-version = -mmacosx-version-min=11.4
 macosarmcflags = -target arm64-apple-macos11
-macoscflags_withxcode = -isysroot $xcodeapp-sdkpath $macrt-versions
-macoscflags_commandline = -isysroot $commandline-sdkpath $macrt-versions
+macoscflags_withxcode = -isysroot $xcodeapp-sdkpath $tmacr-version
+macoscflags_commandline = -isysroot $commandline-sdkpath $tmacr-version
 macoscflags = $macoscflags_commandline
-maclnkflags = $macrt-versions -lSystem -lc++ -isysroot $commandline-sdkpath
+maclnkflags = $tmacr-version -lSystem -lc++ -isysroot $commandline-sdkpath
 small-runtime = /<User- or project name>/Apps/pic32rt
 host-big = /<User- or project name>/Apps/macOS
 # Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git 
