@@ -1,6 +1,6 @@
 # Twinbeam
 
-Modern C++ software development for Intel x86-64 and PIC32/MIPS.
+Modern C++ software development for Intel x86-64 and PIC32/MIPS. Currently recumbent in the Github project ['Minimum'](https://github.com/andeha/Minimum/tree/main/ClibTwinbeam).
 
 Contains necessities for utf-8, `Vector`, `Map` and `Chronology`.
 
