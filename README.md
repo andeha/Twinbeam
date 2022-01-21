@@ -2,11 +2,11 @@
 
 Modern C++ software development for Intel x86-64 and PIC32/MIPS. Currently recumbent in the Github project ['Minimum'](https://github.com/andeha/Minimum/tree/main/ClibTwinbeam).
 
-Contains necessities for utf-8, `Vector`, `Map` and `Chronology`.
+Contains details for utf-8, `Vector`, `Map` and `Chronology`.
 
 To use, include the `Twinbeam.h` header and link with its corresponding `libTwinbeam_pic32mz_*.a` or `libTwinbeam_macOS_*.a` archive.
 
-Requires [`ninja`](https://ninja-build.org), [`llvm`](https://llvm.org) and — for MIPS development — a pic32mz development board. Also [Knot.h](https://raw.githubusercontent.com/wiki/andeha/Twinbeam/PDFs/Knot.🔥.h.pdf) and [Tändhatt.cpp](https://raw.githubusercontent.com/wiki/andeha/Twinbeam/PDFs/Tändhatt.pdf) and at-least 'Textmate' and 'Sublime Text'.
+Requires [`ninja`](https://ninja-build.org), [`llvm`](https://llvm.org) and — for MIPS development — a pic32mz development board and at-least 'Textmate' and 'Sublime Text'.
 
 Do not forget to visit [`Examples`](https://github.com/andeha/Twinbeam/tree/master/Examples), the [llvm2pic32](https://raw.githubusercontent.com/wiki/andeha/Twinbeam/llvm2pic32.1.pdf)/[pdb](https://raw.githubusercontent.com/wiki/andeha/Twinbeam/pdb.1.pdf) manual pages
  and the Twinbeam [wiki](https://github.com/andeha/Twinbeam/wiki).
