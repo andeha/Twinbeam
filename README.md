@@ -4,9 +4,9 @@ Modern C++ software development for Intel x86-64 and PIC32/MIPS. Currently recum
 
 Contains details for utf-8, `Array`, `Map` and `Chronology`.
 
-To use, include the `Twinbeam.h` header and link with its corresponding `libTwinbeam_pic32mz_*.a` or `libTwinbeam_macOS_*.a` archive.
+To use, include portions of the `Twinbeam.h` header and link with its corresponding `libTwinbeam_pic32mz_*.a` or `libTwinbeam_macOS_*.a` archive.
 
-Requires [`ninja`](https://ninja-build.org), [`llvm`](https://llvm.org) and — for MIPS development — a pic32mz development board and at-least 'Textmate' and 'Sublime Text'.
+Requires [`llvm`](https://llvm.org) and — for MIPS development — a pic32mz development board and at-least 'Textmate' and 'Sublime Text' and [`ninja`](https://ninja-build.org).
 
 Do not forget to visit [`Examples`](https://github.com/andeha/Twinbeam/tree/master/Examples), the [llvm2pic32](https://raw.githubusercontent.com/wiki/andeha/Twinbeam/llvm2pic32.1.pdf)/[pdb](https://raw.githubusercontent.com/wiki/andeha/Twinbeam/pdb.1.pdf) manual pages
  and the Twinbeam [wiki](https://github.com/andeha/Twinbeam/wiki).
