@@ -15,10 +15,11 @@ ninja -C Source -f build_armmac.ninja                               || exit 1
 ninja -C Source -f build_pic32mz.ninja                              || exit 1
 ninja -C Source -f build_pic32mm.ninja                              || exit 1
 ninja -C Source -f build_intcmac.ninja                              || exit 1
-lipo -create -output libTwinbeam_macos.a libTwinbeam_x86.a               \
+lipo -create -output libTwinbeam_macos.a libTwinbeam-x86_64.a            \
  libTwinbeam_arm.a                                                  || exit 1
 if [[ -n "$signcode" ]]; then
   codesign -s ${TEAMID} -f -o runtime --timestamp -i ${BUNDLEID} libTwinbeam_macos.a
+# codesign -s - -f -o runtime --timestamp libTwinbeam_macos.a
 fi
 # ⬷ lipo -create ... as of Xcode 13.2 only for arm and intel and not mips.
 ninja -C Additions -f bld_mac.ninja                                 || exit 1

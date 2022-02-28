@@ -1,11 +1,11 @@
-#  build.ninja — Building libTwinbeam_macos.a for Intel processors.
+#  build_intc.ninja — building 'libTwinbeam_macos.a' for Intel x86_64 processors.
 
-optflags = -g -std=c++20
-library-root = libTwinbeam_macos
+optflags = -g
+library-root = libTwinbeam-x86_64
 objs = ./.objs/7703a312-55A9-44da-A892-ebbcf8f87663_$library-root
 platflags = -I ..
 include ../tools.ninja
-flags = $optflags $macoscflags $platflags
+flags = $optflags $macoscflags $platflags $intel-mac
 include ../macOS/laptop-big.ninja
 
 progname = $library-root\_$sha1git.a
@@ -19,19 +19,21 @@ rule library
   printf $sha1git
 
 build libTwinbeam_macos: library $objs/Tree.o $objs/Memory.o $objs/Print.o   $
- $objs/Utf8.o $objs/Chronology.o $objs/bignum.o $objs/sha256.o               $
- $objs/macOS.o $objs/exception.o $objs/fifo.o $objs/System.o
+ $objs/Utf8.o $objs/Chronology.o $objs/bignum.o $objs/sha256.o $objs/macOS.o $
+ $objs/church-pass.o $objs/fifo.o $objs/System.o $objs/tee-metric.o $objs/encode-symbol.o
+build $objs/church-pass.o: asm church-pass.S
+build $objs/arrange-fifo.o: c arrange-fifo.cpp
 build $objs/Tree.o: cc Tree.cpp
 build $objs/Memory.o: cc Memory.cpp
 build $objs/Print.o: cc Print.cpp
 build $objs/Utf8.o: cc Utf8.cpp
 build $objs/Chronology.o: cc Chronology.cpp
 build $objs/bignum.o: cc bignum.cpp
-build $objs/sha256.o: cc sha256.cpp
-build $objs/macOS.o: cc macOS.cpp
-build $objs/exception.o: asm exception.S
-build $objs/fifo.o: cc fifo.cpp
+build $objs/sha256.o: cc sha-256.cpp
+build $objs/macos-institut.o: cc macos-institut.c
 build $objs/System.o: ccms System.cpp
+build $objs/tee-metric.o: c tee-metric.c
+build $objs/encode-symbol.o: c encode-symbol.c
 build emit-content: toc
 default $library-root
 
