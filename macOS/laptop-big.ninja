@@ -1,22 +1,24 @@
 #  laptop-big.ninja | directives towards compilation.
 
-linkflags = -macosx_version_min 11.0.1 -lSystem -lc++
-
 rule cc
-  command = $compiler-macos -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
+  command = $compiler-macos -DSHA1GIT=\"$sha1git\" -std=c++20 -MD -MF $out.d $flags    $
+   -c $in -o $out
   depfile = $out.d
   deps = gcc
 
 rule ccms
-  command = $compiler-macos -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -fms-extensions -c $in -o $out
+  command = $compiler-macos -DSHA1GIT=\"$sha1git\" -std=c++20 -MD -MF $out.d $flags    $
+   -fms-extensions -c $in -o $out
   depfile = $out.d
   deps = gcc
 
 rule c
-  command = $compiler-macos -DSHA1GIT=\"$sha1git\" -MD -MF $out.d $flags -c $in -o $out
+  command = $compiler-macos -DSHA1GIT=\"$sha1git\" std=c2x -MD -MF $out.d $flags    $
+   -c $in -o $out
   depfile = $out.d
   deps = gcc
 
 rule asm
   command = $compiler-macos $flags -c $in -o $out
+
 
