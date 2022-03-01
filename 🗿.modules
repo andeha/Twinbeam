@@ -1,71 +1,64 @@
 /*  module.module-map | conjectured art: In₋te₋r₋net and 
  the '-fmodule₍-map₎-file. */
 
-module Twinbeamtutorial [system]
+module Twinbeam [system]
 {
-  header "../Apps/Twinbeam.h" /* includes */
-  textual header "../Apps/Source/coroutine"
-  header "../Apps/Source/sequent.hpp"
-  header "../Apps/Source/sequent–2.hpp"
-  header "../Apps/Additions/Additions.h" /* includes via 'struct'. */
-  textual header "../Apps/Additions/Vt99.cxx"
-  header "../Apps/Additions/maths.hpp" /* includes */
-  textual header "../Apps/Additions/math/cherry.h"
-  /* header "../Apps/Additions/multitouch.hpp" */
-} /* ⬷ a․𝘬․a experimentally_included and one-additional-type. */
+  header "Twinbeam.h"
+  header "Additions/sequent.h"
+} /* ⬷ use 'import Twinbeam;' in your C++20 and C2x source files. */
 
 module Twinbase
 {
-  header "../Apps/Twinbeam.h" /* includes */
-  textual header "../Apps/Source/coroutine"
-} /* ⬷ for all --<Source> compilation units; i․𝘦 .cpp files. */
+  header "Twinbeam.h" /* includes */
+  header "Additions/sequent.h"
+} /* ⬷ for all --<Source> compilation units (𝘐․𝘦 .cpp files). */
 
-module Twinbeam [system]
-{ umbrella header "../Apps/Source/Twinbeam.h"
-  header "../Apps/Twinbeam.h" /* includes */
-  textual header "../Apps/Source/coroutine"
-  header "../Apps/Additions/Kiddle.hpp" /* followed-by */
-  header "../Apps/Additions/Color.hpp" /* followed-by */
-  header "../Apps/Additions/Typeset.hpp" /* followed-by */
-  header "../Apps/Additions/Impressions.hpp" /* pre-includes */
-  header "../Apps/Additions/Additions.h" /* that-includes */
-  textual header "../Apps/Additions/Vt99.cxx"
-  header "../Apps/Source/sequent.hpp"
-  header "../Apps/Source/sequent–2.hpp"
-  header "../Apps/Additions/math/simd².hpp"
-  header "../Apps/Additions/maths.hpp" /* includes */
-  textual header "../Apps/Additions/math/cherry.h"
-  header "../Apps/Additions/math/logic.hpp"
-} /* ⬷ use 'import Twinbeam;' in your source files. */
-
-module ClibTwinbeam [system] { header "../Minimum/ClibTwinbeam/ClibTwinbeam.h" }
-
-module Unistd
-{ requires macos
-  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h"
+module Twinbeamtutorial [system]
+{ umbrella header "Source/Twinbeam.h"
+  header "Twinbeam.h" /* includes */
+  header "Additions/Kiddle.hpp" /* followed-by */
+  header "Additions/Color.hpp" /* followed-by */
+  header "Additions/Typeset.hpp" /* followed-by */
+  header "Additions/Impressions.hpp" /* pre-includes */
+  header "Additions/Additions.h" /* that-includes */
+  header "Addition/sequent.h"
+  header "Additions/math/simd².hpp"
+  header "Additions/maths.hpp" /* includes */
+  textual header "Additions/math/cherry.h"
+  header "Additions/math/logic.hpp"
 }
+
+module Twinbeam_without_stdcpp 
+{
+  header "Twinbeam.h"
+  header "Additions/after-eight.h"
+}
+
+module Unistd [system] 
+{
+  module AAPL_big { requires macos
+    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h"
+  }
+}
+
+module Stdio [system]
+{
+  module AAPL_big { requires macos
+    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h"
+    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h"
+  }
+} /* ⬷ two headers for a 'cause natural'. */
 
 module MacosMemorymap
-{ requires macos
-/* 1 */ header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/mman.h"
-/* 2 */ textual header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types.h"
-/* 3 */ header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h"
-/* 4 */ header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/fcntl.h"
-/* 5 */ header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h"
-/* 1: mmap; 6: close. */
+{
+  module AAPL_big { requires macos
+    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/mman.h"
+    textual header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types.h"
+    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h"
+    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/fcntl.h"
+    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h"
+  }
 } /* ⬷ access written files from a mac drive. */
-
-module AsynchronousIO
-{ requires macos
-  header "../Apps/Twinbeam.h" /* includes */
-  textual header "../Apps/Source/coroutine"
-  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/aio.h"
-  header "../Apps/Additions/heavy-duty/Tape.h"
-  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h"
-  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/fcntl.h"
-  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/errno.h"
-  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h"
-}
 
 module UnittestsOnMac
 { requires macos
@@ -75,19 +68,18 @@ module UnittestsOnMac
 
 module Twinbeam_embeds [no_undeclared_includes]
 { requires !macos
-  header "../Apps/Twinbeam.h" /* includes */
-  textual header "../Apps/Source/coroutine"
-  header "../Apps/Source/sequent.hpp"
-  /* header "../Apps/pic32rt/pic32mx.hpp"
-  header "../Apps/pic32rt/pic32mzda.hpp" */
-  header "../Apps/pic32rt/pic32mm.hpp"
+  header "Twinbeam.h" /* includes */
+  textual header "Source/coroutine"
+  header "Additions/sequent.hpp"
+  /* header "pic32rt/pic32mx.hpp"
+  header "pic32rt/pic32mzda.hpp" */
+  header "pic32rt/pic32mm.hpp"
 } /* ⬷ for the '℮ ia64+pic32rt' run-time file 'llvm-rt3.cpp'. */
 
 module Twinbeam_camp /* [no_undeclared_includes] */
 { requires macos
-  header "../Apps/Twinbeam.h" /* includes */
-  textual header "../Apps/Source/coroutine"
-  header "../Apps/Source/sequent.hpp"
+  header "Twinbeam.h" /* includes */
+  header "Additions/sequent.h"
 /* write */ header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h"
 } /* ⬷ for the '℮ ia64+pic32rt' run-time when on mac. */
 
@@ -144,10 +136,9 @@ module MacosModernterminal
 
 /* framework */ module Steganographic_securities
 {
-  header "../Apps/Twinbeam" /* includes */
-  textual header "../App/source/coroutine"
-  header "../Apps/History/steganograph.h"
-  header "../Apps/History/re₋use.h"
+  header "Twinbeam.h" /* includes */
+  header "History/steganograph.h"
+  header "History/re₋use.h"
 } /* ⬷ 'that is secret'. */
 
 module History
@@ -275,28 +266,19 @@ module Ensemble
 
 module System
 {
-  header "../Apps/Twinbeam.h"
-  header "../Apps/Additions/System.h"
+  header "Twinbeam.h"
+  header "Additions/System.h"
 }
 
-module Minimum
+module Twinbeam_with_stdcpp
 {
-  
-  module Twinbeam_and_Minimum_2
-  {
-     header "../Apps/Additions/After8.h"
-  }
-  
   config_macros ADDITIONAL_LINKERSYMBOLS
-  
-  module Twinbeam_and_Minimum_1
-  { requires macos
+  module AAPL_big { requires macos
     header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector"
     header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map"
     header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/time.h"
-    header "../Apps/Additions/After8.h"
   }
-  
+  header "Additions/after-eight.hpp"
 }
 
 /*  Executable form for mips, x86_64/arm64 and other to be linked with: 
