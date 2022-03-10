@@ -1,5 +1,5 @@
 # tools.ninja — settings for macos and Pic32.
-tools = /<User- or project name>/mips-tools/12.0.0
+tools = /Users/<user- or project name>/mips-tools/12.0.0
 gencdflags = -fno-rtti -fblocks -fcoroutines-ts -fno-exceptions -Wno-format  $
  -fno-signed-char -fno-builtin -Wno-c++20-designator -Wno-c99-designator     $
  -Wincomplete-umbrella -Wmodule-conflict -Wno-nullability-completeness
@@ -11,18 +11,18 @@ pic32mzflags = -target mipsel -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32      $
  -mfp64 $pic32nda
 pic32m0cflags = -target arm-none-eabi -mcpu=cortex-m0 -mfloat-abi=soft       $
  -mthumb
+espressif-V = -target riscv32-unknown-elf -march=rv32imc -mabi=ilp32 # ilp32d
 # The M-chip and the traditional Intel workforce: 
 commandline-sdkpath = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 xcodeapp-sdkpath = /Applications/Xcode.app/Contents/Developer/Platforms/MacOS$
 X.platform/Developer/SDKs/MacOSX.sdk
 tmacr-version = -mmacosx-version-min=11.4
-macosarmcflags = -target arm64-apple-macos11
 macoscflags_withxcode = -isysroot $xcodeapp-sdkpath $tmacr-version
 macoscflags_commandline = -isysroot $commandline-sdkpath $tmacr-version
 macoscflags = $macoscflags_commandline
-maclnkflags = $tmacr-version -lSystem -lc++ -isysroot $commandline-sdkpath
-small-runtime = /<User- or project name>/Apps/pic32rt
-host-big = /<User- or project name>/Apps/macOS
+maclnkflags = $tmacr-version -lSystem -lc++ -syslibroot $commandline-sdkpath
+small-runtime = /Users/<user- or project name>/Monitor/Apps/pic32rt
+host-big = /Users/<user- or project name>/Monitor/Apps/macOS
 # Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git 
 # reset --hard HEAD^' (alt. in public when unpushed).
 sha1git = `git log -1 '--pretty=format:%h'`
@@ -30,5 +30,6 @@ librarian-pic32 = $tools/llvm-ar
 librarian-mac = xcrun ar
 compiler-macos = xcrun clang $gencdflags $moduleflags
 compiler-pic32 = $tools/clang-12 $gencdflags $moduleflags
-
+intel-mac = -target x86_64-apple-darwin21.3.0
+appleSoC-mac = -target arm64-apple-macos11
 
