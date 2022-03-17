@@ -1,0 +1,39 @@
+#  build.ninja - building Twinbeam to pic32mm (a processor without the 'double' type.)
+
+optflags = -g
+stem-library = libTwinbeam_pic32mm
+objs = ./.objs/7703a312-559A-43ca-A912-eaccf7f87663_$stem-library
+include ../tools.ninja
+platflags = -D__MM__ -I ..
+flags = $optflags $pic32mmflags $platflags
+include $small-runtime/command-little.ninja
+
+progname = $stem-library\_$sha1git.a
+rule toc
+  command = $librarian-pic32 t $progname
+# ⬷ monitor/Apps> ninja -C Source -f build_pic32mz.ninja emit-content
+
+rule library
+  command = $librarian-pic32 rcs Releases/$out\_$sha1git.a $in             ; $
+  ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
+
+build libTwinbeam_pic32mm: library $objs/church-pass.o $objs/arrange-fifo.o  $
+ $objs/icati-irrevers.o $objs/pamphlet-symbol.o $objs/pic32-institut.o       $
+ $objs/portable-tree.o $objs/serial-symbol.o $objs/stochast-symbol.o         $
+ $objs/system-asses.o $objs/tee-metric.o $objs/twofivesix-sha.o              $
+ $objs/detail-patrol.o $objs/reference-three.o
+build $objs/arrange-fifo.o: c arrange-fifo.c
+build $objs/church-pass.o: asm church-pass.S
+build $objs/icati-irrevers.o: c icati-irrevers.c
+build $objs/pic32-institut.o: c pic32-institut.c    # formerly ../pic32rt/⭐️.cpp and detail-patrol.o
+build $objs/pamphlet-symbol.o: c pamphlet-symbol.c
+build $objs/portable-tree.o: c portable-tree.c
+build $objs/serial-symbol.o: c serial-symbol.c
+build $objs/stochast-symbol.o: c stochast-symbol.c
+build $objs/system-asses.o: c system-asses.c
+build $objs/reference-three.o: c reference-three.c
+build $objs/tee-metric.o: c tee-metric.c
+build $objs/twofivesix-sha.o: c twofivesix-sha.c
+build emit-content: toc
+default $stem-library
+

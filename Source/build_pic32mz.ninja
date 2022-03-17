@@ -1,12 +1,12 @@
-#  build.ninja — building libTwinbeam_pic32mz.a.
+#  build.ninja — building Twinbeam to pic32mz. (A processor with hw 'double'.)
 
-optflags = -g -D__MZDAStarterBoard__ -std=c++20
+optflags = -g
 stem-library = libTwinbeam_pic32mz
 objs = ./.objs/7703a312-559A-43ca-A992-eaccf7f87663_$stem-library
 include ../tools.ninja
 platflags = -I ..
 flags = $optflags $pic32mzflags $platflags
-include $runtime/command-little.ninja
+include $small-runtime/command-little.ninja
 
 progname = $stem-library\_$sha1git.a
 rule toc
@@ -17,23 +17,24 @@ rule library
   command = $librarian-pic32 rcs Releases/$out\_$sha1git.a $in             ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
 
-build libTwinbeam_pic32mz: library $objs/Utf8.o $objs/Tree.o $objs/Memory.o  $
- $objs/Chronology.o $objs/bignum.o $objs/sha256.o $objs/Print.o              $
- $objs/pic32mz.o $objs/exception.o $objs/Paging.o $objs/System.o             $
- $objs/Sheriff.o $objs/fifo.o
-build $objs/Utf8.o: cc Utf8.cpp
-build $objs/Tree.o: cc Tree.cpp
-build $objs/Memory.o: cc Memory.cpp
-build $objs/Chronology.o: cc Chronology.cpp
-build $objs/bignum.o: cc bignum.cpp
-build $objs/sha256.o: cc sha256.cpp
-build $objs/Print.o: cc Print.cpp
-build $objs/pic32mz.o: cc pic32mz.cpp
+build libTwinbeam_pic32mz: library $objs/stochast-symbol.o                   $
+ $objs/portable-tree.o $objs/reference-three.o $objs/icati-irrevers.o        $
+ $objs/twofivesix-sha.o $objs/serial-symbol.o $objs/pic32-institut.o         $
+ $objs/exception.o $objs/system-asses.o $objs/arrange-fifo.o                 $
+ $objs/tee-metric.o $objs/encode-symbol.o
+build $objs/stochast-symbol.o: c stochast-symbol.c
+build $objs/portable-tree.o: c portable-tree.c
+build $objs/reference-three.o: c reference-three.c
+build $objs/icati-irrevers.o: c icati-irrevers.c
+build $objs/twofivesix-sha.o: c twofivesix-sha.c
+build $objs/serial-symbol.o: c serial-symbol.c
+build $objs/pic32-institut.o: c pic32-institut.c
 build $objs/exception.o: asm exception.S
-build $objs/Paging.o: asm optPaging.S
-build $objs/System.o: cc System.cpp
-build $objs/Sheriff.o: cc ../pic32rt/⭐️.cpp
-build $objs/fifo.o: cc fifo.cpp
+build $objs/system-asses.o: c system-asses.c
+# build $objs/Sheriff.o: cc ../pic32rt/⭐️.cpp
+build $objs/arrange-fifo.o: c arrange-fifo.c
+build $objs/tee-metric.o: c tee-metric.c
+build $objs/encode-symbol.o: c encode-symbol.c
 build emit-content: toc
 default $stem-library
 

@@ -10,7 +10,7 @@ include ../macOS/laptop-big.ninja
 
 progname = $library-root\_$sha1git.a
 rule toc
-  command = $librarian-mac t $progname
+  command = $librarian-mac t Releases/$progname
 # ⬷ monitor/Apps> ninja -C Source -f build_macos.ninja emit-content
 
 rule library
@@ -18,22 +18,24 @@ rule library
   ln -f Releases/$out\_$sha1git.a Releases/$out.a                          ; $
   printf $sha1git
 
-build libTwinbeam_macos: library $objs/Tree.o $objs/Memory.o $objs/Print.o   $
- $objs/Utf8.o $objs/Chronology.o $objs/bignum.o $objs/sha256.o $objs/macOS.o $
- $objs/church-pass.o $objs/fifo.o $objs/System.o $objs/tee-metric.o $objs/encode-symbol.o
+build libTwinbeam_macos: library $objs/portable-tree.o                       $
+ $objs/reference-three.o $objs/serial-symbol.o $objs/stochast-symbol.o       $
+ $objs/icati-irrevers.o $objs/twofivesig-sha.o $objs/macos-institut.o        $
+ $objs/church-pass.o $objs/arrange-fifo.o $objs/system-asses.o               $
+ $objs/tee-metric.o $objs/encode-symbol.o
 build $objs/church-pass.o: asm church-pass.S
-build $objs/arrange-fifo.o: c arrange-fifo.cpp
-build $objs/Tree.o: cc Tree.cpp
-build $objs/Memory.o: cc Memory.cpp
-build $objs/Print.o: cc Print.cpp
-build $objs/Utf8.o: cc Utf8.cpp
-build $objs/Chronology.o: cc Chronology.cpp
-build $objs/bignum.o: cc bignum.cpp
-build $objs/sha256.o: cc sha-256.cpp
-build $objs/macos-institut.o: cc macos-institut.c
-build $objs/System.o: ccms System.cpp
+build $objs/arrange-fifo.o: c arrange-fifo.c
+build $objs/portable-tree.o: c portable-tree.c
+build $objs/reference-three.o: c reference-three.c
+build $objs/serial-symbol.o: c serial-symbol.c
+build $objs/stochast-symbol.o: c stochast-symbol.c
+build $objs/icati-irrevers.o: c icati-irrevers.c
+build $objs/twofivesix-sha.o: c twofivesix-sha.c
+build $objs/macos-institut.o: c macos-institut.c
+build $objs/system-asses.o: cms system-asses.c
 build $objs/tee-metric.o: c tee-metric.c
 build $objs/encode-symbol.o: c encode-symbol.c
+build $objs/pamphlet-symbol.o: c pamphlet-symbol.c
 build emit-content: toc
 default $library-root
 
