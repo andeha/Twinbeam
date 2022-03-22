@@ -1,4 +1,4 @@
-/*  convoj-sequence.c | 'it is called galax'. */
+/*  convoj-sequence.c | multiple-sized objects. */
 
 import Twinbeam;
 
