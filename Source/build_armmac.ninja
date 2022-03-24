@@ -17,24 +17,27 @@ rule library
   command = $librarian-mac rcs Releases/$out\_$sha1git.a $in               ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a ; printf $sha1git
 
-build libTwinbeam_arm: library $objs/stochast-symbol.o                       $
- $objs/portable-tree.o $objs/reference-three.o $objs/icati-irrevers.o        $
- $objs/twofivesix-sha.o $objs/reference-three.o $objs/macos-institut.o       $
- $objs/exception.o $objs/system-asses.o $objs/arrange-fifo.o                 $
- $objs/tee-metric.c $objs/encode-symbol.c $objs/pamphlet-symbol.o
+build libTwinbeam_arm: library $objs/arrange-fifo.o $objs/best-first.o       $
+ $objs/church-pass.o $objs/convoj-sequence.o $objs/deter-lock.o              $
+ $objs/icati-irrevers.o $objs/macos-institut.o $objs/pamphlet-symbol.o       $
+ $objs/portable-tree.o $objs/reference-three.o $objs/stochast-symbol.o       $
+ $objs/tee-metric.c $objs/serial-symbol.c $objs/twofivesix-sha.o             $
+ $objs/utility-system.o
 build $objs/arrange-fifo.o: c arrange-fifo.c
-build $objs/church-pass.o: asm church-pass.S 
-build $objs/stochast-symbol.o: c stochast-symbol.c
+build $objs/best-first.o: c best-first.c
+build $objs/church-pass.o: asm church-pass.S
+build $objs/convoj-sequence.o: c convoj-sequence.c
+build $objs/deter-lock.o: c deter-lock.c
+build $objs/icati-irrevers.o: c icati-irrevers.c
+build $objs/macos-institut.o: c macos-institut.c
+build $objs/pamphlet-symbol.o: c pamphlet-symbol.c
 build $objs/portable-tree.o: c portable-tree.c
 build $objs/reference-three.o: c reference-three.c
-build $objs/icati-irrevers.o: c icati-irrevers.c
-build $objs/twofivesix-sha.o: c twofivesix-sha.c
-build $objs/reference-three.o: c reference-three.c
-build $objs/macos-institut.o: c macos-institut.c
-build $objs/system-asses.o: c system-asses.c
+build $objs/stochast-symbol.o: c stochast-symbol.c
 build $objs/tee-metric.o: c tee-metric.c
-build $objs/encode-symbol.o: c encode-symbol.c
-build $objs/pamphlet-symbol.o: c pamphlet-symbol.c
+build $objs/serial-symbol.o: c serial-symbol.c
+build $objs/twofivesix-sha.o: c twofivesix-sha.c
+build $objs/system-depricated.o: c utility-system.c
 build emit-content: toc
 default $arm-library
 

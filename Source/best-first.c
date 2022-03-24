@@ -52,9 +52,9 @@ again:
    goto again;
 }
 
-int ContigousAcquire(unsigned expedit, 
+int ContigousAcquire(unsigned expeditionary, 
  void **fourkbspace, __builtin_int_t count)
-{ struct Expeditionary frameset=expeditionary(expedit);
+{ struct Expeditionary frameset=getexpeditionary(expeditionary);
    __builtin_int_t bitidx=0,Wordsize=sizeof(__builtin_uint_t), 
     bitstotal=frameset.pagecount>>Wordsize, error=-1;
    __builtin_uint_t * helicopter = frameset.pagebase;
@@ -100,7 +100,7 @@ int Fallow(unsigned expeditionary, void * fourkbframes[], __builtin_int_t count)
    return 0;
 }
 
-void Setupframelibrary(int count, struct Expeditionary expedits[])
+void Setupframelibrary(int count, struct Expeditionary expeditionaries[])
 { int i,j,Wordsize=sizeof(__builtin_uint_t); __builtin_int_t idxwords;
    for (j=0; j<count; j+=1) {
      idxwords=(expedits[j].pagecount/Wordsize)>>3;

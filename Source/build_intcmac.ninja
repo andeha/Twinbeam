@@ -18,24 +18,27 @@ rule library
   ln -f Releases/$out\_$sha1git.a Releases/$out.a                          ; $
   printf $sha1git
 
-build libTwinbeam_macos: library $objs/portable-tree.o                       $
- $objs/reference-three.o $objs/serial-symbol.o $objs/stochast-symbol.o       $
- $objs/icati-irrevers.o $objs/twofivesig-sha.o $objs/macos-institut.o        $
- $objs/church-pass.o $objs/arrange-fifo.o $objs/system-asses.o               $
- $objs/tee-metric.o $objs/encode-symbol.o
-build $objs/church-pass.o: asm church-pass.S
+build libTwinbeam-x86_64: library  $objs/arrange-fifo.o $objs/best-first.o   $
+ $objs/church-pass.o $objs/convoj-sequence.o $objs/deter-lock.o              $
+ $objs/icati-irrevers.o $objs/macos-institut.o $objs/pamphlet-symbol.o       $
+ $objs/portable-tree.o $objs/reference-three.o $objs/serial-symbol.o         $
+ $objs/stochast-symbol.o $objs/tee-metric.o $objs/twofivesix-sha.o           $
+ $objs/system-utility.o
 build $objs/arrange-fifo.o: c arrange-fifo.c
+build $objs/best-first.o: c best-first.c
+build $objs/church-pass.o: asm church-pass.S
+build $objs/convoj-sequence.o: c convoj-sequence.c
+build $objs/deter-lock.o: c deter-lock.c
+build $objs/icati-irrevers.o: c icati-irrevers.c
+build $objs/macos-institut.o: c macos-institut.c
+build $objs/pamphlet-symbol.o: c pamphlet-symbol.c
 build $objs/portable-tree.o: c portable-tree.c
 build $objs/reference-three.o: c reference-three.c
 build $objs/serial-symbol.o: c serial-symbol.c
 build $objs/stochast-symbol.o: c stochast-symbol.c
-build $objs/icati-irrevers.o: c icati-irrevers.c
 build $objs/twofivesix-sha.o: c twofivesix-sha.c
-build $objs/macos-institut.o: c macos-institut.c
-build $objs/system-asses.o: cms system-asses.c
+build $objs/system-utility.o: cms utility-system.c
 build $objs/tee-metric.o: c tee-metric.c
-build $objs/encode-symbol.o: c encode-symbol.c
-build $objs/pamphlet-symbol.o: c pamphlet-symbol.c
 build emit-content: toc
 default $library-root
 

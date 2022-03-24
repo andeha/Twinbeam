@@ -1,4 +1,4 @@
-#  build.ninja — building Twinbeam to pic32mz. (A processor with hw 'double'.)
+#  build.ninja — building Twinbeam to pic32mz. (A processor with hardware-'double'.)
 
 optflags = -g
 stem-library = libTwinbeam_pic32mz
@@ -17,24 +17,28 @@ rule library
   command = $librarian-pic32 rcs Releases/$out\_$sha1git.a $in             ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
 
-build libTwinbeam_pic32mz: library $objs/stochast-symbol.o                   $
+build libTwinbeam_pic32mz: library $objs/arrange-fifo.o                      $
+ $objs/best-first.o $objs/convoj-sequence.o $objs/stochast-symbol.o          $
  $objs/portable-tree.o $objs/reference-three.o $objs/icati-irrevers.o        $
  $objs/twofivesix-sha.o $objs/serial-symbol.o $objs/pic32-institut.o         $
- $objs/exception.o $objs/system-asses.o $objs/arrange-fifo.o                 $
- $objs/tee-metric.o $objs/encode-symbol.o
-build $objs/stochast-symbol.o: c stochast-symbol.c
+ $objs/assets-system.o $objs/tee-metric.o $objs/serial-symbol.o              $
+ $objs/deter-lock.o $objs/church-pass.o
+build $objs/arrange-fifo.o: c arrange-fifo.c
+build $objs/best-first.o: c best-first.c
+build $objs/church-pass.o: asm church-pass.S
+build $objs/convoj-sequence.o: c convoj-sequence.c
+build $objs/deter-lock.o: c deter-lock.c
+build $objs/icati-irrevers.o: c icati-irrevers.c
+build $objs/pamplet-symbol.o: c pamphlet-symbol.c
+build $objs/pic32-institut.o: c pic32-institut.c
 build $objs/portable-tree.o: c portable-tree.c
 build $objs/reference-three.o: c reference-three.c
-build $objs/icati-irrevers.o: c icati-irrevers.c
-build $objs/twofivesix-sha.o: c twofivesix-sha.c
 build $objs/serial-symbol.o: c serial-symbol.c
-build $objs/pic32-institut.o: c pic32-institut.c
-build $objs/exception.o: asm exception.S
-build $objs/system-asses.o: c system-asses.c
+build $objs/stochast-symbol.o: c stochast-symbol.c
+build $objs/twofivesix-sha.o: c twofivesix-sha.c
+build $objs/assets-system.o: c utility-system.c
 # build $objs/Sheriff.o: cc ../pic32rt/⭐️.cpp
-build $objs/arrange-fifo.o: c arrange-fifo.c
 build $objs/tee-metric.o: c tee-metric.c
-build $objs/encode-symbol.o: c encode-symbol.c
 build emit-content: toc
 default $stem-library
 
