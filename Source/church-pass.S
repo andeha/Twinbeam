@@ -1,46 +1,9 @@
-/*  exception.S | with a modern argument in 'longjmp'. */
+/*  church-pass.S | with a modern argument in 'longjmp'. */
 
 #if defined __mips__
 
 #define START(name) .set at; .set noreorder; .ent name
 #define END(name) .size name,.-name; .end name; .set reorder; .set noat
-
-/*                                               the callee must preserve    
-   zero $0   |  always the value 'zero'.                              No     
-   at   $1   |  assembler temporary.                                  No     
-   v0   $2   |  the returned value for 32-bit and smaller….           No     
-   v1   $3   |  …returned 'hi' value when 64-bits are required.       No     
-   a0   $4   |  first integer argument.                               No     
-   a1   $5   |  second integer argument.                              No     
-   a2   $6   |  third integer argument.                               No     
-   a3   $7   |  fourth integer argument.                              No     
-   t0   $8   |  1:st temporary reg. that must not be preserved.       No     
-   t1   $9   |  2:nd temporary reg. that must not be preserved.       No     
-   t2  $10   |  3:th temporary reg. that must not be preserved.       No     
-   t3  $11   |  4:th temporary reg. that must not be preserved.       No     
-   t4  $12   |  5:th temporary reg. that must not be preserved.       No     
-   t5  $13   |  6:th temporary reg. that must not be preserved.       No     
-   t6  $14   |  7:th temporary reg. that must not be preserved.       No     
-   t7  $15   |  8:th temporary reg. that must not be preserved.       No     
-   s0  $16   |                                                       Yes     
-   s1  $17   |  ''                                                   Yes     
-   s2  $18   |   function prologue copies the register value …       Yes     
-   s3  $19   |   to the stack frame and the function …               Yes     
-   s4  $20   |   epilogue copies the values back to the …            Yes     
-   s5  $21   |   register.                                           Yes     
-   s6  $22   |                                               ''      Yes     
-   s7  $23   |                                                       Yes     
-   t8  $24   |  nineth temporary register.                            No     
-   t9  $25   |  tenth temporary register.                             No     
-   k0  $26   |  kernel and/or _ register.                             No     
-   k1  $27   |  kernel and/or _ register.                             No     
-   gp  $28   |  global pointer, the addr. to static globals.         Yes     
-   sp  $29   |  the last pushed argument on the stack.               Yes     
-⬷ the sp register must be 8-bytes aligned.                                  
-   fp  $30   |  the frame pointer.                                   Yes     
-   ra  $31   |  the address to return to when running a ftn.         Yes   */
-/* Parameters smaller than 32-bits are promoted to 32-bits. */
-/* Sixty-four bits parameters are for little-endian passed in e.g a1:a0 and a3:a2. */
     
     
     .section .text
@@ -49,22 +12,22 @@
   *  int setjmp2(jmp_buf jb)
   *  
   *  Persists a processor context in a `jmp_buf` for reinitation 
-  *  if/when a `longjmp2` is called.  Saves the current state so 
+  *  if and when a `longjmp2` is called.  Saves the current state so 
   *  a thread can return again from the call later.
   *  
   *  A `longjmp2` before a finalized `setjmp2` results in an
   *  undefined behavior.
+  *  
+  *  The argument 'jmp_buf' is referenced in register a0.  We 
+  *  must save s0-s8, sp, and ra. To store more registers, adjust 
+  *  the definition of --<Twinbeam.h>{`jmp_buf2`}.  Let us save the 
+  *  registers:
   */
     
     .globl setjmp2
     .type setjmp2,@function
      START(setjmp2)
 setjmp2:
-    
-   /*  The argument 'jmp_buf' is referenced in register a0.  We 
-      must save s0-s8, sp, and ra. To store more registers, adjust 
-      the definition of --<Twinbeam.h>{`jmp_buf2`}.  Let us save the 
-      registers: */
     
     sw       $sp, 0($a0)                /*  save registers in 'jmp_buf'. */
     sw       $ra, 4($a0)
@@ -88,6 +51,11 @@ setjmp2:
   *  
   *  void longjmp2(jmp_buf jb, int code)
   *  
+  *  Once again, 'jmp_buf' is pointed out in a0, this time 
+  *  the return code to be read from 'setjmp2' is in a1.  We have 
+  *  to restore s0-s8, sp, and ra from the jmp_buf.  The return 
+  *  code is forced to 1 if 0 is passed in.
+  *  
   *  Return to the location specified by a former `setjmp2`.
   */
     
@@ -95,11 +63,6 @@ setjmp2:
     .type longjmp2,@function
      START(longjmp2)
 longjmp2:
-    
-   /*  Once again, 'jmp_buf' is pointed out in a0, this time 
-     the return code to be read from 'setjmp2' is in a1.  We have 
-     to restore s0-s8, sp, and ra from the jmp_buf.  The return 
-     code is forced to 1 if 0 is passed in. */
     
     sltiu    $t0, $a1, 1                /* set t0 to 1 if return code is 0... otherwise 0 */
     addu     $a1, $a1, $t0              /* update the return code. */
@@ -123,6 +86,9 @@ longjmp2:
 
 #elif defined __x86_64__
 
+#define END(symbol)
+#define START(symbol)
+
  /***
   
   int setjmp2(jmp_buf jb).
@@ -131,7 +97,7 @@ longjmp2:
     
     .text
     .global _setjmp2
-    
+    START(_setjmp2)
 _setjmp2:
     
     movq    %rdi,%rax
@@ -150,15 +116,16 @@ _setjmp2:
     xorq    %rax,%rax         /* return 0 in rax. */
     
     ret
-    
+    END(_setjmp2)
+
  /***
   
-  void longjmp2(jmp_buf jb, int code).
+  void longjmp2(jmp_buf jb, __builtin_int_t code).
   
   ***/
     
     .global _longjmp2
-    
+    START(_longjmp2)
 _longjmp2:
     
     movq    %rdi,%rdx
@@ -185,6 +152,7 @@ _longjmp2:
     jnz     1f; incq    %rax; 1: movq    %rcx,0(%rsp)
     
     ret
-    
+    END(_longjmp2)
+
 #endif
 
