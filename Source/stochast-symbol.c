@@ -1,6 +1,6 @@
-/*  𝙐𝙩𝙛𝟴.cpp | Unicodes and the utf-8 encoding. */
+/*  stochast-symbol.c | Unicodes and the utf-8 encoding. */
 
-import Twinbase;
+import Twinbeam;
 
 FOCAL
 short
