@@ -739,8 +739,6 @@ typedef uint64_t chronology₋instant;
 typedef uint32_t chronology₋UQ32; /* e․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
 typedef int32_t chronology₋Q31;
 typedef int32_t short₋chronology₋relative; /* a․𝘬․a Q1615 captures ±65535.9999694822. */
-union ntp₋stomp { struct { uint32_t seconds; chronology₋UQ32 frac; } since; uint64_t bits; }
-/*  ⬷ captures 0 to +4294967295.99999999976716935634613037109375. */
 struct chronology₋relative { int32_t seconds; chronology₋Q31 frac; };
 struct chronology₋date { int32_t y,M,d; }; /* 1-12 and 1-31. */
 struct chronology₋time { int32_t h,m,s; chronology₋UQ32 partial; };
