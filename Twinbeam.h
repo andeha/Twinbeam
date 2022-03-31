@@ -767,6 +767,8 @@ EXT₋C short₋chronology₋relative duration(chronology₋instant t₁, chrono
 EXT₋C int chronology₋dayofweek(chronology₋instant v, int * wd);
 EXT₋C void present₋instant(chronology₋instant v, int incl₋frac, void (^out)(
  char digitHyphenColonPeriod𝘖rSpace));
+EXT₋C int Timestamp(enum Encoding encoding, int count, int bytes, uint8_t * 
+ material[]);
 
 typedef struct __coro_t coro_t;
 typedef int (*coro_function_t)(coro_t *);
