@@ -6,7 +6,7 @@ void * sw₋signal, *context₋semantic;
 
 int Sustain₋entrust(int32_t signal, void * semantic)
 {
-   union Treeint leafkey = { signal, 0 };
+   union Treeint leafkey = { .keyvalue = { signal, 0 } };
    union Treeint * node = Lookup(sw₋signal,leafkey);
    if (node == ΨΛΩ) { return -2; }
    ϵ₋int₁ coro = (coro_t *)node->keyvalue.key;
@@ -19,9 +19,9 @@ int Initiate₋inform(int32_t signal, Coroutine corout, ALLOC alloc)
 {
    ϵ₋int₁ /* coro_t * */ coro = coro_await(corout);
 #if defined __mips__ || defined __armv6__ || defined espressif
-   Treeint leafkey = { .keyvalue = { signal, (uint32_t)coro } };
+   union Treeint leafkey = { .keyvalue = { signal, (uint32_t)coro } };
 #elif defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
-   Treeint leafkey = { .keyvalue = { signal, (uint64_t)coro } };
+   union Treeint leafkey = { .keyvalue = { signal, (uint64_t)coro } };
 #endif
    void * unchanged = Insert(sw₋signal,leafkey,alloc);
    if (unchanged == ΨΛΩ) { return -1; }
