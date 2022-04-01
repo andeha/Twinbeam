@@ -15,9 +15,9 @@ int Sustain₋entrust(int32_t signal, void * semantic)
    return 0;
 }
 
-int Initiate₋inform(int32_t signal, Coroutine coroutine, ALLOC alloc)
+int Initiate₋inform(int32_t signal, Coroutine corout, ALLOC alloc)
 {
-   ϵ₋int₁ /* coro_t * */ coro = coro₋await(coroutine);
+   ϵ₋int₁ /* coro_t * */ coro = coro_await(corout);
 #if defined __mips__ || defined __armv6__ || defined espressif
    Treeint leafkey = { .keyvalue = { signal, (uint32_t)coro } };
 #elif defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
