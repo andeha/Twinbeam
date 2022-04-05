@@ -1,6 +1,6 @@
 /*  fifo-slow.h | interrupt may fill and coroutine consume. */
 
-struct fifo { __builtin_uint_t * 1₋tile; 
+struct fifo { __builtin_uint_t * 𝟷₋tile; 
  __builtin_int_t brk, count, words₋to₋unity; /* ⬷ a․𝘬․a max₋words. */
 }; /* ⬷ a․𝘬․a fifoⁱⁿcorp. Three areas where one precomputed area always 
  separates the 'producer' from the 'consumer' enables a - without visual
@@ -29,4 +29,5 @@ EXT₋C int one₋tile₋retrospect(enum fifo₋flavor f, struct fifo * 🅵,
 /*  ⬷ note deceptive 'default, move and copy' vs. 'register passable'. */
 
 /* ⬷ compare further --<Additions>--<2ᵈ-𝔣ow.h>, change/insert/delete a․𝘬․a rope and
- shatter/structa. */
+ shatter/structa. Noncompliance in ui with the ed editor. */
+

@@ -50,7 +50,7 @@ again:
 }
 
 inexorable int one₋tile₋physical(__builtin_int_t nowdelta, __builtin_int_t brk, 
- __builtin_int_t maxelems) 
+ __builtin_int_t maxelems)
 {
    __builtin_int_t brk₋₁ = (brk == 0) ? (maxelems - 1) : (brk - 1); /* ⬷ cases 'may' and 'may-not' wrap. */
    __builtin_int_t actual = brk₋₁ - nowdelta;
@@ -86,7 +86,7 @@ int one₋tile₋retrospect(enum fifo₋flavor f, struct fifo * q,
 )
 {
    switch (q->count) {
-   case 0: return -1; 
+   case 0: return -1;
    case 1: *t₋₁=*t=*one₋tile₋deref(0,q); return 0;
    default: switch (f) {
     case fifo₋flavor₋allinorder:
@@ -98,7 +98,7 @@ int one₋tile₋retrospect(enum fifo₋flavor f, struct fifo * q,
       *t₋₁ = *one₋tile₋deref(1,q);
       break;
    } } return 0;
-} /* further  --<System.h>{actual} where two queues and 
+} /* further  --<System.h> `actual` where two queues and 
  interpolation results in a `simd_tᵦ` and irreversibly 'momentan-
  retrospectiv'. */
 

@@ -7,7 +7,7 @@ extern void copy₋expeditionary₋reference(int, struct Expeditionary *);
 
 int CoalescingAcquire(unsigned expeditionary, 
  void **fourkbframes, __builtin_int_t count)
-{ Expeditionary oneset=getexpeditionary(expeditionary);
+{ struct Expeditionary oneset=getexpeditionary(expeditionary);
    __builtin_int_t Wordsize=sizeof(__builtin_uint_t), 
     Bitwidth=Wordsize<<3, idxwords=(oneset.pagecount/Wordsize)>>3;
    __builtin_uint_t current;
@@ -75,7 +75,7 @@ again:
 
 inexorable
 int
-Release𝟷ᵈ(Expeditionary frameset, void * fourkbframes[], __builtin_int_t count, 
+Release𝟷ᵈ(struct Expeditionary frameset, void * fourkbframes[], __builtin_int_t count, 
  int secure)
 { uint8_t * page, start=(uint8_t *)(frameset.pagebase);
    __builtin_int_t bytes,idx,bit; __builtin_uint_t word,toggle;

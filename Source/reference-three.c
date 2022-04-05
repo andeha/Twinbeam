@@ -1,4 +1,4 @@
-/*  three-reference.c | by direction and purpose captured time and essence. */
+/*  three-reference.c | direction and purpose captured time and essence. /bye/ */
 
 import Twinbeam;
 
@@ -8,6 +8,7 @@ int collection₋init(unsigned bytes₋per₋item, unsigned bytes₋per₋tile,
    🅐->bytes₋per₋item=bytes₋per₋item;
    🅐->bytes₋per₋palm=bytes₋per₋tile;
    🅐->palm₋count=0; 🅐->item₋count=0;
+   return 0;
 } /* stored items must be smaller than 'bytes-per-tile'. */
 
 __builtin_int_t collection₋count(struct collection * 🅰)
@@ -20,7 +21,7 @@ inexorable void prepare₋myrtle(__builtin_int_t idx, struct collection * 🅰,
 {
    int by₋tes = sizeof(struct middle);
    struct middle * middle₋to₋include = (struct middle *)alloc(by₋tes);
-   🅰->middle[idx] = middle₋to₋include;
+   🅰->myrtles[idx] = middle₋to₋include;
 } /* possibly-maybe 'middle'. */
 
 inexorable void prepare₋palm(struct middle * middle, __builtin_int_t idx, 

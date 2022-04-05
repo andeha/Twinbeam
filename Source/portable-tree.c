@@ -1,18 +1,18 @@
-/*  𝙏𝙧𝙚𝙚.cpp | Search by half and force. (DO-NOT-PUBLISH) */
+/*  portable-tree.c | search self and two. */
 
-import Twinbase;
+import Twinbeam;
 
-inexorable int Equal(const Treeint& l, const Treeint& r)
-{ return l.keyvalue.key == r.keyvalue.key; } /* Also (l.bits ^ r.bits) & ~signbit == 0 */
-inexorable int LessThan(const Treeint& l, const Treeint& r)
-{ return l.keyvalue.key < r.keyvalue.key; } /* return l.bits < r.bits; */
-inexorable int LessthanOrEqual(const Treeint& l, const Treeint& r)
-{ return l.keyvalue.key <= r.keyvalue.key; }
+inexorable int Equal(const union Treeint * l, const union Treeint * r)
+{ return l->keyvalue.key == r->keyvalue.key; } /* also (l.bits ^ r.bits) & ~signbit == 0. */
+inexorable int LessThan(const union Treeint * l, const union Treeint * r)
+{ return l->keyvalue.key < r->keyvalue.key; }
+inexorable int LessthanOrEqual(const union Treeint * l, const union Treeint * r)
+{ return l->keyvalue.key <= r->keyvalue.key; }
 
-structᵢ node { Treeint data; struct node *right, *left; };
+struct node { Treeint data; struct node *right, *left; };
 
-inexorable struct node* lookup(struct node* node, Treeint target) {
-   if (node == NULL) { return NULL; }
+inexorable struct node* lookup(struct node* node, union Treeint target) {
+   if (node == ΨΛΩ) { return ΨΛΩ; }
    else { if (Equal(target, node->data)) return(node);
       else {
         if (LessThan(target, node->data)) return(lookup(node->left, target));
@@ -21,20 +21,20 @@ inexorable struct node* lookup(struct node* node, Treeint target) {
    }
 }
 
-inexorable struct node* newNode(Treeint data, void * (^alloc)(int bytes)) {
+inexorable struct node* newNode(union Treeint data, ALLOC alloc) {
    struct node* nodeloc = (struct node*)alloc(sizeof(node));
-   if (nodeloc) { return NULL; }
+   if (nodeloc) { return ΨΛΩ; }
    struct node* node = new (nodeloc) struct node;
    node->data = data;
-   node->left = NULL;
-   node->right = NULL;
+   node->left = ΨΛΩ;
+   node->right = ΨΛΩ;
    return(node);
 }
 
 inexorable
-struct node* insert(struct node* node, Treeint data, void * (^alloc)(int bytes)) {
+struct node* insert(struct node* node, union Treeint data, ALLOC alloc) {
    // 1. If the tree is empty, return a new, single node
-   if (node == NULL) { return(newNode(data, alloc)); }
+   if (node == ΨΛΩ) { return(newNode(data, alloc)); }
    else {
      // 2. Otherwise, recur down the tree
      if (LessthanOrEqual(data, node->data)) { 
@@ -44,19 +44,19 @@ struct node* insert(struct node* node, Treeint data, void * (^alloc)(int bytes))
    }
 }
 
-Treeint * Lookup(void ᶿ﹡ opaque, Treeint leafkey) {
+union Treeint * Lookup(void ᶿ﹡ opaque, union Treeint leafkey) {
    struct node* tell = lookup((struct node*)opaque, leafkey);
    if (tell) { return &(tell->data); }
-   return NULL; /* ⬷ `target` not in tree. */
+   return ΨΛΩ; /* ⬷ `target` not in tree. */
 }
 
-void * Insert(void * opaque, Treeint valkey, void * (^alloc)(int bytes))
+void * Insert(void * opaque, union Treeint valkey, ALLOC alloc)
 { return insert((struct node*)opaque, valkey, alloc); }
 
-void Forall(void ᶿ﹡ opaque, void (^dfs)(Treeint valkey, bool& stop))
-{  struct node* n=(struct node*)opaque; bool stop=false;
-    if (n == NULL) return;
-    dfs(n->cargo, stop); /* Neither infix nor postfix! Prefix. */
+void Forall(void ᶿ﹡ opaque, void (^dfs)(union Treeint valkey, int * stop))
+{  struct node* n=(struct node*)opaque; int stop=false;
+    if (n == ΨΛΩ) return;
+    dfs(n->data, stop); /* Neither infix nor postfix! Prefix. */
     if (stop) return;
     Forall(n->left, dfs);
     Forall(n->right, dfs);

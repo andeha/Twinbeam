@@ -1,6 +1,6 @@
-/*  𝙋𝙧𝙞𝙣𝙩.cpp | 🗞 - Printing and no escapes. */
+/*  serial-symbol.c | 🗞 - Printing and no escapes. */
 
-import Twinbase;
+import Twinbeam;
 
 DISORDERABLE extern void CastᵈᵇˡToText(double value, void (^digits)(bool neg, 
   int e, const char8_t *𝟶to𝟿s), void (^zero)(bool neg), void (^inf)(bool neg), 
@@ -19,13 +19,13 @@ DISORDERABLE extern void Format(double ℝ, Ieee754form f, void (^out)(char32_t 
 DISORDERABLE extern void platform₋reflect() { } /* ⬷ Alternative definition 
  in --<Additions>--<Presentᵃᵘˣ.cpp>. */
 
-#pragma mark - Inte₋ger₋s
+#pragma headers - Inte₋ger₋s
 
 Argᴾ ﹟d(__builtin_int_t d) { return Argᴾ { .value.d=d, .kind=1 }; }
 Argᴾ ﹟x(__builtin_uint_t x) { return Argᴾ { { .x=x }, 2 }; }
 Argᴾ ﹟b(__builtin_uint_t b) { return Argᴾ { { .b=b }, 3 }; }
-Argᴾ ﹟s(const char8_t * utf8) { return Argᴾ { { .utf8=Critic(utf8) }, 4 }; }
-Argᴾ ﹟s(char8_t * utf8) { return Argᴾ { { .utf8=utf8 }, 4 }; }
+Argᴾ ﹟s(const char8_t * u8s) { return Argᴾ { { .utf8=Critic(u8s) }, 4 }; }
+Argᴾ ﹟s(char8_t * u8s) { return Argᴾ { { .utf8=u8s }, 4 }; }
 Argᴾ ﹟s(const char * utf8) { return Argᴾ { { .utf8=(char8_t *)utf8 }, 4 }; }
 Argᴾ ﹟S(__builtin_int_t tetras, char32_t * uc) { return Argᴾ { { .ucs={ uc, tetras } }, 5 }; }
 Argᴾ ﹟S(__builtin_int_t tetras, const char32_t * uc) { return Argᴾ { { .ucs={ Critic(uc), tetras } }, 5 }; }
@@ -40,7 +40,7 @@ Argᴾ ﹟regs(__builtin_uint_t mask) { return Argᴾ { { .x=mask }, 13 }; }
 /* ⬷ Print between 0 and 31 non-high-volatile registers. */
 Argᴾ ﹟λ(Argᴾ::Output scalar, void * context) { return Argᴾ { { .λ={ scalar, context } }, 10 }; }
 
-#pragma mark - in /retrospect/, hidden yet simple:
+#pragma header - in /retrospect/, hidden yet simple:
 
 inexorable
 int
@@ -69,13 +69,13 @@ print﹟(
 #endif
       , ^(char s) { out₂(&s,1); }); };
     auto eight₋bit₋symbol = ^(char8_t c) { out(&c,1); };
-    auto u8c₋stream = ^(const char8_t * utf8) { char8_t * p = (char8_t *)utf8; while (*p) { out(p,1); p++; } };
+    auto u8c₋stream = ^(char8_t * utf8) { char8_t * p = (char8_t *)utf8; while (*p) { out(p,1); p++; } };
     auto unicode₋symbol = ^(char32_t u) { UnicodeToUtf8(u, ^(char8_t * u8s, 
      short bytes) { out(Critic(u8s),bytes); }); };
-/* #ifndef UNEXISTING₋IEEE754 */
+#ifndef UNEXISTING₋IEEE754
     auto out𝕕 = ^(double ℝ) { Format(ℝ, Ieee754form::Scientific, ^(char32_t uc) { unicode₋symbol(uc); }); };
-/* #endif */
-    auto unicode₋stream = ^(int tetras, char32_t 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 * unicodes) { __builtin_int_t 
+#endif
+    auto unicode₋stream = ^(int tetras, char32_t * unicodes) { __builtin_int_t 
       beam=0; while (beam < tetras) { char32_t uc = *(unicodes + beam); unicode₋symbol(uc); 
       ++beam; } }; /* { int, (bytes, symbols) } */
 #ifdef 𝟷𝟸𝟾₋bit₋integers
@@ -101,8 +101,10 @@ again:
       case 5: unicode₋stream(a.value.ucs.tetras, a.value.ucs.unicodes); break;  \
       case 6: eight₋bit₋symbol(a.value.c); break;                               \
       case 7: unicode₋symbol(a.value.uc); break;                                \
+#ifndef UNEXISTING₋IEEE754
       case 8: out𝕕(double(a.value.f₂)); break;                                  \
       case 9: out𝕕(a.value.f₁); break;                                          \
+#endif
       case 10: { Argᴾ::Unicode set = ^(bool anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, \
        void * context) { if (!anfang) { print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); }    \
        else { Anfang(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, NULL); } }; a.value.λ.scalar(set,        \
