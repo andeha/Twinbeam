@@ -17,7 +17,7 @@ rule library
   command = $librarian-mac rcs Releases/$out\_$sha1git.a $in               ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a ; printf $sha1git
 
-build libTwinbeam_arm: library $objs/arrange-fifo.o $objs/best-first.o       $
+build libTwinbeam_arm:  library $objs/arrange-fifo.o $objs/best-first.o      $
  $objs/chim-model.o $objs/church-pass.o $objs/convoj-sequence.o              $
  $objs/deter-lock.o $objs/icati-irrevers.o $objs/institut-macos.o            $
  $obs/length-text.o $objs/pamphlet-symbol.o $objs/portable-tree.o            $
@@ -31,7 +31,7 @@ build $objs/convoj-sequence.o: c convoj-sequence.c
 build $objs/deter-lock.o: c deter-lock.c
 build $objs/icati-irrevers.o: c icati-irrevers.c
 build $objs/institut-macos.o: c institut-macos.c
-build $objs/length-text.o: c length-text.c
+build $objs/length-text.o: c length-impression.c
 build $objs/pamphlet-symbol.o: c pamphlet-symbol.c
 build $objs/portable-tree.o: c portable-tree.c
 build $objs/reference-three.o: c reference-three.c
