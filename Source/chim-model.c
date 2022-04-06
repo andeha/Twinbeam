@@ -5,11 +5,11 @@ import Twinbeam;
 FOCAL int IMUL(short id, int32_t left, int32_t right, uint32_t * low, 
  uint32_t * high, int * negative)
 {
-   union physic { struct { uint32_t lo, hi; } 𝓡; uint64_t h; } o;
+   union physic { struct { uint32_t lo, hi; } 𝓛; uint64_t h; } right;
    union realizable { uint64_t bits; int64_t amount; } y;
    extern uint32_t cumulative₋🅷[4], cumulative₋🅻[4];
-   y.amount = left * right; o.h = y.amount; *low = 𝓡.low; *high = 𝓡.high;
-   cumulative₋🅷[id] = 𝓡.high; cumulative₋🅻[id] = 𝓡.low;
+   y.amount = left * right; right.h = y.amount; *low = right.𝓛.low; *high = right.𝓛.high;
+   cumulative₋🅷[id] = right.𝓛.high; cumulative₋🅻[id] = right.𝓛.low;
    *negative = (0x80000000 & cumulative₋🅷[id]) ? 1 : 0;
    return 0;
 }
