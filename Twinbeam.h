@@ -27,7 +27,7 @@ typedef int32_t             __builtin_int_t;
 #ifdef __MM__
 #undef 𝟷𝟸𝟾₋bit₋integers
 #endif
-#elif defined __armv8a__ || defined __x86_64__
+#elif defined __armv8a__ || defined __x86_64__ || defined Kirkbridge
 typedef unsigned int        uint32_t;
 typedef int                 int32_t; /* ≢'long'. */
 typedef uint64_t            __builtin_uint_t;
@@ -146,8 +146,8 @@ EXT₋C int mfprint(const char * 𝟽bit₋utf8format,...);
 EXT₋C int print(void (^out)(char8₋t * u8s, __builtin_int_t bytes), const char * 
  𝟽bit₋utf8format, ...) ⓣ;
 
-typedef void (^Argᵖ₋output)(void * context);
-typedef void (^Unicode)(int anfang, char32̄_t * prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, void * context);
+typedef void (^primary₋present)(__builtin_int_t count, char32̄_t * symbols);
+typedef void (^serial₋present)(char8₋t * u8s, __builtin_int_t bytes);
 
 typedef struct 𝓟 {
   union {
@@ -166,7 +166,8 @@ typedef struct 𝓟 {
 #if defined 𝟷𝟸𝟾₋bit₋integers
     __uint128_t U; __int128_t I;
 #endif
-    struct { Argᵖ₋output scalar; void * context; } λ;
+    struct { void * context; serial₋present scalar; } λ₁;
+    struct { void * context; primary₋present scalar; } λ₂;
   } value;
   int kind;
 } Argᴾ;
@@ -185,7 +186,8 @@ EXT₋C Argᴾ ﹟C(char32̄_t C);
 EXT₋C Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
 #endif
 EXT₋C Argᴾ ﹟regs(__builtin_uint_t mask);
-EXT₋C Argᴾ ﹟λ(Argᵖ₋output scalar, void * context);
+EXT₋C Argᴾ ﹟λ₁(void (^fragment)(serial₋present,void*),void *);
+EXT₋C Argᴾ ﹟λ₂(void (^fragment)(primary₋present,void*),void *);
 
 typedef int (^INIT)(void * uninited);
 
@@ -319,11 +321,11 @@ struct 𝟽bit₋text { __builtin_int_t count; signed char * keyputs; };
 struct utf8₋text { __builtin_int_t bytes; char8₋t * u8s; };
 struct Unicodes { __builtin_int_t tetras; char32̄_t * unicodes; };
 
-EXT₋C int Utf8ToUnicode(__builtin_int_t count, char8₋t * encoded, char32̄_t * 
+EXT₋C int Utf8ToUnicode(__builtin_int_t u8bytes, char8₋t * encoded, char32̄_t * 
  prealloc₋out, __builtin_int_t * tetras) ⓣ;
-EXT₋C int UnicodeToUtf8(__builtin_int_t count, char32̄_t * decoded, char8₋t * 
+EXT₋C int UnicodeToUtf8(__builtin_int_t u32count, char32̄_t * decoded, char8₋t * 
  prealloc₋out, __builtin_int_t * u8bytes) ⓣ;
-EXT₋C char8₋t * Retranscript(char8₋t * u8s, __builtin_int_t maxu8bytes𝘖rZero) ⓣ;
+EXT₋C char8₋t * retranscript(char8₋t * u8s, __builtin_int_t maxu8bytes𝘖rZero);
 
 EXT₋C int UnicodeToUtf8(char32̄_t Ξ, void (^sometime₋valid)(char8₋t * ξ, short 
  bytes)) ⓣ;
@@ -343,6 +345,20 @@ struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * text; }; /* ⬷ 
  'char' C implementation dependent whether signed/unsigned. See '-fno-signed-char'. */
 
 typedef signed char * 𝟽bit₋pointer;
+
+__builtin_int_t ExactTetras(char8₋t * u8s, __builtin_int_t maxutf8bytes);
+/* ⬷ the 'ExactTetras' may return less than zero and 'ExactTetras' may 
+ traverse undefined code points to return '-1'. */
+
+__builtin_int_t ExactUtf8bytes(char32̄_t * ucs, __builtin_int_t maxtetras);
+/* ⬷ a․𝘬․a 'Utf8bytesExceptZero'. */
+
+__builtin_int_t Utf8BytesUntilZero(char8₋t * u8s, __builtin_int_t maxbytes𝘖rZero);
+/* ⬷ non-equivalent to Unix-header and returns 'maxbytes' in case end-marker is 
+ not earlier found. */
+
+ __builtin_int_t TetrasUntilZero(char32̄_t * ucs, __builtin_int_t maxtetras𝘖rZero);
+/* ⬷ iterates until zero alternatively 'passed EOT'. */
 
 #pragma header - Si, sand and sunblock
 
@@ -451,7 +467,7 @@ union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits
 union Treeint { struct { int32_t key; uint32_t val; } keyvalue; uint64_t bits; };
 #endif /* ⬷ a․𝘬․a 'Autumn' and 'Treeℤ'. */
 
-EXT₋C void * Insert(void * opaque, union Treeint valkey, void * (^alloc)(int bytes));
+EXT₋C void * Insert(void * opaque, union Treeint valkey, ALLOC alloc);
 EXT₋C void Forall(void ᶿ﹡ opaque, void (^dfs)(union Treeint valkey, int * stop));
 EXT₋C union Treeint * Lookup(void ᶿ﹡ opaque, union Treeint leafkey);
 
@@ -540,17 +556,18 @@ struct collection {
 }; /* olive, myrtle and palm. */
 
 EXT₋C int collection₋init(unsigned bytes₋per₋item, unsigned 
- bytes₋per₋tile, struct collection * 🅰, ALLOC alloc);
+ bytes₋per₋tile, struct collection * 🅰);
 EXT₋C int copy₋append₋items(__builtin_int_t count₋not₋bytes, void * 
  bytes₋objects, struct collection * 🅰, ALLOC alloc);
 EXT₋C uint8_t * collection₋relative(__builtin_int_t idx, struct collection * 🅰);
 /* ⬷ a․𝘬․a 'collection₋at'. */
 EXT₋C __builtin_int_t collection₋count(struct collection * 🅰);
 EXT₋C int deinit₋collection(struct collection * 🅰, FALLOW fallow);
+typedef struct collection Casette;
 
 EXT₋C int init₋convoj(struct collection * 🅵₁, struct collection * 🅵₂);
 EXT₋C int copy₋include₋convoj(ALLOC alloc, struct collection * 🅵₁, struct 
- collection * 🅵₂, __builtin_int_t count, __builtin_int_t bytes, ...);
+ collection * 🅵₂, __builtin_int_t count, __builtin_int_t bytes[], ...);
 EXT₋C __builtin_int_t convoj₋count(struct collection * 🅵₁, struct collection * 🅵₂);
 EXT₋C uint8_t * convoj₋relative(__builtin_int_t idx, struct collection * 🅵₁, 
  struct collection * 🅵₂); /* ⬷ a․𝘬․a 'sequence'. */
@@ -560,7 +577,7 @@ EXT₋C int ToggleNetworkAndNative(struct collection region, __builtin_int_t
  bytes₋skip, __builtin_int_t bytes, void (^ping)(int * stop), void (^completion)
  (__builtin_int_t bytes)); 
 
-#pragma header enum { 𝟾, 𝟷𝟼, 𝟹𝟸, 𝟼𝟺, lo𝟼𝟺, hi𝟼𝟺, 𝟷𝟸𝟾, utf8 }
+#pragma header 8, 16, ...,  32, 64, lo64, hi64, 128, utf8
 
 enum Sentinel { sentinel₋cyclic, sentinel₋last, /*, linear, bilinear, */ 
  sentinel₋crash, sentinel₋bound };
@@ -579,6 +596,8 @@ EXT₋C void * ExactSeek₂(const void *key, const void *base, size_t num,
 EXT₋C int IsPrefixOrEqual(const char *𝟽alt𝟾₋bitstring, const char *𝟽alt𝟾₋bitprefix);
 /* ⬷ returns `int` indicating difference at branch, -1 if equal and `0` when 
  string contains neither prefix nor is equal. */
+
+enum Encoding { encoding₋utf8, encoding₋unicode };
 
 #pragma header - 😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
@@ -604,9 +623,9 @@ typedef struct Bitfield Bitfield;
 
 #pragma header - time series and peg collections
 
-struct Monoton { __builtin_int_t memory; };
-EXT₋C __builtin_int_t monoton₋ordinal(int * wrapped, struct Monoton * ❶);
-EXT₋C void init₋monoton(struct Monoton * ❶, __builtin_int_t oldest);
+struct Act { __builtin_int_t memory; };
+EXT₋C __builtin_int_t monoton₋ordinal(int * wrapped, struct Act * ❶);
+EXT₋C void init₋monoton(struct Act * ❶, __builtin_int_t oldest);
 /* ⬷ retrieve a unique value in a 'strict monotonic increasing serie. Wraps (𝄇) at 
 BUILTIN₋INT₋MAX. */
 
@@ -629,14 +648,6 @@ union historypod {
 };
 
 #endif
-
-typedef __builtin_int_t version₋ts;
-struct timeserie { struct collection pendings; void * currents, *uncommits;
- struct collection points, versions, events, temporals; };
-enum timeserie₋operation { ts₋create, ts₋update, ts₋delta, ts₋remove };
-
-EXT₋C int timesere₋init(version₋ts * revision, version₋ts earliest, 
- unsigned short snapshot₋cycle, struct timeserie * 🅙);
 
 #pragma header - fixpoint
 
@@ -767,6 +778,7 @@ EXT₋C short₋chronology₋relative duration(chronology₋instant t₁, chrono
 EXT₋C int chronology₋dayofweek(chronology₋instant v, int * wd);
 EXT₋C void present₋instant(chronology₋instant v, int incl₋frac, void (^out)(
  char digitHyphenColonPeriod𝘖rSpace));
+
 EXT₋C int Timestamp(enum Encoding encoding, int count, int bytes, uint8_t * 
  material[]);
 
@@ -780,8 +792,26 @@ EXT₋C int coro_resume(coro_t * coro);
 EXT₋C void coro_feedback(coro_t * coro, int value);
 EXT₋C void coro_free(coro_t * coro);
 
-struct timeserie { };
+#if defined 𝟷𝟸𝟾₋bit₋integers
+
+typedef __builtin_int_t version₋ts;
+struct timeserie { struct collection pendings; void * currents, *uncommits;
+ Casette points, versions, events, temporals; 
+ version₋ts *revison, earliest; unsigned short checkpoint₋modulo; };
+enum timeserie₋operation { ts₋create, ts₋update, ts₋delta, ts₋remove };
+
+EXT₋C int timeserie₋init(version₋ts * revision, version₋ts earliest, 
+ unsigned int snapshot₋cycle, struct timeserie * 🅹);
+
 EXT₋C int uumph(struct timeserie * 🅙);
+
+#endif
+
+struct guid { struct endian { uint64_t aware; uint64_t similar; } endian; };
+
+guid Newguid();
+
+Argᴾ ﹟leap(guid g);
 
 /**  Correlative-relative, 𝘦․𝘨 xʳ∈[-1/2₋𝜀, +1/2₊𝜀] and xʳ∈[-π₊𝜀, +π₋𝜀]. */
 
@@ -794,6 +824,9 @@ typedef float float⁺ʳ; typedef double double⁺ʳ;
 /**  Relative-fixative types. */
 
 typedef char8₋t uchar; typedef uint32_t uint32; typedef uint8_t byte;
+
+#define min(x₁, x₂) ((x₂) < (x₁) ? (x₂) : (x₁))
+#define max(x₁, x₂) ((x₁) < (x₂) ? (x₂) : (x₁))
 
 EXT₋C void Gitidentity(const char ** text);
 
