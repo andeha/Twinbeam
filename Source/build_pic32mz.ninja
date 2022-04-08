@@ -20,11 +20,11 @@ rule library
 build libTwinbeam_pic32mz:  library $objs/arrange-fifo.o                     $
  $objs/best-first.o $objs/chim-model.o $objs/church-pass.o                   $
  $objs/convoj-sequence.o $objs/deter-lock.o $objs/icati-irrevers.o           $
- $objs/internat-sheriff.o $objs/text-length.o $objs/pamphlet-symbol.o        $
- $objs/pic32-institut.o $objs/portable-tree.o $objs/reference-three.o        $
- $objs/serial-symbol.o $objs/stochast-symbol.o $objs/tee-metric.o            $
- $objs/twofivesix-sha.o $objs/unstall-system.o $objs/serial-symbol.o         $
- $objs/deter-lock.o
+ $objs/internat-sheriff.o $objs/leap-osmosis.o $objs/text-length.o           $
+ $objs/pamphlet-symbol.o $objs/pic32-institut.o $objs/portable-tree.o        $
+ $objs/reference-three.o $objs/serial-symbol.o $objs/stochast-symbol.o       $
+ $objs/tee-metric.o $objs/twofivesix-sha.o $objs/unstall-system.o            $
+ $objs/serial-symbol.o $objs/deter-lock.o
 build $objs/arrange-fifo.o: c arrange-fifo.c
 build $objs/best-first.o: c best-first.c
 build $objs/chim-model.o: c chim-model.c
@@ -33,6 +33,7 @@ build $objs/convoj-sequence.o: c convoj-sequence.c
 build $objs/deter-lock.o: c deter-lock.c
 build $objs/icati-irrevers.o: c icati-irrevers.c
 build $objs/internat-sheriff.o: asm internat-sheriff.S
+build $objs/leap-osmosis.o: c leap-osmosis.c
 build $objs/text-length.o: c length-impression.c
 build $objs/pamplet-symbol.o: c pamphlet-symbol.c
 build $objs/pic32-institut.o: c pic32-institut.c

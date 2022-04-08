@@ -21,9 +21,10 @@ rule library
 build libTwinbeam-x86_64: library  $objs/arrange-fifo.o $objs/best-first.o   $
  $objs/chim-model.o $objs/church-pass.o $objs/convoj-sequence.o              $
  $objs/deter-lock.o $objs/icati-irrevers.o $objs/institut-macos.o            $
- $objs/length-text.o $objs/pamphlet-symbol.o $objs/portable-tree.o           $
- $objs/reference-three.o $objs/serial-symbol.o $objs/stochast-symbol.o       $
- $objs/tee-metric.o $objs/twofivesix-sha.o $objs/unstall-system.o
+ $objs/length-text.o $objs/leap-osmosis.o $objs/pamphlet-symbol.o            $
+ $objs/portable-tree.o $objs/reference-three.o $objs/serial-symbol.o         $
+ $objs/stochast-symbol.o $objs/tee-metric.o $objs/twofivesix-sha.o           $
+ $objs/unstall-system.o
 build $objs/arrange-fifo.o: c arrange-fifo.c
 build $objs/best-first.o: c best-first.c
 build $objs/chim-model.o: c chim-model.c
@@ -32,6 +33,7 @@ build $objs/convoj-sequence.o: c convoj-sequence.c
 build $objs/deter-lock.o: c deter-lock.c
 build $objs/icati-irrevers.o: c icati-irrevers.c
 build $objs/institut-macos.o: c institut-macos.c
+build $objs/leap-osmosis.o: c leap-osmosis.c
 build $objs/length-text.o: c length-impression.c
 build $objs/pamphlet-symbol.o: c pamphlet-symbol.c
 build $objs/portable-tree.o: c portable-tree.c
