@@ -809,9 +809,9 @@ EXT₋C int uumph(struct timeserie * 🅙);
 
 struct guid { struct endian { uint64_t aware; uint64_t similar; } endian; };
 
-guid Newguid();
+struct guid Newguid();
 
-Argᴾ ﹟leap(guid g);
+Argᴾ ﹟leap(struct guid g);
 
 /**  Correlative-relative, 𝘦․𝘨 xʳ∈[-1/2₋𝜀, +1/2₊𝜀] and xʳ∈[-π₊𝜀, +π₋𝜀]. */
 
