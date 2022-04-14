@@ -110,8 +110,6 @@ EXT₋C void longjmp2(jmp_buf2 env, __builtin_int_t val);
 #define END_TRY } }
 EXT₋C jmp_buf2 * /* volatile */ JmpBuf(); /* ⬷ a great symbol for a project break! */
 #define ᶿ﹡ const *
-#define *⥃ *
-#define *⫩ *
 
 #if defined  __mips__ || defined __armv6__ || defined espressif
 typedef unsigned int size_t;
@@ -847,8 +845,8 @@ enum timeserie₋operation { ts₋create, ts₋update, ts₋delta, ts₋remove }
 
 EXT₋C int timeserie₋init(version₋ts * revision, version₋ts earliest, 
  unsigned int snapshot₋cycle, struct timeserie * 🅹);
-
-EXT₋C int uumph(struct timeserie * 🅙);
+EXT₋C void Present₋instant(chronology₋instant v, int incl₋frac, 
+ void (^out)(char digitHyphenColonPeriodOrSpace));
 
 #endif
 
