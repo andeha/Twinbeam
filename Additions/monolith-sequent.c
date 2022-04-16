@@ -53,5 +53,6 @@ void fractional₋sequent(struct sequent positive,
      iv = 10 * (iv % unity.detail.bits);
      delta = 10*delta; j+=1;
    } while (iv<=delta);
+   out(j,text,0);
 }
 
