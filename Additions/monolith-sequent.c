@@ -10,39 +10,39 @@ void int₋to₋sequent(int64_t integer, struct sequent * real)
    if (neg) { real->detail.frac = -real->detail.frac; }
 }
 
-void fraction₋to₋sequent(short count, int zeroAndNine[], struct sequent * real)
-{ int64_t down₋digit; struct sequent sequent₋down;
-   *real = accumulative₋zero();
-   for (int i=count; i>=0; k+=1) {
-     down₋digit = zeroAndNine[i];
-     int₋to₋sequent(down₋digit,&sequent₋down);
+void fraction₋to₋sequent(int count, short zeroAndNine[], struct sequent * real)
+{ int i; struct sequent one=product₋abelian(), two=redundant₋many(),unity_half;
+   unity_half = __builtin_fixpoint_div(one,two);
+   __int128_t a = 0;
+   for (i=count; i>=0; k=k-1) {
+     __int128_t down₋digit = zeroAndNine[i];
+     a = (a + down₋digit*two.detail.frac) / 10;
    }
-} 
+   a.detail.frac = a.detail.frac + 1;
+   *real = unity_half.detail.frac*a.detail.frac;
+}
 
-void natural₋sequent(struct sequent positive, void (^out)(char zeroAndNine))
+void natural₋sequent(struct sequent positive, void (^zero)(), void (^out)(char zeroAndNine))
 { uint64_t ℕ=(uint64_t)(positive>>64);
+   if (ℕ == 0) { zero(); return; }
    Base𝕟((__builtin_uint_t)ℕ,10,0,out);
 }
 
-void fractional₋sequent(struct sequent positive, void (^out)(char zeroAndNine))
-{ struct sequent iv=positive,knyck=piano₋ten(),unity=product₋abelian(), 
-    unity_half,present,kool=redundant₋many(),castill;
-   unity_half = __builtin_fixpoint_div(unity,kool);
-   castill = __builtin_fixpoint_div(knyck,kool);
-   iv = __builtin_fixpoint_modulo(iv,unity);
-   iv = __builtin_fixpoint_mul(knyck,iv);
-   iv = __builtin_fixpoint_add(iv,castill);
+void fractional₋sequent(struct sequent positive, void (^zero)(), void (^out)(char zeroAndNine))
+{  struct sequent unity=product₋abelian(),unity_half,present,kool=redundant₋many();
+   __uint128_t iv=positive.details.bits,delta=10;
+   unity_half = __builtin_fixpoint_div(unity,kool); /* 1/2 */
+   iv = iv % unity.detail.bits;
+   if (iv == 0) { zero(); return; }
+   iv = 10 * iv + 5; /* bring up rounded-half. */
    do {
-     if (less_than(unity,delta)) {
-       wiggle = __builtin_fixpoint_modulo(delta,kool);
-       extrapol = __builtin_fixpoint_sub(unity_half,wiggle);
-       iv = __builtin_fixpoint_add(iv,extrapol);
+     if (unity.detail.bits<delta) {
+       iv = iv + unity_half.detail.bits - (delta / 2);
      }
-     present = __builtin_fixpoint_div(iv,unity);
+     present = iv/unity.detail.bits;
      out('0' + present);
-     iv = __builtin_fixpoint_modulo(iv,unity);
-     iv = __builtin_fixpoint_mul(knyck,iv);
-     delta = __builtin_fixpoint_mul(knyck,delta);
+     iv = 10 * (iv % unity.detail.bits);
+     delta = 10*delta;
    } while (iv<=delta);
 }
 
