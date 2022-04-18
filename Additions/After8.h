@@ -1,47 +1,5 @@
-/*  after8.cpp | detail and two 'processes' a․𝘬․a 'expressive timeserie'. */
 
 #ifdef ADDITIONAL_LINKERSYMBOLS
-
-template <typename K, typename V> struct Map { std::map<K,V> inner;
-  
-  int exists(K key) { return inner.contains(key); }
-  int include(K key, V val, bool * didrefresh) {
-    std::pair<typename std::map<K,V>::iterator, bool> y = 
-     inner.insert_or_assign(key,val); *didrefresh = !y.second; }
-  void assoc(K key, void (^seek)(V * agent)) { auto it = inner.find(key); 
-    if (it != std::map<K,V>::const_iterator.end()) { seek((V *)&*it); } }
-  
-};
-
-template <typename E> struct Vector { std::vector<E> inner;
-  
-  void push(E elem) { inner.push_back(elem); }
-  int pop() { if (inner.size() == 0) { return -1; }
-    inner.pop_back(); return 0; }
-  int relative(__builtin_int_t n, E ** reference) {
-    if (n >= inner.size()) { return -1; }
-    *reference = &inner.at(n); return 0;
-  }
-  
-};
-
-struct Bitset { std::vector<bool> inner; 
-  
-  Bitset(__builtin_int_t bits₋initial) { adjust(bits₋initial); }
-  void adjust(__builtin_int_t new₋bits₋size) {
-    inner.reserve(new₋bits₋size); resize(new₋bits₋size); }
-  void set (__builtin_int_t slot, int val) {
-    if (slot >= inner.size()) { adjust(slot); }
-    inner[slot] = (bool)val; }
-  int get (__builtin_int_t slot, int * val) {
-    if (slot >= inner.size()) { adjust(slot); }
-    *val = (int)inner[slot];
-    return 0;
-  }
-  
-};
-
-#pragma mark in Unix named 'time.h' with 'time_t time()-time()' alt. 'difftime()'
 
 typedef time_t Unix₋instant; /* ⬷ epoch is 00:00:00 UTC Jan 1, 1970. */
 
