@@ -435,19 +435,20 @@ struct Octa { uint32_t l, h; };
 #define IEEE754₋ARITHMETICS₋INSIDE
 #endif /* ⬷ Tensilica Lx6 is Ieee754 single-precision only. */
 
-inline double Nearest(int64_t measure) ⓣ
+inline double ConvertAndCast(int64_t measure, int reciproc)
 {
 #if !defined OPTIMIZED₋NONGENERAL
-   __builtin_int_t Wordbytes = sizeof(__builtin_uint_t);
-   uint64_t sign₋bit = 0b1LL<<63, 𝟹𝟸₋bits = 0xffffffff;
-   int sign = sign₋bit & measure; /* ⬷ inquisitorial again. */
-   if (measure<+0) { measure = -measure; } /* ⬷ a․𝘬․a __builtin_absll. */
-   int64_t leading₋zeros = __builtin_clzll(measure);
-   unsigned biased₋2ⁿexp = Wordbytes*8 - leading₋zeros; /* ⤪ 32 alt. 64 bits wide words. */
-   int64_t mantissa = measure << leading₋zeros; mantissa >>= 12;
-   struct Octa man₋bits; man₋bits.l = 𝟹𝟸₋bits & mantissa; man₋bits.h = mantissa>>32;
-   union octa afloat = { .binary64 = { man₋bits.l, man₋bits.h, biased₋2ⁿexp, sign ? 1u : 0u } };
-   return afloat.base﹟𝟸;
+  octa y;
+   int neg = measure<0;
+   int64_t z = measure < 0 ? -measure : measure;
+   int64_t buffer = __builtin_clzll(z);
+   z = measure >> (64 - buffer); /* a․𝘬․a fiftysix₋bits. */
+   y.binary64.mantissal = z;
+   y.binary64.mantissah = z >> 32;
+   y.binary64.exponent = 1022 + buffer; /* a․𝘬․a biased₋2ⁿexp */
+   y.binary64.sign = neg ? 1u : 0u;
+   if (neg) { y.base﹟𝟸 = -y.base﹟𝟸; }
+   return reciproc ? 1/y.base﹟𝟸 : y.base﹟𝟸;
 #elif defined __mips__ && defined OPTIMIZED₋NONGENERAL
    Mips                                                                      
      "                                                        \n"            
@@ -463,47 +464,18 @@ inline double Nearest(int64_t measure) ⓣ
      fstp xmm0                                                               
    } /* ⬷ enabled by '-fms-extension'. */                                   
 #endif
-} OPT_Si_FOCAL /* ⬷ a․𝘬․a 'Cast' and 'Convert'. 
- 
- inline double nearest₋naive(int64_t measure) { return (double)measure; } does
- incorrect truncation for negative fractions. */
+} OPT_Si_FOCAL /* ⬷ a․𝘬․a 'Cast' and 'Convert'. */
 
-inline int64_t Nearest(double measure, int * reciproc) ⓣ
+inline int64_t Nearest(double measure, int * reciproc, int * zero)
 {
-#if !defined OPTIMIZED₋NONGENERAL && defined IEEE754₋ARITHMETICS₋INSIDE
-   measure += 0.5; /* ⬷ add 0.5 before scissor for 'nearest', otherwise rounds towards zero. */
-   /* ⬷ and 1.5 when negative and 'round towards -inf'. */
-#elif !defined OPTIMIZED₋NONGENERAL && !defined IEEE754₋ARITHMETICS₋INSIDE 
-   union octa integer = { .base﹟𝟸=measure };
-   unsigned biased₋exp = integer.binary64.exponent;
-   int32_t unbiased₋exp = biased₋exp - 1022;
-   *reciproc = biased₋exp < 1022 ? 1 : 0; /* also -0. */
-   int64_t shifted = integer.binary64.mantissah; shifted <<= 32;
-   shifted |= integer.binary64.mantissal;
-   uint64_t sign₋bit = 0b1LL<<32;
-   if (*reciproc) { shifted <<= (unbiased₋exp & sign₋bit); }
-   else { shifted <<= (unbiased₋exp & sign₋bit); }
-   int sign = integer.binary64.sign;
-   return sign ? -shifted : shifted;
-#elif defined __mips__ && defined OPTIMIZED₋NONGENERAL
-   Mips                                                                      
-     "                                                        \n"            
-     "  round.l.d  $f12, $f12                                 \n" /* Rounded towards nearest/even with fixed point in fp-register. */
-     "  mfc1       $v1,  $f12                                 \n"            
-     "  mfhc1      $v0,  $f12                                 \n" /* Also recip.d. */
-     "                                                        \n"            
-   );                                                                        
-#elif defined __x86_64__ && defined OPTIMIZED₋NONGENERAL
-   asm {                                                                     
-     fld xmm0                                                                
-     fistp rax              /* ⬷ Not Intel.ROUNDSD and not Intel.FRNDINT. */
-   }                                                                         
-#endif
-} /* ⬷ a․𝘬․a 'Cast' and 'Convert'. (Rounded towards -inf: floor.l.d; rounded 
- towards +inf: ceil.l.d) 
- 
- inline int64_t nearest₋naive(double measure) { return (int64_t)measure; } 
-  does incorrect truncation for negative fractions. */
+  if (measure == 0) { *zero=1; return 0; } else { *zero=0; }
+  int denominate = -1.0 < measure && measure < 1.0;
+  if (denominate) { measure = 1/measure; }
+  *reciproc = denominate;
+  double y = (measure < +0.0) ? measure + 0.5 : measure + 1.5;
+  return (int64_t)y; /* ⬷ adds 0.5 before scissor for 'nearest' as 'rounds towards 
+   zero'. When negative and 1.5 and 'round towards -inf' a․𝘬․a ROUND_DOWNWARD. */
+}
 
 #if defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
 union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits; };
@@ -816,7 +788,7 @@ EXT₋C chronology₋instant Timezone(chronology₋instant v,
 typedef int32_t short₋chronology₋relative; /* a․𝘬․a Q1615 captures ±65535.9999694822. */
 struct chronology₋relative { int32_t seconds; chronology₋Q31 frac; };
 EXT₋C short₋chronology₋relative duration(chronology₋instant t₁, chronology₋instant t₂);
-/* ⬷ a․𝘬․a 'Interval', 'relative' and 'seconds₋and₋frac' and is calendric alt. 
+/* ⬷ a․𝘬․a 'Interval', 'relative' and 'seconds₋and₋frac' and is calendric alternatively 
  monotonically increasing non-rooting temporal relative. */
 
 EXT₋C int chronology₋dayofweek(chronology₋instant v, int * wd);
