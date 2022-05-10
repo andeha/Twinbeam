@@ -140,13 +140,15 @@ typedef unsigned int char32̄_t;
 
 enum Ieee754form { ieee754₋Scientific, ieee754₋Saturn, ieee754₋Monetary, 
  ieee754₋scandinavian₋Monetary }; /* ⬷ occasionally `intrinsic_and_base₋10`. */
-EXT₋C void Format(double ℝ, enum Ieee754form f, void (^out)(char32̄_t 𝟷𝟶₋base));
-EXT₋C int print(const char * 𝟽bit₋utf8format,...) ⓣ;
-EXT₋C int mfprint(const char * 𝟽bit₋utf8format,...);
+EXT₋C void Format(double ℝ, enum Ieee754form f, void (^out)(char32̄_t ten₋base));
+EXT₋C int print(const char * sevenbit₋utf8format,...) ⓣ;
+EXT₋C int mfprint(const char * sevenbit₋utf8format,...);
 EXT₋C int print(void (^out)(char8₋t * u8s, __builtin_int_t bytes), const char * 
- 𝟽bit₋utf8format, ...) ⓣ;
+ sevenbit₋utf8format, ...) ⓣ;
 
+#if defined 𝟷𝟸𝟾₋bit₋integers
 union Q6364 { __int128_t frac; __uint128_t bits; };
+#endif
 struct sequent { union Q6364 detail; int valid; };
 typedef struct sequent Sequenta;
 typedef Sequenta (^computational)(Sequenta x);
@@ -205,17 +207,17 @@ struct utf8₋text { __builtin_int_t bytes; char8₋t * u8s; };
 struct Unicodes { __builtin_int_t tetras; char32̄_t * unicodes; };
 
 EXT₋C void int₋to₋sequent(int64_t integer, Sequenta * real);
-EXT₋C void fraction₋to₋sequent(short count, int zeroToNines[], 
+EXT₋C void fraction₋to₋sequent(int count, short zeroToNines[], 
  Sequenta * real); /* see TeX 102 §. */
 EXT₋C Sequenta add_sequent(Sequenta x₁, Sequenta x₂);
 EXT₋C Sequenta subtract_sequent(Sequenta x₁, Sequenta x₂);
-EXT₋C Sequenta multiply_sequent(Sequent x₁, Sequent x₂);
-EXT₋C Sequenta divide_sequent(Sequent x₁, Sequent x₂);
-EXT₋C Sequenta absolute_sequent(Sequent x₁, Sequent x₂);
+EXT₋C Sequenta multiply_sequent(Sequenta x₁, Sequenta x₂);
+EXT₋C Sequenta divide_sequent(Sequenta x₁, Sequenta x₂);
+EXT₋C Sequenta absolute_sequent(Sequenta x₁, Sequenta x₂);
 EXT₋C Sequenta negate_sequent(Sequenta x);
-EXT₋C Sequenta floor_sequent(Sequent x);
+EXT₋C Sequenta floor_sequent(Sequenta x);
 EXT₋C Sequenta modulo_sequent(Sequenta x₁, Sequenta x₂);
-EXT₋C Sequenta product₋abelian() /* a․𝘬․a `1`. */
+EXT₋C Sequenta product₋abelian(); /* a․𝘬․a `1`. */
 EXT₋C Sequenta accumulative₋zero(); /* a․𝘬․a `0`. */
 EXT₋C Sequenta piano₋ten(); /* a․𝘬․a `10`. */
 EXT₋C Sequenta negative₋infinity(); /* a․𝘬․a -Inf. */
@@ -227,8 +229,9 @@ EXT₋C Sequenta full₋atan(Sequenta y, Sequenta x);
 EXT₋C int trapezoid(Sequenta (^f)(Sequenta), Sequenta delta₋t, 
  Sequenta min, void (^memory)(Sequenta integrale, Sequenta t₋acc, 
  int * stop));
-EXT₋C void natural₋sequent(struct sequent positive, void (^out)(char zeroAndNine)); /* TeX 103 §. */
-EXT₋C void fractional₋sequent(struct sequent positive, void (^out)(char zeroAndNine));
+typedef void (Numerics)(int count, char zeroAndNine[], int zero);
+EXT₋C void natural₋sequent(Sequenta positive, Numerics out); /* TeX 103 §. */
+EXT₋C void fractional₋sequent(Sequenta positive, Numerics out);
 
 #define __builtin_fixpoint_add add_sequent
 #define __builtin_fixpoint_sub subtract_sequent
@@ -388,8 +391,6 @@ typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffse
 
 struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * text; }; /* ⬷ type 
  'char' C implementation dependent whether signed/unsigned. See '-fno-signed-char'. */
-
-typedef signed char * 𝟽bit₋pointer;
 
 __builtin_int_t ExactTetras(char8₋t * u8s, __builtin_int_t maxutf8bytes);
 /* ⬷ the 'ExactTetras' may return less than zero and 'ExactTetras' may 
@@ -591,6 +592,7 @@ int TransformAndResolve(struct Unicodes pathᵚᵍ, void (^final)(const char * r
 /* still images, timeseries and language analysis */
 /* c𝘧. Scandinavian 'by₋tes' a․𝘬․a '✠✠' */
 /* touting strong radio (🦠) */
+/* BUFFERTOCHICKEFORBUD */
 
 struct collection {
   struct middle { uint8_t * palms[8192]; } *myrtles[4096];
@@ -674,9 +676,10 @@ BUILTIN₋INT₋MAX. */
 
 #if defined 𝟷𝟸𝟾₋bit₋integers && defined IEEE754₋ARITHMETICS₋INSIDE
 
-union Q6364 { __int128_t frac; __uint128_t bits; }; /* ⬷ a․𝘬․a 'scientific₋sequential'. */
-
-#if defined __armv8a__
+#if defined NON₋SIMD
+union β₋simd { double dbls[2]; double doubles[2]; __uint128_t bits; };
+typedef β₋simd simd_tᵦ;
+#elif defined __armv8a__
 typedef __attribute__ ((neon_vector_type(2))) double float64x2_t;
 typedef float64x2_t simd_tᵦ;
 #elif defined __x86_64__
@@ -696,7 +699,7 @@ union historypod {
 
 /*
  Q1615 is 0 to ±65535.9999694822
- Q4815 is 0 to ±281474976710656.9999694822
+ Q4815 is 0 to ±281474976710656.9999694822.
  Q3231 is 0 to ±4294967295.9999999995343387126922607421875.
  */
 
@@ -709,8 +712,6 @@ inline union Q4815 Ieee754ToQ4815(double ℤ) { int rproc;
   return z;
 }
 #endif
-
-enum Newtoncontrol { Newton₋ok, Newton₋abort, Newton₋done };
 
 #pragma recto  😐😇
 
@@ -792,13 +793,11 @@ typedef Chronology Chronology🦠; /* ⬷ with an 2⁻⁶⁵ a․𝘬․a 'UQ65'
 typedef uint64_t chronology₋instant;
 typedef uint32_t chronology₋UQ32; /* e․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
 typedef int32_t chronology₋Q31;
-typedef int32_t short₋chronology₋relative; /* a․𝘬․a Q1615 captures ±65535.9999694822. */
-struct chronology₋relative { int32_t seconds; chronology₋Q31 frac; };
 struct chronology₋date { int32_t y,M,d; }; /* 1-12 and 1-31. */
 struct chronology₋time { int32_t h,m,s; chronology₋UQ32 partial; };
-EXT₋C struct chronology₋date chronology₋date(chronology₋instant v);
-EXT₋C struct chronology₋relative chronology₋since₋midnight(chronology₋instant v);
-EXT₋C chronology₋instant chronology₋timestamp(int32_t parts[6], chronology₋UQ32 frac);
+EXT₋C struct chronology₋date calendric(chronology₋instant v);
+EXT₋C int reveille(chronology₋instant v, int32_t * h, int32_t * m, int32_t * s, chronology₋UQ32 * frac);
+EXT₋C chronology₋instant form₋instant(int32_t parts[6], chronology₋UQ32 frac);
 EXT₋C chronology₋instant add₋seconds(chronology₋instant relative, uint32_t 
  seconds, chronology₋UQ32 augment₋frac);
 EXT₋C chronology₋instant subtract₋seconds(chronology₋instant relative, 
@@ -808,12 +807,14 @@ enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
 
 /**  Translate an instant between a particular time zone and Unix UTC. */
 
-EXT₋C chronology₋instant Timezone(int chronology, chronology₋instant v, 
+EXT₋C chronology₋instant Timezone(chronology₋instant v, 
  short quarters₋of₋hours₋offset);
 
 /**  Relative-time interval when running from instant t₁ to instant t₂ given 
  preferable according to the 'ComputationalChronology'. */
 
+typedef int32_t short₋chronology₋relative; /* a․𝘬․a Q1615 captures ±65535.9999694822. */
+struct chronology₋relative { int32_t seconds; chronology₋Q31 frac; };
 EXT₋C short₋chronology₋relative duration(chronology₋instant t₁, chronology₋instant t₂);
 /* ⬷ a․𝘬․a 'Interval', 'relative' and 'seconds₋and₋frac' and is calendric alt. 
  monotonically increasing non-rooting temporal relative. */
@@ -822,8 +823,8 @@ EXT₋C int chronology₋dayofweek(chronology₋instant v, int * wd);
 EXT₋C void present₋instant(chronology₋instant v, int incl₋frac, void (^out)(
  char digitHyphenColonPeriod𝘖rSpace));
 
-EXT₋C int Timestamp(enum Encoding encoding, int count, int bytes, uint8_t * 
- material[]);
+EXT₋C int Timestamp(enum Encoding encoding, int bytes, uint8_t * material, 
+ chronology₋instant * v); /* e․𝘨 '1959-07-13 12:00.00.000000000232' and '2012-01-24 12:00:00'. */
 
 typedef struct __coro_t coro_t;
 typedef int (*coro_function_t)(coro_t *);
@@ -845,8 +846,6 @@ enum timeserie₋operation { ts₋create, ts₋update, ts₋delta, ts₋remove }
 
 EXT₋C int timeserie₋init(version₋ts * revision, version₋ts earliest, 
  unsigned int snapshot₋cycle, struct timeserie * 🅹);
-EXT₋C void Present₋instant(chronology₋instant v, int incl₋frac, 
- void (^out)(char digitHyphenColonPeriodOrSpace));
 
 #endif
 
