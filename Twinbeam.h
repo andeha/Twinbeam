@@ -793,11 +793,11 @@ typedef Chronology Chronology🦠; /* ⬷ with an 2⁻⁶⁵ a․𝘬․a 'UQ65'
 typedef uint64_t chronology₋instant;
 typedef uint32_t chronology₋UQ32; /* e․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
 typedef int32_t chronology₋Q31;
-struct chronology₋date { int32_t y,M,d; }; /* 1-12 and 1-31. */
+struct chronology₋day { int32_t y,M,d; }; /* 1-12 and 1-31. */
 struct chronology₋time { int32_t h,m,s; chronology₋UQ32 partial; };
-EXT₋C struct chronology₋date calendric(chronology₋instant v);
+EXT₋C struct chronology₋day calendric(chronology₋instant v);
 EXT₋C int reveille(chronology₋instant v, int32_t * h, int32_t * m, int32_t * s, chronology₋UQ32 * frac);
-EXT₋C chronology₋instant form₋instant(int32_t parts[6], chronology₋UQ32 frac);
+EXT₋C chronology₋instant form₋instant(int32_t parts[], chronology₋UQ32 frac);
 EXT₋C chronology₋instant add₋seconds(chronology₋instant relative, uint32_t 
  seconds, chronology₋UQ32 augment₋frac);
 EXT₋C chronology₋instant subtract₋seconds(chronology₋instant relative, 
