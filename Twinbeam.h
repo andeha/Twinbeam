@@ -171,7 +171,7 @@ typedef struct 𝓟 {
       char32̄_t * unicodes;
       __builtin_int_t tetras;
     } ucs;
-    char8₋t c8; char c7;
+    char8₋t c8; char possibly₋signed₋c;
     char32̄_t uc;
     double f₁;
     float f₂;
@@ -350,8 +350,8 @@ EXT₋C void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digit
 #define NOT_EVERYTIME const static
 #define CARDINALS(...) enum Cardinal { __🄦hole=0, __VA_ARGS__ };            \
   static jmp_buf2 __snapshot;                                                \
-  void (^CSession)(enum Cardinal sin);                                       \
-  CSession confess = ^(Cardinal sin) { longjmp2(__snapshot, (__builtin_int_t)sin); };
+  typedef void (^CSession)(enum Cardinal sin);                               \
+  CSession confess = ^(enum Cardinal sin) { longjmp2(__snapshot, (__builtin_int_t)sin); };
 #define NEARBYCROSS                                                          \
   int __ctrl = setjmp2(__snapshot);                                          \
   switch (__ctrl)
@@ -435,7 +435,7 @@ struct Octa { uint32_t l, h; };
 #define IEEE754₋ARITHMETICS₋INSIDE
 #endif /* ⬷ Tensilica Lx6 is Ieee754 single-precision only. */
 
-inline double ConvertAndCast(int64_t measure, int reciproc)
+inline EXT₋C double ConvertAndCast(int64_t measure, int reciproc)
 {
 #if !defined OPTIMIZED₋NONGENERAL
   octa y;
@@ -445,7 +445,7 @@ inline double ConvertAndCast(int64_t measure, int reciproc)
    z = measure >> (64 - buffer); /* a․𝘬․a fiftysix₋bits. */
    y.binary64.mantissal = z;
    y.binary64.mantissah = z >> 32;
-   y.binary64.exponent = 1022 + buffer; /* a․𝘬․a biased₋2ⁿexp */
+   y.binary64.exponent = 1022 + buffer; /* a․𝘬․a biased₋2ⁿexp. */
    y.binary64.sign = neg ? 1u : 0u;
    if (neg) { y.base﹟𝟸 = -y.base﹟𝟸; }
    return reciproc ? 1/y.base﹟𝟸 : y.base﹟𝟸;
@@ -466,9 +466,9 @@ inline double ConvertAndCast(int64_t measure, int reciproc)
 #endif
 } OPT_Si_FOCAL /* ⬷ a․𝘬․a 'Cast' and 'Convert'. */
 
-inline int64_t Nearest(double measure, int * reciproc, int * zero)
+inline EXT₋C int64_t Nearest(double measure, int * reciproc)
 {
-  if (measure == 0) { *zero=1; return 0; } else { *zero=0; }
+  if (measure == +0.0 || measure == -0.0) { return 0; }
   int denominate = -1.0 < measure && measure < 1.0;
   if (denominate) { measure = 1/measure; }
   *reciproc = denominate;
@@ -509,7 +509,7 @@ typedef union ditriaconta {
   uint8_t thirtytwo₋bytes[32];
   struct { union sexdeca lss, mss; } little₋endian;
   struct { union sexdeca mss, lss; } big₋endian;
-} ditriaconta; /* ⬷ a․𝘬․a senidenary alt. sedenary. */
+} ditriaconta; /* ⬷ a․𝘬․a 'senidenary' alternatively 'sedenary'. */
 
 /**  Computes a cryptographic hash value similar to NIST FIPS PUB 180-4: 
   "Secure Hash Standard (SHS)", August 2015. */
@@ -552,13 +552,13 @@ enum Endianness { endian₋native, endian₋network };
 
 EXT₋C int Utf8Sync(char8₋t **p); /* ⬷ backs at most 3 bytes to regain sync. */
 
-inline char32̄_t Superscript(short 𝟶to𝟿) { return U'⁰'+𝟶to𝟿; } /* ⁰¹⋯⁹ */
+inline EXT₋C char32̄_t Superscript(short 𝟶to𝟿) { return U'⁰'+𝟶to𝟿; } /* ⁰¹⋯⁹ */
 
-inline char32̄_t Subscript(short 𝟶to𝟿) { return U'₀'+𝟶to𝟿; } /* ₀₁…₉; ⬷ For the computational chemistry inclined. */
+inline EXT₋C char32̄_t Subscript(short 𝟶to𝟿) { return U'₀'+𝟶to𝟿; } /* ₀₁…₉; ⬷ For the computational chemistry inclined. */
 
-int TransformAndResolve(struct Unicodes pathᵚᵍ, void (^final)(const char * regular𝘖rLinkpath));
+EXT₋C int TransformAndResolve(struct Unicodes pathᵚᵍ, void (^final)(const char * regular𝘖rLinkpath));
 
-#define END_OF_TRANSMISSION U'\u0004'
+#define END_OF_TRANSMISSION U'\x0004'
 
 /* for 𝑝𝑖𝑔𝑒𝑜𝑛 𝑟𝑒𝑐𝑜𝑛𝑛𝑎𝑖𝑠𝑠𝑎𝑛𝑐𝑒, 𝑠𝑐𝑜𝑢𝑡𝑖𝑛𝑔 and other missions */
 /* still images, timeseries and language analysis */
@@ -598,13 +598,13 @@ EXT₋C int ToggleNetworkAndNative(struct collection region, __builtin_int_t
 
 enum Sentinel { sentinel₋cyclic, sentinel₋last, /*, linear, bilinear, */ 
  sentinel₋crash, sentinel₋bound };
-inline uint64_t /* a․𝘬․a 'ieee754dbl₋pattern' */ intel(uint32_t ˡᵒword, 
+inline EXT₋C uint64_t /* a․𝘬․a 'ieee754dbl₋pattern' */ intel(uint32_t ˡᵒword, 
  uint32_t wordʰⁱ) { return ((uint64_t)wordʰⁱ)<<32 | ˡᵒword; }
 
 /* When 'change', 'delete' and 'type', see --<2ᵈ-𝔣ow.hpp> and --<arabic-edit.c>. */
 
-inline uint32_t ᵗᵍᵍˡendian(uint32_t x) ⓣ { return __builtin_bswap32(x); }
-inline uint64_t ᵗᵍᵍˡendian(uint64_t x) ⓣ { return __builtin_bswap64(x); }
+inline uint32_t EXT₋C ᵗᵍᵍˡendian(uint32_t x) ⓣ { return __builtin_bswap32(x); }
+inline uint64_t EXT₋C ᵗᵍᵍˡendian(uint64_t x) ⓣ { return __builtin_bswap64(x); }
 /* ⇇ a․𝘬․a 'toggleNetworkAndNative'. */
 
 EXT₋C void * ExactSeek₂(const void *key, const void *base, size_t num, 
@@ -644,7 +644,7 @@ struct Act { __builtin_int_t memory; };
 EXT₋C __builtin_int_t monoton₋ordinal(int * wrapped, struct Act * ❶);
 EXT₋C void init₋monoton(struct Act * ❶, __builtin_int_t oldest);
 /* ⬷ retrieve a unique value in a 'strict monotonic increasing serie. Wraps (𝄇) at 
-BUILTIN₋INT₋MAX. */
+ BUILTIN₋INT₋MAX. */
 
 #if defined 𝟷𝟸𝟾₋bit₋integers && defined IEEE754₋ARITHMETICS₋INSIDE
 
@@ -667,77 +667,39 @@ union historypod {
 
 #endif
 
-#pragma recto fixpoint
+#pragma recto  😐😇 and 1/1/1900 0am
 
-/*
- Q1615 is 0 to ±65535.9999694822
- Q4815 is 0 to ±281474976710656.9999694822.
- Q3231 is 0 to ±4294967295.9999999995343387126922607421875.
- */
+/**  The NTP defines epoch starting at the year 1900 at midnight before 
+ sunrise January the 1ˢᵗ and with a 32-bit unsigned  integer track 0 to 
+ 2³² - 1 = 4.294,967,295 seconds (approximately 136 earth  years) until 
+ a wrap occurs.
+ 
+ A correct abbreviation for the unit of time and also the measurements 
+ of duration is 's'. It is not 'S' which stands for Siemens and 
+ admittance.
+ 
+ One minute of geographic latitude per hour = 1 kn = 1852.0 m/h. (Knot). */
 
+typedef uint64_t chronology₋instant; /* seconds passed since beginning of previous century. */
+typedef uint32_t chronology₋UQ32; /* e․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8. */
+struct chronology₋day { int32_t y,M,d; }; /* 1-12 and 1-31. */
+struct chronology₋time { int32_t h,m,s; chronology₋UQ32 partial; }; /* 0-23, 0-59 and fractionals since midnight. */
+EXT₋C struct chronology₋day calendric(chronology₋instant v);
+EXT₋C int reveille(chronology₋instant v, int32_t * h, int32_t * m, int32_t * s, chronology₋UQ32 * frac);
+EXT₋C int form₋instant(int32_t parts[], chronology₋UQ32 frac, chronology₋instant * v);
+/* year, month (1-12), day (1-31), hour (0-23), minutes (0-59) and seconds (0-59). 
+ And the number of 1/2³² second ticks (=232.82 ps) to add.*/
+EXT₋C int chronology₋dayofweek(chronology₋instant v, int * wd);
+/** return weekday assuming a week starts on a Wednesday. (Encoded as 0.) 
+  may return ≠0 ⟷ 'divergent methods recognized'. */
+EXT₋C chronology₋instant add₋seconds(chronology₋instant relative, uint32_t 
+ seconds, chronology₋UQ32 augment₋frac);
+EXT₋C chronology₋instant subtract₋seconds(chronology₋instant relative, 
+ uint32_t seconds, chronology₋UQ32 deduction₋frac);
+/**  only for unperturbed chronologies. For non-reversable 
+ chronologies, subtract throws an error. */
 
-#if defined IEEE754₋ARITHMETICS₋INSIDE && defined DEFINED₋UQ4815
-inline double q4815ToIeee754(union Q4815 ℤ) { return ((double)ℤ.frac)*1.0/16384.0; }
-inline union Q4815 Ieee754ToQ4815(double ℤ) { int rproc; 
-  int64_t y = Nearest(ℤ*16384.0,&rproc);
-  union Q4815 z = { .frac=(int32_t)y };
-  return z;
-}
-#endif
-
-#pragma recto  😐😇
-
-/**  `chronology₋date` given a timestamp, return year, month (1-12) and day (1-31). 
- 
- `Tuple<int32_t, int32_t, int32_t> date(instant timestamp)`
- 
-`since₋midnight` return hour (0-23), minute (0-59), seconds (0-59) and 
- fractionals since midnight.
- 
- `Tuple<int32_t, int32_t, int32_t, UQ32> sinceMidnight(instant timestamp)`
- 
-`integers₋encode` create a timestamp from a date and a time.
- 
- @param parts  Contains year, month (1-12), day (1-31), hour (0-23),
-  minutes (0-59) and seconds (0-59)
- 
- @param frac  The number of 1/2³² second ticks (≈232.83 ps) to add
- 
- A correct abbreviation for the unit of time and also the measurements of 
- duration is 's'. It is not 'S' which stands for Siemens and admittance.
- 
- One minute of geographic latitude per hour = 1 kn = 1852.0 m/h. (Knot).
- 
- `Opt<Chronology::instant> integers₋encode(int32_t parts[6], UQ32 frac=0) const` */
- 
-/**  `add₋seconds` Return a future instant.  The NTP defines epoch starting at 
- the year 1900 at midnight before sunrise January the 1ˢᵗ and with a 32-bit 
- unsigned  integer track 0 to 2³² - 1 = 4.294,967,295 seconds (approximately 
- 136 earth  years) until a wrap occurs.
- 
- instant
-   addSeconds(instant relative, 
-   uint32_t seconds, UQ32 frac
- ) const; */
- 
-/**  `subtract₋seconds` Only for unperturbed chronologies. For non-reversable 
- chronologies, subtract throws an error.
- 
- instant subtractSeconds(instant relative, uint32_t seconds, UQ32 frac) const BLURTS
- 
-  `dayofweek` Return weekday assuming a week starts on a Wednesday. (Encoded as 0.) 
-  may return ≠0 ⟷ 'divergent methods recognized'.
- 
- `int dayofweek(instant timestamp, int &wd)` */
-
-/* EXT₋C int
-InstantToText(
-  Chronology chronology,
-  Chronology::instant ts, int incl₋frac,
-  void (^out)(char8_t digitHyphenColonPeriod𝘖rSpace)
-); */
-
- /*  One martian sol: 24h, 39 min and 35 sec. (Sundial time.)
+/*  One martian sol: 24h, 39 min and 35 sec. (Sundial time.)
   668 sols ≈ 1.88 Earth years. (approx. 687 Earth days.)
 
   Mars got five days a week and five seasons per year:
@@ -762,19 +724,6 @@ typedef Chronology Chronology🦠; /* ⬷ with an 2⁻⁶⁵ a․𝘬․a 'UQ65'
 
 #define SystemCalendricChronology 1
 
-typedef uint64_t chronology₋instant;
-typedef uint32_t chronology₋UQ32; /* e․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8․ */
-typedef int32_t chronology₋Q31;
-struct chronology₋day { int32_t y,M,d; }; /* 1-12 and 1-31. */
-struct chronology₋time { int32_t h,m,s; chronology₋UQ32 partial; };
-EXT₋C struct chronology₋day calendric(chronology₋instant v);
-EXT₋C int reveille(chronology₋instant v, int32_t * h, int32_t * m, int32_t * s, chronology₋UQ32 * frac);
-EXT₋C chronology₋instant form₋instant(int32_t parts[], chronology₋UQ32 frac);
-EXT₋C chronology₋instant add₋seconds(chronology₋instant relative, uint32_t 
- seconds, chronology₋UQ32 augment₋frac);
-EXT₋C chronology₋instant subtract₋seconds(chronology₋instant relative, 
- uint32_t seconds, chronology₋UQ32 deduction₋frac);
-
 enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
 
 /**  Translate an instant between a particular time zone and Unix UTC. */
@@ -785,13 +734,13 @@ EXT₋C chronology₋instant Timezone(chronology₋instant v,
 /**  Relative-time interval when running from instant t₁ to instant t₂ given 
  preferable according to the 'ComputationalChronology'. */
 
+typedef int32_t chronology₋Q31;
 typedef int32_t short₋chronology₋relative; /* a․𝘬․a Q1615 captures ±65535.9999694822. */
 struct chronology₋relative { int32_t seconds; chronology₋Q31 frac; };
 EXT₋C short₋chronology₋relative duration(chronology₋instant t₁, chronology₋instant t₂);
 /* ⬷ a․𝘬․a 'Interval', 'relative' and 'seconds₋and₋frac' and is calendric alternatively 
  monotonically increasing non-rooting temporal relative. */
 
-EXT₋C int chronology₋dayofweek(chronology₋instant v, int * wd);
 EXT₋C void present₋instant(chronology₋instant v, int incl₋frac, void (^out)(
  char digitHyphenColonPeriod𝘖rSpace));
 
@@ -809,16 +758,13 @@ EXT₋C void coro_feedback(coro_t * coro, int value);
 EXT₋C void coro_free(coro_t * coro);
 
 #if defined 𝟷𝟸𝟾₋bit₋integers
-
 typedef __builtin_int_t version₋ts;
 struct timeserie { struct collection pendings; void * currents, *uncommits;
  Casette points, versions, events, temporals; 
  version₋ts *revison, earliest; unsigned short checkpoint₋modulo; };
 enum timeserie₋operation { ts₋create, ts₋update, ts₋delta, ts₋remove };
-
 EXT₋C int timeserie₋init(version₋ts * revision, version₋ts earliest, 
  unsigned int snapshot₋cycle, struct timeserie * 🅹);
-
 #endif
 
 struct guid { struct endian { uint64_t aware; uint64_t similar; } endian; };
