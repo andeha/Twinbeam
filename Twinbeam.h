@@ -380,6 +380,8 @@ EXT₋C int UnicodeToUtf8(char32̄_t Ξ, void (^sometime₋valid)(char8₋t * ξ
 EXT₋C short Utf8Followers(char8₋t lead𝘖r8Bit);
 EXT₋C char32̄_t Utf8ToUnicode(char8₋t * ξ, __builtin_int_t bytes) ⓣ;
 
+enum Encoding { encoding₋utf8, encoding₋unicode };
+
 struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; }; /* ⬷ a․𝘬․a 'Utf8Location'. */
 
 typedef struct UnicodeIntervalAnd𝑂rLocation {
@@ -392,6 +394,10 @@ typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffse
 struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * text; }; /* ⬷ type 
  'char' C implementation dependent whether signed/unsigned. See '-fno-signed-char'. */
 
+EXT₋C int EncodeUtf8AlternativelyUnicode(enum Encoding encoded, __builtin_int_t bytes, 
+ uint8_t * material, __builtin_int_t beam, void (^symbol)(char32̄_t Unicode, 
+ __builtin_int_t materalfirst, __builtin_int_t materiallast, int * stop)); /* a․𝘬․a EncodeOptionally. */
+
 __builtin_int_t ExactTetras(char8₋t * u8s, __builtin_int_t maxutf8bytes);
 /* ⬷ the 'ExactTetras' may return less than zero and 'ExactTetras' may 
  traverse undefined code points to return '-1'. */
@@ -400,11 +406,11 @@ __builtin_int_t ExactUtf8bytes(char32̄_t * ucs, __builtin_int_t maxtetras);
 /* ⬷ a․𝘬․a 'Utf8bytesExceptZero'. */
 
 __builtin_int_t Utf8BytesUntilZero(char8₋t * u8s, __builtin_int_t maxbytes𝘖rZero);
-/* ⬷ non-equivalent to Unix-header and returns 'maxbytes' in case end-marker is 
+/*  non-equivalent to Unix-header and returns 'maxbytes' in case end-marker is 
  not earlier found. */
 
- __builtin_int_t TetrasUntilZero(char32̄_t * ucs, __builtin_int_t maxtetras𝘖rZero);
-/* ⬷ iterates until zero alternatively 'passed EOT'. */
+__builtin_int_t TetrasUntilZero(char32̄_t * ucs, __builtin_int_t maxtetras𝘖rZero);
+/*  iterates until zero alternatively 'passed EOT'. */
 
 #pragma recto Si, sand and sunblock
 
@@ -614,8 +620,6 @@ EXT₋C int IsPrefixOrEqual(const char *𝟽alt𝟾₋bitstring, const char *�
 /* ⬷ returns `int` indicating difference at branch, -1 if equal and `0` when 
  string contains neither prefix nor is equal. */
 
-enum Encoding { encoding₋utf8, encoding₋unicode };
-
 #pragma recto  😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
 #define va_epilogue __builtin_va_end(__various);
@@ -744,7 +748,7 @@ EXT₋C short₋chronology₋relative duration(chronology₋instant t₁, chrono
 EXT₋C void present₋instant(chronology₋instant v, int incl₋frac, void (^out)(
  char digitHyphenColonPeriod𝘖rSpace));
 
-EXT₋C int Timestamp(enum Encoding encoding, int bytes, uint8_t * material, 
+EXT₋C int Timestamp(enum Encoding encoded, int bytes, uint8_t * material, 
  chronology₋instant * v); /* e․𝘨 '1959-07-13 12:00.00.000000000232' and '2012-01-24 12:00:00'. */
 
 typedef struct __coro_t coro_t;
