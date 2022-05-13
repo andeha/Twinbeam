@@ -75,6 +75,8 @@ typedef __builtin_uint_t Tribool; /* ⬷ c𝘧․ 'obekant' and 'embargo ₍im�
 #elif defined __armv8a__ || defined __x86_64__ || defined Kirkbridge
 #undef NON₋SIMD
 #endif
+#define false 0
+#define true (! false)
 #if defined __mips__
 typedef uint32_t mips32_context[32]; /* ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
@@ -382,14 +384,14 @@ EXT₋C char32̄_t Utf8ToUnicode(char8₋t * ξ, __builtin_int_t bytes) ⓣ;
 
 enum Encoding { encoding₋utf8, encoding₋unicode };
 
-struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; }; /* ⬷ a․𝘬․a 'Utf8Location'. */
+struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; }; /*  a․𝘬․a 'Utf8Location'. */
 
 typedef struct UnicodeIntervalAnd𝑂rLocation {
   __builtin_int_t tetrasRelativeFirst, tetrasRelativeLast;
-} UnicodeSelection; /* ⬷ see also --<Preserves.h>{Utf8Interval|Sourcelocation}. */
+} UnicodeSelection; /*  see also --<Preserves.h>{Utf8Interval|Sourcelocation}. */
 
 typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast, 
-  bytesOffsetInclLast; } Utf8Interval; /* ⬷ a․𝘬․a 'Sourcelocation', e․𝘨 wrongly coded utf-8. */
+  bytesOffsetInclLast; } Utf8Interval; /*  a․𝘬․a 'Sourcelocation', e․𝘨 wrongly coded utf-8. */
 
 struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * text; }; /* ⬷ type 
  'char' C implementation dependent whether signed/unsigned. See '-fno-signed-char'. */
@@ -398,18 +400,18 @@ EXT₋C int EncodeUtf8AlternativelyUnicode(enum Encoding encoded, __builtin_int_
  uint8_t * material, __builtin_int_t beam, void (^symbol)(char32̄_t Unicode, 
  __builtin_int_t materalfirst, __builtin_int_t materiallast, int * stop)); /* a․𝘬․a EncodeOptionally. */
 
-__builtin_int_t ExactTetras(char8₋t * u8s, __builtin_int_t maxutf8bytes);
-/* ⬷ the 'ExactTetras' may return less than zero and 'ExactTetras' may 
+EXT₋C __builtin_int_t ExactTetras(char8₋t * u8s, __builtin_int_t maxutf8bytes);
+/*  the 'ExactTetras' may return less than zero and 'ExactTetras' may 
  traverse undefined code points to return '-1'. */
 
-__builtin_int_t ExactUtf8bytes(char32̄_t * ucs, __builtin_int_t maxtetras);
-/* ⬷ a․𝘬․a 'Utf8bytesExceptZero'. */
+EXT₋C __builtin_int_t ExactUtf8bytes(char32̄_t * ucs, __builtin_int_t maxtetras);
+/*  a․𝘬․a 'Utf8bytesExceptZero'. */
 
-__builtin_int_t Utf8BytesUntilZero(char8₋t * u8s, __builtin_int_t maxbytes𝘖rZero);
+EXT₋C __builtin_int_t Utf8BytesUntilZero(char8₋t * u8s, __builtin_int_t maxbytes𝘖rZero);
 /*  non-equivalent to Unix-header and returns 'maxbytes' in case end-marker is 
  not earlier found. */
 
-__builtin_int_t TetrasUntilZero(char32̄_t * ucs, __builtin_int_t maxtetras𝘖rZero);
+EXT₋C __builtin_int_t TetrasUntilZero(char32̄_t * ucs, __builtin_int_t maxtetras𝘖rZero);
 /*  iterates until zero alternatively 'passed EOT'. */
 
 #pragma recto Si, sand and sunblock
@@ -635,8 +637,8 @@ EXT₋C int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂, enum
 /* ⬷ non-atomic, yet consistent and gracefully failing indicated through a 
  non-zero return value. */
 /* struct Peekey { __builtin_int_t 🥈 ⬚=2, 🗝=1; __builtin_int_t board₁, palm₂; }; */
-#define 🔒(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, MustBeOrdered)
-#define 🔓(situ) OptimisticSwap(&situ.board₁, &situ.palm₂, JustSwap)
+#define 🔒(situ,error) if (OptimisticSwap(&situ.board₁, &situ.palm₂, MustBeOrdered)) { confess(error); }
+#define 🔓(situ,error) if (OptimisticSwap(&situ.board₁, &situ.palm₂, JustSwap)) { confess(error); }
 struct Bitfield { const char32̄_t * regular; uint32_t mask; const char32̄_t * text; };
 struct AnnotatedRegister { const char32̄_t * header; int regcnt; struct 
  Bitfield * regs; uint32_t init; const char32̄_t * footnote; };
