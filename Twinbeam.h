@@ -75,8 +75,6 @@ typedef __builtin_uint_t Tribool; /* ⬷ c𝘧․ 'obekant' and 'embargo ₍im�
 #elif defined __armv8a__ || defined __x86_64__ || defined Kirkbridge
 #undef NON₋SIMD
 #endif
-#define false 0
-#define true (! false)
 #if defined __mips__
 typedef uint32_t mips32_context[32]; /* ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
@@ -602,7 +600,7 @@ EXT₋C int ToggleNetworkAndNative(struct collection region, __builtin_int_t
  bytes₋skip, __builtin_int_t bytes, void (^ping)(int * stop), void (^completion)
  (__builtin_int_t bytes)); 
 
-#pragma header 8, 16, ...,  32, 64, lo64, hi64, 128, utf8
+#pragma recto 8, 16, ...,  32, 64, lo64, hi64, 128, utf8
 
 enum Sentinel { sentinel₋cyclic, sentinel₋last, /*, linear, bilinear, */ 
  sentinel₋crash, sentinel₋bound };
