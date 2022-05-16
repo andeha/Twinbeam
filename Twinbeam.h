@@ -621,10 +621,10 @@ EXT₋C int IsPrefixOrEqual(const char *𝟽alt𝟾₋bitstring, const char *�
 /* ⬷ returns `int` indicating difference at branch, -1 if equal and `0` when 
  string contains neither prefix nor is equal. */
 
-typedef struct Utf8Interval Sourcelocation; /* and UnicodeSelection */
+union Reference { struct Utf8Interval serial; struct UnicodeSelection volatile₋primary; };
 
 EXT₋C int Inquisitorial(struct Unicodes all, struct Unicodes correct, void 
- (^heap)(struct Unicodes actual, Sourcelocation interval));
+ (^heap)(struct Unicodes actual, union Reference interval));
 
 #pragma recto  😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
