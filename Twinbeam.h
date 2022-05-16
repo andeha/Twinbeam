@@ -75,6 +75,8 @@ typedef __builtin_uint_t Tribool; /* ⬷ c𝘧․ 'obekant' and 'embargo ₍im�
 #elif defined __armv8a__ || defined __x86_64__ || defined Kirkbridge
 #undef NON₋SIMD
 #endif
+#define false 0
+#define true (! false)
 #if defined __mips__
 typedef uint32_t mips32_context[32]; /* ∎: mx=11 ∧ mz=23! */
 typedef mips32_context jmp_buf2;     /* 🔎: 32. ⛅️rax! */
@@ -389,14 +391,13 @@ typedef struct UnicodeIntervalAnd𝑂rLocation {
 } UnicodeSelection; /*  see also --<Preserves.h>{Utf8Interval|Sourcelocation}. */
 
 typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast, 
-  bytesOffsetInclLast; } Utf8Interval; /*  a․𝘬․a 'Sourcelocation', e․𝘨 wrongly coded utf-8. */
+ bytesOffsetInclLast; } Utf8Interval; /*  a․𝘬․a 'Sourcelocation', e․𝘨 wrongly coded utf-8. */
 
 struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * text; }; /* ⬷ type 
  'char' C implementation dependent whether signed/unsigned. See '-fno-signed-char'. */
 
 EXT₋C int EncodeUtf8AlternativelyUnicode(enum Encoding encoded, __builtin_int_t bytes, 
- uint8_t * material, __builtin_int_t beam, void (^symbol)(char32̄_t Unicode, 
- __builtin_int_t materalfirst, __builtin_int_t materiallast, int * stop)); /* a․𝘬․a EncodeOptionally. */
+ uint8_t * material, char32̄_t ** prepared₋bytes₋text, __builtin_int_t * unicodes);
 
 EXT₋C __builtin_int_t ExactTetras(char8₋t * u8s, __builtin_int_t maxutf8bytes);
 /*  the 'ExactTetras' may return less than zero and 'ExactTetras' may 
@@ -619,6 +620,11 @@ EXT₋C void * ExactSeek₂(const void *key, const void *base, size_t num,
 EXT₋C int IsPrefixOrEqual(const char *𝟽alt𝟾₋bitstring, const char *𝟽alt𝟾₋bitprefix);
 /* ⬷ returns `int` indicating difference at branch, -1 if equal and `0` when 
  string contains neither prefix nor is equal. */
+
+typedef struct Utf8Interval Sourcelocation; /* and UnicodeSelection */
+
+EXT₋C int Inquisitorial(struct Unicodes all, struct Unicodes correct, void 
+ (^heap)(struct Unicodes actual, Sourcelocation interval));
 
 #pragma recto  😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
