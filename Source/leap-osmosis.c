@@ -4,7 +4,7 @@ import Twinbeam;
 #if defined __MM__
 import peripherial_controller_echo;
 #elif defined __MZ__
-import peripherial_controller_derrived;
+import peripherial_controller_derivative;
 #endif
 
 extern int RandomInteger(uint64_t *out);
