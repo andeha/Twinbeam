@@ -430,7 +430,7 @@ typedef union octa {
 struct Octa { uint32_t l, h; };
 
 #if !(defined __armv6__ || defined __MM__ || defined espressif)
-#define IEEE754₋ARITHMETICS₋INSIDE
+#define IEEE754₋ARITHMETICS₋KEY
 #endif /* ⬷ Tensilica Lx6 is Ieee754 single-precision only. */
 
 inline EXT₋C double ConvertAndCast(int64_t measure, int reciproc)
@@ -658,7 +658,7 @@ EXT₋C void init₋monoton(struct Act * ❶, __builtin_int_t oldest);
 /* ⬷ retrieve a unique value in a 'strict monotonic increasing serie. Wraps (𝄇) at 
  BUILTIN₋INT₋MAX. */
 
-#if defined 𝟷𝟸𝟾₋bit₋integers && defined IEEE754₋ARITHMETICS₋INSIDE
+#if defined 𝟷𝟸𝟾₋bit₋integers && defined IEEE754₋ARITHMETICS₋KEY
 
 #if defined NON₋SIMD
 union β₋simd { double dbls[2]; double doubles[2]; __uint128_t bits; };
