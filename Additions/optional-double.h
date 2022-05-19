@@ -539,9 +539,7 @@ struct Clipbytes { struct brink { __builtin_int_t byte₋idx, δ₋count; };
   struct collection registrar; /* ⬷ analogous to textuals 'add', 'delete' and 'change'. */
 };
 
-struct Linebreaks { Clipbytes crlfAndEotDeltas; };
-
-/* ҂ */
+struct Linebreaks { Clipbytes crlfAndEotDeltas; }; /* ҂ */
 
 enum Earthcompass { Earthcompass₋N₋True, /* Earthcompass₋N₋Mag */ 
  Earthcompass₋S₋True, Earthcompass₋E, Earthcompass₋W
@@ -552,7 +550,7 @@ typedef struct EarthbasedSpatial {
   Earthcompass compass;
 } Sexagesimal; /* for 𝑝𝑎𝑟𝑎𝑙𝑙𝑒𝑙𝑠 and 𝑚𝑒𝑟𝑖𝑑𝑖𝑎𝑛𝑠. */
 
-typedef Sexagesimal[] Spatial; /* two- and four spatal supported. */
+typedef Sexagesimal[] Magneticspatial; /* two- and four spatal supported. */
 
 #pragma recto possibly-maybe of-interest
 
@@ -563,7 +561,7 @@ typedef Sexagesimal[] Spatial; /* two- and four spatal supported. */
 
 inline int __builtin_coreid()
 {
-#if defined __x86_64__ /* Return the APIC_ID of current logical /intel. */
+#if defined __x86_64__ /* return the APIC_ID of current logical /intel. */
    unsigned intelleaf=0xB,eax=11,ebx=0,ecx=0,edx;
    if (!__get_cpuid(intelleaf,&eax,&ebx,&ecx,&edx)) { return 0; }
    return edx;
