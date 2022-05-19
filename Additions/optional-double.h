@@ -5,12 +5,10 @@
  *  Xcode Version 10.2.1 (10E1001) to x86_64.
  */
 
-#pragma once
-
-void CastᵈᵇˡToText(double value, 
-  void (^digits)(bool neg, int 𝟷𝟶ˣ, char * 𝟶to𝟿s), 
-  void (^zero)(bool neg), void (^inf)(bool neg), void (^nan)()
-); /* ⬷ a․𝘬․a 'CastToText'. */
+void CastConstantToText(double value, 
+  void (^digits)(int neg, int 𝟷𝟶ˣ, char * 𝟶to𝟿s), 
+  void (^zero)(int neg), void (^inf)(int neg), void (^nan)()
+); /* ⬷ a․𝘬․a 'CastCoefficientToText'. */
 
 /* The next smallest value after '1'. */
 #define DOUBLE_EPS1  1.00000000000000011102230246251565 /* 1+2⁻⁵³ */
@@ -85,13 +83,13 @@ namespace Numberformat { enum { Scientific, Monetary }; }
 MACRO Argᴾ ﹟F(double f, int format=Numberformat::Scientific) { return Argᴾ { .value.f₁=f, .kind=9 }; }
 MACRO Argᴾ ﹟F(float r, int format=Numberformat::Scientific) { return Argᴾ { { .f₂=r }, .kind=8 }; }
 
-#pragma mark 😐🎲
+#pragma recto  😐🎲
 
 enum GaussianApproximate { AbramowitzStegun, ZogheibHlynka };
 void Gaussian(GaussianApproximate approximate, double *out);
 void Uniform(double *out); /* *out ∈ [0, 1) */
 
-#pragma mark in cases of 'high-precision Ieee754'
+#pragma recto in cases of 'high-precision Ieee754'
 
 typedef long double binary128; /* 2⁻¹⁶³⁸² ≈ 
   3.3621 × 10⁻⁴⁹³² - 2⁻¹⁶³⁸⁴ − 2⁻¹⁶²⁷¹ ≈ 1.1897 × 10⁻⁴⁹³² */
@@ -101,7 +99,7 @@ typedef binary128 maxprec;
 typedef double maxprec;
 #endif
 
-#pragma mark Gauss' K𝑒𝑡𝑡𝑒𝑛𝑏𝑟𝑢𝑐ℎ
+#pragma recto Gauss' K𝑒𝑡𝑡𝑒𝑛𝑏𝑟𝑢𝑐ℎ
 
 /* MACRO void Khinchin(double * A, int count, double &acc) { for (int i=count-1;
   i >= 0; i--) { acc = 1/(A[i] + acc); } } */
@@ -126,11 +124,11 @@ Similar(
    return diff < eps;
 }
 
-#pragma mark figures in compliance with Mediterranean laws
+#pragma recto figures in compliance with Mediterranean laws
 
 int Roman(__builtin_int_t n, void (^out)(char numeral));
 
-#pragma mark Unicodes: in-case literal, terminated with 0x0000
+#pragma recto Unicodes: in-case literal, terminated with 0x0000
 
 #define ⁺⁼UnicodeToUtf8(Buffer,³²B,⁸B,TRS,UCS)                              \
 auto unicodeToUtf8 = ^(char8_t buffer[], __builtin_int_t& ³²b,              \
@@ -163,29 +161,22 @@ again:                                                                      \
    incr = followers + 1;                                                    \
    uc = Utf8ToUnicode(leadOr8Bit,incr);                                     \
    if (uc == 0xFFFE || uc == 0xFFFF) { return -2; }                         \
-   unicodes[tetras] = uc; ++tetras; ⁸b += incr;                             \
+   unicodes[tetras] = uc; tetras+=1; ⁸b += incr;                            \
    goto again;                                                              \
 unagain:                                                                    \
    return 0;                                                                \
 }(UCS,TRS,⁸B,U8B,U8MAX) /* ⬷ implicits in block statement: none. */
 
-__builtin_int_t Utf8BytesUntilNull(char8_t * u8s, __builtin_int_t maxutf8bytes);
-/* ⬷ non-equivalent to 'strlen' and returns 'maxutf8bytes' in case NULL is not 
-  earlier found. */
-
-__builtin_int_t TetrasUntilNull(char32_t * ucs, __builtin_int_t maxtetras);
-/* ⬷ actually until 0x0000 or 'passed EOT'. */
-
 inline
 int
 Utf8ToUnicode(
-  char8_t * u8s, __builtin_int_t maxutf8bytes𝘖rZero, 
-  void (^out)(__builtin_int_t tetras, char32_t * ucs, __builtin_int_t utf8bytes)
+  char8_t * u8s, __builtin_int_t maxu8bytes𝘖rZero, 
+  void (^out)(__builtin_int_t tetras, char32_t * ucs, __builtin_int_t u8bytes)
 )
 {
-  __builtin_int_t bytes = maxutf8bytes𝘖rZero ? maxutf8bytes𝘖rZero : 
+  __builtin_int_t bytes = maxu8bytes𝘖rZero ? maxu8bytes𝘖rZero : 
     Utf8BytesUntilNull(u8s,BUILTIN₋INT₋MAX);
-   if (bytes < 0) { return -1; }
+   if (bytes<0) { return -1; }
    __builtin_int_t tetras=0,⁸b=0; char32_t ucs[bytes+1];
    if (⁺⁼Utf8ToUnicode(ucs,tetras,⁸b,u8s,bytes)) { return -2; }
    out(tetras,ucs,⁸b);
@@ -197,7 +188,7 @@ int
 UnicodeToUtf8(
   char32_t * ucs, /* ⬷ in-case literal, terminated with 0x0000. */
   __builtin_int_t maxtetras𝘖rZero, 
-  void (^out)(__builtin_int_t utf8bytes, char8_t * u8s, __builtin_int_t tetras)
+  void (^out)(__builtin_int_t u8bytes, char8_t * u8s, __builtin_int_t tetras)
 )
 {
   __builtin_int_t tetras = maxtetras𝘖rZero ? maxtetras𝘖rZero : 
@@ -209,13 +200,8 @@ UnicodeToUtf8(
 }
 
 /* when toggling representation, the symbols are traversed at least twice ⤐ */
-__builtin_int_t ExactUtf8bytes(char32_t * ucs, __builtin_int_t maxtetras);
-/* ⬷ a․𝘬․a 'Utf8bytesExceptNULL'. */
-__builtin_int_t ExactTetras(char8_t * u8s, __builtin_int_t maxutf8bytes); 
-/* ⬷ the 'ExactTetras' may return less than zero and 'ExactTetras' may 
- traverse undefined code points and return '-1'. */
 
-MACRO Unicodes ᵊ(const char32_t * literal) { char32_t * ucs = Critic(literal); 
+/*  MACRO Unicodes ᵊ(const char32_t * literal) { char32_t * ucs = Critic(literal); 
  __builtin_int_t count = TetrasUntilNull(ucs, BUILTIN₋INT₋MAX); 
  return Unicodes { count, ucs }; }
 
@@ -228,17 +214,9 @@ MACRO int ᵊ(const char8_t * literal, void (^sometime)(Unicodes uc)) {
     }
   )) { return -1; }
   return 0;
-}
+} */
 
-#pragma mark fine print for well-versed readers ('intervals and dots')
-
-typedef struct Unicodeblock {
-  __builtin_int_t linesOffsetFirst, linesOffsetLast, col₁, col₂;
-} Unicodeblock;
-
-typedef struct Unicodeblock⁻¹ {
-  __builtin_int_t colL𝟷, colL𝟸, linesOffsetFirst, linesOffsetLast;
-} UnicodeColBlock; /* ⬷ see again --<Preserves.h>{Utf8Interval|Sourcelocation}. */
+#pragma recto fine print for well-versed readers ('intervals and dots')
 
 FINAL struct Ornaments { /* ⬷ a․𝘬․a 'Intervallic' …                         
                                                                              
@@ -280,15 +258,7 @@ FINAL struct Ornaments { /* ⬷ a․𝘬․a 'Intervallic' …
     int text(void (^none𝘖rMany)(__builtin_int_t tetras, char32_t * unicodes, 
      bool& stop)); /* ⬷ see also [github.com]>--<fmtlib>--<fmt>. */
     
-😐; /* … 'decorated₋string' and 'recording', 𝘤𝘧․ 'insert', 'update' and 'delete'. */
-
-template <typename T> struct rectangle { T height, width; int /* Unit */ unit; };
-template <typename T> struct measure { T value; int /* Unit */ unit; };
-
-namespace Directions { typedef __builtin_uint_t Cross; 
-  BITMASK(Cross) { CrossLeftToRight = 0b0001, CrossRightToLeft = 0b0010, 
-   CrossTopToBottom = 0b0100, CrossBottomToTop = 0b1000 };
-}
+😐; /* … 'decorated₋string' and 'recording', 𝘤𝘧․ 'insert', 'update' and 'delete' and attributed. */
 
 namespace Unit { enum { thou, mm, in, pc, pt, px, 𝑜𝑝tlp }; }
 /* int Width(const Ornaments& o, Unit unit, double &width, double &kerning) WESTERN;
@@ -300,7 +270,7 @@ int Width(const Unicodes& uc, Unit unit, double &width, double &kerning) WESTERN
 /* Intervals and dots: 0 0, 0 1, 1 2, 3 3, ﹇ 4.  ⬷ see OEIS. */
 namespace Raster { enum { mm, lines, nonuniform₋mm, none }; }
 
-#pragma mark the terminal
+#pragma recto the terminal
 
 namespace 𝟾x𝟾₋matrix₋AAPL {
   
@@ -317,7 +287,7 @@ namespace Inputctrl {
   
   int 🥈 ﹟inf₋periods = 0; /* ⬷ for 'periods𝘖rZero' below. */
  
-}
+} struct Plate;
 
 struct Utf8Terminal {
    
@@ -334,15 +304,18 @@ struct Utf8Terminal {
    
   int write(char8_t * serie, __builtin_int_t bytes) const;
   
+  typedef void (^Install)(struct Unicodes option);
+  static int complete(void (^ifneccessesary)(Install option)) const;
+  
   void (^format)(double ℝ, Utf8Terminal &stream);
   
-#if __has_include(<Additions/Vt99.cxx>)
-#include <Additions/Vt99.cxx>
+#if __has_include(<Additions/minima-flabb.cxx>)
+#include <Additions/minima-flabb.cxx>
 #endif
    
 😐; /* ⬷ for rendering sediment, isaritm and discrete dissection. */
 
-int oldschool₋WaitTerminal(char32_t * uc); /* ⬷ a․𝘬․a 'simple␣for␣debugger₋keyput'. */
+int blocking₋debugger₋WaitTerminal(char32_t * uc); /* ⬷ a․𝘬․a naïve₋debugger₋WaitTerminal. */
 
 namespace NumberformatCatalogue { 
 void Scientific(double ℝ, void (^out)(char32_t uc));
@@ -420,7 +393,7 @@ enum class simdform { normal₋distribution, approximation₋follow₋accuracy,
 void Present(Utf8Terminal &term, simd_tᵦ 𝕏, simdform semantic);
 /* ⬷ adequate for the [28,473] ºK temperature range. */
 
-#pragma mark conveniences
+#pragma recto conveniences
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, __builtin_int_t ℤ)
 { Present(term,ℤ); return term; }
@@ -447,7 +420,7 @@ MACRO Utf8Terminal & operator<<(Utf8Terminal &term, float x)
 { Present(term,(double)x); return term; } */
 
 inline void Present(Utf8Terminal &term, 
-  char32_t * ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳, bool emit𝖤𝖮𝖳=true
+  char32_t * ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳, int emit𝖤𝖮𝖳=true
 )
 {  char32_t uc; __builtin_int_t i=0;
    if (ucs𝘈nd𝟶𝚡𝟶𝟶𝟶𝟶𝘖r𝖤𝖮𝖳 == NULL) { return; }
@@ -456,7 +429,7 @@ again:
    if (uc == 0x0000) { return; }
    if (emit𝖤𝖮𝖳 == 0 && uc == END_OF_TRANSMISSION) { return; }
    Present(term,uc);
-   i++; goto again;
+   i+=1; goto again;
 }
 
 MACRO Utf8Terminal & operator<<(Utf8Terminal &term, char32_t * ucs)
@@ -481,55 +454,11 @@ Utf8Terminal & operator<<(Utf8Terminal&,𝗵fill);
 Utf8Terminal & operator<<(Utf8Terminal&,𝘃fill);
 Utf8Terminal & operator<<(Utf8Terminal&, 𝗣age);
 
-extern "C" { extern const char *tab, *eol, *sep; } 
-/* later possibly-maybe: ↹ ↩︎ ¶ and hfill: ⎓ alt. ﹇. */
+#pragma recto a globally unique identifier for small and big
 
-rt₋namespace Terminal { extern Utf8Terminal µOutput, µTrace₁, µTrace₂; }
-rt₋namespace Vt100 { extern const char * bright, *dim, *fgBlue, *fgRed, *reset, 
- *reverse; }
-rt₋namespace Vt99 { extern const char * v₋correctional, *picante₋spark₋begin, 
- *depthening₋display₋begin, *picante₋spark₋end, *depthening₋display₋end, *hfill; }
+void Present(Utf8Terminal &term, const Guid mp);
 
-#define Termout Terminal::µOutput
-#define Termlog Terminal::µTrace₂
-#define Termdetail Terminal::µTrace₁
-
-#pragma mark a globally unique identifier for small and big
-
-typedef sexdeca Guid;
-
-Guid Newguid();
-
-#pragma mark sequences (blue and red chronology possibly a 'planning' orange)
-
-/**  Retrieves a unique value in a 'strict monotonically increasing' serie. ⤐ */
-
-struct Intervallic { __builtin_int_t soon=0; };
-
-__builtin_int_t Ordinal(Intervallic * act, bool * wrapped);
-
-rt₋namespace Scheduler { extern void * sw₋collection; }
-/* ⬷ a․𝘬․a Map<sexdeca, 𝟄₋int₁ *>. In --<Additions>--<Fossilate.cpp>. */
-
-namespace Messaging { void Init(); 
-   
-   int Inform(int32_t signal, 
-     𝟄₋int₁ * 𝟷₋coroutineToInfluence, 
-     void * (^node₋alloc)(int bytes)
-   ); /* ⬷ formerly 'Trap' and 'with₋Indicate'. */
-   
-   int Entrust(int32_t signal, void * ctx = NULL); /* ⬷ a․𝘬․a 'sigint'. */
-   
-   void * GetContext();
-   
-}
-
-void GuidToText(const Guid& guid, void (^out)(char digit𝘖rHyphen));
-
-void Present(Utf8Terminal &term, const Guid& mp);
-/* …not: MACRO Argᴾ ﹟Ref(Guid& g) { ⟶⟵ } */
-
-#pragma mark input feeding in practice
+#pragma recto input feeding in practice
 
 enum class CastToIntOpinion { accept, rejecting, negate, commit, annul };
 
@@ -547,7 +476,7 @@ int ReadUtf8(Readlineopinion (^feeder)(char &utf8), Inputcontrol (^line)(char * 
 int ReadUnicode(Readlineopinion (^feeder)(char32_t &unicode), Inputcontrol (^line)(char32_t * line)); 
 /* count symbols with 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 inside 'feeder'. */
 
-#pragma mark tri-cameral tokenizer
+#pragma recto tri-cameral tokenizer
 
 enum class Tokenizefact { fragment, rejecting, separator, error, eol };
 
@@ -558,7 +487,7 @@ Tokenize(
   Inputcontrol (^token)(char32_t * unicodes, __builtin_int_t count)
 ); /* 'tokenize' - 'readUnicode' = Opt<𝑓𝑢𝑡𝑢𝑟𝑒 𝑡𝑒𝑛𝑠𝑒> */
 
-#pragma mark recollection and associativity
+#pragma recto recollection and associativity
 
 struct Bitset₋suprenum { /* ⬷ a․𝘬․a 'Capped-ET-bitset'. */
   
@@ -575,7 +504,7 @@ struct Bitset₋suprenum { /* ⬷ a․𝘬․a 'Capped-ET-bitset'. */
   
 }; /* ⬷ for --<🥽 Memclone.cpp> ∧ --<🥽 Bookshelf.cpp>. */
 
-#pragma mark volatile memory copying (asynchronous)
+#pragma recto volatile memory copying (asynchronous)
 
 int
 OptimisticAsync8Copy(
@@ -587,11 +516,9 @@ OptimisticAsync8Copy(
   void (^error)(), void (^complete)()
 ); /* ⬷ a․𝘬․a Copy8Async and Basictransfer. */
 
-#pragma mark dispatch, priorities and interrupts
+#pragma recto dispatch, priorities and interrupts
 
 typedef void (^Async₋job)(); /* ⬷ a․𝘬․a 𝐶𝑂𝑀𝑃𝑈𝑇𝐴𝑇𝐼𝑈𝑀 and 'CHandler'. */
-
-typedef int (^TransformAndResolve)(Unicodes pathᵚᵍ, void (^final)(const char * regular𝘖rLinkpath));
 
 int Reflect(Unicodes primary𝘖𝘳𝑆econd, TransformAndResolve tr, __builtin_int_t * 
   totalbytes, void (^zero𝘖rSeveral)(__builtin_int_t byteOffset, int count, 
@@ -599,46 +526,61 @@ int Reflect(Unicodes primary𝘖𝘳𝑆econd, TransformAndResolve tr, __builtin
 int Reflect(Unicodes primary𝘖𝘳𝑆econd, unsigned expeditionary, __builtin_int_t bytesOffset, 
  __builtin_int_t pages𝘖𝘳Zero, __builtin_int_t bytesAugment, __builtin_int_t * totalbytes, 
  TransformAndResolve tr, void (^pages)(__builtin_int_t count, uint8_t **𝟺kbframes, 
- __builtin_int_t lastunusedbytes)); /* ⬷ a․k․a 'Unspecified₋reflect'. */
+ __builtin_int_t lastunusedbytes)); /* ⬷ a․𝘬․a 'Unspecified₋reflect'. */
 
-/* int Pamphlet(unsigned expeditionary, __builtin_int_t bytes, Ensemble &details);
-int Branch(Unicodes primary𝘖𝘳𝑆econd, TransformAndResolve tr, 
- void (^ping)(double⁺ʳ 𝟬₋𝟭percent, bool& stop), 
- AsyncJob stopped, Ensemble &ensemble, AsyncJob completed);
-int Reconcile(Opt<Unicodes> primary𝘖𝘳𝑆econd, TransformAndResolve tr, 
- void (^ping)(double⁺ʳ 𝟬₋𝟭percent, bool& stop), 
- AsyncJob repented, Ensemble& branch, AsyncJob completed); */ 
-/* --<Ensemble.h>. */
+/* On Unicode 'append', 'change', 'delete', see also --<🥽 McIlroy.cpp> and 
+ --<🥽 Author.cpp>. */
 
-#pragma mark language translation --<Automata.cpp>
+#pragma recto language translation --<Automata.cpp>
 
 enum ProbedSemanticContext { Inexplainatoria, Informal, Formal };
 
-/* int Parse(const char *utf8, void (^untangle)(char32_t unicode, 
-  const Knots¹ᵈ<int>& ss, void * / * a․𝘬․a Map<char32_t *, __builtin_uint_t>& * / stab,
-  __builtin_int_t byteoffset, bool edge₁, bool& stop)); */
+struct Clipbytes { struct brink { __builtin_int_t byte₋idx, δ₋count; }; 
+  struct collection registrar; /* ⬷ analogous to textuals 'add', 'delete' and 'change'. */
+};
 
-int TokenizeUtf8ToUnicode(char8_t * material, short bytes, void (^none𝘖rSeveral)(
- __builtin_int_t byteOffset, char32_t unicode, __builtin_int_t utf8bytes, bool& stop));
+struct Linebreaks { Clipbytes crlfAndEotDeltas; };
 
-enum class Encoding { utf8, unicode };
+/* ҂ */
 
-/* int TokenizeUtf8OrUnicode(Encoding encoding, Memoryview content, __builtin_int_t& beam, 
-  void (^zero𝘖rSeveral)(char32_t unicode, __builtin_int_t byteOffset, bool& stop)); */
+enum Earthcompass { Earthcompass₋N₋True, /* Earthcompass₋N₋Mag */ 
+ Earthcompass₋S₋True, Earthcompass₋E, Earthcompass₋W
+}; /* N E S W: magnetic field required. */
 
-int Bite(memoryview text, Clipbytes * 𝟹𝟸alt𝟾₋censors𝘖rNULL, Unicodes anchor₁, 
-  Unicodes anchor₂, void (^found)(__builtin_int_t idx, __builtin_int_t byte₋idx, 
-  __builtin_int_t δ₋count, __builtin_int_t total, bool& stop));
-/* --<hypergeo.hpp ҂ Knot.h>{int, main} */
+typedef struct EarthbasedSpatial {
+  Sequenta degrees, arcminutes, arcseconds;
+  Earthcompass compass;
+} Sexagesimal; /* for 𝑝𝑎𝑟𝑎𝑙𝑙𝑒𝑙𝑠 and 𝑚𝑒𝑟𝑖𝑑𝑖𝑎𝑛𝑠. */
 
-Opt<Chronology::instant>
-TS( /* ⬷ e․𝘨 2012-01-24 12:00:00.125, 2018-05-18 15:58:36 and 2012-01-24 12:00:00.000000000232. */
-  Encoding encoding,
-  Chronology chronology,
-  memoryview datetime
-) NEVERBLURTS;
+typedef Sexagesimal[] Spatial; /* two- and four spatal supported. */
 
-#pragma mark trangress 𝑡𝑜 and 𝑓𝑟𝑜𝑚 a Fiber                 ✁ until ✂️
+#pragma recto possibly-maybe of-interest
+
+#if defined __x86_64__
+#include <unistd.h>
+#include <cpuid.h>
+#endif
+
+inline int __builtin_coreid()
+{
+#if defined __x86_64__ /* Return the APIC_ID of current logical /intel. */
+   unsigned intelleaf=0xB,eax=11,ebx=0,ecx=0,edx;
+   if (!__get_cpuid(intelleaf,&eax,&ebx,&ecx,&edx)) { return 0; }
+   return edx;
+#else
+  return 16384;
+#endif
+}
+
+inline int __builtin_core_count()
+{
+#if defined __x86_64__
+   return (int)sysconf(_SC_NPROCESSORS_CONF);
+#else
+   return 1;
+#endif
+}
+
 /* ✂️ << --<shoebox>{Fiber} ✃ */
 
 
