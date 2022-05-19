@@ -207,6 +207,9 @@ EXT₋C Argᴾ ﹟λ₂(void (^fragment)(primary₋present,void *),void *);
 struct seven₋bit₋text { __builtin_int_t count; char * keyputs; };
 struct utf8₋text { __builtin_int_t bytes; char8₋t * u8s; };
 struct Unicodes { __builtin_int_t tetras; char32̄_t * unicodes; };
+struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * text; }; 
+/* ⬷ type 'char' C implementation dependent whether signed/unsigned. 
+ See '-fno-signed-char'. */
 
 EXT₋C void int₋to₋sequent(int64_t integer, Sequenta * real);
 EXT₋C void fraction₋to₋sequent(int count, short zeroToNines[], 
@@ -384,18 +387,6 @@ EXT₋C char32̄_t Utf8ToUnicode(char8₋t * ξ, __builtin_int_t bytes) ⓣ;
 
 enum Encoding { encoding₋utf8, encoding₋unicode };
 
-struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; }; /*  a․𝘬․a 'Utf8Location'. */
-
-typedef struct UnicodeIntervalAnd𝑂rLocation {
-  __builtin_int_t tetrasRelativeFirst, tetrasRelativeLast;
-} UnicodeSelection; /*  see also --<Preserves.h>{Utf8Interval|Sourcelocation}. */
-
-typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast, 
- bytesOffsetInclLast; } Utf8Interval; /*  a․𝘬․a 'Sourcelocation', e․𝘨 wrongly coded utf-8. */
-
-struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * text; }; /* ⬷ type 
- 'char' C implementation dependent whether signed/unsigned. See '-fno-signed-char'. */
-
 EXT₋C int EncodeUtf8AlternativelyUnicode(enum Encoding encoded, __builtin_int_t bytes, 
  uint8_t * material, char32̄_t ** prepared₋bytes₋text, __builtin_int_t * unicodes);
 
@@ -407,7 +398,7 @@ EXT₋C __builtin_int_t ExactUtf8bytes(char32̄_t * ucs, __builtin_int_t maxtetr
 /*  a․𝘬․a 'Utf8bytesExceptZero'. */
 
 EXT₋C __builtin_int_t Utf8BytesUntilZero(char8₋t * u8s, __builtin_int_t maxbytes𝘖rZero);
-/*  non-equivalent to Unix-header and returns 'maxbytes' in case end-marker is 
+/*  non-equivalent to Unix-header and strlen and returns 'maxbytes' in case end-marker is 
  not earlier found. */
 
 EXT₋C __builtin_int_t TetrasUntilZero(char32̄_t * ucs, __builtin_int_t maxtetras𝘖rZero);
@@ -621,10 +612,21 @@ EXT₋C int IsPrefixOrEqual(const char *𝟽alt𝟾₋bitstring, const char *�
 /* ⬷ returns `int` indicating difference at branch, -1 if equal and `0` when 
  string contains neither prefix nor is equal. */
 
-union Reference { struct Utf8Interval serial; struct UnicodeSelection volatile₋primary; };
+typedef struct Unicodeblock {
+  __builtin_int_t linesOffsetFirst, linesOffsetLast, column₁, column₂;
+  __builtin_int_t tetrasRelativeFirst, tetrasRelativeLast;
+} UnicodeInterval;
 
-EXT₋C int Inquisitorial(struct Unicodes all, struct Unicodes correct, void 
+typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast, 
+ bytesOffsetInclLast; } Utf8Interval; /*  e․𝘨 wrongly coded utf-8. */
+
+union Reference { struct PresentativeErrorUnicode byteserie; struct UnicodeBlock volatile₋primary; };
+
+EXT₋C int Inquisi(struct Unicodes all, struct Unicodes correct, void 
  (^heap)(struct Unicodes actual, union Reference interval));
+
+typedef struct memoryview Utf8Intenven;
+struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; };
 
 #pragma recto  😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
@@ -648,7 +650,7 @@ struct AnnotatedRegister { const char32̄_t * header; int regcnt; struct
  Bitfield * regs; uint32_t init; const char32̄_t * footnote; };
 typedef struct Bitfield Bitfield;
 
-#pragma recto time series and peg collections
+#pragma recto blue, white and yellow collection and time series
 
 struct Act { __builtin_int_t memory; };
 EXT₋C __builtin_int_t monoton₋ordinal(int * wrapped, struct Act * ❶);
@@ -681,7 +683,7 @@ union historypod {
 
 /**  The NTP defines epoch starting at the year 1900 at midnight before 
  sunrise January the 1ˢᵗ and with a 32-bit unsigned  integer track 0 to 
- 2³² - 1 = 4.294,967,295 seconds (approximately 136 earth  years) until 
+ 2³² - 1 = 4.294,967,295 seconds (approximately 136 earth years) until 
  a wrap occurs.
  
  A correct abbreviation for the unit of time and also the measurements 
