@@ -1,6 +1,0 @@
--g
--I ../..
--std=c++2a -fno-rtti -fblocks -fno-exceptions
--mmacosx-version-min=10.14
-../../Source/Releases/libTwinbeam_macOS.a
-
