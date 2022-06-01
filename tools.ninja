@@ -18,11 +18,12 @@ espressif-V = -target riscv32-unknown-elf -march=rv32imc -mabi=ilp32 # ilp32d
 commandline-sdkpath = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 xcodeapp-sdkpath = /Applications/Xcode.app/Contents/Developer/Platforms/MacOS$
 X.platform/Developer/SDKs/MacOSX.sdk
-tmacr-version = -mmacosx-version-min=11.4
-macoscflags_withxcode = -isysroot $xcodeapp-sdkpath $tmacr-version
-macoscflags_commandline = -isysroot $commandline-sdkpath $tmacr-version
+macoscflags_withxcode = -isysroot $xcodeapp-sdkpath
+macoscflags_commandline = -isysroot $commandline-sdkpath
 macoscflags = $macoscflags_commandline
-maclnkflags = $tmacr-version -lSystem -lc++ -syslibroot $commandline-sdkpath
+denominator-version = -mmacosx-version-min=12.4
+maclnkflags = $denominator-version -syslibroot $commandline-sdkpath -lSystem $
+ -lc++
 # Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git 
 # reset --hard HEAD^' (alt. in public when unpushed).
 sha1git = `git log -1 '--pretty=format:%h'`
@@ -31,5 +32,5 @@ librarian-mac = xcrun ar
 compiler-macos = xcrun clang $gencdflags $moduleflags
 compiler-pic32 = $tools-small/clang-12 $gencdflags $moduleflags
 intel-mac = -target x86_64-apple-darwin21
-appleSoC-mac = -target arm64-apple-macos11 -D__armv8a__
+appleSoC-mac = -target arm64-apple-macos12 -D__armv8a__
 
