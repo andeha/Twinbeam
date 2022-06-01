@@ -785,15 +785,15 @@ struct guid { struct endian { uint64_t aware; uint64_t similar; } endian; };
 struct guid Newguid();
 Argᴾ ﹟leap(struct guid g);
 
-/**  Correlative-relative, 𝘦․𝘨 xʳ∈[-1/2₋𝜀, +1/2₊𝜀] and xʳ∈[-π₊𝜀, +π₋𝜀]. */
+/**  correlative-relative, 𝘦․𝘨 xʳ∈[-1/2₋𝜀, +1/2₊𝜀] and xʳ∈[-π₊𝜀, +π₋𝜀]. */
 
 typedef float floatʳ; typedef double doubleʳ;
 
-/**  Subtractive-relative, 𝘦․𝘨 x⁺ʳ∈[0₋𝜀, 1₊𝜀) and x⁺ʳ∈[0₊𝜀, π₋𝜀). */
+/**  subtractive-relative, 𝘦․𝘨 x⁺ʳ∈[0₋𝜀, 1₊𝜀) and x⁺ʳ∈[0₊𝜀, π₋𝜀). */
 
 typedef float float⁺ʳ; typedef double double⁺ʳ;
 
-/**  Relative-fixative types. */
+/**  relative-fixative types. */
 
 typedef char8₋t uchar; typedef uint32_t uint32; typedef uint8_t byte;
 
