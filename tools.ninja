@@ -1,5 +1,7 @@
 # tools.ninja — settings for macos and Pic32.
 tools-small = /Users/<user- or project name>/mips-tools/12.0.0
+small-runtime = /Users/<user- or project name>/Monitor/Apps/pic32rt
+host-big = /Users/<user- or project name>/Monitor/Apps/macOS
 gencdflags = -fblocks -fno-rtti -fno-coroutines-ts -fno-exceptions           $
  -fno-signed-char -fno-builtin -Wno-c++20-designator -Wno-c99-designator     $
  -Wincomplete-umbrella -Wmodule-conflict -Wno-nullability-completeness       $
@@ -21,8 +23,6 @@ macoscflags_withxcode = -isysroot $xcodeapp-sdkpath $tmacr-version
 macoscflags_commandline = -isysroot $commandline-sdkpath $tmacr-version
 macoscflags = $macoscflags_commandline
 maclnkflags = $tmacr-version -lSystem -lc++ -syslibroot $commandline-sdkpath
-small-runtime = /Users/<user- or project name>/Monitor/Apps/pic32rt
-host-big = /Users/<user- or project name>/Monitor/Apps/macOS
 # Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git 
 # reset --hard HEAD^' (alt. in public when unpushed).
 sha1git = `git log -1 '--pretty=format:%h'`
@@ -30,6 +30,6 @@ librarian-pic32 = $tools-small/llvm-ar
 librarian-mac = xcrun ar
 compiler-macos = xcrun clang $gencdflags $moduleflags
 compiler-pic32 = $tools-small/clang-12 $gencdflags $moduleflags
-intel-mac = -target x86_64-apple-darwin21.3.0
+intel-mac = -target x86_64-apple-darwin21
 appleSoC-mac = -target arm64-apple-macos11 -D__armv8a__
 
