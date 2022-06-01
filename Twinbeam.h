@@ -181,8 +181,10 @@ typedef struct 𝓟 {
 #if defined 𝟷𝟸𝟾₋bit₋integers
     __uint128_t U; __int128_t I;
 #endif
-    struct { void * context; serial₋present scalar; } λ₁;
-    struct { void * context; primary₋present scalar; } λ₂;
+    typedef void (^Fragment1)(serial₋present, void *);
+    typedef void (^Fragment2)(primary₋present, void *);
+    struct { void * ctxt; Fragment1 block; } λ₁;
+    struct { void * ctxt; Fragment2 block; } λ₂;
   } value;
   int kind;
 } Argᴾ;
@@ -620,7 +622,7 @@ typedef struct Unicodeblock {
 typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast, 
  bytesOffsetInclLast; } Utf8Interval; /*  e․𝘨 wrongly coded utf-8. */
 
-union Reference { struct PresentativeErrorUnicode byteserie; struct UnicodeBlock volatile₋primary; };
+union Reference { struct PresentativeErrorUnicode byteserie; struct Unicodeblock volatile₋primary; };
 
 EXT₋C int Inquisi(struct Unicodes all, struct Unicodes correct, void 
  (^heap)(struct Unicodes actual, union Reference interval));
