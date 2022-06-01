@@ -159,6 +159,8 @@ enum Newtoncontrol { Newton₋ok, Newton₋abort, Newton₋done };
 typedef void (^primary₋present)(__builtin_int_t count, char32̄_t * symbols);
 typedef void (^serial₋present)(char8₋t * u8s, __builtin_int_t bytes);
 /* a pointer is not marked 'indirect' alternatively 'direct' but with an -out suffix. */
+typedef void (^Fragment1)(serial₋present, void *);
+typedef void (^Fragment2)(primary₋present, void *);
 
 typedef struct 𝓟 {
   union {
@@ -181,8 +183,6 @@ typedef struct 𝓟 {
 #if defined 𝟷𝟸𝟾₋bit₋integers
     __uint128_t U; __int128_t I;
 #endif
-    typedef void (^Fragment1)(serial₋present, void *);
-    typedef void (^Fragment2)(primary₋present, void *);
     struct { void * ctxt; Fragment1 block; } λ₁;
     struct { void * ctxt; Fragment2 block; } λ₂;
   } value;
