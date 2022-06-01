@@ -487,7 +487,7 @@ EXT₋C void * Insert(void * opaque, union Treeint valkey, ALLOC alloc);
 EXT₋C void Forall(void ᶿ﹡ opaque, void (^dfs)(union Treeint valkey, int * stop));
 EXT₋C union Treeint * Lookup(void ᶿ﹡ opaque, union Treeint leafkey);
 
-#pragma recto big endian ⟷ 'most signif. first', little endian ⟷ 'least sigif. first'
+#pragma - big endian ⟷ 'most signif. first', little endian ⟷ 'least sigif. first'
 
 typedef union sexdeca {
 #if defined 𝟷𝟸𝟾₋bit₋integers
@@ -630,7 +630,7 @@ EXT₋C int Inquisi(struct Unicodes all, struct Unicodes correct, void
 typedef struct memoryview Utf8Intenven;
 struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; };
 
-#pragma recto  😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
+#pragma -  😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
 #define va_epilogue __builtin_va_end(__various);
 #define va_prologue(symbol)                                                 \
