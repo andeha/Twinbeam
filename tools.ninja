@@ -1,7 +1,7 @@
 # tools.ninja — settings for macos and Pic32.
-tools-small = /Users/<user- or project name>/mips-tools/12.0.0
 small-runtime = /Users/<user- or project name>/Monitor/Apps/pic32rt
 host-big = /Users/<user- or project name>/Monitor/Apps/macOS
+tools-small = /Users/<user- or project name>/mips-tools/12.0.0
 gencdflags = -fblocks -fno-rtti -fno-coroutines-ts -fno-exceptions           $
  -fno-signed-char -fno-builtin -Wno-c++20-designator -Wno-c99-designator     $
  -Wincomplete-umbrella -Wmodule-conflict -Wno-nullability-completeness       $
