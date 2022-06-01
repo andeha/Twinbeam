@@ -34,7 +34,9 @@ __builtin_int_t convoj₋count(struct collection * 🅵₁, struct collection * 
 uint8_t * convoj₋relative(__builtin_int_t idx, struct collection * 🅵₁, 
  struct collection * 🅵₂)
 {
-   __builtin_int_t offset = collection₋relative(idx,🅵₂);
-   return collection₋relative(offset,🅵₁);
+   uint8_t * start₋word = collection₋relative(idx,🅵₂);
+   uint32_t loword=*(start₋word+0), wordhi=*(start₋word+4);
+   uint64_t offset = intel(loword,wordhi);
+   return collection₋relative((__builtin_int_t)offset,🅵₁);
 }
 
