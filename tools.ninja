@@ -2,11 +2,12 @@
 small-runtime = /Users/<user- or project name>/Monitor/Apps/pic32rt
 host-big = /Users/<user- or project name>/Monitor/Apps/macOS
 tools-small = /Users/<user- or project name>/mips-tools/12.0.0
+modulefile = /Users/<user- or project name>/Monitor/Apps/module.modulemap
 gencdflags = -fblocks -fno-rtti -fno-coroutines-ts -fno-exceptions           $
  -fno-signed-char -fno-builtin -Wno-c++20-designator -Wno-c99-designator     $
  -Wincomplete-umbrella -Wmodule-conflict -Wno-nullability-completeness       $
  -Wno-format
-moduleflags = -fmodules-ts -fimplicit-modules -fmodule-map-file=../module.modulemap
+moduleflags = -fmodules-ts -fimplicit-modules -fmodule-map-file=$modulefile
 pic32mmflags = -target mipsel -mfloat-abi=soft -mcpu=mips32r6 -mabi=o32      $
  -mmicromips -D__MM__
 pic32mzflags = -target mipsel -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32      $
