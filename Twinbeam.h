@@ -23,9 +23,14 @@ typedef int32_t             __builtin_int_t;
 #define TriboolUninit 0xFFFFFFFE
 #define TriboolUnarbitrated 0xFFFFFFFD
 #define ΨΛΩ (0)
-#define 𝟷𝟸𝟾₋bit₋integers /* ⬷ flag -fforce-enable-int128 when Mips. */
-#ifdef __MM__
-#undef 𝟷𝟸𝟾₋bit₋integers
+#if defined __mips_msa
+#define Native₋𝟷𝟸𝟾₋bit₋integers /* ⬷ flag -fforce-enable-int128 when Mips. */
+#elif defined __MM__
+struct 𝟷𝟸𝟾₋bit₋integer { int64_t hi; uint64_t lo; };
+struct 𝟷𝟸𝟾₋bit₋unsigned { uint64_t hi, lo; };
+typedef struct 𝟷𝟸𝟾₋bit₋integer __int128_t;
+typedef struct 𝟷𝟸𝟾₋bit₋unsigned __uint128_t;
+#define Synthetic₋𝟷𝟸𝟾₋bit₋integers /* this case encaged 128-bit integer and no 'overloading'. */
 #endif
 #elif defined __armv8a__ || defined __x86_64__ || defined Kirkbridge
 typedef unsigned int        uint32_t;
@@ -36,11 +41,12 @@ typedef int64_t             __builtin_int_t; /* ⬷ a․𝘬․a 'sequenta'. */
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
 #define TriboolUninit 0xFFFFFFFFFFFFFFFE
 #define TriboolUnarbitrated 0xFFFFFFFFFFFFFFFD
-#define 𝟷𝟸𝟾₋bit₋integers
+#define Native₋𝟷𝟸𝟾₋bit₋integers
 #endif
 typedef unsigned short      uint16_t; /* ⬷ c𝘧․ Q16. */
 typedef short               int16_t; /* ≡ ᵐⁱᵖˢint. */
 typedef __builtin_uint_t Tribool; /* ⬷ c𝘧․ 'obekant' and 'embargo ₍im₎material'. */
+#define 𝟷𝟸𝟾₋bit₋integer₋available
 /* TREEALTERNAT 
   ◻︎ ◻︎ ◻︎ ◼︎  ◻︎ ◻︎ ◼︎ ◻︎
   ◻︎ ◼︎ ◻ ◻︎  ◼ ◻ ◻ ◼
@@ -70,7 +76,7 @@ typedef __builtin_uint_t Tribool; /* ⬷ c𝘧․ 'obekant' and 'embargo ₍im�
 #else
 #define EXT₋C
 #endif
-#if defined __mips__ || defined __MZ__ || defined __MM__ || defined __armv6__ || defined espressif
+#if defined __MZ__ || defined __MM__ || defined __armv6__ || defined espressif
 #define NON₋SIMD
 #elif defined __armv8a__ || defined __x86_64__ || defined Kirkbridge
 #undef NON₋SIMD
@@ -148,7 +154,7 @@ EXT₋C int mfprint(const char * sevenbit₋utf8format,...);
 EXT₋C int print(void (^out)(char8₋t * u8s, __builtin_int_t bytes), const char * 
  sevenbit₋utf8format, ...) ⓣ;
 
-#if defined 𝟷𝟸𝟾₋bit₋integers
+#if defined 𝟷𝟸𝟾₋bit₋integer₋available
 union Q6364 { __int128_t frac; __uint128_t bits; };
 #endif
 struct sequent { union Q6364 detail; int valid; };
@@ -180,7 +186,7 @@ typedef struct 𝓟 {
     double f₁;
     float f₂;
     uint8_t fullwidth[16];
-#if defined 𝟷𝟸𝟾₋bit₋integers
+#if defined 𝟷𝟸𝟾₋bit₋integer₋available
     __uint128_t U; __int128_t I;
 #endif
     struct { void * ctxt; Fragment1 block; } λ₁;
@@ -199,7 +205,7 @@ EXT₋C Argᴾ ﹟s8(char8₋t * zero₋terminated₋u8s) ⓣ;
 EXT₋C Argᴾ ﹟s8(__builtin_int_t bytes, char8₋t * unterminated₋u8s) ⓣ;
 EXT₋C Argᴾ ﹟c8(char8₋t c); EXT₋C Argᴾ ﹟c7(char c);
 EXT₋C Argᴾ ﹟C(char32̄_t C);
-#if defined 𝟷𝟸𝟾₋bit₋integers
+#if defined 𝟷𝟸𝟾₋bit₋integer₋available
 EXT₋C Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
 #endif
 EXT₋C Argᴾ ﹟regs(__builtin_uint_t mask);
@@ -325,7 +331,7 @@ EXT₋C FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, 
  (^out)(char 𝟶to𝟿)) ⓣ;
 EXT₋C void Base𝕫(__builtin_int_t ℤ, unsigned short base, unsigned short digitsOr0, 
  void (^out)(char 𝟶to𝟿and₋)) ⓣ;
-#if defined 𝟷𝟸𝟾₋bit₋integers
+#if defined 𝟷𝟸𝟾₋bit₋integer₋available
 EXT₋C void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short digitsOr0, 
  void (^out)(char 𝟶to𝟿and₋)) ⓣ;
 EXT₋C void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digitsOr0, 
@@ -490,7 +496,7 @@ EXT₋C union Treeint * Lookup(void ᶿ﹡ opaque, union Treeint leafkey);
 #pragma - big endian ⟷ 'most signif. first', little endian ⟷ 'least sigif. first'
 
 typedef union sexdeca {
-#if defined 𝟷𝟸𝟾₋bit₋integers
+#if defined 𝟷𝟸𝟾₋bit₋integer₋available
   __uint128_t bits;
 #endif
   struct { union octa lso, mso; } little₋endian;
@@ -560,6 +566,8 @@ EXT₋C int TransformAndResolve(struct Unicodes pathᵚᵍ, void (^final)(const 
 
 #define END_OF_TRANSMISSION U'\x0004'
 
+#pragma recto 8, 16, ...,  32, 64, lo64, hi64, 128, utf8
+
 /* for 𝑝𝑖𝑔𝑒𝑜𝑛 𝑟𝑒𝑐𝑜𝑛𝑛𝑎𝑖𝑠𝑠𝑎𝑛𝑐𝑒, 𝑠𝑐𝑜𝑢𝑡𝑖𝑛𝑔 and other missions */
 /* still images, timeseries and language analysis */
 /* c𝘧. Scandinavian 'by₋tes' a․𝘬․a '✠✠' */
@@ -593,8 +601,6 @@ EXT₋C int Snapshot(const struct collection original, struct collection * prist
 EXT₋C int ToggleNetworkAndNative(struct collection region, __builtin_int_t 
  bytes₋skip, __builtin_int_t bytes, void (^ping)(int * stop), void (^completion)
  (__builtin_int_t bytes)); 
-
-#pragma recto 8, 16, ...,  32, 64, lo64, hi64, 128, utf8
 
 enum Sentinel { sentinel₋cyclic, sentinel₋last, /*, linear, bilinear, */ 
  sentinel₋crash, sentinel₋bound };
@@ -660,18 +666,75 @@ EXT₋C void init₋monoton(struct Act * ❶, __builtin_int_t oldest);
 /* ⬷ retrieve a unique value in a 'strict monotonic increasing serie. Wraps (𝄇) at 
  BUILTIN₋INT₋MAX. */
 
-#if defined 𝟷𝟸𝟾₋bit₋integers && defined IEEE754₋ARITHMETICS₋KEY
+#if defined 𝟷𝟸𝟾₋bit₋integer₋available && defined IEEE754₋ARITHMETICS₋KEY
+
+union β₋simd { double dbls[2]; double doubles[2]; __uint128_t bits; };
 
 #if defined NON₋SIMD
-union β₋simd { double dbls[2]; double doubles[2]; __uint128_t bits; };
-typedef β₋simd simd_tᵦ;
+typedef union β₋simd simd_tᵦ;
+inline simd_tᵦ simd_initᵦ(double x) { union β₋simd y = { .dbls={x,x} }; return y; }
+inline simd_tᵦ __builtin_simd_addᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = .dbls={ 𝒙.dbls[0]+𝒚.dbls[0], 𝒙.dbls[1]+𝒚.dbls[1] }; return z; }
+inline simd_tᵦ __builtin_simd_subᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = .dbls={ 𝒙.dbls[0]-𝒚.dbls[0], 𝒙.dbls[1]-𝒚.dbls[1] }; return z; }
+inline simd_tᵦ __builtin_simd_mulᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = .dbls={ 𝒙.dbls[0]*𝒚.dbls[0], 𝒙.dbls[1]*𝒚.dbls[1] }; return z; }
+inline simd_tᵦ __builtin_simd_divᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = .dbls={ 𝒙.dbls[0]/𝒚.dbls[0], 𝒙.dbls[0]/𝒚.dbls[1] }; return z; }
+inline simd_tᵦ __builtin_simd_minᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = .dbls={ min(𝒙.dbls[0],𝒚.dbls[0]), min(𝒙.dbls[1],𝒚.dbls[1]) }; return z; }
+inline simd_tᵦ __builtin_simd_maxᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = .dbls={ max(𝒙.dbls[0],𝒚.dbls[0]), max(𝒙.dbls[0],𝒚.dbls[1]) }; return z; }
 #elif defined __armv8a__
 typedef __attribute__ ((neon_vector_type(2))) double float64x2_t;
 typedef float64x2_t simd_tᵦ;
+#define simd_initᵦ vmovq_n_f64
+#define __builtin_simd_addᵦ vaddq_f64
+#define __builtin_simd_subᵦ vsubq_f64
+#define __builtin_simd_mulᵦ vmulq_f64
+#define __builtin_simd_divᵦ vdivq_f64
+#define __builtin_simd_minᵦ vminq_f64
+#define __builtin_simd_maxᵦ vmaxq_f64
 #elif defined __x86_64__
 typedef double __attribute__ ((__vector_size__(16), __aligned__(16))) __m128d;
 typedef __m128d simd_tᵦ;
+#define simd_initᵦ _mm_set1_pd
+#define __builtin_simd_addᵦ _mm_add_pd
+#define __builtin_simd_subᵦ _mm_sub_pd
+#define __builtin_simd_mulᵦ _mm_mul_pd
+#define __builtin_simd_divᵦ _mm_div_pd
+#define __builtin_simd_minᵦ _mm_min_pd
+#define __builtin_simd_maxᵦ _mm_max_pd
+#elif defined __mips__ && defined __mips_msa
+typedef unsigned char v16u8 __attribute__ ((vector_size(16),aligned(16)));
+typedef long long v2i64 __attribute__ ((vector_size(16),aligned(16)));
+extern v2f64 __builtin_msa_cast_to_vector_double(double);
+#define simd_initᵦ __builtin_msa_cast_to_vector_double
+#define __builtin_simd_addᵦ __builtin_msa_fadd_d
+#define __builtin_simd_subᵦ __builtin_msa_fsub_d
+#define __builtin_simd_mulᵦ __builtin_msa_fmul_d
+#define __builtin_simd_divᵦ __builtin_msa_fdiv_d
+#define __builtin_simd_minᵦ __builtin_msa_fmin_d
+#define __builtin_simd_maxᵦ __builtin_msa_fmax_d
 #endif
+
+union 𝟸₋double
+{
+  union β₋simd simd;
+#if defined __x86_64__
+  __m128d intel;
+#elif defined __armv8a__
+  float64x2_t arm;
+#elif defined __mips__ && defined __mips_msa
+  v2f64 mips;
+#endif
+};
+
+inline double simd_scalarᵦ(simd_tᵦ 𝒙)
+{
+#if defined NON₋SIMD
+  return 𝒙.doubles[0];
+#elif defined __x86_64__ || defined __armv8a__
+  return 𝒙[0];
+#elif defined __mips__ && defined __mips_msa
+  extern double __builtin_msa_cast_to_scalar_double(v2f64);
+  return __builtin_msa_cast_to_scalar_double(𝒙);
+#endif
+}
 
 union historypod {
   __uint128_t machineunsigned;
@@ -771,7 +834,7 @@ EXT₋C int coro_resume(coro_t * coro);
 EXT₋C void coro_feedback(coro_t * coro, int value);
 EXT₋C void coro_free(coro_t * coro);
 
-#if defined 𝟷𝟸𝟾₋bit₋integers
+#if defined 𝟷𝟸𝟾₋bit₋integer₋available
 typedef __builtin_int_t version₋ts;
 struct timeserie { struct collection pendings; void * currents, *uncommits;
  Casette points, versions, events, temporals; 
