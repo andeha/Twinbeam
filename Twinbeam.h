@@ -439,6 +439,8 @@ struct Octa { uint32_t l, h; };
 
 #if !(defined __armv6__ || defined __MM__ || defined espressif)
 #define IEEE754₋ARITHMETICS₋KEY
+#elif defined __MM__
+#define NON₋SIMD
 #endif /* ⬷ Tensilica Lx6 is Ieee754 single-precision only. */
 
 inline EXT₋C double ConvertAndCast(int64_t measure, int reciproc)
@@ -666,6 +668,9 @@ EXT₋C void init₋monoton(struct Act * ❶, __builtin_int_t oldest);
 /* ⬷ retrieve a unique value in a 'strict monotonic increasing serie. Wraps (𝄇) at 
  BUILTIN₋INT₋MAX. */
 
+#define min(x₁, x₂) ((x₂) < (x₁) ? (x₂) : (x₁))
+#define max(x₁, x₂) ((x₁) < (x₂) ? (x₂) : (x₁))
+
 #if defined 𝟷𝟸𝟾₋bit₋integer₋available && defined IEEE754₋ARITHMETICS₋KEY
 
 union β₋simd { double dbls[2]; double doubles[2]; __uint128_t bits; };
@@ -673,12 +678,18 @@ union β₋simd { double dbls[2]; double doubles[2]; __uint128_t bits; };
 #if defined NON₋SIMD
 typedef union β₋simd simd_tᵦ;
 inline simd_tᵦ simd_initᵦ(double x) { union β₋simd y = { .dbls={x,x} }; return y; }
-inline simd_tᵦ __builtin_simd_addᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = .dbls={ 𝒙.dbls[0]+𝒚.dbls[0], 𝒙.dbls[1]+𝒚.dbls[1] }; return z; }
-inline simd_tᵦ __builtin_simd_subᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = .dbls={ 𝒙.dbls[0]-𝒚.dbls[0], 𝒙.dbls[1]-𝒚.dbls[1] }; return z; }
-inline simd_tᵦ __builtin_simd_mulᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = .dbls={ 𝒙.dbls[0]*𝒚.dbls[0], 𝒙.dbls[1]*𝒚.dbls[1] }; return z; }
-inline simd_tᵦ __builtin_simd_divᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = .dbls={ 𝒙.dbls[0]/𝒚.dbls[0], 𝒙.dbls[0]/𝒚.dbls[1] }; return z; }
-inline simd_tᵦ __builtin_simd_minᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = .dbls={ min(𝒙.dbls[0],𝒚.dbls[0]), min(𝒙.dbls[1],𝒚.dbls[1]) }; return z; }
-inline simd_tᵦ __builtin_simd_maxᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = .dbls={ max(𝒙.dbls[0],𝒚.dbls[0]), max(𝒙.dbls[0],𝒚.dbls[1]) }; return z; }
+inline simd_tᵦ __builtin_simd_addᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = 
+ { .dbls={ 𝒙.dbls[0]+𝒚.dbls[0], 𝒙.dbls[1]+𝒚.dbls[1] } }; return z; }
+inline simd_tᵦ __builtin_simd_subᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = 
+ { .dbls={ 𝒙.dbls[0]-𝒚.dbls[0], 𝒙.dbls[1]-𝒚.dbls[1] } }; return z; }
+inline simd_tᵦ __builtin_simd_mulᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = 
+ { .dbls={ 𝒙.dbls[0]*𝒚.dbls[0], 𝒙.dbls[1]*𝒚.dbls[1] } }; return z; }
+inline simd_tᵦ __builtin_simd_divᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = 
+ { .dbls={ 𝒙.dbls[0]/𝒚.dbls[0], 𝒙.dbls[0]/𝒚.dbls[1] } }; return z; }
+inline simd_tᵦ __builtin_simd_minᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = 
+ { .dbls={ min(𝒙.dbls[0],𝒚.dbls[0]), min(𝒙.dbls[1],𝒚.dbls[1]) } }; return z; }
+inline simd_tᵦ __builtin_simd_maxᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = 
+ { .dbls={ max(𝒙.dbls[0],𝒚.dbls[0]), max(𝒙.dbls[0],𝒚.dbls[1]) } }; return z; }
 #elif defined __armv8a__
 typedef __attribute__ ((neon_vector_type(2))) double float64x2_t;
 typedef float64x2_t simd_tᵦ;
@@ -700,8 +711,7 @@ typedef __m128d simd_tᵦ;
 #define __builtin_simd_minᵦ _mm_min_pd
 #define __builtin_simd_maxᵦ _mm_max_pd
 #elif defined __mips__ && defined __mips_msa
-typedef unsigned char v16u8 __attribute__ ((vector_size(16),aligned(16)));
-typedef long long v2i64 __attribute__ ((vector_size(16),aligned(16)));
+typedef double v2f64 __attribute__ ((vector_size(16), aligned(16)));
 extern v2f64 __builtin_msa_cast_to_vector_double(double);
 #define simd_initᵦ __builtin_msa_cast_to_vector_double
 #define __builtin_simd_addᵦ __builtin_msa_fadd_d
@@ -716,11 +726,11 @@ union 𝟸₋double
 {
   union β₋simd simd;
 #if defined __x86_64__
-  __m128d intel;
+  __m128d Intel;
 #elif defined __armv8a__
-  float64x2_t arm;
+  float64x2_t Arm;
 #elif defined __mips__ && defined __mips_msa
-  v2f64 mips;
+  v2f64 Mips;
 #endif
 };
 
@@ -859,9 +869,6 @@ typedef float float⁺ʳ; typedef double double⁺ʳ;
 /**  relative-fixative types. */
 
 typedef char8₋t uchar; typedef uint32_t uint32; typedef uint8_t byte;
-
-#define min(x₁, x₂) ((x₂) < (x₁) ? (x₂) : (x₁))
-#define max(x₁, x₂) ((x₁) < (x₂) ? (x₂) : (x₁))
 
 EXT₋C void Gitidentity(const char ** text);
 
