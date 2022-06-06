@@ -284,9 +284,11 @@ EXT₋C void fractional₋sequent(Sequenta positive, Numerics out);
 #define __builtin_fixpoint_modulo modulo_sequent
 #define __builtin_fixpoint_floor floor_sequent
 
-inline Sequenta __builtin_fixpoint_rcp(Sequenta x) { return divide_sequent(product₋abelian(),x); }
-inline Sequenta __builtin_fixpoint_sqrt(Sequenta x) { /* nroot dependent on tanh. */ }
-inline Sequenta __builtin_fixpoint_rsqrt(Sequenta x) { return divide_sequent(product₋abelian(),__builtin_fixpoint_sqrt(x)); }
+extern Sequenta sqrt(Sequenta,int) ⓣ;
+extern Sequenta reciproc(Sequenta) ⓣ;
+inline Sequenta __builtin_fixpoint_sqrt(Sequenta x) { return sqrt(x,0); }
+inline Sequenta __builtin_fixpoint_rsqrt(Sequenta x) { return sqrt(x,1); }
+#define __builtin_fixpoint_rcp reciproc
 
 typedef int (^INIT)(void * uninited);
 
