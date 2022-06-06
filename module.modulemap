@@ -3,7 +3,7 @@
 
 module Twinbeam
 {
-  module Intel_Simd { requires sse /* sse41 */
+  module Intel_Simd { requires sse2 /* sse41 */
    header "/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/emmintrin.h"
    header "/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xmmintrin.h"
    header "/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/immintrin.h" }
@@ -11,8 +11,12 @@ module Twinbeam
    header "/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/arm_neon.h" }
   header "Twinbeam.h"
   header "Source/fifo-slow.h"
+  header "Additions/optional-double.h"
+  header "Additions/double-model.h"
+  header "Additions/simd-multiple.h"
   module Modernization { requires cplusplus
    header "Source/after-eight.hpp" }
+  header "town-header.h"
 } /*  write 'import Twinbeam' in your C++20 and C2x source files. */
 
 module peripherial_controller_echo {
@@ -36,11 +40,6 @@ module peripherial_controller_legacypoint {
  --<Monitor>--<Apps>--<Additions>--<Fossilate.cpp> and eventually 
  --<Monitor>--<Apps>--<pic32rt>--<start.S>.
  */
-
-module Additions {
-  header "Additions/precision-fix.h"
-  header "Additions/optional-double.h"
-}
 
 /* ... */
 
