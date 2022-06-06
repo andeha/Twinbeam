@@ -4,37 +4,37 @@ import Twinbeam;
 
 struct sequent product₋abelian()
 {
-   struct sequent 𝟷ᐧ𝟶 = { (__int128_t)0x00000001<<64 | 0x00000000, 1 };
+   Sequenta 𝟷ᐧ𝟶 = { (__int128_t)0x00000001<<64 | 0x00000000, 1 };
    return 𝟷ᐧ𝟶;
 }
 
 struct sequent piano₋ten()
 {
-   struct sequent 𝟷𝟶ᐧ𝟶 = { (__int128_t)0x0000000a<<64 | 0x00000000, 1 };
+   Sequenta 𝟷𝟶ᐧ𝟶 = { (__int128_t)0x0000000a<<64 | 0x00000000, 1 };
    return 𝟷𝟶ᐧ𝟶;
 }
 
 struct sequent negative₋infinity()
 {
-   struct sequent neginf = { (__int128_t)0x80000000<<64 | 0x00000000, 1 };
+   Sequenta neginf = { (__int128_t)0x80000000<<64 | 0x00000000, 1 };
    return neginf;
 }
 
 struct sequent positive₋infinity()
 {
-   struct sequent posinf = { (__int128_t)0x7fffffff<<64 | 0xffffffff, 1 };
+   Sequenta posinf = { (__int128_t)0x7fffffff<<64 | 0xffffffff, 1 };
    return posinf;
 }
 
 struct sequent accumulative₋zero()
 {
-   struct sequent zero = { (__int128_t)0x00000000<<64 | 0x00000000, 1 };
+   Sequenta zero = { (__int128_t)0x00000000<<64 | 0x00000000, 1 };
    return zero;
 }
 
 struct sequent redundant₋many()
 {
-   struct sequent 𝟸ᐧ𝟶 = { (__int128_t)0x00000002<<64 | 0x00000000, 1 };
+   Sequenta 𝟸ᐧ𝟶 = { (__int128_t)0x00000002<<64 | 0x00000000, 1 };
    return 𝟸ᐧ𝟶;
 }
 
@@ -52,35 +52,35 @@ again:
    goto again;
 }
 
-struct sequent multiply_sequent(struct sequent x₁, struct sequent x₂)
+struct sequent multiply_sequent(Sequenta x₁, Sequenta x₂)
 { __int128_t mask=0xffffffffffffffff;
    int valid = x₁.valid && x₂.valid;
    /* __int128_t Q = (int256_t)(x₁.detail.frac) * (int256_t)(x₂.detail.frac); 
-   struct sequent y = { Q>>63, valid }; */
+   Sequenta y = { Q>>63, valid }; */
    __int128_t hi = multiply(x₁.detail.frac>>64,x₂.detail.frac>>64); /* ac */
    __int128_t hm = multiply(x₁.detail.frac & ~mask, x₂.detail.frac & mask);
    __int128_t lm = multiply(x₁.detail.frac & mask, x₂.detail.frac & ~mask);
    __int128_t lo = multiply(x₁.detail.frac&mask,x₂.detail.frac&mask); /* bd */
-   struct sequent y = { (hi<<64) + hm + lm + (lo>>64), valid };
+   Sequenta y = { (hi<<64) + hm + lm + (lo>>64), valid };
    return y;
 } /* (a + b) * (c + d) = ac + ad + bc + bd */
 
 inexorable struct sequent goldschmidt₋epsilon()
 {
-   struct sequent small = { (__int128_t)0x00000000<<64 | 0x00000002, 1 };
+   Sequenta small = { (__int128_t)0x00000000<<64 | 0x00000002, 1 };
    return small;
 }
 
-inexorable void goldschmidt₋normal(struct sequent * x₁, struct sequent * x₂)
+inexorable void goldschmidt₋normal(Sequenta * x₁, Sequenta * x₂)
 {
    uint64_t hi=(uint64_t)(x₂->detail.bits>>64),lo=x₂->detail.bits;
    uint64_t leading₋zeros = __builtin_clzll(hi);
    if (leading₋zeros == 64) { return; }
-   x₁.detail.bits>>(64 - leading₋zeros);
-   x₂.detail.bits>>(64 - leading₋zeros);
+   x₁->detail.bits >>= (64 - leading₋zeros);
+   x₂->detail.bits >>= (64 - leading₋zeros);
 } /* ensures 64 zeroes before material in denominator in-case not identical to 1. */
 
-struct sequent divide_sequent(struct sequent x₁, struct sequent x₂)
+struct sequent divide_sequent(Sequenta x₁, Sequenta x₂)
 { Sequenta N=x₁,D=x₂,F,eps=goldschmidt₋epsilon(), 
    two=redundant₋many(),goal,one=product₋abelian();
    int lneg=x₁.detail.frac<0,rneg=x₂.detail.frac<0,neg=lneg^rneg;
@@ -99,26 +99,26 @@ again: /* goldschmidt forward assumes 0<D<1. do two goldschmidt. */
    goto again;
 }
 
-struct sequent negate_sequent(struct sequent x)
+struct sequent negate_sequent(Sequenta x)
 {
    __uint128_t bits = x.detail.bits;
    int valid = (bits>>64) != 0x8000000000000000;
-   struct sequent y = { !bits, valid };
+   Sequenta y = { !bits, valid };
    y.detail.frac += ((__uint128_t)0b1)<<64;
    return y;
 }
 
-struct sequent add_sequent(struct sequent x₁, struct sequent x₂)
+struct sequent add_sequent(Sequenta x₁, Sequenta x₂)
 {
    int valid = x₁.valid && x₂.valid;
-   struct sequent y = { x₁.detail.frac + x₂.detail.frac, valid };
+   Sequenta y = { x₁.detail.frac + x₂.detail.frac, valid };
    return y;
 }
 
-struct sequent subtract_sequent(struct sequent x₁, struct sequent x₂)
+struct sequent subtract_sequent(Sequenta x₁, Sequenta x₂)
 {
    int valid = x₁.valid && x₂.valid;
-   struct sequent y = { x₁.detail.frac - x₂.detail.frac, valid };
+   Sequenta y = { x₁.detail.frac - x₂.detail.frac, valid };
    return y;
 }
 
