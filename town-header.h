@@ -27,7 +27,8 @@ Sequenta reciproc(Sequenta x, int no₋exponential, int ₋and₋again₋inverte
 
 struct mathart
 {
-  double cordic[64];
+  Sequenta operation₋cordic[64];
+  double machine₋cordic[64];
 };
 
 extern struct mathart Mathart₋segment;
