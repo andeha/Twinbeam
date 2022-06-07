@@ -288,7 +288,7 @@ extern Sequenta sqrt(Sequenta,int) ⓣ;
 extern Sequenta reciproc(Sequenta) ⓣ;
 inline Sequenta __builtin_fixpoint_sqrt(Sequenta x) { return sqrt(x,0); }
 inline Sequenta __builtin_fixpoint_rsqrt(Sequenta x) { return sqrt(x,1); }
-#define __builtin_fixpoint_rcp reciproc
+inline Sequenta __builtin_fixpoint_rcp(Sequenta x) { return reciproc(x); }
 
 typedef int (^INIT)(void * uninited);
 

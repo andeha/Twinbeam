@@ -1,7 +1,7 @@
 /*  simd-multiple.h | single instruction in several renditions. */
 
 #if defined Ieee754₋ARITHMETICS₋KEY
-#if defined NON₋SIMD
+#if defined NON₋SIMD && !defined __MM__
 inline simd_tᵦ simd_initᵦ(double x) { union β₋simd y = { .dbls={x,x} }; return y; }
 inline simd_tᵦ __builtin_simd_addᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = 
  { .dbls={ 𝒙.dbls[0]+𝒚.dbls[0], 𝒙.dbls[1]+𝒚.dbls[1] } }; return z; }
@@ -9,12 +9,19 @@ inline simd_tᵦ __builtin_simd_subᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union �
  { .dbls={ 𝒙.dbls[0]-𝒚.dbls[0], 𝒙.dbls[1]-𝒚.dbls[1] } }; return z; }
 inline simd_tᵦ __builtin_simd_mulᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = 
  { .dbls={ 𝒙.dbls[0]*𝒚.dbls[0], 𝒙.dbls[1]*𝒚.dbls[1] } }; return z; }
-inline simd_tᵦ __builtin_simd_divᵦ(simd_tᵦ 𝒙, simd_tᵦ y) { union β₋simd z = 
+inline simd_tᵦ __builtin_simd_divᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = 
  { .dbls={ 𝒙.dbls[0]/𝒚.dbls[0], 𝒙.dbls[1]/𝒚.dbls[1] } }; return z; }
 inline simd_tᵦ __builtin_simd_minᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = 
  { .dbls={ min(𝒙.dbls[0],𝒚.dbls[0]), min(𝒙.dbls[1],𝒚.dbls[1]) } }; return z; }
 inline simd_tᵦ __builtin_simd_maxᵦ(simd_tᵦ 𝒙, simd_tᵦ 𝒚) { union β₋simd z = 
  { .dbls={ max(𝒙.dbls[0],𝒚.dbls[0]), max(𝒙.dbls[1],𝒚.dbls[1]) } }; return z; }
+extern double sqrt(double) ⓣ;
+inline simd_tᵦ __builtin_simd_rsqrtᵦ(simd_tᵦ 𝒙) { union β₋simd z = 
+ { .dbls={1/sqrt(𝒙.dbls[0]),1/sqrt(𝒙.dbls[0])} }; return z; }
+inline simd_tᵦ __builtin_simd_sqrtᵦ(simd_tᵦ 𝒙) { union β₋simd z = 
+ { .dbls={sqrt(𝒙.dbls[0]),sqrt(𝒙.dbls[1])} }; return z; }
+inline simd_tᵦ __builtin_simd_rcpᵦ(simd_tᵦ 𝒙) { union β₋simd z = 
+ { .dbls={1/𝒙.dbls[0],1/𝒙.dbls[1]} }; return z; }
 #elif defined __armv8a__
 #define simd_initᵦ vmovq_n_f64
 #define __builtin_simd_addᵦ vaddq_f64
@@ -39,8 +46,8 @@ __m128d _mm_rsqrt_pd(__m128d);
 #define __builtin_simd_rsqrtᵦ _mm_rsqrt_pd
 #define __builtin_simd_sqrtᵦ _mm_sqrt_pd
 #define __builtin_simd_rcpᵦ _mm_rcp_pd
-/* __m128d _mm_rcp_pd { __m128d one=simd_initᵦ(1.0); return _mm_div_pd(one,x); } */
-/* __m128d _mm_rsqrt_pd(__m128d x) { __m128d one=simd_initᵦ(1.0); return _mm_div_pd(one,_mm_sqrt_pd(x)); } */
+/* inline__m128d _mm_rcp_pd(__m128d) { __m128d one=simd_initᵦ(1.0); return _mm_div_pd(one,x); } */
+/* inline __m128d _mm_rsqrt_pd(__m128d x) { __m128d one=simd_initᵦ(1.0); return _mm_div_pd(one,_mm_sqrt_pd(x)); } */
 #elif defined __mips__ && !defined NON₋SIMD
 extern v2f64 __builtin_msa_cast_to_vector_double(double);
 #define simd_initᵦ __builtin_msa_cast_to_vector_double
