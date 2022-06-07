@@ -51,6 +51,6 @@ inline simd_tᵦ __builtin_simd_rsqrtᵦ(simd_tᵦ 𝒙) {
 inline simd_tᵦ __builtin_simd_rcpᵦ(simd_tᵦ 𝒙) {
  Sequenta l=__builtin_fixpoint_rcp(𝒙.dbls[0]), 
   r=__builtin_fixpoint_rcp(𝒙.dbls[1]);
- union β₋simd z = { .dbls={l.r} }; return z; }
+ union β₋simd z = { .dbls={l,r} }; return z; }
 #endif
 
