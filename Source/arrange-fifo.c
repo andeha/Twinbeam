@@ -98,8 +98,3 @@ int one₋tile₋retrospect(enum fifo₋flavor f, struct fifo * q,
    } } return 0;
 }
 
-
-
-
-
-
