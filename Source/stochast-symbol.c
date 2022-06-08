@@ -16,8 +16,9 @@ Utf8Followers(char8₋t leadOr8Bit)
 #elif defined __x86_64__ /* BSF, BSR, LZCNT, TZCNT, __lzcnt64 on Win64. */
     __builtin_int_t onesUntilZero = __builtin_clzll(~((uint64_t)leadOr8Bit<<56));
 #else
-    auto clz = ^(uint8_t x) {
-      uint8_t 🥈ᵢ lookup[16] = { 4, 3, 2, 2, 1, 1, 1, 1, 0, 0, 0, 0, 0, 
+    typedef uint8_t (^Op)(uint8_t);
+    Op clz = ^(uint8_t x) {
+      uint8_t lookup[16] = { 4, 3, 2, 2, 1, 1, 1, 1, 0, 0, 0, 0, 0, 
         0, 0, 0 }, upper = x >> 4, lower = x & 0x0F;
       return upper ? lookup[upper] : 4 + lookup[lower];
     };
@@ -32,15 +33,18 @@ char32̄_t
 Utf8ToUnicode(
   char8₋t *ξ,
   __builtin_int_t bytes
-)
+) ⓣ
 {
     char8₋t first = *ξ;
     if (248 <= first || (128 <= first && first < 192)) return 0x0000FFFF;
-    switch (bytes) { case 1: return (char32̄_t)(char8₋t)*ξ; case 2: return 
-    (0b11111&*ξ) << 6 | (0b111111&(*(ξ + 1))); case 3: return (0b1111&*ξ) << 
-    12 | (0b111111&(*(ξ + 1))) << 6 | (0b111111&(*(ξ + 2))); case 4: return 
-    (0b111&*ξ) << 18 | (0b111111&(*(ξ + 1))) << 12 | (0b111111&(*(ξ + 2))) << 
-    6 | (0b111111&(*(ξ + 3))); } return 0x0000FFFE;
+    switch (bytes) {
+    case 1: return (char32̄_t)(char8₋t)*ξ;
+    case 2: return (0b11111&*ξ) << 6 | (0b111111&(*(ξ + 1)));
+    case 3: return (0b1111&*ξ) << 12 | (0b111111&(*(ξ + 1))) << 6 | (0b111111&(*(ξ + 2)));
+    case 4: return (0b111&*ξ) << 18 | (0b111111&(*(ξ + 1))) << 12 | 
+     (0b111111&(*(ξ + 2))) << 6 | (0b111111&(*(ξ + 3))); 
+    }
+    return 0x0000FFFE;
 }
 
 FOCAL
@@ -62,7 +66,7 @@ int
 UnicodeToUtf8(
   char32̄_t Ξ,
   void (^sometime₋valid)(char8₋t *u8s, short bytes)
-)
+) ⓣ
 {
     unsigned char firstByteMark[7] = { 0x00, 0x00, 0xC0, 0xE0, 0xF0, 
       0xF8, 0xFC };

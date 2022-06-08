@@ -45,5 +45,5 @@ Argᴾ ﹟leap(struct guid g₂)
      fragment(bounded,brk);
    };
    return ﹟λ₁(guidprint,&g₂);
-} /* a․𝘬․a print("⬚", ﹟λ(guidprint,&g)). */
+} /* a․𝘬․a print("⬚", ﹟λ(leap,&g)). */
 
