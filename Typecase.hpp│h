@@ -1,10 +1,10 @@
-/**  Acceptable and enclavable platform ✁ until ✂️
+/**  document #, acceptable and enclavable platform ✁ until ✂️.
                                              ͡                                
     ■ = 1, □ = 0, ⬚ = Unknown, Ɀ = Sampled/dereferenced, Ç=Reconciled, and ⤪ 
     Logic and one-liners: ≅ ≠ ⋍ ~ ⟶ ⟷ ⊂⊄⊆⊈ ⊃ (Małuszyński inclusion) ∩∪ ∈∉
       ¬∧∨ ≤≥ ≰ ≱ ∞ ∀∃∄ ⊨ ∅ 𝟄 √ ∑∏ ∂∆ ∇𝛻 ∫∬∭ ℕℤℂℍℝ ℚ ¶ ⌈⌉ ⌊⌋ log₁₀ log₃ logρ₍ₓ₎
-      𝘦․𝘨 𝐊 (ᵃ𝑛/ᵇ𝑛), where n∈[1,∞) = a₁/(b₁ + a₂/(b₂ + …)
-    Unicodes and utf8: .*․｟｠ ⃦ ('Combining double vertical stroke overlay') ✚
+      𝘦․𝘨 𝐊 (ᵃ𝑛/ᵇ𝑛), where n∈[1,∞) = a₁/(b₁ + a₂/(b₂ + …) ∆ ∁ ∓ ∝ ∟ ∢ ∥ ∶ ∷ ≚ ⊩ ⊺ ⊤
+    Unicode and utf8: .*․｟｠ ⃦ ('Combining double vertical stroke overlay') ✚
       ★ 𐤟 (PHOENICIAN WORD SEPARATOR) ↹ ↩︎ ¶
     Greek₁: 𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲𝛳𝛴𝛵𝛶𝛷𝛸𝛹𝛺 𝛼𝛽𝛾𝛿𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜎𝜏𝜐𝜑𝜒𝜓𝜔 𝜙𝜛
     Mathematics 𝐼𝑡𝑎𝑙𝑖cs: 𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐾𝐽𝐿𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍 𝑎𝑏𝑐𝑑𝑒𝑓𝑔ℎ𝑖𝚤𝑗𝚥𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧
@@ -15,7 +15,7 @@
      Sans-serif (non-Bold) 𝘐𝘵𝘢𝘭𝘪𝘤: 𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡 𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻
      𝙼𝚘𝚗𝚘space: 𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿 𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉 𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣
     Greek₂: αβγδεζηθικλμνξοπρςστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ
-    Models and mathematics: ⊏ ⊑ ⊢ ⊨ ⊿ ª0 + … + ªn₋1 n₍2k₊1₎ ª1⋯ªk ∴ (tf) ∵ (b) ∎ ⇀↽
+    Models and mathematics: ⊏ ⊑ ⊢ ⊨ ⊩ ⊿ ª0 + … + ªn₋1 n₍2k₊1₎ ª1⋯ªk ∴ (tf) ∵ (b) ∎ ⇀↽
     Parentheses and temporals: ⎛⎜⎝   ⎞⎟⎠        ◯ ♢ ▢ (...also: 'valid' and 'transaction'.)
     Sub/super: ⁻⁺⁽¹ˣ⁾⁼ⁱⁿ ᵢᵣᵤᵥᵦᵧᵨᵩᵪ₊₋₌₍₎⨧ₐₑₒₓₔⱼᵃⁿᵈᵉʰᵊᵇⁱʲˡˢᵋᵌᵍᵎᵏᵐⁿᵒᵖʳᵗᵘᵙᵚᵛˣʸᴬᴮᴴᴵᴺᵅᵝᵞᵟᵋᶿᵠᵡ
     Matrices and conditionals: ⎡⎢⎣ ⋱ ⋰ ⋮ ⎤⎥⎦  ⎧⎨⎩  ⎫⎬⎭  ⎪
@@ -82,7 +82,7 @@
    Dashes: ‒ Figure Dash, – En Dash, — Em Dash, ⁓ Swung Dash, ⸺ Two-em Dash,
      ⸻ Three-em Dash, 〰 Wavy Dash, - Hyphen Minus. Also 𝟄-soft-hyphen: ⥗­⥖.
      
-     ˥ ˦ ˧ ˨ ˩ (Tone letters)                      ⬷ cf․ <half-opaque > unicode?
+     ꜒ ꜓ ꜔ ꜕ ꜖ ˥ ˦ ˧ ˨ ˩ (Tone letters)           ⬷ 𝘤𝘧․ <half-opaque> unicode
      ﹟ 'Number-of' in 𝘦․𝘨 variable names
      ⎔⃚ 'Combining anticlockwise ring overlay'
      ⬚  Placemark for 'print'
@@ -93,7 +93,7 @@
      '📲📩📈📉🔃➡︎⬅︎⬆︎⬇︎↩︎⤴︎⤵︎⤴⤵ (牮筏)'
      ⬷ ⤐ 'Leftwards two-headed triple dash arrow'
     
-    Punch: ■=1, □=0.
+   Punch: ■=1, □=0.
     
    Extensions: ⁌⁍ ⊸ ⫰ ⫱ ⿱⿳⿶  ⃦ a⃮ b⃯ a͍ (Combining left and right arrow below),
      a̫b̫c̫ ⬷ 'Combining inverted double arch below' a⃨b⃨c⃨ a⃩ a⃪

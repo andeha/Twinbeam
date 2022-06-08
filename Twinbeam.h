@@ -284,6 +284,26 @@ EXT₋C void fractional₋sequent(Sequenta positive, Numerics out);
 #define __builtin_fixpoint_modulo modulo_sequent
 #define __builtin_fixpoint_floor floor_sequent
 
+inline Sequenta __builtin_fixpoint_min(Sequenta x₁, Sequenta x₂)
+{
+#if defined Native₋𝟷𝟸𝟾₋bit₋integers
+  return x₁.detail.frac < x₂.detail.frac ? x₁ : x₂;
+#elif defined Synthetic₋𝟷𝟸𝟾₋bit₋integers
+  if (x₁.detail.frac.hi == x₂.detail.frac.hi) { return x₁.detail.frac.lo < x₂.detail.frac.lo ? x₁ : x₂; }
+  else { return x₁.detail.frac.hi < x₂.detail.frac.hi ? x₁ : x₂; }
+#endif
+}
+
+inline Sequenta __builtin_fixpoint_max(Sequenta x₁, Sequenta x₂)
+{
+#if defined Native₋𝟷𝟸𝟾₋bit₋integers
+  return x₁.detail.frac < x₂.detail.frac ? x₂ : x₁;
+#elif defined Synthetic₋𝟷𝟸𝟾₋bit₋integers
+  if (x₁.detail.frac.hi == x₂.detail.frac.hi) { return x₁.detail.frac.lo < x₂.detail.frac.lo ? x₂ : x₁; }
+  else { return x₁.detail.frac.hi < x₂.detail.frac.hi ? x₂ : x₁; }
+#endif
+}
+
 extern Sequenta sqrt(Sequenta,int) ⓣ;
 extern Sequenta reciproc(Sequenta) ⓣ;
 inline Sequenta __builtin_fixpoint_sqrt(Sequenta x) { return sqrt(x,0); }
