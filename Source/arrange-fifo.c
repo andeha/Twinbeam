@@ -41,7 +41,7 @@ again:
    sequenced₋words₋to₋write = min(words₋until₋wrap,words₋left₋to₋write);
    sequenced₋bytes₋to₋write = Wordbytes * sequenced₋words₋to₋write;
    if (sequenced₋bytes₋to₋write <= 0) { return 0; }
-   Copy8Memory((ByteAlignedRef)(🅵->brk + 🅵->one₋tile),
+   Copy8Memory((ByteAlignedRef)(🅵->brk + 🅵->𝟷₋tile),
     (ByteAlignedRef)(words + sequenced₋words₋persisted), 
     sequenced₋bytes₋to₋write);
    one₋tile₋include(🅵->words₋to₋unity,&(🅵->brk),&(🅵->count),﹟);
@@ -59,7 +59,7 @@ inexorable int one₋tile₋physical(__builtin_int_t nowdelta, __builtin_int_t b
 }
 
 inexorable __builtin_uint_t * one₋tile₋deref(__builtin_int_t δ, struct fifo * 🅵)
-{ return one₋tile₋physical(δ,🅵->brk,🅵->count); }
+{ return 🅵->𝟷₋tile+one₋tile₋physical(δ,🅵->brk,🅵->count); }
 
 __builtin_uint_t * one₋tile₋bank(__builtin_int_t idx, struct fifo * 🅵)
 { return one₋tile₋empty(🅵) ? ΨΛΩ : one₋tile₋deref(idx,🅵); }
@@ -72,8 +72,6 @@ __builtin_uint_t * one₋tile₋youngest(struct fifo * 🅵)
 
 __builtin_uint_t * one₋tile₋oldest(struct fifo * 🅵)
 { return one₋tile₋empty(🅵) ? ΨΛΩ : one₋tile₋chronologic(🅵,🅵->count - 1); }
-
-/* unfinished computational recollect functions. */
 
 /* int one₋tile₋four₋Chronologic(int unused, int actual, 
  struct fifo * q, char8_t * little₋endian₋𝟺to1₋bytes)
@@ -98,12 +96,9 @@ int one₋tile₋retrospect(enum fifo₋flavor f, struct fifo * q,
       *t₋₁ = *one₋tile₋deref(1,q);
       break;
    } } return 0;
-} /* further  --<System.h> `actual` where two queues and 
- interpolation results in a `simd_tᵦ` and irreversibly 'momentan-
- retrospectiv'. */
+}
 
-/* See also 'man mkfifo' and 'man mknod'. Further, see --<Additions>--<math
- >--<romberg.cpp> for a ∫-method that is not on-line. */
+
 
 
 

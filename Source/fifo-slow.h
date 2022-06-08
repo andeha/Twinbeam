@@ -26,8 +26,3 @@ enum fifo₋flavor { fifo₋flavor₋allinorder, fifo₋flavor₋latest };
 EXT₋C int one₋tile₋retrospect(enum fifo₋flavor f, struct fifo * 🅵, 
  __builtin_uint_t * t, __builtin_uint_t * t₋₁);
 
-/*  ⬷ note deceptive 'default, move and copy' vs. 'register passable'. */
-
-/* ⬷ compare further --<Additions>--<2ᵈ-𝔣ow.h>, change/insert/delete a․𝘬․a rope and
- shatter/structa. Noncompliance in ui with the ed editor. */
-
