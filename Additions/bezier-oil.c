@@ -1,4 +1,4 @@
-/*  oil-bezier.cpp | for additions. */
+/*  oil-bezier.c | for additions. */
 
 import Twinbeam;
 
@@ -9,7 +9,7 @@ Render(double⁺ʳ t, Bezierᵦ c,
   void (^stream)(simd_tᵦ &xy, simd_tᵦ * 𝗽₋₁𝘖rNULL)
 )
 { /* Also: Fifo<> + 🥽 Bilinear.cpp instead. */
-    static simd_tᵦ prev=simd_initᵦ(0), *p=&prev;
+    simd_tᵦ prev=simd_initᵦ(0), *p=&prev;
     double t²=t*t,drive=(1-t),tt1mt=3*drive;
     simd_tᵦ c₁=simd_initᵦ(drive*drive*drive), c₂=simd_initᵦ(tt1mt*t²), 
       c₃=simd_initᵦ(t*t²), z11 = __builtin_simd_mulᵦ(c₁,c.z₁), 
@@ -20,9 +20,9 @@ Render(double⁺ʳ t, Bezierᵦ c,
      z3343 = __builtin_simd_addᵦ(z33,z43), 
          z = __builtin_simd_addᵦ(z1112,z3343);
     stream(z,p); prev=z;
-} /* ⬷ a․𝘬․a 'Bezier'. */
+} /*  a․𝘬․a 'Bezier'. */
 
-extern void (*SetPixel)(int x, int y, long err);
+extern void SetPixel(int x, int y, long err);
 
 void Antialias(int x0, int y0, int x1, int y1)
 {
