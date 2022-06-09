@@ -48,7 +48,7 @@
 class Security {
 public:
     
-#pragma mark Constructors and Destructors 
+#pragma recto Constructors and Destructors 
     
     /**
 
@@ -94,7 +94,7 @@ public:
     ALWAYS_INLINE
     ~Security();
     
-#pragma mark PKCS#12
+#pragma recto PKCS#12
     
     /**
      
@@ -178,7 +178,7 @@ public:
     
     ALWAYS_INLINE void wipePrivateKey() const;
         
-#pragma mark Buffer Encryption/Decryption
+#pragma recto Buffer Encryption/Decryption
     
     /**
      
@@ -235,7 +235,7 @@ public:
         std::function<void (unsigned char * plainBuffer, int length)> output
     );
     
-#pragma mark Cipher Context
+#pragma recto Cipher Context
     
     /**
      
@@ -296,7 +296,7 @@ public:
         CipherContext * cipherContext
     );
     
-#pragma mark Pointer Encryption
+#pragma recto Pointer Encryption
     
     /** 
      
@@ -343,7 +343,7 @@ public:
         CipherContext * cipherContext
     );
 
-#pragma mark String Encryption/Decryption
+#pragma recto String Encryption/Decryption
 
     /**
      
@@ -401,7 +401,7 @@ public:
         std::function<void (const std::string& block)> callback
     );
     
-#pragma mark Memory Overwrite Encryption
+#pragma recto Memory Overwrite Encryption
     
     /** 
      
@@ -448,7 +448,7 @@ public:
         CipherContext * cipherContext
     ) const;
 
-#pragma mark Low-Level Signing and Validation
+#pragma recto Low-Level Signing and Validation
     
     /**
      
@@ -506,7 +506,7 @@ public:
         uint64_t signatureLength
     ) const;
     
-#pragma mark Fingerprinting
+#pragma recto Fingerprinting
     
     /**
      
@@ -528,7 +528,7 @@ public:
     
     ALWAYS_INLINE std::string getCertificateAsPEM() const;
     
-#pragma mark Certificate Store
+#pragma recto Certificate Store
     
     /**
      
@@ -576,7 +576,7 @@ public:
         unsigned int certSerial
     );
     
-#pragma mark SSL/TLS Web Server and Client API (also Boost ASIO credentials)
+#pragma recto SSL/TLS Web Server and Client API (also Boost ASIO credentials)
     
     /**
      
@@ -613,7 +613,7 @@ public:
         void * context
     );
     
-#pragma mark - Convenient Encapsulation before Creating a Security Instance.
+#pragma recto - Convenient Encapsulation before Creating a Security Instance.
     
     /**
      
@@ -657,7 +657,7 @@ private:
     
 };
 
-#pragma mark - SHA1 Fingerprinting
+#pragma recto - SHA1 Fingerprinting
 
 /**
  
@@ -679,7 +679,7 @@ sha1(
      unsigned int bytes
 );
 
-#pragma mark - Template-Based Typesafe Pointer Encryption/Decryption
+#pragma recto - Template-Based Typesafe Pointer Encryption/Decryption
 
 template <typename T>
 ALWAYS_INLINE
@@ -703,7 +703,7 @@ Security::decryptPointer(
     return (T *)decryptVoidPointer(encryptedPtr, cipherContext);
 }
 
-#pragma mark - SecurityError Exception Specialization
+#pragma recto - SecurityError Exception Specialization
 
 class SecurityError : public FundamentalError {
 public:
@@ -714,7 +714,7 @@ public:
     
 };
 
-#pragma mark - Enveloping and Temporal Flow
+#pragma recto - Enveloping and Temporal Flow
 
 /*
  

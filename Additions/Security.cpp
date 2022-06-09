@@ -25,7 +25,7 @@
 #include <sstream>
 #include <random>
 
-#pragma mark Security::SecurityImp Declaration
+#pragma recto Security::SecurityImp Declaration
 
 INNER_CLASS
 class Security::Implementation {
@@ -55,7 +55,7 @@ public:
     ALWAYS_INLINE
     ~Implementation();
     
-#pragma mark PKCS#12
+#pragma recto PKCS#12
     
     ALWAYS_INLINE
     bool
@@ -93,7 +93,7 @@ public:
     //    std::string filePath
     //);
     
-#pragma mark Encryption/Decryption
+#pragma recto Encryption/Decryption
     
     ALWAYS_INLINE
     void
@@ -113,11 +113,11 @@ public:
         std::function<void (unsigned char *, int)> output
     );
     
-#pragma mark Cipher Context
+#pragma recto Cipher Context
     
     ALWAYS_INLINE CipherContext * createCipherContext();
     
-#pragma mark Pointer Encryption
+#pragma recto Pointer Encryption
     
     ALWAYS_INLINE
     void *
@@ -133,7 +133,7 @@ public:
         CipherContext * cipherContext
     );
 
-#pragma mark String Encryption/Decryption
+#pragma recto String Encryption/Decryption
     
     ALWAYS_INLINE
     void
@@ -152,7 +152,7 @@ public:
         std::function<void (const std::string& block)> callback
     );
     
-#pragma mark Memory Overwrite Encryption
+#pragma recto Memory Overwrite Encryption
     
     ALWAYS_INLINE
     void
@@ -170,7 +170,7 @@ public:
         CipherContext * cipherContext
     );
     
-#pragma mark Low-Level Signing and Validation
+#pragma recto Low-Level Signing and Validation
     
     ALWAYS_INLINE
     bool
@@ -190,13 +190,13 @@ public:
         int             signatureLength
     ) const;
     
-#pragma mark Fingerprinting
+#pragma recto Fingerprinting
     
     ALWAYS_INLINE std::string getFingerprint()      const;
     
     ALWAYS_INLINE std::string getCertificateAsPEM() const;
     
-#pragma mark Certificate Store
+#pragma recto Certificate Store
     
     ALWAYS_INLINE
     void
@@ -217,7 +217,7 @@ public:
         unsigned int certSerial
     );
 
-#pragma mark Boost ASIO Credentials
+#pragma recto Boost ASIO Credentials
 
     ALWAYS_INLINE
     bool
@@ -280,7 +280,7 @@ typedef void cstyle_function_ptr(std::string);
 
 #define kEncryptionAlgorithm EVP_aes_128_gcm()
 
-#pragma mark - PKCS#12
+#pragma recto - PKCS#12
 
 ALWAYS_INLINE
 static
@@ -599,7 +599,7 @@ changePassword(
     return true;
 }
 
-#pragma mark - SHA1 Fingerprinting
+#pragma recto - SHA1 Fingerprinting
 
 ALWAYS_INLINE
 std::string
@@ -626,7 +626,7 @@ sha1(
     return std::string(buffer);
 }
 
-#pragma mark - Low-Level Signing and Verification
+#pragma recto - Low-Level Signing and Verification
 
 ALWAYS_INLINE
 static
@@ -690,7 +690,7 @@ ValidateSignature(
     return true;
 }
 
-#pragma mark - Cipher Context
+#pragma recto - Cipher Context
 
 ALWAYS_INLINE
 static
@@ -754,7 +754,7 @@ wipeCipherContext(
     free(cipherContext->nativeHandle);
 }
 
-#pragma mark - Encryption
+#pragma recto - Encryption
 
 ALWAYS_INLINE
 static
@@ -810,7 +810,7 @@ encryptData(
     encryptData(&ctx, input, data);
 }
 
-#pragma mark - Decryption
+#pragma recto - Decryption
 
 ALWAYS_INLINE
 static
@@ -873,7 +873,7 @@ decryptData(
     output(buffer_out, len_out);
 }
 
-#pragma mark - Implementation Class
+#pragma recto - Implementation Class
 
 Security::Implementation::Implementation(
     bool allowSelfsignedIdentity,
@@ -940,7 +940,7 @@ Security::Implementation::~Implementation()
     if (certStore_)     { X509_STORE_free(certStore_);  certStore_   = NULL;   }
 }
 
-#pragma mark Private Stuff
+#pragma recto Private Stuff
 
 EVP_PKEY * Security::Implementation::getPublicKey() const
 {
@@ -965,7 +965,7 @@ void Security::Implementation::computeFingerprint()
     delete [] buffer;
 }
 
-#pragma mark PKCS#12
+#pragma recto PKCS#12
 
 bool
 Security::Implementation::readPKCS12(
@@ -1103,7 +1103,7 @@ Security::Implementation::wipePrivateKey()
     privateKey_ = NULL;
 }
 
-#pragma mark Encryption/Decryption
+#pragma recto Encryption/Decryption
 
 void
 Security::Implementation::encryptData(
@@ -1127,7 +1127,7 @@ Security::Implementation::decryptData(
     ::decryptData(privateKey_, encryptedKeyLength, ek, iv, input, output);
 }
 
-#pragma mark CipherContext 
+#pragma recto CipherContext 
 
 Security::CipherContext *
 Security::Implementation::createCipherContext()
@@ -1146,7 +1146,7 @@ Security::Implementation::createCipherContext()
     return cipherContext;
 }
 
-#pragma mark Pointer Encryption
+#pragma recto Pointer Encryption
 
 void *
 Security::Implementation::encryptPointer(
@@ -1244,7 +1244,7 @@ Security::Implementation::decryptPointer(
     return result;
 }
 
-#pragma mark String Encryption/Decryption
+#pragma recto String Encryption/Decryption
 
 void
 Security::Implementation::encryptString(
@@ -1376,7 +1376,7 @@ Security::Implementation::decryptString(
 
 }
 
-#pragma mark Memory Overwrite Encryption
+#pragma recto Memory Overwrite Encryption
 
 void
 Security::Implementation::encrypt(
@@ -1484,7 +1484,7 @@ Security::Implementation::decrypt(
 }
 
 /*
-#pragma mark Experimental OpenSSL S/MIME Encryption, Signing and Verification
+#pragma recto Experimental OpenSSL S/MIME Encryption, Signing and Verification
 
 void
 Security::SecurityImp::signAndEncrypt(
@@ -1515,7 +1515,7 @@ Security::SecurityImp::decryptAndVerify(
 }
 */
 
-#pragma mark Low-Level Signing and Validation
+#pragma recto Low-Level Signing and Validation
 
 bool
 Security::Implementation::sign(
@@ -1540,7 +1540,7 @@ Security::Implementation::validateSignature(
         signature, signatureLength);
 }
 
-#pragma mark Fingerprinting
+#pragma recto Fingerprinting
 
 std::string
 Security::Implementation::getFingerprint() const
@@ -1577,7 +1577,7 @@ Security::Implementation::getCertificateAsPEM() const
     return std::string(mem->data, mem->length);
 }
 
-#pragma mark Administration (Note the sensitivity in this section)
+#pragma recto Administration (Note the sensitivity in this section)
 
 void Security::Implementation::addRootCertificates()
 {
@@ -1657,7 +1657,7 @@ Security::Implementation::removeCertificate(
     // TODO: Think why.
 }
     
-#pragma mark SSL/TLS Web Server API
+#pragma recto SSL/TLS Web Server API
     
 bool
 Security::Implementation::verifyConnection(
@@ -1693,7 +1693,7 @@ Security::Implementation::addCertchainAndKeyToContext(
     }
 }
 
-#pragma mark - C++ Outer Layer
+#pragma recto - C++ Outer Layer
 
 Security::Security(
     bool allowSelfsignedIdentity,
@@ -1722,7 +1722,7 @@ Security::~Security()
 {
 }
 
-#pragma mark PKCS#12
+#pragma recto PKCS#12
 
 bool
 Security::readPKCS12(
@@ -1754,7 +1754,7 @@ void Security::wipePrivateKey() const
     implementation_->wipePrivateKey();
 }
 
-#pragma mark Buffer Encryption/Decryption
+#pragma recto Buffer Encryption/Decryption
 
 void
 Security::encryptData(
@@ -1778,7 +1778,7 @@ Security::decryptData(
     implementation_->decryptData(encryptedKeyLength, ek, iv, input, output);
 }
 
-#pragma mark CipherContext Serialization/Deserialization
+#pragma recto CipherContext Serialization/Deserialization
 
 void
 Security::CipherContext::serialize(
@@ -1821,7 +1821,7 @@ Security::CipherContext::deserialize(
     return result;
 }
 
-#pragma mark CipherContext
+#pragma recto CipherContext
 
 Security::CipherContext *
 Security::createCipherContext() const
@@ -1837,7 +1837,7 @@ Security::wipeCipherContext(
     ::wipeCipherContext(cipherContext);
 }
 
-#pragma mark Pointer Encryption
+#pragma recto Pointer Encryption
 
 void *
 Security::encryptVoidPointer(
@@ -1883,7 +1883,7 @@ Security::decryptVoidPointer(
     return NULL;
 }
 
-#pragma mark String Encryption/Decryption
+#pragma recto String Encryption/Decryption
 
 void
 Security::encryptString(
@@ -1927,7 +1927,7 @@ Security::decrypt(
     implementation_->decrypt((unsigned char *)ptr, bytes, cipherContext);
 }
 
-#pragma mark Low-Level Signing and Validation
+#pragma recto Low-Level Signing and Validation
 
 bool
 Security::sign(
@@ -1956,7 +1956,7 @@ Security::validateSignature(
     );
 }
 
-#pragma mark Fingerprinting
+#pragma reto Fingerprinting
 
 std::string
 Security::getFingerprint() const
@@ -1970,7 +1970,7 @@ Security::getCertificateAsPEM() const
     return implementation_->getCertificateAsPEM();
 }
 
-#pragma mark Certificate Store
+#pragma recto Certificate Store
 
 void
 Security::addCertificate(
@@ -1989,7 +1989,7 @@ Security::addCertificate(
     implementation_->addCertificate(filePath);
 }
 
-#pragma mark SSL/TLS Web Server API (or Boost ASIO Credentials)
+#pragma recto SSL/TLS Web Server API (or Boost ASIO Credentials)
 
 bool
 Security::verifyConnection(
@@ -2007,7 +2007,7 @@ Security::applyIdentity(
     implementation_->addCertchainAndKeyToContext((SSL_CTX *)context);
 }
 
-#pragma mark - SecurityError Exception Specialization
+#pragma recto - SecurityError Exception Specialization
 
 SecurityError::SecurityError(
     const std::string& description
@@ -2016,7 +2016,7 @@ SecurityError::SecurityError(
 {
 }
 
-#pragma mark - Enveloping
+#pragma recto - Enveloping
 
 using Box = std::function<MemoryRegion (const MemoryRegion& in,
                                         const Security& security)>;
