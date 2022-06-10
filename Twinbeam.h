@@ -320,11 +320,11 @@ EXT₋C void * Heap₋alloc(__builtin_int_t);
 EXT₋C __builtin_int_t Heap₋object₋size(void *);
 EXT₋C void Heap₋unalloc(void *);
 
-EXT₋C int Fallow(unsigned expeditionary, void **𝟺kbframes[], __builtin_int_t ﹟) ⓣ;
+EXT₋C int Fallow(unsigned expeditionary, void *𝟺kbframes[], __builtin_int_t ﹟) ⓣ;
 EXT₋C int ContiguousAcquire(unsigned expeditionary, void **fourkilobytespace, __builtin_int_t ﹟);
 EXT₋C int CoalescingAcquire(unsigned expeditionary, void * fourkilobytes[], __builtin_int_t ﹟);
 struct Expeditionary { __builtin_int_t pagecount; __builtin_uint_t * pagesbase, *overview; };
-EXT₋C void Setupframelibrary(int count, void * expeditionaries);
+EXT₋C void Setupframelibrary(int count, struct Expeditionary *);
 
 EXT₋C void * malloc(size_t bytes); EXT₋C void free(void *); 
 EXT₋C int atexit(void(*func)(void)); EXT₋C void exit(int);
