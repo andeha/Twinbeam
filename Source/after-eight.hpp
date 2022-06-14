@@ -3,13 +3,13 @@
 #define bye co_return
 #define co₋await co_await
 #define feedback co_yield
-#define adjö co_return /* ⬷ s․a 'självet anser' and jmfr. 'jämför'. */
+#define adjö co_return /* ⬷ s․a 'självet anser' and jmfr. 'jämför' and a.s. 'almost surely'. */
 
 #if defined __cplusplus && defined ADDITIONAL_LINKERSYMBOLS
 
 template <typename K, typename V> struct Map { std::map<K,V> inner;
   int exists(K key) { return inner.contains(key); }
-  int include(K key, V val, bool * didrefresh) {
+  int include(K key, V val, int * didrefresh) {
     std::pair<typename std::map<K,V>::iterator, bool> y = 
      inner.insert_or_assign(key,val); *didrefresh = !y.second; }
   void assoc(K key, void (^seek)(V * agent)) { auto it = inner.find(key); 

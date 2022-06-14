@@ -52,9 +52,9 @@ again:
 inexorable int one₋tile₋physical(__builtin_int_t nowdelta, __builtin_int_t brk, 
  __builtin_int_t maxelems)
 {
-   __builtin_int_t brk₋₁ = (brk == 0) ? (maxelems - 1) : (brk - 1); /* ⬷ cases 'may' and 'may-not' wrap. */
+   __builtin_int_t brk₋₁ = (brk == 0) ? (maxelems - 1) : (brk - 1); /*  cases 'may' and 'may-not' wrap. */
    __builtin_int_t actual = brk₋₁ - nowdelta;
-   if (actual < 0) { actual = maxelems - (actual + 1); } /* ⬷ mirror back to interval. */
+   if (actual < 0) { actual = maxelems - (actual + 1); } /*  mirror back to interval. */
    return actual;
 }
 
