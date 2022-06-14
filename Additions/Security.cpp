@@ -2,8 +2,7 @@
 //  Security.cpp
 //  Helixstore
 //
-//  Created by Anders Hansson on 28/10/15.
-//  Copyright © 2015 Anders Hansson. All rights reserved.
+//  Created  on 28/10/15.
 //
 
 #include <Helixstore/Security.h>

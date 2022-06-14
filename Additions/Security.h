@@ -2,8 +2,7 @@
 //  Security.h
 //  Helixstore
 //
-//  Created by Anders Hansson on 28/10/15.
-//  Copyright © 2015 Anders Hansson. All rights reserved.
+//  Created  on 28/10/15.
 //
 
 #ifndef __SECURITY_H_
