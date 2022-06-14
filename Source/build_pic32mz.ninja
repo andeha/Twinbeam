@@ -17,14 +17,14 @@ rule library
   command = $librarian-pic32 rcs Releases/$out\_$sha1git.a $in             ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
 
-build libTwinbeam_pic32mz:  library $objs/arrange-fifo.o                     $
- $objs/best-first.o $objs/chim-model.o $objs/church-pass.o                   $
- $objs/convoj-sequence.o $objs/deter-lock.o $objs/icati-irrevers.o           $
- $objs/internat-sheriff.o $objs/leap-osmosis.o $objs/text-length.o           $
- $objs/pamphlet-symbol.o $objs/pic32-institut.o $objs/portable-tree.o        $
- $objs/reference-three.o $objs/serial-symbol.o $objs/stochast-symbol.o       $
- $objs/tee-metric.o $objs/twofivesix-sha.o $objs/unstall-system.o            $
- $objs/serial-symbol.o $objs/deter-lock.o
+build libTwinbeam_pic32mz:  library $objs/anglosax-sequent.o                 $
+ $objs/arrange-fifo.o $objs/best-first.o $objs/chim-model.o                  $
+ $objs/church-pass.o $objs/convoj-sequence.o $objs/deter-lock.o              $
+ $objs/icati-irrevers.o $objs/internat-sheriff.o $objs/leap-osmosis.o        $
+ $objs/text-length.o $objs/pamphlet-symbol.o $objs/pic32-institut.o          $
+ $objs/portable-tree.o $objs/reference-three.o $objs/serial-symbol.o         $
+ $objs/stochast-symbol.o $objs/tee-metric.o $objs/twofivesix-sha.o           $
+ $objs/unstall-system.o $objs/serial-symbol.o $objs/deter-lock.o
 build $objs/anglosax-sequent.o: c anglosax-sequent.c
 build $objs/arrange-fifo.o: c arrange-fifo.c
 build $objs/best-first.o: c best-first.c

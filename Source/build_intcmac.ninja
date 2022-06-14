@@ -15,16 +15,15 @@ rule toc
 
 rule library
   command = $librarian-mac rcs Releases/$out\_$sha1git.a $in               ; $
-  ln -f Releases/$out\_$sha1git.a Releases/$out.a                          ; $
-  printf $sha1git
+  ln -f Releases/$out\_$sha1git.a Releases/$out.a ; printf $sha1git
 
 build libTwinbeam-x86_64:  library $objs/anglosax-sequent.o                  $
- $objs/arrange-fifo.o $objs/chim-model.o $objs/church-pass.o                 $
- $objs/convoj-sequence.o $objs/deter-lock.o $objs/icati-irrevers.o           $
- $objs/institut-macos.o $objs/leap-osmosis.o $objs/length-text.o             $
- $objs/pamphlet-symbol.o $objs/portable-tree.o $objs/reference-three.o       $
- $objs/stochast-symbol.o $objs/tee-metric.o $objs/unstall-system.o           $
- $objs/twofivesix-sha.o $objs/serial-symbol.o $objs/best-first.o
+ $objs/arrange-fifo.o $objs/best-first.o $objs/chim-model.o                  $
+ $objs/church-pass.o $objs/convoj-sequence.o $objs/deter-lock.o              $
+ $objs/icati-irrevers.o $objs/institut-macos.o $objs/leap-osmosis.o          $
+ $objs/length-text.o $objs/pamphlet-symbol.o $objs/portable-tree.o           $
+ $objs/reference-three.o $objs/stochast-symbol.o $objs/tee-metric.o          $
+ $objs/unstall-system.o $objs/twofivesix-sha.o $objs/serial-symbol.o 
 build $objs/anglosax-sequent.o: c anglosax-sequent.c
 build $objs/arrange-fifo.o: c arrange-fifo.c
 build $objs/best-first.o: c best-first.c
