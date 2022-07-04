@@ -1,0 +1,33 @@
+#  build.ninja - build examples for Microchip mzda hardware.
+
+optflags = -D__MZDAStarterBoard__ -g
+include ../tools.ninja
+loadscript = $runtime/pic32.ld
+platflags = -D__MZ__ -I $runtime/.. -I $additions -I $runtime
+libtwinbeam = ../Source/Releases/libTwinbeam_pic32mz.a
+bootloader = ../Bootloader/Releases/bootloader_mz_eec0c30.hex
+
+objs = ./.objs/7703a322-55A9-34ca-ba92-eabcf7f87773_examples
+flags = $platflags $pic32cflags $optflags
+include $runtime/commands.ninja
+
+rule link
+  command = $tools/ld.lld -T $loadscript -o $out $in $libtwinbeam         ; $
+   $tools/llvm2pic32 -b $bootloader fpu.bin > fpu.hex                     ; $
+   $tools/llvm2pic32 -b $bootloader radio.bin > radio.hex                 ; $
+   $tools/llvm2pic32 -b $bootloader sdhc.bin > sdhc.hex
+
+build ctmu.bin: link $objs/start.o $objs/clang.o $objs/ctmu.c
+build fpu.bin: link $objs/start.o $objs/clang.o $objs/cowlishaw-box.o       $
+ fpu.o
+build radio.bin: link $objs/radio.o $objs/clang.o $objs/cowlishaw-box.o     $
+ radio.o
+build sdhc.bin: link $objs/start.o $objs/clang.o $objs/sdhc.o
+build $objs/start.o: asm $runtime/start.S
+build $objs/clang.o: c $runtime/clang.c
+build $objs/cowlishaw-box.o: c $additions/cowlishaw-box.c
+build $objs/ctmu.o: c ctmu-main.c
+build $objs/fpu.o: c fpu-main.c
+build $objs/radio.o: cc radio-main.cpp
+build $objs/sdhc.o: c sdhc-main.c
+default ctmu.bin fpu.bin radio.bin sdhc.bin
