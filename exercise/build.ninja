@@ -4,8 +4,9 @@ optflags = -g
 src = ../Source
 additions = ../Additions
 objs = .objs/7703a312-55B9-44da-A792-ebbcf9f87665_tbunits
+include ../tools.ninja
 cflags = $platflags $macoscflags $optflags
-include laptop-big.ninja
+include ../macos/laptop-big.ninja
 
 rule link
   command = xcrun ld $maclnkflags -o $out $in $libtwinbeam
@@ -15,33 +16,33 @@ build twinbeam-units: link $objs/backpack-memory.o $objs/builtins-macos.o    $
  $objs/cache-tempo.o $objs/casette-array.o $objs/chronology.o                $
  $objs/compute.o $objs/ende-code.o $objs/exception.o $objs/fingerprint.o     $
  $objs/harness.o $objs/help-shirt.o $objs/interval-array.o                   $
- $objs/method-dispersiv.o $objs/misc-base.o $objs/print.o                    $
- $objs/procurement.o $objs/small-builtins.o $objs/symbol-pct.o               $
- $objs/text-length.o $objs/tree-search.o $objs/unknown-time.o                $
+ $objs/method-dispersiv.o $objs/misc-base.o $objs/pct-symbol.o $objs/print.o $
+ $objs/procurement.o $objs/small-builtins.o $objs/text-length.o              $
+ $objs/tree-search.o $objs/unknown-time.o                                    $
                                                                              $
- "$objs/❩† utf8.c"
+ $objs/❩†$ utf8.o
 
-build $objs/❩† utf8.o: c "❩† utf8.c"
+build $objs/❩†$ utf8.o: c ❩†$ utf8.c
 
-build $objs/compute.o: c anglosax-sequent.c
-build $objs/procurement.o: c arrange-fifo.c
-build $objs/backpack-memory.o: c best-first.c
-build $objs/help-shirt.o: c chim-model.c
-build $objs/exception.o: asm church-pass.S
-build $objs/method-dispersiv.o: c computation-unique.c
-build $objs/interval-array.o: c convoj-sequence.c
-build $objs/cache-tempo.o: c deter-lock.c
-build $objs/chronology.o: c icati-irrevers.c
-build $objs/builtins-macos.o: c institut-macos.c
-build $objs/fingerprint.o: c leap-osmosis.c
-build $objs/text-length.o: c length-impression.c
-build $objs/ende-code.o: c pamphlet-symbol.c
-build $objs/small-builtins.o: c pic32-institut.c
-build $objs/tree-search.o: c portable-tree.c
-build $objs/casette-array.o: c reference-three.c
-build $objs/print.o: c serial-symbol.c
-build $objs/symbol-pct.o: c stochast-symbol.c
-build $objs/unknown-time.o: c tee-metric.c
-build $objs/misc-base.o: c unstall-system.c
-build $objs/harness.o: c harness.c
+build $objs/compute.o: c $src/anglosax-sequent.c
+build $objs/procurement.o: c $src/arrange-fifo.c
+build $objs/backpack-memory.o: c $src/best-first.c
+build $objs/help-shirt.o: c $src/chim-model.c
+build $objs/exception.o: asm $src/church-pass.S
+build $objs/method-dispersiv.o: c $src/computation-unique.c
+build $objs/interval-array.o: c $src/convoj-sequence.c
+build $objs/cache-tempo.o: c $src/deter-lock.c
+build $objs/chronology.o: c $src/icati-irrevers.c
+build $objs/builtins-macos.o: c $src/institut-macos.c
+build $objs/fingerprint.o: c $src/leap-osmosis.c
+build $objs/text-length.o: c $src/length-impression.c
+build $objs/ende-code.o: c $src/pamphlet-symbol.c
+build $objs/small-builtins.o: c $src/pic32-institut.c
+build $objs/tree-search.o: c $src/portable-tree.c
+build $objs/casette-array.o: c $src/reference-three.c
+build $objs/print.o: c $src/serial-symbol.c
+build $objs/pct-symbol.o: c $src/stochast-symbol.c
+build $objs/unknown-time.o: c $src/tee-metric.c
+build $objs/misc-base.o: c $src/unstall-coalesc.c
+build $objs/harness.o: c ../macOS/harness.c
 default twinbeam-units
