@@ -54,7 +54,7 @@ typedef __builtin_uint_t Tribool; /* ⬷ c𝘧․ 'obekant' and 'embargo ₍im�
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 _Nonnull
 #define Salt(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + ftn-call. */
 #define Pult💡(x) ++x /* ⬷ todo: Add atomic enclosure-history to 'non-advertised locality-preserving margin-note'. */
-#define UNITTEST(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
+#define CORRECT(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
 #define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",            \
   ﹟s(s), ﹟s(__FUNCTION__), ﹟s(__FILE__), ﹟d(__LINE__)); exit(-1); }
 #define ENSURE(c,s) { if (!(c)) { Panic(Testlog,s); } }
@@ -684,8 +684,16 @@ EXT₋C void * ExactSeek₂(const void *key, const void *base, size_t num,
  size_t size, int (^cmp)(const void *key, const void *elt));
 
 EXT₋C int IsPrefixOrEqual(const char *𝟽alt𝟾₋bitstring, const char *𝟽alt𝟾₋bitprefix);
-/* ⬷ returns `int` indicating difference at branch, -1 if equal and `0` when 
+/*  returns `int` indicating difference at branch, -1 if equal and `0` when 
  string contains neither prefix nor is equal. */
+
+typedef struct Textsearch { __builtin_int_t text₋offset₋bytes; } Borderedsearch;
+EXT₋C int AssociativelyEqual(enum Encoding encoded, __builtin_int_t bytes, 
+ uint8_t * material, struct seven₋bit₋text recollection, Borderedsearch * ctxt);
+/*  find referenced bandit with context when right-to-left and vague recoll-
+ ection. A number indicating the number of tokens required to recollect is 
+ computed. Note that pre-indexed search does not operate properly given 'vague 
+ recollection' due to the swedish sentence 'falla mellan stolar'. */
 
 typedef struct Unicodeblock {
   __builtin_int_t linesOffsetFirst, linesOffsetLast, column₁, column₂;
@@ -843,6 +851,9 @@ enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
 EXT₋C chronology₋instant Timezone(chronology₋instant v, 
  short quarters₋of₋hours₋offset);
 
+EXT₋C int Worldclock₋fractographic(chronology₋instant utc);
+/**  for priestmobile useful when relatives live tectronically dispersive lifes. */
+
 /**  Relative-time interval when running from instant t₁ to instant t₂ given 
  preferable according to the 'ComputationalChronology'. */
 
@@ -872,11 +883,23 @@ EXT₋C void coro_free(coro_t * coro);
 #if defined 𝟷𝟸𝟾₋bit₋integer₋available
 typedef __builtin_int_t version₋ts;
 struct timeserie { struct collection pendings; void * currents, *uncommits;
- Casette points, versions, events, temporals; 
- version₋ts *revison, earliest; unsigned short checkpoint₋modulo; };
+ Casette points, versions, events, temporals; version₋ts *revison, earliest; 
+ unsigned short checkpoint₋modulo; };
+struct timeserie₋entry { struct Unicodes key; union historypod entry; 
+ struct sevenbit₋text reference; };
+typedef union historypod (*Timeserie₋summation)(union historypod x₁, union historypod x₂);
 enum timeserie₋operation { ts₋create, ts₋update, ts₋delta, ts₋remove };
 EXT₋C int timeserie₋init(version₋ts * revision, version₋ts earliest, 
  unsigned int snapshot₋cycle, struct timeserie * 🅹);
+EXT₋C int timeserie₋commit(version₋ts * revision, Row₋completed persisted, 
+   struct timeserie * 🅙, Timeserie₋summation addition);
+EXT₋C int timeserie₋rollback(struct timeserie * 🅙);
+EXT₋C int timeserie₋remove(struct Unicodes key, struct timeserie * 🅙);
+EXT₋C int timeserie₋create(struct timeserie₋entry * initial, struct timeserie * 🅙);
+EXT₋C int timeserie₋update(struct timeserie₋entry * absolut, struct timeserie * 🅙);
+EXT₋C int timeserie₋delta(struct timeserie₋entry * toggle, union historypod * 
+ alterificate, struct timeserie * 🅙, Timeserie₋summation addition);
+EXT₋C void timeserie₋uninit(struct timeserie * 🅹);
 #endif
 
 struct guid { struct endian { uint64_t aware; uint64_t similar; } endian; };
