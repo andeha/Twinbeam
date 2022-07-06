@@ -54,10 +54,14 @@ typedef __builtin_uint_t Tribool; /* ⬷ c𝘧․ 'obekant' and 'embargo ₍im�
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 _Nonnull
 #define Salt(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + ftn-call. */
 #define Pult💡(x) ++x /* ⬷ todo: Add atomic enclosure-history to 'non-advertised locality-preserving margin-note'. */
+#if defined __cplusplus
 #define CORRECT(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
+#else
+#define CORRECT(symbol) void Unittest_##symbol()
+#endif
 #define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",            \
-  ﹟s(s), ﹟s(__FUNCTION__), ﹟s(__FILE__), ﹟d(__LINE__)); exit(-1); }
-#define ENSURE(c,s) { if (!(c)) { Panic(Testlog,s); } }
+  ﹟s7(s), ﹟s7(__FUNCTION__), ﹟s7(__FILE__), ﹟d(__LINE__)); exit(-1); }
+#define ENSURE(c,s) { if (!(c)) { Panic(Testlog,(char *)(s)); } }
 #define FOCAL /* repoussé inexorable. */
 #define ENCLAVED
 #if defined __cplusplus
@@ -242,7 +246,7 @@ EXT₋C Argᴾ ﹟F(double f, int numberformat) ⓣ;
 EXT₋C Argᴾ ﹟F(float f, int numberformat) ⓣ;
 #endif
 
-struct seven₋bit₋text { __builtin_int_t count; char * keyputs; };
+struct sevenbit₋text { __builtin_int_t count; char * keyputs; };
 struct utf8₋text { __builtin_int_t bytes; char8₋t * u8s; };
 struct Unicodes { __builtin_int_t tetras; char32̄_t * unicodes; };
 struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * text; }; 
@@ -689,7 +693,7 @@ EXT₋C int IsPrefixOrEqual(const char *𝟽alt𝟾₋bitstring, const char *�
 
 typedef struct Textsearch { __builtin_int_t text₋offset₋bytes; } Borderedsearch;
 EXT₋C int AssociativelyEqual(enum Encoding encoded, __builtin_int_t bytes, 
- uint8_t * material, struct seven₋bit₋text recollection, Borderedsearch * ctxt);
+ uint8_t * material, struct sevenbit₋text recollection, Borderedsearch * ctxt);
 /*  find referenced bandit with context when right-to-left and vague recoll-
  ection. A number indicating the number of tokens required to recollect is 
  computed. Note that pre-indexed search does not operate properly given 'vague 
@@ -891,8 +895,9 @@ typedef union historypod (*Timeserie₋summation)(union historypod x₁, union h
 enum timeserie₋operation { ts₋create, ts₋update, ts₋delta, ts₋remove };
 EXT₋C int timeserie₋init(version₋ts * revision, version₋ts earliest, 
  unsigned int snapshot₋cycle, struct timeserie * 🅹);
-EXT₋C int timeserie₋commit(version₋ts * revision, Row₋completed persisted, 
-   struct timeserie * 🅙, Timeserie₋summation addition);
+typedef void (^line₋completed)(version₋ts revision, struct timeserie₋entry row, int * bye);
+EXT₋C int timeserie₋commit(version₋ts * revision, line₋completed persisted, 
+ struct timeserie * 🅙, Timeserie₋summation addition);
 EXT₋C int timeserie₋rollback(struct timeserie * 🅙);
 EXT₋C int timeserie₋remove(struct Unicodes key, struct timeserie * 🅙);
 EXT₋C int timeserie₋create(struct timeserie₋entry * initial, struct timeserie * 🅙);
