@@ -8,9 +8,8 @@ platflags = -I ..
 cflags = $appleSoC-mac $macoscflags $platflags $optflags
 include ../macOS/laptop-big.ninja
 
-progname = $arm-library\_$sha1git.a
 rule toc
-  command = $librarian-mac t Releases/$progname
+  command = $librarian-mac t Releases/$arm-library\_$sha1git.a
 # ⬷ monitor/Apps> ninja -C Source -f build_armmac.ninja emit-content
 
 rule library
@@ -23,7 +22,7 @@ build libTwinbeam_macarm:  library $objs/anglosax-sequent.o                  $
  $objs/icati-irrevers.o $objs/institut-macos.o $objs/leap-osmosis.o          $
  $objs/length-text.o $objs/pamphlet-symbol.o $objs/portable-tree.o           $
  $objs/reference-three.o $objs/serial-symbol.o $objs/stochast-symbol.o       $
- $objs/tee-metric.o $objs/twofivesix-sha.o $objs/unstall-system.o
+ $objs/tee-metric.o $objs/twofivesix-sha.o $objs/unstall-coalesc.o
 build $objs/anglosax-sequent.o: c anglosax-sequent.c
 build $objs/arrange-fifo.o: c arrange-fifo.c
 build $objs/best-first.o: c best-first.c
@@ -41,8 +40,8 @@ build $objs/reference-three.o: c reference-three.c
 build $objs/serial-symbol.o: c serial-symbol.c
 build $objs/stochast-symbol.o: c stochast-symbol.c
 build $objs/tee-metric.o: c tee-metric.c
-build $objs/twofivesix-sha.o: c twofivesix-sha.c
-build $objs/unstall-system.o: c unstall-system.c
+build $objs/unique-computation.o: c computation-unique.c
+build $objs/unstall-coalesc.o: c unstall-coalesc.c
 build emit-content: toc
 default $arm-library
 

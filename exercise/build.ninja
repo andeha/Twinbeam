@@ -17,8 +17,8 @@ build twinbeam-units: link $objs/backpack-memory.o $objs/builtins-macos.o    $
  $objs/compute.o $objs/ende-code.o $objs/exception.o $objs/fingerprint.o     $
  $objs/harness.o $objs/help-shirt.o $objs/interval-array.o                   $
  $objs/method-dispersiv.o $objs/misc-base.o $objs/pct-symbol.o $objs/print.o $
- $objs/procurement.o $objs/small-builtins.o $objs/text-length.o              $
- $objs/tree-search.o $objs/unknown-time.o                                    $
+ $objs/procurement.o $objs/text-length.o $objs/tree-search.o                 $
+ $objs/unknown-time.o                                                        $
                                                                              $
  $objs/❩†$ utf8.o
 
@@ -37,12 +37,12 @@ build $objs/builtins-macos.o: c $src/institut-macos.c
 build $objs/fingerprint.o: c $src/leap-osmosis.c
 build $objs/text-length.o: c $src/length-impression.c
 build $objs/ende-code.o: c $src/pamphlet-symbol.c
-build $objs/small-builtins.o: c $src/pic32-institut.c
+# build $objs/small-builtins.o: c $src/pic32-institut.c
 build $objs/tree-search.o: c $src/portable-tree.c
 build $objs/casette-array.o: c $src/reference-three.c
 build $objs/print.o: c $src/serial-symbol.c
 build $objs/pct-symbol.o: c $src/stochast-symbol.c
 build $objs/unknown-time.o: c $src/tee-metric.c
-build $objs/misc-base.o: c $src/unstall-coalesc.c
+build $objs/misc-base.o: cms $src/unstall-coalesc.c
 build $objs/harness.o: c ../macOS/harness.c
 default twinbeam-units

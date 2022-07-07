@@ -50,17 +50,8 @@ ninja -C Bootloader -f build-mzda.ninja                             || exit 1
 # ninja -C macOS -f :work:.ninja.ninja /work/.ninja.ninja           || exit 1
 ninja -C Sprinkle/pdb                                               || exit 1
 #  see progress on --<􀖆 assemble.cpp> and --<􀐒 retrospect.c>.
-ninja -C Examples/dbgout
-ninja -C Examples/ledflash
-ninja -C Examples/helloworld
-ninja -C Examples/fpu
-# ninja -C Examples/bldc
-ninja -C Examples/usb
-# ninja -C Examples/twinsh
-# ninja -C Examples/turbine
-ninja -C Examples/radio
-# ninja -C Examples/flightcontroller
-# ninja -C Examples/attokernel
+# Examples: dbgout ledflash helloworld fpu bldc usb twinsh turbine radio
+# flightcontroller attokernel
 # ninja -C Examples/😐/
 ninja -C Examples/sdhc
 ninja -C macOS -f harness-sv-1.ninja                                || exit 1

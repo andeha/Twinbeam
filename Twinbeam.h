@@ -54,11 +54,7 @@ typedef __builtin_uint_t Tribool; /* ⬷ c𝘧․ 'obekant' and 'embargo ₍im�
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 _Nonnull
 #define Salt(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + ftn-call. */
 #define Pult💡(x) ++x /* ⬷ todo: Add atomic enclosure-history to 'non-advertised locality-preserving margin-note'. */
-#if defined __cplusplus
-#define CORRECT(symbol) extern "C" void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
-#else
-#define CORRECT(symbol) void Unittest_##symbol()
-#endif
+#define CORRECT(symbol) EXT₋C void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
 #define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",            \
   ﹟s7(s), ﹟s7(__FUNCTION__), ﹟s7(__FILE__), ﹟d(__LINE__)); exit(-1); }
 #define ENSURE(c,s) { if (!(c)) { Panic(Testlog,(char *)(s)); } }
@@ -708,12 +704,6 @@ typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffse
  bytesOffsetInclLast; } Utf8Interval; /*  e․𝘨 wrongly coded utf-8. */
 
 union Reference { struct PresentativeErrorUnicode byteserie; struct Unicodeblock volatile₋primary; };
-
-EXT₋C int Inquisi(struct Unicodes all, struct Unicodes correct, void 
- (^heap)(struct Unicodes actual, union Reference interval));
-
-typedef struct memoryview Utf8Intenven;
-struct Utf8Symbol { __builtin_int_t line, bytesOffset, count; };
 
 #pragma -  😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 

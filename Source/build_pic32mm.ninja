@@ -8,9 +8,8 @@ platflags = -I ..
 cflags = $pic32mmflags $platflags $optflags
 include $small-runtime/command-little.ninja
 
-progname = $stem-library\_$sha1git.a
 rule toc
-  command = $librarian-pic32 t $progname
+  command = $librarian-pic32 t $stem-library\_$sha1git.a
 # ⬷ monitor/Apps> ninja -C Source -f build_pic32mz.ninja emit-content
 
 rule library
@@ -23,8 +22,8 @@ build libTwinbeam_pic32mm:  library $objs/anglosax-sequent.o                 $
  $objs/icati-irrevers.o $objs/internat-sheriff.o $objs/leap-osmosis.o        $
  $objs/text-length.o $objs/pamphlet-symbol.o $objs/pic32-institut.o          $
  $objs/portable-tree.o $objs/reference-three.o $objs/serial-symbol.o         $
- $objs/stochast-symbol.o $objs/tee-metric.o $objs/twofivesix-sha.o           $
- $objs/unstall-system.o
+ $objs/stochast-symbol.o $objs/tee-metric.o $objs/clever-fingerprint.o       $
+ $objs/unstall-coalesc.o
 build $objs/anglosax-sequent.o: c anglosax-sequent.c
 build $objs/arrange-fifo.o: c arrange-fifo.c
 build $objs/best-first.o: c best-first.c
@@ -33,7 +32,8 @@ build $objs/church-pass.o: asm church-pass.S
 build $objs/convoj-sequence.o: c convoj-sequence.c
 build $objs/deter-lock.o: c deter-lock.c
 build $objs/icati-irrevers.o: c icati-irrevers.c
-build $objs/internat-sheriff.o: asm internat-sheriff.S # formerly detail-patrol.c.
+build $objs/internat-sheriff.o: asm internat-sheriff.S
+# formerly detail-patrol.c.
 build $objs/leap-osmosis.o: c leap-osmosis.c
 build $objs/text-length.o: c length-impression.c
 build $objs/pamphlet-symbol.o: c pamphlet-symbol.c
@@ -43,8 +43,8 @@ build $objs/reference-three.o: c reference-three.c
 build $objs/serial-symbol.o: c serial-symbol.c
 build $objs/stochast-symbol.o: c stochast-symbol.c
 build $objs/tee-metric.o: c tee-metric.c
-build $objs/twofivesix-sha.o: c twofivesix-sha.c
-build $objs/unstall-system.o: c unstall-system.c
+build $objs/clever-fingerprint.o: c computation-unique.c
+build $objs/unstall-coalesc.o: c unstall-coalesc.c
 build emit-content: toc
 default $stem-library
 
