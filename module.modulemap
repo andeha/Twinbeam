@@ -10,6 +10,7 @@ module Twinbeam
   module Arm_Simd { requires neon
    header "/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/arm_neon.h" }
   header "Twinbeam.h"
+  header "Additions/model-wide.h"
   header "Source/fifo-slow.h"
   header "Additions/optional-double.h"
   header "Additions/double-model.h"
@@ -120,7 +121,7 @@ module MacosModernterminal
 } /*  the 'dispatch' framework. */
 
 module Twinbeam_with_stdcpp
-{
+{ requires cplusplus
   config_macros ADDITIONAL_LINKERSYMBOLS
   module AAPL_big { requires macos
     header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector"

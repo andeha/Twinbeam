@@ -882,19 +882,19 @@ struct timeserie { struct collection pendings; void * currents, *uncommits;
  unsigned short checkpoint₋modulo; };
 struct timeserie₋entry { struct Unicodes key; union historypod entry; 
  struct sevenbit₋text reference; };
-typedef union historypod (*Timeserie₋summation)(union historypod x₁, union historypod x₂);
+typedef union historypod (*timeserie₋summation)(union historypod x₁, union historypod x₂);
 enum timeserie₋operation { ts₋create, ts₋update, ts₋delta, ts₋remove };
 EXT₋C int timeserie₋init(version₋ts * revision, version₋ts earliest, 
  unsigned int snapshot₋cycle, struct timeserie * 🅹);
 typedef void (^line₋completed)(version₋ts revision, struct timeserie₋entry row, int * bye);
 EXT₋C int timeserie₋commit(version₋ts * revision, line₋completed persisted, 
- struct timeserie * 🅙, Timeserie₋summation addition);
+ struct timeserie * 🅙, timeserie₋summation addition);
 EXT₋C int timeserie₋rollback(struct timeserie * 🅙);
 EXT₋C int timeserie₋remove(struct Unicodes key, struct timeserie * 🅙);
 EXT₋C int timeserie₋create(struct timeserie₋entry * initial, struct timeserie * 🅙);
 EXT₋C int timeserie₋update(struct timeserie₋entry * absolut, struct timeserie * 🅙);
 EXT₋C int timeserie₋delta(struct timeserie₋entry * toggle, union historypod * 
- alterificate, struct timeserie * 🅙, Timeserie₋summation addition);
+ alterificate, struct timeserie * 🅙, timeserie₋summation addition);
 EXT₋C void timeserie₋uninit(struct timeserie * 🅹);
 #endif
 

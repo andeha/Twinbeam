@@ -1,38 +1,38 @@
 # commands-little.ninja — targeting encased Microchip products.
 
 rule emitsyms
-    command = $tools/llvm-nm $progname
+    command = $tools-small/llvm-nm $progname
 build syms: emitsyms
 
 rule emitsize
-    command = $tools/llvm-size $progname
+    command = $tools-small/llvm-size $progname
 build size: emitsize
 
 rule emitsect
-    command = $tools/llvm-objdump --section-headers $progname
+    command = $tools-small/llvm-objdump --section-headers $progname
 build sect: emitsect
 
 rule emitlist
-    command = $tools/llvm-objdump --disassemble $progname
+    command = $tools-small/llvm-objdump --disassemble $progname
 build list: emitlist
 
 # requires -g
 rule emitsource
-    command = $tools/llvm-objdump --source $progname
+    command = $tools-small/llvm-objdump --source $progname
 build source: emitsource
 
 rule cc
-    command = $compiler-pic32 -DSHA1GIT=\"$sha1git\" -std=c++20 -MD -MF $out.d $flags -c $in -o $out
+    command = $compiler-pic32 -DSHA1GIT=\"$sha1git\" -std=c++20 -MD -MF $out.d $cflags -c $in -o $out
     depfile = $out.d
     deps = gcc
 
 rule c
-    command = $compiler-pic32 -DSHA1GIT=\"$sha1git\" -std=c2x -MD -MF $out.d $flags -c $in -o $out
+    command = $compiler-pic32 -DSHA1GIT=\"$sha1git\" -std=c2x -MD -MF $out.d $cflags -c $in -o $out
     depfile = $out.d
     deps = gcc
 
 rule asm
-    command = $compiler-pic32 $flags -c $in -o $out
+    command = $compiler-pic32 $cflags -c $in -o $out
 
 # ln -fs '/--<project folder>/℮ ia64+pic32rt/pic32mzda.hpp' pic32mzda.hpp
 # ln -fs '/--<project folder>/℮ ia64+pic32rt/pic32mzda⋔₁.hpp' pic32mzda⋔₁.hpp

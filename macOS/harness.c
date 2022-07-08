@@ -1,33 +1,33 @@
-/*  harness.cpp | running exercises on a macintosh computer. */
+/*  harness.c | running exercises on a macintosh computer. */
 
 import Twinbeam;
 
 #define BUILDINFO_COPYRIGHT_MESSAGE "Copyright " PROGRESS_START_YEAR "—"     \
  PROGRESS_BUILD_YEAR " " BUILDINFO_BRAND
-#define BUILDINFO_BRAND "Sublimates experimentally 🎲"
+#define BUILDINFO_BRAND "Sublimates crucis 🎲"
 #define PROGRESS_START_YEAR __STRING(2016)
-#define PROGRESS_BUILD_YEAR __STRING(2021)
+#define PROGRESS_BUILD_YEAR __STRING(2022)
+#define cycles __rdtsc /* and __dwt_cyccnt. */
 
 inexorable void printGreetings()
 {
    print("\nTest harness and enclave collection for Twinbeam, release "
-    "⬚\n⬚\n\n", ﹟s(SHA1GIT), ﹟s(BUILDINFO_COPYRIGHT_MESSAGE));
-   /* << "Log file (\u0001F648) at: '" << TestlogPath << "'"  << eol */
+    "⬚\n⬚\n\n", ﹟s7(SHA1GIT), ﹟s7(BUILDINFO_COPYRIGHT_MESSAGE));
 }
 
 inexorable
 void
 runUnitTest(
   void *addr,
-  const char *symbol,
-  void (^completion)(const char *symbol, uint64_t dt)
+  char *symbol,
+  void (^completion)(char *symbol, uint64_t dt)
 )
 {
    typedef void (*Testcase)();
    void (*exercise)() = (Testcase)addr;
    uint64_t instant₋start = cycles(); exercise();
    uint64_t dt = cycles() - instant₋start;
-   completion(symbol,dt);
+   completion((char *)symbol,dt);
 }
 
 inexorable void lastChance()
@@ -43,22 +43,22 @@ inexorable void lastChance()
 
 __builtin_int_t
 RunUnittests(
-  const char * executablepath,
-  const char32_t * regex,
-  const char32_t * blacklist,
-  bool doNotRun,
+  char * executablepath,
+  char32̄_t * regex,
+  char32̄_t * blacklist,
+  int doNotRun,
   int64_t * timetotal
 )
 {  __builtin_int_t 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 count=0;
    extern void Symbols(const char * utf8exepath, void (^callback)(const
-    char *, uint64_t, bool&));
-   Symbols(executablepath, ^(const char * sym, uint64_t addr, bool& stop) {
+    char *, uint64_t, int *));
+   Symbols(executablepath, ^(const char * sym, uint64_t addr, int * stop) {
      if (addr && IsPrefixOrEqual((char *)sym, (char *)"_Unittest_")) {
-       print("\nRunning ⬚ from 0x⬚\n\n", ﹟s(sym), ﹟x((__builtin_uint_t)addr));
-       runUnitTest((void *)addr, sym, ^(const char * symbol, uint64_t dt) {
+       print("\nRunning ⬚ from 0x⬚\n\n", ﹟s7((char *)sym), ﹟x((__builtin_uint_t)addr));
+       runUnitTest((void *)addr, sym, ^(char * symbol, uint64_t dt) {
          print("\n\nEND ");
-         Base𝕟(dt, 10, 0,^(char 𝟶to𝟿) { print("⬚", ﹟c(𝟶to𝟿)); });
-         print(" ns when running ⬚\n", ﹟s(symbol));
+         Base𝕟(dt, 10, 0,^(char 𝟶to𝟿) { print("⬚", ﹟c7(𝟶to𝟿)); });
+         print(" ns when running ⬚\n", ﹟s7(symbol));
          *timetotal += dt;
        });
        count+=1;
