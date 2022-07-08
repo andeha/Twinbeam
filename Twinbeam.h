@@ -9,7 +9,7 @@
 #define MACRO inline __attribute__((always_inline))
 #define structᵢ struct /* __attribute__((internal_linkage)) */
 #define unionᵢ union /* __attribute__ ((internal_linkage)) */
-/* ⬷ see '𝗇𝗆' for details. */
+/*  see '𝗇𝗆' for details. */
 typedef signed char         int8_t;
 typedef unsigned char       uint8_t;
 typedef unsigned long long  uint64_t;
@@ -27,15 +27,15 @@ typedef int32_t             __builtin_int_t;
 typedef unsigned int        uint32_t;
 typedef int                 int32_t; /* ≢'long'. */
 typedef uint64_t            __builtin_uint_t;
-typedef int64_t             __builtin_int_t; /* ⬷ a․𝘬․a 'sequenta'. */
+typedef int64_t             __builtin_int_t; /*  a․𝘬․a 'sequenta'. */
 #define ΨΛΩ (0)
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
 #define TriboolUninit 0xFFFFFFFFFFFFFFFE
 #define TriboolUnarbitrated 0xFFFFFFFFFFFFFFFD
 #endif
-typedef unsigned short      uint16_t; /* ⬷ c𝘧․ Q16. */
+typedef unsigned short      uint16_t; /*  c𝘧․ Q16. */
 typedef short               int16_t; /* ≡ ᵐⁱᵖˢint. */
-typedef __builtin_uint_t Tribool; /* ⬷ c𝘧․ 'obekant' and 'embargo ₍im₎material'. */
+typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎material'. */
 /* TREEALTERNAT 
   ◻︎ ◻︎ ◻︎ ◼︎  ◻︎ ◻︎ ◼︎ ◻︎
   ◻︎ ◼︎ ◻ ◻︎  ◼ ◻ ◻ ◼
@@ -53,7 +53,7 @@ typedef __builtin_uint_t Tribool; /* ⬷ c𝘧․ 'obekant' and 'embargo ₍im�
 #define 😐 APPEND_PIMPL }
 #define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 _Nonnull
 #define Salt(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + ftn-call. */
-#define Pult💡(x) ++x /* ⬷ todo: Add atomic enclosure-history to 'non-advertised locality-preserving margin-note'. */
+#define Pult💡(x) ++x /*  todo: Add atomic enclosure-history to 'non-advertised locality-preserving margin-note'. */
 #define CORRECT(symbol) EXT₋C void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
 #define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",            \
   ﹟s7(s), ﹟s7(__FUNCTION__), ﹟s7(__FILE__), ﹟d(__LINE__)); exit(-1); }
@@ -95,7 +95,7 @@ typedef __builtin_uint_t Tribool; /* ⬷ c𝘧․ 'obekant' and 'embargo ₍im�
 #undef OPTIMIZED₋NONGENERAL
 #define NON₋SIMD
 #undef UNEXISTING₋IEEE754
-#endif /* ⬷ Tensilica Lx6 is Ieee754 single-precision only. */
+#endif /*  Tensilica Lx6 is Ieee754 single-precision only. */
 #if defined Synthetic₋𝟷𝟸𝟾₋bit₋integers
 struct 𝟷𝟸𝟾₋bit₋integer { int64_t hi; uint64_t lo; };
 struct 𝟷𝟸𝟾₋bit₋unsigned { uint64_t hi, lo; };
@@ -142,7 +142,7 @@ EXT₋C void longjmp2(jmp_buf2 env, __builtin_int_t val);
 #define TRY { int __e = setjmp2(*JmpBuf()); if (!__e) {
 #define CATCH } else {
 #define END_TRY } }
-EXT₋C jmp_buf2 * /* volatile */ JmpBuf(); /* ⬷ a great symbol for a project break! */
+EXT₋C jmp_buf2 * /* volatile */ JmpBuf(); /*  a great symbol for a project break! */
 #define ᶿ﹡ const *
 
 #if defined  __mips__ || defined __armv6__ || defined espressif
@@ -156,12 +156,12 @@ typedef unsigned long size_t;
 void * operator new(unsigned long size, void * here) noexcept;
 #endif
 #endif /* on `Opt` minus `void *`: See 𝐶𝑟𝑎𝑠ℎ 𝑓𝑟𝑒𝑞𝑢𝑒𝑛𝑐𝑦, 𝑐𝑜𝑝𝑦/𝑝𝑎𝑠𝑡𝑒 and 𝑒𝑥𝑝𝑙𝑜𝑖𝑡𝑖𝚤𝑛𝑔 𝑢𝑛𝑖𝑛𝑖𝑡𝑖𝑎𝑙𝑖𝑧𝑒𝑑. */
-/* ☜😐: 🔅 ⬷ earlier remark still valid? */
+/* ☜😐: 🔅  earlier remark still valid? */
 MACRO __builtin_uint_t 🔎(__builtin_uint_t var) { return *((__builtin_uint_t 
  /* volatile */ *) var); } /* see --<after-eight.hpp> for write-not-read. */
 MACRO __builtin_uint_t Trailing₋non₋ones(__builtin_uint_t x) { if (x == 0) { 
  return sizeof(x)*8; } x=(x^(x-1))>>1; int c=0; for (; x; c++) { x >>= 1; } return c; }
-/* ⬷ not `__builtin_clzl` for Mips and `__builtin_clz` for Intel.  And for 
+/*  not `__builtin_clzl` for Mips and `__builtin_clz` for Intel.  And for 
   contemplative consumption of abstraction, 𝑃𝑖𝑛𝑐𝑒 𝑎𝑏𝑠𝑡𝑟𝑎𝑖𝑡: */
 MACRO void Envelop(__builtin_uint_t * x) { *x=(*x^(*x-1)); }
 
@@ -170,10 +170,10 @@ typedef unsigned int char32̄_t;
 #define KEYPUTS(x) ((signed char *)(x))
 #define UNICODES(x) ((char32̄_t *)(U##x))
 #define UTF8TEXT(x) ((char8₋t *)(u8##x))
-/* ⬷ integer types char8_t and char32_t are both unsigned and unused in this project. */
+/*  integer types char8_t and char32_t are both unsigned and unused in this project. */
 
 enum Ieee754form { ieee754₋Scientific, ieee754₋Saturn, ieee754₋Monetary, 
- ieee754₋scandinavian₋Monetary }; /* ⬷ occasionally `intrinsic_and_base₋10`. */
+ ieee754₋scandinavian₋Monetary }; /*  occasionally `intrinsic_and_base₋10`. */
 EXT₋C void Format(double ℝ, enum Ieee754form f, void (^out)(char32̄_t ten₋base));
 EXT₋C int print(const char * sevenbit₋utf8format,...) ⓣ;
 EXT₋C int mfprint(const char * sevenbit₋utf8format,...);
