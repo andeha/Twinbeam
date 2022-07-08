@@ -22,7 +22,7 @@ X.platform/Developer/SDKs/MacOSX.sdk
 macoscflags_withxcode = -isysroot $xcodeapp-sdkpath
 macoscflags_commandline = -isysroot $commandline-sdkpath
 macoscflags = $macoscflags_commandline
-denominator-version = -mmacosx-version-min=12.4
+denominator-version = -macos_version_min 12.4
 maclnkflags = $denominator-version -syslibroot $commandline-sdkpath -lSystem $
  -lc++
 # Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git 
@@ -33,5 +33,5 @@ librarian-mac = xcrun ar
 compiler-macos = xcrun clang $gencdflags $moduleflags
 compiler-pic32 = $tools-small/clang-12 $gencdflags $moduleflags
 intel-mac = -target x86_64-apple-darwin21
-appleSoC-mac = -target arm64-apple-macos12 -D__armv8a__
+appleSoC-mac = -target arm64-apple-macos12 -D __armv8a__
 

@@ -51,14 +51,9 @@ ninja -C Bootloader -f build-mzda.ninja                             || exit 1
 ninja -C Sprinkle/pdb                                               || exit 1
 #  see progress on --<􀖆 assemble.cpp> and --<􀐒 retrospect.c>.
 # Examples: dbgout ledflash helloworld fpu bldc usb twinsh turbine radio
-# flightcontroller attokernel
+# flightcontroller attokernel sdhc
 # ninja -C Examples/😐/
-ninja -C Examples/sdhc
-ninja -C macOS -f harness-sv-1.ninja                                || exit 1
-ninja -C macOS -f harness-1.ninja                                   || exit 1
-ninja -C macOS -f harness-2.ninja                                   || exit 1
-ninja -C macOS -f harness-add.ninja                                 || exit 1
-ninja -C macOS -f harness-aux.ninja                                 || exit 1
+ninja -C exercise -f build.ninja                                    || exit 1
 ninja -C ../helixsh build_macos.ninja                               || exit 1
 builtin typeset -gx MINIMUMPLATFORM='-target arm64-apple-macos12 -D __armv8a__'
 ninja -C ../Minimum -f build.ninja

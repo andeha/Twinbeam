@@ -246,7 +246,7 @@ struct sevenbit₋text { __builtin_int_t count; char * keyputs; };
 struct utf8₋text { __builtin_int_t bytes; char8₋t * u8s; };
 struct Unicodes { __builtin_int_t tetras; char32̄_t * unicodes; };
 struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * text; }; 
-/* ⬷ type 'char' C implementation dependent whether signed/unsigned. 
+/*  type 'char' C implementation dependent whether signed/unsigned. 
  See '-fno-signed-char'. */
 
 EXT₋C void int₋to₋sequent(int64_t integer, Sequenta * real);
@@ -334,7 +334,7 @@ typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
 FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memory(
  ByteAlignedRef dst, /* const */ ByteAlignedRef src, __builtin_int_t bytes) {
  ByteAlignedRef org = dst; __asm__ __volatile__ ("rep movsb" : "+D"(dst),
- "+S"(src), "+c"(bytes) : : "memory"); return org; }  /* ⬷ a․𝘬․a 'memcopy'. */
+ "+S"(src), "+c"(bytes) : : "memory"); return org; }  /*  a․𝘬․a 'memcopy'. */
 FOCAL EXT₋C int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
  ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uint_t bytes); /* ⏱😐🏁 */
 #define MEASURE_START(prefix) int64_t prefix##Start = __rdtsc(); /* 𝚜𝚒𝚐𝚗𝚎𝚍 ⟵ Comparision */
@@ -350,7 +350,7 @@ FOCAL EXT₋C int Compare8Memory(ByteAlignedRef p₁, ByteAlignedRef p₂, __bui
 FOCAL EXT₋C ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef 
   dst, ByteAlignedRef src, __builtin_int_t bytes);
 FOCAL EXT₋C int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁, 
- ByteAlignedRef p₂, __builtin_uint_t bytes); /* ⬷ a․𝘬․a 'memcmp'. */
+ ByteAlignedRef p₂, __builtin_uint_t bytes); /*  a․𝘬․a 'memcmp'. */
 /* #define PIC32SYMBOL(serie,symbol,vaddr) */
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
  constexpr uint32_t PIC32##serie##_##symbol = vaddr;                         \
@@ -361,8 +361,8 @@ FOCAL EXT₋C int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAligned
 #define 🔎🎭𝑀𝑋(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__) 
 #define 🔎🎭𝑀𝑍𝐷𝐴(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
 #define 🔎🎭𝑀𝑍(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
-MACRO uint32_t AsUncached(uint32_t vaddr) { return vaddr | 0x20000000; } /* ⬷ a․𝘬․a `KSEG0ToKSEG1`. */
-MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /* ⬷ a․𝘬․a `VToP`. */
+MACRO uint32_t AsUncached(uint32_t vaddr) { return vaddr | 0x20000000; } /*  a․𝘬․a `KSEG0ToKSEG1`. */
+MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /*  a․𝘬․a `VToP`. */
 #endif
 EXT₋C ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
 EXT₋C ByteAlignedRef Overwrite8Memory(ByteAlignedRef src, uint8_t val,
@@ -395,11 +395,11 @@ EXT₋C void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digit
 #endif
 #define SIGNBIT_INT32 0x80000000
 #define SIGNBIT_INT64 0x8000000000000000
-/* ⬷ a․𝘬․a INT₋MIN and '0b1<<31alt63'. */
-#define MOMENTED /* ⬷ attribute-at-end for method declarations a․𝘬․a 'LEAF' and 'do not follow'. */
-#define moment /* ⬷ initial attribute for function definitions and declarations a․𝘬․a 'leaf'. */
-#define intrinsic₋leaf /* ⬷ a․𝘬․a 'half₋leaf'; multiple attempts-w(as)-silicon-based. */
-#define leaf₋function /* ⬷ ...except intrinsic functions! */
+/*  a․𝘬․a INT₋MIN and '0b1<<31alt63'. */
+#define MOMENTED /*  attribute-at-end for method declarations a․𝘬․a 'LEAF' and 'do not follow'. */
+#define moment /*  initial attribute for function definitions and declarations a․𝘬․a 'leaf'. */
+#define intrinsic₋leaf /*  a․𝘬․a 'half₋leaf'; multiple attempts-w(as)-silicon-based. */
+#define leaf₋function /*  ...except intrinsic functions! */
 #define /* PROVOCATIVE */ ASSEMBLERONLY __attribute__((naked))
 #if defined __x86_64__
 #define READONLY __attribute__ ((section(".rodata,.rodata")))
@@ -412,10 +412,10 @@ EXT₋C void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digit
 #define READONLY __attribute__ ((section(".rodata")))
 #endif
 /* #define STRANGE_MAIN void _Noreturn main */
-#define Sourpatch(sym,msg) /* ⬷ a․𝘬․a 'link-forget' and 'retrospective-invisible' . */
-#define IsOdd(x) ((x) & 0b1) /* ⬷ simultaneously int32_t ∧ int64_t. 
+#define Sourpatch(sym,msg) /*  a․𝘬․a 'link-forget' and 'retrospective-invisible' . */
+#define IsOdd(x) ((x) & 0b1) /*  simultaneously int32_t ∧ int64_t. 
  H: x & 0b010 ⟷̸ ◻️⃞. See --<math>--<erf.cpp>{⁽₋1⁾ᵏ|alt}. */
-/* ⬷ also: 'odd' is closed under multiplication. */
+/*  also: 'odd' is closed under multiplication. */
 #define NOT_EVERYTIME const static
 #define CARDINALS(...) enum Cardinal { __🄦hole=0, __VA_ARGS__ };            \
   static jmp_buf2 __snapshot;                                                \
@@ -426,10 +426,10 @@ EXT₋C void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digit
   switch (__ctrl)
 #define 🧵(...) /* ✠ */ CARDINALS(__VA_ARGS__) NEARBYCROSS
 #define 🥇 NOT_EVERYTIME
-#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /* ⬷ a․𝘬․a '__block', 
+#define 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 __attribute__ ((__blocks__(byref))) /*  a․𝘬․a '__block', 
  𝚊𝚏𝚏𝚎𝚌𝚝𝚊𝚋𝚕𝚎 and 𝒎𝒆𝒄𝒉𝒂𝒏𝒊𝒔𝒎; 𝘤𝘧․ 'jurid' and 'förekomst'. Also 'machinal'. */
 __builtin_int_t least₋possible₋residue(__builtin_int_t dividend, __builtin_int_t divisor);
-/* ⬷ see --<Wiki>--<Essays>--<On clocks and time> and 'circular reasoning'. */
+/*  see --<Wiki>--<Essays>--<On clocks and time> and 'circular reasoning'. */
 #define auto₋rollback(variable) decltype(variable)
 typedef __builtin_uint_t Cross; 
 BITMASK(Cross) { CrossLeftToRight = 0b0001, CrossRightToLeft = 0b0010, 
@@ -557,7 +557,7 @@ typedef union sexdeca {
 #if defined __x86_64__
   /* __m128 intel; /​*  'sixteen - possibly unaligned - divided into 𝙛𝙡𝙤𝙖𝙩 slots'. */
 #endif
-} sexdeca; /* ⬷ a․𝘬․a denary. */
+} sexdeca; /*  a․𝘬․a denary. */
 
 typedef union ditriaconta {
 #if defined __x86_64__
@@ -612,7 +612,7 @@ EXT₋C int Utf8Sync(char8₋t **p); /*  backs at most 3 bytes to regain sync. *
 
 inline EXT₋C char32̄_t Superscript(short 𝟶to𝟿) { return U'⁰'+𝟶to𝟿; } /* ⁰¹⋯⁹ */
 
-inline EXT₋C char32̄_t Subscript(short 𝟶to𝟿) { return U'₀'+𝟶to𝟿; } /* ₀₁…₉; ⬷ For the computational chemistry inclined. */
+inline EXT₋C char32̄_t Subscript(short 𝟶to𝟿) { return U'₀'+𝟶to𝟿; } /* ₀₁…₉;  For the computational chemistry inclined. */
 
 EXT₋C int TransformAndResolve(struct Unicodes pathᵚᵍ, void (^final)(const char * regular𝘖rLinkpath));
 
@@ -652,7 +652,7 @@ EXT₋C int collection₋init(unsigned bytes₋per₋item, unsigned
 EXT₋C int copy₋append₋items(__builtin_int_t count₋not₋bytes, void * 
  bytes₋objects, struct collection * 🅰, ALLOC alloc);
 EXT₋C uint8_t * collection₋relative(__builtin_int_t idx, struct collection * 🅰);
-/* ⬷ a․𝘬․a 'collection₋at'. */
+/*  a․𝘬․a 'collection₋at'. */
 EXT₋C __builtin_int_t collection₋count(struct collection * 🅰);
 EXT₋C int deinit₋collection(struct collection * 🅰, FALLOW fallow);
 typedef struct collection Casette;
@@ -662,7 +662,7 @@ EXT₋C int copy₋include₋convoj(ALLOC alloc, struct collection * 🅵₁, st
  collection * 🅵₂, __builtin_int_t count, __builtin_int_t bytes[], ...);
 EXT₋C __builtin_int_t convoj₋count(struct collection * 🅵₁, struct collection * 🅵₂);
 EXT₋C uint8_t * convoj₋relative(__builtin_int_t idx, struct collection * 🅵₁, 
- struct collection * 🅵₂); /* ⬷ a․𝘬․a 'sequence'. */
+ struct collection * 🅵₂); /*  a․𝘬․a 'sequence'. */
 
 EXT₋C int Snapshot(const struct collection original, struct collection * pristine);
 EXT₋C int ToggleNetworkAndNative(struct collection region, __builtin_int_t 
@@ -678,7 +678,7 @@ inline EXT₋C uint64_t /* a․𝘬․a 'ieee754dbl₋pattern' */ intel(uint32_t
 
 inline uint32_t EXT₋C ᵗᵍᵍˡendian(uint32_t x) ⓣ { return __builtin_bswap32(x); }
 inline uint64_t EXT₋C ᵗᵍᵍˡendian(uint64_t x) ⓣ { return __builtin_bswap64(x); }
-/* ⇇ a․𝘬․a 'toggleNetworkAndNative'. */
+/*  a․𝘬․a 'toggleNetworkAndNative'. */
 
 EXT₋C void * ExactSeek₂(const void *key, const void *base, size_t num, 
  size_t size, int (^cmp)(const void *key, const void *elt));
@@ -717,7 +717,7 @@ EXT₋C void ASSEMBLERONLY Sheriff();
 enum Impediment { MustBeOrdered, JustSwap };
 EXT₋C int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂, enum 
  Impediment it);
-/* ⬷ non-atomic, yet consistent and gracefully failing indicated through a 
+/*  non-atomic, yet consistent and gracefully failing indicated through a 
  non-zero return value. */
 /* struct Peekey { __builtin_int_t 🥈 ⬚=2, 🗝=1; __builtin_int_t board₁, palm₂; }; */
 #define 🔒(situ,error) if (OptimisticSwap(&situ.board₁, &situ.palm₂, MustBeOrdered)) { confess(error); }
@@ -732,7 +732,7 @@ typedef struct Bitfield Bitfield;
 struct Act { __builtin_int_t memory; };
 EXT₋C __builtin_int_t monoton₋ordinal(int * wrapped, struct Act * ❶);
 EXT₋C void init₋monoton(struct Act * ❶, __builtin_int_t oldest);
-/* ⬷ retrieve a unique value in a 'strict monotonic increasing serie. Wraps (𝄇) at 
+/*  retrieve a unique value in a 'strict monotonic increasing serie. Wraps (𝄇) at 
  BUILTIN₋INT₋MAX. */
 
 #pragma recto two non-accurates and concurrent with 52-bit significands
@@ -749,6 +749,7 @@ union β₋simd
 
 #if defined NON₋SIMD
 typedef union β₋simd simd_tᵦ;
+/* typedef double simd_tᵦ[2]; */
 #elif defined __armv8a__
 typedef __attribute__ ((neon_vector_type(2))) double float64x2_t;
 typedef float64x2_t simd_tᵦ;
@@ -822,8 +823,8 @@ EXT₋C chronology₋instant subtract₋seconds(chronology₋instant relative,
   */
 
 #if defined AWARENESS₋OF₋INTERPLANETARY₋MATTERS
-typedef Chronology Chronology🚀; /* ⬷ i․𝘦 'celestial fractional' with 'identical' epoc. */
-typedef Chronology Chronology🦠; /* ⬷ with an 2⁻⁶⁵ a․𝘬․a 'UQ65'; light
+typedef Chronology Chronology🚀; /*  i․𝘦 'celestial fractional' with 'identical' epoc. */
+typedef Chronology Chronology🦠; /*  with an 2⁻⁶⁵ a․𝘬․a 'UQ65'; light
   travels approximately 8.126 pm ('pico meter') per increment. */
 #endif
 
@@ -855,7 +856,7 @@ typedef int32_t chronology₋Q31;
 typedef int32_t short₋chronology₋relative; /* a․𝘬․a Q1615 captures ±65535.9999694822. */
 struct chronology₋relative { int32_t seconds; chronology₋Q31 frac; };
 EXT₋C short₋chronology₋relative duration(chronology₋instant t₁, chronology₋instant t₂);
-/* ⬷ a․𝘬․a 'Interval', 'relative' and 'seconds₋and₋frac' and is calendric alternatively 
+/*  a․𝘬․a 'Interval', 'relative' and 'seconds₋and₋frac' and is calendric alternatively 
  monotonically increasing non-rooting temporal relative. */
 
 EXT₋C void present₋instant(chronology₋instant v, int incl₋frac, void (^out)(
