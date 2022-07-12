@@ -633,6 +633,9 @@ inline int Lease(char8₋t * u8s, void (^sometime)(struct Unicodes uc))
   return 0;
 }
 
+EXT₋C int Play(char32̄_t * text, __builtin_va_list params, void 
+ (^composition)(struct Unicodes serial));
+
 #pragma recto 8, 16, ...,  32, 64, lo64, hi64, 128, utf8
 
 /* for 𝑝𝑖𝑔𝑒𝑜𝑛 𝑟𝑒𝑐𝑜𝑛𝑛𝑎𝑖𝑠𝑠𝑎𝑛𝑐𝑒, 𝑠𝑐𝑜𝑢𝑡𝑖𝑛𝑔 and other missions */
@@ -878,7 +881,7 @@ EXT₋C void coro_free(coro_t * coro);
 #if defined 𝟷𝟸𝟾₋bit₋integer₋available
 typedef __builtin_int_t version₋ts;
 struct timeserie { struct collection pendings; void * currents, *uncommits;
- Casette points, versions, events, temporals; version₋ts *revison, earliest; 
+ Casette points, versions, events, temporals; version₋ts *revision, earliest; 
  unsigned short checkpoint₋modulo; };
 struct timeserie₋entry { struct Unicodes key; union historypod entry; 
  struct sevenbit₋text reference; };
