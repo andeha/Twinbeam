@@ -1,4 +1,4 @@
-#  build.ninja - building Twinbeam to pic32mm (a processor with no 'double'.)
+#  build.ninja - building Twinbeam to pic32mm and no 'double'.
 
 optflags = -g
 stem-library = libTwinbeam_pic32mm
@@ -16,35 +16,35 @@ rule library
   command = $librarian-pic32 rcs Releases/$out\_$sha1git.a $in             ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
 
-build libTwinbeam_pic32mm:  library $objs/anglosax-sequent.o                 $
- $objs/arrange-fifo.o $objs/best-first.o $objs/chim-model.o                  $
- $objs/church-pass.o $objs/convoj-sequence.o $objs/deter-lock.o              $
- $objs/icati-irrevers.o $objs/internat-sheriff.o $objs/leap-osmosis.o        $
- $objs/text-length.o $objs/pamphlet-symbol.o $objs/pic32-institut.o          $
- $objs/portable-tree.o $objs/reference-three.o $objs/serial-symbol.o         $
- $objs/stochast-symbol.o $objs/tee-metric.o $objs/clever-fingerprint.o       $
- $objs/unstall-coalesc.o
-build $objs/anglosax-sequent.o: c anglosax-sequent.c
-build $objs/arrange-fifo.o: c arrange-fifo.c
-build $objs/best-first.o: c best-first.c
-build $objs/chim-model.o: c chim-model.c
-build $objs/church-pass.o: asm church-pass.S
-build $objs/convoj-sequence.o: c convoj-sequence.c
-build $objs/deter-lock.o: c deter-lock.c
-build $objs/icati-irrevers.o: c icati-irrevers.c
-build $objs/internat-sheriff.o: asm internat-sheriff.S
-# formerly detail-patrol.c.
-build $objs/leap-osmosis.o: c leap-osmosis.c
-build $objs/text-length.o: c length-impression.c
-build $objs/pamphlet-symbol.o: c pamphlet-symbol.c
-build $objs/pic32-institut.o: c pic32-institut.c
-build $objs/portable-tree.o: c portable-tree.c
-build $objs/reference-three.o: c reference-three.c
-build $objs/serial-symbol.o: c serial-symbol.c
-build $objs/stochast-symbol.o: c stochast-symbol.c
-build $objs/tee-metric.o: c tee-metric.c
-build $objs/clever-fingerprint.o: c computation-unique.c
-build $objs/unstall-coalesc.o: c unstall-coalesc.c
+build libTwinbeam_pic32mm:  library $objs/book-nonpsalm.o                    $
+ $objs/clot-referen.o $objs/complic-abdun.o $objs/constrai-coalesc.o         $
+ $objs/detail-encode.o $objs/detergent-hand.o $objs/etui-police.o            $
+ $objs/institu-nevada.o $objs/sheriff-step.o $objs/macarong-kastanj.o        $
+ $objs/mixture-national.o $objs/model-vision.o $objs/passage-stary.o         $
+ $objs/procure-sheriff.o $objs/proof-teko.o $objs/sequent-guiness.o          $
+ $objs/serial-juice.o $objs/text-length.o $objs/transmit-radio.o             $
+ $objs/transparent-navaron.o $objs/twice-fail.o
+build $objs/book-nonpsalm.o: c reference-three.c
+build $objs/clot-referen.o: c portable-tree.c
+build $objs/complic-abdun.o: c icati-irrevers.c
+build $objs/constrai-coalesc.o: c unstall-coalesc.c
+build $objs/detail-encode.o: c stochast-symbol.c
+build $objs/detergent-hand.o: c deter-lock.c
+build $objs/etui-police.o: c pamphlet-symbol.c
+build $objs/institu-nevada.o: c nevada-institut.c
+build $objs/sheriff-step.o: asm internat-sheriff.S
+build $objs/macarong-kastanj.o: c arrange-fifo.c
+build $objs/mixture-national.o: c convoj-sequen.c
+build $objs/model-vision.o: c chim-model.c
+build $objs/passage₋stary.o: asm church-pass.S
+build $objs/procure-sheriff.o: c leap-osmosis.c
+build $objs/proof-teko.o: c best-first.c
+build $objs/sequent-guiness.o: c anglosax-sequent.c
+build $objs/serial-juice.o: c comput-unique.c
+build $objs/text-length.o: c impress-length.c
+build $objs/transmit-radio.o: c serial-symbol.c
+build $objs/transparent-navaron.o: c symbol-tiles.c
+build $objs/twice-fail.o: c tee-metric.c
 build emit-content: toc
 default $stem-library
 

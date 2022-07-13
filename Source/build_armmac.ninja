@@ -16,32 +16,35 @@ rule library
   command = $librarian-mac rcs Releases/$out\_$sha1git.a $in               ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a ; printf $sha1git
 
-build libTwinbeam_macarm:  library $objs/anglosax-sequent.o                  $
- $objs/arrange-fifo.o $objs/best-first.o $objs/chim-model.o                  $
- $objs/church-pass.o $objs/convoj-sequence.o $objs/deter-lock.o              $
- $objs/icati-irrevers.o $objs/institut-macos.o $objs/leap-osmosis.o          $
- $objs/length-text.o $objs/pamphlet-symbol.o $objs/portable-tree.o           $
- $objs/reference-three.o $objs/serial-symbol.o $objs/stochast-symbol.o       $
- $objs/tee-metric.o $objs/twofivesix-sha.o $objs/unstall-coalesc.o
-build $objs/anglosax-sequent.o: c anglosax-sequent.c
-build $objs/arrange-fifo.o: c arrange-fifo.c
-build $objs/best-first.o: c best-first.c
-build $objs/chim-model.o: c chim-model.c
-build $objs/church-pass.o: asm church-pass.S
-build $objs/convoj-sequence.o: c convoj-sequence.c
-build $objs/deter-lock.o: c deter-lock.c
-build $objs/icati-irrevers.o: c icati-irrevers.c
-build $objs/institut-macos.o: c institut-macos.c
-build $objs/leap-osmosis.o: c leap-osmosis.c
-build $objs/length-text.o: c length-impression.c
-build $objs/pamphlet-symbol.o: c pamphlet-symbol.c
-build $objs/portable-tree.o: c portable-tree.c
-build $objs/reference-three.o: c reference-three.c
-build $objs/serial-symbol.o: c serial-symbol.c
-build $objs/stochast-symbol.o: c stochast-symbol.c
-build $objs/tee-metric.o: c tee-metric.c
-build $objs/unique-computation.o: c computation-unique.c
-build $objs/unstall-coalesc.o: c unstall-coalesc.c
+build libTwinbeam_macarm:  library $objs/arkebu-referen.o                    $
+ $objs/carusel-opini.o $objs/circu-anglosa.o $objs/compass-ructur.o          $
+ $objs/comput-parasol.o $objs/divert-pragmat.o $objs/dublon-parade.o         $
+ $objs/dulgati-centrat.o $objs/eneral-conventi.o $objs/helicop-antagoni.o    $
+ $objs/masque-familj.o $objs/materi-summar.o $objs/nomenc-karavan.o          $
+ $objs/parabol-versati.o $objs/pincett-heritan.o $objs/practi-natur.o        $
+ $objs/product-ronolo.o $objs/rollno-ensolut.o $objs/symbol-semati.o         $
+ $objs/timuli-metri.o $objs/unstall-irection.o
+build $objs/arkebu-referen.o: c reference-three.c
+build $objs/carusel-opini.o: c deter-lock.c
+build $objs/circu-anglosa.o: c anglosax-sequent.c
+build $objs/compass-ructur.o: c pamphlet-symbol.c
+build $objs/comput-parasol.o: c comput-unique.c
+build $objs/divert-pragmat.o: c chim-model.c
+build $objs/dublon-parade.o: c symbol-tiles.c
+build $objs/dulgati-centrat.o: c portable-tree.c
+build $objs/eneral-conventi.o: asm church-pass.S
+build $objs/helicop-antagoni.o: c best-first.c
+build $objs/masque-familj.o: cms institut-macos.c
+build $objs/materi-summar.o: c impress-length.c
+build $objs/nomenc-karavan.o: c convoj-sequen.c
+build $objs/parabol-versati.o: c serial-symbol.c
+build $objs/pincett-heritan.o: c leap-osmosis.c
+build $objs/practi-natur.o: c icati-irrevers.c
+build $objs/product-ronolo.o: c arrange-fifo.c
+build $objs/rollno-ensolut.o: c nonsol-utroll.c
+build $objs/symbol-semati.o: c stochast-symbol.c
+build $objs/timuli-metri.o: c tee-metric.c
+build $objs/unstall-irection.o: c unstall-coalesc.c
 build emit-content: toc
 default $arm-library
 

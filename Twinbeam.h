@@ -328,29 +328,28 @@ EXT₋C void Setupframelibrary(int count, struct Expeditionary *);
 
 EXT₋C void * malloc(size_t bytes); EXT₋C void free(void *); 
 EXT₋C int atexit(void(*func)(void)); EXT₋C void exit(int);
+
 /* Pointer arithmetics and the pointers inner intrinsics implicits. */
 typedef __builtin_uint_t * WordAlignedRef; typedef uint8_t * ByteAlignedRef;
-#if defined __x86_64__
-FOCAL MACRO ByteAlignedRef /* µA("x86_64", "haswell", x₁, x₂) */ Copy8Memory(
- ByteAlignedRef dst, /* const */ ByteAlignedRef src, __builtin_int_t bytes) {
- ByteAlignedRef org = dst; __asm__ __volatile__ ("rep movsb" : "+D"(dst),
- "+S"(src), "+c"(bytes) : : "memory"); return org; }  /*  a․𝘬․a 'memcopy'. */
-FOCAL EXT₋C int /* µA("Compare", "x86_64", "haswell", x₁, x₂) */ Compare8Memory(
- ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uint_t bytes); /* ⏱😐🏁 */
-#define MEASURE_START(prefix) int64_t prefix##Start = __rdtsc(); /* 𝚜𝚒𝚐𝚗𝚎𝚍 ⟵ Comparision */
+EXT₋C ByteAlignedRef Copy8Memory(ByteAlignedRef dst, ByteAlignedRef src, __builtin_int_t bytes);
+EXT₋C int Compare8Memory(ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_int_t bytes);
+EXT₋C ByteAlignedRef Overwrite8Memory(ByteAlignedRef src, uint8_t val, __builtin_int_t bytes);
+EXT₋C ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
+
+#pragma recto ⏱😐🏁
+
+#define MEASURE_START(prefix) uint64_t prefix##Start = cycles();
 #define MEASURE_END(prefix)                                                  \
- int64_t prefix##End = (int64_t)__rdtsc();                                   \
- int64_t prefix##Nanos = prefix##End - prefix##Start;                        \
- print(#prefix " measures ⬚ ns\n", ﹟d(prefix##Nanos));
-#define 🎭𝑋𝟾𝟼(storage,symmsk,...) 🎭((__builtin_uint_t *)(storage), INTEL_##symmsk __VA_OPT__(,) __VA_ARGS__)
-#elif defined __armv6__ || defined __armv8a__
-FOCAL EXT₋C ByteAlignedRef Copy8Memory(ByteAlignedRef dst, ByteAlignedRef src, __builtin_int_t bytes);
-FOCAL EXT₋C int Compare8Memory(ByteAlignedRef p₁, ByteAlignedRef p₂, __builtin_uint_t bytes);
-#elif defined __mips__
-FOCAL EXT₋C ByteAlignedRef /* µA("mips", "r2", x₃, x₄) */ Copy8Memory(ByteAlignedRef 
-  dst, ByteAlignedRef src, __builtin_int_t bytes);
-FOCAL EXT₋C int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAlignedRef p₁, 
- ByteAlignedRef p₂, __builtin_uint_t bytes); /*  a․𝘬․a 'memcmp'. */
+ uint64_t prefix##End = cycles();                                            \
+ uint64_t prefix##Nanos = prefix##End - prefix##Start;                       \
+ print(#prefix " measures ⬚ ns\n", ﹟d((int64_t)(prefix##Nanos)));
+#if defined __x86_64__
+#define cycles __rdtsc
+#elif defined __armv8a__
+inline uint32_t cycles() { return *(unsigned *)0xe001004; }
+#endif
+
+#if defined __mips__
 /* #define PIC32SYMBOL(serie,symbol,vaddr) */
 #define PIC32SYMBOL(serie,symbol,vaddr)                                      \
  constexpr uint32_t PIC32##serie##_##symbol = vaddr;                         \
@@ -363,10 +362,10 @@ FOCAL EXT₋C int /* µA("mips", "r2", x₃, x₄) */ Compare8Memory(ByteAligned
 #define 🔎🎭𝑀𝑍(symval,msk,...) 🎭((__builtin_uint_t *)(symval), msk __VA_OPT__(,) __VA_ARGS__)
 MACRO uint32_t AsUncached(uint32_t vaddr) { return vaddr | 0x20000000; } /*  a․𝘬․a `KSEG0ToKSEG1`. */
 MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /*  a․𝘬․a `VToP`. */
+#elif defined __x86_64__
+#define 🎭𝑋𝟾𝟼(storage,symmsk,...) 🎭((__builtin_uint_t *)(storage), INTEL_##symmsk __VA_OPT__(,) __VA_ARGS__)
 #endif
-EXT₋C ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
-EXT₋C ByteAlignedRef Overwrite8Memory(ByteAlignedRef src, uint8_t val,
- __builtin_int_t bytes);
+
 #define copy₋block(...) ((__typeof(__VA_ARGS__))_Block₋copy((const void *)(__VA_ARGS__)))
 #define release₋block(...) _Block₋release((const void *)(__VA_ARGS__))
 struct Block₋descriptor { unsigned long int reserved; unsigned long int size;
@@ -902,7 +901,7 @@ EXT₋C void timeserie₋uninit(struct timeserie * 🅹);
 #endif
 
 struct guid { struct endian { uint64_t aware; uint64_t similar; } endian; };
-struct guid Newguid();
+struct guid Guid();
 Argᴾ ﹟leap(struct guid g);
 
 /**  correlative-relative, 𝘦․𝘨 xʳ∈[-1/2₋𝜀, +1/2₊𝜀] and xʳ∈[-π₊𝜀, +π₋𝜀]. */

@@ -12,31 +12,34 @@ rule library
   command = $librarian-mac rcs Releases/$out\_$sha1git.a $in               ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a ; printf $sha1git
 
-build libTwinbeam-x86_64:  library $objs/anglosax-sequent.o                  $
- $objs/arrange-fifo.o $objs/best-first.o $objs/chim-model.o                  $
- $objs/church-pass.o $objs/convoj-sequence.o $objs/deter-lock.o              $
- $objs/icati-irrevers.o $objs/institut-macos.o $objs/leap-osmosis.o          $
- $objs/length-text.o $objs/pamphlet-symbol.o $objs/portable-tree.o           $
- $objs/reference-three.o $objs/stochast-symbol.o $objs/tee-metric.o          $
- $objs/unstall-system.o $objs/soft-sha.o $objs/serial-symbol.o 
-build $objs/anglosax-sequent.o: c anglosax-sequent.c
-build $objs/arrange-fifo.o: c arrange-fifo.c
-build $objs/best-first.o: c best-first.c
-build $objs/chim-model.o: c chim-model.c
-build $objs/church-pass.o: asm church-pass.S
-build $objs/convoj-sequence.o: c convoj-sequence.c
-build $objs/deter-lock.o: c deter-lock.c
-build $objs/icati-irrevers.o: c icati-irrevers.c
-build $objs/institut-macos.o: c institut-macos.c
-build $objs/leap-osmosis.o: c leap-osmosis.c
-build $objs/length-text.o: c length-impression.c
-build $objs/pamphlet-symbol.o: c pamphlet-symbol.c
-build $objs/portable-tree.o: c portable-tree.c
-build $objs/reference-three.o: c reference-three.c
-build $objs/serial-symbol.o: c serial-symbol.c
-build $objs/stochast-symbol.o: c stochast-symbol.c
-build $objs/tee-metric.o: c tee-metric.c
-build $objs/soft-sha.o: c computation-unique.c
-build $objs/unstall-system.o: cms unstall-coalesc.c
+build libTwinbeam-x86_64:  library $objs/abacus-modern.o $objs/bless-pass.o  $
+ $objs/encod-ntinel.o $objs/first-proof.o $objs/fixed-circu.o                $
+ $objs/flute-solid.o $objs/habit-convoj.o $objs/irrever-biory.o              $
+ $objs/length-work.o $objs/lockout-swap.o $objs/macos-specili.o              $
+ $objs/optio-alter.o $objs/osmosis-arrest.o $objs/raljant-three.o            $
+ $objs/rollno-ensolut.o $objs/symbol-relief.o $objs/symbol-transmi.o         $
+ $objs/symbol-unison.o $objs/tesby-istra.o $objs/unique-comput.o             $
+ $objs/unstall-bank.o
+build $objs/abacus-modern.o: c anglosax-sequent.c
+build $objs/bless-pass.o: asm church-pass.S
+build $objs/encod-ntinel.o: c symbol-tiles.c
+build $objs/first-proof.o: c best-first.c
+build $objs/fixed-circu.o: c arrange-fifo.c
+build $objs/flute-solid.o: c tee-metric.c
+build $objs/habit-convoj.o: c convoj-sequen.c
+build $objs/irrever-biory.o: c icati-irrevers.c
+build $objs/length-work.o: c impress-length.c
+build $objs/lockout-swap.o: c deter-lock.c
+build $objs/macos-specili.o: cms institut-macos.c
+build $objs/optio-alter.o: c portable-tree.c
+build $objs/osmosis-arrest.o: c leap-osmosis.c
+build $objs/raljant-three.o: c reference-three.c
+build $objs/rollno-ensolut.o: c nonsol-utroll.c
+build $objs/symbol-relief.o: c stochast-symbol.c
+build $objs/symbol-transmi.o: c serial-symbol.c
+build $objs/symbol-unison.o: c pamphlet-symbol.c
+build $objs/tesby-istra.o: c chim-model.c
+build $objs/unique-comput.o: c comput-unique.c
+build $objs/unstall-bank.o: c unstall-coalesc.c
 default $library-root
 

@@ -14,37 +14,38 @@ rule toc
 # ⬷ monitor/Apps> ninja -C Source -f build_pic32mz.ninja emit-content
 
 rule library
-  command = $librarian-pic32 rcs Releases/$out\_$sha1git.a $in             ; $
+  command = $librarian-pic32 rcs Releases/$out\_$sha1git.a $in            ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
 
-build libTwinbeam_pic32mz:  library $objs/anglosax-sequent.o                 $
- $objs/arrange-fifo.o $objs/best-first.o $objs/chim-model.o                  $
- $objs/church-pass.o $objs/convoj-sequence.o $objs/deter-lock.o              $
- $objs/icati-irrevers.o $objs/internat-sheriff.o $objs/leap-osmosis.o        $
- $objs/text-length.o $objs/pamphlet-symbol.o $objs/pic32-institut.o          $
- $objs/portable-tree.o $objs/reference-three.o $objs/serial-symbol.o         $
- $objs/stochast-symbol.o $objs/bounce-relay.o $objs/unique-computation.o     $
- $objs/unstall-coalesc.o $objs/serial-symbol.o $objs/deter-lock.o
-build $objs/anglosax-sequent.o: c anglosax-sequent.c
-build $objs/arrange-fifo.o: c arrange-fifo.c
-build $objs/best-first.o: c best-first.c
-build $objs/chim-model.o: c chim-model.c
-build $objs/church-pass.o: asm church-pass.S
-build $objs/convoj-sequence.o: c convoj-sequence.c
-build $objs/deter-lock.o: c deter-lock.c
-build $objs/icati-irrevers.o: c icati-irrevers.c
+build libTwinbeam_pic32mz:  library $objs/antenn-mission.o                  $
+ $objs/cathol-irrevers.o $objs/condit-toxolog.o $objs/encoded-tiles.o       $
+ $objs/fraud-convoj.o $objs/induct-pass.o $objs/integer-base.o              $
+ $objs/internat-sheriff.o $objs/land-viginia.o $objs/leaves-viewpoint.o     $
+ $objs/letter-text.o $objs/once-nevada.o $objs/pack-best.o                  $
+ $objs/symbol-mask.o $objs/plan-unlock.o $objs/sequent-kalaha.o             $
+ $objs/star-port.o $objs/state-relay.o $objs/symbol-compar.o                $
+ $objs/three-biblio.o $objs/unique-comput.o
+build $objs/antenn-mission.o: c serial-symbol.c
+build $objs/cathol-irrevers.o: c icati-irrevers.c
+build $objs/condit-toxolog.o: c arrange-fifo.c
+build $objs/encoded-tiles.o: c symbol-tiles.c
+build $objs/fraud-convoj.o: c convoj-sequen.c
+build $objs/induct-pass.o: asm church-pass.S
+build $objs/integer-base.o: c unstall-coalesc.c
 build $objs/internat-sheriff.o: asm internat-sheriff.S
-build $objs/leap-osmosis.o: c leap-osmosis.c
-build $objs/text-length.o: c length-impression.c
-build $objs/pamplet-symbol.o: c pamphlet-symbol.c
-build $objs/pic32-institut.o: c pic32-institut.c
-build $objs/portable-tree.o: c portable-tree.c
-build $objs/reference-three.o: c reference-three.c
-build $objs/serial-symbol.o: c serial-symbol.c
-build $objs/stochast-symbol.o: c stochast-symbol.c
-build $objs/bounce-relay.o: c tee-metric.c
-build $objs/unique-computation.o: c computation-unique.c
-build $objs/unstall-coalesc.o: c unstall-coalesc.c
+build $objs/land-viginia.o: c leap-osmosis.c
+build $objs/leaves-viewpoint.o: c portable-tree.c
+build $objs/letter-text.o: c length-impress.c
+build $objs/once-nevada.o: c nevada-institut.c
+build $objs/pack-best.o: c best-first.c
+build $objs/symbol-mask.o: c pamphlet-symbol.c
+build $objs/plan-unlock.o: c deter-lock.c
+build $objs/sequent-kalaha.o: c anglosax-sequent.c
+build $objs/star-port.o: c chim-model.c
+build $objs/state-relay.o: c tee-metric.c
+build $objs/symbol-compar.o: c stochast-symbol.c
+build $objs/three-biblio.o: c reference-three.c
+build $objs/unique-comput.o: c comput-unique.c
 build emit-content: toc
 default $stem-library
 
