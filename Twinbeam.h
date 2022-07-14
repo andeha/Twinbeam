@@ -172,9 +172,10 @@ typedef unsigned int char32̄_t;
 #define UTF8TEXT(x) ((char8₋t *)(u8##x))
 /*  integer types char8_t and char32_t are both unsigned and unused in this project. */
 
-enum Ieee754form { ieee754₋Scientific, ieee754₋Saturn, ieee754₋Monetary, 
- ieee754₋scandinavian₋Monetary }; /*  occasionally `intrinsic_and_base₋10`. */
-EXT₋C void Format(double ℝ, enum Ieee754form f, void (^out)(char32̄_t ten₋base));
+EXT₋C void ieee754₋Scientific₋Rendition(double ℝ, void (^out)(char32̄_t ten₋base));
+EXT₋C void ieee754₋Saturn₋Rendition(double ℝ, void (^out)(char32̄_t ten₋base));
+EXT₋C void ieee754₋Monetary₋Rendition(double ℝ, void (^out)(char32̄_t ten₋base));
+EXT₋C void ieee754₋Scandiavian₋Monetary(double ℝ, void (^out)(char32̄_t ten₋base));
 EXT₋C int print(const char * sevenbit₋utf8format,...) ⓣ;
 EXT₋C int mfprint(const char * sevenbit₋utf8format,...);
 EXT₋C int print(void (^out)(char8₋t * u8s, __builtin_int_t bytes), const char * 
