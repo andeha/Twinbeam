@@ -175,7 +175,7 @@ typedef unsigned int char32̄_t;
 EXT₋C void ieee754₋Scientific₋Rendition(double ℝ, void (^out)(char32̄_t ten₋base));
 EXT₋C void ieee754₋Saturn₋Rendition(double ℝ, void (^out)(char32̄_t ten₋base));
 EXT₋C void ieee754₋Monetary₋Rendition(double ℝ, void (^out)(char32̄_t ten₋base));
-EXT₋C void ieee754₋Scandiavian₋Monetary(double ℝ, void (^out)(char32̄_t ten₋base));
+EXT₋C void ieee754₋Scandiavian₋Monetary₋Rendition(double ℝ, void (^out)(char32̄_t ten₋base));
 EXT₋C int print(const char * sevenbit₋utf8format,...) ⓣ;
 EXT₋C int mfprint(const char * sevenbit₋utf8format,...);
 EXT₋C int print(void (^out)(char8₋t * u8s, __builtin_int_t bytes), const char * 
