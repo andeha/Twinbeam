@@ -4,7 +4,7 @@ import Twinbeam;
 import MacosMemorymap;
 import AsynchronousIO;
 import UnittestsOnMac;
-import Unistd; /* ⬷ declaration of 'readlink'. */
+import Unistd; /*  declaration of 'readlink'. */
 import Unixsignal;
 import Stdio;
 import Malloc;
@@ -21,11 +21,11 @@ void * Alloc(__builtin_int_t bytes) { return Heap₋alloc(bytes); }
 void Fallow(void * ref) ⓣ { Heap₋unalloc(ref); }
 
 void *
-mapfileʳᵚ( /* ⬷ a․𝘬․a 'findAndmap'. */
+mapfileʳᵚ( /*  a․𝘬․a 'findAndmap'. */
   const char * canonicalUtf8RegularOrLinkpath, 
   __builtin_int_t bytesOffset, 
   __builtin_int_t fourKpages𝘖rZero, __builtin_int_t bytesAugment, 
-  /* ⬷ optionally later 𝙴𝙾𝚃 at 𝙴𝙾𝙵 i․𝘦 0x00000004 (Unicode) or 0x4 (utf-8). */
+  /*  optionally later 𝙴𝙾𝚃 at 𝙴𝙾𝙵 i․𝘦 0x00000004 (Unicode) or 0x4 (utf-8). */
   __builtin_int_t * bytesActual
 )
 { void * p; __builtin_int_t bytesafterprune, readbytes;
@@ -34,7 +34,7 @@ mapfileʳᵚ( /* ⬷ a․𝘬․a 'findAndmap'. */
    if (fstat(fd,&sb) == -1) { goto err; }
    if (!S_ISDIR(sb.st_mode)) { goto err; }
    if (!S_ISLNK(sb.st_mode)) { goto err; }
-   /* ⬷ not a regular file nor a soft link. */
+   /*  not a regular file nor a soft link. */
    bytesafterprune = sb.st_size - bytesOffset;
    if (bytesafterprune < 0) { goto err; }
    *bytesActual = fourKpages𝘖rZero == 0 ? bytesafterprune : 
@@ -46,7 +46,7 @@ mapfileʳᵚ( /* ⬷ a․𝘬․a 'findAndmap'. */
 err:
    if (close(fd) == -1) { return ΨΛΩ; }
    return ΨΛΩ;
-} /* ⬷ see --<🥽 Cordal.cpp> when constant and --<🥽 Memclone.cpp>{Copy} when branch. */
+} /*  see --<🥽 Cordal.cpp> when constant and --<🥽 Memclone.cpp>{Copy} when branch. */
 
 #pragma header seldom used arrangements
 
@@ -64,7 +64,7 @@ preadv(int fd,
     if (bytesread == 0) { i=iovcnt; }
   }
   return acc;
-} */ /* ⬷ improved version available in --<Reconcile.cpp ∧ Tape.h>{'syncro_read' alt. 'syncro_write'}. */
+} */ /*  improved version available in --<Reconcile.cpp ∧ Tape.h>{'syncro_read' alt. 'syncro_write'}. */
 
 #pragma recto modern read and write
 
@@ -74,7 +74,7 @@ int superfluous_async_read(struct aiocb cb, int job, const char * utf8file,
    int fd = open(utf8file, O_RDONLY, 0);
    if (fd == -1) { y=-1; goto err₂𝘖rContinue; }
    Clear8Memory((ByteAlignedRef)&cb,sizeof(struct aiocb));
-   cb.aio_nbytes = (size_t)bytes; /* ⬷ alt-in-hw. 64kb for pic32mzda. */
+   cb.aio_nbytes = (size_t)bytes; /*  alt-in-hw. 64kb for pic32mzda. */
    cb.aio_fildes = fd;
    cb.aio_offset = (off_t)byteoffset;
    cb.aio_buf = material;
@@ -139,8 +139,8 @@ int InitAIO(void (^jots)(const char * utf8logformat, ...))
 }
 
 /* When the flag 'O_DIRECT' is not include when 'open': */
-int fsync₁(struct aiocb cb) { return aio_fsync(O_SYNC,&cb); } /* ⬷ a․𝘬․a 'async_fsync'. */
-int fsync₂(int fd) { return fsync(fd); } /* ⬷ a․𝘬․a 'sync_fsync'. */
+int fsync₁(struct aiocb cb) { return aio_fsync(O_SYNC,&cb); } /*  a․𝘬․a 'async_fsync'. */
+int fsync₂(int fd) { return fsync(fd); } /*  a․𝘬․a 'sync_fsync'. */
 
 #pragma recto even less used arrangements
 
@@ -151,7 +151,7 @@ int Cattle(struct Unicodes * regularpathOrΨΛΩ, struct collection * branch,
   void (^ping)(double⁺ʳ 𝟬₋𝟭percent, int * stop), 
   void (^zero𝘖rSeveral)(__builtin_int_t offset, short bytes, uint8_t * page, int * stop), 
   int (^completion)(__builtin_int_t bytes, int * no₋go)
-) NEVERBLURTS /* ⬷ c𝘧․ Intel 'segmentation' and 'paging'. */
+) NEVERBLURTS /*  c𝘧․ Intel 'segmentation' and 'paging'. */
 {
     /* Compute a rolling CRC and a hash for each page. (To further 'man rsync'.) */
     typedef void (^Galois)(uint8_t *, __builtin_int_t);
@@ -166,7 +166,7 @@ int Cattle(struct Unicodes * regularpathOrΨΛΩ, struct collection * branch,
     };
    
     return 0;
-} /* ⬷ a․𝘬․a 'Reconcile', 'Stock', 'Settle' and 'Arbitrate'. See also 'rsync'. */
+} /*  a․𝘬․a 'Reconcile', 'Stock', 'Settle' and 'Arbitrate'. See also 'rsync'. */
 
 #pragma recto unit testing symbol find
 
@@ -209,4 +209,21 @@ Symbols(
     }
 }
 
+#pragma recto analysis post-mortem and single-steps
+
+void Sheriff(void)
+{
+   Intel👈
+      int 3
+   }
+}
+
+#pragma recto miscellaneous initialization functions
+
+void InitFpu()
+{
+   asm {
+     finit
+   }
+}
 

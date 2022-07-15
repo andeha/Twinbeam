@@ -1,4 +1,4 @@
-/*  unstall-system.c | mandatory-required and non-specific. (DO-NOT-CIRCULATE) */
+/*  unstall-coalesc.c | mandatory-required and non-specific. (DO-NOT-CIRCULATE) */
 
 import Twinbeam;
 
@@ -7,7 +7,7 @@ __builtin_int_t least₋possible₋residue(
 {
    __builtin_int_t y = dividend % divisor;
    return y < 0 ? y + divisor : y;
-} /* ⬷ patch to the '%' operator in a C language undefined case. */
+} /*  patch to the '%' operator in a C language undefined case. */
 
 #pragma recto still chronology and sequential
 
@@ -43,7 +43,7 @@ Base𝕟( /* TeX §64, §65 and §67. */
       output); } } else { k = 63; while (cycle[k] == 0 && k > 0) { k=k-1; }
        for (; k >= 0; k=k-1) { 𝟬to𝗙(cycle[k], output); }
     }
-} /*  ⬷ note 128-bit duplicate in --<🥽 𝙋𝙧𝙞𝙣𝙩⁺.cpp>. */
+} /*   note 128-bit duplicate in --<🥽 𝙋𝙧𝙞𝙣𝙩⁺.cpp>. */
 
 void
 Base𝕫(
@@ -88,7 +88,7 @@ Base𝕟(
     else { k=127; while (cycle[k]==0 && k>0) { k=k-1; }
       for (; k>=0; k=k-1) { Fand0(cycle[k], out); }
     }
-} /* ⬷ requires 128-bits-`fractions`, { `__umodti3`, `__udivti3` }, `__udivmodti4`. */
+} /*  requires 128-bits-`fractions`, { `__umodti3`, `__udivti3` }, `__udivmodti4`. */
 
 void Base𝕫(__int128_t ℤ, 
   unsigned short base, unsigned short digitsOr0, 
@@ -116,15 +116,15 @@ ExactSeek₂(
      num >>= 1;
    }
    return ΨΛΩ;
-} /* ⬷ todo: add to Pinecone implementation and switch to interpolation search
+} /*  todo: add to Pinecone implementation and switch to interpolation search
  (that is log log instead of log that according to Knuth delivers somewhere 
  around N > 64K). */
 
 int
 IsPrefixOrEqual(
-  const char * 𝟽alt𝟾₋bitstring, /* ⬷ possibly 'normalizedUtf8' */
-  const char * 𝟽alt𝟾₋bitprefix  /* ⬷ smiley appears when 'prompt> nm'! */
-) /* ⬷ consider changing dwarf-'.elf' to 'trie' instead of 'table'. */
+  const char * 𝟽alt𝟾₋bitstring, /*  possibly 'normalizedUtf8' */
+  const char * 𝟽alt𝟾₋bitprefix  /*  smiley appears when 'prompt> nm'! */
+) /*  consider changing dwarf-'.elf' to 'trie' instead of 'table'. */
 {  const char *s=𝟽alt𝟾₋bitstring, *p=𝟽alt𝟾₋bitprefix;
     if (*s == 0 && *p == 0) { return -1; }  /* Parameters `string` and `prefix` are both empty therefore equal. */
     if (!*s) { return 0; } /* Non-equal since the string is empty and a prefix exists. */
@@ -141,35 +141,42 @@ again:
 }
 
 ByteAlignedRef
+Clear8Memory(
+  ByteAlignedRef mem, 
+  __builtin_int_t bytes
+) /*  a․𝘬․a `bzero`. */
+{
+   if (!bytes) { return mem; }
+   return Overwrite8Memory(mem, 0, bytes);
+} /*  a․𝘬․a 'clear₋page'. */
+
+ByteAlignedRef
+Copy8Memory(
+  ByteAlignedRef dst, 
+  ByteAlignedRef src, 
+  __builtin_int_t bytes
+) /*  a․𝘬․a 'memcpy'. */
+{
+   char * d = (char *)dst;
+   char * s = (char *)src;
+   while (bytes--) *d++ = *s++;
+   return dst;
+} /* cf․ copying using an asychronous dma a․𝘬․a OptimisticAsync8Copy. */
+
+ByteAlignedRef
 Overwrite8Memory(
   ByteAlignedRef src,
   uint8_t val,
   __builtin_int_t bytes
-) /* ⬷ a․𝘬․a `memset`. */
+) /*  a․𝘬․a `memset`. */
 {
-    uint8_t *s = (uint8_t *)src;
+   uint8_t *s = (uint8_t *)src;
 again:
-    while (bytes == 0) goto unagain;
-    *s = val; s+=1; bytes=bytes-1; goto again;
+   while (bytes == 0) goto unagain;
+   *s = val; s+=1; bytes=bytes-1; goto again;
 unagain:
-    return src;
+   return src;
 }
-
-ByteAlignedRef
-Clear8Memory(
-  ByteAlignedRef mem, 
-  __builtin_int_t bytes
-) /* ⬷ a․𝘬․a `bzero`. */
-{
-    if (!bytes) { return mem; }
-#if defined __armv8a__ || defined __mips__ || defined espressif || defined __armv6__
-    return Overwrite8Memory(mem, 0, bytes);
-#elif defined __x86_64__
-    asm("rep stosl;"::"a"(0),"D"((size_t)mem),"c"(bytes / 4));
-    asm("rep stosb;"::"a"(0),"D"(((size_t)mem) + ((bytes / 4) * 4)),"c"(bytes - ((bytes / 4) * 4)));
-    return mem;
-#endif
-} /* ⬷ a․𝘬․a 'clear₋page'. */
 
 /* µA("x86_64", "haswell", x₁, x₂)
 µA("mips", "r2", x₃, x₄) */
@@ -178,68 +185,15 @@ int
 Compare8Memory(
   ByteAlignedRef l,
   ByteAlignedRef r,
-  __builtin_uint_t bytes
-) /* ⬷ a․𝘬․a 'memcmp'. */
+  __builtin_int_t bytes
+) /*  a․𝘬․a 'memcmp'. */
 {
-    const unsigned char *p₁=l, *p₂=r;
-    while (bytes--) {
-      if (*p₁ != *p₂) return *p₁ - *p₂;
-      else p₁++,p₂++;
-    }
-    return 0;
-} /* ⬷ notice that this method is 'too cristalline' when dealing with 
+   const unsigned char *p₁=l, *p₂=r;
+   while (bytes--) {
+     if (*p₁ != *p₂) return *p₁ - *p₂;
+     else p₁++,p₂++;
+   }
+   return 0;
+} /*  notice that this method is 'too cristalline' when dealing with 
  Unicodes but not with 7-bit text. */
-
-#pragma recto time intervals
-
-short₋chronology₋relative
-duration(
-  chronology₋instant t₁, chronology₋instant t₂
-)
-{ union stomp₋ntp { uint64_t bits; struct { uint32_t seconds; chronology₋UQ32 frac; } since; };
-   union stomp₋ntp s₁ = { .bits = t₁ }, s₂ = { .bits = t₂ };
-   
-   typedef int (^Lessthan)(union stomp₋ntp, union stomp₋ntp);
-   Lessthan lt = ^(union stomp₋ntp t₁, union stomp₋ntp t₂) {
-    if (t₁.since.seconds == t₂.since.seconds) { return t₁.since.frac < t₂.since.frac; }
-    return t₁.since.seconds < t₂.since.seconds;
-   };
-   
-   if (lt(s₂,s₁)) { union stomp₋ntp storage=s₁,s₁=s₂,s₂=storage; }
-   
-   int32_t frac, seconds; int unit₋deduct; short₋chronology₋relative z;
-   if (s₁.since.frac > s₂.since.frac) { unit₋deduct=1; frac=s₁.since.frac - s₂.since.frac; }
-   else { frac=s₂.since.frac-s₁.since.frac; unit₋deduct=0; }
-   seconds = s₂.since.seconds - s₁.since.seconds - (unit₋deduct ? 1 : 0);
-   z = frac | (seconds<<15);
-   return z;
-} /* ⬷ with an irreversive differential: t₂ - t₁ alt․ t₁ - t₂. */
-
-#pragma recto miscellaneous initialization functions
-
-void InitFpu()
-{
-#if defined __x86_64__
-   asm {
-     finit
-   }
-#endif
-}
-
-#pragma recto analysis: post-mortem and single-stepping
-
-#if defined __x86_64__
-
-void Sheriff(void)
-{
-#if defined  __x86_64__
-   Intel👈
-     int 3
-   }
-#elif defined __armv8a__
-   __builtin_debug();
-#endif
-}
-
-#endif
 

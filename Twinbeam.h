@@ -203,12 +203,11 @@ typedef struct 𝓟 {
       char8₋t * utf8;
       __builtin_int_t bytes;
     } encoded;
-    char * 𝟽bit₋utf8;
     struct {
       char32̄_t * unicodes;
       __builtin_int_t tetras;
     } ucs;
-    char8₋t c8; char possibly₋signed₋c;
+    char possibly₋signed₋c;
     char32̄_t uc;
     double f₁;
     float f₂;
@@ -227,10 +226,10 @@ EXT₋C Argᴾ ﹟x(__builtin_uint_t x);
 EXT₋C Argᴾ ﹟b(__builtin_uint_t b);
 EXT₋C Argᴾ ﹟S(__builtin_int_t tetras, char32̄_t * unterminated₋uc) ⓣ;
 EXT₋C Argᴾ ﹟S(char32̄_t * zero₋terminated₋uc) ⓣ;
-EXT₋C Argᴾ ﹟s7(char * seven₋bit₋utf8);
+EXT₋C Argᴾ ﹟s7(char * sevenbit₋utf8);
 EXT₋C Argᴾ ﹟s8(char8₋t * zero₋terminated₋u8s) ⓣ;
 EXT₋C Argᴾ ﹟s8(__builtin_int_t bytes, char8₋t * unterminated₋u8s) ⓣ;
-EXT₋C Argᴾ ﹟c8(char8₋t c); EXT₋C Argᴾ ﹟c7(char c);
+EXT₋C Argᴾ ﹟c7(char c);
 EXT₋C Argᴾ ﹟C(char32̄_t C);
 #if defined 𝟷𝟸𝟾₋bit₋integer₋available
 EXT₋C Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);

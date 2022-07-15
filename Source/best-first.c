@@ -117,7 +117,7 @@ void Setupframelibrary(int count, struct Expeditionary areas[])
  
   and for pic32 
  __builtin_uint_t * base₋kseg1AltElsewhere = (__builtin_uint_t *)0xa800000, 
-  / * ⬷ store at 0xa8000000 (non-cachable) and 0x88000000 (cachable). * /
+  / *  store at 0xa8000000 (non-cachable) and 0x88000000 (cachable). * /
   *base₋kseg2₋sqi = (__builtin_uint_t *)0xd8000000;
   / * __attribute__ ((section(".ddr2"))) * /
  

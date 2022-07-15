@@ -23,14 +23,16 @@
     Chemistry hobbyist: ⇾ ₀₁₂₃₄₅₆₇₈₉
     Math additionals: ± ∓ ∔ ×
                                                                              
-    print "The brown ⬚ jumped over the lazy ⬚\n", ﹟s("fox"), ﹟s("dog")      
+    print "The brown ⬚ jumped over the lazy ⬚\n", ﹟s7("fox"), ﹟s7("dog")    
       ﹟d(__builtin_int_t d)                     ﹟b(__builtin_uint_t b)      
-      ﹟S(int tetras, const char32_t * uc)      ﹟s(const char8_t/char * utf8)
+      ﹟S(int tetras, const char32_t * uc)                                   
+      ﹟s7(char * sevenbit₋utf8)                                             
+      ﹟s8(char8˗t *)                                                        
    Scientific and Monetary: ﹟F(double f) and ﹟F(float r)                    
-      ﹟reᵍ(__builtin_int_t r) ﹟λ(Argᴾ::Output scalar, void * context)       
+      ﹟reg(__builtin_int_t r) ﹟λ(Argᴾ::Output scalar, void * context)       
                                                                              
-   Also: U(__uint128_t), x(__builtin_uint_t), c(char8_t/char), C(char32_t),  
-          I(__int128_t)                                                      
+   Also: U(__uint128_t), x(__builtin_uint_t), c(char), C(char32_t),          
+         I(__int128_t)                                                       
                                                                              
     E․𝘨  auto set💰 = ^(Argᴾ::Unicode set, void * context) { … };            
                                                                              

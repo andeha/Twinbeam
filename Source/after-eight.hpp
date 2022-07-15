@@ -3,7 +3,7 @@
 #define bye co_return
 #define co₋await co_await
 #define feedback co_yield
-#define adjö co_return /* ⬷ s․a 'självet anser' and jmfr. 'jämför' and a.s. 'almost surely'. */
+#define adjö co_return /*  s․a 'självet anser' and jmfr. 'jämför' and a.s. 'almost surely'. */
 
 #if defined __cplusplus && defined ADDITIONAL_LINKERSYMBOLS
 
@@ -42,7 +42,7 @@ struct Bitset { std::vector<bool> inner;
 
 /* in Unix named 'time.h' with 'time_t time()-time()' alt. 'difftime()' */
 
-typedef time_t Unix₋instant; /* ⬷ epoch is 00:00:00 UTC Jan 1, 1970. */
+typedef time_t Unix₋instant; /*  epoch is 00:00:00 UTC Jan 1, 1970. */
 
 inline Tuple<int32_t, int32_t, int32_t> chronology₋Date(Unix₋instant I)
 {
@@ -52,7 +52,7 @@ inline Tuple<int32_t, int32_t, int32_t> chronology₋Date(Unix₋instant I)
 } /* seconds-to-calendric in prematurely 'set' time-zone: 'struct tm * localtime(const time_t *)'. */
 
 inline Opt<Unix₋instant> chronology₋Timestamp(int32_t parts[6] /*, Chronology::UQ32 fract */)
-{ /* ⬷ year, month (1-12), day (1-31), hour (0-23), minutes (0-59) and seconds (0-59) */
+{ /*  year, month (1-12), day (1-31), hour (0-23), minutes (0-59) and seconds (0-59) */
    int tm_sec=(int)parts[5], tm_min=(int)parts[4], tm_hour=(int)parts[3], 
     tm_mday=(int)parts[2], tm_mon=(int)parts[1], tm_year=(int)parts[0];
    struct tm t₁ { tm_sec, tm_min, tm_hour, tm_mday, tm_mon, tm_year, 0, 0, 0, 0, 0 };
@@ -60,12 +60,12 @@ inline Opt<Unix₋instant> chronology₋Timestamp(int32_t parts[6] /*, Chronolog
    return Opt<Unix₋instant>(t₂);
 } /* calendric-to-seconds in prematurely 'set' time-zone: 'time_t timelocal(struct tm * const)'. */
 
-inline char * chronology₋InstantToText(Unix₋instant I) { return ctime(I); } /* ⬷ time2posix/posix2time. */
+inline char * chronology₋InstantToText(Unix₋instant I) { return ctime(I); } /*  time2posix/posix2time. */
 
 #elif defined __cplusplus
 
 template <typename K, typename V> struct Map { void * inner; 
-  /* ⬷ a․𝘬․a std::map<K,V> inner. */
+  /*  a․𝘬․a std::map<K,V> inner. */
   int exists(K key) {
 #if defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
     Treeint leafkey { .keyvalue = { int64_t(key), 0 } };
@@ -94,7 +94,7 @@ template <typename K, typename V> struct Map { void * inner;
     seek(found);
   }
   
-}; /* ⬷ sometime referential map such as std::map<const char *, Unicodes>. */
+}; /*  sometime referential map such as std::map<const char *, Unicodes>. */
 
 template <typename E> struct Vector { ˢConvoj<E> inner;
   
@@ -106,7 +106,7 @@ template <typename E> struct Vector { ˢConvoj<E> inner;
     *reference = &inner[idx]; return 0;
   }
   
-}; /* ⬷ similar to std::vector and not c++11's std::array in <array>. */
+}; /*  similar to std::vector and not c++11's std::array in <array>. */
 
 rt₋namespace After₋8 { extern __builtin_int_t bitset₋still₋short, bitset₋noncoalescable; }
 
@@ -153,9 +153,9 @@ struct Bitset { unsigned expeditionary=1;
     else { *loc₋32 = (orig & ~(0b1<<bit)); }
   }
   
-}; /* ⬷ bitsets grows in steps of pages and in wordbits steps. */
+}; /*  bitsets grows in steps of pages and in wordbits steps. */
 
-#endif /* ⬷ all 'man' pages unwritten, instead http://cppreference.com and 
+#endif /*  all 'man' pages unwritten, instead http://cppreference.com and 
  cached versions of the latter. */
 
 #if defined __cplusplus
@@ -200,9 +200,9 @@ namespace std { /* The standard residual */ typedef ::size_t size_t;
 
 #define WHEN_COMPILING constexpr static
 #define 🥈ᵢ WHEN_COMPILING __attribute__ ((internal_linkage))
-#define 🥈 WHEN_COMPILING /* ⬷ must be assigned to a 'const' and no inline assembler. */
+#define 🥈 WHEN_COMPILING /*  must be assigned to a 'const' and no inline assembler. */
 /* __builtin_int_t constexpr Syspagesize() { return 4096; } */
-/* ⬷ one definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when Nand vs. Nor.) */
+/*  one definition of 𝘮𝘢𝘯𝘺 ∧ ¬𝘴𝘤𝘢𝘭𝘢𝘳 (especially when Nand vs. Nor.) */
 
 MACRO __builtin_uint_t& 🔧(__builtin_uint_t var) { return (__builtin_uint_t&) 
  *(__builtin_uint_t *)var; }
@@ -220,17 +220,17 @@ template <typename T> T difference(T x₁, T x₂) { return x₁ - x₂; }
 template <typename T> T ˡchange(T x₁, T x₂) { return (x₁ - x₂) / x₂; } /* ∈[0,1]. */
 template <typename T> T ʳchange(T x₁, T x₂) { return (x₂ - x₁) / x₁; } /* ∉[0,1]. */
 #if (defined __mips__ || defined __armv6__ || defined espressif) && defined __cpp_concepts
-#define innominate auto /* ⬷ a․𝘬․a 'innominate-type'. */
+#define innominate auto /*  a․𝘬․a 'innominate-type'. */
 template <typename T> concept Relative₋accumulative = requires (T x₁, T x₂) {
  x₁ + x₂ /* -> int */; /*{*/ x₁ - x₂ /*} -> Same<bool>*/; Zero(x₂) /* -> T*/; };
- /* ⬷ a․𝘬․a 'Turtle' and 'algebraic category'. To instatiate write similar to 
+ /*  a․𝘬․a 'Turtle' and 'algebraic category'. To instatiate write similar to 
  'template <Relative₋accumulative T>' ... , 
  'template <typename T> requires Relative₋accumulative<T> T operator... and 
  'void foo(Relative₋accumulative innominate & x) { ... }'. */
 #endif
 template <typename T> int collate₋coalesce(__builtin_int_t count, T xᵣ[], T * acc, 
  int (^port)(T x, T & acc)) { for (__builtin_int_t i=0; i<count; i++) { 
- int ok=port(xᵣ[i],*acc); if (!ok) { return ok; } } } /* ⬷ also known as: 'norm', 
+ int ok=port(xᵣ[i],*acc); if (!ok) { return ok; } } } /*  also known as: 'norm', 
  'linear-combine', also 'gaussian₋combination', 'irreversive₋combination' and 
  'permutative₋combination'. */
 template <typename ℚ> ℚ arithmetic(ℚ x₁, ℚ x₂) { return (x₁ + x₂) / 2; }
@@ -242,16 +242,16 @@ template <typename T> T /* ⤪_ */ * Multiple(short exp𝗔ltNeg,
   if (exp𝗔ltNeg == -1) { base = (T *)Alloc(count*sizeof(T)); }
   else {  __builtin_int_t 🥈 𝟺𝟶𝟿𝟼 = Syspagesize();
     __builtin_int_t bytes=sizeof(T)*count,﹟=bytes/𝟺𝟶𝟿𝟼;
-    void * 𝟺kbframes[1 + ﹟ + (bytes % 𝟺𝟶𝟿𝟼 ? 0 : 0)]; /* ⬷ the variable '﹟' is positive so ⌊⌋. */
+    void * 𝟺kbframes[1 + ﹟ + (bytes % 𝟺𝟶𝟿𝟼 ? 0 : 0)]; /*  the variable '﹟' is positive so ⌊⌋. */
     if (ContiguousAcquire(exp𝗔ltNeg,𝟺kbframes,﹟)) { return NULL; }
     base = (T *)𝟺kbframes[0];
-  } /* ⬷ first-fit, most-recently-used and closest-fit. */
+  } /*  first-fit, most-recently-used and closest-fit. */
   for (__builtin_int_t i=0; i<count; ++i) { T * elem = new (i + base) T(); 
     if (default𝘖rNull) { for (__builtin_int_t i=0; i<count; ++i) { default𝘖rNull(base+i); } }
   }
   return base;
-} /* ⬷ a․𝘬․a malloc, Startupalloc and Elements𝘖𝘳Heap. */
-template <typename T> T biorythm₋average(T xt) { return sin(xt)*cos(xt); } /* ⬷ a․𝘬․a AB*sin(ω*t)*cos(ω*t). */
+} /*  a․𝘬․a malloc, Startupalloc and Elements𝘖𝘳Heap. */
+template <typename T> T biorythm₋average(T xt) { return sin(xt)*cos(xt); } /*  a․𝘬․a AB*sin(ω*t)*cos(ω*t). */
 template <typename T> bool rel₋eq(T x₁, T x₂) { return !(x₁ < x₂ || x₂ < x₁); }
 template <typename T> bool eql₋eq(T x₁, T x₂) { return x₁ == x₂; }; }
 MACRO int64_t 𝟸₋compl(int64_t x) { x=~x; return ++x; }
@@ -263,36 +263,36 @@ MACRO int32_t abs32i₂(int32_t x) { return __builtin_abs(x); }
 template <typename ℕ> void invert(ℕ & x) { x = ~x; } /* ⬷ a․𝘬․a 'toggle₋all'. */
 template <typename ℕ> void 𝟸₋Compl(ℕ & x) { invert(x); ++x; }
 template <typename ℤ> ℤ abs₂(ℤ x) { return x < 0 ? 𝟸₋Compl(x) : x; }
-/* ⬷ When x is set to INT_MIN, the interpretation is not representable as a positive 
+/*  When x is set to INT_MIN, the interpretation is not representable as a positive 
  number and maps back to the same bit pattern when 2-complemented. (Two-complementing 
 'identity a․𝘬․a zero' wraps and equals 0 when pattern is assumed unsigned.) */
-/* ⬷ a․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN and NEITHER_PROLOGUE_NOR_EPILOGUE. */
+/*  a․𝘬․a INTERFERENT, ABELIAN, TOTALITARIAN and NEITHER_PROLOGUE_NOR_EPILOGUE. */
 #define rt₋namespace namespace
 template <typename T> struct rectangle { T height, width; int /* Unit */ unit; };
 template <typename T> struct measure { T value; int /* Unit */ unit; };
 
 constexpr __builtin_int_t Frame(__builtin_uint_t size, __builtin_uint_t framesize)
 { return __builtin_int_t((size + framesize - 1) & ~(framesize - 1)); } 
-/* ⬷ may be evaluated at compile-time a․𝘬․a 'constexpr'. */
+/*  may be evaluated at compile-time a․𝘬․a 'constexpr'. */
 
 constexpr __builtin_int_t Ceil(__builtin_int_t num, __builtin_int_t denom) 
 {  int num₋neg=num<+0, denom₋neg=denom<+0;
   if (num₋neg) { num = -num; } if (denom₋neg) { denom = -denom; }
-  __builtin_uint_t ℕ=num/denom, modula=num%denom; /* ⬷ also in sw/hw₋fractions. */
+  __builtin_uint_t ℕ=num/denom, modula=num%denom; /*  also in sw/hw₋fractions. */
   int negative = denom₋neg ^ num₋neg ? 1 : 0;
   return (ℕ + (modula != 0 ? 1 : 0)) * (negative ? -1 : 1);
-} /* ⬷ e․𝘨 ceil(sizeof(E)/4) = words, sizeof(E)/4 - 1 < words <= sizeof(E)/4. */
+} /*  e․𝘨 ceil(sizeof(E)/4) = words, sizeof(E)/4 - 1 < words <= sizeof(E)/4. */
 
 constexpr __builtin_int_t HowMany(__builtin_uint_t index, __builtin_uint_t width) {
   return (index % width == 0) ? index/width : index/width + 1; } 
-/* ⬷ see all the multiple flavors of 'fraction' in --<System.cpp>. */
+/*  see all the multiple flavors of 'fraction' in --<System.cpp>. */
 
 /* __builtin_int_t 🥈 Pagewords=Syspagesize()/Wordbytes; */
-/* ⬷ a․𝘬․a 'arrangemang- possibly-window', 'ElemsInside4kb' and '𝟻𝟷𝟸alt𝟷𝟶𝟸𝟺'. */
+/*  a․𝘬․a 'arrangemang- possibly-window', 'ElemsInside4kb' and '𝟻𝟷𝟸alt𝟷𝟶𝟸𝟺'. */
 
 /* Consider 32- alternatively 64-bits with an extra sign bit for abstractions 
  such as `Frame`, `isPowerOfTwo` and `geqAndPowerOfTwo`. */
 
 template <typename T> T * Critic(const T * x) { return const_cast<T*>(x); }
-template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /* ⬷ a․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
+template <typename T> T& Critic(const T &x) { return const_cast<T&>(x); } /*  a․𝘬․a "away 𝙘𝙤𝙣𝙨𝙩 evil". */
 #endif

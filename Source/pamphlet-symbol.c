@@ -67,4 +67,4 @@ char8₋t * retranscript(char8₋t * u8s, __builtin_int_t maxu8bytes𝘖rZero)
    void * start = Heap₋alloc(bytes);
    Copy8Memory((ByteAlignedRef)start,(ByteAlignedRef)u8s,bytes);
    return start;
-} /* ⬷ a․𝘬․a strdup₋for₋utf8, Signal,  u8record and Branch. Note U+8000 in UTF-8 is E0 *) *). */
+} /*  a․𝘬․a strdup₋for₋utf8, Signal,  u8record and Branch. Note U+8000 in UTF-8 is E0 *) *). */

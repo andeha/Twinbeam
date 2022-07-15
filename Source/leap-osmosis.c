@@ -9,7 +9,7 @@ import peripherial_controller_derivative;
 
 extern int RandomInteger(uint64_t *out);
 
-struct guid Newguid()
+struct guid Guid()
 { struct guid g;
 #if defined __mips__ || defined __armv6__ || defined espressif
    if (🔎Count() % 2) { RandomInteger(&g.endian.similar); RandomInteger(&g.endian.similar); }
