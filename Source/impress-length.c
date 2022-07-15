@@ -1,4 +1,4 @@
-/*  length-text.c | Twinbeam (c22 and clang for x86_64 and Mips.) */
+/*  impression-length.c | Twinbeam (c22 and clang for x86_64 and Mips.) */
 
 import Twinbeam;
 
