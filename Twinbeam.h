@@ -1,8 +1,8 @@
 /* 
- * Twinbeam.h (and libTwinbeam_pic32mz|macos_<identity>.a)                   
- * C23 and C++20 for clang to x86_64, Arm/AAPL M1 and M2, Esp32 and Mips.    
+ * Twinbeam.h (and libTwinbeam_pic32mz|macos.a)                              
+ * C23 and C++20 for clang to x86_64, Arm/AAPL M1-M2, Esp32 and Mips.        
  * Mips compiled using clang version 12.0.0 and x86_64 compiled on AAPL's    
- *'Command-line tools' (not Xcode) version 12.1 (21C46).
+ *'Command-line tools' (not Xcode) version 13.1.6 (21C46).
  */
 
 #define inexorable static __attribute__ ((internal_linkage))
@@ -234,10 +234,11 @@ EXT₋C Argᴾ ﹟C(char32̄_t C);
 #if defined 𝟷𝟸𝟾₋bit₋integer₋available
 EXT₋C Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
 #endif
-EXT₋C Argᴾ ﹟regs(__builtin_uint_t mask);
+EXT₋C Argᴾ ﹟regs(__builtin_uint_t mask); /* cached at printout. */
+EXT₋C Argᴾ ﹟plat(__builtin_uint_t mask); /* non-cached at primtout. */
 EXT₋C Argᴾ ﹟λ₁(void (^fragment)(serial₋present,void *),void *);
 EXT₋C Argᴾ ﹟λ₂(void (^fragment)(primary₋present,void *),void *);
-#if defined UNEXISTING₋IEEE754
+#if !defined UNEXISTING₋IEEE754
 EXT₋C Argᴾ ﹟F(double f, int numberformat) ⓣ;
 EXT₋C Argᴾ ﹟F(float f, int numberformat) ⓣ;
 #endif
@@ -311,7 +312,6 @@ inline Sequenta __builtin_fixpoint_rsqrt(Sequenta x) { return sqrt(x,1); }
 inline Sequenta __builtin_fixpoint_rcp(Sequenta x) { return reciproc(x); }
 
 typedef int (^INIT)(void * uninited);
-
 EXT₋C void * Alloc(__builtin_int_t);
 EXT₋C void Fallow(void *) ⓣ;
 typedef void * (*ALLOC)(__builtin_int_t);
@@ -319,13 +319,11 @@ typedef void (*FALLOW)(void *);
 EXT₋C void * Heap₋alloc(__builtin_int_t);
 EXT₋C __builtin_int_t Heap₋object₋size(void *);
 EXT₋C void Heap₋unalloc(void *);
-
 EXT₋C int Fallow(unsigned expeditionary, void *𝟺kbframes[], __builtin_int_t ﹟) ⓣ;
 EXT₋C int ContiguousAcquire(unsigned expeditionary, void **fourkilobytespace, __builtin_int_t ﹟);
 EXT₋C int CoalescingAcquire(unsigned expeditionary, void * fourkilobytes[], __builtin_int_t ﹟);
 struct Expeditionary { __builtin_int_t pagecount; __builtin_uint_t * pagesbase, *overview; };
 EXT₋C void Setupframelibrary(int count, struct Expeditionary *);
-
 EXT₋C void * malloc(size_t bytes); EXT₋C void free(void *); 
 EXT₋C int atexit(void(*func)(void)); EXT₋C void exit(int);
 
@@ -366,6 +364,8 @@ MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /*  a�
 #define 🎭𝑋𝟾𝟼(storage,symmsk,...) 🎭((__builtin_uint_t *)(storage), INTEL_##symmsk __VA_OPT__(,) __VA_ARGS__)
 #endif
 
+#pragma recto block and not function pointer
+
 #define copy₋block(...) ((__typeof(__VA_ARGS__))_Block₋copy((const void *)(__VA_ARGS__)))
 #define release₋block(...) _Block₋release((const void *)(__VA_ARGS__))
 struct Block₋descriptor { unsigned long int reserved; unsigned long int size;
@@ -380,6 +380,9 @@ inline void _Block₋release(const void *arg) { Fallow((void *)arg); }
 typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
+
+#pragma recto reading direction, planning and endianess
+
 EXT₋C FOCAL void Base𝕟(/* TeX §64, §65 and §67 */ __builtin_uint_t ℕ, unsigned 
  short base, unsigned short digitsOr0, /* Not more than 32 alt. 64 digits 
  depending on word size! (Or set to `0` to skip leading zeros.) */ void
@@ -392,6 +395,9 @@ EXT₋C void Base𝕫(__int128_t ℤ, unsigned short base, unsigned short digits
 EXT₋C void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digitsOr0, 
  void (^out)(char 𝟶to𝟿)) ⓣ;
 #endif
+
+#pragma recto miscellaneous
+
 #define SIGNBIT_INT32 0x80000000
 #define SIGNBIT_INT64 0x8000000000000000
 /*  a․𝘬․a INT₋MIN and '0b1<<31alt63'. */
@@ -430,7 +436,7 @@ EXT₋C void Base𝕟(__uint128_t ℕ, unsigned short base, unsigned short digit
 __builtin_int_t least₋possible₋residue(__builtin_int_t dividend, __builtin_int_t divisor);
 /*  see --<Wiki>--<Essays>--<On clocks and time> and 'circular reasoning'. */
 #define auto₋rollback(variable) decltype(variable)
-typedef __builtin_uint_t Cross; 
+typedef __builtin_uint_t Cross;
 BITMASK(Cross) { CrossLeftToRight = 0b0001, CrossRightToLeft = 0b0010, 
  CrossTopToBottom = 0b0100, CrossBottomToTop = 0b1000
 };
