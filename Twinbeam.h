@@ -188,6 +188,12 @@ struct sequent { union Q6364 detail; int valid; };
 typedef struct sequent Sequenta;
 typedef Sequenta (^computational)(Sequenta x);
 enum Newtoncontrol { Newton₋ok, Newton₋abort, Newton₋done };
+struct sevenbit₋text { __builtin_int_t count; char * keyputs; };
+struct utf8₋text { __builtin_int_t bytes; char8₋t * u8s; };
+struct Unicodes { __builtin_int_t tetras; char32̄_t * unicodes; };
+struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * text; }; 
+/*  type 'char' C implementation dependent whether signed/unsigned. 
+ See '-fno-signed-char'. */
 
 typedef void (^primary₋present)(__builtin_int_t count, char32̄_t * symbols);
 typedef void (^serial₋present)(char8₋t * u8s, __builtin_int_t bytes);
@@ -226,6 +232,7 @@ EXT₋C Argᴾ ﹟x(__builtin_uint_t x);
 EXT₋C Argᴾ ﹟b(__builtin_uint_t b);
 EXT₋C Argᴾ ﹟S(__builtin_int_t tetras, char32̄_t * unterminated₋uc) ⓣ;
 EXT₋C Argᴾ ﹟S(char32̄_t * zero₋terminated₋uc) ⓣ;
+EXT₋C Argᴾ ﹟S(struct Unicodes ucs) ⓣ;
 EXT₋C Argᴾ ﹟s7(char * sevenbit₋utf8);
 EXT₋C Argᴾ ﹟s8(char8₋t * zero₋terminated₋u8s) ⓣ;
 EXT₋C Argᴾ ﹟s8(__builtin_int_t bytes, char8₋t * unterminated₋u8s) ⓣ;
@@ -242,13 +249,6 @@ EXT₋C Argᴾ ﹟λ₂(void (^fragment)(primary₋present,void *),void *);
 EXT₋C Argᴾ ﹟F(double f, int numberformat) ⓣ;
 EXT₋C Argᴾ ﹟F(float f, int numberformat) ⓣ;
 #endif
-
-struct sevenbit₋text { __builtin_int_t count; char * keyputs; };
-struct utf8₋text { __builtin_int_t bytes; char8₋t * u8s; };
-struct Unicodes { __builtin_int_t tetras; char32̄_t * unicodes; };
-struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * text; }; 
-/*  type 'char' C implementation dependent whether signed/unsigned. 
- See '-fno-signed-char'. */
 
 EXT₋C void int₋to₋sequent(int64_t integer, Sequenta * real);
 EXT₋C void fraction₋to₋sequent(int count, short zeroToNines[], 
@@ -371,12 +371,12 @@ MACRO uint32_t AsPhysical(uint32_t vaddr) { return vaddr & 0x1FFFFFFF; } /*  a�
 struct Block₋descriptor { unsigned long int reserved; unsigned long int size;
  void (*copy)(void *dst, void *src); void (*dispose)(void *); };
 struct Block₋layout { void * isa; int flags; int reserved; void (*invoke)(void *, 
- ...); struct Block₋descriptor * descriptor; /* Imported variables. */ };
+ ...); struct Block₋descriptor * descriptor; };
 inline void * _Block₋copy(const void * arg) { struct Block₋layout * block = (struct 
- Block₋layout *)arg; struct Block₋layout * y = (struct Block₋layout *)Alloc(
+ Block₋layout *)arg; struct Block₋layout * y = (struct Block₋layout *)Heap₋alloc(
  block->descriptor->size); Copy8Memory((ByteAlignedRef)y, (ByteAlignedRef)
  block, block->descriptor->size); return y; }
-inline void _Block₋release(const void *arg) { Fallow((void *)arg); }
+inline void _Block₋release(const void *arg) { Heap₋unalloc((void *)arg); }
 typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
@@ -720,8 +720,12 @@ union Reference { struct PresentativeErrorUnicode byteserie; struct Unicodeblock
  __builtin_va_list __various;                                               \
  __builtin_va_start(__various, symbol);
 #define QUOTE(str) #str
+#if defined __x86_64__ || defined __mips__
 EXT₋C void ASSEMBLERONLY Sheriff();
-/* #define ⭐️ Sheriff();  After delivery, a non-inquisitorial system is assumed. */
+#elif defined __armv8a__
+#define Sheriff __builtin_debugtrap
+#endif
+/* #define ⭐️ Sheriff();  after delivery, a non-inquisitorial system is assumed. */
 enum Impediment { MustBeOrdered, JustSwap };
 EXT₋C int OptimisticSwap(__builtin_int_t * p₁, __builtin_int_t * p₂, enum 
  Impediment it);

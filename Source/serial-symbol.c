@@ -33,6 +33,8 @@ Argᴾ ﹟S(__builtin_int_t tetras, char32̄_t * uc₋unterminated) ⓣ {
 Argᴾ ﹟S(char32̄_t * ucs) ⓣ {
   __builtin_int_t tetras = TetrasUntilZero(ucs,BUILTIN₋INT₋MAX);
   Argᴾ y = { { .ucs={ ucs, tetras } }, 7 }; return y; }
+Argᴾ ﹟S(struct Unicodes uc) ⓣ { Argᴾ y = { { .ucs={ uc.unicodes, 
+  uc.tetras } }, 7 }; return y; }
 Argᴾ ﹟c7(char c) { Argᴾ y = { { .possibly₋signed₋c=c }, 9 }; return y; }
 /* warning 'comparision of non-signed integers' requires additional bits in machine word. */
 Argᴾ ﹟C(char32̄_t C) { Argᴾ y = { { .uc=C }, 10 }; return y; }

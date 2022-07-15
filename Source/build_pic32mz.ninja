@@ -35,7 +35,7 @@ build $objs/integer-base.o: c unstall-coalesc.c
 build $objs/internat-sheriff.o: asm internat-sheriff.S
 build $objs/land-viginia.o: c leap-osmosis.c
 build $objs/leaves-viewpoint.o: c portable-tree.c
-build $objs/letter-text.o: c length-impress.c
+build $objs/letter-text.o: c impress-length.c
 build $objs/once-nevada.o: c nevada-institut.c
 build $objs/pack-best.o: c best-first.c
 build $objs/symbol-mask.o: c pamphlet-symbol.c

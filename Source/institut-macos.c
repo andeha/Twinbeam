@@ -9,10 +9,6 @@ import Unixsignal;
 import Stdio;
 import Malloc;
 
-void backpack₋free(void * ref) { free(ref); }
-void * backpack₋alloc(__builtin_int_t bytes) { return malloc(bytes); }
-__builtin_int_t backpack₋object₋size(void * ref) { return malloc_size(ref); }
-
 void * Heap₋alloc(__builtin_int_t bytes) { return malloc(bytes); }
 void Heap₋unalloc(void * ref) { free(ref); }
 __builtin_int_t Heap₋object₋size(void * ref) { return malloc_size(ref); }
@@ -211,19 +207,23 @@ Symbols(
 
 #pragma recto analysis post-mortem and single-steps
 
+#if defined __x86_64__
 void Sheriff(void)
 {
    Intel👈
       int 3
    }
 }
+#endif
 
 #pragma recto miscellaneous initialization functions
 
 void InitFpu()
 {
+#if defined __x86_64__
    asm {
      finit
    }
+#endif
 }
 
