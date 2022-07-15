@@ -1,4 +1,4 @@
-/*  convoj-sequence.c | multiple-sized objects. */
+/*  convoj-sequen.c | multiple-sized objects. */
 
 import Twinbeam;
 
