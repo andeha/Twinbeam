@@ -28,6 +28,7 @@ Argᴾ ﹟s7(char * sevenbit₋utf8) {
   char8₋t * u8s = (char8₋t *)sevenbit₋utf8;
   __builtin_int_t bytes = Utf8BytesUntilZero(u8s,BUILTIN₋INT₋MAX);
   Argᴾ y = { { .encoded={ u8s, bytes } }, 4 }; return y; }
+Argᴾ ﹟s7(const char * sevenbit₋utf8) ⓣ { return ﹟s7((char *)sevenbit₋utf8); }
 Argᴾ ﹟S(__builtin_int_t tetras, char32̄_t * uc₋unterminated) ⓣ {
   Argᴾ y = { { .ucs={ uc₋unterminated, tetras } }, 7 }; return y; }
 Argᴾ ﹟S(char32̄_t * ucs) ⓣ {
@@ -50,8 +51,8 @@ Argᴾ ﹟λ₁(void (^fragment)(serial₋present, void *), void * ctx) {
 Argᴾ ﹟λ₂(void (^fragment)(primary₋present, void *), void * ctx) {
  Argᴾ y = { { .λ₂={ ctx, fragment } }, 21 }; return y; }
 
-Argᴾ ﹟F(double f, int numberformat) ⓣ { Argᴾ y = { { .f₁=f }, 14 }; return y; }
-Argᴾ ﹟F(float f, int numberformat) ⓣ { Argᴾ y = { { .f₂=f }, 15 }; return y; }
+Argᴾ ﹟F(double f, int method) ⓣ { Argᴾ y = { { .non₋fixpoint.material.f₁=f }, 14 }; return y; }
+Argᴾ ﹟F(float f, int method) ⓣ { Argᴾ y = { { .non₋fixpoint.material.f₂=f }, 15 }; return y; }
 
 #pragma recto in /retrospect/ hidden yet simple
 
@@ -107,9 +108,26 @@ inexorable void binary₋out(__builtin_uint_t x, Eightbit₋out out, int * amend
 }
 
 #if !defined UNEXISTING₋IEEE754
-inexorable void double₋out(double ℝ, Eightbit₋out out, int * amend)
+inexorable void double₋out(double ℝ, Eightbit₋out out, int * amend, int method)
 {
-   ieee754₋Scientific₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+   switch (method)
+   {
+   case 1:
+     ieee754₋Scientific₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+     break;
+   case 2:
+     ieee754₋Saturn₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+     break;
+   case 3:
+     ieee754₋Monetary₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+     break;
+   case 4:
+     ieee754₋Scandinavian₋Monetary₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+     break;
+   default:
+     unicode₋out(U'⋻',out,amend);
+     break;
+   }
 }
 #endif
 
@@ -163,8 +181,8 @@ again:
       case 13: signed128₋out(a.value.I,out,&printedBytesExcept0); break;
 #endif
 #if !defined UNEXISTING₋IEEE754
-      case 14: double₋out(a.value.f₁,out,&printedBytesExcept0); break;
-      case 15: double₋out((double)a.value.f₂,out,&printedBytesExcept0); break;
+      case 14: double₋out(a.value.non₋fixpoint.material.f₁,out,&printedBytesExcept0,a.value.non₋fixpoint.numberformat); break;
+      case 15: double₋out((double)a.value.non₋fixpoint.material.f₂,out,&printedBytesExcept0,a.value.non₋fixpoint.numberformat); break;
 #endif
       case 17: register₋reflect(a.value.x,
         ^(char32̄_t uc) { unicode₋out(uc,out,&printedBytesExcept0); });

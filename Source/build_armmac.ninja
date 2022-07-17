@@ -20,10 +20,11 @@ build libTwinbeam_macarm:  library $objs/arkebu-referen.o                    $
  $objs/carusel-opini.o $objs/circu-anglosa.o $objs/compass-ructur.o          $
  $objs/comput-parasol.o $objs/divert-pragmat.o $objs/dublon-parade.o         $
  $objs/dulgati-centrat.o $objs/eneral-conventi.o $objs/helicop-antagoni.o    $
- $objs/masque-familj.o $objs/materi-summar.o $objs/nomenc-karavan.o          $
+ $objs/inclus-analys.o $objs/kahn-senn.o $objs/masque-familj.o               $
+ $objs/materi-summar.o $objs/monesta-precisi.o $objs/nomenc-karavan.o        $
  $objs/parabol-versati.o $objs/pincett-heritan.o $objs/practi-natur.o        $
- $objs/product-ronolo.o $objs/rollno-ensolut.o $objs/symbol-semati.o         $
- $objs/timuli-metri.o $objs/unstall-irection.o
+ $objs/product-ronolo.o $objs/retros-inclus.o $objs/rollno-ensolut.o         $
+ $objs/symbol-semati.o $objs/timuli-metri.o $objs/unstall-irection.o
 build $objs/arkebu-referen.o: c reference-three.c
 build $objs/carusel-opini.o: c deter-lock.c
 build $objs/circu-anglosa.o: c anglosax-sequent.c
@@ -34,13 +35,17 @@ build $objs/dublon-parade.o: c symbol-tiles.c
 build $objs/dulgati-centrat.o: c portable-tree.c
 build $objs/eneral-conventi.o: asm church-pass.S
 build $objs/helicop-antagoni.o: c best-first.c
+build $objs/inclus-analys.o: c spark-amend.c
+build $objs/kahn-senn.o: c progre-option.c
 build $objs/masque-familj.o: cms institut-macos.c
 build $objs/materi-summar.o: c impress-length.c
+build $objs/monesta-precisi.o: c solitud-bcd.c
 build $objs/nomenc-karavan.o: c convoj-sequen.c
 build $objs/parabol-versati.o: c serial-symbol.c
 build $objs/pincett-heritan.o: c leap-osmosis.c
 build $objs/practi-natur.o: c icati-irrevers.c
 build $objs/product-ronolo.o: c arrange-fifo.c
+build $objs/retros-inclus.o: c prefix-spark.c
 build $objs/rollno-ensolut.o: c nonsol-utroll.c
 build $objs/symbol-semati.o: c stochast-symbol.c
 build $objs/timuli-metri.o: c tee-metric.c

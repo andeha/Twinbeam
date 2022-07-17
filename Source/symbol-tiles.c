@@ -54,9 +54,26 @@ inexorable void binary₋out(__builtin_uint_t x, Unicode₋out out, int * amend)
 }
 
 #if !defined UNEXISTING₋IEEE754
-inexorable void double₋out(double ℝ, Unicode₋out out, int * amend)
+inexorable void double₋out(double ℝ, Unicode₋out out, int * amend, int method)
 {
-   ieee754₋Scientific₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+   switch (method)
+   {
+   case 1:
+     ieee754₋Scientific₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+     break;
+   case 2:
+     ieee754₋Saturn₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+     break;
+   case 3:
+     ieee754₋Monetary₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+     break;
+   case 4:
+     ieee754₋Scandinavian₋Monetary₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+     break;
+   default:
+     unicode₋out(U'⋼',out,amend);
+     break;
+   }
 }
 #endif
 
@@ -78,7 +95,7 @@ Play(
   char32̄_t * text,
   __builtin_va_list params,
   void (^composition)(struct Unicodes serial)
-)
+) ⓣ
 { struct Unicodes serial; Argᴾ a; char32̄_t uc, *serial₋text;
   __builtin_int_t i=0,count₋uc; 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 struct collection symbols;
   int printedSymbolsExcept0=0;
@@ -110,8 +127,8 @@ again:
      case 13: signed128₋out(a.value.I,out,&printedSymbolsExcept0); break;
 #endif
 #if !defined UNEXISTING₋IEEE754
-     case 14: double₋out(a.value.f₁,out,&printedSymbolsExcept0); break;
-     case 15: double₋out((double)a.value.f₂,out,&printedSymbolsExcept0); break;
+     case 14: double₋out(a.value.non₋fixpoint.material.f₁,out,&printedSymbolsExcept0,a.value.non₋fixpoint.numberformat); break;
+     case 15: double₋out((double)a.value.non₋fixpoint.material.f₂,out,&printedSymbolsExcept0,a.value.non₋fixpoint.numberformat); break;
 #endif
      case 17: break; /* regs */
      case 19: break; /* plat */
@@ -134,5 +151,19 @@ unagain:
    if (deinit₋collection(&symbols,Heap₋unalloc)) { return -2; }
    Heap₋unalloc(serial₋text);
    return printedSymbolsExcept0;
+}
+
+FOCAL
+int
+Play(
+  void (^serial)(struct Unicodes), 
+  char32̄_t * text, 
+  ...
+) ⓣ
+{ int y;
+   va_prologue(text)
+   y = Play(text,__various,serial);
+   va_epilogue
+   return y;
 }
 

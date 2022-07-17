@@ -44,6 +44,32 @@ err:
    return ΨΛΩ;
 } /*  see --<🥽 Cordal.cpp> when constant and --<🥽 Memclone.cpp>{Copy} when branch. */
 
+int
+TransformAndResolve(
+  struct Unicodes path, 
+  void (^final)(const char * regular𝘖rLinkpath)
+)
+{
+   char8₋t u8s[path.tetras*4]; __builtin_int_t actual;
+   if (UnicodeToUtf8(path.tetras,path.unicodes,u8s,&actual)) { return -1; }
+   final((const char *)u8s);
+   return 0;
+}
+
+#if defined __x86_64__
+__attribute__ ((target("rdrnd")))
+#endif
+void RandomInteger(uint64_t * out)
+{ int y;
+again:
+#if defined __x86_64__
+   y = __builtin_ia32_rdrand64_step(out);
+#elif defined __armv8a__
+   y = __arm64_rndr(out);
+#endif
+  if (y == 0) { goto again; }
+}
+
 #pragma header seldom used arrangements
 
 /* __builtin_int_t

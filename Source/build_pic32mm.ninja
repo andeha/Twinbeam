@@ -16,14 +16,17 @@ rule library
   command = $librarian-pic32 rcs Releases/$out\_$sha1git.a $in             ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
 
-build libTwinbeam_pic32mm:  library $objs/book-nonpsalm.o                    $
- $objs/clot-referen.o $objs/complic-abdun.o $objs/constrai-coalesc.o         $
- $objs/detail-encode.o $objs/detergent-hand.o $objs/etui-police.o            $
- $objs/institu-nevada.o $objs/sheriff-step.o $objs/macarong-kastanj.o        $
- $objs/mixture-national.o $objs/model-vision.o $objs/passage-stary.o         $
- $objs/procure-sheriff.o $objs/proof-teko.o $objs/sequent-guiness.o          $
- $objs/serial-juice.o $objs/text-length.o $objs/transmit-radio.o             $
- $objs/transparent-navaron.o $objs/twice-fail.o
+build libTwinbeam_pic32mm:  library $objs/analys-coalesc.o                   $
+ $objs/annuitet-coalesc.o $objs/book-nonpsalm.o $objs/clot-referen.o         $
+ $objs/complic-abdun.o $objs/constrai-coalesc.o $objs/detail-encode.o        $
+ $objs/detergent-hand.o $objs/etui-police.o $objs/institu-nevada.o           $
+ $objs/sheriff-step.o $objs/macarong-kastanj.o $objs/milit-confit.o          $
+ $objs/mixture-national.o $objs/mm-not-mz.o $objs/model-vision.o             $
+ $objs/passage-stary.o $objs/procure-sheriff.o $objs/proof-teko.o            $
+ $objs/sequent-guiness.o $objs/serial-juice.o $objs/text-length.o            $
+ $objs/transmit-radio.o $objs/transparent-navaron.o $objs/twice-fail.o
+build $objs/analys-coalesc.o: c spark-amend.c
+build $objs/annuitet-coalesc.o: c prefix-spark.c
 build $objs/book-nonpsalm.o: c reference-three.c
 build $objs/clot-referen.o: c portable-tree.c
 build $objs/complic-abdun.o: c icati-irrevers.c
@@ -34,7 +37,9 @@ build $objs/etui-police.o: c pamphlet-symbol.c
 build $objs/institu-nevada.o: c nevada-institut.c
 build $objs/sheriff-step.o: asm internat-sheriff.S
 build $objs/macarong-kastanj.o: c arrange-fifo.c
+build $objs/milit-confit.o: c c solitud-bcd.c
 build $objs/mixture-national.o: c convoj-sequen.c
+build $objs/mm-not-mz.o: c progre-option.c
 build $objs/model-vision.o: c chim-model.c
 build $objs/passage₋stary.o: asm church-pass.S
 build $objs/procure-sheriff.o: c leap-osmosis.c

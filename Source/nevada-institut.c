@@ -38,6 +38,11 @@ void Heap₋unalloc(void * ref) { backpack₋free(ref); }
 void Fallow(void * ref) { Heap₋unalloc(ref); }
 void * Alloc(__builtin_int_t bytes) { return Heap₋alloc(bytes); }
 
+void RandomInteger(uint64_t * out)
+{
+   Trng(out);
+}
+
 #pragma recto analysis post-mortem and single-steps
 
 void Sheriff(void)

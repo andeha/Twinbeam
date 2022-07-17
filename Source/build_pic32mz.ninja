@@ -18,15 +18,18 @@ rule library
   ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
 
 build libTwinbeam_pic32mz:  library $objs/antenn-mission.o                  $
- $objs/cathol-irrevers.o $objs/condit-toxolog.o $objs/encoded-tiles.o       $
- $objs/fraud-convoj.o $objs/induct-pass.o $objs/integer-base.o              $
- $objs/internat-sheriff.o $objs/land-viginia.o $objs/leaves-viewpoint.o     $
- $objs/letter-text.o $objs/once-nevada.o $objs/pack-best.o                  $
- $objs/symbol-mask.o $objs/plan-unlock.o $objs/sequent-kalaha.o             $
+ $objs/cathol-irrevers.o $objs/coalesc-analys.o $objs/coalesc-anuitet.o     $
+ $objs/condit-toxolog.o $objs/encoded-tiles.o $objs/fraud-convoj.o          $
+ $objs/induct-pass.o $objs/integer-base.o $objs/internat-sheriff.o          $
+ $objs/land-viginia.o $objs/leaves-viewpoint.o $objs/letter-text.o          $
+ $objs/mz-not-mm.o $objs/once-nevada.o $objs/onomat-fiktiv.o                $
+ $objs/pack-best.o $objs/plan-unlock.o $objs/sequent-kalaha.o               $
  $objs/star-port.o $objs/state-relay.o $objs/symbol-compar.o                $
- $objs/three-biblio.o $objs/unique-comput.o
+ $objs/symbol-mask.o $objs/three-biblio.o $objs/unique-comput.o
 build $objs/antenn-mission.o: c serial-symbol.c
 build $objs/cathol-irrevers.o: c icati-irrevers.c
+build $objs/coalesc-analys.o: c spark-amend.c
+build $objs/coalesc-anuitet.o: c prefix-spark.c
 build $objs/condit-toxolog.o: c arrange-fifo.c
 build $objs/encoded-tiles.o: c symbol-tiles.c
 build $objs/fraud-convoj.o: c convoj-sequen.c
@@ -36,9 +39,11 @@ build $objs/internat-sheriff.o: asm internat-sheriff.S
 build $objs/land-viginia.o: c leap-osmosis.c
 build $objs/leaves-viewpoint.o: c portable-tree.c
 build $objs/letter-text.o: c impress-length.c
+build $objs/mz-not-mm.o: c progre-option.c
 build $objs/once-nevada.o: c nevada-institut.c
 build $objs/pack-best.o: c best-first.c
 build $objs/symbol-mask.o: c pamphlet-symbol.c
+build $objs/onomat-fiktiv.o: c solitud-bcd.c
 build $objs/plan-unlock.o: c deter-lock.c
 build $objs/sequent-kalaha.o: c anglosax-sequent.c
 build $objs/star-port.o: c chim-model.c

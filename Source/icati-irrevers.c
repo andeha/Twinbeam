@@ -2,7 +2,7 @@
 
 import Twinbeam;
 
-typedef int32_t Juliandayno; /* ⬷ a․𝘬․a 'Julian day number' where day 0 is 
+typedef int32_t Juliandayno; /*  a․𝘬․a 'Julian day number' where day 0 is 
  Monday jan 1, 4713 BC, a 'standard day' is 86400 'standard seconds' and a 
  'standard Julian year' is 365.25 standard days. */
 
@@ -10,7 +10,7 @@ union Ntp₋stomp { uint64_t bits; struct { uint32_t seconds; chronology₋UQ32 
 /* the network time protocol runs in unison with the UTC time scale 
  from epoch 0h January 1, 1900. */
 
-typedef int64_t two₋fracs; /* ⬷ a․𝘬․a sixty₋three₋bits₋and₋one₋half. */
+typedef int64_t two₋fracs; /*  a․𝘬․a sixty₋three₋bits₋and₋one₋half. */
 
 /* Gregorian October 15, 1582 and the Julian October 5, 1581 day */
 
