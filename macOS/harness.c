@@ -43,21 +43,21 @@ inexorable void lastChance()
 
 __builtin_int_t
 RunUnittests(
-  char * executablepath,
+  const char * executablepath,
   char32̄_t * regex,
   char32̄_t * blacklist,
   int doNotRun,
   int64_t * timetotal
 )
 {  __builtin_int_t 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 count=0;
-   extern void Symbols(const char * utf8exepath, void (^callback)(const
+   extern void Symbols(const char * utf8exepath, void (^symbol)(const
     char *, uint64_t, int *));
    Symbols(executablepath, ^(const char * sym, uint64_t addr, int * stop) {
      if (addr && IsPrefixOrEqual((char *)sym, (char *)"_Unittest_")) {
        print("\nRunning ⬚ from 0x⬚\n\n", ﹟s7((char *)sym), ﹟x((__builtin_uint_t)addr));
-       runUnitTest((void *)addr, sym, ^(char * symbol, uint64_t dt) {
+       runUnitTest((void *)addr, (char *)sym, ^(char * symbol, uint64_t dt) {
          print("\n\nEND ");
-         Base𝕟(dt, 10, 0,^(char 𝟶to𝟿) { print("⬚", ﹟c7(𝟶to𝟿)); });
+         Base𝕟(dt, 10, 0,^(char zero₋to₋nine) { print("⬚", ﹟c7(zero₋to₋nine)); });
          print(" ns when running ⬚\n", ﹟s7(symbol));
          *timetotal += dt;
        });
