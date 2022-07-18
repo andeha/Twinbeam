@@ -68,3 +68,15 @@ char8₋t * retranscript(char8₋t * u8s, __builtin_int_t maxu8bytes𝘖rZero)
    Copy8Memory((ByteAlignedRef)start,(ByteAlignedRef)u8s,bytes);
    return start;
 } /*  a․𝘬․a strdup₋for₋utf8, Signal,  u8record and Branch. Note U+8000 in UTF-8 is E0 *) *). */
+
+int ReflectUtf8AlternativelyUnicode(enum Encoding type, __builtin_int_t bytes, 
+ uint8_t * material, char32̄_t * decoded, __builtin_int_t * tetras)
+{ char32̄_t * text = Heap₋alloc(bytes);
+   if (type == encoding₋unicode) {
+     Copy8Memory((ByteAlignedRef)decoded,(ByteAlignedRef)material,bytes);
+     *tetras = bytes/4;
+   } else {
+     Utf8ToUnicode(bytes,(char8₋t *)material,decoded,tetras);
+   }
+   return 0;
+}

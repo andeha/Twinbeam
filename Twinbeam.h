@@ -56,11 +56,11 @@ typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎ma
 #define Pult💡(x) ++x /*  todo: Add atomic enclosure-history to 'non-advertised locality-preserving margin-note'. */
 #define CORRECT(symbol) EXT₋C void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
 #define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",            \
-  ﹟s7(s), ﹟s7(__FUNCTION__), ﹟s7(__FILE__), ﹟d(__LINE__)); exit(-1); }
-#define ENSURE(c,s) { if (!(c)) { Panic(Testlog,(char *)(s)); } }
+  ﹟s7(s), ﹟s7((char *)__FUNCTION__), ﹟s7(__FILE__), ﹟d(__LINE__)); exit(-1); }
+#define ENSURE(c,s) { if (!(c)) { Panic(Testlog,s); } }
 #define FOCAL /* repoussé inexorable. */
 #define ENCLAVED
-#define MENTATIVE void /*  a․𝘬․a 'ONLY₋FOR₋SOFT₋REALTIME' and ATTACKS. */
+#define MENTATIVE void /*  a․𝘬․a 'ONLY₋FOR₋SOFT₋REALTIME' and ARGUMENTATIVE. */
 #if defined __cplusplus
 #define EXT₋C extern "C"
 #else
@@ -245,8 +245,8 @@ EXT₋C Argᴾ ﹟b(__builtin_uint_t b);
 EXT₋C Argᴾ ﹟S(__builtin_int_t tetras, char32̄_t * unterminated₋uc) ⓣ;
 EXT₋C Argᴾ ﹟S(char32̄_t * zero₋terminated₋uc) ⓣ;
 EXT₋C Argᴾ ﹟S(struct Unicodes ucs) ⓣ;
-EXT₋C Argᴾ ﹟s7(char * sevenbit₋utf8);
-EXT₋C Argᴾ ﹟s7(const char * sevenbit₋utf8) ⓣ;
+EXT₋C Argᴾ ﹟s7(char * sevenbit₋utf8) /* ⓣ */;
+/* EXT₋C Argᴾ ﹟s7(const char * sevenbit₋utf8) ⓣ; */
 EXT₋C Argᴾ ﹟s8(char8₋t * zero₋terminated₋u8s) ⓣ;
 EXT₋C Argᴾ ﹟s8(__builtin_int_t bytes, char8₋t * unterminated₋u8s) ⓣ;
 EXT₋C Argᴾ ﹟c7(char c);
@@ -358,6 +358,7 @@ EXT₋C ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
 #define cycles __rdtsc
 #elif defined __armv8a__
 inline uint32_t cycles() { return *(unsigned *)0xe001004; }
+/* ArmDS1S1  } 'mrs x0, CNTFRQ_EL0' and 'mrs x0, CNTPCT_EL0' and 'return 1000000*pct/frq'. */
 #endif
 
 #if defined __mips__
@@ -469,8 +470,8 @@ EXT₋C char32̄_t Utf8ToUnicode(char8₋t * ξ, __builtin_int_t bytes) ⓣ;
 
 enum Encoding { encoding₋utf8, encoding₋unicode };
 
-EXT₋C int EncodeUtf8AlternativelyUnicode(enum Encoding encoded, __builtin_int_t bytes, 
- uint8_t * material, char32̄_t ** prepared₋bytes₋text, __builtin_int_t * unicodes);
+EXT₋C int ReflectUtf8AlternativelyUnicode(enum Encoding type, __builtin_int_t bytes, 
+ uint8_t * material, char32̄_t * decoded, __builtin_int_t * tetras);
 
 EXT₋C __builtin_int_t ExactTetras(char8₋t * u8s, __builtin_int_t maxutf8bytes);
 /*  the 'ExactTetras' may return less than zero and 'ExactTetras' may 
