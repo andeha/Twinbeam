@@ -227,7 +227,7 @@ enum state₋Markov {
 typedef int (^Inquiry)(char32̄_t);
 typedef short unsigned (^Atoi)(char32̄_t);
 
-int Timestamp(enum Encoding encoding, int bytes, uint8_t * material, 
+int Timestamp(enum Encoding type, int bytes, uint8_t * material, 
  chronology₋instant * v)
 {
    enum state₋Markov partial=init;
@@ -244,8 +244,8 @@ int Timestamp(enum Encoding encoding, int bytes, uint8_t * material,
      case lexerror: return -4;
    }
    
-   char32̄_t decoded[bytes],u,*text=decoded; __builtin_int_t actual;
-   if (EncodeUtf8AlternativelyUnicode(encoding,bytes,material,&text,&actual)) { return -3; }
+   char32̄_t decoded[bytes],u; __builtin_int_t actual;
+   if (ReflectUtf8AlternativelyUnicode(type,bytes,material,decoded,&actual)) { return -3; }
    
    for (__builtin_int_t idx=0; idx<actual; idx+=1) {
      u = *(idx + decoded);

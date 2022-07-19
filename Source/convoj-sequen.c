@@ -36,7 +36,7 @@ uint8_t * convoj₋relative(__builtin_int_t idx, struct collection * 🅵₁,
 {
    uint8_t * start₋word = collection₋relative(idx,🅵₂);
    uint32_t loword=*(start₋word+0), wordhi=*(start₋word+4);
-   uint64_t offset = intel(loword,wordhi);
+   uint64_t offset = ((uint64_t)wordhi)<<32 | loword;
    return collection₋relative((__builtin_int_t)offset,🅵₁);
 }
 

@@ -47,12 +47,12 @@ err:
 int
 TransformAndResolve(
   struct Unicodes path, 
-  void (^final)(const char * regular𝘖rLinkpath)
+  void (^final)(char * regular𝘖rLinkpath)
 )
 {
    char8₋t u8s[path.tetras*4]; __builtin_int_t actual;
    if (UnicodeToUtf8(path.tetras,path.unicodes,u8s,&actual)) { return -1; }
-   final((const char *)u8s);
+   final((char *)u8s);
    return 0;
 }
 
@@ -65,7 +65,7 @@ again:
 #if defined __x86_64__
    y = __builtin_ia32_rdrand64_step(out);
 #elif defined __armv8a__
-   y = __arm64_rndr(out);
+   y = __arm64_rndr(out); /* asm { mrs x0, RNDR } also 'mrs x1, NZCV'. */
 #endif
   if (y == 0) { goto again; }
 }
@@ -195,7 +195,7 @@ int Cattle(struct Unicodes * regularpathOrΨΛΩ, struct collection * branch,
 void
 Symbols(
   const char * utf8exepath,
-  void (^eachsymbol)(const char * sym, uint64_t addr, int * stop))
+  void (^symbol)(const char * sym, uint64_t addr, int * stop))
 { __builtin_int_t bytesActual;
     uint8_t * obj = (uint8_t *)mapfileʳᵚ(utf8exepath, 0, 0, 0, &bytesActual);
     uint8_t * obj_p = obj;
@@ -217,7 +217,7 @@ Symbols(
          for (int i = 0; i < symtab->nsyms; i+=1) {
             struct nlist_64 *entry = ns + i;
             uint32_t idx = entry->n_un.n_strx;
-            if ((entry->n_type & N_TYPE) == N_SECT) { eachsymbol(strtable + idx, 
+            if ((entry->n_type & N_TYPE) == N_SECT) { symbol(strtable + idx, 
               entry->n_value,&outerStop); }
             if (outerStop) { return; }
          }
