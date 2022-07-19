@@ -174,10 +174,10 @@ typedef unsigned int char32̄_t;
 /*  integer types char8_t and char32_t are both unsigned and unused in this project. */
 typedef struct { char digits[628]; int signbit, lastdigit; } bigint;
 typedef /* 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 */ bigint 𝓵₋bigint; /* arbitrary positioned decimal symbol. */
-EXT₋C void ieee754₋Scientific₋Rendition(double ℝ, void (^out)(char32̄_t ten₋base));
-EXT₋C void ieee754₋Saturn₋Rendition(double ℝ, void (^out)(char32̄_t ten₋base));
-EXT₋C void ieee754₋Monetary₋Rendition(double ℝ, void (^out)(char32̄_t ten₋base));
-EXT₋C void ieee754₋Scandinavian₋Monetary₋Rendition(double ℝ, void (^out)(char32̄_t ten₋base));
+EXT₋C void ieee754₋Scientific₋Rendition(double ℝ, char * fiftysix₋ten₋base, int * letters);
+EXT₋C void ieee754₋Saturn₋Rendition(double ℝ, char * fiftysix₋ten₋base, int * letters);
+EXT₋C void ieee754₋Monetary₋Rendition(double ℝ, char * fiftysix₋ten₋base, int * letters);
+EXT₋C void ieee754₋Scandinavian₋Monetary₋Rendition(double ℝ, char * fiftysix₋ten₋base, int * letters);
 EXT₋C void int₋and₋bigint(int64_t ℤ, 𝓵₋bigint * 𝓫);
 EXT₋C int digits₋and₋bigint(char * digits, 𝓵₋bigint * 𝓫);
 EXT₋C void bcd₋bigint₋add(𝓵₋bigint * x₁, 𝓵₋bigint * x₂, 𝓵₋bigint * 𝓫);

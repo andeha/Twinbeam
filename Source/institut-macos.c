@@ -28,8 +28,8 @@ mapfileʳᵚ( /*  a․𝘬․a 'findAndmap'. */
    int fd = open(canonicalUtf8RegularOrLinkpath,O_RDONLY);
    if (fd == -1) { return ΨΛΩ; } struct stat sb;
    if (fstat(fd,&sb) == -1) { goto err; }
-   if (!S_ISDIR(sb.st_mode)) { goto err; }
-   if (!S_ISLNK(sb.st_mode)) { goto err; }
+   if (S_ISDIR(sb.st_mode)) { goto err; }
+   if (S_ISLNK(sb.st_mode)) { goto err; }
    /*  not a regular file nor a soft link. */
    bytesafterprune = sb.st_size - bytesOffset;
    if (bytesafterprune < 0) { goto err; }
