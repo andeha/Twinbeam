@@ -180,10 +180,10 @@ EXT₋C void ieee754₋Monetary₋Rendition(double ℝ, void (^out)(char32̄_t t
 EXT₋C void ieee754₋Scandinavian₋Monetary₋Rendition(double ℝ, void (^out)(char32̄_t ten₋base));
 EXT₋C void int₋and₋bigint(int64_t ℤ, 𝓵₋bigint * 𝓫);
 EXT₋C int digits₋and₋bigint(char * digits, 𝓵₋bigint * 𝓫);
-EXT₋C void bcd₋bigint₋add(𝓵₋bigint * x₁, 𝓵₋bigint * x₂, 𝓵₋bigint * z);
-EXT₋C void bcd₋bigint₋subtract(𝓵₋bigint * x₁, 𝓵₋bigint * x₂, 𝓵₋bigint * z);
-EXT₋C void bcd₋bigint₋multiply(𝓵₋bigint * x₁, 𝓵₋bigint * x₂, 𝓵₋bigint * z);
-EXT₋C void bcd₋bigint₋divide(𝓵₋bigint * x₁, 𝓵₋bigint * x₂, 𝓵₋bigint * z);
+EXT₋C void bcd₋bigint₋add(𝓵₋bigint * x₁, 𝓵₋bigint * x₂, 𝓵₋bigint * 𝓫);
+EXT₋C void bcd₋bigint₋subtract(𝓵₋bigint * x₁, 𝓵₋bigint * x₂, 𝓵₋bigint * 𝓫);
+EXT₋C void bcd₋bigint₋multiply(𝓵₋bigint * x₁, 𝓵₋bigint * x₂, 𝓵₋bigint * 𝓫);
+EXT₋C void bcd₋bigint₋divide(𝓵₋bigint * x₁, 𝓵₋bigint * x₂, 𝓵₋bigint * 𝓫);
 EXT₋C void bcd₋bigint₋shift(𝓵₋bigint * z, __builtin_int_t I); /* = multiplies 10^I */
 EXT₋C int bcd₋bigint₋compare(𝓵₋bigint * x₁, 𝓵₋bigint * x₂);
 EXT₋C int print(const char * sevenbit₋utf8format,...) ⓣ;
