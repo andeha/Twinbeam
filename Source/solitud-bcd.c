@@ -23,7 +23,7 @@ inexorable __builtin_int_t sevenbit₋strlen(char * s)
    return (__builtin_int_t)p - (__builtin_int_t)s;
 }
 
-void int₋and₋bigint(int64_t ℤ, 𝓵₋bigint * z)
+void int₋and₋bigint(int64_t /* base-2 */ ℤ, 𝓵₋bigint * z)
 { int i=0;
    for (i=0; i<DIGITS; i+=1) z->digits[i]=0;
    z->signbit=PLUS; if (ℤ<0) { z->signbit=MINUS; ℤ=-ℤ; }

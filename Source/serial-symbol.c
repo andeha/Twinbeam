@@ -24,11 +24,11 @@ Argᴾ ﹟s8(char8₋t * u8s) ⓣ {
   Argᴾ y = { { .encoded={ u8s, bytes } }, 4 }; return y; }
 Argᴾ ﹟s8(__builtin_int_t bytes, char8₋t * unterminated₋u8s) ⓣ {
   Argᴾ y = { { .encoded={ unterminated₋u8s, bytes } }, 4 }; return y; }
-Argᴾ ﹟s7(char * sevenbit₋utf8) {
+Argᴾ ﹟s7(char * sevenbit₋utf8) /* ⓣ */ {
   char8₋t * u8s = (char8₋t *)sevenbit₋utf8;
   __builtin_int_t bytes = Utf8BytesUntilZero(u8s,BUILTIN₋INT₋MAX);
   Argᴾ y = { { .encoded={ u8s, bytes } }, 4 }; return y; }
-Argᴾ ﹟s7(const char * sevenbit₋utf8) ⓣ { return ﹟s7((char *)sevenbit₋utf8); }
+/* Argᴾ ﹟s7(const char * sevenbit₋utf8) ⓣ { return ﹟s7((char *)sevenbit₋utf8); } */
 Argᴾ ﹟S(__builtin_int_t tetras, char32̄_t * uc₋unterminated) ⓣ {
   Argᴾ y = { { .ucs={ uc₋unterminated, tetras } }, 7 }; return y; }
 Argᴾ ﹟S(char32̄_t * ucs) ⓣ {
@@ -109,20 +109,24 @@ inexorable void binary₋out(__builtin_uint_t x, Eightbit₋out out, int * amend
 
 #if !defined UNEXISTING₋IEEE754
 inexorable void double₋out(double ℝ, Eightbit₋out out, int * amend, int method)
-{
+{ char text[56]; int letters;
    switch (method)
    {
    case 1:
-     ieee754₋Scientific₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+     ieee754₋Scientific₋Rendition(ℝ,text,&letters);
+     sevenbit₋utf8(text,letters,out,amend);
      break;
    case 2:
-     ieee754₋Saturn₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+     ieee754₋Saturn₋Rendition(ℝ,text,&letters);
+     sevenbit₋utf8(text,letters,out,amend);
      break;
    case 3:
-     ieee754₋Monetary₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+     ieee754₋Monetary₋Rendition(ℝ,text,&letters);
+     sevenbit₋utf8(text,letters,out,amend);
      break;
    case 4:
-     ieee754₋Scandinavian₋Monetary₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+     ieee754₋Scandinavian₋Monetary₋Rendition(ℝ,text,&letters);
+     sevenbit₋utf8(text,letters,out,amend);
      break;
    default:
      unicode₋out(U'⋻',out,amend);

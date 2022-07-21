@@ -55,20 +55,24 @@ inexorable void binary₋out(__builtin_uint_t x, Unicode₋out out, int * amend)
 
 #if !defined UNEXISTING₋IEEE754
 inexorable void double₋out(double ℝ, Unicode₋out out, int * amend, int method)
-{
+{ char text[56]; int letters;
    switch (method)
    {
    case 1:
-     ieee754₋Scientific₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+     ieee754₋Scientific₋Rendition(ℝ,text,&letters);
+     sevenbit₋utf8(text,letters,out,amend);
      break;
    case 2:
-     ieee754₋Saturn₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+     ieee754₋Saturn₋Rendition(ℝ,text,&letters);
+     sevenbit₋utf8(text,letters,out,amend);
      break;
    case 3:
-     ieee754₋Monetary₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+     ieee754₋Monetary₋Rendition(ℝ,text,&letters);
+     sevenbit₋utf8(text,letters,out,amend);
      break;
    case 4:
-     ieee754₋Scandinavian₋Monetary₋Rendition(ℝ, ^(char32̄_t uc) { unicode₋out(uc,out,amend); });
+     ieee754₋Scandinavian₋Monetary₋Rendition(ℝ,text,&letters);
+     sevenbit₋utf8(text,letters,out,amend);
      break;
    default:
      unicode₋out(U'⋼',out,amend);
