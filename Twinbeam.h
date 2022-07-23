@@ -638,13 +638,13 @@ EXT₋C int TransformAndResolve(struct Unicodes pathᵚᵍ, void (^final)(char
 
 #define END_OF_TRANSMISSION U'\x0004'
 
-inline struct Unicodes Run(char32̄_t * ucsAndNULL)
+EXT₋C inline struct Unicodes Run(char32̄_t * ucsAndNULL)
 { __builtin_int_t count = TetrasUntilZero(ucsAndNULL,BUILTIN₋INT₋MAX);
    struct Unicodes text = { count, ucsAndNULL };
    return text;
 }
 
-inline int Lease(char8₋t * u8s, void (^sometime)(struct Unicodes uc))
+EXT₋C inline int Lease(char8₋t * u8s, void (^sometime)(struct Unicodes uc))
 { __builtin_int_t u8bytes = Utf8BytesUntilZero(u8s,BUILTIN₋INT₋MAX);
    char32̄_t ucs[4*u8bytes]; __builtin_int_t tetras;
    if (Utf8ToUnicode(u8bytes,u8s,ucs,&tetras)) { return -1; }
@@ -916,6 +916,7 @@ typedef union historypod (*timeserie₋summation)(union historypod x₁, union h
 enum timeserie₋operation { ts₋create, ts₋update, ts₋delta, ts₋remove };
 EXT₋C int timeserie₋init(version₋ts * revision, version₋ts earliest, 
  unsigned int snapshot₋cycle, struct timeserie * 🅹);
+EXT₋C void timeserie₋uninit(struct timeserie * 🅹);
 typedef void (^line₋completed)(struct timeserie₋entry row, version₋ts revision);
 EXT₋C int timeserie₋commit(version₋ts * revision, line₋completed persisted, 
  struct timeserie * 🅙, timeserie₋summation addition);
@@ -925,7 +926,17 @@ EXT₋C int timeserie₋create(struct timeserie₋entry * initial, struct timese
 EXT₋C int timeserie₋update(struct timeserie₋entry * absolut, struct timeserie * 🅙);
 EXT₋C int timeserie₋delta(struct timeserie₋entry * toggle, union historypod * 
  alterificate, struct timeserie * 🅙, timeserie₋summation addition);
-EXT₋C void timeserie₋uninit(struct timeserie * 🅹);
+EXT₋C void state₋before(int count, struct Unicodes keys[], version₋ts ordin, void 
+ (^retrieve)(int count, union historypod artstate[], struct Unicodes key[]), 
+ struct timeserie * 🅙);
+EXT₋C void state₋after(int count, struct Unicodes keys[], version₋ts ordin, void 
+ (^retrieve)(int count, union historypod artstate[], struct Unicodes key[]), 
+ struct timeserie * 🅙);
+typedef void (^Timeserie₋row)(int count, struct timeserie₋entry row[], int permanent[]);
+typedef void (^Timeserie₋pod)(int count, union historypod artstate[], struct Unicodes key[]);
+EXT₋C int Present₋timeserie₋transacts(__builtin_int_t retrospect₋offset, 
+ __builtin_int_t retrospect₋count, struct timeserie * 🅙, Timeserie₋row out);
+EXT₋C int Present₋timeserie₋overview(struct timeserie * 🅙, Timeserie₋pod out);
 #endif
 
 struct guid { struct endian { uint64_t aware; uint64_t similar; } endian; };
