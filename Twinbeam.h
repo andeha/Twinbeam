@@ -876,8 +876,9 @@ enum Consequence { thus, totient /* a․𝘬․a Ɣ */ };
 EXT₋C chronology₋instant Timezone(chronology₋instant v, 
  short quarters₋of₋hours₋offset);
 
-EXT₋C int Worldclock₋fractographic(chronology₋instant utc);
-/**  for priestmobile useful when relatives live tectronically dispersive lifes. */
+EXT₋C int Worldclock₋fractographic₂(chronology₋instant utc, void (^sequence₋bezier)(
+ simd_tᵦ color, simd_tᵦ xy));
+/**  for priest-mobile useful when relatives live tectronically dispersive lifes. */
 
 /**  Relative-time interval when running from instant t₁ to instant t₂ given 
  preferable according to the 'ComputationalChronology'. */
@@ -934,9 +935,9 @@ EXT₋C void state₋after(int count, struct Unicodes keys[], version₋ts ordin
  struct timeserie * 🅙);
 typedef void (^Timeserie₋row)(int count, struct timeserie₋entry row[], int permanent[]);
 typedef void (^Timeserie₋pod)(int count, union historypod artstate[], struct Unicodes key[]);
-EXT₋C int Present₋timeserie₋transacts(__builtin_int_t retrospect₋offset, 
+EXT₋C int Present₋timeserie₋transacts(struct Unicodes key, __builtin_int_t retrospect₋offset, 
  __builtin_int_t retrospect₋count, struct timeserie * 🅙, Timeserie₋row out);
-EXT₋C int Present₋timeserie₋overview(struct timeserie * 🅙, Timeserie₋pod out);
+EXT₋C int Present₋timeserie₋overview(int count, struct timeserie * 🅙, Timeserie₋pod out);
 #endif
 
 struct guid { struct endian { uint64_t aware; uint64_t similar; } endian; };
