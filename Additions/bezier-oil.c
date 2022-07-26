@@ -3,13 +3,10 @@
 import Twinbeam;
 
 struct Bezierᵦ { simd_tᵦ z₁, z₂, z₃, z₄; };
+struct Rendition₋Bezier { simd_tᵦ xy₋p₋₁OrZero, xy₋p, chromin₋and₋lumin; };
 
-void
-Render(double⁺ʳ t, Bezierᵦ c, 
-  void (^stream)(simd_tᵦ &xy, simd_tᵦ * 𝗽₋₁𝘖rNULL)
-)
-{ /* Also: Fifo<> + 🥽 Bilinear.cpp instead. */
-    simd_tᵦ prev=simd_initᵦ(0), *p=&prev;
+void Render(double⁺ʳ t, Bezierᵦ C, Rendition₋Bezier * stream)
+{
     double t²=t*t,drive=(1-t),tt1mt=3*drive;
     simd_tᵦ c₁=simd_initᵦ(drive*drive*drive), c₂=simd_initᵦ(tt1mt*t²), 
       c₃=simd_initᵦ(t*t²), z11 = __builtin_simd_mulᵦ(c₁,c.z₁), 
@@ -19,10 +16,24 @@ Render(double⁺ʳ t, Bezierᵦ c,
        z33 = __builtin_simd_mulᵦ(c₃,c.z₄), 
      z3343 = __builtin_simd_addᵦ(z33,z43), 
          z = __builtin_simd_addᵦ(z1112,z3343);
-    stream(z,p); prev=z;
-} /*  a․𝘬․a 'Bezier'. */
+    stream->xy₋p₋₁OrZero=stream->xy₋p;
+    stream->xy₋p = z;
+} /*  a․𝘬․a 'Bezier' and 'Bilinear'. */
 
 extern void SetPixel(int x, int y, long err);
+
+void PlotLine(int x₀, int y₀, int x₁, int y₁)
+{
+   int dx=abs(x₁-x₀), sx=x₀<x₁ ? 1 : -1;
+   int dy=abs(y₁-y₀), sy=y₀<y₁ ? 1 : -1;
+   int err=dx+dy,err2;
+   while (1) {
+     SetPixel(x₀,y₀,err*err);
+     err2=2*err;
+     if (err2 >= dy) { if (x₀==x₁) break; err+=dy, x₀+=sx; }
+     if (err2 <= dx) { if (y₀==y₁) break; err+=dx, y₀+=sy; }
+   }
+}
 
 void Antialias(int x0, int y0, int x1, int y1)
 {
