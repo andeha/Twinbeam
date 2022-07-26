@@ -168,9 +168,9 @@ MACRO void Envelop(__builtin_uint_t * x) { *x=(*x^(*x-1)); }
 
 typedef uint8_t char8₋t;
 typedef unsigned int char32̄_t;
-#define KEYPUTS(x) ((signed char *)(x))
-#define UNICODES(x) ((char32̄_t *)(U##x))
-#define UTF8TEXT(x) ((char8₋t *)(u8##x))
+#define KEYS(x) ((signed char *)(x))
+#define UC(x) ((char32̄_t *)(U##x))
+#define U8(x) ((char8₋t *)(u8##x))
 /*  integer types char8_t and char32_t are both unsigned and unused in this project. */
 typedef struct { char digits[628]; int signbit, lastdigit; } bigint;
 typedef /* 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 */ bigint 𝓵₋bigint; /* arbitrary positioned decimal symbol. */
@@ -644,7 +644,7 @@ EXT₋C inline struct Unicodes Run(char32̄_t * ucsAndNULL)
    return text;
 }
 
-EXT₋C inline int Lease(char8₋t * u8s, void (^sometime)(struct Unicodes uc))
+EXT₋C inline int Tactic(char8₋t * u8s, void (^sometime)(struct Unicodes uc))
 { __builtin_int_t u8bytes = Utf8BytesUntilZero(u8s,BUILTIN₋INT₋MAX);
    char32̄_t ucs[4*u8bytes]; __builtin_int_t tetras;
    if (Utf8ToUnicode(u8bytes,u8s,ucs,&tetras)) { return -1; }
@@ -937,7 +937,8 @@ typedef void (^Timeserie₋row)(int count, struct timeserie₋entry row[], int p
 typedef void (^Timeserie₋pod)(int count, union historypod artstate[], struct Unicodes key[]);
 EXT₋C int Present₋timeserie₋transacts(struct Unicodes key, __builtin_int_t retrospect₋offset, 
  __builtin_int_t retrospect₋count, struct timeserie * 🅙, Timeserie₋row out);
-EXT₋C int Present₋timeserie₋overview(int count, struct timeserie * 🅙, Timeserie₋pod out);
+EXT₋C int Present₋timeserie₋overview(int count, struct Unicodes keys[], struct timeserie * 🅙, 
+ Timeserie₋pod out);
 #endif
 
 struct guid { struct endian { uint64_t aware; uint64_t similar; } endian; };
