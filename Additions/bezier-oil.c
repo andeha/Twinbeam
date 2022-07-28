@@ -27,6 +27,7 @@ void Plotline₋apparat(simd_tᵦ xy₀, simd_tᵦ xy₁)
    simd_tᵦ delta = __builtin_simd_subᵦ(xy₁,xy₀);
    simd_tᵦ dxy = __builtin_simd_abs(delta);
    simd_tᵦ sxy = __builtin_simd_sg₍n₎(xy₀,xy₁);
+   /* err,err2,err*err,klippt-compar,kors-similar. */
 }
 
 void PlotLine₋scalar(int x₀, int y₀, int x₁, int y₁)
