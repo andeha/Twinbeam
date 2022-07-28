@@ -2,10 +2,10 @@
 
 import Twinbeam;
 
-struct Bezierᵦ { simd_tᵦ z₁, z₂, z₃, z₄; };
-struct Rendition₋Bezier { simd_tᵦ xy₋p₋₁OrZero, xy₋p, chromin₋and₋lumin; };
+fostrat₋defi { simd_tᵦ z₁, z₂, z₃, z₄; } Bezierᵦ;
+fostrat₋defi { simd_tᵦ xy₋p₋₁OrZero, xy₋p, chromin₋and₋lumin; } Rendition₋Bezier;
 
-void Render(double⁺ʳ t, Bezierᵦ C, Rendition₋Bezier * stream)
+void Render(double⁺ʳ t, Bezierᵦ C, /* fostrat₋param */ Rendition₋Bezier * stream)
 {
     double t²=t*t,drive=(1-t),tt1mt=3*drive;
     simd_tᵦ c₁=simd_initᵦ(drive*drive*drive), c₂=simd_initᵦ(tt1mt*t²), 
@@ -22,7 +22,14 @@ void Render(double⁺ʳ t, Bezierᵦ C, Rendition₋Bezier * stream)
 
 extern void SetPixel(int x, int y, long err);
 
-void PlotLine(int x₀, int y₀, int x₁, int y₁)
+void Plotline₋apparat(simd_tᵦ xy₀, simd_tᵦ xy₁)
+{ simd_tᵦ sxy,dxy,delta;
+   simd_tᵦ delta = __builtin_simd_subᵦ(xy₁,xy₀);
+   simd_tᵦ dxy = __builtin_simd_abs(delta);
+   simd_tᵦ sxy = __builtin_simd_sg₍n₎(xy₀,xy₁);
+}
+
+void PlotLine₋scalar(int x₀, int y₀, int x₁, int y₁)
 {
    int dx=abs(x₁-x₀), sx=x₀<x₁ ? 1 : -1;
    int dy=abs(y₁-y₀), sy=y₀<y₁ ? 1 : -1;
