@@ -454,6 +454,7 @@ typedef __builtin_uint_t Cross;
 BITMASK(Cross) { CrossLeftToRight = 0b0001, CrossRightToLeft = 0b0010, 
  CrossTopToBottom = 0b0100, CrossBottomToTop = 0b1000
 };
+#define fostrat₋defi typedef struct /* must be non-equal identifiers, see bezier-oil.c. */
 
 #pragma recto utf-8 keyput and file, seven-bit and sequence of symbols
 
