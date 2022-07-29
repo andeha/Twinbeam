@@ -454,7 +454,8 @@ typedef __builtin_uint_t Cross;
 BITMASK(Cross) { CrossLeftToRight = 0b0001, CrossRightToLeft = 0b0010, 
  CrossTopToBottom = 0b0100, CrossBottomToTop = 0b1000
 };
-#define fostrat₋defi typedef struct /* must be non-equal identifiers, see bezier-oil.c. */
+#define fostrat₋defi typedef struct /* only non-equal identifiers, see 'bezier-oil.c'. */
+#define fostrat₋param struct 
 
 #pragma recto utf-8 keyput and file, seven-bit and sequence of symbols
 
@@ -880,6 +881,11 @@ EXT₋C chronology₋instant Timezone(chronology₋instant v,
 EXT₋C int Worldclock₋fractographic₂(chronology₋instant utc, void (^sequence₋bezier)(
  simd_tᵦ color, simd_tᵦ xy));
 /**  for priest-mobile useful when relatives live tectronically dispersive lifes. */
+
+struct orthogonal₋image; typedef struct orthogonal₋image ortogonal₋image;
+EXT₋C int forth₋logo(double mist, fostrat₋param orthogonal₋image * output);
+EXT₋C double orientation₋focal(double x₁, double y₁, double x₂, double y₂);
+/* 360 == 0 from focal₋orientation. */
 
 /**  Relative-time interval when running from instant t₁ to instant t₂ given 
  preferable according to the 'ComputationalChronology'. */
