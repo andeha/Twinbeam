@@ -8,6 +8,7 @@ module Twinbeam
    header "/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xmmintrin.h"
    header "/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/immintrin.h" }
   module Arm_Simd { requires neon
+   header "/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/arm_acle.h"
    header "/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/arm_neon.h" }
   header "Twinbeam.h"
   header "Additions/model-wide.h"
