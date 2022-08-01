@@ -33,5 +33,5 @@ librarian-mac = xcrun ar
 compiler-macos = xcrun clang $gencdflags $moduleflags
 compiler-pic32 = $tools-small/clang-12 $gencdflags $moduleflags
 intel-mac = -target x86_64-apple-darwin21
-appleSoC-mac = -target arm64-apple-macos12 -D __armv8a__
+appleSoC-mac = -target arm64-apple-macos12 -D __armv8a__ -march=armv8.5-a+tme
 
