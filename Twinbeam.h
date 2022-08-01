@@ -165,6 +165,8 @@ MACRO __builtin_uint_t Trailing₋non₋ones(__builtin_uint_t x) { if (x == 0) {
 /*  not `__builtin_clzl` for Mips and `__builtin_clz` for Intel.  And for 
   contemplative consumption of abstraction, 𝑃𝑖𝑛𝑐𝑒 𝑎𝑏𝑠𝑡𝑟𝑎𝑖𝑡: */
 MACRO void Envelop(__builtin_uint_t * x) { *x=(*x^(*x-1)); }
+#define fostrat₋defi typedef struct /* only non-equal identifiers, see 'bezier-oil.c'. */
+#define fostrat₋param struct 
 
 typedef uint8_t char8₋t;
 typedef unsigned int char32̄_t;
@@ -198,8 +200,8 @@ struct sequent { union Q6364 detail; int valid; };
 typedef struct sequent Sequenta;
 typedef Sequenta (^computational)(Sequenta x);
 enum Newtoncontrol { Newton₋ok, Newton₋abort, Newton₋done };
-fostrat₋fi { __builtin_int_t count; char * keyputs; } sevenbit₋text;
-inline sevenbit₋text empty₋sevenbit() { sevenbit₋text y = { 0, "" }; return y; }
+fostrat₋defi sevenbit₋text { __builtin_int_t count; char * keyputs; } sevenbit₋text;
+EXT₋C inline sevenbit₋text empty₋sevenbit() { sevenbit₋text y = { 0, "" }; return y; }
 struct utf8₋text { __builtin_int_t bytes; char8₋t * u8s; };
 struct Unicodes { __builtin_int_t tetras; char32̄_t * unicodes; };
 struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * text; }; 
@@ -455,8 +457,7 @@ typedef __builtin_uint_t Cross;
 BITMASK(Cross) { CrossLeftToRight = 0b0001, CrossRightToLeft = 0b0010, 
  CrossTopToBottom = 0b0100, CrossBottomToTop = 0b1000
 };
-#define fostrat₋defi typedef struct /* only non-equal identifiers, see 'bezier-oil.c'. */
-#define fostrat₋param struct 
+
 
 #pragma recto utf-8 keyput and file, seven-bit and sequence of symbols
 
