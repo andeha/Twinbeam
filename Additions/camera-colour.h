@@ -15,9 +15,9 @@ fostrat₋defi {
 typedef struct collection /* Color */ Palettecolors; /*  e․𝘨 'Beginners selection II' with
  'titanium white' to 'cadmium yellow light'. */
 
-#define CadmiumRedDeep  /* Color */ { { { 79.6, 0, 1.2 }, 1.0 }, { { 5.5, 39.2, 39.2, 2.0 }, 1.0 }, UC("cadmium red deep") }
-#define CadmiumRedMedium  /* Color */ { { { 80.7, 8.6, 4.7 }, 1.0 }, { { 5.1, 39.2, 39.2, 1.2 }, 1.0 }, UC("cadmium red medium") }
-#define CadmiumRedOrange  /* Color */ { { { 95.3, 35.3, 5.5 }, 1.0 }, { { 0, 30.1, 39.2, 0 }, 1.0 }, UC("cadmium red orange") }
+#define CadmiumRedDeep  /* Color */ { { { 79.6, 0, 1.2 }, 1.0 }, { { 5.5, 39.2, 39.2, 2.0 }, 1.0 }, U"cadmium red deep" }
+#define CadmiumRedMedium  /* Color */ { { { 80.7, 8.6, 4.7 }, 1.0 }, { { 5.1, 39.2, 39.2, 1.2 }, 1.0 }, U"cadmium red medium" }
+#define CadmiumRedOrange  /* Color */ { { { 95.3, 35.3, 5.5 }, 1.0 }, { { 0, 30.1, 39.2, 0 }, 1.0 }, U"cadmium red orange" }
 
 inline Color CalibratedWhite(𝟶₋𝟷ᐧ𝟶 white, 𝟶₋𝟷ᐧ𝟶 alpha)
 {
@@ -28,3 +28,5 @@ inline Color CalibratedWhite(𝟶₋𝟷ᐧ𝟶 white, 𝟶₋𝟷ᐧ𝟶 alpha)
 
 inline Color Transparent₋natural(Color * color, 𝟶₋𝟷ᐧ𝟶 nonopaque) { color->crome.transparency=nonopaque; }
 inline Color Transparent₋print(Color * color, 𝟶₋𝟷ᐧ𝟶 nonopaque) { color->paper.transparency=nonopaque; }
+inline Color Transparent₋nocolor(Color * color, void (*fallow)(void *)) { fallow(color->name); color->name=ΨΛΩ; }
+
