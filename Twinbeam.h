@@ -198,7 +198,8 @@ struct sequent { union Q6364 detail; int valid; };
 typedef struct sequent Sequenta;
 typedef Sequenta (^computational)(Sequenta x);
 enum Newtoncontrol { Newton₋ok, Newton₋abort, Newton₋done };
-struct sevenbit₋text { __builtin_int_t count; char * keyputs; };
+fostrat₋fi { __builtin_int_t count; char * keyputs; } sevenbit₋text;
+inline sevenbit₋text empty₋sevenbit() { sevenbit₋text y = { 0, "" }; return y; }
 struct utf8₋text { __builtin_int_t bytes; char8₋t * u8s; };
 struct Unicodes { __builtin_int_t tetras; char32̄_t * unicodes; };
 struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * text; }; 
@@ -647,9 +648,9 @@ EXT₋C inline struct Unicodes Run(char32̄_t * ucsAndNULL)
 }
 
 EXT₋C inline int Tactic(char8₋t * u8s, void (^sometime)(struct Unicodes uc))
-{ __builtin_int_t u8bytes = Utf8BytesUntilZero(u8s,BUILTIN₋INT₋MAX);
-   char32̄_t ucs[4*u8bytes]; __builtin_int_t tetras;
-   if (Utf8ToUnicode(u8bytes,u8s,ucs,&tetras)) { return -1; }
+{ __builtin_int_t u8b = Utf8BytesUntilZero(u8s,BUILTIN₋INT₋MAX);
+   char32̄_t ucs[4*u8b]; __builtin_int_t tetras;
+   if (Utf8ToUnicode(u8b,u8s,ucs,&tetras)) { return -1; }
    struct Unicodes text = { tetras, ucs };
    sometime(text);
    return 0;
