@@ -360,8 +360,13 @@ EXT₋C ByteAlignedRef Clear8Memory(ByteAlignedRef mem, __builtin_int_t bytes);
 #if defined __x86_64__
 #define cycles __rdtsc
 #elif defined __armv8a__
-inline uint32_t cycles() { return *(unsigned *)0xe001004; }
-/* ArmDS1S1  } 'mrs x0, CNTFRQ_EL0' and 'mrs x0, CNTPCT_EL0' and 'return 1000000*pct/frq'. */
+EXT₋C inline uint64_t cycles() { return __builtin_readcyclecounter(); }
+EXT₋C inline uint64_t elapsed() {
+  uint64_t pct,frq;
+  __asm("mrs %0, CNTFRQ_EL0" : "=r"(frq));
+  __asm("mrs %0, CNTPCT_EL0" : "=r"(pct));
+  return 1000000*pct/frq;
+}
 #endif
 
 #if defined __mips__
