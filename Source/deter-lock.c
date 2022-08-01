@@ -27,18 +27,19 @@ OptimisticSwap(
 #elif defined __armv8a__
    uint64_t transactional₋state = __tstart();
    if (transactional₋state == 0) {
-    if (it == MustBeOrdered && *p₁ > *p₂) { __tcancel(0xff & __TMFAILURE_REASON); }
+    if (it == MustBeOrdered && *p₁ > *p₂) { __tcancel(0xff & _TMFAILURE_REASON); }
     *p₁ = *p₁ ^ *p₂;
     *p₂ = *p₁ ^ *p₂;
     *p₁ = *p₁ ^ *p₂;
     y=0; __tcommit();
-   } else { _tcancel(__TMFAILURE_RTRY | (0xfe & __TMFAILURE_REASON)); }
+   } else { __tcancel(_TMFAILURE_RTRY | (0xfe & _TMFAILURE_REASON)); }
    return y;
 #elif defined __mips__ || defined espressif || defined __armv6__ || defined Kirkbridge
    while (1) { continue; }
    return -1;
 #endif
-}
+} /* when a hierachial __tstart fails with a non-zero value, it causes all within and *the* outer to fail. */
+/* the result of a hierarchial transaction is not visible until the outer transaction commits. */
 
 void Initstagnatic(__builtin_int_t * may₋not₋lock)
 {
