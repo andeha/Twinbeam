@@ -65,7 +65,7 @@ again:
 #if defined __x86_64__
    y = __builtin_ia32_rdrand64_step(out);
 #elif defined __armv8a__
-   y = __arm64_rndr(out); /* asm { mrs x0, RNDR } also 'mrs x1, NZCV'. */
+   y = __builtin_arm_rndr(out); /* asm { mrs x0, RNDR } also 'mrs x1, NZCV'. */
 #endif
   if (y == 0) { goto again; }
 }

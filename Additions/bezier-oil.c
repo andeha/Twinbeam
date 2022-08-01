@@ -27,6 +27,10 @@ void Plotline₋apparat(simd_tᵦ xy₀, simd_tᵦ xy₁)
    simd_tᵦ delta = __builtin_simd_subᵦ(xy₁,xy₀);
    simd_tᵦ dxy = __builtin_simd_abs(delta);
    simd_tᵦ sxy = __builtin_simd_sg₍n₎(xy₀,xy₁);
+   int err = dxy[0]+dxy[1];
+   while (1) {
+     SetPixel(xy₀,err*err);
+   }
    /* err,err2,err*err,klippt-compar,kors-similar. */
 }
 
