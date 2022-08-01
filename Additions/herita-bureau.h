@@ -1,4 +1,4 @@
-/*  herita-bureau.h | folders and files with Unix. */
+/*  herita-bureau.h | f‌olders and files with Unix. */
 
 inline
 int
