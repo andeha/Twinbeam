@@ -25,13 +25,13 @@
                                                                              
     print "The brown ⬚ jumped over the lazy ⬚\n", ﹟s7("fox"), ﹟s7("dog")    
       ﹟d(__builtin_int_t d)                     ﹟b(__builtin_uint_t b)      
-      ﹟S(int tetras, const char32_t * uc)                                   
+      ﹟S(__builtin_int_t tetras, const char32̄_t * uc)                       
       ﹟s7(char * sevenbit₋utf8)                                             
       ﹟s8(char8˗t *)                                                        
    Scientific and Monetary: ﹟F(double f) and ﹟F(float r)                    
       ﹟reg(__builtin_int_t r) ﹟λ(Argᴾ::Output scalar, void * context)       
                                                                              
-   Also: U(__uint128_t), x(__builtin_uint_t), c(char), C(char32_t),          
+   Also: U(__uint128_t), x(__builtin_uint_t), c(char), C(char32̄_t),          
          I(__int128_t)                                                       
                                                                              
     E․𝘨  auto set💰 = ^(Argᴾ::Unicode set, void * context) { … };            
