@@ -11,19 +11,18 @@ void int₋to₋sequent(int64_t integer, struct sequent * real)
 }
 
 void fraction₋to₋sequent(int count, short zeroAndNine[], struct sequent * real)
-{ int i; struct sequent one=product₋abelian(), two=redundant₋many(),unity_half;
-   unity_half = __builtin_fixpoint_div(one,two);
-   __int128_t a=0;
-   for (i=count; i>=0; k=k-1) {
-     __int128_t down₋digit = zeroAndNine[i];
-     a = (a + down₋digit * two.detail.frac) / 10;
+{ struct sequent one=product₋abelian(),two=redundant₋many(),unity_half = 
+    __builtin_fixpoint_div(one,two); __int128_t a=0;
+   for (int j=count-1; j>=0; j=j-1) { /* ␏ compute bits⁻¹₋mul(zeroAndNine,two) ␎ */
+     __int128_t down₋digit = zeroAndNine[j];
+     a = (a + down₋digit * two.detail.frac) / 10; /* ␏ two-sequent is shifted 64 to the left. ␎ */
    }
-   a.detail.frac = a.detail.frac + 1;
+   a.detail.frac = a.detail.frac + 1; /* ␏ least significant 128-bit toggles by addition and 'rounds to nearest'. ␎ */
    *real = unity_half.detail.frac * a.detail.frac;
 }
 
 void natural₋sequent(struct sequent positive, 
- void (^out)(int count, char zeroAndNine[], int zero))
+ void (^out)(int count, char zeroAndNine[], int is₋zero))
 { uint64_t cycle[64] = {
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -37,13 +36,13 @@ void natural₋sequent(struct sequent positive,
 }
 
 void fractional₋sequent(struct sequent positive, 
- void (^out)(int count, char zeroAndNine[], int zero))
+ void (^out)(int count, char zeroAndNine[], int is₋zero))
 { __uint128_t iv=positive.detail.bits,delta=10; int j;
    struct sequent unity=product₋abelian(),unity_half,present,kool=redundant₋many();
    unity_half = __builtin_fixpoint_div(unity,kool); char text[64];
    iv = iv % unity.detail.bits;
-   if (iv == 0) { out(0,text,1); return; }
    iv = 10 * iv + 5;
+   if (iv == 5) { out(0,text,1); return; }
    do {
      if (unity.detail.bits<delta) {
        iv = iv + unity_half.detail.bits - (delta / 2);
@@ -52,7 +51,7 @@ void fractional₋sequent(struct sequent positive,
      text[j] = '0' + present;
      iv = 10 * (iv % unity.detail.bits);
      delta = 10*delta; j+=1;
-   } while (iv<=delta);
+   } while (iv<=delta); /* --<icati-irrevers.c>, present-instant. */
    out(j,text,0);
 }
 
