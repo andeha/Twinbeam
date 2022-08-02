@@ -198,6 +198,10 @@ union Q6364 { __int128_t frac; __uint128_t bits; };
 #endif
 struct sequent { union Q6364 detail; int valid; };
 typedef struct sequent Sequenta;
+EXT₋C void sequent₋Scandinavian₋Monetary₋Rendition(Sequenta ℝ, char * fiftysix₋ten₋base, int * letters);
+EXT₋C void sequent₋Monetary₋Rendition(Sequenta ℝ, char * fiftysix₋ten₋base, int * letters);
+EXT₋C void sequent₋Saturn₋Rendition(Sequenta ℝ, char * fiftysix₋ten₋base, int * letters);
+EXT₋C void sequent₋Scientific₋Rendition(Sequenta ℝ, char * fiftysix₋ten₋base, int * letters);
 typedef Sequenta (^computational)(Sequenta x);
 enum Newtoncontrol { Newton₋ok, Newton₋abort, Newton₋done };
 fostrat₋defi sevenbit₋text { __builtin_int_t count; char * keyputs; } sevenbit₋text;
@@ -289,7 +293,7 @@ EXT₋C Sequenta full₋atan(Sequenta y, Sequenta x);
 EXT₋C int trapezoid(Sequenta (^f)(Sequenta), Sequenta delta₋t, 
  Sequenta min, void (^memory)(Sequenta integrale, Sequenta t₋acc, 
  int * stop));
-typedef void (Numerics)(int count, char zeroAndNine[], int zero);
+typedef void (^Numerics)(int count, char zeroAndNine[], int zero);
 EXT₋C void natural₋sequent(Sequenta positive, Numerics out); /* TeX 103 §. */
 EXT₋C void fractional₋sequent(Sequenta positive, Numerics out);
 
