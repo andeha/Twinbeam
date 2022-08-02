@@ -1,6 +1,6 @@
-/*  two-epsilon.h | fixpoints and conversion routines. */
+/*  epsilon-two.h | fixpoints and conversion routines. */
 
-#pragma mark - Fractional Fixed Point Mathematics ∈ [-1,1]
+#pragma recto fractional fixed point mathematics ∈ [-1,1]
 
 /*  Compute 1/x7FFFFFFF and 1/x8000 and convert the result to base-10. */
 
@@ -15,7 +15,7 @@ union Q79 { uint16_t bits; int16_t frac; }; /* 0 to ±127.998046875 */
 /* Long temporal-quantitative indication is Q1516 x = (1/4+1/8)_♩♬♫. */
 union Q1516 { uint32_t bits; int32_t frac; }; /* 0 to ±65535.999969482421875 */
 
-#pragma mark - The 'half' (Ieee754-2008, may require compiling with '-mnan=2008')
+#pragma recto The 'half' (Ieee754-2008, may require compiling with '-mnan=2008')
 
 #ifdef __x86_64__
 typedef _Float16 half;
@@ -43,7 +43,7 @@ BITMASK (uint32_t) { /* sometime 'half'. */
 /* IEEE754BASE2_16BIT_SNAN and IEEE754BASE2_16BIT_QNAN n/a. */
 #define IEEE754BASE2_16BIT_PINF  0b0111110000000000
 #define IEEE754BASE2_16BIT_NINF  0b1111110000000000
-#define IEEE754BASE2_16BIT_MAX   0b0111101111111111 /* 𝟲𝟱𝟱𝟬𝟰 (I․𝘦 𝗠𝗔𝗫 when `half` precision.) */
+#define IEEE754BASE2_16BIT_MAX   0b0111101111111111 /* 𝟲𝟱𝟱𝟬𝟰 (i․𝘦 𝗠𝗔𝗫 when `half` precision.) */
 typedef union { /* Encodes values between 2⁻¹⁴ to 2⁻¹⁵ or 3․1×10⁻⁵ to 6․5×10⁴. */
    struct { int8_t lsh; uint8_t msh; } signed_little_endian;
    struct { uint8_t msh; int8_t lsh; } unsigned_big_endian;
@@ -104,3 +104,6 @@ void Presentᵧ(Utf8Terminal &term, half val) {
   inline half operator "" _h(float x) { return FloatToHalf(x); }
   
  */
+
+/* The type 'bfloat' is 1 bit sign, 8 bits exponent and 7 bits significand. */
+
