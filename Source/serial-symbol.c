@@ -54,6 +54,10 @@ Argᴾ ﹟λ₂(void (^fragment)(primary₋present, void *), void * ctx) {
 Argᴾ ﹟F(double f, int method) ⓣ { Argᴾ y = { { .non₋fixpoint.material.f₁=f }, 14 }; return y; }
 Argᴾ ﹟F(float f, int method) ⓣ { Argᴾ y = { { .non₋fixpoint.material.f₂=f }, 15 }; return y; }
 
+/* Argᴾ ﹟hfill() { }
+Argᴾ ﹟vfill() { }
+Argᴾ ﹟pagefill(int verso₋not₋recto) { } */
+
 #pragma recto in /retrospect/ hidden yet simple
 
 typedef void (^Eightbit₋out)(__builtin_int_t bytes, char8₋t * u8s);
@@ -151,7 +155,7 @@ inexorable
 int
 print﹟(
   void (^output)(char8₋t * u8s, __builtin_int_t bytes), 
-  const char * utf8format, 
+  const /* unsigned */ char * utf8format, 
   __builtin_va_list argument
 )
 { __builtin_int_t i=0,incr; short followers; char32̄_t uc;
