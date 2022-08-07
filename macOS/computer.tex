@@ -1,0 +1,264 @@
+%  computer.tex -  modern author with TeX and a book.
+
+\catcode`\{=1 %  left-brace to begin-group.
+\catcode`\}=2 %  right-brace to end-group.
+\catcode`\^=7 %  uparrow also known as circumflex for superscript.
+\catcode`\_=8 %  underline for subscript.
+\catcode`\$=3 %  dollar sign for math.
+\catcode`\#=6 %  hash mark for macro-parameter.
+\catcode`\@=10 %  
+
+\message{Preloading the computer format,}
+
+\catcode`\@=11
+
+\mathchardef\@MM=20000
+
+\def\aa{\accent23a}
+\def\"#1{{\accent"7f #1}}
+\def\dotfill{\cleaders\hbox{$\mkern1.5mu . \mkern1.5mu$}\hfill}
+
+\message{registers,}
+
+\dimendef\maxdimen=16383.99999pt
+\skipdef\centering=0pt plus 1000pt minus 1000pt
+\skipdef\z@=0pt
+
+\message{parameters,}
+
+\pretolerance=100
+\tolerance=200
+\hbadness=1000
+\vbadness=1000
+\linepenalty=10
+\hyphenpenalty=50
+\exhyphenpenalty=50
+\binoppenalty=700
+\relpenalty=500
+\clubpenalty=150
+\widowpenalty=150
+\displaywidowpenalty=50
+\brokenpenalty=100
+\predisplaypenalty=1000
+\doublehyphendemerits=1000
+\finalhyphendemerits=5000
+\adjdemerits=10000
+\tracinglostchars=1
+\uchyph=1
+\defaulthyphenchar=`\-
+\defaultskewchar=-1
+\newlinechar=-1
+\delimiterfactor=101
+\showboxbreadth=5
+\showboxdepth=3
+\errorcontextlines=5 % 'det ār fõr att du inte tror att vi skulle flytta oss.''
+\hfuzz=0.1pt
+\vfuzz=0.1pt
+\overfullrule=5pt
+\hsize=6.5in
+\vsize=8.9in
+\maxdepth=4pt
+\splitmaxdepth=\maxdimen
+\boxmaxdepth=\maxdimen
+\delimitershortfall=5pt
+\nulldelimiterspace=1.2pt
+\scriptspace=0.5pt
+\parindent=20pt
+\parskip=0pt plus 1pt
+\abovedisplayskip=12pt plus 3pt minus 9pt
+\abovedisplayshortskip=0pt plus 3pt
+\belowdisplayskip=12pt plus 3pt minus 9pt
+\belowdisplayshortskip=7pt plus 3pt minus 4pt
+\topskip=10pt
+\splittopskip=10pt
+\parfillskip=0pt plus 1fil
+\thinmuskip=3mu
+\medmuskip=4mu plus 2mu minus 4mu
+\thickmuskip=5mu plus 5mu
+\skipdef\smallskipamount=3pt plus 1pt minus 1pt
+\skipdef\mediumskipamount=6pt plus 2pt minus 2pt
+\skipdef\bigskipamount=12pt plus 4pt minus 4pt
+\skipdef\normalbaselineskip=12pt
+\skipdef\normallineskip=1pt
+
+\dimendef\htrimsize=6.375in
+\dimendef\vtrimsize=9.25in
+\dimendef\outermargin=22mm
+\dimendef\topmargin=15mm
+\chardef\htrim=1001
+\setbox\htrim=\hbox to\htrimsize{\kern-.5in%
+ \vrule height .2pt depth .2pt width .4in\hfil\vrule%
+ width.4in\kern-.5in}
+\wd\htrim=0pt
+\chardef\vtrim=1002
+\setbox\vtrim=\vbox to\vtrimsize{\kern-.5in
+ \moveleft.2pt\hbox{\vrule height .4in}\vfil
+ \moveleft.2pt\hbox{\vrule height .4in}\kern-.5in}
+\wd\vtrim=0pt
+\chardef\trimmarks=1003
+\setbox\trimmarks=\hbox to0pt{\raise\vtrimsize\copy\htrim %
+ \copy\htrim
+ \copy\vtrim \kern\htrimsize \copy\vtrim\hss}
+\ht\trimmarks=0pt \dp\trimmarks=0pt
+\hsize=29pc \vsize=45pc \maxdepth=2.2pt \parindent=19pt
+\dimendef\pagewidth=\hsize
+\dimendef\pageheight=\vsize
+\dimendef\ruleht=.5pt
+
+
+\message{fonts,}
+
+\font\tenrm={cmr10}
+\font\sevenrm={cmr7}
+\font\tenit={cmti10}
+\font\tensl={cmsl10}
+\font\tenbf={cmbx10}
+\font\teni={cmmi10}
+\textfont0=\tenrm
+\def\rm{\tenrm}
+\textfont1=\teni
+\scriptfont0=\sevenrm
+\def\it{\tenit}
+\def\sl{\tensl}
+\def\bf{\tenbf}
+
+\message{macros,}
+
+\def\supereject{\par\penalty-\@MM}
+
+\everyjob={
+  % association-index with tree-structure for entry-root, 
+  % entry-see, entry-also recorded last time document was set.
+  \openout15=./\jobname.idx
+  % collegiate sequence with 'chapter-number startpage 
+  % collegiate' recorded last time document was set.
+  \openout14=./\jobname.vol
+  % quotes with 'chapter-number' and 'text' recorded last time .tex was set.
+  \openout13=./\jobname.ref
+}
+
+\outer\def\tocentry#1{
+  \openin11=./\jobname.toc % odd-even alternate files
+  Introduction\dotfill 13
+  \directlua {
+   local content = 
+     {
+       { chapter = 1, page = 100, collegiate = "Introduction" }, 
+     }
+   tex.print("Contents")
+   tex.print(quotes) % all quotes with a certain chapter.
+  }
+  \directlua {
+   local quotes = 
+     {
+       { chapter = 1, text = "You are enough just as you are \author MEGHAN MARKLE." }, 
+     }
+  }
+  \directlua {
+   local index = 
+     {
+       { }
+     }
+   local t = {} t['foo'] = 1 t['bar'] = 2
+   for k,v in pairs(t) do print(k,v) end
+   io.lines("")
+   \\ pl.stringio
+  }
+}
+
+\outer\def\chapter#1.{
+  \directlua {
+
+  }
+  \write14{#1} % \pageno} % associative array in tex. Linenumbers is chapternumber.
+%  \mark{#1}
+%  \pageno\smallskip\noindent
+  #1
+}
+\outer\def\section#1.{{\bf #1}}
+\outer\def\see{{\it see }} % \/ before non-slanted.
+\outer\def\also{{\it see also }} % \/ before non-slanted.
+\outer\def\entry#1.{#1.}
+\outer\def\subidx#1.{\quad #1.}
+\outer\def\nxtidx{\break}
+\outer\def\bye{
+ \closeout15
+ \closeout14
+ \closeout13
+ \par\vfill\supereject\end
+ \directlua
+  print("Table of content does not include _")
+  print("Chapter does not start on page _")
+  print("Table of content tells topic _")
+  print("Index entry appears also on sheet _")
+  print("Index entry is not in sakframst\"allan")
+  /* os.times() sha2.digest384() */
+ \directlua
+}
+\outer\def\quote{}
+\outer\def\author{}
+\outer\def\quoteformat{}
+\outer\def\title#1{\write14{#1}}
+\outer\def\year#1 #2{}
+
+% \message{codes,}
+
+\message{output routines,}
+
+\countdef\pagenumber=1
+
+\def\onepageout#1{%
+  \shipout\vbox{
+    \hbox to\htrimsize{%
+      \copy\trimmarks%
+      \ifodd\pagenumber\hss\else \hskip\outermargin\fi
+      \vbox to\vtrimsize{%
+        \kern\topmargin\vbox{%
+          \offinterlineskip
+          \vbox to 2pc{
+            \iftitle\global\titlefalse
+            \else\ifodd\pageno \rightheadline\else\leftheadline\fi\fi
+            vfill%
+          }
+          \vbox to \pageheight{
+            \ifvoid\margin\else
+             \rlap{\kern31pc\vbox to\z@{\kern4pt\box\margin \vss}}\fi
+            \ifvoid\topins\else\unvbox\topins\fi
+            #1 % written material added here at \output.
+            \ifvoid\footins\else
+             \vskip\skip\footins \kern-3pt
+             \hrule height\ruleht width5pc \kern-\ruleht \kern3pt
+             \unvbox\footins\fi
+             \boxmaxdepth=\maxdepth
+          } % completes \vbox to \pageheight.
+          \ifdrop
+           \hbox to\pagewidth{%
+             \vbox to12pt{}\hfill\eightrm\folio\hfill%
+           }
+           \global\dropfalse
+          \fi
+        }\vfill%
+      }
+      \ifodd\pageno\hskipoutermargin\else\hss\fi
+      \rlap{%
+        \smash{%
+          \lower30pt\hbox to.5in{\hfil\twelvett\number\pageno}
+        }
+      }
+    }
+  }
+  \advancepagenumber
+}
+\output{\onepageout{\unvbox255}}
+
+\message{hyphenation}
+
+\catcode`\@=12 % contemplate inprisonment and dance (variable).
+
+\rm\dump
+
+% output computer.fmt with 'luatex --ini computer.tex'.
+
+% to process document, execute 'luatex &computer  --output-format=pdf 
+%  <tex-file>'.
+
