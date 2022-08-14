@@ -1,5 +1,11 @@
 /*  amorph-rax.h | Unicode-freshened graph theory reminiscent Knuth's SGB. */
 
+struct calendric₋interval {
+  chronology₋instant T;
+  chronology₋UQ32 detail;
+  chronology₋relative duration;
+};
+
 union graph₋utility {
   struct graph₋vertex * V;
   struct graph₋arc * A;
@@ -8,6 +14,7 @@ union graph₋utility {
   keyput₋shatter s;
   __builtin_int_t I;
   Sequenta M,𝟬₋𝟭𝟬𝟬;
+  calendric₋interval irrever;
 };
 
 struct graph₋vertex {
@@ -27,8 +34,9 @@ struct vertex₋block {
 };
 
 struct edge₋block {
-  struct graph₋edge * start;
+  struct graph₋arc * start;
   __builtin_int_t count,source;
+  struct edge₋block * next,*prev;
 };
 
 struct incidence₋element {
@@ -48,7 +56,7 @@ fostrat₋defi subgraph {
   struct edge₋block * latest₋tip₋E;
   struct incidence₋partial * latest₋tip₋T;
   __builtin_int_t n,m;
-  char util₋types[1+5]; /* H=subgraph,G=supergraph,C=G-connection, 
+  char util₋types[13]; /* H=supergraph,G=graph,O=enclosing graph,C=G-connection, 
    L=Unicode₋label,l=keyput₋label,I=weight,M=probabi. */
   union graph₋utility uu,vv,ww,xx,yy,zz;
 } graph;
