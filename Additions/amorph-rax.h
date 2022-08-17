@@ -6,6 +6,11 @@ struct calendric₋interval {
   chronology₋relative duration;
 };
 
+struct variabil {
+  struct timeserie record;
+  version₋ts revision;
+};
+
 union graph₋utility {
   struct graph₋vertex * V;
   struct graph₋arc * A;
@@ -14,7 +19,8 @@ union graph₋utility {
   keyput₋shatter s;
   __builtin_int_t I;
   Sequenta M,𝟬₋𝟭𝟬𝟬;
-  calendric₋interval irrever;
+  calendric₋interval irrever; /* e.g @ 2022-08-17 07:08:24 and LL 35 minutes. */
+  variabil observation;
 };
 
 struct graph₋vertex {
@@ -56,8 +62,9 @@ fostrat₋defi subgraph {
   struct edge₋block * latest₋tip₋E;
   struct incidence₋partial * latest₋tip₋T;
   __builtin_int_t n,m;
-  char util₋types[13]; /* H=supergraph,G=graph,O=enclosing graph,C=G-connection, 
-   L=Unicode₋label,l=keyput₋label,I=weight,M=probabi. */
+  char util₋types[13]; /* vertex-then-arc-then-graph utility fields,
+    H=supergraph,G=graph,O=enclosing graph,C=G-connection, C=subgraph-collection, 
+    L=Unicode₋label,l=keyput₋label,I=weight,M=probabi. */
   union graph₋utility uu,vv,ww,xx,yy,zz;
 } graph;
 
@@ -66,5 +73,5 @@ EXT₋C struct graph₋arc * Edge(struct graph₋vertex * dst, struct graph₋ve
 EXT₋C struct graph₋vertex * Vertex(subgraph * sg, unicode₋shatter name);
 EXT₋C struct subgraph * Subgraph(graph * g, struct subgraph * parent);
 EXT₋C graph * Graph();
-
+EXT₋C int Vertices(subgraph * sg, void (^dfs)(unicode₋shatter name, struct graph₋vertex *));
 
