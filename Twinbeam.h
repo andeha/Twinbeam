@@ -188,10 +188,10 @@ EXT₋C void bcd₋bigint₋multiply(𝓵₋bigint * x₁, 𝓵₋bigint * x₂,
 EXT₋C void bcd₋bigint₋divide(𝓵₋bigint * x₁, 𝓵₋bigint * x₂, 𝓵₋bigint * 𝓫);
 EXT₋C void bcd₋bigint₋shift(𝓵₋bigint * z, __builtin_int_t I); /* = multiplies 10^I */
 EXT₋C int bcd₋bigint₋compare(𝓵₋bigint * x₁, 𝓵₋bigint * x₂);
-EXT₋C int print(const char * sevenbit₋utf8format,...) ⓣ;
-EXT₋C int mfprint(const char * sevenbit₋utf8format,...);
-EXT₋C int print(void (^out)(char8₋t * u8s, __builtin_int_t bytes), const char * 
- sevenbit₋utf8format, ...) ⓣ;
+EXT₋C int print(const char * sevenbit₋utf8format, ...) ⓣ;
+EXT₋C int mfprint(const char * sevenbit₋utf8format, ...);
+typedef void (^Printout)(char8₋t * u8s, __builtin_int_t bytes);
+EXT₋C int print(Printout out, const char * sevenbit₋utf8format, ...) ⓣ;
 
 #if defined 𝟷𝟸𝟾₋bit₋integer₋available
 union Q6364 { __int128_t frac; __uint128_t bits; };
@@ -208,9 +208,11 @@ fostrat₋defi sevenbit₋text { __builtin_int_t count; char * keyputs; } sevenb
 EXT₋C inline sevenbit₋text empty₋sevenbit() { sevenbit₋text y = { 0, "" }; return y; }
 struct utf8₋text { __builtin_int_t bytes; char8₋t * u8s; };
 struct Unicodes { __builtin_int_t tetras; char32̄_t * unicodes; };
-struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * text; }; 
+struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * text; };
 /*  type 'char' C implementation dependent whether signed/unsigned. 
  See '-fno-signed-char'. */
+typedef char32̄_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 unicode₋shatter;
+typedef char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 keyput₋shatter;
 
 typedef void (^primary₋present)(__builtin_int_t count, char32̄_t * symbols);
 typedef void (^serial₋present)(char8₋t * u8s, __builtin_int_t bytes);
@@ -466,7 +468,6 @@ typedef __builtin_uint_t Cross;
 BITMASK(Cross) { CrossLeftToRight = 0b0001, CrossRightToLeft = 0b0010, 
  CrossTopToBottom = 0b0100, CrossBottomToTop = 0b1000
 };
-
 
 #pragma recto utf-8 keyput and file, seven-bit and sequence of symbols
 
@@ -958,6 +959,13 @@ EXT₋C int Present₋timeserie₋transacts(struct Unicodes key, __builtin_int_t
 EXT₋C int Present₋timeserie₋overview(int count, struct Unicodes keys[], struct timeserie * 🅙, 
  Timeserie₋pod out);
 #endif
+
+int related₋evidence(struct Unicodes key, void (^right)(int count, 
+ struct Unicodes values[]), void * opaque);
+int dissociate₋all(struct Unicodes key, void ** opaque);
+int dissociate₋one(struct Unicodes key, int idx, void ** opaque);
+int form₋ōnymon(struct Unicodes key₋copy, struct Unicodes value₋copy, 
+   int shares, void ** opaque, ALLOC alloc);
 
 struct guid { struct endian { uint64_t aware; uint64_t similar; } endian; };
 struct guid Guid();
