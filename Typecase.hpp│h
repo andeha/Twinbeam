@@ -25,9 +25,9 @@
                                                                              
     print "The brown ⬚ jumped over the lazy ⬚\n", ﹟s7("fox"), ﹟s7("dog")    
       ﹟d(__builtin_int_t d)                     ﹟b(__builtin_uint_t b)      
-      ﹟S(__builtin_int_t tetras, const char32̄_t * uc)                       
+      ﹟S(__builtin_int_t tetras, char32̄_t * unterminated₋uc)                
       ﹟s7(char * sevenbit₋utf8)                                             
-      ﹟s8(char8˗t *)                                                        
+      ﹟s8(char8˗t * zero₋terminated₋u8s)                                    
    Scientific and Monetary: ﹟F(double f) and ﹟F(float r)                    
       ﹟reg(__builtin_int_t r) ﹟λ(Argᴾ::Output scalar, void * context)       
                                                                              
@@ -104,22 +104,25 @@
      aᷣ (Combining latin small letter R rotund)
      a⳯b⳰c⳱ (The Coptics)
     
-    Symbol   c-char    UTF-8            Unicode Name                         
-      ␜    "\u241C" ┆ 0xE2 0x90 0x9C ╎ SYMBOL FOR FILE SEPARATOR
-      ␝    "\u241D" ┆ 0xE2 0x90 0x9D ╎ SYMBOL FOR GROUP SEPARATOR
-      ␞    "\u241E" ┆ 0xE2 0x90 0x9E ╎ SYMBOL FOR RECORD SEPARATOR
-      ␟    "\u241F" ┆ 0xE2 0x90 0x9F ╎ SYMBOL FOR UNIT SEPARATOR
-   
+    Symbol   c-char    Utf-8            Unicode Name                         
+      ␜    "\u241C" ┆ 0xE2 0x90 0x9C ╎ SYMBOL FOR FILE SEPARATOR            
+      ␝    "\u241D" ┆ 0xE2 0x90 0x9D ╎ SYMBOL FOR GROUP SEPARATOR           
+      ␞    "\u241E" ┆ 0xE2 0x90 0x9E ╎ SYMBOL FOR RECORD SEPARATOR          
+      ␟    "\u241F" ┆ 0xE2 0x90 0x9F ╎ SYMBOL FOR UNIT SEPARATOR            
+    
    Spaces: ⇀ ↽ (en space), ⇀ ↽ (em space), ⇀ ↽ (Three-per-em space),
      ⇀ ↽ (Four per em-space), ⇀ ↽ (Six-per-em), ⇀ ↽ (Figure space),
      ⇀ ↽ (Punctuation space), ⇀ ↽ (Thin space), ⇀ ↽ (Hair space),
-     ⇀​↽ (Zero width space), ⇀ ↽ (Narrow no-break space),
+     ⇀​↽ (Zero width space), ⇀―↽ (Horizontal bar) ⇀ ↽ (Narrow no-break space),
      ⇀ ↽ (Medium mathematical space), ⇀　↽ (Ideographic space), ⇀〿↽
      (Ideographic half-fill space). ␣ (Knuths' constant.) ﹇ (Silver space)
     ⇀⁤,⁣,⁢↽ (Non-visible-plus|separator|*) ⥗ ⥖ (Paragraph separator)    
      ⸐⸏⸑  ⇀ ↽ (No-break space)                                            
    Language: ' APOSTROPHE " QUOTATION MARK, ` GRAVE ACCENT,                  
        todo: RABIT LEFT, RABIT RIGHT, SUBSCRIPTED RABIT LFT, SUBSCRIPT RABIT RGHT
+    
+   Actuals: ⇀ ↽ U+a0 (No-break space), ⇀ ↽ U+20 (Space), ⇀⁠↽ U+2060 
+    (Word joiner), ⇀―↽ U+2015 (Horizontal bar). Note Zero-with-(no-break)-space and '%<cr>' is not equalent.
                                                                              
    Switches and Buttons: ⌘ Command (U+2318), ⌥ Option (U+2325),              
      ⇧ Shift (U+21e7), ⎋ ESC (U+238b), ⇪ Capslock (U+21ea),                  
