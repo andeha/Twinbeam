@@ -23,7 +23,7 @@ typedef int32_t             __builtin_int_t;
 #define TriboolUninit 0xFFFFFFFE
 #define TriboolUnarbitrated 0xFFFFFFFD
 #define ΨΛΩ (0)
-#elif defined __armv8a__ || defined __x86_64__ || defined Kirkbridge
+#elif defined __armv8a__ || defined __x86_64__ || defined Kirkbridge /* Mac-arm and E51-arm. */
 typedef unsigned int        uint32_t;
 typedef int                 int32_t; /* ≢'long'. */
 typedef uint64_t            __builtin_uint_t;
@@ -189,7 +189,7 @@ EXT₋C void bcd₋bigint₋divide(𝓵₋bigint * x₁, 𝓵₋bigint * x₂, �
 EXT₋C void bcd₋bigint₋shift(𝓵₋bigint * z, __builtin_int_t I); /* = multiplies 10^I */
 EXT₋C int bcd₋bigint₋compare(𝓵₋bigint * x₁, 𝓵₋bigint * x₂);
 EXT₋C int print(const char * sevenbit₋utf8format, ...) ⓣ;
-EXT₋C int mfprint(const char * sevenbit₋utf8format, ...);
+EXT₋C int vfprint(const char * sevenbit₋utf8format, ...);
 typedef void (^Printout)(char8₋t * u8s, __builtin_int_t bytes);
 EXT₋C int print(Printout out, const char * sevenbit₋utf8format, ...) ⓣ;
 
@@ -960,12 +960,24 @@ EXT₋C int Present₋timeserie₋overview(int count, struct Unicodes keys[], st
  Timeserie₋pod out);
 #endif
 
-int related₋evidence(struct Unicodes key, void (^right)(int count, 
- struct Unicodes values[]), void * opaque);
-int dissociate₋all(struct Unicodes key, void ** opaque);
-int dissociate₋one(struct Unicodes key, int idx, void ** opaque);
+typedef void * thesaurus₋ref, *symboltable₋ref;
+
+int related₋evidence(struct Unicodes key₋similar, void (^right)(int count, 
+ struct Unicodes values[]), thesaurus₋ref opaque);
+int dissociate₋all(struct Unicodes key₋similar, thesaurus₋ref * opaque);
+int dissociate₋one(struct Unicodes key₋similar, int idx, thesaurus₋ref * opaque);
 int form₋ōnymon(struct Unicodes key₋copy, struct Unicodes value₋copy, 
-   int shares, void ** opaque, ALLOC alloc);
+ int shares, thesaurus₋ref * opaque, ALLOC alloc);
+#if defined 𝟷𝟸𝟾₋bit₋integers
+EXT₋C __uint128_t FNV1b(__builtin_int_t bytes, void * material);
+typedef void * notepointer;
+struct w₋node { __int128_t key; notepointer note; struct w₋node *left,*right; };
+EXT₋C struct w₋node * impression₋store(symboltable₋ref opaque, __uint128_t fineprint, 
+ notepointer material, ALLOC alloc);
+EXT₋C struct w₋node * impresssion₋seek(symboltable₋ref opaque, __uint128_t fineprint);
+EXT₋C notepointer jot(struct Unicodes token, symboltable₋ref * opaque, __builtin_int 
+ notebytes, ALLOC alloc, INIT init);
+#endif
 
 struct guid { struct endian { uint64_t aware; uint64_t similar; } endian; };
 struct guid Guid();
