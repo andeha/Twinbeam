@@ -222,7 +222,7 @@ typedef void (^Reversed₋out)(char8₋t * u8s, __builtin_int_t bytes);
 
 FOCAL
 int
-mfprint(
+vfprint(
   const char * utf8format, 
   ...
 )
