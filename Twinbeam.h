@@ -144,6 +144,12 @@ EXT₋C void longjmp2(jmp_buf2 env, __builtin_int_t val);
 #define CATCH } else {
 #define END_TRY } }
 EXT₋C jmp_buf2 * /* volatile */ JmpBuf(); /*  a great symbol for a project break! */
+#define *ᵋ * _##N##o##n##n##u##l##l /* regular reference */
+#define * * _##N##u##l##l##a##b##l##e /* 'optional' */
+#define MEXICAN * _##N##u##l##l##_##u##n##s##p##e##c##i##f##i##e##d
+#define ╳* MEXICAN /* "'jag' ska hjālpa dig" och 'unwrapped optional'. */
+#define xx n##u##l##l##_##r##e##s##e##t##t##a##b##l##e /* p = 0 */
+#define RETURNS_NONNULL __attribute__((returns_nonnull))
 #define ᶿ﹡ const *
 
 #if defined  __mips__ || defined __armv6__ || defined espressif
@@ -751,7 +757,7 @@ union Reference { struct PresentativeErrorUnicode byteserie; struct Unicodeblock
 #define va_prologue(symbol)                                                 \
  __builtin_va_list __various;                                               \
  __builtin_va_start(__various, symbol);
-#define QUOTE(str) #str
+#define QUOTE(str) #str /* ☜😐  'quote != ## ∧ token paste != #'. */
 #if defined __x86_64__ || defined __mips__
 EXT₋C void ASSEMBLERONLY Sheriff();
 #elif defined __armv8a__
