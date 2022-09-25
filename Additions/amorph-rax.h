@@ -1,9 +1,9 @@
-/*  amorph-rax.h | Unicode-freshened graph theory reminiscent Knuth's SGB. */
+/*  amorph-rax.h | Unicode-text and graph theory reminiscent Knuth's SGB. */
 
 struct calendric₋interval {
   chronology₋instant T;
   chronology₋UQ32 detail;
-  chronology₋relative duration;
+  struct chronology₋relative duration;
 };
 
 struct variabil {
@@ -19,8 +19,8 @@ union graph₋utility {
   keyput₋shatter s;
   __builtin_int_t I;
   Sequenta M,𝟬₋𝟭𝟬𝟬;
-  calendric₋interval irrever; /* e.g @ 2022-08-17 07:08:24 and LL 35 minutes. */
-  variabil observation;
+  struct calendric₋interval irrever; /* e.g @ 2022-08-17 07:08:24 and LL 35 minutes. */
+  struct variabil observation;
 };
 
 struct graph₋vertex {
@@ -70,8 +70,8 @@ fostrat₋defi subgraph {
 
 EXT₋C int strong₋and₋weak(graph * g, graph ** SAndΨΛΩ, graph ** WAndΨΛΩ);
 EXT₋C struct graph₋arc * Edge(struct graph₋vertex * dst, struct graph₋vertex * src);
-EXT₋C struct graph₋vertex * Vertex(subgraph * sg, unicode₋shatter name);
+EXT₋C struct graph₋vertex * Vertex(struct subgraph * sg, unicode₋shatter name);
 EXT₋C struct subgraph * Subgraph(graph * g, struct subgraph * parent);
 EXT₋C graph * Graph();
-EXT₋C int Vertices(subgraph * sg, void (^dfs)(unicode₋shatter name, struct graph₋vertex *));
+EXT₋C int Vertices(struct subgraph * sg, void (^dfs)(unicode₋shatter name, struct graph₋vertex *));
 
