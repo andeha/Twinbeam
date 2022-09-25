@@ -126,8 +126,18 @@ typedef tensilica_context jmp_buf2;
 typedef int64_t x86_64_context[(9 * 2) + 3 + 16];
 typedef x86_64_context jmp_buf2;
 #endif
-EXT₋C int setjmp2(jmp_buf2 env);
-EXT₋C void longjmp2(jmp_buf2 env, __builtin_int_t val);
+#define REGULAR₋REFERENCE _##N##u##l##l##a##b##l##e
+#define ᐝ REGULAR₋REFERENCE /* * * REGULAR₋REFERENCE */
+#define OPTIONAL₋NONFAILABLE₋REFERENCE _##N##o##n##n##u##l##l
+#define ᐧ OPTIONAL₋NONFAILABLE₋REFERENCE /* ε* * OPTIONAL₋NONFAILABLE₋REFERENCE */
+#define MEXICAN₋REFERENCE * _##N##u##l##l##_##u##n##s##p##e##c##i##f##i##e##d
+#define ᐨ MEXICAN₋REFERENCE /* "'jag' ska hjālpa dig" och 'unwrapped optional'. */
+#define RESETTABLE₋REFERENCE n##u##l##l##_##r##e##s##e##t##t##a##b##l##e /* p = 0 */
+#define RETURNS₋NONFAILABLE₋REFERENCE __attribute__((returns_nonnull))
+#define ᐪ RETURNS₋NONFAILABLE₋REFERENCE
+#define ᶿ﹡ const *
+EXT₋C int setjmp2(jmp_buf2 ᐧ env);
+EXT₋C void longjmp2(jmp_buf2 ᐧ env, __builtin_int_t val);
 /* `__builtin_longjmp` requires last arg to be const and bounded by `int`. 
  Determined 𝑎₋𝑝𝑟𝑖𝑜𝑟𝑖 to be 𝙞𝙣𝙩. */
 #if defined __armv6__ || defined __mips__ || defined espressif
@@ -143,14 +153,7 @@ EXT₋C void longjmp2(jmp_buf2 env, __builtin_int_t val);
 #define TRY { int __e = setjmp2(*JmpBuf()); if (!__e) {
 #define CATCH } else {
 #define END_TRY } }
-EXT₋C jmp_buf2 * /* volatile */ JmpBuf(); /*  a great symbol for a project break! */
-#define *ᵋ * _##N##o##n##n##u##l##l /* regular reference */
-#define * * _##N##u##l##l##a##b##l##e /* 'optional' */
-#define MEXICAN * _##N##u##l##l##_##u##n##s##p##e##c##i##f##i##e##d
-#define ╳* MEXICAN /* "'jag' ska hjālpa dig" och 'unwrapped optional'. */
-#define xx n##u##l##l##_##r##e##s##e##t##t##a##b##l##e /* p = 0 */
-#define RETURNS_NONNULL __attribute__((returns_nonnull))
-#define ᶿ﹡ const *
+EXT₋C jmp_buf2 * ᐧ/* volatile */ JmpBuf()ᐪ; /*  a great symbol for a project break! */
 
 #if defined  __mips__ || defined __armv6__ || defined espressif
 typedef unsigned int size_t;
@@ -584,7 +587,7 @@ EXT₋C void * Insert(void * opaque, union Treeint valkey, ALLOC alloc);
 EXT₋C void Forall(void ᶿ﹡ opaque, void (^dfs)(union Treeint valkey, int * stop));
 EXT₋C union Treeint * Lookup(void ᶿ﹡ opaque, union Treeint leafkey);
 
-#pragma - big endian ⟷ 'most signif. first', little endian ⟷ 'least sigif. first'
+#pragma recto big endian ⟷ 'most signif. first', little endian ⟷ 'least sigif. first'
 
 typedef union sexdeca {
 #if defined 𝟷𝟸𝟾₋bit₋integer₋available
@@ -751,7 +754,7 @@ typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffse
 
 union Reference { struct PresentativeErrorUnicode byteserie; struct Unicodeblock volatile₋primary; };
 
-#pragma -  😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
+#pragma recto  😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
 #define va_epilogue __builtin_va_end(__various);
 #define va_prologue(symbol)                                                 \
@@ -777,7 +780,7 @@ struct AnnotatedRegister { const char32̄_t * header; int regcnt; struct
  Bitfield * regs; uint32_t init; const char32̄_t * footnote; };
 typedef struct Bitfield Bitfield;
 
-#pragma - blue, white and yellow collection and time series
+#pragma recto blue, white and yellow collection and time series
 
 struct Act { __builtin_int_t memory; };
 EXT₋C __builtin_int_t monoton₋ordinal(int * wrapped, struct Act * ❶);
