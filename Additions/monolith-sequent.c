@@ -17,8 +17,8 @@ void fraction₋to₋sequent(int count, short zeroAndNine[], struct sequent * re
      __int128_t down₋digit = zeroAndNine[j];
      a = (a + down₋digit * two.detail.frac) / 10; /* ␏ two-sequent is shifted 64 to the left. ␎ */
    }
-   a.detail.frac = a.detail.frac + 1; /* ␏ least significant 128-bit toggles by addition and 'rounds to nearest'. ␎ */
-   *real = unity_half.detail.frac * a.detail.frac;
+   a = a + 1; /* ␏ least significant 128-bit toggles by addition and 'rounds to nearest'. ␎ */
+   real->detail.frac = unity_half.detail.frac * a;
 }
 
 void natural₋sequent(struct sequent positive, 
@@ -47,8 +47,8 @@ void fractional₋sequent(struct sequent positive,
      if (unity.detail.bits<delta) {
        iv = iv + unity_half.detail.bits - (delta / 2);
      }
-     present = iv/unity.detail.bits;
-     text[j] = '0' + present;
+     present.detail.frac = iv/unity.detail.bits;
+     text[j] = '0' + present.detail.frac;
      iv = 10 * (iv % unity.detail.bits);
      delta = 10*delta; j+=1;
    } while (iv<=delta); /* --<icati-irrevers.c>, present-instant. */
