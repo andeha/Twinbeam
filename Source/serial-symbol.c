@@ -151,7 +151,6 @@ inexorable void unsigned128₋out(__uint128_t U, Eightbit₋out out, int * amend
 }
 #endif
 
-inexorable
 int
 print﹟(
   void (^output)(char8₋t * u8s, __builtin_int_t bytes), 
