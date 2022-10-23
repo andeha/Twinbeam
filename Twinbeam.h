@@ -51,7 +51,6 @@ typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎ma
   struct Internals;                                                          \
   Internals * impl_;
 #define 😐 APPEND_PIMPL }
-#define 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 _Nonnull
 #define Salt(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + ftn-call. */
 #define Pult💡(x) ++x /*  todo: Add atomic enclosure-history to 'non-advertised locality-preserving margin-note'. */
 #define CORRECT(symbol) EXT₋C void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
@@ -131,7 +130,7 @@ typedef x86_64_context jmp_buf2;
 #define OPTIONAL₋NONFAILABLE₋REFERENCE _##N##o##n##n##u##l##l
 #define ᐧ OPTIONAL₋NONFAILABLE₋REFERENCE /* ε* * OPTIONAL₋NONFAILABLE₋REFERENCE */
 #define ASᐧNON₋NULL OPTIONAL₋NONFAILABLE₋REFERENCE
-#define MEXICAN₋REFERENCE * _##N##u##l##l##_##u##n##s##p##e##c##i##f##i##e##d
+#define MEXICAN₋REFERENCE _##N##u##l##l##_##u##n##s##p##e##c##i##f##i##e##d
 #define ᐨ MEXICAN₋REFERENCE /* "'jag' ska hjālpa dig" och 'unwrapped optional'. */
 #define RESETTABLE₋REFERENCE n##u##l##l##_##r##e##s##e##t##t##a##b##l##e /* p = 0 */
 #define RETURNS₋NONFAILABLE₋REFERENCE __attribute__((returns_nonnull))
@@ -177,7 +176,7 @@ MACRO __builtin_uint_t Trailing₋non₋ones(__builtin_uint_t x) { if (x == 0) {
   contemplative consumption of abstraction, 𝑃𝑖𝑛𝑐𝑒 𝑎𝑏𝑠𝑡𝑟𝑎𝑖𝑡: */
 MACRO void Envelop(__builtin_uint_t * ASᐧNON₋NULL x) { *x=(*x^(*x-1)); }
 #define fostrat₋defi typedef struct /* only non-equal identifiers, see 'bezier-oil.c'. */
-#define fostrat₋param struct 
+#define fostrat₋param struct /* also known as 'fostrat₋fi'. */
 
 typedef uint8_t char8₋t;
 typedef unsigned int char32̄_t;
@@ -186,7 +185,7 @@ typedef unsigned int char32̄_t;
 #define U8(x) ((char8₋t *)(u8##x))
 /*  integer types char8_t and char32_t are both unsigned and unused in this project. */
 typedef struct { char digits[628]; int signbit, lastdigit; } bigint;
-typedef /* 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 */ bigint 𝓵₋bigint; /* arbitrary positioned decimal symbol. */
+typedef /* ASᐧNON₋NULL */ bigint 𝓵₋bigint; /* arbitrary positioned decimal symbol. */
 EXT₋C void ieee754₋Scientific₋Rendition(double ℝ, char * ᐧ fiftysix₋ten₋base, int * ᐧ letters);
 EXT₋C void ieee754₋Saturn₋Rendition(double ℝ, char * ᐧ fiftysix₋ten₋base, int * ᐧ letters);
 EXT₋C void ieee754₋Monetary₋Rendition(double ℝ, char * ᐧ fiftysix₋ten₋base, int * ᐧ letters);
@@ -222,8 +221,8 @@ struct Unicodes { __builtin_int_t tetras; char32̄_t * ᐧ unicodes; };
 struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * ᐧ text; };
 /*  type 'char' C implementation dependent whether signed/unsigned. 
  See '-fno-signed-char'. */
-typedef char32̄_t * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 unicode₋shatter;
-typedef char * 𝑙𝑒𝑎𝑑𝑖𝑛𝑔 keyput₋shatter;
+typedef char32̄_t * ᐝ unicode₋shatter;
+typedef char * MEXICAN₋REFERENCE keyput₋shatter;
 
 typedef void (^primary₋present)(__builtin_int_t count, char32̄_t * ᐧ symbols);
 typedef void (^serial₋present)(char8₋t * ᐧ u8s, __builtin_int_t bytes);
