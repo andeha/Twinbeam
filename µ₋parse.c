@@ -6,7 +6,8 @@ typedef enum { ident, number, lparen, rparen, times, slash, plus, minus,
  ifsym, whilesym, becomes, thensym, dosym, constsym, comma, varsym, 
  procsym, period, oddsym, end₋of₋transmission } Symbol;
 
-/* clang -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ₋parse.c ../Apps/Source/Releases/libTwinbeam-x86_64.a */
+/* clang -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ₋parse.c \
+ ../Apps/Source/Releases/libTwinbeam-x86_64.a ../Apps/Additions/monolith-sequent.c */
 
 Symbol sym; struct Unicodes text;
 
