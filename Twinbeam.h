@@ -662,7 +662,7 @@ EXT₋C int TransformAndResolve(struct Unicodes pathᵚᵍ, void (^ ᐧ final)(c
 
 #define END_OF_TRANSMISSION U'\x0004'
 
-EXT₋C inline struct Unicodes Run(char32̄_t * ᐧ ucsAndNULL)
+EXT₋C MACRO struct Unicodes Run(char32̄_t * ᐝ ucsAndNULL)
 { __builtin_int_t count = TetrasUntilZero(ucsAndNULL,BUILTIN₋INT₋MAX);
    struct Unicodes text = { count, ucsAndNULL };
    return text;
