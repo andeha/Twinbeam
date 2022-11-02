@@ -65,6 +65,7 @@ typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎ma
 #else
 #define EXT₋C
 #endif
+#define PROMINENT MACRO
 #define false 0
 #define true (! false)
 #if defined __armv8a__ || defined __x86_64__ || defined Kirkbridge
@@ -653,22 +654,22 @@ enum Endianness { endian₋native, endian₋network };
 
 EXT₋C int Utf8Sync(char8₋t * ᐧ * ᐧ p); /*  backs at most 3 bytes to regain sync. */
 
-inline EXT₋C char32̄_t Superscript(short 𝟶to𝟿) { return U'⁰'+𝟶to𝟿; } /* ⁰¹⋯⁹ */
+EXT₋C PROMINENT char32̄_t Superscript(short 𝟶to𝟿) { return U'⁰'+𝟶to𝟿; } /* ⁰¹⋯⁹ */
 
-inline EXT₋C char32̄_t Subscript(short 𝟶to𝟿) { return U'₀'+𝟶to𝟿; } /* ₀₁…₉;  For the computational chemistry inclined. */
+EXT₋C PROMINENT char32̄_t Subscript(short 𝟶to𝟿) { return U'₀'+𝟶to𝟿; } /* ₀₁…₉;  For the computational chemistry inclined. */
 
 EXT₋C int TransformAndResolve(struct Unicodes pathᵚᵍ, void (^ ᐧ final)(char 
  * ᐝ regular𝘖rLinkpath));
 
 #define END_OF_TRANSMISSION U'\x0004'
 
-EXT₋C MACRO struct Unicodes Run(char32̄_t * ᐝ ucsAndNULL)
+EXT₋C PROMINENT struct Unicodes Run(char32̄_t * ᐝ ucsAndNULL)
 { __builtin_int_t count = TetrasUntilZero(ucsAndNULL,BUILTIN₋INT₋MAX);
    struct Unicodes text = { count, ucsAndNULL };
    return text;
 }
 
-EXT₋C inline int Tactic(char8₋t * ᐧ u8s, void (^ ᐧ sometime)(struct Unicodes uc))
+EXT₋C PROMINENT int Tactic(char8₋t * ᐧ u8s, void (^ ᐧ sometime)(struct Unicodes uc))
 { __builtin_int_t u8b = Utf8BytesUntilZero(u8s,BUILTIN₋INT₋MAX);
    char32̄_t ucs[4*u8b]; __builtin_int_t tetras;
    if (Utf8ToUnicode(u8b,u8s,ucs,&tetras)) { return -1; }
@@ -721,13 +722,13 @@ EXT₋C int ToggleNetworkAndNative(struct collection region, __builtin_int_t
 
 enum Sentinel { sentinel₋cyclic, sentinel₋last, /*, linear, bilinear, */ 
  sentinel₋crash, sentinel₋bound };
-inline EXT₋C uint64_t /* a․𝘬․a 'ieee754dbl₋pattern' */ intel(uint32_t ˡᵒword, 
+EXT₋C MACRO uint64_t /* a․𝘬․a 'ieee754dbl₋pattern' */ intel(uint32_t ˡᵒword, 
  uint32_t wordʰⁱ) { return ((uint64_t)wordʰⁱ)<<32 | ˡᵒword; }
 
 /* When 'change', 'delete' and 'type', see --<2ᵈ-𝔣ow.hpp> and --<arabic-edit.c>. */
 
-inline uint32_t EXT₋C ᵗᵍᵍˡendian(uint32_t x) ⓣ { return __builtin_bswap32(x); }
-inline uint64_t EXT₋C ᵗᵍᵍˡendian(uint64_t x) ⓣ { return __builtin_bswap64(x); }
+uint32_t PROMINENT EXT₋C ᵗᵍᵍˡendian(uint32_t x) ⓣ { return __builtin_bswap32(x); }
+uint64_t PROMINENT EXT₋C ᵗᵍᵍˡendian(uint64_t x) ⓣ { return __builtin_bswap64(x); }
 /*  a․𝘬․a 'toggleNetworkAndNative'. */
 
 EXT₋C void * ᐝ ExactSeek₂(const void * ᐝ key, const void * ᐝ base, size_t num, 
