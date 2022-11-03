@@ -37,10 +37,11 @@ typedef unsigned short      uint16_t; /*  c𝘧․ Q16. */
 typedef short               int16_t; /* ≡ ᵐⁱᵖˢint. */
 typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎material'. */
 /* TREEALTERNAT 
-  ◻︎ ◻︎ ◻︎ ◼︎  ◻︎ ◻︎ ◼︎ ◻︎
-  ◻︎ ◼︎ ◻ ◻︎  ◼ ◻ ◻ ◼
-  ◼︎ ◻︎ ◼︎ ◼︎  ◻︎ ◼︎ ◼︎ ◼︎
-  ◻ ◼︎ ◼ ◻︎  ◼︎ ◼︎ ◻︎ ◼︎ */
+  ◻︎ ◻︎ ◻︎  ◻︎ ◻︎ ◼︎ 
+  ◻︎ ◼︎ ◻  ◼ ◻ ◻ 
+  ◼︎ ◻︎ ◼︎  ◻︎ ◼︎ ◼︎ 
+  ◻ ◼︎ ◼  ◼︎ ◼︎ ◻︎ 
+  ◻ ◼ ◻  ◻ ◼ ◻ */
 #define BITMASK(type) enum : type
 #define Mips __asm__ __volatile__ (/* ".set noat   \n" */ ".set noreorder  \n" ".set nomacro    \n"
 #define Intel👈 __asm { .intel_syntax noprefix /* Requires -fms-extensions */
@@ -318,7 +319,7 @@ EXT₋C void fractional₋sequent(Sequenta positive, Numerics ᐧ out);
 #define __builtin_fixpoint_modulo modulo_sequent
 #define __builtin_fixpoint_floor floor_sequent
 
-inline Sequenta __builtin_fixpoint_min(Sequenta x₁, Sequenta x₂)
+MACRO Sequenta __builtin_fixpoint_min(Sequenta x₁, Sequenta x₂)
 {
 #if defined Native₋𝟷𝟸𝟾₋bit₋integers
   return x₁.detail.frac < x₂.detail.frac ? x₁ : x₂;
@@ -328,7 +329,7 @@ inline Sequenta __builtin_fixpoint_min(Sequenta x₁, Sequenta x₂)
 #endif
 }
 
-inline Sequenta __builtin_fixpoint_max(Sequenta x₁, Sequenta x₂)
+MACRO Sequenta __builtin_fixpoint_max(Sequenta x₁, Sequenta x₂)
 {
 #if defined Native₋𝟷𝟸𝟾₋bit₋integers
   return x₁.detail.frac < x₂.detail.frac ? x₂ : x₁;
@@ -338,11 +339,11 @@ inline Sequenta __builtin_fixpoint_max(Sequenta x₁, Sequenta x₂)
 #endif
 }
 
-extern Sequenta sqrt(Sequenta,int) ⓣ;
-extern Sequenta reciproc(Sequenta) ⓣ;
-inline Sequenta __builtin_fixpoint_sqrt(Sequenta x) { return sqrt(x,0); }
-inline Sequenta __builtin_fixpoint_rsqrt(Sequenta x) { return sqrt(x,1); }
-inline Sequenta __builtin_fixpoint_rcp(Sequenta x) { return reciproc(x); }
+extern Sequenta sqrt(Sequenta,int) ⓣ; /* -- "" --- 'square₋root_sequent'. */
+extern Sequenta reciproc(Sequenta) ⓣ; /* may be renamed to 'reciproc_sequent'. */
+PROMINENT Sequenta __builtin_fixpoint_sqrt(Sequenta x) { return sqrt(x,0); } /* replace with 'square₋root_sequent'. */
+PROMINENT Sequenta __builtin_fixpoint_rsqrt(Sequenta x) { return sqrt(x,1); } /* -- """ -- */
+#define __builtin_fixpoint_rcp reciproc /* replace with 'reciproc_sequent'. */
 
 typedef int (^INIT)(void * ᐧ uninited);
 EXT₋C void * ᐝ Alloc(__builtin_int_t) ᐪ⁻¹;
