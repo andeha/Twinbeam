@@ -54,11 +54,6 @@ again:
      ctxt->regular[ctxt->symbols₋in₋regular] = uc;
      ctxt->symbols₋in₋regular += 1;
      if (!(U'a' <= uc₊₁ && uc₊₁ <= U'z')) {
-   /*   insert₋into₋trie(10,{
-        {"const",constsym}, {"var",varsym}, {"call",callsym}, {"begin",beginsym},
-        {"end",endsym},{"if",ifsym},{"then",thensym},{"while",whilesym},
-        {"do",dosym},{"odd",oddsym} });
-      if (trie₋keyword(ctxt->regular,&sym)) { sym=constsym; return 0; } */
       confess(identifier); }
       ctxt->state = mode₋regular;
    }
