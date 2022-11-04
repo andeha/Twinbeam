@@ -26,7 +26,7 @@ struct language₋context {
 void error(char msg[]) { print("⬚\n", ﹟s7(msg)); }
 
 int next₋token(struct language₋context * ctxt)
-{ __builtin_int_t i,symbols=100; char32̄_t uc,uc₊₁; int uc₋last=0;
+{ __builtin_int_t i,symbols=text.tetras; char32̄_t uc,uc₊₁; int uc₋last=0;
    typedef int (^type)(char32̄_t);
    type digit = ^(char32̄_t uc) { return U'0' <= uc && uc <= U'9'; };
    type letter = ^(char32̄_t uc) { return U'a' <= uc && uc <= U'z'; };
@@ -54,12 +54,19 @@ again:
      ctxt->regular[ctxt->symbols₋in₋regular] = uc;
      ctxt->symbols₋in₋regular += 1;
      if (!(U'a' <= uc₊₁ && uc₊₁ <= U'z')) {
+       print("regular '⬚'\n", ﹟S(ctxt->symbols₋in₋regular,ctxt->regular));
+   /*   insert₋into₋trie(10,{
+        {"const",constsym}, {"var",varsym}, {"call",callsym}, {"begin",beginsym},
+        {"end",endsym},{"if",ifsym},{"then",thensym},{"while",whilesym},
+        {"do",dosym},{"odd",oddsym} });
+      if (trie₋keyword(ctxt->regular,&sym)) { sym=constsym; return 0; } */
+      ctxt->symbols₋in₋regular = 0;
       confess(identifier); }
       ctxt->state = mode₋regular;
    }
    else if ((STATE(mode₋initial) || STATE(mode₋integer)) && digit(uc)) {
      ctxt->ongoing *= 10; ctxt->ongoing += uc - U'0';
-     if (!(U'0' <= uc₊₁ && uc₊₁ <= U'9')) { confess(numeric₋constant); }
+     if (!(U'0' <= uc₊₁ && uc₊₁ <= U'9')) { Ctxt.ongoing=0; confess(numeric₋constant); }
      ctxt->state = mode₋integer;
    }
    else confess(trouble);
@@ -137,7 +144,9 @@ int main()
 {
    Ctxt.state=mode₋initial;
    Ctxt.tip₋unicode=0;
-   text = Run(U"const abcd ;");
+   Ctxt.symbols₋in₋regular=0;
+   Ctxt.ongoing=0;
+   text = Run(U"const abcd = 321;");
    program();
 }
 
