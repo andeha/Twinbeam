@@ -48,6 +48,6 @@ build $objs/tesby-istra.o: c chim-model.c
 build $objs/unique-comput.o: c comput-unique.c
 build $objs/unstall-bank.o: c unstall-coalesc.c
 build $objs/index-company.o: c flera-index.c
-build $objs/lattice-trie.o: c latitud-arab.c
+build $objs/lattice-trie.o: c latitude-arab.c
 default $library-root
 
