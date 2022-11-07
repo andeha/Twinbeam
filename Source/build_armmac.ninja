@@ -10,7 +10,7 @@ include ../macOS/laptop-big.ninja
 
 rule toc
   command = $librarian-mac t Releases/$arm-library\_$sha1git.a
-# ⬷ monitor/Apps> ninja -C Source -f build_armmac.ninja emit-content
+#  monitor/Apps> ninja -C Source -f build_armmac.ninja emit-content
 
 rule library
   command = $librarian-mac rcs Releases/$out\_$sha1git.a $in               ; $
@@ -24,7 +24,8 @@ build libTwinbeam_macarm:  library $objs/arkebu-referen.o                    $
  $objs/materi-summar.o $objs/monesta-precisi.o $objs/nomenc-karavan.o        $
  $objs/parabol-versati.o $objs/pincett-heritan.o $objs/practi-natur.o        $
  $objs/product-ronolo.o $objs/retros-inclus.o $objs/rollno-ensolut.o         $
- $objs/symbol-semati.o $objs/timuli-metri.o $objs/unstall-irection.o
+ $objs/symbol-semati.o $objs/timuli-metri.o $objs/unstall-irection.o         $
+ $objs/glossar-many.o $objs/scrabble-tile.o
 build $objs/arkebu-referen.o: c reference-three.c
 build $objs/carusel-opini.o: c deter-lock.c
 build $objs/circu-anglosa.o: c anglosax-sequent.c
@@ -50,6 +51,8 @@ build $objs/rollno-ensolut.o: c nonsol-utroll.c
 build $objs/symbol-semati.o: c stochast-symbol.c
 build $objs/timuli-metri.o: c tee-metric.c
 build $objs/unstall-irection.o: c unstall-coalesc.c
+build $objs/glossar-many.o: c flera-index.c
+build $objs/scrabble-tile.o: c latitude-arab.c
 build emit-content: toc
 default $arm-library
 

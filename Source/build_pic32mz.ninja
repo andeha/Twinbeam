@@ -25,7 +25,8 @@ build libTwinbeam_pic32mz:  library $objs/antenn-mission.o                  $
  $objs/mz-not-mm.o $objs/once-nevada.o $objs/onomat-fiktiv.o                $
  $objs/pack-best.o $objs/plan-unlock.o $objs/sequent-kalaha.o               $
  $objs/star-port.o $objs/state-relay.o $objs/symbol-compar.o                $
- $objs/symbol-mask.o $objs/three-biblio.o $objs/unique-comput.o
+ $objs/symbol-mask.o $objs/three-biblio.o $objs/unique-comput.o             $
+ $objs/mellan-rātt.o $objs/languag-persist.o
 build $objs/antenn-mission.o: c serial-symbol.c
 build $objs/cathol-irrevers.o: c icati-irrevers.c
 build $objs/coalesc-analys.o: c spark-amend.c
@@ -51,6 +52,8 @@ build $objs/state-relay.o: c tee-metric.c
 build $objs/symbol-compar.o: c stochast-symbol.c
 build $objs/three-biblio.o: c reference-three.c
 build $objs/unique-comput.o: c comput-unique.c
+build $objs/mellan-rātt.o: c flera-index.c
+build $objs/languag-persist.o: c latitude-arab.c
 build emit-content: toc
 default $stem-library
 

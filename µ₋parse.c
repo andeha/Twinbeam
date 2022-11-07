@@ -19,6 +19,7 @@ struct language₋context {
   char32̄_t regular[2048];
   short symbols₋in₋regular;
   __builtin_int_t ongoing;
+  struct trie₋word keys;
 } Ctxt;
 
 #define STATE(s) (s == ctxt->state)
@@ -55,14 +56,10 @@ again:
      ctxt->symbols₋in₋regular += 1;
      if (!(U'a' <= uc₊₁ && uc₊₁ <= U'z')) {
        print("regular '⬚'\n", ﹟S(ctxt->symbols₋in₋regular,ctxt->regular));
-   /*   insert₋into₋trie(10,{
-        {"const",constsym}, {"var",varsym}, {"call",callsym}, {"begin",beginsym},
-        {"end",endsym},{"if",ifsym},{"then",thensym},{"while",whilesym},
-        {"do",dosym},{"odd",oddsym} });
-      if (trie₋keyword(ctxt->regular,&sym)) { sym=constsym; return 0; } */
-      ctxt->symbols₋in₋regular = 0;
-      confess(identifier); }
-      ctxt->state = mode₋regular;
+       if (trie₋keyword(ctxt->regular,&sym,&Ctxt.keys)) { return 0; }
+       ctxt->symbols₋in₋regular = 0;
+       confess(identifier); }
+     ctxt->state = mode₋regular;
    }
    else if ((STATE(mode₋initial) || STATE(mode₋integer)) && digit(uc)) {
      ctxt->ongoing *= 10; ctxt->ongoing += uc - U'0';
@@ -142,6 +139,9 @@ void program(void) { next₋token(&Ctxt); block(); expect(period); }
 
 int main()
 {
+   merge₋into₋trie(10,
+    { "const","var","call","begin","end","if","then","while","do","odd" }, 
+    { constsym,varsym,callsym,beginsym,endsym,ifsym,thensym,whilesym,dosym,oddsym },&Ctxt.keys);
    Ctxt.state=mode₋initial;
    Ctxt.tip₋unicode=0;
    Ctxt.symbols₋in₋regular=0;

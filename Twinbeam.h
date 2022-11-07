@@ -685,6 +685,11 @@ EXT₋C int Play(void (^ ᐧ composition)(struct Unicodes serial),
 EXT₋C int Play(char32̄_t * ᐧ text, __builtin_va_list params, void 
  (^ ᐧ composition)(struct Unicodes serial)) ⓣ;
 
+struct trie₋word { struct trie₋word * ᐝ downward₋letters[25]; int residue[25]; };
+typedef struct trie₋word Trie;
+void merge₋into₋trie(int count, char32̄_t * ᐧ keywords[], int residue[], Trie * 🅣);
+int trie₋keyword(int letters, char32̄_t text[], int * residue, Trie * 🅣);
+
 #pragma recto 8, 16, ...,  32, 64, lo64, hi64, 128, utf8
 
 /* for 𝑝𝑖𝑔𝑒𝑜𝑛 𝑟𝑒𝑐𝑜𝑛𝑛𝑎𝑖𝑠𝑠𝑎𝑛𝑐𝑒, 𝑠𝑐𝑜𝑢𝑡𝑖𝑛𝑔 and other missions */

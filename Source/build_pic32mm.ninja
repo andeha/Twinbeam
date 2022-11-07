@@ -1,4 +1,5 @@
 #  build.ninja - building Twinbeam to pic32mm and no 'double'.
+# to-be-replaced-with samd51
 
 optflags = -g
 stem-library = libTwinbeam_pic32mm
@@ -24,7 +25,8 @@ build libTwinbeam_pic32mm:  library $objs/analys-coalesc.o                   $
  $objs/mixture-national.o $objs/mm-not-mz.o $objs/model-vision.o             $
  $objs/passage-stary.o $objs/procure-sheriff.o $objs/proof-teko.o            $
  $objs/sequent-guiness.o $objs/serial-juice.o $objs/text-length.o            $
- $objs/transmit-radio.o $objs/transparent-navaron.o $objs/twice-fail.o
+ $objs/transmit-radio.o $objs/transparent-navaron.o $objs/twice-fail.o       $
+ $objs/hāgkomme-frukt.o $objs/languag-cathark.o
 build $objs/analys-coalesc.o: c spark-amend.c
 build $objs/annuitet-coalesc.o: c prefix-spark.c
 build $objs/book-nonpsalm.o: c reference-three.c
@@ -50,6 +52,8 @@ build $objs/text-length.o: c impress-length.c
 build $objs/transmit-radio.o: c serial-symbol.c
 build $objs/transparent-navaron.o: c symbol-tiles.c
 build $objs/twice-fail.o: c tee-metric.c
+build $objs/hāgkomme-frukt.o: c flera-index.c
+build $objs/languag-cathark.o: c latitude-arab.c
 build emit-content: toc
 default $stem-library
 
