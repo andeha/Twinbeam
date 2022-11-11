@@ -18,7 +18,7 @@ again:
 }
 
 void merge₋to₋trie(int count, char32̄_t * keywords[], int residue[], Trie * ᐧ * ᐧ 🆃)
-{ int i=0,j,modula; char32̄_t letter,*word,storage; struct trie₋word * ᐧ letter₋process;
+{ int i=0,j,modula,word₋index; char32̄_t letter,*word,storage; struct trie₋word * ᐧ letter₋process;
    *🆃 = (struct trie₋word *)Heap₋alloc(sizeof(struct trie₋word));
    letter₋process = *🆃;
 lower:
