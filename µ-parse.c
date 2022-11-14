@@ -1,15 +1,15 @@
 
 import Twinbeam;
 
-typedef enum { ident, number, lparen, rparen, times, slash, plus, minus, 
+typedef enum Symbol { ident, number, lparen, rparen, times, slash, plus, minus, 
  eql, neq, lss, leq, gtr, geq, callsym, beginsym, semicolon, endsym, 
  ifsym, whilesym, becomes, thensym, dosym, constsym, comma, varsym, 
  procsym, period, oddsym } Symbol;
 
-/* clang -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ₋parse.c \
+/* clang -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
  ../Apps/Source/Releases/libTwinbeam-x86_64.a ../Apps/Additions/monolith-sequent.c */
 
-Symbol sym; struct Unicodes text;
+Symbol symbol; struct Unicodes text;
 
 enum language₋mode { mode₋initial, mode₋integer, mode₋regular };
 
@@ -17,9 +17,9 @@ struct language₋context {
   __builtin_int_t tip₋unicode;
   enum language₋mode state;
   char32̄_t regular[2048];
-  short symbols₋in₋regular;
+  short syms₋in₋regular;
   __builtin_int_t ongoing;
-  struct trie₋word keys;
+  Trie keys;
 } Ctxt;
 
 #define STATE(s) (s == ctxt->state)
@@ -27,13 +27,14 @@ struct language₋context {
 void error(char msg[]) { print("⬚\n", ﹟s7(msg)); }
 
 int next₋token(struct language₋context * ctxt)
-{ __builtin_int_t i,symbols=text.tetras; char32̄_t uc,uc₊₁; int uc₋last=0;
+{ __builtin_int_t i,symbols=text.tetras; char32̄_t uc,uc₊₁; int uc₋last=0,sym;
    typedef int (^type)(char32̄_t);
    type digit = ^(char32̄_t uc) { return U'0' <= uc && uc <= U'9'; };
    type letter = ^(char32̄_t uc) { return U'a' <= uc && uc <= U'z'; };
-   🧵(start,identifier,numeric₋constant,trouble,completion) {
-   case identifier: sym=ident; return 0;
-   case number: sym=number; return 0;
+   🧵(identifier,numeric₋constant,keyword,trouble,completion) {
+   case identifier: symbol=ident; print("ident\n"); ctxt->syms₋in₋regular=0; return 0;
+   case numeric₋constant: symbol=number; print("number\n"); Ctxt.ongoing=0; return 0;
+   case keyword: symbol=sym; print("keyword\n"); ctxt->syms₋in₋regular=0; return 0;
    case completion: exit(1); return -1;
    case trouble: exit(2); return -2;
    }
@@ -46,24 +47,22 @@ again:
    if (STATE(mode₋initial) && uc == U'\xa') { }
    else if (STATE(mode₋initial) && uc == U' ') { }
    else if (STATE(mode₋initial) && uc == U'\t') { }
-   else if (STATE(mode₋initial) && uc == U'=') { sym=eql; return 0; }
-   else if (STATE(mode₋initial) && uc == U':' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; sym=becomes; return 0; }
-   else if (STATE(mode₋initial) && uc == U',') { sym=comma; return 0; }
-   else if (STATE(mode₋initial) && uc == U';') { sym=semicolon; return 0; }
+   else if (STATE(mode₋initial) && uc == U'=') { symbol=eql; return 0; }
+   else if (STATE(mode₋initial) && uc == U':' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; symbol=becomes; return 0; }
+   else if (STATE(mode₋initial) && uc == U',') { symbol=comma; return 0; }
+   else if (STATE(mode₋initial) && uc == U';') { symbol=semicolon; return 0; }
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
-     if (ctxt->symbols₋in₋regular == 2048) { error("identifier alternatively keyword too long"); confess(trouble); }
-     ctxt->regular[ctxt->symbols₋in₋regular] = uc;
-     ctxt->symbols₋in₋regular += 1;
+     if (ctxt->syms₋in₋regular == 2048) { error("identifier alternatively keyword too long"); confess(trouble); }
+     ctxt->regular[ctxt->syms₋in₋regular] = uc;
+     ctxt->syms₋in₋regular += 1;
      if (!(U'a' <= uc₊₁ && uc₊₁ <= U'z')) {
-       print("regular '⬚'\n", ﹟S(ctxt->symbols₋in₋regular,ctxt->regular));
-       if (trie₋keyword(ctxt->regular,&sym,&Ctxt.keys)) { return 0; }
-       ctxt->symbols₋in₋regular = 0;
-       confess(identifier); }
+       if (trie₋keyword(ctxt->syms₋in₋regular,ctxt->regular,&sym,&(Ctxt.keys))) { confess(identifier); }
+       confess(keyword); }
      ctxt->state = mode₋regular;
    }
    else if ((STATE(mode₋initial) || STATE(mode₋integer)) && digit(uc)) {
      ctxt->ongoing *= 10; ctxt->ongoing += uc - U'0';
-     if (!(U'0' <= uc₊₁ && uc₊₁ <= U'9')) { Ctxt.ongoing=0; confess(numeric₋constant); }
+     if (!(U'0' <= uc₊₁ && uc₊₁ <= U'9')) { confess(numeric₋constant); }
      ctxt->state = mode₋integer;
    }
    else confess(trouble);
@@ -72,7 +71,7 @@ again:
 
 void expression(void);
 
-int match(Symbol s) { if (sym == s) { next₋token(&Ctxt); return 1; } return 0; }
+int match(Symbol s) { if (symbol == s) { next₋token(&Ctxt); return 1; } return 0; }
 
 int expect(Symbol s) { if (match(s)) return 1; error("expect: unexpected symbol"); return 0; }
 
@@ -87,13 +86,13 @@ void factor(void)
 void term(void)
 {
    factor();
-   while (sym == times || sym == slash) { next₋token(&Ctxt); factor(); }
+   while (symbol == times || symbol == slash) { next₋token(&Ctxt); factor(); }
 }
 
 void expression(void)
 {
-   if (sym == plus || sym == minus) next₋token(&Ctxt); term();
-   while (sym == plus || sym == minus) { next₋token(&Ctxt); term(); }
+   if (symbol == plus || symbol == minus) next₋token(&Ctxt); term();
+   while (symbol == plus || symbol == minus) { next₋token(&Ctxt); term(); }
 }
 
 void condition(void)
@@ -101,7 +100,7 @@ void condition(void)
    if (match(oddsym)) { expression(); }
    else {
      expression();
-     if (sym == eql || sym == neq || sym == lss || sym == leq || sym == gtr || sym == geq) 
+     if (symbol == eql || symbol == neq || symbol == lss || symbol == leq || symbol == gtr || symbol == geq) 
      {
        next₋token(&Ctxt); expression();
      } else {
@@ -139,12 +138,12 @@ void program(void) { next₋token(&Ctxt); block(); expect(period); }
 
 int main()
 {
-   merge₋into₋trie(10,
-    { "const","var","call","begin","end","if","then","while","do","odd" }, 
-    { constsym,varsym,callsym,beginsym,endsym,ifsym,thensym,whilesym,dosym,oddsym },&Ctxt.keys);
+   char32̄_t * kvlist[] = { U"const",U"var",U"call",U"begin",U"end",U"if",U"then",U"while",U"do",U"odd" };
+   int symlist[] = { constsym,varsym,callsym,beginsym,endsym,ifsym,thensym,whilesym,dosym,oddsym };
+   merge₋to₋trie(10,kvlist,symlist,&(Ctxt.keys));
    Ctxt.state=mode₋initial;
    Ctxt.tip₋unicode=0;
-   Ctxt.symbols₋in₋regular=0;
+   Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
    text = Run(U"const abcd = 321;");
    program();

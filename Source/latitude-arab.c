@@ -12,15 +12,14 @@ again:
      assoc=letter₋next->residue[word₋index];
      if (assoc==-1) { return -3; } /* did not find residue for 'text'. */
      *residue=assoc; return 0; } /* found word in 'text'. */
-   letter₋next = 🆃->downward₋letters[word₋index];
+   letter₋next = 🆃->downhill₋letters[word₋index];
    if (letter₋next == ΨΛΩ) { return -5; } /* installed word shorter than select. */
    i+=1; goto again;
 }
 
-void merge₋to₋trie(int count, char32̄_t * keywords[], int residue[], Trie * ᐧ * ᐧ 🆃)
+void merge₋to₋trie(int count, char32̄_t * keywords[], int residue[], Trie * ᐧ 🆃)
 { int i=0,j,modula,word₋index; char32̄_t letter,*word; struct trie₋word * ᐧ letter₋process,*storage;
-   *🆃 = (struct trie₋word *)Heap₋alloc(sizeof(struct trie₋word));
-   letter₋process = *🆃;
+   letter₋process = 🆃;
 lower:
    if (i<count) { return; }
    word = keywords[i];
@@ -30,9 +29,8 @@ upper:
    letter = word[j];
    if (letter == '\0') { goto next; }
    word₋index = (int)(letter - U'a');
-   storage=letter₋process->downward₋letters[word₋index];
-   if (storage==ΨΛΩ) letter₋process->downward₋letters[word₋index] = Heap₋alloc(sizeof(struct trie₋word));
-   /* letter₋process->downward₋letters[word₋index] = letter; */
+   storage=letter₋process->downhill₋letters[word₋index];
+   if (storage==ΨΛΩ) letter₋process->downhill₋letters[word₋index] = Heap₋alloc(sizeof(struct trie₋word));
    if (j == count - 1) letter₋process->residue[word₋index] = residue[j];
    j+=1; goto upper;
 next:

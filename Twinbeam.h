@@ -685,10 +685,10 @@ EXT₋C int Play(void (^ ᐧ composition)(struct Unicodes serial),
 EXT₋C int Play(char32̄_t * ᐧ text, __builtin_va_list params, void 
  (^ ᐧ composition)(struct Unicodes serial)) ⓣ;
 
-struct trie₋word { struct trie₋word * ᐝ downward₋letters[25]; int residue[25]; };
+struct trie₋word { struct trie₋word * ᐝ downhill₋letters[25]; int residue[25]; };
 typedef struct trie₋word Trie;
-void merge₋into₋trie(int count, char32̄_t * ᐧ keywords[], int residue[], Trie * 🅣);
-int trie₋keyword(int letters, char32̄_t text[], int * residue, Trie * 🅣);
+void merge₋to₋trie(int count, char32̄_t * ᐧ keywords[ᐧ], int residue[ᐧ], Trie * ᐧ 🅣);
+int trie₋keyword(int letters, char32̄_t text[ᐧ], int * ᐧ residue, Trie * ᐧ 🅣);
 
 #pragma recto 8, 16, ...,  32, 64, lo64, hi64, 128, utf8
 
@@ -712,7 +712,6 @@ EXT₋C uint8_t * ᐧ collection₋relative(__builtin_int_t idx, struct collecti
 /*  a․𝘬․a 'collection₋at'. */
 EXT₋C __builtin_int_t collection₋count(struct collection * ᐝ 🅰);
 EXT₋C int deinit₋collection(struct collection * ᐝ 🅰, FALLOW fallow);
-typedef struct collection Casette;
 
 EXT₋C int init₋convoj(struct collection * ᐝ 🅵₁, struct collection * ᐝ 🅵₂);
 EXT₋C int copy₋include₋convoj(ALLOC alloc, struct collection * ᐝ 🅵₁, struct 
@@ -846,7 +845,7 @@ union historypod
 #pragma recto  😐😇 and 1/1/1900 0am
 
 /**  The NTP defines epoch starting at the year 1900 at midnight before 
- sunrise January the 1ˢᵗ and with a 32-bit unsigned  integer track 0 to 
+ sunrise January the 1ˢᵗ and with a 32-bit unsigned integer track 0 to 
  2³² - 1 = 4.294,967,295 seconds (approximately 136 earth years) until 
  a wrap occurs.
  
@@ -948,8 +947,8 @@ EXT₋C void coro_free(coro_t * ᐧ coro);
 #if defined 𝟷𝟸𝟾₋bit₋integer₋available
 typedef __builtin_int_t version₋ts;
 struct timeserie { struct collection pendings; void * ᐧ currents, * ᐧ uncommits;
- Casette points, versions, events, temporals; version₋ts * ᐧ revision, earliest; 
- unsigned short checkpoint₋modulo; };
+ struct collection points, versions, events, temporals; version₋ts * ᐧ revision, 
+ earliest; unsigned short checkpoint₋modulo; };
 struct timeserie₋entry { struct Unicodes key; union historypod entry; 
  struct sevenbit₋text reference; };
 typedef union historypod (* ᐧ timeserie₋summation)(union historypod x₁, union historypod x₂);
