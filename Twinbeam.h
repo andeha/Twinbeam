@@ -685,7 +685,7 @@ EXT₋C int Play(void (^ ᐧ composition)(struct Unicodes serial),
 EXT₋C int Play(char32̄_t * ᐧ text, __builtin_va_list params, void 
  (^ ᐧ composition)(struct Unicodes serial)) ⓣ;
 
-struct trie₋word { struct trie₋word * ᐝ downhill₋letters[25]; int residue[25]; };
+struct trie₋word { struct trie₋word * ᐝ downhill₋letters[25]; int residue[25]; }; /* see z_k in TeX 920 ❡§. */
 typedef struct trie₋word Trie;
 void merge₋to₋trie(int count, char32̄_t * ᐧ keywords[ᐧ], int residue[ᐧ], Trie * ᐧ 🅣);
 int trie₋keyword(int letters, char32̄_t text[ᐧ], int * ᐧ residue, Trie * ᐧ 🅣);
