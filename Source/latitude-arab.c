@@ -21,7 +21,7 @@ void merge₋to₋trie(int count, char32̄_t * keywords[], int residue[], Trie *
 { int i=0,j,modula,word₋index; char32̄_t letter,*word; struct trie₋word * ᐧ letter₋process,*storage;
    letter₋process = 🆃;
 lower:
-   if (i<count) { return; }
+   if (i>=count) { return; }
    word = keywords[i];
    modula = residue[i];
    j=0;
