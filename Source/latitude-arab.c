@@ -12,7 +12,7 @@ again:
      assoc=letter₋next->residue[word₋index];
      if (assoc==-1) { return -3; } /* did not find residue for 'text'. */
      *residue=assoc; return 0; } /* found word in 'text'. */
-   letter₋next = 🆃->downhill₋letters[word₋index];
+   letter₋next = letter₋next->downhill₋letters[word₋index];
    if (letter₋next == ΨΛΩ) { return -5; } /* installed word shorter than select. */
    i+=1; goto again;
 }
