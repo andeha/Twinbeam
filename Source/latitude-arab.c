@@ -3,7 +3,7 @@
 import Twinbeam;
 
 int trie₋keyword(int letters, char32̄_t text[], int * residue, Trie * ᐧ 🆃)
-{ int i=0,word₋index,assoc; struct trie₋word * ᐧ letter₋next=🆃,* ᐧ no₋letter=ΨΛΩ;
+{ int i=0,word₋index,assoc; struct trie₋word * ᐧ letter₋next=🆃;
    if (letters == 0) { return -1; } /* searching for no word. */
 again:
    word₋index = (int)(text[i] - U'a');
