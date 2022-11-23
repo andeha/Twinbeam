@@ -19,7 +19,7 @@ again:
 
 void merge₋to₋trie(int count, char32̄_t * keywords[], int residue[], Trie * ᐧ 🆃)
 { int i=0,j,modula,word₋index; char32̄_t letter,*word; struct trie₋word * ᐧ letter₋process,*storage;
-   for (int i=0; i<25; i+=1) { 🆃->downhill₋letters[i]=ΨΛΩ; 🆃->residue[i]=0; }
+   for (int i=0; i<25; i+=1) { 🆃->downhill₋letters[i]=ΨΛΩ; 🆃->residue[i]=-1; }
 lower:
    if (i>=count) { return; }
    letter₋process = 🆃;
