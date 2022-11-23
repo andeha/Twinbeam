@@ -32,6 +32,7 @@ upper:
    storage=letter₋process->downhill₋letters[word₋index];
    if (storage==ΨΛΩ) letter₋process->downhill₋letters[word₋index] = Heap₋alloc(sizeof(struct trie₋word));
    if (j == count - 1) letter₋process->residue[word₋index] = residue[j];
+   letter₋process = letter₋process->downhill₋letters[word₋index];
    j+=1; goto upper;
 next:
    i+=1; goto lower;
