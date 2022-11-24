@@ -6,7 +6,7 @@ typedef enum Symbol { ident, number, lparen, rparen, times, slash, plus, minus,
  ifsym, whilesym, becomes, thensym, dosym, constsym, comma, varsym, 
  procsym, period, oddsym } Symbol;
 
-/* clang -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
+/* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
  ../Apps/Source/Releases/libTwinbeam-x86_64.a ../Apps/Additions/monolith-sequent.c */
 
 Symbol symbol; struct Unicodes text;
@@ -32,11 +32,11 @@ int next₋token(struct language₋context * ctxt)
    type digit = ^(char32̄_t uc) { return U'0' <= uc && uc <= U'9'; };
    type letter = ^(char32̄_t uc) { return U'a' <= uc && uc <= U'z'; };
    🧵(identifier,numeric₋constant,keyword,trouble,completion) {
-   case identifier: symbol=ident; print("ident\n"); ctxt->syms₋in₋regular=0; return 0;
-   case numeric₋constant: symbol=number; print("number\n"); Ctxt.ongoing=0; return 0;
-   case keyword: symbol=sym; print("keyword\n"); ctxt->syms₋in₋regular=0; return 0;
-   case completion: exit(1); return -1;
-   case trouble: exit(2); return -2;
+   case identifier: symbol=ident; print("ident\n"); ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
+   case numeric₋constant: symbol=number; print("number\n"); Ctxt.ongoing=0; ctxt->state=mode₋initial; return 0;
+   case keyword: symbol=sym; print("keyword\n"); ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
+   case completion: print("completion\n"); exit(1); return -1;
+   case trouble: print("trouble\n"); exit(2); return -2;
    }
 again:
    i=ctxt->tip₋unicode; ctxt->tip₋unicode+=1;
@@ -47,25 +47,28 @@ again:
    if (STATE(mode₋initial) && uc == U'\xa') { }
    else if (STATE(mode₋initial) && uc == U' ') { }
    else if (STATE(mode₋initial) && uc == U'\t') { }
-   else if (STATE(mode₋initial) && uc == U'=') { symbol=eql; return 0; }
+   else if (STATE(mode₋initial) && uc == U'=') { symbol=eql; print("eql\n"); return 0; }
    else if (STATE(mode₋initial) && uc == U':' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; symbol=becomes; return 0; }
    else if (STATE(mode₋initial) && uc == U',') { symbol=comma; return 0; }
-   else if (STATE(mode₋initial) && uc == U';') { symbol=semicolon; return 0; }
+   else if (STATE(mode₋initial) && uc == U'.') { symbol=period; print("period\n"); return 0; }
+   else if (STATE(mode₋initial) && uc == U';') { symbol=semicolon; print("semicolon\n"); return 0; }
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
      if (ctxt->syms₋in₋regular == 2048) { error("identifier alternatively keyword too long"); confess(trouble); }
      ctxt->regular[ctxt->syms₋in₋regular] = uc;
      ctxt->syms₋in₋regular += 1;
+     ctxt->state = mode₋regular;
      if (!(U'a' <= uc₊₁ && uc₊₁ <= U'z')) {
        if (trie₋keyword(ctxt->syms₋in₋regular,ctxt->regular,&sym,&(Ctxt.keys))) { confess(identifier); }
        confess(keyword); }
-     ctxt->state = mode₋regular;
    }
    else if ((STATE(mode₋initial) || STATE(mode₋integer)) && digit(uc)) {
      ctxt->ongoing *= 10; ctxt->ongoing += uc - U'0';
-     if (!(U'0' <= uc₊₁ && uc₊₁ <= U'9')) { confess(numeric₋constant); }
      ctxt->state = mode₋integer;
+     if (!(U'0' <= uc₊₁ && uc₊₁ <= U'9')) { confess(numeric₋constant); }
    }
-   else confess(trouble);
+   else { 
+    confess(trouble);
+   }
    goto again;
 }
 
@@ -145,7 +148,7 @@ int main()
    Ctxt.tip₋unicode=0;
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
-   text = Run(U"const abcd = 321;");
+   text = Run(U"const abcd = 321; .");
    program();
 }
 
