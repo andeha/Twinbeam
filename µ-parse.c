@@ -35,7 +35,7 @@ int next₋token(struct language₋context * ctxt)
    case identifier: symbol=ident; print("ident\n"); ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
    case numeric₋constant: symbol=number; print("number\n"); Ctxt.ongoing=0; ctxt->state=mode₋initial; return 0;
    case keyword: symbol=sym; print("keyword\n"); ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
-   case completion: print("completion\n"); /* symbol=end₋of₋transmission */ return 0;
+   case completion: print("completion\n"); /* symbol=end₋of₋transmission₋and₋file */ return 0;
    case trouble: print("trouble\n"); exit(2); return -1;
    }
 again:
@@ -137,7 +137,7 @@ void block(void)
   statement();
 }
 
-void program(void) { next₋token(&Ctxt); block(); expect(period /* end₋of₋transmission */); }
+void program(void) { next₋token(&Ctxt); block(); expect(period /* end₋of₋transmission₋and₋file */); }
 
 int main()
 {
