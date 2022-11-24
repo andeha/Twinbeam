@@ -4,7 +4,7 @@ import Twinbeam;
 typedef enum Symbol { ident, number, lparen, rparen, times, slash, plus, minus, 
  eql, neq, lss, leq, gtr, geq, callsym, beginsym, semicolon, endsym, 
  ifsym, whilesym, becomes, thensym, dosym, constsym, comma, varsym, 
- procsym, period, oddsym } Symbol;
+ procsym, period, oddsym, end₋of₋transmission₋and₋file } Symbol;
 
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
  ../Apps/Source/Releases/libTwinbeam-x86_64.a ../Apps/Additions/monolith-sequent.c */
@@ -18,25 +18,26 @@ struct language₋context {
   enum language₋mode state;
   char32̄_t regular[2048];
   short syms₋in₋regular;
-  __builtin_int_t ongoing;
+  __builtin_int_t ongoing,render₋newline₋count;
   Trie keys;
 } Ctxt;
 
 #define STATE(s) (s == ctxt->state)
+#define TRACE₋TOKENS
 
 void error(char msg[]) { print("⬚\n", ﹟s7(msg)); }
 
-int next₋token(struct language₋context * ctxt)
+int next₋token₋inner(struct language₋context * ctxt)
 { __builtin_int_t i,symbols=text.tetras; char32̄_t uc,uc₊₁; int uc₋last=0,sym;
    typedef int (^type)(char32̄_t);
    type digit = ^(char32̄_t uc) { return U'0' <= uc && uc <= U'9'; };
    type letter = ^(char32̄_t uc) { return U'a' <= uc && uc <= U'z'; };
    🧵(identifier,numeric₋constant,keyword,trouble,completion) {
-   case identifier: symbol=ident; print("ident\n"); ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
-   case numeric₋constant: symbol=number; print("number\n"); Ctxt.ongoing=0; ctxt->state=mode₋initial; return 0;
-   case keyword: symbol=sym; print("keyword\n"); ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
-   case completion: print("completion\n"); /* symbol=end₋of₋transmission₋and₋file */ return 0;
-   case trouble: print("trouble\n"); exit(2); return -1;
+   case identifier: symbol=ident; ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
+   case numeric₋constant: symbol=number; Ctxt.ongoing=0; ctxt->state=mode₋initial; return 0;
+   case keyword: symbol=sym; ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
+   case completion: symbol=end₋of₋transmission₋and₋file; return 0;
+   case trouble: return -1;
    }
 again:
    i=ctxt->tip₋unicode; ctxt->tip₋unicode+=1;
@@ -44,14 +45,15 @@ again:
    if (i == symbols - 1) { uc₋last=1; }
    uc = *(text.unicodes + i);
    uc₊₁ = uc₋last ? U' ' : *(text.unicodes + i + 1);
-   if (STATE(mode₋initial) && uc == U'\xa') { }
+   if (STATE(mode₋initial) && uc == U'\xa') { ctxt->render₋newline₋count += 1; }
+   else if (STATE(mode₋initial) && uc == U'\xd') { }
    else if (STATE(mode₋initial) && uc == U' ') { }
    else if (STATE(mode₋initial) && uc == U'\t') { }
-   else if (STATE(mode₋initial) && uc == U'=') { symbol=eql; print("eql\n"); return 0; }
+   else if (STATE(mode₋initial) && uc == U'=') { symbol=eql; return 0; }
    else if (STATE(mode₋initial) && uc == U':' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; symbol=becomes; return 0; }
    else if (STATE(mode₋initial) && uc == U',') { symbol=comma; return 0; }
    else if (STATE(mode₋initial) && uc == U'.') { symbol=period; print("period\n"); return 0; }
-   else if (STATE(mode₋initial) && uc == U';') { symbol=semicolon; print("semicolon\n"); return 0; }
+   else if (STATE(mode₋initial) && uc == U';') { symbol=semicolon; return 0; }
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
      if (ctxt->syms₋in₋regular == 2048) { error("identifier alternatively keyword too long"); confess(trouble); }
      ctxt->regular[ctxt->syms₋in₋regular] = uc;
@@ -70,6 +72,22 @@ again:
     confess(trouble);
    }
    goto again;
+}
+
+void next₋token(struct language₋context * ctxt)
+{
+  int y = next₋token₋inner(ctxt);
+  if (y != 0) { error("scanner error: truoble."); exit(2); }
+#if defined TRACE₋TOKENS
+  switch (symbol) {
+  case ident: print("identifier\n"); break;
+  case number: print("numeric₋constant\n"); break;
+  case beginsym: print("'begin'\n"); break;
+  case eql: print("'='\n"); break;
+  case semicolon: print("';'\n"); break;
+  case end₋of₋transmission₋and₋file: print("completion\n"); break;
+  }
+#endif
 }
 
 void expression(void);
@@ -137,7 +155,7 @@ void block(void)
   statement();
 }
 
-void program(void) { next₋token(&Ctxt); block(); expect(period /* end₋of₋file₋and₋transmission */); }
+void program(void) { next₋token(&Ctxt); block(); expect(end₋of₋transmission₋and₋file); }
 
 int main()
 {
@@ -148,17 +166,18 @@ int main()
    Ctxt.tip₋unicode=0;
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
-   text = Run(U"const abcd=321,dcba=123;\nvar cdeg,gec,cgb; .");
+   Ctxt.render₋newline₋count=0;
+   text = Run(U"const abcd=321,dcba=123;\nvar cdeg,gec,cgb;");
    program();
 }
 
 /*
 
- program = block '.'
+ program = block end₋of₋transmission₋and₋file
  block = 'const' ident '=' number { ',' ident '=' number } ';'
          'var' ident { ',' ident } ';'
  statement = ident ':=' expression
-             'call' ident
+              { 'call' } ident
              'begin' statement ';' { statment ';' } 'end'
              'if' condition 'then' statement
              'while' condition 'do' statement
