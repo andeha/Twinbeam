@@ -56,6 +56,7 @@ again:
    else if (STATE(mode₋initial) && uc == U'+') { symbol=plus; return 0; }
    else if (STATE(mode₋initial) && uc == U'-') { symbol=minus; return 0; }
    else if (STATE(mode₋initial) && uc == U'=') { symbol=eql; return 0; }
+   else if (STATE(mode₋initial) && uc == U'<' && uc₊₁ == U'>') { ctxt->tip₋unicode+=1; symbol=neq; return 0; }
    else if (STATE(mode₋initial) && uc == U'<' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; symbol=leq; return 0; }
    else if (STATE(mode₋initial) && uc == U'<') { symbol=lss; return 0; }
    else if (STATE(mode₋initial) && uc == U'>' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; symbol=geq; return 0; }
@@ -92,12 +93,34 @@ void next₋token(struct language₋context * ctxt)
   switch (symbol) {
   case ident: print("identifier\n"); break;
   case number: print("numeric₋constant\n"); break;
+  case lparen: print("'{'\n"); break;
+  case rparen: print("'}'\n"); break;
+  case times: print("'*'\n"); break;
+  case divide: print("'/'\n"); break;
+  case plus: print("'+'\n"); break;
+  case minus: print("'-'\n"); break;
+  case neq: print("'<>'\n"); break;
+  case lss: print("'<'\n"); break;
+  case leq: print("'<='\n"); break;
+  case gtr: print("'>'\n"); break;
+  case geq: print("'>='\n"); break;
+  case callsym: print("'call'\n"); break;
+  case ifsym: print("'if'\n"); break;
+  case whilesym: print("'while'\n"); break;
+  case thensym: print("'then'\n"); break;
+  case dosym: print("'do'\n"); break;
+  case constsym: print("'const'\n"); break;
+  case comma: print("','\n"); break;
+  case varsym: print("'var'\n"); break;
+  case procsym: print("'compute'\n"); break;
+  case oddsym: print("'odd'\n"); break;
   case beginsym: print("'begin'\n"); break;
-  case endsym: print("'end'"); break;
+  case endsym: print("'end'\n"); break;
   case eql: print("'='\n"); break;
   case afterward: print("':='\n"); break;
   case semicolon: print("';'\n"); break;
   case end₋of₋transmission₋and₋file: print("completion\n"); break;
+  default: print("period");
   }
 #endif
 }
@@ -179,7 +202,7 @@ int main()
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋count=0;
-   text = Run(U"const abcd=321,dcba=123;\nvar cdeg,gec,cgb;");
+   text = Run(U"const abcd=321,dcba=123;\nvar cdeg,gec,cgb; cgb:=1+1; ");
    program();
 }
 
