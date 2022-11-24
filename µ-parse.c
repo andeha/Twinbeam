@@ -1,9 +1,9 @@
 
 import Twinbeam;
 
-typedef enum Symbol { ident, number, lparen, rparen, times, slash, plus, minus, 
+typedef enum Symbol { ident, number, lparen, rparen, times, divide, plus, minus, 
  eql, neq, lss, leq, gtr, geq, callsym, beginsym, semicolon, endsym, 
- ifsym, whilesym, becomes, thensym, dosym, constsym, comma, varsym, 
+ ifsym, whilesym, afterward, thensym, dosym, constsym, comma, varsym, 
  procsym, period, oddsym, end₋of₋transmission₋and₋file } Symbol;
 
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
@@ -49,11 +49,21 @@ again:
    else if (STATE(mode₋initial) && uc == U'\xd') { }
    else if (STATE(mode₋initial) && uc == U' ') { }
    else if (STATE(mode₋initial) && uc == U'\t') { }
+   else if (STATE(mode₋initial) && uc == U'(') { symbol=lparen; return 0; }
+   else if (STATE(mode₋initial) && uc == U')') { symbol=rparen; return 0; }
+   else if (STATE(mode₋initial) && uc == U'*') { symbol=times; return 0; }
+   else if (STATE(mode₋initial) && uc == U'/') { symbol=divide; return 0; }
+   else if (STATE(mode₋initial) && uc == U'+') { symbol=plus; return 0; }
+   else if (STATE(mode₋initial) && uc == U'-') { symbol=minus; return 0; }
    else if (STATE(mode₋initial) && uc == U'=') { symbol=eql; return 0; }
-   else if (STATE(mode₋initial) && uc == U':' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; symbol=becomes; return 0; }
+   else if (STATE(mode₋initial) && uc == U'<' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; symbol=leq; return 0; }
+   else if (STATE(mode₋initial) && uc == U'<') { symbol=lss; return 0; }
+   else if (STATE(mode₋initial) && uc == U'>' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; symbol=geq; return 0; }
+   else if (STATE(mode₋initial) && uc == U'>') { symbol=gtr; return 0; }
+   else if (STATE(mode₋initial) && uc == U';') { symbol=semicolon; return 0; }
+   else if (STATE(mode₋initial) && uc == U':' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; symbol=afterward; return 0; }
    else if (STATE(mode₋initial) && uc == U',') { symbol=comma; return 0; }
    else if (STATE(mode₋initial) && uc == U'.') { symbol=period; print("period\n"); return 0; }
-   else if (STATE(mode₋initial) && uc == U';') { symbol=semicolon; return 0; }
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
      if (ctxt->syms₋in₋regular == 2048) { error("identifier alternatively keyword too long"); confess(trouble); }
      ctxt->regular[ctxt->syms₋in₋regular] = uc;
@@ -77,13 +87,15 @@ again:
 void next₋token(struct language₋context * ctxt)
 {
   int y = next₋token₋inner(ctxt);
-  if (y != 0) { error("scanner error: truoble."); exit(2); }
+  if (y != 0) { error("scanner error: trouble."); exit(2); }
 #if defined TRACE₋TOKENS
   switch (symbol) {
   case ident: print("identifier\n"); break;
   case number: print("numeric₋constant\n"); break;
   case beginsym: print("'begin'\n"); break;
+  case endsym: print("'end'"); break;
   case eql: print("'='\n"); break;
+  case afterward: print("':='\n"); break;
   case semicolon: print("';'\n"); break;
   case end₋of₋transmission₋and₋file: print("completion\n"); break;
   }
@@ -107,7 +119,7 @@ void factor(void)
 void term(void)
 {
    factor();
-   while (symbol == times || symbol == slash) { next₋token(&Ctxt); factor(); }
+   while (symbol == times || symbol == divide) { next₋token(&Ctxt); factor(); }
 }
 
 void expression(void)
@@ -133,7 +145,7 @@ void condition(void)
 
 void statement(void)
 {
-   if (match(ident)) { expect(becomes); expression(); }
+   if (match(ident)) { expect(afterward); expression(); }
    else if (match(callsym)) { expect(ident); }
    else if (match(beginsym)) { do { statement(); } while (match(semicolon)); expect(endsym); }
    else if (match(ifsym)) { condition(); expect(thensym); statement(); }
