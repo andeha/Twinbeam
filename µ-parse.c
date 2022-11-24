@@ -35,8 +35,8 @@ int next₋token(struct language₋context * ctxt)
    case identifier: symbol=ident; print("ident\n"); ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
    case numeric₋constant: symbol=number; print("number\n"); Ctxt.ongoing=0; ctxt->state=mode₋initial; return 0;
    case keyword: symbol=sym; print("keyword\n"); ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
-   case completion: print("completion\n"); exit(1); return -1;
-   case trouble: print("trouble\n"); exit(2); return -2;
+   case completion: print("completion\n"); /* symbol=end₋of₋transmission */ return 0;
+   case trouble: print("trouble\n"); exit(2); return -1;
    }
 again:
    i=ctxt->tip₋unicode; ctxt->tip₋unicode+=1;
@@ -130,7 +130,7 @@ void block(void)
     } while (match(comma)); expect(semicolon);
   }
   if (match(varsym)) {
-    do { expect(ident); } while (match(comma)); 
+    do { expect(ident); } while (match(comma));
     expect(semicolon);
   }
   while (match(procsym)) { expect(ident); expect(semicolon); block(); expect(semicolon); }
@@ -148,7 +148,7 @@ int main()
    Ctxt.tip₋unicode=0;
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
-   text = Run(U"const abcd=321,dcba=123; ");
+   text = Run(U"const abcd=321,dcba=123;\nvar cdeg,gec,cgb; .");
    program();
 }
 
