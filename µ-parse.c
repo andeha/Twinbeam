@@ -137,7 +137,7 @@ void block(void)
   statement();
 }
 
-void program(void) { next₋token(&Ctxt); block(); expect(period); }
+void program(void) { next₋token(&Ctxt); block(); expect(period /* end₋of₋transmission */); }
 
 int main()
 {
