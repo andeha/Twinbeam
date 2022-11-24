@@ -137,7 +137,7 @@ void block(void)
   statement();
 }
 
-void program(void) { next₋token(&Ctxt); block(); expect(period /* end₋of₋transmission₋and₋file */); }
+void program(void) { next₋token(&Ctxt); block(); expect(period /* end₋of₋file₋and₋transmission */); }
 
 int main()
 {
@@ -167,4 +167,4 @@ int main()
  term = factor {'*'|'/' factor}
  factor = ident | number | '(' expression ')'
  
- */
+ 􀈐-language.c */
