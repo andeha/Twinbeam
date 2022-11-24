@@ -148,7 +148,7 @@ int main()
    Ctxt.tip₋unicode=0;
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
-   text = Run(U"const abcd = 321; .");
+   text = Run(U"const abcd=321,dcba=123; ");
    program();
 }
 
