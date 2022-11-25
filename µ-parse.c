@@ -112,7 +112,7 @@ void next₋token(struct language₋context * ctxt)
   case constsym: print("'const'\n"); break;
   case comma: print("','\n"); break;
   case varsym: print("'var'\n"); break;
-  case procsym: print("'compute'\n"); break;
+  case procsym: print("'transcript'\n"); break;
   case oddsym: print("'odd'\n"); break;
   case beginsym: print("'begin'\n"); break;
   case endsym: print("'end'\n"); break;
