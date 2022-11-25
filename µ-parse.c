@@ -18,14 +18,14 @@ struct language₋context {
   enum language₋mode state;
   char32̄_t regular[2048];
   short syms₋in₋regular;
-  __builtin_int_t ongoing,render₋newline₋count;
+  __builtin_int_t ongoing,render₋newline₋last;
   Trie keys;
 } Ctxt;
 
 #define STATE(s) (s == ctxt->state)
 #define TRACE₋TOKENS
 
-void error(char msg[]) { print("⬚\n", ﹟s7(msg)); }
+void error(int type, char msg[]) { print("⬚\n", ﹟s7(msg)); }
 
 int next₋token₋inner(struct language₋context * ctxt)
 { __builtin_int_t i,symbols=text.tetras; char32̄_t uc,uc₊₁; int uc₋last=0,sym;
@@ -45,7 +45,7 @@ again:
    if (i == symbols - 1) { uc₋last=1; }
    uc = *(text.unicodes + i);
    uc₊₁ = uc₋last ? U' ' : *(text.unicodes + i + 1);
-   if (STATE(mode₋initial) && uc == U'\xa') { ctxt->render₋newline₋count += 1; }
+   if (STATE(mode₋initial) && uc == U'\xa') { ctxt->render₋newline₋last += 1; }
    else if (STATE(mode₋initial) && uc == U'\xd') { }
    else if (STATE(mode₋initial) && uc == U' ') { }
    else if (STATE(mode₋initial) && uc == U'\t') { }
@@ -66,7 +66,7 @@ again:
    else if (STATE(mode₋initial) && uc == U',') { symbol=comma; return 0; }
    else if (STATE(mode₋initial) && uc == U'.') { symbol=period; print("period\n"); return 0; }
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
-     if (ctxt->syms₋in₋regular == 2048) { error("identifier alternatively keyword too long"); confess(trouble); }
+     if (ctxt->syms₋in₋regular == 2048) { error(1,"identifier alternatively keyword too long"); confess(trouble); }
      ctxt->regular[ctxt->syms₋in₋regular] = uc;
      ctxt->syms₋in₋regular += 1;
      ctxt->state = mode₋regular;
@@ -88,7 +88,7 @@ again:
 void next₋token(struct language₋context * ctxt)
 {
   int y = next₋token₋inner(ctxt);
-  if (y != 0) { error("scanner error: trouble."); exit(2); }
+  if (y != 0) { error(1, "scanner error: trouble."); exit(2); }
 #if defined TRACE₋TOKENS
   switch (symbol) {
   case ident: print("identifier\n"); break;
@@ -129,14 +129,14 @@ void expression(void);
 
 int match(Symbol s) { if (symbol == s) { next₋token(&Ctxt); return 1; } return 0; }
 
-int expect(Symbol s) { if (match(s)) return 1; error("expect: unexpected symbol"); return 0; }
+int expect(Symbol s) { if (match(s)) return 1; error(2,"expect: unexpected symbol"); return 0; }
 
 void factor(void)
 {
    if (match(ident)) { ; }
    else if (match(number)) { ; }
    else if (match(lparen)) { expression(); expect(rparen); }
-   else { error("factor: syntax error"); next₋token(&Ctxt); }
+   else { error(2,"factor: syntax error"); next₋token(&Ctxt); }
 }
 
 void term(void)
@@ -160,7 +160,7 @@ void condition(void)
      {
        next₋token(&Ctxt); expression();
      } else {
-       error("condition: invalid operator"); 
+       error(2,"condition: invalid operator"); 
        next₋token(&Ctxt);
      }
    }
@@ -173,7 +173,7 @@ void statement(void)
    else if (match(beginsym)) { do { statement(); } while (match(semicolon)); expect(endsym); }
    else if (match(ifsym)) { condition(); expect(thensym); statement(); }
    else if (match(whilesym)) { condition(); expect(dosym); statement(); }
-   else { error("statement: syntax error"); next₋token(&Ctxt); }
+   else { error(2,"statement: syntax error"); next₋token(&Ctxt); }
 }
 
 void block(void)
@@ -194,15 +194,15 @@ void program(void) { next₋token(&Ctxt); block(); expect(end₋of₋transmissio
 
 int main()
 {
-   char32̄_t * kvlist[] = { U"const",U"var",U"call",U"begin",U"end",U"if",U"then",U"while",U"do",U"odd" };
-   int symlist[] = { constsym,varsym,callsym,beginsym,endsym,ifsym,thensym,whilesym,dosym,oddsym };
-   merge₋to₋trie(10,kvlist,symlist,&(Ctxt.keys));
+   char32̄_t * kvlist[] = { U"const",U"var",U"call",U"begin",U"end",U"if",U"then",U"while",U"do",U"odd",U"compute" };
+   int symlist[] = { constsym,varsym,callsym,beginsym,endsym,ifsym,thensym,whilesym,dosym,oddsym,procsym };
+   merge₋to₋trie(11,kvlist,symlist,&(Ctxt.keys));
    Ctxt.state=mode₋initial;
    Ctxt.tip₋unicode=0;
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
-   Ctxt.render₋newline₋count=0;
-   text = Run(U"const abcd=321,dcba=123;\nvar cdeg,gec,cgb; cgb:=1+1; ");
+   Ctxt.render₋newline₋last=0;
+   text = Run(U"const abcd=321,dcba=123;\nvar cdeg,gec,cgb;\n if cdeg <> gec then begin cgb:=1+1; end");
    program();
 }
 
