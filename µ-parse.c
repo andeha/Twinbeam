@@ -9,8 +9,6 @@ typedef enum Symbol { ident, number, lparen, rparen, times, divide, plus, minus,
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
  ../Apps/Source/Releases/libTwinbeam-x86_64.a ../Apps/Additions/monolith-sequent.c */
 
-Symbol symbol; struct Unicodes text;
-
 enum language₋mode { mode₋initial, mode₋integer, mode₋regular };
 
 struct language₋context {
@@ -20,7 +18,9 @@ struct language₋context {
   short syms₋in₋regular;
   __builtin_int_t ongoing,render₋newline₋last;
   Trie keys;
-} Ctxt;
+};
+
+Symbol symbol; struct Unicodes text; struct language₋context Ctxt; /* executable and parser. */
 
 #define STATE(s) (s == ctxt->state)
 #define TRACE₋TOKENS
@@ -64,9 +64,9 @@ again:
    else if (STATE(mode₋initial) && uc == U';') { symbol=semicolon; return 0; }
    else if (STATE(mode₋initial) && uc == U':' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; symbol=afterward; return 0; }
    else if (STATE(mode₋initial) && uc == U',') { symbol=comma; return 0; }
-   else if (STATE(mode₋initial) && uc == U'.') { symbol=period; print("period\n"); return 0; }
+   else if (STATE(mode₋initial) && uc == U'.') { symbol=period; print("754 period\n"); return 0; }
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
-     if (ctxt->syms₋in₋regular == 2048) { error(1,"identifier alternatively keyword too long"); confess(trouble); }
+     if (ctxt->syms₋in₋regular == 2048) { error(1,"identifier and keyword too long"); confess(trouble); }
      ctxt->regular[ctxt->syms₋in₋regular] = uc;
      ctxt->syms₋in₋regular += 1;
      ctxt->state = mode₋regular;
@@ -79,7 +79,7 @@ again:
      ctxt->state = mode₋integer;
      if (!(U'0' <= uc₊₁ && uc₊₁ <= U'9')) { confess(numeric₋constant); }
    }
-   else { 
+   else {
     confess(trouble);
    }
    goto again;
