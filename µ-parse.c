@@ -1,9 +1,9 @@
 
 import Twinbeam;
 
-typedef enum Symbol { ident, number, lparen, rparen, times, divide, plus, minus, 
- eql, neq, lss, leq, gtr, geq, callsym, beginsym, semicolon, endsym, 
- ifsym, whilesym, afterward, thensym, dosym, constsym, comma, varsym, 
+typedef enum Symbol { ident, number, times, divide, plus, minus, lparen, rparen, 
+ eql, neq, lss, leq, gtr, geq, semicolon, callsym, beginsym, endsym, /* schema */
+ whilesym, afterward, /* forsym */ ifsym, thensym, dosym, constsym, comma, varsym, 
  procsym, period, oddsym, end₋of₋transmission₋and₋file } Symbol;
 
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
