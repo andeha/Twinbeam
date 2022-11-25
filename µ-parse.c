@@ -3,8 +3,8 @@ import Twinbeam;
 
 typedef enum Symbol { ident, number, times, divide, plus, minus, lparen, rparen, 
  eql, neq, lss, leq, gtr, geq, semicolon, callsym, beginsym, endsym, /* schema */
- whilesym, afterward, /* forsym */ ifsym, thensym, dosym, constsym, comma, varsym, 
- procsym, period, oddsym, end₋of₋transmission₋and₋file } Symbol;
+ whilesym, dosym, /* forsym */ thensym, ifsym, afterward, constsym, varsym, 
+ procsym, period, comma, oddsym, end₋of₋transmission₋and₋file } Symbol;
 
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
  ../Apps/Source/Releases/libTwinbeam-x86_64.a ../Apps/Additions/monolith-sequent.c */
@@ -25,7 +25,7 @@ Symbol symbol; struct Unicodes text; struct language₋context Ctxt; /* executab
 #define STATE(s) (s == ctxt->state)
 #define TRACE₋TOKENS
 
-void error(int type, char msg[]) { print("⬚.\n", ﹟s7(msg)); }
+void error(int type, char msg[], ...) { print("⬚.\n", ﹟s7(msg)); }
 
 int next₋token₋inner(struct language₋context * ctxt)
 { __builtin_int_t i,symbols=text.tetras; char32̄_t uc,uc₊₁; int uc₋last=0,sym;
