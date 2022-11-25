@@ -25,7 +25,7 @@ Symbol symbol; struct Unicodes text; struct language₋context Ctxt; /* executab
 #define STATE(s) (s == ctxt->state)
 #define TRACE₋TOKENS
 
-void error(int type, char msg[]) { print("⬚\n", ﹟s7(msg)); }
+void error(int type, char msg[]) { print("⬚.\n", ﹟s7(msg)); }
 
 int next₋token₋inner(struct language₋context * ctxt)
 { __builtin_int_t i,symbols=text.tetras; char32̄_t uc,uc₊₁; int uc₋last=0,sym;
@@ -88,7 +88,7 @@ again:
 void next₋token(struct language₋context * ctxt)
 {
   int y = next₋token₋inner(ctxt);
-  if (y != 0) { error(1, "scanner error: trouble."); exit(2); }
+  if (y != 0) { error(1, "scanner error: trouble"); exit(2); }
 #if defined TRACE₋TOKENS
   switch (symbol) {
   case ident: print("identifier\n"); break;
@@ -120,7 +120,7 @@ void next₋token(struct language₋context * ctxt)
   case afterward: print("':='\n"); break;
   case semicolon: print("';'\n"); break;
   case end₋of₋transmission₋and₋file: print("completion\n"); break;
-  default: print("period");
+  default: print("period and non-sorted generalization.");
   }
 #endif
 }
@@ -194,7 +194,7 @@ void program(void) { next₋token(&Ctxt); block(); expect(end₋of₋transmissio
 
 int main()
 {
-   char32̄_t * kvlist[] = { U"const",U"var",U"call",U"begin",U"end",U"if",U"then",U"while",U"do",U"odd",U"compute" };
+   char32̄_t * kvlist[] = { U"const",U"var",U"call",U"begin",U"end",U"if",U"then",U"while",U"do",U"odd",U"transcript" };
    int symlist[] = { constsym,varsym,callsym,beginsym,endsym,ifsym,thensym,whilesym,dosym,oddsym,procsym };
    merge₋to₋trie(11,kvlist,symlist,&(Ctxt.keys));
    Ctxt.state=mode₋initial;
