@@ -1,8 +1,8 @@
 
 import Twinbeam;
 
-typedef enum Symbol { ident, number, times, divide, plus, minus, lparen, rparen, 
- eql, neq, lss, leq, gtr, geq, semicolon, callsym, beginsym, endsym, /* schema */
+typedef enum Symbol { ident, number, times, divide, plus, minus, lparen, 
+ rparen, eql, neq, lss, leq, gtr, geq, semicolon, callsym, beginsym, endsym, 
  whilesym, dosym, /* forsym */ thensym, ifsym, afterward, constsym, varsym, 
  procsym, period, comma, oddsym, end₋of₋transmission₋and₋file } Symbol;
 
@@ -147,7 +147,7 @@ void term(void)
 
 void expression(void)
 {
-   if (symbol == plus || symbol == minus) next₋token(&Ctxt); term();
+   if (symbol == plus || symbol == minus) { next₋token(&Ctxt); } term();
    while (symbol == plus || symbol == minus) { next₋token(&Ctxt); term(); }
 }
 
@@ -159,16 +159,16 @@ void condition(void)
      if (symbol == eql || symbol == neq || symbol == lss || symbol == leq || symbol == gtr || symbol == geq) 
      {
        next₋token(&Ctxt); expression();
-     } else {
+     } /* else {
        error(2,"condition: invalid operator"); 
        next₋token(&Ctxt);
-     }
+     } */
    }
 }
 
 void statement(void)
 {
-   if (match(ident)) { expect(afterward); expression(); }
+   if (match(ident)) { expect(afterward); condition(); }
    else if (match(callsym)) { expect(ident); }
    else if (match(beginsym)) { do { statement(); } while (match(semicolon)); expect(endsym); }
    else if (match(ifsym)) { condition(); expect(thensym); statement(); }
@@ -179,7 +179,7 @@ void statement(void)
 void block(void)
 {
   if (match(constsym)) {
-    do { expect(ident); expect(eql); expect(number); 
+    do { expect(ident); expect(eql); condition(); 
     } while (match(comma)); expect(semicolon);
   }
   if (match(varsym)) {
@@ -202,12 +202,12 @@ int main()
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋last=0;
-   text = Run(U"const abcd=321,dcba=123;\nvar cdeg,gec,cgb;\n if cdeg <> gec then begin cgb:=1+1; end");
+   text = Run(U"const abcd=321+1,dcba=123;\nvar cdeg,gec,cgb;\n if cdeg <> gec then begin cgb:=1+1 end");
    program();
 }
 
 /*
-
+ 
  program = block end₋of₋transmission₋and₋file
  block = 'const' ident '=' number { ',' ident '=' number } ';'
          'var' ident { ',' ident } ';'
