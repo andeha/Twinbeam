@@ -1,10 +1,12 @@
 
 import Twinbeam;
 
-typedef enum Symbol { ident, number, times, divide, plus, minus, lparen, 
+typedef enum Symbol { ident=1, number, times, divide, plus, minus, lparen, 
  rparen, eql, neq, lss, leq, gtr, geq, semicolon, callsym, beginsym, endsym, 
- whilesym, dosym, /* forsym */ branch₋goto₋optsym, elsesym, thensym, ifsym, afterward, 
- constsym, varsym, procsym, period, comma, oddsym, end₋of₋transmission₋and₋file
+ /* whilesym, dosym, forsym */ branch₋goto₋optsym, elsesym, thensym, ifsym, 
+ afterward, constsym, varsym, procsym, period, comma, oddsym, voidsym, 
+ majorintrosym, minorintrosym, sectionrefstartsym, sectionrefendsym, 
+ end₋of₋transmission₋and₋file
 } Symbol;
 
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
@@ -33,9 +35,9 @@ int next₋token₋inner(struct language₋context * ctxt)
    typedef int (^type)(char32̄_t);
    type digit = ^(char32̄_t uc) { return U'0' <= uc && uc <= U'9'; };
    type letter = ^(char32̄_t uc) { return U'a' <= uc && uc <= U'z'; };
-   🧵(identifier,numeric₋constant,keyword,trouble,completion) {
+   🧵(identifier,integer₋constant,keyword,trouble,completion) {
    case identifier: symbol=ident; ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
-   case numeric₋constant: symbol=number; Ctxt.ongoing=0; ctxt->state=mode₋initial; return 0;
+   case integer₋constant: symbol=number; Ctxt.ongoing=0; ctxt->state=mode₋initial; return 0;
    case keyword: symbol=sym; ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
    case completion: symbol=end₋of₋transmission₋and₋file; return 0;
    case trouble: return -1;
@@ -46,7 +48,15 @@ again:
    if (i == symbols - 1) { uc₋last=1; }
    uc = *(text.unicodes + i), 
    uc₊₁ = uc₋last ? U' ' : *(text.unicodes + i + 1);
-   if (STATE(mode₋initial) && uc == U'\xa') { ctxt->render₋newline₋last+=1; } /* a․𝘬․a 'implicit₋semicolon'. */
+   if (STATE(mode₋initial) && uc == U'\xa') {
+     ctxt->render₋newline₋last+=1;
+     /* print("\\n (symbol is ⬚) (state is ⬚)\n", ﹟d((__builtin_int_t)symbol), ﹟d((__builtin_int_t)ctxt->state)); */
+     if (symbol == ident || symbol == integer₋constant || symbol == period || symbol == rparen)
+     {
+       print("implicit semicolon\n");
+       symbol=semicolon; return 0;
+     } /*'implicit₋semicolon'. */
+   }
    else if (STATE(mode₋initial) && uc == U'\xd') { }
    else if (STATE(mode₋initial) && uc == U' ') { }
    else if (STATE(mode₋initial) && uc == U'\t') { }
@@ -62,10 +72,14 @@ again:
    else if (STATE(mode₋initial) && uc == U'<') { symbol=lss; return 0; }
    else if (STATE(mode₋initial) && uc == U'>' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; symbol=geq; return 0; }
    else if (STATE(mode₋initial) && uc == U'>') { symbol=gtr; return 0; }
-   else if (STATE(mode₋initial) && uc == U';') { symbol=semicolon; return 0; }
+   else if (STATE(mode₋initial) && uc == U';') { symbol=semicolon; return 0; } /* @<semicolon₋processed@> twice. */
    else if (STATE(mode₋initial) && uc == U':' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; symbol=afterward; return 0; }
    else if (STATE(mode₋initial) && uc == U',') { symbol=comma; return 0; }
    else if (STATE(mode₋initial) && uc == U'.') { symbol=period; print("754 period\n"); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'*') { symbol=majorintrosym; return 0; }
+   else if (STATE(mode₋initial) && uc == U'@') { symbol=minorintrosym; return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'<') { symbol=sectionrefstartsym; return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>') { symbol=sectionrefendsym; return 0; }
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
      if (ctxt->syms₋in₋regular == 2048) { error(1,"identifier and keyword too long"); confess(trouble); }
      ctxt->regular[ctxt->syms₋in₋regular] = uc;
@@ -78,8 +92,8 @@ again:
    else if ((STATE(mode₋initial) || STATE(mode₋integer)) && digit(uc)) {
      ctxt->ongoing *= 10; ctxt->ongoing += uc - U'0';
      ctxt->state = mode₋integer;
-     if (!(U'0' <= uc₊₁ && uc₊₁ <= U'9')) { confess(numeric₋constant); }
-   }
+     if (!(U'0' <= uc₊₁ && uc₊₁ <= U'9')) { confess(integer₋constant); }
+   } /* else if mode₋fixpoint. */
    else {
     confess(trouble);
    }
@@ -93,9 +107,9 @@ void next₋token(struct language₋context * ctxt)
 #if defined TRACE₋TOKENS
   switch (symbol) {
   case ident: print("identifier\n"); break;
-  case number: print("numeric₋constant\n"); break;
-  case lparen: print("'{'\n"); break;
-  case rparen: print("'}'\n"); break;
+  case number: print("integer-constant\n"); break;
+  case lparen: print("'('\n"); break;
+  case rparen: print("')'\n"); break;
   case times: print("'*'\n"); break;
   case divide: print("'/'\n"); break;
   case plus: print("'+'\n"); break;
@@ -109,8 +123,8 @@ void next₋token(struct language₋context * ctxt)
   case ifsym: print("'if'\n"); break;
   case thensym: print("'then'\n"); break;
   case elsesym: print("'else'\n"); break;
-  case whilesym: print("'while'\n"); break;
-  case dosym: print("'do'\n"); break;
+  /* case whilesym: print("'while'\n"); break;
+  case dosym: print("'do'\n"); break; */
   case branch₋goto₋optsym: print("'branch-goto-opt'\n"); break;
   case constsym: print("'const'\n"); break;
   case comma: print("','\n"); break;
@@ -123,6 +137,10 @@ void next₋token(struct language₋context * ctxt)
   case afterward: print("':='\n"); break;
   case semicolon: print("';'\n"); break;
   case end₋of₋transmission₋and₋file: print("completion\n"); break;
+  case majorintrosym: print("@*"); break;
+  case minorintrosym: print("@"); break;
+  case sectionrefstartsym: print("@<"); break;
+  case sectionrefendsym: print("@>"); break;
   default: print("period and non-sorted generalization.");
   }
 #endif
@@ -134,7 +152,7 @@ int match(Symbol s) { if (symbol == s) { next₋token(&Ctxt); return 1; } return
 
 int expect(Symbol s) { if (match(s)) return 1; error(2,"expect: unexpected symbol"); return 0; }
 
-int option(Symbol s, void (*action)()) { if (symbol == s) { next₋token(&Ctxt); action(); } return 0; }
+int option(Symbol s, void (*action)()) { if (symbol == s) { next₋token(&Ctxt); action(); /* return 1; */ } return 0; }
 
 void valid(int type, Symbol s, char msg[]) { if (symbol != s) { error(type,msg); } }
 
@@ -181,11 +199,15 @@ void opt₋etter()
 
 void statement(void)
 {
-   if (match(ident)) { expect(afterward); condition(); }
+   if (match(ident)) { 
+    if (match(lparen)) { /* param₋list() */ expect(rparen); }
+    else if (match(afterward)) { condition(); }
+    /* expect(afterward); condition(); */
+   }
    else if (match(callsym)) { expect(ident); }
    else if (match(beginsym)) { do { statement(); } while (match(semicolon)); expect(endsym); }
    else if (match(ifsym)) { condition(); expect(thensym); statement(); option(elsesym,opt₋etter); }
-   else if (match(whilesym)) { condition(); expect(dosym); statement(); }
+   /* else if (match(whilesym)) { condition(); expect(dosym); statement(); } */
    else { error(2,"statement: syntax error"); next₋token(&Ctxt); }
 }
 
@@ -199,7 +221,7 @@ void block(void)
     do { expect(ident); } while (match(comma));
     expect(semicolon);
   }
-  while (match(procsym)) { expect(ident); expect(semicolon); block(); expect(semicolon); }
+  while (match(procsym)) { expect(ident); expect(lparen); /* param₋list(); */ expect(rparen); block(); }
   statement();
 }
 
@@ -207,15 +229,15 @@ void program(void) { next₋token(&Ctxt); block(); valid(2,end₋of₋transmissi
 
 int main()
 {
-   char32̄_t * kvlist[] = { U"const",U"var",U"call",U"begin",U"end",U"if",U"then",U"while",U"do",U"odd",U"transcript",U"else" };
-   int symlist[] = { constsym,varsym,callsym,beginsym,endsym,ifsym,thensym,whilesym,dosym,oddsym,procsym,elsesym };
-   merge₋to₋trie(12,kvlist,symlist,&(Ctxt.keys));
+   char32̄_t * kvlist[] = { U"const",U"var",U"call",U"begin",U"end",U"if",U"then",U"odd",U"transcript",U"else",U"void" };
+   int symlist[] = { constsym,varsym,callsym,beginsym,endsym,ifsym,thensym,oddsym,procsym,elsesym,voidsym };
+   merge₋to₋trie(11,kvlist,symlist,&(Ctxt.keys));
    Ctxt.state=mode₋initial;
    Ctxt.tip₋unicode=0;
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋last=0;
-   text = Run(U"const abcd=321+1,dcba=123;\nvar cdeg,gec,cgb;\nbegin\n call evil;\n if cdeg <> gec then begin cgb:=1+1 end else begin cgb:=1-1 end end");
+   text = Run(U"const abcd=321+1,dcba=123\nvar cdeg,gec,cgb\nbegin\n call evil;\n if cdeg <> gec then begin cgb:=1+1 end else begin cgb:=1-1 end end");
    program();
 }
 
@@ -228,7 +250,7 @@ int main()
               { 'call' } ident
              'begin' statement ';' { statment ';' } 'end'
              'if' condition 'then' statement
-             'while' condition 'do' statement
+             / * 'while' condition 'do' statement * /
  condition = 'odd' statment | expression ('='|'#'|'<'|'<='|'>'|'>=') expression
  expression = ['+'|'-'] term {'+'|'-' term}
  term = factor {'*'|'/' factor}
