@@ -3,8 +3,9 @@ import Twinbeam;
 
 typedef enum Symbol { ident, number, times, divide, plus, minus, lparen, 
  rparen, eql, neq, lss, leq, gtr, geq, semicolon, callsym, beginsym, endsym, 
- whilesym, dosym, /* forsym */ thensym, ifsym, afterward, constsym, varsym, 
- procsym, period, comma, oddsym, end₋of₋transmission₋and₋file } Symbol;
+ whilesym, dosym, /* forsym */ gotosym, elsesym, thensym, ifsym, afterward, 
+ constsym, varsym, procsym, period, comma, oddsym, end₋of₋transmission₋and₋file
+} Symbol;
 
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
  ../Apps/Source/Releases/libTwinbeam-x86_64.a ../Apps/Additions/monolith-sequent.c */
@@ -106,9 +107,11 @@ void next₋token(struct language₋context * ctxt)
   case geq: print("'>='\n"); break;
   case callsym: print("'call'\n"); break;
   case ifsym: print("'if'\n"); break;
-  case whilesym: print("'while'\n"); break;
   case thensym: print("'then'\n"); break;
+  case elsesym: print("'else'\n"); break;
+  case whilesym: print("'while'\n"); break;
   case dosym: print("'do'\n"); break;
+  case gotosym: print("'goto'\n"); break;
   case constsym: print("'const'\n"); break;
   case comma: print("','\n"); break;
   case varsym: print("'var'\n"); break;
@@ -129,7 +132,9 @@ void expression(void);
 
 int match(Symbol s) { if (symbol == s) { next₋token(&Ctxt); return 1; } return 0; }
 
-int expect(Symbol s) { if (match(s)) return 1; error(2,"expect: unexpected symbol"); return 0; } /* failure at end-of-file. */
+int expect(Symbol s) { if (match(s)) return 1; error(2,"expect: unexpected symbol"); return 0; }
+
+int option(Symbol s, void (*action)()) { if (symbol == s) { next₋token(&Ctxt); action(); } return 0; }
 
 void valid(int type, Symbol s, char msg[]) { if (symbol != s) { error(type,msg); } }
 
@@ -168,12 +173,18 @@ void condition(void)
    }
 }
 
+void opt₋etter()
+{
+   void statement(void);
+   statement();
+}
+
 void statement(void)
 {
    if (match(ident)) { expect(afterward); condition(); }
    else if (match(callsym)) { expect(ident); }
    else if (match(beginsym)) { do { statement(); } while (match(semicolon)); expect(endsym); }
-   else if (match(ifsym)) { condition(); expect(thensym); statement(); }
+   else if (match(ifsym)) { condition(); expect(thensym); statement(); option(elsesym,opt₋etter); }
    else if (match(whilesym)) { condition(); expect(dosym); statement(); }
    else { error(2,"statement: syntax error"); next₋token(&Ctxt); }
 }
@@ -196,15 +207,15 @@ void program(void) { next₋token(&Ctxt); block(); valid(2,end₋of₋transmissi
 
 int main()
 {
-   char32̄_t * kvlist[] = { U"const",U"var",U"call",U"begin",U"end",U"if",U"then",U"while",U"do",U"odd",U"transcript" };
-   int symlist[] = { constsym,varsym,callsym,beginsym,endsym,ifsym,thensym,whilesym,dosym,oddsym,procsym };
-   merge₋to₋trie(11,kvlist,symlist,&(Ctxt.keys));
+   char32̄_t * kvlist[] = { U"const",U"var",U"call",U"begin",U"end",U"if",U"then",U"while",U"do",U"odd",U"transcript",U"else" };
+   int symlist[] = { constsym,varsym,callsym,beginsym,endsym,ifsym,thensym,whilesym,dosym,oddsym,procsym,elsesym };
+   merge₋to₋trie(12,kvlist,symlist,&(Ctxt.keys));
    Ctxt.state=mode₋initial;
    Ctxt.tip₋unicode=0;
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋last=0;
-   text = Run(U"const abcd=321+1,dcba=123;\nvar cdeg,gec,cgb;\nbegin\n call evil;\n if cdeg <> gec then begin cgb:=1+1 end end");
+   text = Run(U"const abcd=321+1,dcba=123;\nvar cdeg,gec,cgb;\nbegin\n call evil;\n if cdeg <> gec then begin cgb:=1+1 end else begin cgb:=1-1 end end");
    program();
 }
 
