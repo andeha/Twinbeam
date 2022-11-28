@@ -40,12 +40,12 @@ int next₋token₋inner(struct language₋context * ctxt)
    case trouble: return -1;
    }
 again:
-   i=ctxt->tip₋unicode; ctxt->tip₋unicode+=1;
-   if (i >= symbols && STATE(mode₋initial)) { confess(completion); }
+   i=ctxt->tip₋unicode,ctxt->tip₋unicode+=1;
+   if (i >= symbols) { confess(completion); }
    if (i == symbols - 1) { uc₋last=1; }
-   uc = *(text.unicodes + i);
+   uc = *(text.unicodes + i), 
    uc₊₁ = uc₋last ? U' ' : *(text.unicodes + i + 1);
-   if (STATE(mode₋initial) && uc == U'\xa') { ctxt->render₋newline₋last += 1; }
+   if (STATE(mode₋initial) && uc == U'\xa') { ctxt->render₋newline₋last+=1; } /* a․𝘬․a 'implicit₋semicolon'. */
    else if (STATE(mode₋initial) && uc == U'\xd') { }
    else if (STATE(mode₋initial) && uc == U' ') { }
    else if (STATE(mode₋initial) && uc == U'\t') { }
@@ -68,7 +68,7 @@ again:
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
      if (ctxt->syms₋in₋regular == 2048) { error(1,"identifier and keyword too long"); confess(trouble); }
      ctxt->regular[ctxt->syms₋in₋regular] = uc;
-     ctxt->syms₋in₋regular += 1;
+     ctxt->syms₋in₋regular+=1;
      ctxt->state = mode₋regular;
      if (!(U'a' <= uc₊₁ && uc₊₁ <= U'z')) {
        if (trie₋keyword(ctxt->syms₋in₋regular,ctxt->regular,&sym,&(Ctxt.keys))) { confess(identifier); }
@@ -129,7 +129,9 @@ void expression(void);
 
 int match(Symbol s) { if (symbol == s) { next₋token(&Ctxt); return 1; } return 0; }
 
-int expect(Symbol s) { if (match(s)) return 1; error(2,"expect: unexpected symbol"); return 0; }
+int expect(Symbol s) { if (match(s)) return 1; error(2,"expect: unexpected symbol"); return 0; } /* failure at end-of-file. */
+
+void valid(int type, Symbol s, char msg[]) { if (symbol != s) { error(type,msg); } }
 
 void factor(void)
 {
@@ -143,13 +145,13 @@ void term(void)
 {
    factor();
    while (symbol == times || symbol == divide) { next₋token(&Ctxt); factor(); }
-}
+} /*  'multiplication' has higher precedence than 'addition'. */
 
 void expression(void)
 {
    if (symbol == plus || symbol == minus) { next₋token(&Ctxt); } term();
    while (symbol == plus || symbol == minus) { next₋token(&Ctxt); term(); }
-}
+} /*  'addition' has not as high precedence as 'multiplication'. */
 
 void condition(void)
 {
@@ -190,7 +192,7 @@ void block(void)
   statement();
 }
 
-void program(void) { next₋token(&Ctxt); block(); expect(end₋of₋transmission₋and₋file); }
+void program(void) { next₋token(&Ctxt); block(); valid(2,end₋of₋transmission₋and₋file,"incorrect signature"); }
 
 int main()
 {
@@ -202,7 +204,7 @@ int main()
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋last=0;
-   text = Run(U"const abcd=321+1,dcba=123;\nvar cdeg,gec,cgb;\n if cdeg <> gec then begin cgb:=1+1 end");
+   text = Run(U"const abcd=321+1,dcba=123;\nvar cdeg,gec,cgb;\nbegin\n call evil;\n if cdeg <> gec then begin cgb:=1+1 end end");
    program();
 }
 
