@@ -3,7 +3,7 @@ import Twinbeam;
 
 typedef enum Symbol { ident, number, times, divide, plus, minus, lparen, 
  rparen, eql, neq, lss, leq, gtr, geq, semicolon, callsym, beginsym, endsym, 
- whilesym, dosym, /* forsym */ gotosym, elsesym, thensym, ifsym, afterward, 
+ whilesym, dosym, /* forsym */ branch₋goto₋optsym, elsesym, thensym, ifsym, afterward, 
  constsym, varsym, procsym, period, comma, oddsym, end₋of₋transmission₋and₋file
 } Symbol;
 
@@ -111,7 +111,7 @@ void next₋token(struct language₋context * ctxt)
   case elsesym: print("'else'\n"); break;
   case whilesym: print("'while'\n"); break;
   case dosym: print("'do'\n"); break;
-  case gotosym: print("'goto'\n"); break;
+  case branch₋goto₋optsym: print("'branch-goto-opt'\n"); break;
   case constsym: print("'const'\n"); break;
   case comma: print("','\n"); break;
   case varsym: print("'var'\n"); break;
