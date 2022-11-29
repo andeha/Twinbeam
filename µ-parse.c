@@ -5,8 +5,8 @@ enum symbol₋class { ident=1, number, times, divide, plus, minus, lparen,
  rparen, eql, neq, lss, leq, gtr, geq, semicolon, termi₋render, callsym, 
  beginsym, endsym, /* whilesym, dosym, forsym */ branch₋goto₋optsym, elsesym, 
  thensym, ifsym, afterward, constsym, varsym, procsym, period, comma, oddsym, 
- voidsym, majorintrosym, minorintrosym, sectionrefstartsym, sectionrefendsym, 
- end₋of₋transmission₋and₋file
+ voidsym, majorintrosym, minorintrosym, formalsectionstartsym, 
+ sectiondefendsym, sectionrefendsym, end₋of₋transmission₋and₋file
 };
 
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
@@ -36,7 +36,7 @@ struct token₋detail {
 
 typedef struct Symbol { enum symbol₋class class; struct token₋detail gritty; } Symbol;
 
-Symbol symbol,retrospect; struct Unicodes text; struct language₋context Ctxt; /* executable and parser. */
+Symbol symbol,retrospect₋summar,retrospect₋detail; struct Unicodes text; struct language₋context Ctxt; /* executable and parser. */
 /* the global variable `symbol` are among scholars known as `lookahead`. */
 
 #define STATE(s) (s == ctxt->state)
@@ -49,7 +49,7 @@ void assign₋symbol(enum symbol₋class s, Symbol * sym) { sym->class=s; }
 int symbol₋equal(enum symbol₋class s) { return symbol.class==s; }
 
 int next₋token₋inner(struct language₋context * ctxt, Symbol * out)
-{ __builtin_int_t i,symbols=text.tetras; char32̄_t uc,uc₊₁; int uc₋last=0,sym;
+{ __builtin_int_t i,symbols=text.tetras; char32̄_t uc,uc₊₁,uc₊2; int left₋least=0,sym;
    typedef int (^type)(char32̄_t);
    type digit = ^(char32̄_t uc) { return U'0' <= uc && uc <= U'9'; };
    type letter = ^(char32̄_t uc) { return U'a' <= uc && uc <= U'z'; };
@@ -63,9 +63,11 @@ int next₋token₋inner(struct language₋context * ctxt, Symbol * out)
 again:
    i=ctxt->tip₋unicode,ctxt->tip₋unicode+=1;
    if (i >= symbols) { confess(completion); }
-   if (i == symbols - 1) { uc₋last=1; }
+   if (i == symbols - 1) { left₋least=1; }
+   if (i == symbols - 2) { left₋least=2; }
    uc = *(text.unicodes + i), 
-   uc₊₁ = uc₋last ? U' ' : *(text.unicodes + i + 1);
+   uc₊₁ = left₋least >= 1 ? U' ' : *(text.unicodes + i + 1);
+   uc₊2 = left₋least >= 2 ? U' ' : *(text.unicodes + i + 2);
    if (STATE(mode₋initial) && uc == U'\xa') {
      ctxt->render₋newline₋last+=1;
      /* print("\\n (symbol is ⬚) (state is ⬚)\n", ﹟d((__builtin_int_t)symbol), ﹟d((__builtin_int_t)ctxt->state)); */
@@ -96,7 +98,8 @@ again:
    else if (STATE(mode₋initial) && uc == U'.') { assign₋symbol(period,out); print("754 period\n"); return 0; }
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'*') { assign₋symbol(majorintrosym,out); return 0; }
    else if (STATE(mode₋initial) && uc == U'@') { assign₋symbol(minorintrosym,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'<') { assign₋symbol(sectionrefstartsym,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'<') { assign₋symbol(formalsectionstartsym,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>' && uc₊2 == U'=') { assign₋symbol(sectiondefendsym,out); return 0; }
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>') { assign₋symbol(sectionrefendsym,out); return 0; }
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
      if (ctxt->syms₋in₋regular == 2048) { error(1,"identifier and keyword too long"); confess(trouble); }
@@ -119,15 +122,23 @@ again:
 }
 
 void next₋token(struct language₋context * ctxt)
-{
+{ int y,end₋of₋file,duplicate;
   if (ctxt->tip₋unicode==0) {
-    int y = next₋token₋inner(ctxt,&symbol);
-    if (y != 0) { error(1, "scanner error: initial trouble"); exit(2); }
+    y = next₋token₋inner(ctxt,&symbol);
+    if (y != 0) { error(1,"scanner error: initial trouble"); exit(2); }
   } else {
-    symbol = retrospect;
+    symbol = retrospect₋summar;
+    symbol = retrospect₋detail;
   }
-  int y = next₋token₋inner(ctxt,&retrospect);
-  if (y != 0) { error(1, "scanner error: advanced failure"); exit(2); }
+again:
+  y = next₋token₋inner(ctxt,&retrospect₋detail);
+  end₋of₋file = retrospect₋detail.class == end₋of₋transmission₋and₋file;
+  duplicate = retrospect₋detail.class == termi₋render;
+  if (!duplicate) { goto unagain; }
+  if (end₋of₋file) { goto unagain; }
+  goto again;
+unagain:
+  if (y != 0) { error(1,"scanner error: advanced failure"); exit(2); }
 #if defined TRACE₋TOKENS
   switch (symbol.class) {
   case ident: print("identifier\n"); break;
@@ -163,7 +174,8 @@ void next₋token(struct language₋context * ctxt)
   case end₋of₋transmission₋and₋file: print("completion\n"); break;
   case majorintrosym: print("@*"); break;
   case minorintrosym: print("@"); break;
-  case sectionrefstartsym: print("@<"); break;
+  case formalsectionstartsym: print("@<"); break;
+  case sectiondefendsym: print("@>="); break;
   case sectionrefendsym: print("@>"); break;
   default: print("period and non-sorted generalization.");
   }
@@ -176,16 +188,16 @@ int match(enum symbol₋class s) { if (symbol₋equal(s)) { next₋token(&Ctxt);
 
 int expect(enum symbol₋class s) { if (match(s)) return 1; error(2,"expect: unexpected symbol"); return 0; }
 
-int enriching(enum symbol₋class s, enum symbol₋class not₋passed) { if (symbol₋equal(s) && retrospect.class == not₋passed) { next₋token(&Ctxt); return 1; } return 0; }
+int enriching(enum symbol₋class s, enum symbol₋class not₋passed) { if (symbol₋equal(s) && retrospect₋summar.class == not₋passed) { next₋token(&Ctxt); return 1; } return 0; }
 /*  Consumes one symbols when two symbols matches. */
 
-int at₋optin(enum symbol₋class s, void (*action)()) { if (symbol₋equal(s)) { next₋token(&Ctxt); action(); } return 0; }
+int at₋opt(enum symbol₋class s, void (*action)()) { if (symbol₋equal(s)) { next₋token(&Ctxt); action(); } return 0; }
 
 void valid(int type, enum symbol₋class s, char msg[]) { if (!symbol₋equal(s)) { error(type,msg); } }
 
 int superfluous₋expect(enum symbol₋class s) { return expect(s); }
 int superfluous₋match(enum symbol₋class s) { return match(s); }
-int superfluous₋intermingled(enum symbol₋class s) { return expect /*₋match*/(s); }
+int superfluous₋intermingled(enum symbol₋class s) { return expect /*₋match*/(s); } /* render₋termi. */
 /*  Third variant called from `match`, `expect`, **`option`**, `valid` and `enriching`. */
 
 void factor(void)
@@ -238,7 +250,7 @@ void statement(void)
    }
    else if (enriching(callsym,ident)) { expect(ident); }
    else if (match(beginsym)) { do { statement(); } while (superfluous₋match(semicolon)); expect(endsym); }
-   else if (match(ifsym)) { condition(); expect(thensym); statement(); at₋optin(elsesym,opt₋etter); }
+   else if (match(ifsym)) { condition(); expect(thensym); statement(); at₋opt(elsesym,opt₋etter); }
    /* else if (match(whilesym)) { condition(); expect(dosym); statement(); } */
    else { error(2,"statement: syntax error"); next₋token(&Ctxt); }
 }
@@ -269,7 +281,7 @@ int main()
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋last=0;
-   text = Run(U"const abcd=321+1,dcba=123\nvar cdeg,gec,cgb\nbegin\n call evil;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
+   text = Run(U"const abcd=321+1,dcba=123\nvar cdeg,gec,cgb\nbegin\n call elder;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
    program();
 }
 
