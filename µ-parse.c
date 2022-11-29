@@ -1,13 +1,13 @@
 
 import Twinbeam;
 
-typedef enum Symbol { ident=1, number, times, divide, plus, minus, lparen, 
+enum symbol₋class { ident=1, number, times, divide, plus, minus, lparen, 
  rparen, eql, neq, lss, leq, gtr, geq, semicolon, termi₋render, callsym, 
  beginsym, endsym, /* whilesym, dosym, forsym */ branch₋goto₋optsym, elsesym, 
  thensym, ifsym, afterward, constsym, varsym, procsym, period, comma, oddsym, 
  voidsym, majorintrosym, minorintrosym, sectionrefstartsym, sectionrefendsym, 
  end₋of₋transmission₋and₋file
-} Symbol;
+};
 
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
  ../Apps/Source/Releases/libTwinbeam-x86_64.a ../Apps/Additions/monolith-sequent.c */
@@ -23,23 +23,41 @@ struct language₋context {
   Trie keys;
 };
 
-Symbol symbol; struct Unicodes text; struct language₋context Ctxt; /* executable and parser. */
+typedef struct { int symbols; char32̄_t * start; } Symbolinterval;
+
+struct token₋detail {
+  union {
+    Symbolinterval regularOrIdent;
+    Sequenta figure;
+  } store;
+  int kind;
+  __builtin_int_t lineno₋first,lineno₋last,column₋first,column₋last;
+};
+
+typedef struct Symbol { enum symbol₋class class; struct token₋detail gritty; } Symbol;
+
+Symbol symbol,retrospect; struct Unicodes text; struct language₋context Ctxt; /* executable and parser. */
+/* the global variable `symbol` are among scholars known as `lookahead`. */
 
 #define STATE(s) (s == ctxt->state)
 #define TRACE₋TOKENS
 
 void error(int type, char msg[], ...) { print("⬚.\n", ﹟s7(msg)); }
 
-int next₋token₋inner(struct language₋context * ctxt)
+void assign₋symbol(enum symbol₋class s, Symbol * sym) { sym->class=s; }
+
+int symbol₋equal(enum symbol₋class s) { return symbol.class==s; }
+
+int next₋token₋inner(struct language₋context * ctxt, Symbol * out)
 { __builtin_int_t i,symbols=text.tetras; char32̄_t uc,uc₊₁; int uc₋last=0,sym;
    typedef int (^type)(char32̄_t);
    type digit = ^(char32̄_t uc) { return U'0' <= uc && uc <= U'9'; };
    type letter = ^(char32̄_t uc) { return U'a' <= uc && uc <= U'z'; };
    🧵(identifier,integer₋constant,keyword,trouble,completion) {
-   case identifier: symbol=ident; ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
-   case integer₋constant: symbol=number; Ctxt.ongoing=0; ctxt->state=mode₋initial; return 0;
-   case keyword: symbol=sym; ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
-   case completion: symbol=end₋of₋transmission₋and₋file; return 0;
+   case identifier: assign₋symbol(ident,out); ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
+   case integer₋constant: assign₋symbol(number,out); Ctxt.ongoing=0; ctxt->state=mode₋initial; return 0;
+   case keyword: assign₋symbol(sym,out); ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
+   case completion: assign₋symbol(end₋of₋transmission₋and₋file,out); return 0;
    case trouble: return -1;
    }
 again:
@@ -51,35 +69,35 @@ again:
    if (STATE(mode₋initial) && uc == U'\xa') {
      ctxt->render₋newline₋last+=1;
      /* print("\\n (symbol is ⬚) (state is ⬚)\n", ﹟d((__builtin_int_t)symbol), ﹟d((__builtin_int_t)ctxt->state)); */
-     if (symbol == ident || symbol == integer₋constant || symbol == period || symbol == rparen)
+     if (symbol₋equal(ident) || symbol₋equal(number) || symbol₋equal(period) || symbol₋equal(rparen))
      {
-       print("implicit semicolon\n");
-       symbol=semicolon; return 0;
-     } /*'implicit₋semicolon'. */
+       print("indirect-implicit semicolon\n");
+       assign₋symbol(semicolon,out); return 0;
+     } /*'indirect₋implicit₋semicolon'. */
    }
    else if (STATE(mode₋initial) && uc == U'\xd') { }
    else if (STATE(mode₋initial) && uc == U' ') { }
    else if (STATE(mode₋initial) && uc == U'\t') { }
-   else if (STATE(mode₋initial) && uc == U'(') { symbol=lparen; return 0; }
-   else if (STATE(mode₋initial) && uc == U')') { symbol=rparen; return 0; }
-   else if (STATE(mode₋initial) && uc == U'*') { symbol=times; return 0; }
-   else if (STATE(mode₋initial) && uc == U'/') { symbol=divide; return 0; }
-   else if (STATE(mode₋initial) && uc == U'+') { symbol=plus; return 0; }
-   else if (STATE(mode₋initial) && uc == U'-') { symbol=minus; return 0; }
-   else if (STATE(mode₋initial) && uc == U'=') { symbol=eql; return 0; }
-   else if (STATE(mode₋initial) && uc == U'<' && uc₊₁ == U'>') { ctxt->tip₋unicode+=1; symbol=neq; return 0; }
-   else if (STATE(mode₋initial) && uc == U'<' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; symbol=leq; return 0; }
-   else if (STATE(mode₋initial) && uc == U'<') { symbol=lss; return 0; }
-   else if (STATE(mode₋initial) && uc == U'>' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; symbol=geq; return 0; }
-   else if (STATE(mode₋initial) && uc == U'>') { symbol=gtr; return 0; }
-   else if (STATE(mode₋initial) && uc == U';') { symbol=semicolon; return 0; } /* @<semicolon₋processed@> twice. */
-   else if (STATE(mode₋initial) && uc == U':' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; symbol=afterward; return 0; }
-   else if (STATE(mode₋initial) && uc == U',') { symbol=comma; return 0; }
-   else if (STATE(mode₋initial) && uc == U'.') { symbol=period; print("754 period\n"); return 0; }
-   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'*') { symbol=majorintrosym; return 0; }
-   else if (STATE(mode₋initial) && uc == U'@') { symbol=minorintrosym; return 0; }
-   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'<') { symbol=sectionrefstartsym; return 0; }
-   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>') { symbol=sectionrefendsym; return 0; }
+   else if (STATE(mode₋initial) && uc == U'(') { assign₋symbol(lparen,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U')') { assign₋symbol(rparen,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'*') { assign₋symbol(times,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'/') { assign₋symbol(divide,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'+') { assign₋symbol(plus,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'-') { assign₋symbol(minus,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'=') { assign₋symbol(eql,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'<' && uc₊₁ == U'>') { ctxt->tip₋unicode+=1; assign₋symbol(neq,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'<' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; assign₋symbol(leq,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'<') { assign₋symbol(lss,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'>' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; assign₋symbol(geq,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'>') { assign₋symbol(gtr,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U';') { assign₋symbol(semicolon,out); return 0; } /* @<semicolon₋processed@> twice. */
+   else if (STATE(mode₋initial) && uc == U':' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; assign₋symbol(afterward,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U',') { assign₋symbol(comma,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'.') { assign₋symbol(period,out); print("754 period\n"); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'*') { assign₋symbol(majorintrosym,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@') { assign₋symbol(minorintrosym,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'<') { assign₋symbol(sectionrefstartsym,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>') { assign₋symbol(sectionrefendsym,out); return 0; }
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
      if (ctxt->syms₋in₋regular == 2048) { error(1,"identifier and keyword too long"); confess(trouble); }
      ctxt->regular[ctxt->syms₋in₋regular] = uc;
@@ -102,10 +120,16 @@ again:
 
 void next₋token(struct language₋context * ctxt)
 {
-  int y = next₋token₋inner(ctxt);
-  if (y != 0) { error(1, "scanner error: trouble"); exit(2); }
+  if (ctxt->tip₋unicode==0) {
+    int y = next₋token₋inner(ctxt,&symbol);
+    if (y != 0) { error(1, "scanner error: initial trouble"); exit(2); }
+  } else {
+    symbol = retrospect;
+  }
+  int y = next₋token₋inner(ctxt,&retrospect);
+  if (y != 0) { error(1, "scanner error: advanced failure"); exit(2); }
 #if defined TRACE₋TOKENS
-  switch (symbol) {
+  switch (symbol.class) {
   case ident: print("identifier\n"); break;
   case number: print("integer-constant\n"); break;
   case lparen: print("'('\n"); break;
@@ -148,13 +172,21 @@ void next₋token(struct language₋context * ctxt)
 
 void expression(void);
 
-int match(Symbol s) { if (symbol == s) { next₋token(&Ctxt); return 1; } return 0; }
+int match(enum symbol₋class s) { if (symbol₋equal(s)) { next₋token(&Ctxt); return 1; } return 0; }
 
-int expect(Symbol s) { if (match(s)) return 1; error(2,"expect: unexpected symbol"); return 0; }
+int expect(enum symbol₋class s) { if (match(s)) return 1; error(2,"expect: unexpected symbol"); return 0; }
 
-int option(Symbol s, void (*action)()) { if (symbol == s) { next₋token(&Ctxt); action(); /* return 1; */ } return 0; }
+int enriching(enum symbol₋class s, enum symbol₋class not₋passed) { if (symbol₋equal(s) && retrospect.class == not₋passed) { next₋token(&Ctxt); return 1; } return 0; }
+/*  Consumes one symbols when two symbols matches. */
 
-void valid(int type, Symbol s, char msg[]) { if (symbol != s) { error(type,msg); } }
+int at₋optin(enum symbol₋class s, void (*action)()) { if (symbol₋equal(s)) { next₋token(&Ctxt); action(); } return 0; }
+
+void valid(int type, enum symbol₋class s, char msg[]) { if (!symbol₋equal(s)) { error(type,msg); } }
+
+int superfluous₋expect(enum symbol₋class s) { return expect(s); }
+int superfluous₋match(enum symbol₋class s) { return match(s); }
+int superfluous₋intermingled(enum symbol₋class s) { return expect /*₋match*/(s); }
+/*  Third variant called from `match`, `expect`, **`option`**, `valid` and `enriching`. */
 
 void factor(void)
 {
@@ -167,13 +199,13 @@ void factor(void)
 void term(void)
 {
    factor();
-   while (symbol == times || symbol == divide) { next₋token(&Ctxt); factor(); }
+   while (symbol₋equal(times) || symbol₋equal(divide)) { next₋token(&Ctxt); factor(); }
 } /*  'multiplication' has higher precedence than 'addition'. */
 
 void expression(void)
 {
-   if (symbol == plus || symbol == minus) { next₋token(&Ctxt); } term();
-   while (symbol == plus || symbol == minus) { next₋token(&Ctxt); term(); }
+   if (symbol₋equal(plus) || symbol₋equal(minus)) { next₋token(&Ctxt); } term();
+   while (symbol₋equal(plus) || symbol₋equal(minus)) { next₋token(&Ctxt); term(); }
 } /*  'addition' has not as high precedence as 'multiplication'. */
 
 void condition(void)
@@ -181,7 +213,7 @@ void condition(void)
    if (match(oddsym)) { expression(); }
    else {
      expression();
-     if (symbol == eql || symbol == neq || symbol == lss || symbol == leq || symbol == gtr || symbol == geq) 
+     if (symbol₋equal(eql) || symbol₋equal(neq) || symbol₋equal(lss) || symbol₋equal(leq) || symbol₋equal(gtr) || symbol₋equal(geq)) 
      {
        next₋token(&Ctxt); expression();
      } /* else {
@@ -200,13 +232,13 @@ void opt₋etter()
 void statement(void)
 {
    if (match(ident)) {
-    if (match(lparen)) { /* param₋list() */ expect(rparen); }
+    if (match(lparen)) { /* actual₋list() */ expect(rparen); }
     else if (match(afterward)) { condition(); }
     /* expect(afterward); condition(); */
    }
-   else if (match(callsym)) { expect(ident); }
-   else if (match(beginsym)) { do { statement(); } while (match(semicolon)); expect(endsym); }
-   else if (match(ifsym)) { condition(); expect(thensym); statement(); option(elsesym,opt₋etter); }
+   else if (enriching(callsym,ident)) { expect(ident); }
+   else if (match(beginsym)) { do { statement(); } while (superfluous₋match(semicolon)); expect(endsym); }
+   else if (match(ifsym)) { condition(); expect(thensym); statement(); at₋optin(elsesym,opt₋etter); }
    /* else if (match(whilesym)) { condition(); expect(dosym); statement(); } */
    else { error(2,"statement: syntax error"); next₋token(&Ctxt); }
 }
@@ -215,13 +247,13 @@ void block(void)
 {
   if (match(constsym)) {
     do { expect(ident); expect(eql); condition(); 
-    } while (match(comma)); expect(semicolon);
+    } while (match(comma)); superfluous₋expect(semicolon);
   }
   if (match(varsym)) {
     do { expect(ident); } while (match(comma));
-    expect(semicolon);
+    superfluous₋expect(semicolon);
   }
-  while (match(procsym)) { expect(ident); expect(lparen); /* param₋list(); */ expect(rparen); block(); }
+  while (match(procsym)) { expect(ident); expect(lparen); /* formal₋list(); */ expect(rparen); block(); }
   statement();
 }
 
@@ -237,7 +269,7 @@ int main()
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋last=0;
-   text = Run(U"const abcd=321+1,dcba=123\nvar cdeg,gec,cgb\nbegin\n call evil;\n if cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
+   text = Run(U"const abcd=321+1,dcba=123\nvar cdeg,gec,cgb\nbegin\n call evil;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
    program();
 }
 
