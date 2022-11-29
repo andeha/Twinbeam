@@ -2,17 +2,17 @@
 import Twinbeam;
 
 typedef enum Symbol { ident=1, number, times, divide, plus, minus, lparen, 
- rparen, eql, neq, lss, leq, gtr, geq, semicolon, callsym, beginsym, endsym, 
- /* whilesym, dosym, forsym */ branch₋goto₋optsym, elsesym, thensym, ifsym, 
- afterward, constsym, varsym, procsym, period, comma, oddsym, voidsym, 
- majorintrosym, minorintrosym, sectionrefstartsym, sectionrefendsym, 
+ rparen, eql, neq, lss, leq, gtr, geq, semicolon, termi₋render, callsym, 
+ beginsym, endsym, /* whilesym, dosym, forsym */ branch₋goto₋optsym, elsesym, 
+ thensym, ifsym, afterward, constsym, varsym, procsym, period, comma, oddsym, 
+ voidsym, majorintrosym, minorintrosym, sectionrefstartsym, sectionrefendsym, 
  end₋of₋transmission₋and₋file
 } Symbol;
 
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
  ../Apps/Source/Releases/libTwinbeam-x86_64.a ../Apps/Additions/monolith-sequent.c */
 
-enum language₋mode { mode₋initial, mode₋integer, mode₋regular };
+enum language₋mode { mode₋initial, mode₋integer, mode₋regular, mode₋biblio, mode₋fixpoint };
 
 struct language₋context {
   __builtin_int_t tip₋unicode;
@@ -199,7 +199,7 @@ void opt₋etter()
 
 void statement(void)
 {
-   if (match(ident)) { 
+   if (match(ident)) {
     if (match(lparen)) { /* param₋list() */ expect(rparen); }
     else if (match(afterward)) { condition(); }
     /* expect(afterward); condition(); */
@@ -237,7 +237,7 @@ int main()
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋last=0;
-   text = Run(U"const abcd=321+1,dcba=123\nvar cdeg,gec,cgb\nbegin\n call evil;\n if cdeg <> gec then begin cgb:=1+1 end else begin cgb:=1-1 end end");
+   text = Run(U"const abcd=321+1,dcba=123\nvar cdeg,gec,cgb\nbegin\n call evil;\n if cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
    program();
 }
 
