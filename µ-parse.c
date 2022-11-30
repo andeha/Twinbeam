@@ -5,7 +5,7 @@ enum symbol₋class { ident=1, number, times, divide, plus, minus, lparen,
  rparen, eql, neq, lss, leq, gtr, geq, semicolon, termi₋render, callsym, 
  beginsym, endsym, /* whilesym, dosym, forsym */ branch₋goto₋optsym, elsesym, 
  thensym, ifsym, afterward, constsym, varsym, procsym, period, comma, oddsym, 
- voidsym, sectionsym, textsym, lformalpresentsym, rformalpresentsym, 
+ voidsym, sectionsym, textsym, lformalrefpressym, rformalpresentsym, 
  rformalreferencesym, end₋of₋transmission₋and₋file
 };
 
@@ -49,7 +49,7 @@ void assign₋symbol(enum symbol₋class s, Symbol * sym) { sym->class=s; }
 int symbol₋equal(enum symbol₋class s) { return symbol.class==s; }
 
 int next₋token₋inner(struct language₋context * ctxt, int return₋equal₋semicolon, Symbol * out)
-{ __builtin_int_t i,symbols=text.tetras; char32̄_t uc,uc₊₁,uc₊2; int left₋least=0,sym;
+{ __builtin_int_t i,symbols=text.tetras; char32̄_t uc,uc₊₁,uc₊2; int pad₋count=0,sym;
    typedef int (^type)(char32̄_t);
    type digit = ^(char32̄_t uc) { return U'0' <= uc && uc <= U'9'; };
    type letter = ^(char32̄_t uc) { return U'a' <= uc && uc <= U'z'; };
@@ -63,18 +63,18 @@ int next₋token₋inner(struct language₋context * ctxt, int return₋equal₋
 again:
    i=ctxt->tip₋unicode,ctxt->tip₋unicode+=1;
    if (i >= symbols) { confess(completion); }
-   if (i == symbols - 1) { left₋least=1; }
-   if (i == symbols - 2) { left₋least=2; }
+   if (i == symbols - 1) { pad₋count=2; }
+   if (i == symbols - 2) { pad₋count=1; }
    uc = *(text.unicodes + i), 
-   uc₊₁ = left₋least >= 1 ? U' ' : *(text.unicodes + i + 1);
-   uc₊2 = left₋least >= 2 ? U' ' : *(text.unicodes + i + 2);
-   if (STATE(mode₋initial) && uc == U'\xa') {
+   uc₊₁ = pad₋count >= 2 ? U' ' : *(text.unicodes + i + 1);
+   uc₊2 = pad₋count >= 1 ? U' ' : *(text.unicodes + i + 2);
+   if (STATE(mode₋initial) && uc == U'\xa') { print("newline\n");
      ctxt->render₋newline₋last+=1;
-     if (return₋equal₋semicolon)
+  /*   if (return₋equal₋semicolon)
      {
        print("replaced render-newline with and reported semicolon\n");
        assign₋symbol(semicolon,out); return 0;
-     }
+     } */
    }
    else if (STATE(mode₋initial) && uc == U'\xd') { }
    else if (STATE(mode₋initial) && uc == U' ') { }
@@ -97,7 +97,7 @@ again:
    else if (STATE(mode₋initial) && uc == U'.') { assign₋symbol(period,out); print("754 period\n"); return 0; }
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'*') { assign₋symbol(sectionsym,out); return 0; }
    else if (STATE(mode₋initial) && uc == U'@') { assign₋symbol(textsym,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'<') { assign₋symbol(lformalpresentsym,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'<') { assign₋symbol(lformalrefpressym,out); return 0; }
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>' && uc₊2 == U'=') { assign₋symbol(rformalpresentsym,out); return 0; }
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>') { assign₋symbol(rformalreferencesym,out); return 0; }
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
@@ -130,6 +130,7 @@ void next₋token(struct language₋context * ctxt, int semicolon₋equal₋retu
   }
   y = next₋token₋inner(ctxt,semicolon₋equal₋return,&retrospect);
   if (y != 0) { error(1,"scanner error: advanced failure"); exit(2); }
+  if (retrospect.class == constsym || retrospect.class == varsym || retrospect.class == beginsym) { print("inpass semicolon\n"); }
 #if defined TRACE₋TOKENS
   switch (symbol.class) {
   case ident: print("identifier\n"); break;
@@ -165,7 +166,7 @@ void next₋token(struct language₋context * ctxt, int semicolon₋equal₋retu
   case end₋of₋transmission₋and₋file: print("completion\n"); break;
   case sectionsym: print("@*"); break;
   case textsym: print("@"); break;
-  case lformalpresentsym: print("@<"); break;
+  case lformalrefpressym: print("@<"); break;
   case rformalpresentsym: print("@>="); break;
   case rformalreferencesym: print("@>"); break;
   default: print("period and non-sorted generalization.");
@@ -271,7 +272,7 @@ int main()
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋last=0;
-   text = Run(U"const abcd=321+1,dcba=123\nvar cdeg,gec,cgb\nbegin\n call elder;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
+   text = Run(U"const abcd=321+1,dcba=123;\nvar cdeg,gec,cgb;\nbegin\n call elder;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
    program();
 }
 
