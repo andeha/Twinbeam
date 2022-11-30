@@ -5,8 +5,8 @@ enum symbol₋class { ident=1, number, times, divide, plus, minus, lparen,
  rparen, eql, neq, lss, leq, gtr, geq, semicolon, termi₋render, callsym, 
  beginsym, endsym, /* whilesym, dosym, forsym */ branch₋goto₋optsym, elsesym, 
  thensym, ifsym, afterward, constsym, varsym, procsym, period, comma, oddsym, 
- voidsym, majorintrosym, minorintrosym, formalsectionstartsym, 
- sectiondefendsym, sectionrefendsym, end₋of₋transmission₋and₋file
+ voidsym, sectionsym, textsym, lformalpresentsym, rformalpresentsym, 
+ rformalreferencesym, end₋of₋transmission₋and₋file
 };
 
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
@@ -36,7 +36,7 @@ struct token₋detail {
 
 typedef struct Symbol { enum symbol₋class class; struct token₋detail gritty; } Symbol;
 
-Symbol symbol,retrospect₋summar,retrospect₋detail; struct Unicodes text; struct language₋context Ctxt; /* executable and parser. */
+Symbol symbol,retrospect; struct Unicodes text; struct language₋context Ctxt; /* executable and parser. */
 /* the global variable `symbol` are among scholars known as `lookahead`. */
 
 #define STATE(s) (s == ctxt->state)
@@ -48,7 +48,7 @@ void assign₋symbol(enum symbol₋class s, Symbol * sym) { sym->class=s; }
 
 int symbol₋equal(enum symbol₋class s) { return symbol.class==s; }
 
-int next₋token₋inner(struct language₋context * ctxt, Symbol * out)
+int next₋token₋inner(struct language₋context * ctxt, int return₋equal₋semicolon, Symbol * out)
 { __builtin_int_t i,symbols=text.tetras; char32̄_t uc,uc₊₁,uc₊2; int left₋least=0,sym;
    typedef int (^type)(char32̄_t);
    type digit = ^(char32̄_t uc) { return U'0' <= uc && uc <= U'9'; };
@@ -70,12 +70,11 @@ again:
    uc₊2 = left₋least >= 2 ? U' ' : *(text.unicodes + i + 2);
    if (STATE(mode₋initial) && uc == U'\xa') {
      ctxt->render₋newline₋last+=1;
-     /* print("\\n (symbol is ⬚) (state is ⬚)\n", ﹟d((__builtin_int_t)symbol), ﹟d((__builtin_int_t)ctxt->state)); */
-     if (symbol₋equal(ident) || symbol₋equal(number) || symbol₋equal(period) || symbol₋equal(rparen))
+     if (return₋equal₋semicolon)
      {
-       print("indirect-implicit semicolon\n");
+       print("replaced render-newline with and reported semicolon\n");
        assign₋symbol(semicolon,out); return 0;
-     } /*'indirect₋implicit₋semicolon'. */
+     }
    }
    else if (STATE(mode₋initial) && uc == U'\xd') { }
    else if (STATE(mode₋initial) && uc == U' ') { }
@@ -96,11 +95,11 @@ again:
    else if (STATE(mode₋initial) && uc == U':' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; assign₋symbol(afterward,out); return 0; }
    else if (STATE(mode₋initial) && uc == U',') { assign₋symbol(comma,out); return 0; }
    else if (STATE(mode₋initial) && uc == U'.') { assign₋symbol(period,out); print("754 period\n"); return 0; }
-   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'*') { assign₋symbol(majorintrosym,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'@') { assign₋symbol(minorintrosym,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'<') { assign₋symbol(formalsectionstartsym,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>' && uc₊2 == U'=') { assign₋symbol(sectiondefendsym,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>') { assign₋symbol(sectionrefendsym,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'*') { assign₋symbol(sectionsym,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@') { assign₋symbol(textsym,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'<') { assign₋symbol(lformalpresentsym,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>' && uc₊2 == U'=') { assign₋symbol(rformalpresentsym,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>') { assign₋symbol(rformalreferencesym,out); return 0; }
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
      if (ctxt->syms₋in₋regular == 2048) { error(1,"identifier and keyword too long"); confess(trouble); }
      ctxt->regular[ctxt->syms₋in₋regular] = uc;
@@ -121,23 +120,15 @@ again:
    goto again;
 }
 
-void next₋token(struct language₋context * ctxt)
-{ int y,end₋of₋file,duplicate;
+void next₋token(struct language₋context * ctxt, int semicolon₋equal₋return)
+{ int y;
   if (ctxt->tip₋unicode==0) {
-    y = next₋token₋inner(ctxt,&symbol);
+    y = next₋token₋inner(ctxt,semicolon₋equal₋return,&symbol);
     if (y != 0) { error(1,"scanner error: initial trouble"); exit(2); }
   } else {
-    symbol = retrospect₋summar;
-    symbol = retrospect₋detail;
+    symbol = retrospect;
   }
-again:
-  y = next₋token₋inner(ctxt,&retrospect₋detail);
-  end₋of₋file = retrospect₋detail.class == end₋of₋transmission₋and₋file;
-  duplicate = retrospect₋detail.class == termi₋render;
-  if (!duplicate) { goto unagain; }
-  if (end₋of₋file) { goto unagain; }
-  goto again;
-unagain:
+  y = next₋token₋inner(ctxt,semicolon₋equal₋return,&retrospect);
   if (y != 0) { error(1,"scanner error: advanced failure"); exit(2); }
 #if defined TRACE₋TOKENS
   switch (symbol.class) {
@@ -172,11 +163,11 @@ unagain:
   case afterward: print("':='\n"); break;
   case semicolon: print("';'\n"); break;
   case end₋of₋transmission₋and₋file: print("completion\n"); break;
-  case majorintrosym: print("@*"); break;
-  case minorintrosym: print("@"); break;
-  case formalsectionstartsym: print("@<"); break;
-  case sectiondefendsym: print("@>="); break;
-  case sectionrefendsym: print("@>"); break;
+  case sectionsym: print("@*"); break;
+  case textsym: print("@"); break;
+  case lformalpresentsym: print("@<"); break;
+  case rformalpresentsym: print("@>="); break;
+  case rformalreferencesym: print("@>"); break;
   default: print("period and non-sorted generalization.");
   }
 #endif
@@ -184,40 +175,39 @@ unagain:
 
 void expression(void);
 
-int match(enum symbol₋class s) { if (symbol₋equal(s)) { next₋token(&Ctxt); return 1; } return 0; }
+int match(enum symbol₋class s) { if (symbol₋equal(s)) { next₋token(&Ctxt,0); return 1; } return 0; }
 
 int expect(enum symbol₋class s) { if (match(s)) return 1; error(2,"expect: unexpected symbol"); return 0; }
 
-int enriching(enum symbol₋class s, enum symbol₋class not₋passed) { if (symbol₋equal(s) && retrospect₋summar.class == not₋passed) { next₋token(&Ctxt); return 1; } return 0; }
+int enriching(enum symbol₋class s, enum symbol₋class not₋passed) { if (symbol₋equal(s) && retrospect.class == not₋passed) { next₋token(&Ctxt,0); return 1; } return 0; }
 /*  Consumes one symbols when two symbols matches. */
 
-int at₋opt(enum symbol₋class s, void (*action)()) { if (symbol₋equal(s)) { next₋token(&Ctxt); action(); } return 0; }
+int at₋opt(enum symbol₋class s, void (*action)()) { if (symbol₋equal(s)) { next₋token(&Ctxt,0); action(); } return 0; }
 
 void valid(int type, enum symbol₋class s, char msg[]) { if (!symbol₋equal(s)) { error(type,msg); } }
 
-int superfluous₋expect(enum symbol₋class s) { return expect(s); }
-int superfluous₋match(enum symbol₋class s) { return match(s); }
-int superfluous₋intermingled(enum symbol₋class s) { return expect /*₋match*/(s); } /* render₋termi. */
-/*  Third variant called from `match`, `expect`, **`option`**, `valid` and `enriching`. */
+int superfluous₋match(enum symbol₋class s) { if (symbol₋equal(s)) { next₋token(&Ctxt,1); return 1; } return 0; }
+
+int superfluous₋expect(enum symbol₋class s) { if (superfluous₋match(s)) return 1; error(2,"expect: unexpected symbol"); return 0; }
 
 void factor(void)
 {
    if (match(ident)) { ; }
    else if (match(number)) { ; }
    else if (match(lparen)) { expression(); expect(rparen); }
-   else { error(2,"factor: syntax error"); next₋token(&Ctxt); }
+   else { error(2,"factor: syntax error"); next₋token(&Ctxt,0); }
 }
 
 void term(void)
 {
    factor();
-   while (symbol₋equal(times) || symbol₋equal(divide)) { next₋token(&Ctxt); factor(); }
+   while (symbol₋equal(times) || symbol₋equal(divide)) { next₋token(&Ctxt,0); factor(); }
 } /*  'multiplication' has higher precedence than 'addition'. */
 
 void expression(void)
 {
-   if (symbol₋equal(plus) || symbol₋equal(minus)) { next₋token(&Ctxt); } term();
-   while (symbol₋equal(plus) || symbol₋equal(minus)) { next₋token(&Ctxt); term(); }
+   if (symbol₋equal(plus) || symbol₋equal(minus)) { next₋token(&Ctxt,0); } term();
+   while (symbol₋equal(plus) || symbol₋equal(minus)) { next₋token(&Ctxt,0); term(); }
 } /*  'addition' has not as high precedence as 'multiplication'. */
 
 void condition(void)
@@ -227,10 +217,10 @@ void condition(void)
      expression();
      if (symbol₋equal(eql) || symbol₋equal(neq) || symbol₋equal(lss) || symbol₋equal(leq) || symbol₋equal(gtr) || symbol₋equal(geq)) 
      {
-       next₋token(&Ctxt); expression();
+       next₋token(&Ctxt,0); expression();
      } /* else {
        error(2,"condition: invalid operator"); 
-       next₋token(&Ctxt);
+       next₋token(&Ctxt,0);
      } */
    }
 }
@@ -252,7 +242,7 @@ void statement(void)
    else if (match(beginsym)) { do { statement(); } while (superfluous₋match(semicolon)); expect(endsym); }
    else if (match(ifsym)) { condition(); expect(thensym); statement(); at₋opt(elsesym,opt₋etter); }
    /* else if (match(whilesym)) { condition(); expect(dosym); statement(); } */
-   else { error(2,"statement: syntax error"); next₋token(&Ctxt); }
+   else { error(2,"statement: syntax error"); next₋token(&Ctxt,0); }
 }
 
 void block(void)
@@ -269,7 +259,7 @@ void block(void)
   statement();
 }
 
-void program(void) { next₋token(&Ctxt); block(); valid(2,end₋of₋transmission₋and₋file,"incorrect signature"); }
+void program(void) { next₋token(&Ctxt,0); block(); valid(2,end₋of₋transmission₋and₋file,"incorrect signature"); }
 
 int main()
 {
