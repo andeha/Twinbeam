@@ -6,7 +6,7 @@ enum symbol₋class { ident=1, number, times, divide, plus, minus, lparen,
  beginsym, endsym, /* whilesym, dosym, forsym */ branch₋goto₋optsym, elsesym, 
  thensym, ifsym, afterward, constsym, varsym, procsym, period, comma, oddsym, 
  voidsym, sectionsym, textsym, lformalrefpressym, rformalpresentsym, 
- rformalreferencesym, additionssym, end₋of₋transmission₋and₋file
+ rformalreferencesym, additionssym, colon, end₋of₋transmission₋and₋file
 };
 
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
@@ -77,7 +77,7 @@ again:
    uc = *(text.unicodes + i), 
    uc₊₁ = pad₋count >= 2 ? U' ' : *(text.unicodes + i + 1);
    uc₊2 = pad₋count >= 1 ? U' ' : *(text.unicodes + i + 2);
-   if (STATE(mode₋initial) && uc == U'\xa') { print("newline\n");
+   if (STATE(mode₋initial) && uc == U'\xa') { print("newline passed\n");
      ctxt->render₋newline₋last+=1;
   /*   if (return₋equals₋semicolon)
      {
@@ -102,6 +102,7 @@ again:
    else if (STATE(mode₋initial) && uc == U'>') { assign₋symbol(gtr,out); return 0; }
    else if (STATE(mode₋initial) && uc == U';') { assign₋symbol(semicolon,out); return 0; } /* @<semicolon₋processed@> twice. */
    else if (STATE(mode₋initial) && uc == U':' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; assign₋symbol(afterward,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U':') { assign₋symbol(colon,out); return 0; }
    else if (STATE(mode₋initial) && uc == U',') { assign₋symbol(comma,out); return 0; }
    else if (STATE(mode₋initial) && uc == U'.') { assign₋symbol(period,out); print("754 period\n"); return 0; }
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'*') { assign₋symbol(sectionsym,out); return 0; }
@@ -171,6 +172,7 @@ void next₋token(struct language₋context * ctxt, int semicolon₋equal₋retu
   case beginsym: print("'begin'\n"); break;
   case endsym: print("'end'\n"); break;
   case eql: print("'='\n"); break;
+  case colon: print("':'\n"); break;
   case afterward: print("':='\n"); break;
   case semicolon: print("';'\n"); break;
   case end₋of₋transmission₋and₋file: print("completion\n"); break;
@@ -252,7 +254,7 @@ void statement(void)
 {
    if (match(additionssym)) { do { expect(ident); if (match(eql)) { expect(eql); condition(); } } while (match(comma)); }
    else if (match(ident)) {
-    if (match(lparen)) { if (!match(rparen)) { actual₋list(); } expect(rparen); }
+    if (match(lparen)) { if (!symbol₋equal(rparen)) { actual₋list(); } expect(rparen); }
     else if (match(afterward)) { condition(); }
     else { error(2,"neither assignment nor call"); }
    }
@@ -278,7 +280,7 @@ void block(void)
     do { expect(ident); if (match(eql)) { expect(eql); condition(); } } while (match(comma));
     superfluous₋expect(semicolon);
   }
-  while (match(procsym)) { expect(ident); expect(lparen); if (!match(rparen)) { formal₋list(); } expect(rparen); statement(); }
+  while (match(procsym)) { expect(ident); expect(lparen); if (!symbol₋equal(rparen)) { formal₋list(); } expect(rparen); statement(); }
 }
 
 void program(void) { next₋token(&Ctxt,0); block(); valid(2,end₋of₋transmission₋and₋file,"incorrect signature"); }
