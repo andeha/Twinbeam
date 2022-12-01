@@ -6,7 +6,7 @@ enum symbol₋class { ident=1, number, times, divide, plus, minus, lparen,
  beginsym, endsym, /* whilesym, dosym, forsym */ branch₋goto₋optsym, elsesym, 
  thensym, ifsym, afterward, constsym, varsym, procsym, period, comma, oddsym, 
  voidsym, sectionsym, textsym, lformalrefpressym, rformalpresentsym, 
- rformalreferencesym, end₋of₋transmission₋and₋file
+ rformalreferencesym, additionssym, end₋of₋transmission₋and₋file
 };
 
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
@@ -48,7 +48,7 @@ void assign₋symbol(enum symbol₋class s, Symbol * sym) { sym->class=s; }
 
 int symbol₋equal(enum symbol₋class s) { return symbol.class==s; }
 
-int next₋token₋inner(struct language₋context * ctxt, int return₋equal₋semicolon, Symbol * out)
+int next₋token₋inner(struct language₋context * ctxt, int return₋equals₋semicolon, Symbol * out)
 { __builtin_int_t i,symbols=text.tetras; char32̄_t uc,uc₊₁,uc₊2; int pad₋count=0,sym;
    typedef int (^type)(char32̄_t);
    type digit = ^(char32̄_t uc) { return U'0' <= uc && uc <= U'9'; };
@@ -70,7 +70,7 @@ again:
    uc₊2 = pad₋count >= 1 ? U' ' : *(text.unicodes + i + 2);
    if (STATE(mode₋initial) && uc == U'\xa') { print("newline\n");
      ctxt->render₋newline₋last+=1;
-  /*   if (return₋equal₋semicolon)
+  /*   if (return₋equals₋semicolon)
      {
        print("replaced render-newline with and reported semicolon\n");
        assign₋symbol(semicolon,out); return 0;
@@ -113,7 +113,8 @@ again:
      ctxt->ongoing *= 10; ctxt->ongoing += uc - U'0';
      ctxt->state = mode₋integer;
      if (!(U'0' <= uc₊₁ && uc₊₁ <= U'9')) { confess(integer₋constant); }
-   } /* else if mode₋fixpoint. */
+   } /* else if mode₋fixpoint \also in --<􀥳 lingustics-epi.c>{array buffer the}. */
+     /* @= #include "u-arithmetic.cxx" */ /* if (x==0) @<array buffer the@> */
    else {
     confess(trouble);
    }
@@ -169,6 +170,7 @@ void next₋token(struct language₋context * ctxt, int semicolon₋equal₋retu
   case lformalrefpressym: print("@<"); break;
   case rformalpresentsym: print("@>="); break;
   case rformalreferencesym: print("@>"); break;
+  case additionssym: print("additions"); break;
   default: print("period and non-sorted generalization.");
   }
 #endif
@@ -226,6 +228,11 @@ void condition(void)
    }
 }
 
+void actual₋list()
+{
+   do { condition(); } while(match(comma));
+}
+
 void opt₋etter()
 {
    void statement(void);
@@ -234,16 +241,22 @@ void opt₋etter()
 
 void statement(void)
 {
-   if (match(ident)) {
-    if (match(lparen)) { /* actual₋list() */ expect(rparen); }
+   if (match(additionssym)) { do { expect(ident); if (match(eql)) { expect(eql); condition(); } } while (match(comma)); }
+   else if (match(ident)) {
+    if (match(lparen)) { if (!match(rparen)) { actual₋list(); } expect(rparen); }
     else if (match(afterward)) { condition(); }
-    /* expect(afterward); condition(); */
+    else { error(2,"neither assignment nor call"); }
    }
    else if (enriching(callsym,ident)) { expect(ident); }
    else if (match(beginsym)) { do { statement(); } while (superfluous₋match(semicolon)); expect(endsym); }
    else if (match(ifsym)) { condition(); expect(thensym); statement(); at₋opt(elsesym,opt₋etter); }
    /* else if (match(whilesym)) { condition(); expect(dosym); statement(); } */
    else { error(2,"statement: syntax error"); next₋token(&Ctxt,0); }
+}
+
+void formal₋list(void)
+{
+   do { expect(ident); expect(/*left₋*/ident); if (!match(comma)) { expect(/*right₋ */ident); } } while(match(comma));
 }
 
 void block(void)
@@ -253,11 +266,10 @@ void block(void)
     } while (match(comma)); superfluous₋expect(semicolon);
   }
   if (match(varsym)) {
-    do { expect(ident); } while (match(comma));
+    do { expect(ident); if (match(eql)) { expect(eql); condition(); } } while (match(comma));
     superfluous₋expect(semicolon);
   }
-  while (match(procsym)) { expect(ident); expect(lparen); /* formal₋list(); */ expect(rparen); block(); }
-  statement();
+  while (match(procsym)) { expect(ident); expect(lparen); if (!match(rparen)) { formal₋list(); } expect(rparen); statement(); }
 }
 
 void program(void) { next₋token(&Ctxt,0); block(); valid(2,end₋of₋transmission₋and₋file,"incorrect signature"); }
@@ -272,7 +284,7 @@ int main()
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋last=0;
-   text = Run(U"const abcd=321+1,dcba=123;\nvar cdeg,gec,cgb;\nbegin\n call elder;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
+   text = Run(U"const abcd=321+1,dcba=123;\nvar cdeg,gec,cgb;\ntranscript hello() begin\n call elder;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
    program();
 }
 
