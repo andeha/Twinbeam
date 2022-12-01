@@ -42,7 +42,16 @@ Symbol symbol,retrospect; struct Unicodes text; struct language₋context Ctxt; 
 #define STATE(s) (s == ctxt->state)
 #define TRACE₋TOKENS
 
-void error(int type, char msg[], ...) { print("⬚.\n", ﹟s7(msg)); }
+typedef void (^Utf8)(char8₋t * u8s, __builtin_int_t bytes);
+int write(int,const char *,...);
+int print﹟(Utf8 out, const char * utf8format, __builtin_va_list);
+
+void error(int type, char text[], ...) { va_prologue(text);
+  Utf8 out = ^(char8₋t * u8s, __builtin_int_t bytes) { write(1,(const void *)u8s,bytes); };
+  print﹟(out,text,__various);
+  print(out,".\n");
+  va_epilogue;
+}
 
 void assign₋symbol(enum symbol₋class s, Symbol * sym) { sym->class=s; }
 
@@ -180,7 +189,7 @@ void expression(void);
 
 int match(enum symbol₋class s) { if (symbol₋equal(s)) { next₋token(&Ctxt,0); return 1; } return 0; }
 
-int expect(enum symbol₋class s) { if (match(s)) return 1; error(2,"expect: unexpected symbol"); return 0; }
+int expect(enum symbol₋class s) { if (match(s)) return 1; error(2,"expect: unexpected symbol (⬚)", ﹟d((__builtin_int_t)(symbol.class))); return 0; }
 
 int enriching(enum symbol₋class s, enum symbol₋class not₋passed) { if (symbol₋equal(s) && retrospect.class == not₋passed) { next₋token(&Ctxt,0); return 1; } return 0; }
 /*  Consumes one symbols when two symbols matches. */
