@@ -6,7 +6,7 @@ enum symbol₋class { ident=1, number, times, divide, plus, minus, lparen,
  beginsym, endsym, /* whilesym, dosym, forsym */ branch₋goto₋optsym, elsesym, 
  thensym, ifsym, afterward, constsym, varsym, procsym, period, comma, oddsym, 
  voidsym, sectionsym, textsym, lformalrefpressym, rformalpresentsym, 
- rformalreferencesym, additionssym, colon, end₋of₋transmission₋and₋file
+ rformalreferencesym, additionssym, colon, label, end₋of₋transmission₋and₋file
 };
 
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
@@ -183,6 +183,7 @@ void next₋token(struct language₋context * ctxt, int semicolon₋equal₋retu
   case rformalpresentsym: print("@>="); break;
   case rformalreferencesym: print("@>"); break;
   case additionssym: print("additions"); break;
+  case label: print("label"); break;
   default: print("period and non-sorted generalization.");
   }
 #endif
@@ -296,7 +297,7 @@ int main(int argc, char * argv[])
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋last=0;
-   text = Run(U"const abcd=321+1,dcba=123;\nvar cdeg,gec,cgb;\ntranscript hello() begin\n call elder;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
+   text = Run(U"const abcd=321+1,dcba=123\nvar cdeg,gec,cgb\ntranscript hello() begin\n call elder;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
    program();
    return 0;
 }
@@ -304,12 +305,12 @@ int main(int argc, char * argv[])
 /*
  
  program = block end₋of₋transmission₋and₋file
- block = 'const' ident '=' number { ',' ident '=' number } ';'
-         'var' ident { ',' ident } ';'
-         'transcript' ident '(' { formal-list } ')' statement
+ block = 'const' ident '=' number { ',' ident '=' number } block₋p₋se
+         'var' ident { ',' ident } block₋p₋se
+         'transcript' ident '(' { formal-list } ')' statement block₋p₋se
  statement = ident ':=' expression
               { 'call' } ident
-             'begin' statement ';' { statment ';' } 'end'
+             'begin' statement stmt₋se₋p { statment stmt₋se₋p } 'end'
              'if' condition 'then' statement
              / * 'while' condition 'do' statement * /
  condition = 'odd' statment | expression ('='|'#'|'<'|'<='|'>'|'>=') expression
@@ -317,4 +318,7 @@ int main(int argc, char * argv[])
  term = factor {'*'|'/' factor}
  factor = ident | number | '(' expression ')'
  
+ stmt₋se₋p = semicolon₋alternatively₋termirender₋and₋not(ident,'call','begin','if')
+ block₋p₋se = termirender₋and₋not('transcript','var','const')
+
  􀈐-language.c */
