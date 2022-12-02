@@ -42,15 +42,16 @@ Symbol symbol,retrospect; struct Unicodes text; struct language₋context Ctxt; 
 #define STATE(s) (s == ctxt->state)
 #define TRACE₋TOKENS
 
-typedef void (^Utf8)(char8₋t * u8s, __builtin_int_t bytes);
-int write(int,const char *,...);
-int print﹟(Utf8 out, const char * utf8format, __builtin_va_list);
+typedef void (^Utf8)(char8₋t *,__builtin_int_t);
 
-void error(int type, char text[], ...) { va_prologue(text);
-  Utf8 out = ^(char8₋t * u8s, __builtin_int_t bytes) { write(1,(const void *)u8s,bytes); };
-  print﹟(out,text,__various);
-  print(out,".\n");
-  va_epilogue;
+void error(int type, char text[], ...)
+{ va_prologue(text);
+   int write(int,const char *,...);
+   int print﹟(Utf8 out,const char * utf8format,__builtin_va_list);
+   Utf8 out = ^(char8₋t * u8s, __builtin_int_t bytes) { write(1,(const void *)u8s,bytes); };
+   print﹟(out,text,__various);
+   print(out,".\n");
+   va_epilogue;
 }
 
 void assign₋symbol(enum symbol₋class s, Symbol * sym) { sym->class=s; }
@@ -272,20 +273,20 @@ void formal₋list(void)
 
 void block(void)
 {
-  if (match(constsym)) {
-    do { expect(ident); expect(eql); condition(); 
-    } while (match(comma)); superfluous₋expect(semicolon);
-  }
-  if (match(varsym)) {
-    do { expect(ident); if (match(eql)) { expect(eql); condition(); } } while (match(comma));
-    superfluous₋expect(semicolon);
-  }
-  while (match(procsym)) { expect(ident); expect(lparen); if (!symbol₋equal(rparen)) { formal₋list(); } expect(rparen); statement(); }
+   if (match(constsym)) {
+     do { expect(ident); expect(eql); condition(); 
+     } while (match(comma)); superfluous₋expect(semicolon);
+   }
+   if (match(varsym)) {
+     do { expect(ident); if (match(eql)) { expect(eql); condition(); } } while (match(comma));
+     superfluous₋expect(semicolon);
+   }
+   while (match(procsym)) { expect(ident); expect(lparen); if (!symbol₋equal(rparen)) { formal₋list(); } expect(rparen); statement(); }
 }
 
 void program(void) { next₋token(&Ctxt,0); block(); valid(2,end₋of₋transmission₋and₋file,"incorrect signature"); }
 
-int main()
+int main(int argc, char * argv[])
 {
    char32̄_t * kvlist[] = { U"const",U"var",U"call",U"begin",U"end",U"if",U"then",U"odd",U"transcript",U"else",U"void" };
    int symlist[] = { constsym,varsym,callsym,beginsym,endsym,ifsym,thensym,oddsym,procsym,elsesym,voidsym };
@@ -297,6 +298,7 @@ int main()
    Ctxt.render₋newline₋last=0;
    text = Run(U"const abcd=321+1,dcba=123;\nvar cdeg,gec,cgb;\ntranscript hello() begin\n call elder;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
    program();
+   return 0;
 }
 
 /*
@@ -304,6 +306,7 @@ int main()
  program = block end₋of₋transmission₋and₋file
  block = 'const' ident '=' number { ',' ident '=' number } ';'
          'var' ident { ',' ident } ';'
+         'transcript' ident '(' { formal-list } ')' statement
  statement = ident ':=' expression
               { 'call' } ident
              'begin' statement ';' { statment ';' } 'end'
