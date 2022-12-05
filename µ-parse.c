@@ -213,17 +213,20 @@ struct dynamic₋bag {
   struct token₋detail X;
   enum symbol₋class S;
   struct dynamic₋bag *l,*r,*next,*if₋then,*if₋else;
+  __uint128_t fineprint;
 };
 
 enum { 🅐=1, 🅑, 🅒, 🅓, 🅔, 🅕, 🅖, 🅗, 🅘, 🅙, 🅚, 🅛 };
 
 void House(int type, int count, ...);
+void codegenerate() { }
 
-struct dynamic₋bag * root;
+struct dynamic₋bag * list;
+symboltable₋ref identifiers;
 
-/* #include "µ⃝-code-and-tree.cxx"
-#include "µ⃝-code-and-arm.cxx"
-#include "µ⃝-code-and-intel.cxx" */
+#include "µ⃝-code-and-tree.cxx"
+/* #include "µ⃝-code-and-arm.cxx" */
+#include "µ⃝-code-and-intel.cxx"
 
 void factor(void)
 {
@@ -326,8 +329,9 @@ int main()
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋last=0;
-   text = Run(U"const abcd=321+1,dcba=123\nvar cdeg,gec,cgb\ntranscript hello() begin\n call elder;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
+   text = Run(U"const abcd=321+1,dcba=123\nvar cdeg,gec,cgb\ntranscript hello() begin\n call window;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
    program();
+   codegenerate();
 }
 
 /*
