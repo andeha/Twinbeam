@@ -6,7 +6,8 @@ enum symbol₋class { ident=1, number, times, divide, plus, minus, lparen,
  beginsym, endsym, /* whilesym, dosym, forsym */ branch₋goto₋optsym, elsesym, 
  thensym, ifsym, afterward, constsym, varsym, procsym, period, comma, oddsym, 
  voidsym, sectionsym, textsym, lformalrefpressym, rformalpresentsym, 
- rformalreferencesym, additionssym, colon, label, end₋of₋transmission₋and₋file
+ rformalreferencesym, additionssym, colon, label, symbol₋for₋enquery, 
+ end₋of₋transmission₋and₋file, uninit₋symbol, 
 };
 
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
@@ -39,6 +40,7 @@ typedef struct Symbol { enum symbol₋class class; struct token₋detail gritty;
 Symbol symbol,retrospect; struct Unicodes text; struct language₋context Ctxt; /* executable and parser. */
 /* the global variable `symbol` are among scholars known as `lookahead`. */
 int carrier; /* 'retrospect did purge newline' and 'retrospect₋detail and retrospect₋summar differs'. */
+Symbol recollect;
 
 #define STATE(s) (s == ctxt->state)
 #define TRACE₋TOKENS
@@ -112,7 +114,7 @@ again:
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'<') { assign₋symbol(lformalrefpressym,out); return 0; }
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>' && uc₊2 == U'=') { assign₋symbol(rformalpresentsym,out); return 0; }
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>') { assign₋symbol(rformalreferencesym,out); return 0; }
-   /* else if (STATE(mode₋initial) && uc == U'\x2405') { assign_symbol(symbol₋for₋enquery); return 0; } */
+   else if (STATE(mode₋initial) && uc == U'\x2405') { assign₋symbol(symbol₋for₋enquery,out); return 0; }
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
      if (ctxt->syms₋in₋regular == 2048) { error(1,"identifier and keyword too long"); confess(trouble); }
      ctxt->regular[ctxt->syms₋in₋regular]=uc;
@@ -140,6 +142,7 @@ void next₋token(struct language₋context * ctxt, int newline₋on₋termirend
     y = next₋token₋inner(ctxt,newline₋on₋termirender,&symbol);
     if (y != 0) { error(1,"scanner error: initial trouble"); exit(2); }
   } else {
+    recollect = symbol;
     symbol = retrospect;
   }
   y = next₋token₋inner(ctxt,newline₋on₋termirender,&retrospect);
@@ -219,9 +222,9 @@ struct dynamic₋bag {
 enum { 🅐=1, 🅑, 🅒, 🅓, 🅔, 🅕, 🅖, 🅗, 🅘, 🅙, 🅚, 🅛 };
 
 void House(int type, int count, ...);
-void codegenerate() { }
+void codegenerate();
 
-struct dynamic₋bag * list;
+struct dynamic₋bag * form;
 symboltable₋ref identifiers;
 
 #include "µ⃝-code-and-tree.cxx"
@@ -230,8 +233,8 @@ symboltable₋ref identifiers;
 
 void factor(void)
 {
-   if (match(ident)) { /* House(🅐,1,&recollect); */ }
-   else if (match(number)) { /* House(🅑,1,&recollect); */ }
+   if (match(ident)) { House(🅐,1,&recollect); }
+   else if (match(number)) { House(🅑,1,&recollect); }
    else if (match(lparen)) { expression(); expect(rparen); }
    else { error(2,"factor: syntax error"); next₋token(&Ctxt,0); }
 }
@@ -329,6 +332,7 @@ int main()
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋last=0;
+   recollect.class = uninit₋symbol;
    text = Run(U"const abcd=321+1,dcba=123\nvar cdeg,gec,cgb\ntranscript hello() begin\n call window;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
    program();
    codegenerate();

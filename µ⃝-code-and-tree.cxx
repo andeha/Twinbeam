@@ -1,6 +1,6 @@
 /*  µ⃝-code-and-tree.cxx | scalar and context and explana. */
 
-struct dynamic₋bag * new₋Identifier(char32̄_t * text, __builtin_int_t count)
+struct dynamic₋bag * new₋Identifier(struct Unicodes token)
 {
    struct dynamic₋bag * node = Alloc(sizeof(struct dynamic₋bag));
    return node;
@@ -27,8 +27,9 @@ struct dynamic₋bag * new₋Statement(struct dynamic₋bag * item, int type)
 void House(int type, int count, ... /* void * ctxt₋bag */)
 { va_prologue(count) __builtin_va_list various;
    switch (type) {
-   case 1: { form = new₋Identifier(); break; }
-   case 2: { void * item = __builtin_va_arg(various,dynamic₋bag *);
+   case 1: { struct Unicodes token = __builtin_va_arg(various,struct Unicodes);
+    form = new₋Identifier(token); break; }
+   case 2: { void * item = __builtin_va_arg(various,struct dynamic₋bag *);
     int type = __builtin_va_arg(various,int);
     form = new₋Numeric((struct dynamic₋bag *)item,type); break; }
    case 3: { void * left = __builtin_va_arg(various,struct dynamic₋bag *);
@@ -36,7 +37,7 @@ void House(int type, int count, ... /* void * ctxt₋bag */)
     int op = __builtin_va_arg(various,int);
     form = new₋Operand((struct dynamic₋bag *)left,(struct dynamic₋bag *)right,op);
     break; }
-   case 4: { void * item = __builtin_va_arg(various,dynamic₋bag *);
+   case 4: { void * item = __builtin_va_arg(various,struct dynamic₋bag *);
     int type = __builtin_va_arg(various,int);
     form = new₋Statement((struct dynamic₋bag *)item,type);
     break; }
