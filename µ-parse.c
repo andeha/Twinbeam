@@ -112,6 +112,7 @@ again:
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'<') { assign₋symbol(lformalrefpressym,out); return 0; }
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>' && uc₊2 == U'=') { assign₋symbol(rformalpresentsym,out); return 0; }
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>') { assign₋symbol(rformalreferencesym,out); return 0; }
+   /* else if (STATE(mode₋initial) && uc == U'\x2405') { assign_symbol(symbol₋for₋enquery); return 0; } */
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
      if (ctxt->syms₋in₋regular == 2048) { error(1,"identifier and keyword too long"); confess(trouble); }
      ctxt->regular[ctxt->syms₋in₋regular]=uc;
@@ -221,6 +222,7 @@ void House(int type, int count, ...);
 struct dynamic₋bag * root;
 
 /* #include "µ⃝-code-and-tree.cxx"
+#include "µ⃝-code-and-arm.cxx"
 #include "µ⃝-code-and-intel.cxx" */
 
 void factor(void)
