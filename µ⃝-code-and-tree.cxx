@@ -2,14 +2,24 @@
 
 struct dynamic₋bag * new₋Identifier(struct Unicodes token)
 {
-   struct dynamic₋bag * node = Alloc(sizeof(struct dynamic₋bag));
-   return node;
+   struct dynamic₋bag * nonode = Alloc(sizeof(struct dynamic₋bag));
+   nonode->
+   return nonode;
 }
 
 struct dynamic₋bag * new₋Numeric(struct dynamic₋bag * item, int type)
 {
-   struct dynamic₋bag * node = Alloc(sizeof(struct dynamic₋bag));
-   return node;
+   struct dynamic₋bag * nonode = Alloc(sizeof(struct dynamic₋bag));
+   switch (type) {
+   case 1:
+     nonode->
+     break;
+   case 2:
+     nonode->
+     break;
+   }
+   
+   return nonode;
 }
 
 struct dynamic₋bag * new₋Operand(struct dynamic₋bag * left, struct dynamic₋bag * right, int op)

@@ -29,7 +29,7 @@ typedef struct { int symbols; char32̄_t * start; } Symbolinterval;
 struct token₋detail {
   union {
     Symbolinterval regularOrIdent;
-    Sequenta figure;
+    Sequenta number;
   } store;
   int kind;
   __builtin_int_t lineno₋first,lineno₋last,column₋first,column₋last;
@@ -40,7 +40,7 @@ typedef struct Symbol { enum symbol₋class class; struct token₋detail gritty;
 Symbol symbol,retrospect; struct Unicodes text; struct language₋context Ctxt; /* executable and parser. */
 /* the global variable `symbol` are among scholars known as `lookahead`. */
 int carrier; /* 'retrospect did purge newline' and 'retrospect₋detail and retrospect₋summar differs'. */
-Symbol recollect;
+Symbol memory₋summar;
 
 #define STATE(s) (s == ctxt->state)
 #define TRACE₋TOKENS
@@ -214,8 +214,8 @@ int superfluous₋expect(enum symbol₋class s) { if (newline₋match(s)) return
 
 struct dynamic₋bag {
   struct token₋detail X;
-  enum symbol₋class S;
-  struct dynamic₋bag *l,*r,*next,*if₋then,*if₋else;
+  enum symbol₋class T;
+  struct dynamic₋bag *l,*r,*next,*prev,*if₋then,*if₋else;
   __uint128_t fineprint;
 };
 
@@ -233,8 +233,8 @@ symboltable₋ref identifiers;
 
 void factor(void)
 {
-   if (match(ident)) { House(🅐,1,&recollect); }
-   else if (match(number)) { House(🅑,1,&recollect); }
+   if (match(ident)) { House(🅐,1,&memory₋summar.store.regularOrIdent); }
+   else if (match(number)) { House(🅑,1,&memory₋summar.store.number); }
    else if (match(lparen)) { expression(); expect(rparen); }
    else { error(2,"factor: syntax error"); next₋token(&Ctxt,0); }
 }
@@ -242,7 +242,7 @@ void factor(void)
 void term(void)
 {
    factor();
-   while (symbol₋equal(times) || symbol₋equal(divide)) { next₋token(&Ctxt,0); factor(); } /* House(🅒,1,&recollect); */
+   while (symbol₋equal(times) || symbol₋equal(divide)) { next₋token(&Ctxt,0); factor(); } House(🅒,1,&memory₋summar);
 } /*  'multiplication' has higher precedence than 'addition'. */
 
 void expression(void)

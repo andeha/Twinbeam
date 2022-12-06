@@ -3,8 +3,11 @@
 void codegenerate()
 { struct dynamic₋bag * item=form; struct Unicodes symbol;
    print(
+"/*  stdout.S | material entered on stdin. */\n\n"
 "#define END(symbol)\n"
-"#define START(symbol)\n"
+"#define START(symbol)\n\n"
+"    .section .data\n"
+"  abc DB 'ABC'\n\n"
 "    .section .text\n\n"
    );
 again:
@@ -21,4 +24,6 @@ again:
    ﹟S(symbol),﹟S(symbol),﹟S(symbol),﹟S(symbol),﹟S(symbol));
    item=item->next; goto again;
 }
+
+/* ./a.out | clang -c -x assembler - -o - */
 
