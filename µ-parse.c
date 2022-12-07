@@ -24,7 +24,7 @@ struct language₋context {
   Trie keys;
 };
 
-typedef struct { int symbols; char32̄_t * start; } Symbolinterval;
+typedef struct Symbolinterval { int symbols; char32̄_t * start; } Symbolinterval;
 
 struct token₋detail {
   union {
@@ -40,7 +40,7 @@ typedef struct Symbol { enum symbol₋class class; struct token₋detail gritty;
 Symbol symbol,retrospect; struct Unicodes text; struct language₋context Ctxt; /* executable and parser. */
 /* the global variable `symbol` are among scholars known as `lookahead`. */
 int carrier; /* 'retrospect did purge newline' and 'retrospect₋detail and retrospect₋summar differs'. */
-Symbol memory₋summar;
+Symbol summary₋1;
 
 #define STATE(s) (s == ctxt->state)
 #define TRACE₋TOKENS
@@ -142,7 +142,7 @@ void next₋token(struct language₋context * ctxt, int newline₋on₋termirend
     y = next₋token₋inner(ctxt,newline₋on₋termirender,&symbol);
     if (y != 0) { error(1,"scanner error: initial trouble"); exit(2); }
   } else {
-    recollect = symbol;
+    summary₋1 = symbol;
     symbol = retrospect;
   }
   y = next₋token₋inner(ctxt,newline₋on₋termirender,&retrospect);
@@ -193,7 +193,7 @@ void next₋token(struct language₋context * ctxt, int newline₋on₋termirend
   default: print("period and non-sorted generalization.");
   }
 #endif
-}
+} /* /IF/ /ELSE/ /END/ /INCLUDE/ /DEFINE/ */
 
 void expression(void);
 
@@ -219,6 +219,8 @@ struct dynamic₋bag {
   __uint128_t fineprint;
 };
 
+struct dynamic₋bag * summary₋2;
+
 enum { 🅐=1, 🅑, 🅒, 🅓, 🅔, 🅕, 🅖, 🅗, 🅘, 🅙, 🅚, 🅛 };
 
 void House(int type, int count, ...);
@@ -233,16 +235,16 @@ symboltable₋ref identifiers;
 
 void factor(void)
 {
-   if (match(ident)) { House(🅐,1,&memory₋summar.store.regularOrIdent); }
-   else if (match(number)) { House(🅑,1,&memory₋summar.store.number); }
+   if (match(ident)) { House(🅐,1,&summary₋1.gritty.store.regularOrIdent); }
+   else if (match(number)) { House(🅑,2,&summary₋1.gritty.store.number); }
    else if (match(lparen)) { expression(); expect(rparen); }
    else { error(2,"factor: syntax error"); next₋token(&Ctxt,0); }
 }
 
 void term(void)
-{
-   factor();
-   while (symbol₋equal(times) || symbol₋equal(divide)) { next₋token(&Ctxt,0); factor(); } House(🅒,1,&memory₋summar);
+{ 
+   factor(); struct dynamic₋bag * jot=summary₋2;
+   while (symbol₋equal(times) || symbol₋equal(divide)) { next₋token(&Ctxt,0); factor(); } House(🅒,3,jot,summary₋2,times);
 } /*  'multiplication' has higher precedence than 'addition'. */
 
 void expression(void)
@@ -332,7 +334,7 @@ int main()
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋last=0;
-   recollect.class = uninit₋symbol;
+   summary₋1.class = uninit₋symbol;
    text = Run(U"const abcd=321+1,dcba=123\nvar cdeg,gec,cgb\ntranscript hello() begin\n call window;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
    program();
    codegenerate();
