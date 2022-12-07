@@ -219,7 +219,7 @@ struct dynamic₋bag {
   __uint128_t fineprint;
 };
 
-struct dynamic₋bag * summary₋tree;
+struct dynamic₋bag * summary₋groundfold;
 
 enum { 🅐=1, 🅑, 🅒, 🅓, 🅔, 🅕, 🅖, 🅗, 🅘, 🅙, 🅚, 🅛 };
 
@@ -243,8 +243,8 @@ void factor(void)
 
 void term(void)
 { 
-   factor(); struct dynamic₋bag * jot=summary₋tree;
-   while (symbol₋equal(times) || symbol₋equal(divide)) { next₋token(&Ctxt,0); factor(); } House(🅒,3,jot,summary₋tree,times);
+   factor(); struct dynamic₋bag * jot=summary₋groundfold;
+   while (symbol₋equal(times) || symbol₋equal(divide)) { next₋token(&Ctxt,0); factor(); } House(🅒,3,jot,summary₋groundfold,times);
 } /*  'multiplication' has higher precedence than 'addition'. */
 
 void expression(void)
