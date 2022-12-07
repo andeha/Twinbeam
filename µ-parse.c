@@ -215,7 +215,7 @@ int superfluous₋expect(enum symbol₋class s) { if (newline₋match(s)) return
 struct dynamic₋bag {
   struct token₋detail X;
   enum symbol₋class T;
-  struct dynamic₋bag *l,*r,*next,*prev,*if₋then,*if₋else;
+  struct dynamic₋bag *l,*r,*next,*prev,*compare₋then,*compare₋else;
   __uint128_t fineprint;
 };
 
@@ -243,8 +243,9 @@ void factor(void)
 
 void term(void)
 { 
-   factor(); struct dynamic₋bag * jot=summary₋groundfold;
-   while (symbol₋equal(times) || symbol₋equal(divide)) { next₋token(&Ctxt,0); factor(); } House(🅒,3,jot,summary₋groundfold,times);
+   factor(); struct dynamic₋bag * ground₋fold=form;
+   while (symbol₋equal(times) || symbol₋equal(divide)) { next₋token(&Ctxt,0); factor(); 
+    House(🅒,3,ground₋fold,form,times); }
 } /*  'multiplication' has higher precedence than 'addition'. */
 
 void expression(void)
@@ -279,7 +280,7 @@ void opt₋etter(void)
    statement();
 }
 
-int stmt₋se₋p(int * newline₋on₋termirender)
+int faschion₋se₋p(int * newline₋on₋termirender)
 {
    return !(retrospect.class==ident || retrospect.class==callsym || retrospect.class==beginsym || retrospect.class==ifsym);
 }
@@ -356,7 +357,7 @@ int main()
  term = factor {'*'|'/' factor}
  factor = ident | number | '(' expression ')'
  
- stmt₋se₋p = semicolon₋alternatively₋termirender₋and₋not(ident,'call','begin','if')
+ fashion₋se₋p = semicolon₋alternatively₋termirender₋and₋not(ident,'call','begin','if')
  block₋p₋se = termirender₋and₋not('transcript','var','const')
  
  􀈐-language.c */
