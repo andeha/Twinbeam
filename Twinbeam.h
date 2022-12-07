@@ -343,7 +343,7 @@ extern Sequenta sqrt(Sequenta,int) ⓣ; /* -- "" --- 'square₋root_sequent'. */
 extern Sequenta reciproc(Sequenta) ⓣ; /* may be renamed to 'reciproc_sequent'. */
 PROMINENT Sequenta __builtin_fixpoint_sqrt(Sequenta x) { return sqrt(x,0); } /* replace with 'square₋root_sequent'. */
 PROMINENT Sequenta __builtin_fixpoint_rsqrt(Sequenta x) { return sqrt(x,1); } /* -- """ -- */
-#define __builtin_fixpoint_rcp reciproc /* replace with 'reciproc_sequent'. */
+#define __builtin_fixpoint_rcp reciproc_sequent
 
 typedef int (^INIT)(void * ᐧ uninited);
 EXT₋C void * ᐝ Alloc(__builtin_int_t) ᐪ⁻¹;

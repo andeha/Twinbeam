@@ -22,8 +22,8 @@ simd_tᵦ sqrt(simd_tᵦ x, int invert, simd_tᵦ * NoNthRootOrΨΛΩ) ⓣ;
 Sequenta sqrt(Sequenta x, int invert, Sequenta * NoNthRootOrΨΛΩ) ⓣ;
 simd_tᵦ power(simd_tᵦ x, int y₋equals₋10, int and₋inverted, simd_tᵦ y) ⓣ;
 Sequenta power(Sequenta x, int y₋equals₋10, int and₋inverted, Sequenta y) ⓣ;
-simd_tᵦ reciproc(simd_tᵦ x, int no₋exponential, int ₋and₋again₋inverted) ⓣ;
-Sequenta reciproc(Sequenta x, int no₋exponential, int ₋and₋again₋inverted) ⓣ;
+simd_tᵦ reciproc₋interval(simd_tᵦ x, int no₋exponential, int ₋and₋again₋inverted);
+Sequenta reciproc_sequent(Sequenta x, int no₋exponential, int ₋and₋again₋inverted);
 
 struct mathart
 {
