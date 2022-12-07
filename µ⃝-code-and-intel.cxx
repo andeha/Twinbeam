@@ -3,11 +3,11 @@
 void codegenerate()
 { struct dynamic₋bag * item=form; struct Unicodes symbol;
    print(
-"/*  stdout.S | material entered on stdin. */\n\n"
+"/*  stdout.S | material entered on stdin and fed to µ-parse. */\n\n"
 "#define END(symbol)\n"
 "#define START(symbol)\n\n"
 "    .section .data\n"
-"  abc DB 'ABC'\n\n"
+"abc DB 'ABC'\n\n"
 "    .section .text\n\n"
    );
 again:

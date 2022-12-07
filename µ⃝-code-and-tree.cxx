@@ -43,20 +43,20 @@ struct dynamic₋bag * new₋Statement(struct dynamic₋bag * item, enum symbol�
 }
 
 void House(int type, int count, ...)
-{ va_prologue(count) __builtin_va_list various;
+{ va_prologue(count)
    switch (type) {
-   case 1: { struct Symbolinterval token = __builtin_va_arg(various,struct Symbolinterval);
+   case 🅐: { struct Symbolinterval token = va_unqueue(struct Symbolinterval);
     form = new₋Identifier(token); break; }
-   case 2: { struct sequent item = __builtin_va_arg(various,struct sequent);
-    int type = __builtin_va_arg(various,int);
+   case 🅑: { struct sequent item = va_unqueue(struct sequent);
+    int type = va_unqueue(int);
     form = new₋Numeric((struct sequent)item,1); break; }
-   case 3: { void * left = __builtin_va_arg(various,struct dynamic₋bag *);
-    void * right = __builtin_va_arg(various,struct dynamic₋bag *);
-    enum symbol₋class op = __builtin_va_arg(various,enum symbol₋class);
+   case 🅒: { void * left = va_unqueue(struct dynamic₋bag *);
+    void * right = va_unqueue(struct dynamic₋bag *);
+    enum symbol₋class op = va_unqueue(enum symbol₋class);
     form = new₋Expression((struct dynamic₋bag *)left,(struct dynamic₋bag *)right,op);
     break; }
-   case 4: { void * item = __builtin_va_arg(various,struct dynamic₋bag *);
-    int type = __builtin_va_arg(various,int);
+   case 🅓: { void * item = va_unqueue(struct dynamic₋bag *);
+    int type = va_unqueue(int);
     form = new₋Statement((struct dynamic₋bag *)item,type);
     break; }
    }

@@ -685,7 +685,7 @@ EXT₋C int Play(void (^ ᐧ composition)(struct Unicodes serial),
 EXT₋C int Play(char32̄_t * ᐧ text, __builtin_va_list params, void 
  (^ ᐧ composition)(struct Unicodes serial)) ⓣ;
 
-struct trie₋word { struct trie₋word * ᐝ downhill₋letters[25]; int residue[25]; }; /* see z_k in TeX 920 ❡§. */
+struct trie₋word { struct trie₋word * ᐝ downhill₋letters[25]; int residue[25]; }; /* note z_k in TeX ❡§ 920. */
 typedef struct trie₋word Trie;
 void merge₋to₋trie(int count, char32̄_t * ᐧ keywords[ᐧ], int residue[ᐧ], Trie * ᐧ 🅣);
 int trie₋keyword(int letters, char32̄_t text[ᐧ], int * ᐧ residue, Trie * ᐧ 🅣);
@@ -767,6 +767,7 @@ union Reference { struct PresentativeErrorUnicode byteserie; struct Unicodeblock
 #define va_prologue(symbol)                                                 \
  __builtin_va_list __various;                                               \
  __builtin_va_start(__various, symbol);
+#define va_unqueue(param₋type) __builtin_va_arg(__various,param₋type)
 #define QUOTE(str) #str /* ☜😐  'quote != ## ∧ token paste != #'. */
 #if defined __x86_64__ || defined __mips__
 EXT₋C void ASSEMBLERONLY Sheriff();

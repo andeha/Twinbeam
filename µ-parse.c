@@ -235,8 +235,8 @@ symboltable₋ref identifiers;
 
 void factor(void)
 {
-   if (match(ident)) { House(🅐,1,&summary₋ground.gritty.store.regularOrIdent); }
-   else if (match(number)) { House(🅑,2,&summary₋ground.gritty.store.number); }
+   if (match(ident)) { House(🅐,1,summary₋ground.gritty.store.regularOrIdent); }
+   else if (match(number)) { House(🅑,2,summary₋ground.gritty.store.number,1); }
    else if (match(lparen)) { expression(); expect(rparen); }
    else { error(2,"factor: syntax error"); next₋token(&Ctxt,0); }
 }
