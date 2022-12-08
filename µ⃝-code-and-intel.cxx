@@ -6,21 +6,22 @@ void codegenerate()
 "/*  stdout.S | material entered on stdin and fed to µ-parse. */\n\n"
 "#define END(symbol)\n"
 "#define START(symbol)\n\n"
-"    .section .data\n"
-"abc DB 'ABC'\n\n"
-"    .section .text\n\n"
+"    .data\n"
+"abc: .ascii \"ABC\\n\"\n\n"
+"    .text\n\n"
    );
 again:
    symbol = Run(U"HELLO");
    if (item==ΨΛΩ) { return; }
    print(
 "    .globl _⬚\n"
-"    .type _⬚,@function\n"
-"    START(_⬚)\n"
+"    /* .type _⬚,@function */\n"
+"    .intel_syntax\n"
+"    /* START(_⬚) */\n"
 "_⬚:\n"
-"    fnstcw 64(%rax)\n"
+"    fnstcw 64[rax]\n"
 "    ret\n"
-"    END(_⬚)\n", 
+"    /* END(_⬚) */\n", 
    ﹟S(symbol),﹟S(symbol),﹟S(symbol),﹟S(symbol),﹟S(symbol));
    item=item->next; goto again;
 }
