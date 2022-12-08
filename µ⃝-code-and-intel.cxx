@@ -27,4 +27,5 @@ again:
 }
 
 /* ./a.out | clang -c -x assembler - -o - */
+/* ▚ ld -arch x86_64 /dev/stdin */ /* not-possible random-access required. */
 
