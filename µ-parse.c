@@ -2,11 +2,11 @@
 import Twinbeam;
 
 enum symbol₋class { ident=1, number, times, divide, plus, minus, lparen, 
- rparen, eql, neq, lss, leq, gtr, geq, semicolon, termirender, callsym, 
- beginsym, endsym, /* whilesym, dosym, forsym */ branch₋goto₋optsym, elsesym, 
- thensym, ifsym, afterward, constsym, varsym, procsym, period, comma, oddsym, 
+ rparen, eql, neq/*=10*/, lss, leq, gtr, geq, semicolon, termirender, callsym, 
+ beginsym, endsym, /* whilesym, dosym, forsym */ branch₋goto₋optsym/*=20*/, elsesym, 
+ thensym, ifsym, afterward, constsym, varsym, procsym, period, comma, oddsym/*=30*/, 
  voidsym, sectionsym, textsym, lformalrefpressym, rformalpresentsym, 
- rformalreferencesym, additionssym, colon, label, symbol₋for₋enquery, 
+ rformalreferencesym, additionssym, colon, label, symbol₋for₋enquery/*=40*/, 
  end₋of₋transmission₋and₋file, uninit₋symbol, 
 };
 
@@ -40,7 +40,7 @@ typedef struct Symbol { enum symbol₋class class; struct token₋detail gritty;
 Symbol symbol,retrospect; struct Unicodes text; struct language₋context Ctxt; /* executable and parser. */
 /* the global variable `symbol` are among scholars known as `lookahead`. */
 int carrier; /* 'retrospect did purge newline' and 'retrospect₋detail and retrospect₋summar differs'. */
-Symbol summary₋ground;
+Symbol summary₋ground; /*  a․𝘬․a 'memory after reading passed'. */
 
 #define STATE(s) (s == ctxt->state)
 #define TRACE₋TOKENS
@@ -193,7 +193,7 @@ void next₋token(struct language₋context * ctxt, int newline₋on₋termirend
   default: print("period and non-sorted generalization.");
   }
 #endif
-} /* /IF/ /ELSE/ /END/ /INCLUDE/ /DEFINE/ */
+} /* .IF .ELSE .END .INCLUDE .DEFINE. */
 
 void expression(void);
 
@@ -201,7 +201,7 @@ int match(enum symbol₋class s) { if (symbol₋equal(s)) { next₋token(&Ctxt,0
 
 int expect(enum symbol₋class s) { if (match(s)) return 1; error(2,"expect: unexpected symbol (⬚)", ﹟d((__builtin_int_t)(symbol.class))); return 0; }
 
-int enriching(enum symbol₋class s, enum symbol₋class not₋passed) { if (symbol₋equal(s) && retrospect.class == not₋passed) { next₋token(&Ctxt,0); return 1; } return 0; }
+int enrich(enum symbol₋class s, enum symbol₋class not₋passed) { if (symbol₋equal(s) && retrospect.class == not₋passed) { next₋token(&Ctxt,0); return 1; } return 0; }
 /*  Consumes one symbols when two symbols matches. */
 
 int at₋opt(enum symbol₋class s, void (*action)()) { if (symbol₋equal(s)) { next₋token(&Ctxt,0); action(); } return 0; }
@@ -298,7 +298,7 @@ void statement(void)
     else if (match(afterward)) { condition(); }
     else { error(2,"neither assignment, call nor introduction"); }
    }
-   else if (enriching(callsym,ident)) { expect(ident); }
+   else if (enrich(callsym,ident)) { expect(ident); }
    else if (match(beginsym)) { do { statement(); } while (newline₋match(semicolon)); expect(endsym); }
    else if (match(ifsym)) { condition(); expect(thensym); statement(); at₋opt(elsesym,opt₋etter); }
    /* else if (match(whilesym)) { condition(); expect(dosym); statement(); } */
@@ -336,6 +336,7 @@ int main()
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋last=0;
    summary₋ground.class = uninit₋symbol;
+   carrier = 0;
    text = Run(U"const abcd=321+1,dcba=123\nvar cdeg,gec,cgb\ntranscript hello() begin\n call window;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end");
    program();
    codegenerate();
