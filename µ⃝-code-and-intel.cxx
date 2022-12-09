@@ -12,10 +12,10 @@ void generate₋condition(struct dynamic₋bag * select)
    print(
 "    testq rax,rax\n"
 "    jz sometime₋⬚\n"
-"sometime₋⬚:\n"
+"sometime₋⬚:\n",
    ﹟leap(ident),﹟leap(ident));
    print(
-"either₋⬚:\n"
+"either₋⬚:\n",
    ﹟leap(ident));
 }
 
