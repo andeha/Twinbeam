@@ -8,7 +8,7 @@ void generate₋assign(struct dynamic₋bag * becomes)
 }
 
 void generate₋condition(struct dynamic₋bag * select)
-{ struct guid ident=Guid();
+{ struct guid ident=Guid(); 
    print(
 "    testq rax,rax\n"
 "    jz sometime₋⬚\n"
@@ -20,10 +20,17 @@ void generate₋condition(struct dynamic₋bag * select)
 }
 
 void generate₋loop(struct dynamic₋bag * etery)
-{ struct guid ident=Guid();
+{ struct guid ident=Guid(); 
    print(
 "⬚:\n"
 "    jmp ⬚\n", ﹟leap(ident), ﹟leap(ident));
+}
+
+void generate₋call(struct dynamic₋bag * send₋to₋recieve)
+{ struct Unicodes callee=send₋to₋recieve->episod;
+   print(
+"    call  ⬚\n", 
+   ﹟S(callee.tetras,callee.unicodes));
 }
 
 void codegenerate()
@@ -32,7 +39,7 @@ void codegenerate()
 "#define END(symbol)\n"
 "#define START(symbol)\n\n"
 "    .data\n"
-"abc: .ascii \"ABC\\n\"\n\n"
+"abc: .asciz \"ABC\\n\"\n\n" /* zero byte at end. */
 "    .text\n\n"
    );
 again:
@@ -45,7 +52,9 @@ again:
 "    /* START(_⬚) */\n"
 "_⬚:\n"
 "    sub   24,rsp\n"
+/* rdi, rsi, rdx, rcx, r8, r9 then right to left pushed. */
 "    fnstcw 64[rax]\n"
+"    mov   13,rax\n"
 "    add   24,rsp\n"
 "    ret\n"
 "    /* END(_⬚) */\n", 

@@ -216,7 +216,7 @@ struct dynamic₋bag {
   struct token₋detail X;
   enum symbol₋class T;
   struct dynamic₋bag *l,*r,*next,*prev,*compare₋then,*compare₋else;
-  __uint128_t fineprint;
+  __uint128_t fineprint; Nonabsolut episod;
 };
 
 struct dynamic₋bag * summary₋groundfold;
