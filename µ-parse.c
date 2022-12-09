@@ -17,6 +17,7 @@ enum language₋mode { mode₋initial, mode₋integer, mode₋regular, mode₋bi
 
 struct language₋context {
   __builtin_int_t tip₋unicode;
+  int carrier; /* 'retrospect did purge newline' and 'retrospect₋detail and retrospect₋summar differs'. */
   enum language₋mode state;
   char32̄_t regular[2048];
   short syms₋in₋regular;
@@ -39,7 +40,6 @@ typedef struct Symbol { enum symbol₋class class; struct token₋detail gritty;
 
 Symbol symbol,retrospect; struct Unicodes text; struct language₋context Ctxt; /* executable and parser. */
 /* the global variable `symbol` are among scholars known as `lookahead`. */
-int carrier; /* 'retrospect did purge newline' and 'retrospect₋detail and retrospect₋summar differs'. */
 Symbol summary₋ground; /*  a․𝘬․a 'memory after reading passed'. */
 
 #define STATE(s) (s == ctxt->state)
@@ -210,7 +210,7 @@ void valid(int type, enum symbol₋class s, char msg[]) { if (!symbol₋equal(s)
 
 int newline₋match(enum symbol₋class s) { if (symbol₋equal(s)) { next₋token(&Ctxt,1); return 1; } return 0; }
 
-int superfluous₋expect(enum symbol₋class s) { if (newline₋match(s)) return 1; error(2,"expect: unexpected symbol (⬚)", ﹟d((__builtin_int_t)(symbol.class))); return 0; }
+/* int superfluous₋expect(enum symbol₋class s) { if (newline₋match(s)) return 1; error(2,"expect: unexpected symbol (⬚)", ﹟d((__builtin_int_t)(symbol.class))); return 0; } */
 
 struct dynamic₋bag {
   struct token₋detail X;
@@ -310,15 +310,17 @@ void formal₋list(void)
    do { expect(ident); expect(/*left₋*/ident); if (!match(comma)) { expect(/*right₋ */ident); } } while(match(comma));
 }
 
+void opt₋void(void) { }
+
 void block(void)
 {
    if (match(constsym)) {
      do { expect(ident); expect(eql); condition(); 
-     } while (match(comma)); superfluous₋expect(semicolon);
+     } while (match(comma)); at₋opt(semicolon,opt₋void);
    }
    if (match(varsym)) {
      do { expect(ident); if (match(eql)) { expect(eql); condition(); } } while (match(comma));
-     superfluous₋expect(semicolon);
+     at₋opt(semicolon,opt₋void);
    }
    while (match(procsym)) { expect(ident); expect(lparen); if (!symbol₋equal(rparen)) { formal₋list(); } expect(rparen); statement(); }
 }
@@ -332,12 +334,12 @@ int main()
    merge₋to₋trie(11,kvlist,symlist,&(Ctxt.keys));
    Ctxt.state=mode₋initial;
    Ctxt.tip₋unicode=0;
+   Ctxt.carrier=0;
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋last=0;
    summary₋ground.class = uninit₋symbol;
-   carrier = 0;
-   text = Run(U"const abcd=321+1,dcba=123\nvar cdeg,gec,cgb\ntranscript foo() begin\n call window;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end\n transcript fie()\nbegin\n call view\nend\n transcript fue()\nbegin\ncall control; end");
+   text = Run(U"const abcd=321+1,dcba=123;\nvar cdeg,gec,cgb\ntranscript foo() begin\n call window;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end\n transcript fie()\nbegin\n call view\nend\n transcript fue()\nbegin\ncall control; end");
    program();
    codegenerate();
 }
