@@ -83,7 +83,7 @@ void codegenerate()
 "#define END(symbol)\n"
 "#define START(symbol)\n\n"
 "    .data\n"
-"abc: .long /* .quad .uleb128 */ 0x41,0x44,0\n\n"
+"abc: .long 0x41,0x44,0\n\n"
 "    .text\n\n"
    );
 again:
