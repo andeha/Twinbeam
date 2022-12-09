@@ -33,6 +33,22 @@ void generate₋call(struct dynamic₋bag * send₋to₋recieve)
    ﹟S(callee.tetras,callee.unicodes));
 }
 
+void preserve(int restore, int count, ...)
+{ char * register₋name; int i=0; va_prologue(count)
+again:
+   if (i >= count) { goto unagain; }
+   register₋name = va_unqueue(char *);
+   if (restore) { print(
+"    pop ⬚\n", ﹟s7(register₋name)
+   ); }
+   else { print(
+"    push ⬚\n", ﹟s7(register₋name)
+   ); }
+   goto again;
+unagain:
+   va_epilogue
+}
+
 void codegenerate()
 { struct dynamic₋bag * item=form; struct Unicodes symbol;
    print(
