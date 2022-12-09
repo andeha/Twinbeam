@@ -1,9 +1,27 @@
 /*  µ⃝-code-and-intel.cxx | print assembly for Intel x86-64. */
 
+void generate₋assign(struct dynamic₋bag * becomes)
+{
+   print(
+"    movq rdi,rax\n"
+   );
+}
+
+void generate₋condition(struct dynamic₋bag * select)
+{
+   print(
+"    testq rax,rax\n"
+"    jz sometime\n"
+"sometime:\n"
+   );
+   print(
+"either:\n"
+   );
+}
+
 void codegenerate()
 { struct dynamic₋bag * item=form; struct Unicodes symbol;
    print(
-"/*  stdout.S | material entered on stdin and fed to µ-parse. */\n\n"
 "#define END(symbol)\n"
 "#define START(symbol)\n\n"
 "    .data\n"
@@ -19,7 +37,9 @@ again:
 "    .intel_syntax\n"
 "    /* START(_⬚) */\n"
 "_⬚:\n"
+"    sub   24,rsp\n"
 "    fnstcw 64[rax]\n"
+"    add   24,rsp\n"
 "    ret\n"
 "    /* END(_⬚) */\n", 
    ﹟S(symbol),﹟S(symbol),﹟S(symbol),﹟S(symbol),﹟S(symbol));
