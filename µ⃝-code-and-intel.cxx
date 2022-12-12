@@ -102,7 +102,8 @@ void generate₋loop(struct dynamic₋bag * etery)
 
 Argᴾ ﹟generic₋run(struct collection * Ⳅ, Nonabsolute relative)
 { char32̄_t * symbol=U"symbol";
-   if (regularpool₋at(Ⳅ,relative, ^(int symbols₋total, int count₋segments, int symbols₋segment, ... /* char32_t * segment */) {
+   if (regularpool₋at(Ⳅ,relative, 
+     ^(int symbols₋total, int count₋segments, int symbols₋segment[ᐧ], char32̄_t * ᐧ segment[ᐧ]) {
      print("⬚", ﹟S(5,symbol));
    })) { ; }
    return ﹟S(0,U"");
