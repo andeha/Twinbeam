@@ -40,17 +40,3 @@ again:
    item=item->next; goto again;
 }
 
-/*
-
-iterations:
-cateches valid time + transaction tile
-genocid transgression replay
-semantik 'och' substans 'och' signal
-
-while why-smile
-do they-ooh
-
-*/
-
-/* son-ni:l vad-lokal, semantik-ock, kriminal-eko ock en sak till. () */
-
