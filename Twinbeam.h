@@ -66,6 +66,40 @@ typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎ma
 #else
 #define EXT₋C
 #endif
+#define FOSSILATED
+#define OPT_Si_FOCAL
+#define CONTEMPLATE
+#define PLUSKVAMCOMPLETE
+#define CHRONOLOGICAL
+#define SPATIALPERTUBAL
+#define EVENTUALRETROSPECTIVE
+#define IRREVERSIb /* IRREVERSI♭ alt․ IRREVERSIꙎ. */
+#define TRAJECTORAL /* also: TRAJECTORAL🝑 */
+#define INITIALPROJECTIVE
+#define IRREPABEL /* in German: 'reparierbar'. */
+#define AMBIVALENT /* native: 'contra-polarisative'. */
+#define DEFLECTIVE /*  e․𝘨 `Auntie`. */
+#define ANTIPOLARISATIVE
+#define DUALREFLECTIVE
+#define EVENTUALMACHINAL
+#define REINTEGRATIVE
+#define REFLECTIVEATTRACTIONAL
+#define VERYLOGARITHMIC
+#define BOOGIEABLATIVE
+#define PROCESSACCUSATIVE
+#define ALTERNATOPTIONAL /* SPACED */
+#define PRIMALTRANSLATIVE
+#define SCHEDULATIVEALTERNATE
+#define OPTIONALSCHEDULATIVE
+#define CIRCULATIVE /*  a․𝘬․a 'averaged' ∧ '␣'. */
+#define CONTEXTDESTILLATIVE
+#define EUCLIDEANINCOHERENT /*  c𝖿․ subversive follows incoherence. */
+#define METABOLIUNIFICATIVE /* disjunct relative METABOLISUBTRACTIONAL. */
+#define IMPLICATIVE /* I-ER-ANDE: ISOMORPHIC and INFOR. */
+#define AMBIVALENTOBFUSCATIVE /* BOLL:IG. */
+#define INCASED /*  c𝖿․ project and 'operation' and Scandinavian 'radiokälla'. */
+#define INTENTIONCORRELATIVE /*  c𝖿․ Scandinavian alt. German ₍gestalt₎ stimulus. */
+#define EMBOSSED
 #define PROMINENT MACRO
 #define false 0
 #define true (! false)
@@ -999,12 +1033,14 @@ EXT₋C notepointer jot(struct Unicodes token, identity₋ref * ᐧ opaque, __bu
 #endif
 
 typedef __builtin_int_t Nonabsolute; /* index to Unicode, not impression. */
-EXT₋C int regularpool₋datum₋text(struct collection * ᐧ 🅗, int32_t tetras, Nonabsolute relative);
-EXT₋C int regularpool₋at(struct collection * ᐧ 🅗, Nonabsolute relative, void (^ ᐧ once)(int symbols₋total, int count₋segments, int symbols₋segment, ... /* char32̄_t * segment */));
+EXT₋C int regularpool₋datum₋text(struct collection * ᐧ 🅗, int32_t tetras, 
+ Nonabsolute relative);
+EXT₋C int regularpool₋at(struct collection * ᐧ 🅗, Nonabsolute relative, void 
+ (^ ᐧ segment)(int symbols₋total, int count₋segments, int symbols₋segment, ... /* char32̄_t * segment */));
 EXT₋C int optional₋uninit₋regularpool(struct collection * ᐧ 🅷, FALLOW fallow);
 EXT₋C int init₋regularpool(struct collection * ᐧ 🅷, ALLOC alloc);
-EXT₋C int copy₋append₋onto₋regular(struct collection * ᐧ 🅗, int32_t tetras, char32̄_t cs[ᐧ], 
- ALLOC alloc, Nonabsolute * ᐧ relative);
+EXT₋C int copy₋append₋onto₋regular(struct collection * ᐧ 🅗, int32_t tetras, 
+ char32̄_t cs[ᐧ], ALLOC alloc, Nonabsolute * ᐧ relative);
 
 struct guid { struct endian { uint64_t aware; uint64_t similar; } endian; };
 struct guid Guid();
