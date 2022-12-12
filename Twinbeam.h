@@ -980,8 +980,7 @@ EXT₋C int Present₋timeserie₋overview(int count, struct Unicodes keys[ᐧ],
  Timeserie₋pod out);
 #endif
 
-typedef void * ᐝ thesaurus₋ref, * ᐝ symboltable₋ref;
-
+typedef void * ᐝ thesaurus₋ref, * ᐝ identity₋ref;
 int related₋evidence(struct Unicodes key₋similar, void (^ ᐧ right)(int count, 
  struct Unicodes values[ᐧ]), thesaurus₋ref ᐝ opaque);
 int dissociate₋all(struct Unicodes key₋similar, thesaurus₋ref * ᐝ opaque);
@@ -992,12 +991,20 @@ int form₋ōnymon(struct Unicodes key₋copy, struct Unicodes value₋copy,
 EXT₋C __uint128_t FNV1b(__builtin_int_t bytes, void * ᐝ material);
 typedef void * notepointer;
 struct w₋node { __int128_t key; notepointer note; struct w₋node *left,*right; };
-EXT₋C struct w₋node * impression₋store(symboltable₋ref opaque, __uint128_t fineprint, 
+EXT₋C struct w₋node * impression₋store(identity₋ref opaque, __uint128_t fineprint, 
  notepointer material, ALLOC alloc);
-EXT₋C struct w₋node * ᐧ impresssion₋seek(symboltable₋ref opaque, __uint128_t fineprint);
-EXT₋C notepointer jot(struct Unicodes token, symboltable₋ref * ᐧ opaque, __builtin_int 
+EXT₋C struct w₋node * ᐧ impresssion₋seek(identity₋ref opaque, __uint128_t fineprint);
+EXT₋C notepointer jot(struct Unicodes token, identity₋ref * ᐧ opaque, __builtin_int 
  notebytes, ALLOC alloc, INIT init);
 #endif
+
+typedef __builtin_int_t Nonabsolute; /* index to Unicode, not impression. */
+EXT₋C int regularpool₋datum₋text(struct collection * ᐧ Ⳅ, int32_t tetras, Nonabsolute relative);
+EXT₋C struct Unicodes regularpool₋at(struct collection * ᐧ Ⳅ, Nonabsolute relative);
+EXT₋C int optional₋uninit₋regularpool(struct collection * ᐧ Ⳅ, FALLOW fallow);
+EXT₋C int init₋regularpool(struct collection * ᐧ Ⳅ, ALLOC alloc);
+EXT₋C int copy₋append₋onto₋regular(struct collection * ᐧ Ⳅ, int32_t tetras, char32̄_t cs[ᐧ], 
+ ALLOC alloc, Nonabsolute * ᐧ relative);
 
 struct guid { struct endian { uint64_t aware; uint64_t similar; } endian; };
 struct guid Guid();
