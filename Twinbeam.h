@@ -1000,7 +1000,7 @@ EXT₋C notepointer jot(struct Unicodes token, identity₋ref * ᐧ opaque, __bu
 
 typedef __builtin_int_t Nonabsolute; /* index to Unicode, not impression. */
 EXT₋C int regularpool₋datum₋text(struct collection * ᐧ Ⳅ, int32_t tetras, Nonabsolute relative);
-EXT₋C int regularpool₋at(struct collection * ᐧ Ⳅ, Nonabsolute relative, void (^optional)(struct Unicodes));
+EXT₋C int regularpool₋at(struct collection * ᐧ Ⳅ, Nonabsolute relative, void (^ ᐧ once)(int count, ... /* char3̄2_t * run */));
 EXT₋C int optional₋uninit₋regularpool(struct collection * ᐧ Ⳅ, FALLOW fallow);
 EXT₋C int init₋regularpool(struct collection * ᐧ Ⳅ, ALLOC alloc);
 EXT₋C int copy₋append₋onto₋regular(struct collection * ᐧ Ⳅ, int32_t tetras, char32̄_t cs[ᐧ], 
