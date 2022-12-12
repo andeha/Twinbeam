@@ -32,15 +32,16 @@ int copy₋append₋onto₋regular(struct collection * ᐧ 🅷, int32_t tetras,
 }
 
 int regularpool₋at(struct collection * ᐧ 🅷, Nonabsolute reference, void (^ ᐧ 
- segment)(int symbols₋total, int count₋segments, int symbols₋segment, ... 
- /* char32̄_t * segment */))
+ segment)(int symbols₋total, int count₋segments, int * symbols₋segment, 
+  char32̄_t ** segment))
 { uint32_t symbol₋count=*(uint32_t *)collection₋relative(reference,🅷);
    char32̄_t *first₋symbol=(char32̄_t *)collection₋relative(4 + reference,🅷), 
     *last₋symbol=(char32̄_t *)collection₋relative(4 + 4*(reference - 1) + symbol₋count,🅷), 
     *window₋start=first₋symbol;
-   int segment₋sum = 1 + (4*symbol₋count)/PAGE₋SIZE;
-   char32̄_t * assort[segment₋sum]; int j=0,i=0,augment;
+   int segment₋sum = 1 + (4*symbol₋count)/PAGE₋SIZE; int symbols[segment₋sum]; 
+   char32̄_t * assort[segment₋sum]; __builtin_int_t j=reference,i=0,augment;
 again:
+   augment = j % PAGE₋SIZE >= symbol₋count ? PAGE₋SIZE : PAGE₋SIZE;
    if (i >= segment₋sum)
    {
      segment(symbol₋count,segment₋sum,augment,assort);
@@ -48,7 +49,6 @@ again:
    }
    window₋start = (char32̄_t *)collection₋relative(j,🅷);
    assort[i] = window₋start;
-   augment = j + PAGE₋SIZE >= symbol₋count ? PAGE₋SIZE : PAGE₋SIZE;
    i+=1,j+=augment; goto again;
 }
 
