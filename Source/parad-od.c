@@ -32,23 +32,26 @@ int copy₋append₋onto₋regular(struct collection * ᐧ 🅷, int32_t tetras,
 }
 
 int regularpool₋at(struct collection * ᐧ 🅷, Nonabsolute reference, void (^ ᐧ 
- segment)(int symbols₋total, int count₋segments, int * symbols₋segment, 
-  char32̄_t ** segment))
+ segment)(int symbols₋total, int count₋segments, int symbols₋segment[ᐧ], 
+  char32̄_t * ᐧ segment[ᐧ]))
 { uint32_t symbol₋count=*(uint32_t *)collection₋relative(reference,🅷);
-   char32̄_t *first₋symbol=(char32̄_t *)collection₋relative(4 + reference,🅷), 
-    *last₋symbol=(char32̄_t *)collection₋relative(4 + 4*(reference - 1) + symbol₋count,🅷), 
-    *window₋start=first₋symbol;
-   int segment₋sum = 1 + (4*symbol₋count)/PAGE₋SIZE; int symbols[segment₋sum]; 
-   char32̄_t * assort[segment₋sum]; __builtin_int_t j=reference,i=0,augment;
+   int segment₋sum = 1 + (4*symbol₋count)/PAGE₋SIZE;
+   char32̄_t * assort[segment₋sum]; int symbols[segment₋sum];
+   __builtin_int_t symbol₋idx=reference,segment₋idx=0,symbol₋augment,symbol₋summand=0;
 again:
-   augment = j % PAGE₋SIZE >= symbol₋count ? PAGE₋SIZE : PAGE₋SIZE;
-   if (i >= segment₋sum)
+   if (segment₋idx == 0) {
+      __builtin_int_t page₋number = (4*reference)/PAGE₋SIZE, symbolslots₋per₋page=PAGE₋SIZE/4;
+      __builtin_int_t symbols₋until₋end₋of₋page = reference - page₋number*PAGE₋SIZE;
+      symbol₋augment = min(symbols₋until₋end₋of₋page, symbol₋count); }
+   else if (segment₋idx == segment₋sum - 1) { symbol₋augment = symbol₋count - symbol₋idx; }
+   else { symbol₋augment = PAGE₋SIZE; }
+   symbols[segment₋idx] = symbol₋augment;
+   assort[segment₋idx] = (char32̄_t *)collection₋relative(4 + 4*symbol₋idx,🅷);
+   if (segment₋idx >= segment₋sum)
    {
-     segment(symbol₋count,segment₋sum,augment,assort);
+     segment(symbol₋count,segment₋sum,symbols,assort);
      return 0;
    }
-   window₋start = (char32̄_t *)collection₋relative(j,🅷);
-   assort[i] = window₋start;
-   i+=1,j+=augment; goto again;
+   segment₋idx+=1,symbol₋idx+=symbol₋augment; goto again;
 }
 
