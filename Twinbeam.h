@@ -1003,10 +1003,10 @@ typedef __builtin_int_t Nonabsolute; /* index to Unicode, not impression. */
 EXT₋C int regularpool₋datum₋text(struct collection * ᐧ 🅗, int32_t tetras, 
  Nonabsolute relative);
 EXT₋C int regularpool₋at(struct collection * ᐧ 🅗, Nonabsolute relative, void 
- (^ ᐧ segment)(int symbols₋total, int count₋segments, int * symbols₋segment, 
- char32̄_t ** segment));
+ (^ ᐧ segment)(int symbols₋total, int count₋segments, int symbols₋segment[ᐧ], 
+ char32̄_t * ᐧ segment[ᐧ]));
 EXT₋C int optional₋uninit₋regularpool(struct collection * ᐧ 🅷, FALLOW fallow);
-EXT₋C int init₋regularpool(struct collection * ᐧ 🅷, ALLOC alloc);
+EXT₋C int init₋regularpool(struct collection * ᐧ 🅷);
 EXT₋C int copy₋append₋onto₋regular(struct collection * ᐧ 🅗, int32_t tetras, 
  char32̄_t cs[ᐧ], ALLOC alloc, Nonabsolute * ᐧ relative);
 

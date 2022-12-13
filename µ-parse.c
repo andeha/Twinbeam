@@ -376,7 +376,8 @@ int main()
    Ctxt.ongoing=0;
    Ctxt.render₋newline₋last=0;
    summary₋ground.class = uninit₋symbol;
-   if (init₋regularpool(identifiers,Alloc)) { return 1; }
+   identifiers = Alloc(sizeof(struct collection));
+   if (init₋regularpool(identifiers)) { return 1; }
    text = Run(U"const abcd=321+1,dcba=123;\nvar cdeg,gec,cgb\ntranscript foo() begin\n call window;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end\n transcript fie()\nbegin\n call view\nend\n transcript fue()\nbegin\ncall control end");
    program();
    assign(form);

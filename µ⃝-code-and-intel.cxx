@@ -104,7 +104,9 @@ Argᴾ ﹟generic₋run(struct collection * Ⳅ, Nonabsolute relative)
 { char32̄_t * symbol=U"symbol";
    if (regularpool₋at(Ⳅ,relative, 
      ^(int symbols₋total, int count₋segments, int symbols₋segment[ᐧ], char32̄_t * ᐧ segment[ᐧ]) {
-     print("⬚", ﹟S(5,symbol));
+     for (int i=0; i<count₋segments; i+=1) {
+       print("⬚", ﹟S(symbols₋segment[i],segment[i]));
+     }
    })) { ; }
    return ﹟S(0,U"");
 }

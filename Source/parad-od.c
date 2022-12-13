@@ -4,7 +4,7 @@ import Twinbeam;
 
 #define PAGE₋SIZE 8192
 
-int init₋regularpool(struct collection * ᐧ 🅗, ALLOC alloc)
+int init₋regularpool(struct collection * ᐧ 🅗)
 {
    if (collection₋init(4,PAGE₋SIZE,🅗)) { return -1; }
    return 0;
@@ -39,11 +39,11 @@ int regularpool₋at(struct collection * ᐧ 🅷, Nonabsolute reference, void (
    char32̄_t * assort[segment₋sum]; int symbols[segment₋sum];
    __builtin_int_t symbol₋idx=reference,segment₋idx=0,symbol₋augment,symbol₋summand=0;
 again:
-   if (segment₋idx == 0) {
-      __builtin_int_t page₋number = (4*reference)/PAGE₋SIZE, symbolslots₋per₋page=PAGE₋SIZE/4;
-      __builtin_int_t symbols₋until₋end₋of₋page = reference - page₋number*PAGE₋SIZE;
-      symbol₋augment = min(symbols₋until₋end₋of₋page, symbol₋count); }
-   else if (segment₋idx == segment₋sum - 1) { symbol₋augment = symbol₋count - symbol₋idx; }
+   if (segment₋idx == 0) {  __builtin_int_t page₋number=(4*reference)/PAGE₋SIZE, 
+      symbolslots₋per₋page=PAGE₋SIZE/4, symbols₋until₋end₋of₋page = reference - 
+      page₋number*symbolslots₋per₋page;
+     symbol₋augment = min(symbols₋until₋end₋of₋page,symbol₋count);
+   } else if (segment₋idx == segment₋sum - 1) { symbol₋augment = symbol₋count - symbol₋idx; }
    else { symbol₋augment = PAGE₋SIZE; }
    symbols[segment₋idx] = symbol₋augment;
    assort[segment₋idx] = (char32̄_t *)collection₋relative(4 + 4*symbol₋idx,🅷);
