@@ -53,7 +53,7 @@ build $objs/timuli-metri.o: c tee-metric.c
 build $objs/unstall-irection.o: c unstall-coalesc.c
 build $objs/glossar-many.o: c flera-index.c
 build $objs/scrabble-tile.o: c latitude-arab.c
-build $objs/dā-rad.o: c parad-od.c
+build $objs/dā-rad.o: c parad-sekvent.c
 build emit-content: toc
 default $arm-library
 

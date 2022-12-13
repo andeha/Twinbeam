@@ -49,6 +49,6 @@ build $objs/unique-comput.o: c comput-unique.c
 build $objs/unstall-bank.o: c unstall-coalesc.c
 build $objs/index-company.o: c flera-index.c
 build $objs/lattice-trie.o: c latitude-arab.c
-build $objs/val-arr.o: c parad-od.c
+build $objs/val-arr.o: c parad-sekvent.c
 default $library-root
 
