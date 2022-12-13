@@ -1,4 +1,4 @@
-/*  parad-od.c | /in-te 'mōn-ster'/. */
+/*  parad-sekvent.c | /in-te 'mōn-ster'/. */
 
 import Twinbeam;
 
