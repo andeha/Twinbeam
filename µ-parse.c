@@ -256,6 +256,7 @@ struct dynamic₋bag * summary₋groundfold;
 
 enum { 🅐=1, 🅑, 🅒, 🅔, 🅕, 🅖, 🅗, 🅙, 🅛, 🅝, 🅟 };
 
+void process₋compute(struct dynamic₋bag *);
 void House(int type, int count, ...);
 void assign(struct dynamic₋bag *);
 void codegenerate();
@@ -263,6 +264,7 @@ void codegenerate();
 struct dynamic₋bag * form;
 
 #include "µ⃝-code-and-tree.cxx"
+/* #include "µ⃝-verse-const.cxx" */
 #include "µ⃝-general-register.cxx"
 /* #include "µ⃝-semantic-register.cxx"
 #include "µ⃝-code-and-arm.cxx" */
