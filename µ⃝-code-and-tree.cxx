@@ -64,12 +64,32 @@ void House(int type, int count, ...)
     enum symbol₋class op = va_unqueue(enum symbol₋class);
     form = new₋Expression((struct dynamic₋bag *)left,(struct dynamic₋bag *)right,op);
     break; }
-   case 🅓: { void * item = va_unqueue(struct dynamic₋bag *);
+   case 🅔: { void * item = va_unqueue(struct dynamic₋bag *);
     int type = va_unqueue(int);
     form = new₋Statement((struct dynamic₋bag *)item,type);
     break; }
-   case 🅔: { 
+   case 🅕: { Nonabsolut identity = va_unqueue(Nonabsolut);
+    void * right = va_unqueue(struct dynamic₋bag *);
+    form = new₋Statement(new₋Identifier(identity),afterward);
     break; }
+   case 🅖: { Nonabsolut callee = va_unqueue(Nonabsolut);
+    form = new₋Identifier(callee);
+    form->T = callsym;
+    break; }
+   case 🅗: { /* statement list */
+      break; }
+   case 🅙: { /* condition */
+      break; }
+   case 🅛: { Nonabsolut uni₋vers = va_unqueue(Nonabsolut);
+      void * serpent = va_unqueue(struct dynamic₋bag *);
+      break; }
+   case 🅝: { Nonabsolut identifier = va_unqueue(Nonabsolut);
+      void * arg₋u₋ment = va_unqueue(struct dynamic₋bag *);
+      break; }
+   case 🅟: { Nonabsolut _symbol = va_unqueue(Nonabsolut);
+      void * parameters = va_unqueue(struct dynamic₋bag *);
+      void * detail = va_unqueue(struct dynamic₋bag *);
+      break; }
    }
    va_epilogue
 }

@@ -254,7 +254,7 @@ struct dynamic₋bag {
 
 struct dynamic₋bag * summary₋groundfold;
 
-enum { 🅐=1, 🅑, 🅒, 🅓, 🅔, 🅕, 🅖, 🅗, 🅘, 🅙, 🅚, 🅛 };
+enum { 🅐=1, 🅑, 🅒, 🅔, 🅕, 🅖, 🅗, 🅙, 🅛, 🅝, 🅟 };
 
 void House(int type, int count, ...);
 void assign(struct dynamic₋bag *);
@@ -279,28 +279,29 @@ void factor(void)
 void term(void)
 {
    factor(); struct dynamic₋bag * left=form; enum symbol₋class passed; 
-   while (passed=symbol.class,symbol₋equal(times) || symbol₋equal(divide)) { 
-    next₋token(&Ctxt,0); factor(); House(🅒,3,left,form,passed); }
+   while (symbol₋equal(times) || symbol₋equal(divide)) { 
+    passed=symbol.class; next₋token(&Ctxt,0); factor(); 
+    House(🅒,3,left,form,passed); }
 } /*  'multiplication' has higher precedence than 'addition'. */
 
 void expression(void)
 { enum symbol₋class passed,initial=uninit₋symbol; struct dynamic₋bag * left;
-   if (initial=symbol.class,symbol₋equal(plus) || symbol₋equal(minus)) { 
-    next₋token(&Ctxt,0); } term(); left=form; 
+   if (symbol₋equal(plus) || symbol₋equal(minus)) { 
+    initial=symbol.class; next₋token(&Ctxt,0); } term(); left=form; 
    if (initial==minus) { left=new₋Unary(left,minus); }
-   while (passed=symbol.class,symbol₋equal(plus) || symbol₋equal(minus)) { 
-    next₋token(&Ctxt,0); term(); House(🅒,3,left,form,passed); }
+   while (symbol₋equal(plus) || symbol₋equal(minus)) { 
+    passed=symbol.class; next₋token(&Ctxt,0); term(); 
+    House(🅒,3,left,form,passed); }
 } /*  'addition' has not as high precedence as 'multiplication'. */
 
 void condition(void)
-{ enum symbol₋class passed; struct dynamic₋bag * left;
+{ struct dynamic₋bag * left;
    if (match(oddsym)) { expression(); form=new₋Unary(form,oddsym); }
    else {
-     expression(); left=form;
-     if (passed=symbol.class, symbol₋equal(eql) || symbol₋equal(neq) || 
-         symbol₋equal(lss) || symbol₋equal(leq) || symbol₋equal(gtr) || 
-         symbol₋equal(geq)) 
-     {
+     expression(); left=form; 
+     if (symbol₋equal(eql) || symbol₋equal(neq) || symbol₋equal(lss) || 
+      symbol₋equal(leq) || symbol₋equal(gtr) || symbol₋equal(geq)) 
+     { enum symbol₋class passed=symbol.class; 
        next₋token(&Ctxt,0); expression(); House(🅒,3,left,form,passed);
      } /* else {
        error(2,"condition: invalid operator");
@@ -328,15 +329,17 @@ int faschion₋se₋p(int * newline₋on₋termirender)
 
 void statement(void)
 {
-   if (match(additionssym)) { do { expect(ident); if (match(eql)) { expect(eql); condition(); } } while (match(comma)); }
-   else if (match(ident)) {
+   if (match(additionssym)) { struct dynamic₋bag * left; 
+    do { expect(ident); left=form; if (match(eql)) { expect(eql); 
+     condition(); House(🅔,1,form); } } while (match(comma)); }
+   else if (match(ident)) { struct dynamic₋bag * left=form; 
     if (match(lparen)) { if (!symbol₋equal(rparen)) { actual₋list(); } expect(rparen); }
-    else if (match(afterward)) { condition(); }
+    else if (match(afterward)) { condition(); House(🅕,2,left,form); }
     else { error(2,"neither assignment, call nor introduction"); }
    }
-   else if (enrich(callsym,ident)) { expect(ident); }
-   else if (match(beginsym)) { do { statement(); } while (newline₋match(semicolon)); expect(endsym); }
-   else if (match(ifsym)) { condition(); expect(thensym); statement(); at₋opt(elsesym,opt₋etter); }
+   else if (enrich(callsym,ident)) { expect(ident); House(🅖,1,ident); }
+   else if (match(beginsym)) { do { statement(); } while (newline₋match(semicolon)); expect(endsym); House(🅗,1,form); }
+   else if (match(ifsym)) { condition(); expect(thensym); statement(); at₋opt(elsesym,opt₋etter); House(🅙,1,form); }
    /* else if (match(whilesym)) { condition(); expect(dosym); statement(); } */
    else { error(2,"statement: syntax error"); next₋token(&Ctxt,0); }
 }
@@ -355,15 +358,18 @@ void opt₋void(void) { }
 
 void block(void)
 {
-   if (match(constsym)) {
-     do { expect(ident); expect(eql); condition(); 
+   if (match(constsym)) { Nonabsolut _symbol; 
+     do { expect(ident); expect(eql); condition(); House(🅛,2,_symbol,form);
      } while (match(comma)); at₋opt(semicolon,opt₋void);
    }
-   if (match(varsym)) {
-     do { expect(ident); if (match(eql)) { expect(eql); condition(); } } while (match(comma));
+   if (match(varsym)) { Nonabsolut _symbol; 
+     do { expect(ident); if (match(eql)) { expect(eql); condition(); } House(🅝,2,_symbol,form); } while (match(comma));
      at₋opt(semicolon,opt₋void);
    }
-   while (match(procsym)) { expect(ident); expect(lparen); if (!symbol₋equal(rparen)) { formal₋list(); } expect(rparen); statement(); }
+   while (match(procsym)) { Nonabsolut acronym; struct dynamic₋bag *list=ΨΛΩ,*detail; 
+    expect(ident); expect(lparen); if (!symbol₋equal(rparen)) { formal₋list(); } 
+    expect(rparen); statement(); House(🅟,3,acronym,list,detail);
+   }
 }
 
 void program(void) { next₋token(&Ctxt,0); block(); valid(2,end₋of₋transmission₋and₋file,"incorrect signature"); }
