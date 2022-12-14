@@ -37,7 +37,7 @@ build $objs/detail-encode.o: c stochast-symbol.c
 build $objs/detergent-hand.o: c deter-lock.c
 build $objs/etui-police.o: c pamphlet-symbol.c
 build $objs/institu-nevada.o: c nevada-institut.c
-build $objs/sheriff-step.o: asm internat-sheriff.S
+build $objs/sheriff-step.o: asm sheriff-lesapost.S
 build $objs/macarong-kastanj.o: c arrange-fifo.c
 build $objs/milit-confit.o: c c solitud-bcd.c
 build $objs/mixture-national.o: c convoj-sequen.c

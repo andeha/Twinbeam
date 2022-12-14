@@ -36,7 +36,7 @@ build $objs/encoded-tiles.o: c symbol-tiles.c
 build $objs/fraud-convoj.o: c convoj-sequen.c
 build $objs/induct-pass.o: asm church-pass.S
 build $objs/integer-base.o: c unstall-coalesc.c
-build $objs/internat-sheriff.o: asm internat-sheriff.S
+build $objs/internat-sheriff.o: asm sheriff-lesapost.S
 build $objs/land-viginia.o: c leap-osmosis.c
 build $objs/leaves-viewpoint.o: c portable-tree.c
 build $objs/letter-text.o: c impress-length.c
