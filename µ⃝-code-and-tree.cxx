@@ -1,6 +1,6 @@
 /*  µ⃝-code-and-tree.cxx | scalar and context and explana. */
 
-struct dynamic₋bag * new₋Identifier(struct Symbolinterval token)
+struct dynamic₋bag * new₋Identifier(Nonabsolut token)
 {
    struct dynamic₋bag * nonode = Alloc(sizeof(struct dynamic₋bag));
    struct dynamic₋bag init = { .T=ident, .X.kind=1, .X.store.regularOrIdent=token };
@@ -54,7 +54,7 @@ void House(int type, int count, ...)
 { va_prologue(count)
    switch (type)
    {
-   case 🅐: { struct Symbolinterval token = va_unqueue(struct Symbolinterval);
+   case 🅐: { Nonabsolut token = va_unqueue(Nonabsolut);
     form = new₋Identifier(token); break; }
    case 🅑: { struct token₋detail item = va_unqueue(struct token₋detail);
     int type = va_unqueue(int);

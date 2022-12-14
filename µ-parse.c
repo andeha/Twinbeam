@@ -23,6 +23,7 @@ struct language₋context {
   char32̄_t regular[2048];
   short syms₋in₋regular;
   __builtin_int_t ongoing,render₋newline₋last;
+  /* short zeroToNines[100]; short syms₋in₋fraction; */
   Trie keys;
 };
 
@@ -32,7 +33,7 @@ typedef Nonabsolute Nonabsolut;
 
 struct token₋detail {
   union {
-    Symbolinterval regularOrIdent,secondary;
+    Nonabsolut regularOrIdent;
     Sequenta number;
     __builtin_int_t integer;
   } store;
@@ -67,14 +68,39 @@ void assign₋symbol(enum symbol₋class s, Symbol * sym) { sym->class=s; }
 
 int symbol₋equal(enum symbol₋class s) { return symbol.class==s; }
 
+int copy₋identifier(struct language₋context * ctxt, Symbol * out)
+{ assign₋symbol(ident,out); Nonabsolut * ref = &(out->gritty.store.regularOrIdent);
+   char32̄_t * ucs=ctxt->regular; __builtin_int_t tetras=ctxt->syms₋in₋regular;
+   if (copy₋append₋onto₋regular(identifiers,tetras,ucs,Alloc,ref)) { return -1; }
+   if (regularpool₋datum₋text(identifiers,tetras,*ref)) { return -1; }
+   return 0;
+}
+
+int copy₋number(struct language₋context * ctxt, Symbol * out, int type)
+{ assign₋symbol(number,out);
+   switch (type)
+   {
+   case 1:
+     out->gritty.store.integer = ctxt->ongoing;
+     out->gritty.kind = 3;
+     break;
+   /* case 2:
+     int₋to₋sequent((int64_t)(ctxt->ongoing),&out->gritty.store.number);
+     fraction₋to₋sequent(4,ctxt->zeroToNines,&out->gritty.store.number);
+     out->gritty.kind = 2;
+     break; */
+   }
+   return 0;
+}
+
 int next₋token₋inner(struct language₋context * ctxt, int newline₋on₋termirender, Symbol * out)
 { __builtin_int_t i,symbols=text.tetras; char32̄_t uc,uc₊₁,uc₊2; int pad₋count=0,sym;
    typedef int (^type)(char32̄_t);
    type digit = ^(char32̄_t uc) { return U'0' <= uc && uc <= U'9'; };
    type letter = ^(char32̄_t uc) { return U'a' <= uc && uc <= U'z'; };
    🧵(identifier,integer₋constant,keyword,trouble,completion) {
-   case identifier: assign₋symbol(ident,out); ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
-   case integer₋constant: assign₋symbol(number,out); Ctxt.ongoing=0; ctxt->state=mode₋initial; return 0;
+   case identifier: copy₋identifier(ctxt,out); ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
+   case integer₋constant: copy₋number(ctxt,out,1); Ctxt.ongoing=0; ctxt->state=mode₋initial; return 0;
    case keyword: assign₋symbol(sym,out); ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
    case completion: assign₋symbol(end₋of₋transmission₋and₋file,out); return 0;
    case trouble: return -1;
@@ -126,8 +152,8 @@ again:
      ctxt->syms₋in₋regular+=1;
      ctxt->state = mode₋regular;
      if (!(U'a' <= uc₊₁ && uc₊₁ <= U'z')) {
-       if (trie₋keyword(ctxt->syms₋in₋regular,ctxt->regular,&sym,&(Ctxt.keys))) { confess(identifier); }
-       confess(keyword); }
+       if (!trie₋keyword(ctxt->syms₋in₋regular,ctxt->regular,&sym,&(Ctxt.keys))) { confess(keyword); }
+       confess(identifier); }
    }
    else if ((STATE(mode₋initial) || STATE(mode₋integer)) && digit(uc)) {
      ctxt->ongoing *= 10; ctxt->ongoing += uc - U'0';
@@ -197,28 +223,6 @@ void next₋token(struct language₋context * ctxt, int newline₋on₋termirend
   default: print("period and non-sorted generalization.");
   }
 #endif
-   switch (symbol.class)
-   {
-   case ident: { Nonabsolut ref;
-     int32_t tetras = symbol.gritty.store.regularOrIdent.symbols;
-     char32̄_t * ucs = symbol.gritty.store.regularOrIdent.start;
-     if (copy₋append₋onto₋regular(identifiers,tetras,ucs,Alloc,&ref)) { return; }
-     if (regularpool₋datum₋text(identifiers,tetras,ref)) { return; }
-     break; }
-   case number:
-     switch (symbol.gritty.kind)
-     {
-     case 1: symbol.gritty.store.integer=ctxt->ongoing; break;
-     case 2: { int64_t integer=(int64_t)(ctxt->ongoing);
-       short zeroToNines[] = { 1,2,3,4 };
-       int₋to₋sequent(integer,&symbol.gritty.store.number);
-       fraction₋to₋sequent(4,zeroToNines,&symbol.gritty.store.number);
-       break; }
-     default: ;
-     }
-     break;
-   default: ;
-   }
 } /* .IF .ELSE .END .INCLUDE .DEFINE. */
 
 void expression(void);
@@ -373,7 +377,7 @@ int main()
    Ctxt.tip₋unicode=0;
    Ctxt.carrier=0;
    Ctxt.syms₋in₋regular=0;
-   Ctxt.ongoing=0;
+   Ctxt.ongoing=0; /* Ctxt.syms₋in₋fraction=0; */
    Ctxt.render₋newline₋last=0;
    summary₋ground.class = uninit₋symbol;
    identifiers = Alloc(sizeof(struct collection));
