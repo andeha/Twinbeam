@@ -48,6 +48,7 @@ Symbol symbol,retrospect; struct Unicodes text; struct language₋context Ctxt; 
 Symbol symbol₋passed; /*  a․𝘬․a 'memory after reading passed' and 'ground₋fold'. */
 
 #define STATE(s) (s == ctxt->state)
+#define TRACE₋SYNTAX
 #define TRACE₋TOKENS
 
 typedef void (^Utf8)(char8₋t *,__builtin_int_t);
@@ -363,18 +364,18 @@ void block(void)
 {
    if (match(constsym)) { Nonabsolut serpent; 
      do { expect(ident); serpent=symbol₋passed.gritty.store.regularOrIdent; 
-      expect(eql); condition(); House(🅛,2,serpent,form);
+      expect(eql); condition(); House(🅛,2,serpent,form); House(🅠,1,form);
      } while (match(comma)); at₋opt(semicolon,opt₋void);
    }
    if (match(varsym)) { Nonabsolut arrghsee; /* a․𝘬․a 'argumen'. */
      do { expect(ident); arrghsee=symbol₋passed.gritty.store.regularOrIdent; 
-      if (match(eql)) { expect(eql); condition(); } House(🅝,2,arrghsee,form); }
+      if (match(eql)) { expect(eql); condition(); } House(🅝,2,arrghsee,form); House(🅡,1,form); }
      while (match(comma)); at₋opt(semicolon,opt₋void);
    }
    while (match(procsym)) { Nonabsolut acronym; struct dynamic₋bag *list=ΨΛΩ,*detail; 
     expect(ident); acronym=symbol₋passed.gritty.store.regularOrIdent; expect(lparen); 
     if (!symbol₋equal(rparen)) { formal₋list(); list=form; } expect(rparen); 
-    statement(); detail=form; House(🅟,3,acronym,list,detail);
+    statement(); detail=form; House(🅟,3,acronym,list,detail); House(🅥,1,form);
    }
 }
 
@@ -397,6 +398,9 @@ int main()
    text = Run(U"const abcd=321+1,dcba=123;\nvar cdeg,gec,cgb\ntranscript foo() begin\n call window;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end\n transcript fie()\nbegin\n call view\nend\n transcript fue()\nbegin\ncall control end");
    program();
    assign(form);
+#if defined TRACE₋SYNTAX
+   print₋tree(form);
+#endif
    codegenerate();
 }
 
