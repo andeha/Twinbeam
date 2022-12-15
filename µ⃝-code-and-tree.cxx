@@ -64,9 +64,14 @@ int indentation=0; Argᴾ ﹟run(Nonabsolut);
 void print₋tree(struct dynamic₋bag * item)
 {
    typedef void (^Print)(char *);
+   typedef void (^Detail)(struct dynamic₋bag * item);
+   typedef void (^Every)(struct dynamic₋bag *, Detail);
    Print trace = ^(char * operation) { print("⬚ @⬚\n",﹟s7(operation), 
     ﹟d((__builtin_int_t)item->memory)); indentation+=1; 
-    print₋tree(item->l); print₋tree(item->r); indentation=indentation-1; };
+    print₋tree(item->l); print₋tree(item->r); indentation+=-1; };
+   Every each = ^(struct dynamic₋bag * item₋first, Detail detail) { 
+    struct dynamic₋bag * i=item₋first; for (;i;i=i->next) { detail(i); } };
+   Detail detail = ^(struct dynamic₋bag * item) { print₋tree(item); };
    switch (item->T)
    {
    case ident: print("ident '⬚' @⬚\n", ﹟run(item->X.store.regularOrIdent),﹟d((__builtin_int_t)item->memory)); break;
@@ -84,9 +89,14 @@ void print₋tree(struct dynamic₋bag * item)
    case callsym: print("call '⬚'\n", ﹟run(item->X.store.regularOrIdent)); break;
    case branch₋goto₋optsym: print("branch ⬚\n", ﹟run(item->X.store.regularOrIdent)); break;
    case ifsym: print("compare\n"); indentation+=1; print₋tree(item->compare₋then); 
-    print₋tree(item->compare₋else); indentation=indentation-1; break;
+    print₋tree(item->compare₋else); indentation+=-1; break;
    case afterward: trace("afterward"); break;
-   default: print("unknown\n");
+   case constsym: print("constsym\n"); each(item->sequence,detail); break;
+   case varsym: print("varsym\n"); each(item->sequence,detail); break;
+   case procsym: print("procsym '⬚'\n", ﹟run(item->X.store.regularOrIdent)); 
+    indentation+=1; each(item->formal,detail); print("\n"); 
+    each(item->detail,detail); indentation+=-1; break;
+   default: { print("unknown item with symbol-type '⬚'\n", ﹟d((__builtin_int_t)item->T)); }
    }
 }
 
