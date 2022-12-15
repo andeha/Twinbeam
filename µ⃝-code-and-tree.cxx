@@ -42,10 +42,19 @@ struct dynamic₋bag * new₋Unary(struct dynamic₋bag * item, enum symbol₋cl
    return node;
 }
 
-struct dynamic₋bag * new₋Statement(struct dynamic₋bag * item, enum symbol₋class type)
+struct dynamic₋bag * new₋Statement(enum symbol₋class type)
 {
    struct dynamic₋bag *node = Alloc(sizeof(struct dynamic₋bag));
    struct dynamic₋bag init = { .T=type, .prev=ΨΛΩ, .next=ΨΛΩ };
+   *node=init;
+   return node;
+}
+
+struct dynamic₋bag * new₋Function(Nonabsolut symbol, struct dynamic₋bag * actual, 
+ struct dynamic₋bag * detail)
+{
+   struct dynamic₋bag *node = Alloc(sizeof(struct dynamic₋bag));
+   struct dynamic₋bag init = { .T=procsym, .X.kind=1, .X.store.regularOrIdent=symbol };
    *node=init;
    return node;
 }
@@ -66,30 +75,39 @@ void House(int type, int count, ...)
     break; }
    case 🅔: { void * item = va_unqueue(struct dynamic₋bag *);
     int type = va_unqueue(int);
-    form = new₋Statement((struct dynamic₋bag *)item,type);
+    form = new₋Statement(type);
+    form->expression = (struct dynamic₋bag *)item;
     break; }
    case 🅕: { Nonabsolut identity = va_unqueue(Nonabsolut);
     void * right = va_unqueue(struct dynamic₋bag *);
-    form = new₋Statement(new₋Identifier(identity),afterward);
+    form = new₋Statement(afterward);
+    form->l = new₋Identifier(identity);
     break; }
    case 🅖: { Nonabsolut callee = va_unqueue(Nonabsolut);
     form = new₋Identifier(callee);
     form->T = callsym;
     break; }
-   case 🅗: { /* statement list */
-      break; }
-   case 🅙: { /* condition */
-      break; }
+   case 🅗: { void * unit = va_unqueue(struct dynamic₋bag *);
+    form = (struct dynamic₋bag *)unit;
+    break; }/* statement list */
+   case 🅙: { void * condition = va_unqueue(struct dynamic₋bag *);
+    void * compare₋then = va_unqueue(struct dynamic₋bag *);
+    void * compare₋else = va_unqueue(struct dynamic₋bag *);
+    form = new₋Statement(ifsym);
+    form->compare₋then = compare₋then;
+    form->compare₋else = compare₋else;
+    break; } /* condition */
    case 🅛: { Nonabsolut uni₋vers = va_unqueue(Nonabsolut);
-      void * serpent = va_unqueue(struct dynamic₋bag *);
-      break; }
+    void * serpent = va_unqueue(struct dynamic₋bag *);
+    break; }
    case 🅝: { Nonabsolut identifier = va_unqueue(Nonabsolut);
-      void * arg₋u₋ment = va_unqueue(struct dynamic₋bag *);
-      break; }
-   case 🅟: { Nonabsolut _symbol = va_unqueue(Nonabsolut);
-      void * parameters = va_unqueue(struct dynamic₋bag *);
-      void * detail = va_unqueue(struct dynamic₋bag *);
-      break; }
+    void * arg₋u₋men = va_unqueue(struct dynamic₋bag *);
+    break; }
+   case 🅟: { Nonabsolut sym = va_unqueue(Nonabsolut);
+    void * parameters = va_unqueue(struct dynamic₋bag *);
+    void * detail = va_unqueue(struct dynamic₋bag *);
+    form = new₋Function(sym,(struct dynamic₋bag *)parameters,(struct dynamic₋bag *)detail);
+    break; }
    }
    va_epilogue
 }

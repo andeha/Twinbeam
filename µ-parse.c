@@ -3,12 +3,12 @@ import Twinbeam;
 
 enum symbol₋class { ident=1, number, times, divide, plus, minus, lparen, 
  rparen, eql, neq/*=10*/, lss, leq, gtr, geq, semicolon, callsym, beginsym, 
- endsym, /* whilesym, dosym, forsym */ branch₋goto₋optsym/*=20*/, elsesym, 
- thensym, ifsym, afterward, constsym, varsym, procsym, period, comma, oddsym/*=30*/, 
- voidsym, sectionsym, textsym, lformalrefpressym, rformalpresentsym, 
- rformalreferencesym, additionssym, colon, label, symbol₋for₋enquery/*=40*/, 
- end₋of₋transmission₋and₋file, uninit₋symbol, 
- logical₋alternate, logical₋and, logical₋or, 
+ endsym, /* whilesym, dosym, forsym */ branch₋goto₋optsym/*=20 inner and 
+ outer iteration */, elsesym, thensym, ifsym, afterward, constsym, varsym, 
+ procsym, period, comma, oddsym/*=30*/, voidsym, sectionsym, textsym, 
+ lformalrefpressym, rformalpresentsym, rformalreferencesym, additionssym, 
+ colon, label, symbol₋for₋enquery/*=40*/, end₋of₋transmission₋and₋file, 
+ uninit₋symbol, logical₋alternate, logical₋and, logical₋or, 
 };
 
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
@@ -23,7 +23,7 @@ struct language₋context {
   char32̄_t regular[2048];
   short syms₋in₋regular;
   __builtin_int_t ongoing,render₋newline₋last;
-  /* short zeroToNines[100]; short syms₋in₋fraction; */
+  /* short zero₋to₋nines[100]; short syms₋in₋fraction; */
   Trie keys;
 };
 
@@ -45,7 +45,7 @@ typedef struct Symbol { enum symbol₋class class; struct token₋detail gritty;
 
 Symbol symbol,retrospect; struct Unicodes text; struct language₋context Ctxt; /* executable and parser. */
 /* the global variable `symbol` are among scholars known as `lookahead`. */
-Symbol summary₋ground; /*  a․𝘬․a 'memory after reading passed' and 'ground₋fold'. */
+Symbol symbol₋passed; /*  a․𝘬․a 'memory after reading passed' and 'ground₋fold'. */
 
 #define STATE(s) (s == ctxt->state)
 #define TRACE₋TOKENS
@@ -173,7 +173,7 @@ void next₋token(struct language₋context * ctxt, int newline₋on₋termirend
     y = next₋token₋inner(ctxt,newline₋on₋termirender,&symbol);
     if (y != 0) { error(1,"scanner error: initial trouble"); exit(2); }
   } else {
-    summary₋ground = symbol;
+    symbol₋passed = symbol;
     symbol = retrospect;
   }
   y = next₋token₋inner(ctxt,newline₋on₋termirender,&retrospect);
@@ -272,11 +272,11 @@ struct dynamic₋bag * form;
 
 void factor(void)
 {
-   if (match(ident)) { House(🅐,1,summary₋ground.gritty.store.regularOrIdent); }
-   else if (match(number)) { House(🅑,2,summary₋ground.gritty,1); }
+   if (match(ident)) { House(🅐,1,symbol₋passed.gritty.store.regularOrIdent); }
+   else if (match(number)) { House(🅑,2,symbol₋passed.gritty,1); }
    else if (match(lparen)) { expression(); expect(rparen); }
    else { error(2,"factor: syntax error"); next₋token(&Ctxt,0); }
-}
+} /*  here we start to recognize 'primary' and 'secondary' and not 'ternary' coloring as a 'nice to have'. */
 
 void term(void)
 {
@@ -287,10 +287,10 @@ void term(void)
 } /*  'multiplication' has higher precedence than 'addition'. */
 
 void expression(void)
-{ enum symbol₋class passed,initial=uninit₋symbol; struct dynamic₋bag * left;
+{ enum symbol₋class passed=plus; struct dynamic₋bag * left;
    if (symbol₋equal(plus) || symbol₋equal(minus)) { 
-    initial=symbol.class; next₋token(&Ctxt,0); } term(); left=form; 
-   if (initial==minus) { left=new₋Unary(left,minus); }
+    passed=symbol.class; next₋token(&Ctxt,0); } term(); left=form; 
+   if (passed==minus) { left=new₋Unary(left,minus); }
    while (symbol₋equal(plus) || symbol₋equal(minus)) { 
     passed=symbol.class; next₋token(&Ctxt,0); term(); 
     House(🅒,3,left,form,passed); }
@@ -314,7 +314,8 @@ void condition(void)
 
 void actual₋list(void)
 { struct dynamic₋bag * first=ΨΛΩ;
-   do { condition(); if (!first) { first=form; } first->next->sequence=form; } while(match(comma));
+   do { condition(); if (!first) { first=form; } else { 
+     first->next->sequence=form; } } while(match(comma));
    form=first;
 }
 
@@ -339,7 +340,7 @@ void statement(void)
     else if (match(afterward)) { condition(); House(🅕,2,left,form); }
     else { error(2,"neither assignment, call nor introduction"); }
    }
-   else if (enrich(callsym,ident)) { expect(ident); House(🅖,1,ident); }
+   else if (enrich(callsym,ident)) { expect(ident); House(🅖,1,symbol₋passed.gritty.store.regularOrIdent); }
    else if (match(beginsym)) { do { statement(); } while (newline₋match(semicolon)); expect(endsym); House(🅗,1,form); }
    else if (match(ifsym)) { condition(); expect(thensym); statement(); at₋opt(elsesym,opt₋etter); House(🅙,1,form); }
    /* else if (match(whilesym)) { condition(); expect(dosym); statement(); } */
@@ -360,17 +361,20 @@ void opt₋void(void) { }
 
 void block(void)
 {
-   if (match(constsym)) { Nonabsolut _symbol; 
-     do { expect(ident); expect(eql); condition(); House(🅛,2,_symbol,form);
+   if (match(constsym)) { Nonabsolut serpent; 
+     do { expect(ident); serpent=symbol₋passed.gritty.store.regularOrIdent; 
+      expect(eql); condition(); House(🅛,2,serpent,form);
      } while (match(comma)); at₋opt(semicolon,opt₋void);
    }
-   if (match(varsym)) { Nonabsolut _symbol; 
-     do { expect(ident); if (match(eql)) { expect(eql); condition(); } House(🅝,2,_symbol,form); } while (match(comma));
-     at₋opt(semicolon,opt₋void);
+   if (match(varsym)) { Nonabsolut arrghsee; /* a․𝘬․a 'argumen'. */
+     do { expect(ident); arrghsee=symbol₋passed.gritty.store.regularOrIdent; 
+      if (match(eql)) { expect(eql); condition(); } House(🅝,2,arrghsee,form); }
+     while (match(comma)); at₋opt(semicolon,opt₋void);
    }
    while (match(procsym)) { Nonabsolut acronym; struct dynamic₋bag *list=ΨΛΩ,*detail; 
-    expect(ident); expect(lparen); if (!symbol₋equal(rparen)) { formal₋list(); } 
-    expect(rparen); statement(); House(🅟,3,acronym,list,detail);
+    expect(ident); acronym=symbol₋passed.gritty.store.regularOrIdent; expect(lparen); 
+    if (!symbol₋equal(rparen)) { formal₋list(); list=form; } expect(rparen); 
+    statement(); detail=form; House(🅟,3,acronym,list,detail);
    }
 }
 
@@ -387,7 +391,7 @@ int main()
    Ctxt.syms₋in₋regular=0;
    Ctxt.ongoing=0; /* Ctxt.syms₋in₋fraction=0; */
    Ctxt.render₋newline₋last=0;
-   summary₋ground.class = uninit₋symbol;
+   symbol₋passed.class = uninit₋symbol;
    identifiers = Alloc(sizeof(struct collection));
    if (init₋regularpool(identifiers)) { return 1; }
    text = Run(U"const abcd=321+1,dcba=123;\nvar cdeg,gec,cgb\ntranscript foo() begin\n call window;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end\n transcript fie()\nbegin\n call view\nend\n transcript fue()\nbegin\ncall control end");
