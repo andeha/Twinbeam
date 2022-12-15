@@ -123,6 +123,7 @@ void House(int type, int count, ...)
     void * right = va_unqueue(struct dynamic₋bag *);
     form = new₋Statement(afterward);
     form->l = new₋Identifier(identity);
+    form->r = right;
     break; }
    case 🅖: { Nonabsolut callee = va_unqueue(Nonabsolut);
     form = new₋Identifier(callee);
@@ -141,10 +142,14 @@ void House(int type, int count, ...)
    case 🅛: { Nonabsolut uni₋vers = va_unqueue(Nonabsolut);
     void * serpent = va_unqueue(struct dynamic₋bag *);
     form = new₋Statement(afterward);
+    form->l = new₋Identifier(uni₋vers);
+    form->r = serpent;
     break; }
    case 🅝: { Nonabsolut identifier = va_unqueue(Nonabsolut);
     void * arg₋u₋men = va_unqueue(struct dynamic₋bag *);
     form = new₋Statement(afterward);
+    form->l = new₋Identifier(identifier);
+    form->r = arg₋u₋men;
     break; }
    case 🅟: { Nonabsolut sy = va_unqueue(Nonabsolut);
     void * parameters = va_unqueue(struct dynamic₋bag *);
