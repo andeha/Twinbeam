@@ -252,6 +252,7 @@ struct dynamic₋bag {
   struct dynamic₋bag *l,*r,*next,*prev,*compare₋then,*compare₋else,*sequence,*expression,*last;
   struct dynamic₋bag *formal, *detail;
   __uint128_t fineprint; Nonabsolut episod;
+  struct dynamic₋bag *art,*var,*pct;
   short memory,leg;
 };
 
@@ -265,7 +266,7 @@ void House(int type, int count, ...);
 void assign(struct dynamic₋bag *);
 void codegenerate();
 
-struct dynamic₋bag * form;
+struct dynamic₋bag *form,*tree;
 
 #include "µ⃝-code-and-tree.cxx"
 /* #include "µ⃝-verse-const.cxx" */
@@ -316,11 +317,15 @@ void condition(void)
    }
 }
 
+#define List_init struct dynamic₋bag * car=ΨΛΩ,*cdr=ΨΛΩ;
+#define List_add cdr=form; if (!car) { cdr->next=cdr->prev,cdr->last=cdr,car=cdr; } \
+ else { car->last->prev->next=cdr,car->last->prev=car->last,car->last=cdr; }
+#define List_exit form=car;
+
 void actual₋list(void)
-{ struct dynamic₋bag * car=ΨΛΩ,*cdr=ΨΛΩ;
-   do { condition(); cdr=form; if (!car) { cdr->next=cdr->prev,cdr->last=cdr,car=cdr; } 
-    else { car->last->prev->next=cdr,car->last->prev=car->last,car->last=cdr; } } while(match(comma));
-   form=car;
+{ List_init
+   do { condition(); List_add } while(match(comma));
+   List_exit
 }
 
 void opt₋etter(void)
@@ -357,28 +362,32 @@ void opt₋second(void)
 }
 
 void formal₋list(void)
-{
-   do { expect(ident); expect(/*left₋*/ ident); eltgat(/*right₋*/ident,opt₋second); } while(match(comma));
+{ List_init
+   do { expect(ident); expect(/*left₋*/ ident); eltgat(/*right₋*/ident,opt₋second); List_add 
+   } while(match(comma));
+ List_exit
 }
 
 void opt₋void(void) { }
 
 void block(void)
-{
+{ tree=Alloc(sizeof(struct dynamic₋bag)); 
    if (match(constsym)) { Nonabsolut serpent; struct dynamic₋bag * list=ΨΛΩ;
      do { expect(ident); serpent=symbol₋passed.gritty.store.regularOrIdent; 
-      expect(eql); condition(); House(🅛,2,serpent,form); House(🅠,1,form);
+      expect(eql); condition(); House(🅛,2,serpent,form); House(🅠,2,tree,form);
      } while (match(comma)); at₋opt(semicolon,opt₋void);
    }
-   if (match(varsym)) { Nonabsolut arrghsee; /* a․𝘬․a 'argumen'. */ struct dynamic₋bag * list=ΨΛΩ;
-     do { expect(ident); arrghsee=symbol₋passed.gritty.store.regularOrIdent; 
-      if (match(eql)) { expect(eql); condition(); } House(🅝,2,arrghsee,form); House(🅡,1,form); }
+   if (match(varsym)) { Nonabsolut argument; struct dynamic₋bag * list=ΨΛΩ;
+     do { expect(ident); argument=symbol₋passed.gritty.store.regularOrIdent; 
+      if (match(eql)) { expect(eql); condition(); House(🅝,2,argument,form); } 
+      else { House(🅝,2,argument,ΨΛΩ); } House(🅡,2,tree,form);
+     }
      while (match(comma)); at₋opt(semicolon,opt₋void);
    }
-   while (match(procsym)) { Nonabsolut acronym; struct dynamic₋bag *list=ΨΛΩ,*detail; 
-    expect(ident); acronym=symbol₋passed.gritty.store.regularOrIdent; expect(lparen); 
+   while (match(procsym)) { Nonabsolut cipher; struct dynamic₋bag *list=ΨΛΩ,*detail; 
+    expect(ident); cipher=symbol₋passed.gritty.store.regularOrIdent; expect(lparen); 
     if (!symbol₋equal(rparen)) { formal₋list(); list=form; } expect(rparen); 
-    statement(); detail=form; House(🅟,3,acronym,list,detail); House(🅩,1,form);
+    statement(); detail=form; House(🅟,3,cipher,list,detail); House(🅩,2,tree,form);
    }
 }
 
@@ -402,7 +411,9 @@ int main()
    program();
    assign(form);
 #if defined TRACE₋SYNTAX
-   print₋tree(form);
+   print₋tree(tree->art);
+   print₋tree(tree->var);
+   print₋tree(tree->pct);
 #endif
    codegenerate();
 }

@@ -140,18 +140,29 @@ void House(int type, int count, ...)
     break; } /* condition */
    case 🅛: { Nonabsolut uni₋vers = va_unqueue(Nonabsolut);
     void * serpent = va_unqueue(struct dynamic₋bag *);
+    form = new₋Statement(afterward);
     break; }
    case 🅝: { Nonabsolut identifier = va_unqueue(Nonabsolut);
     void * arg₋u₋men = va_unqueue(struct dynamic₋bag *);
+    form = new₋Statement(afterward);
     break; }
    case 🅟: { Nonabsolut sy = va_unqueue(Nonabsolut);
     void * parameters = va_unqueue(struct dynamic₋bag *);
     void * detail = va_unqueue(struct dynamic₋bag *);
     form = new₋Function(sy,(struct dynamic₋bag *)parameters,(struct dynamic₋bag *)detail);
     break; }
-   case 🅠: break;
-   case 🅡: break;
-   case 🅩: break;
+   case 🅠: { void * tree = va_unqueue(struct dynamic₋bag *);
+    void * reads = va_unqueue(struct dynamic₋bag *);
+    ((struct dynamic₋bag *)(tree))->art = reads;
+    break; }
+   case 🅡: { void * tree = va_unqueue(struct dynamic₋bag *);
+    void * reads = va_unqueue(struct dynamic₋bag *);
+    ((struct dynamic₋bag *)(tree))->var = reads;
+    break; }
+   case 🅩: { void * tree = va_unqueue(struct dynamic₋bag *);
+    void * reads = va_unqueue(struct dynamic₋bag *);
+    ((struct dynamic₋bag *)(tree))->pct = reads;
+    break; }
    }
    va_epilogue
 }
