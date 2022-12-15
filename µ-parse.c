@@ -43,9 +43,10 @@ struct token₋detail {
 
 typedef struct Symbol { enum symbol₋class class; struct token₋detail gritty; } Symbol;
 
-Symbol symbol,retrospect; struct Unicodes text; struct language₋context Ctxt; /* executable and parser. */
-/* the global variable `symbol` are among scholars known as `lookahead`. */
+struct Unicodes text; struct language₋context Ctxt; /* executable and parser. */
+
 Symbol symbol₋passed; /*  a․𝘬․a 'memory after reading passed' and 'ground₋fold'. */
+Symbol symbol,retrospect; /* the global variable `symbol` are among scholars known as `lookahead`. */
 
 #define STATE(s) (s == ctxt->state)
 #define TRACE₋SYNTAX
@@ -248,16 +249,18 @@ int eltgat(enum symbol₋class s, void (*action)()) { return 0; }
 struct dynamic₋bag {
   struct token₋detail X;
   enum symbol₋class T;
-  struct dynamic₋bag *l,*r,*next,*prev,*compare₋then,*compare₋else,*sequence,*expression;
+  struct dynamic₋bag *l,*r,*next,*prev,*compare₋then,*compare₋else,*sequence,*expression,*last;
+  struct dynamic₋bag *formal, *detail;
   __uint128_t fineprint; Nonabsolut episod;
   short memory,leg;
 };
 
 struct dynamic₋bag * summary₋groundfold;
 
-enum { 🅐=1, 🅑, 🅒, 🅔, 🅕, 🅖, 🅗, 🅙, 🅛, 🅝, 🅟 };
+enum { 🅐=1, 🅑, 🅒, 🅔, 🅕, 🅖, 🅗, 🅙, 🅛, 🅝, 🅟, 🅠, 🅡, 🅩 };
 
 void process₋compute(struct dynamic₋bag *);
+void print₋tree(struct dynamic₋bag * item);
 void House(int type, int count, ...);
 void assign(struct dynamic₋bag *);
 void codegenerate();
@@ -314,10 +317,10 @@ void condition(void)
 }
 
 void actual₋list(void)
-{ struct dynamic₋bag * first=ΨΛΩ;
-   do { condition(); if (!first) { first=form; } else { 
-     first->next->sequence=form; } } while(match(comma));
-   form=first;
+{ struct dynamic₋bag * car=ΨΛΩ,*cdr=ΨΛΩ;
+   do { condition(); cdr=form; if (!car) { cdr->next=cdr->prev,cdr->last=cdr,car=cdr; } 
+    else { car->last->prev->next=cdr,car->last->prev=car->last,car->last=cdr; } } while(match(comma));
+   form=car;
 }
 
 void opt₋etter(void)
@@ -362,12 +365,12 @@ void opt₋void(void) { }
 
 void block(void)
 {
-   if (match(constsym)) { Nonabsolut serpent; 
+   if (match(constsym)) { Nonabsolut serpent; struct dynamic₋bag * list=ΨΛΩ;
      do { expect(ident); serpent=symbol₋passed.gritty.store.regularOrIdent; 
       expect(eql); condition(); House(🅛,2,serpent,form); House(🅠,1,form);
      } while (match(comma)); at₋opt(semicolon,opt₋void);
    }
-   if (match(varsym)) { Nonabsolut arrghsee; /* a․𝘬․a 'argumen'. */
+   if (match(varsym)) { Nonabsolut arrghsee; /* a․𝘬․a 'argumen'. */ struct dynamic₋bag * list=ΨΛΩ;
      do { expect(ident); arrghsee=symbol₋passed.gritty.store.regularOrIdent; 
       if (match(eql)) { expect(eql); condition(); } House(🅝,2,arrghsee,form); House(🅡,1,form); }
      while (match(comma)); at₋opt(semicolon,opt₋void);
@@ -375,7 +378,7 @@ void block(void)
    while (match(procsym)) { Nonabsolut acronym; struct dynamic₋bag *list=ΨΛΩ,*detail; 
     expect(ident); acronym=symbol₋passed.gritty.store.regularOrIdent; expect(lparen); 
     if (!symbol₋equal(rparen)) { formal₋list(); list=form; } expect(rparen); 
-    statement(); detail=form; House(🅟,3,acronym,list,detail); House(🅥,1,form);
+    statement(); detail=form; House(🅟,3,acronym,list,detail); House(🅩,1,form);
    }
 }
 
