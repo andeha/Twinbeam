@@ -253,7 +253,7 @@ struct dynamic₋bag {
   struct dynamic₋bag *formal, *detail;
   __uint128_t fineprint; Nonabsolut episod;
   struct dynamic₋bag *art,*var,*pct;
-  short memory,leg;
+  short memory₋count,leg;
 };
 
 struct dynamic₋bag * summary₋groundfold;
@@ -317,16 +317,11 @@ void condition(void)
    }
 }
 
-#define List_init struct dynamic₋bag * car=ΨΛΩ,*cdr=ΨΛΩ;
-#define List_add cdr=form; if (!car) { cdr->next=cdr->prev,cdr->last=cdr,car=cdr; } \
- else { car->last->prev->next=cdr,car->last->prev=car->last,car->last=cdr; }
-#define List_exit form=car;
-
 void actual₋list(void)
-{ List_init
-   do { condition(); List_add } while(match(comma));
-   List_exit
-}
+{ struct dynamic₋bag * car; int size=0;
+   do { car=Alloc(struct dynamic₋bag); if (size!=0) car->next=form; condition(); car->expression=form; size+=1; } while(match(comma));
+   form=car; form->memory₋count=size;
+} /* car->next=form when not₋first else ΨΛΩ; */
 
 void opt₋etter(void)
 {
@@ -362,10 +357,12 @@ void opt₋second(void)
 }
 
 void formal₋list(void)
-{ List_init
-   do { expect(ident); expect(/*left₋*/ ident); eltgat(/*right₋*/ident,opt₋second); List_add
+{ struct dynamic₋bag * car; int size=0;
+   do { car=Alloc(struct dynamic₋bag); if (size!=0) car->next=form; expect(ident); 
+    expect(/*left₋*/ ident); eltgat(/*right₋*/ident,opt₋second); 
+    car->expression=form; size+=1;
    } while(match(comma));
- List_exit
+ form=car; form->memory₋count=size;
 }
 
 void opt₋void(void) { }
