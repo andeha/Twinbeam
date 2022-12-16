@@ -281,7 +281,7 @@ void factor(void)
    else if (match(number)) { House(🅑,2,symbol₋passed.gritty,1); }
    else if (match(lparen)) { expression(); expect(rparen); }
    else { error(2,"factor: syntax error"); next₋token(&Ctxt,0); }
-} /*  here we start to recognize 'primary' and 'secondary' and not 'ternary' coloring as a 'nice to have'. */
+} /*  here we start to recognize 'primary' and 'secondary' and not 'ternary'. */
 
 void term(void)
 {
