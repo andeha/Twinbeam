@@ -363,7 +363,7 @@ void opt₋second(void)
 
 void formal₋list(void)
 { List_init
-   do { expect(ident); expect(/*left₋*/ ident); eltgat(/*right₋*/ident,opt₋second); List_add 
+   do { expect(ident); expect(/*left₋*/ ident); eltgat(/*right₋*/ident,opt₋second); List_add
    } while(match(comma));
  List_exit
 }
@@ -371,7 +371,7 @@ void formal₋list(void)
 void opt₋void(void) { }
 
 void block(void)
-{ tree=Alloc(sizeof(struct dynamic₋bag)); 
+{ tree=Alloc(sizeof(struct dynamic₋bag)); tree->var=tree->art=tree->pct=ΨΛΩ;
    if (match(constsym)) { Nonabsolut serpent; struct dynamic₋bag * list=ΨΛΩ;
      do { expect(ident); serpent=symbol₋passed.gritty.store.regularOrIdent; 
       expect(eql); condition(); House(🅛,2,serpent,form); House(🅠,2,tree,form);

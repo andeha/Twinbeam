@@ -101,7 +101,7 @@ void print₋tree(struct dynamic₋bag * item)
 }
 
 void House(int type, int count, ...)
-{ va_prologue(count)
+{ va_prologue(count) typedef struct dynamic₋bag * refers; /* refer-en-ce = auto *. A.k.a 'biblio'. */
    switch (type)
    {
    case 🅐: { Nonabsolut token = va_unqueue(Nonabsolut);
@@ -156,17 +156,21 @@ void House(int type, int count, ...)
     void * detail = va_unqueue(struct dynamic₋bag *);
     form = new₋Function(sy,(struct dynamic₋bag *)parameters,(struct dynamic₋bag *)detail);
     break; }
-   case 🅠: { void * tree = va_unqueue(struct dynamic₋bag *);
-    void * reads = va_unqueue(struct dynamic₋bag *);
-    ((struct dynamic₋bag *)(tree))->art = reads;
+   case 🅠: { refers tree = va_unqueue(struct dynamic₋bag *);
+    refers reads = va_unqueue(struct dynamic₋bag *);
+    if (tree->art==ΨΛΩ) { tree->art=reads; } 
+    else { reads->prev=tree->pct->last,tree->pct->last->next=reads,tree->pct->last=reads; }
     break; }
-   case 🅡: { void * tree = va_unqueue(struct dynamic₋bag *);
-    void * reads = va_unqueue(struct dynamic₋bag *);
-    ((struct dynamic₋bag *)(tree))->var = reads;
+   case 🅡: { refers tree = va_unqueue(struct dynamic₋bag *);
+    refers reads = va_unqueue(struct dynamic₋bag *);
+    if (tree->var==ΨΛΩ) { tree->var=reads; }
+    else { reads->prev=tree->pct->last,tree->pct->last->next=reads,tree->pct->last=reads; }
+    /* ((struct dynamic₋bag *)(tree))->var = reads; / * indirect dereferencing on left side. */
     break; }
-   case 🅩: { void * tree = va_unqueue(struct dynamic₋bag *);
-    void * reads = va_unqueue(struct dynamic₋bag *);
-    ((struct dynamic₋bag *)(tree))->pct = reads;
+   case 🅩: { refers tree = va_unqueue(struct dynamic₋bag *);
+    refers reads = va_unqueue(struct dynamic₋bag *);
+    if (tree->pct == ΨΛΩ) { tree->pct=reads; }
+    else { reads->prev=tree->pct->last,tree->pct->last->next=reads,tree->pct->last=reads; }
     break; }
    }
    va_epilogue
