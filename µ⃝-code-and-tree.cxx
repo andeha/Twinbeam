@@ -159,12 +159,12 @@ void House(int type, int count, ...)
    case 🅠: { refers tree = va_unqueue(struct dynamic₋bag *);
     refers reads = va_unqueue(struct dynamic₋bag *);
     if (tree->art==ΨΛΩ) { tree->art=reads; } 
-    else { reads->prev=tree->pct->last,tree->pct->last->next=reads,tree->pct->last=reads; }
+    else { reads->prev=tree->art->last,tree->art->last->next=reads,tree->art->last=reads; }
     break; }
    case 🅡: { refers tree = va_unqueue(struct dynamic₋bag *);
     refers reads = va_unqueue(struct dynamic₋bag *);
     if (tree->var==ΨΛΩ) { tree->var=reads; }
-    else { reads->prev=tree->pct->last,tree->pct->last->next=reads,tree->pct->last=reads; }
+    else { reads->prev=tree->var->last,tree->var->last->next=reads,tree->var->last=reads; }
     break; }
    case 🅩: { refers tree = va_unqueue(struct dynamic₋bag *);
     refers reads = va_unqueue(struct dynamic₋bag *);
