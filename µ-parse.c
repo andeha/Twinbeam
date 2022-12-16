@@ -253,7 +253,7 @@ struct dynamic₋bag {
   struct dynamic₋bag *formal, *detail;
   __uint128_t fineprint; Nonabsolut episod;
   struct dynamic₋bag *art,*var,*pct;
-  short memory₋count,leg;
+  short memory,count; int leg; /* memory₋count */
 };
 
 struct dynamic₋bag * summary₋groundfold;
@@ -318,9 +318,9 @@ void condition(void)
 }
 
 void actual₋list(void)
-{ struct dynamic₋bag * car; int size=0;
-   do { car=Alloc(struct dynamic₋bag); if (size!=0) car->next=form; condition(); car->expression=form; size+=1; } while(match(comma));
-   form=car; form->memory₋count=size;
+{ struct dynamic₋bag * car; short size=0;
+   do { car=Alloc(sizeof(struct dynamic₋bag)); if (size!=0) car->next=form; condition(); car->expression=form; size+=1; } while(match(comma));
+   form=car; form->count=size;
 } /* car->next=form when not₋first else ΨΛΩ; */
 
 void opt₋etter(void)
@@ -357,12 +357,12 @@ void opt₋second(void)
 }
 
 void formal₋list(void)
-{ struct dynamic₋bag * car; int size=0;
-   do { car=Alloc(struct dynamic₋bag); if (size!=0) car->next=form; expect(ident); 
+{ struct dynamic₋bag * car; short size=0;
+   do { car=Alloc(sizeof(struct dynamic₋bag)); if (size!=0) car->next=form; expect(ident); 
     expect(/*left₋*/ ident); eltgat(/*right₋*/ident,opt₋second); 
     car->expression=form; size+=1;
    } while(match(comma));
- form=car; form->memory₋count=size;
+ form=car; form->count=size;
 }
 
 void opt₋void(void) { }
