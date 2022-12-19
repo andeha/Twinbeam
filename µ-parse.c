@@ -96,7 +96,7 @@ int copy₋number(struct language₋context * ctxt, Symbol * out, int type)
    return 0;
 }
 
-int next₋token₋inner(struct language₋context * ctxt, int newline₋on₋termirender, Symbol * out)
+int next₋token₋inner(struct language₋context * ctxt, Symbol * out)
 { __builtin_int_t i,symbols=text.tetras; char32̄_t uc,uc₊₁,uc₊2; int lift₋count=0,sym;
    typedef int (^type)(char32̄_t);
    type digit = ^(char32̄_t uc) { return U'0' <= uc && uc <= U'9'; };
@@ -116,12 +116,14 @@ again:
    uc = *(text.unicodes + i), 
    uc₊₁ = lift₋count >= 2 ? U' ' : *(text.unicodes + i + 1);
    uc₊2 = lift₋count >= 1 ? U' ' : *(text.unicodes + i + 2);
-   if (STATE(mode₋initial) && uc == U'\xa') { print("newline found-and-not-passed\n");
+   if (STATE(mode₋initial) && uc == U'\xa') {
+    if (ctxt->carrier) {
+      print("termirender equal to semicolon enabled and return passed as semicolon occurred\n");
+      assign₋symbol(semicolon,out);
+      ctxt->carrier=0;
+      return 0;
+     } else { print("newline-found-and-not-passed\n"); }
      ctxt->render₋newline₋last+=1;
-     if (newline₋on₋termirender)
-     {
-       print("newline special case\n");
-     }
    }
    else if (STATE(mode₋initial) && uc == U'\xd') { }
    else if (STATE(mode₋initial) && uc == U' ') { }
@@ -170,18 +172,18 @@ again:
    goto again;
 }
 
-void next₋token(struct language₋context * ctxt, int newline₋on₋termirender)
+void next₋token(struct language₋context * ctxt)
 { int y;
   if (ctxt->tip₋unicode==0) {
-    y = next₋token₋inner(ctxt,newline₋on₋termirender,&symbol);
+    y = next₋token₋inner(ctxt,&symbol);
     if (y != 0) { error(1,"scanner error: initial trouble"); exit(2); }
   } else {
     symbol₋passed = symbol;
     symbol = retrospect;
   }
-  y = next₋token₋inner(ctxt,newline₋on₋termirender,&retrospect);
+  y = next₋token₋inner(ctxt,&retrospect);
   if (y != 0) { error(1,"scanner error: advanced failure"); exit(2); }
-  if (retrospect.class == constsym || retrospect.class == varsym || retrospect.class == procsym) { print("expecting semicolon optional\n"); }
+
 #if defined TRACE₋TOKENS
   switch (symbol.class) {
   case ident: print("identifier\n"); break;
@@ -230,18 +232,18 @@ void next₋token(struct language₋context * ctxt, int newline₋on₋termirend
 
 void expression(void);
 
-int match(enum symbol₋class s) { if (symbol₋equal(s)) { next₋token(&Ctxt,0); return 1; } return 0; }
+int match(enum symbol₋class s) { if (symbol₋equal(s)) { next₋token(&Ctxt); return 1; } return 0; }
 
 int expect(enum symbol₋class s) { if (match(s)) return 1; error(2,"expect: unexpected symbol (⬚)", ﹟d((__builtin_int_t)(symbol.class))); return 0; }
 
-int enrich(enum symbol₋class s, enum symbol₋class not₋passed) { if (symbol₋equal(s) && retrospect.class == not₋passed) { next₋token(&Ctxt,0); return 1; } return 0; }
+int enrich(enum symbol₋class s, enum symbol₋class not₋passed) { if (symbol₋equal(s) && retrospect.class == not₋passed) { next₋token(&Ctxt); return 1; } return 0; }
 /*  Consumes one symbols when two symbols matches. */
 
-int at₋opt(enum symbol₋class s, void (*action)()) { if (symbol₋equal(s)) { next₋token(&Ctxt,0); action(); } return 0; }
+int at₋opt(enum symbol₋class s, void (*action)()) { if (symbol₋equal(s)) { next₋token(&Ctxt); action(); } return 0; }
 
 void valid(int type, enum symbol₋class s, char msg[]) { if (!symbol₋equal(s)) { error(type,msg); } }
 
-int newline₋match(enum symbol₋class s) { if (symbol₋equal(s)) { next₋token(&Ctxt,1); return 1; } return 0; }
+int newline₋match(enum symbol₋class s) { if (symbol₋equal(s)) { next₋token(&Ctxt); return 1; } return 0; }
 
 /* int superfluous₋expect(enum symbol₋class s) { if (newline₋match(s)) return 1; error(2,"expect: unexpected symbol (⬚)", ﹟d((__builtin_int_t)(symbol.class))); return 0; } */
 
@@ -283,24 +285,24 @@ void factor(void)
    if (match(ident)) { House(🅐,1,symbol₋passed.gritty.store.regularOrIdent); }
    else if (match(number)) { House(🅑,2,symbol₋passed.gritty,1); }
    else if (match(lparen)) { expression(); expect(rparen); }
-   else { error(2,"factor: syntax error"); next₋token(&Ctxt,0); }
+   else { error(2,"factor: syntax error"); next₋token(&Ctxt); }
 } /*  here we start to recognize 'primary' and 'secondary' and not 'ternary'. */
 
 void term(void)
 {
    factor(); struct dynamic₋bag * left=form; enum symbol₋class passed; 
    while (symbol₋equal(times) || symbol₋equal(divide)) { 
-    passed=symbol.class; next₋token(&Ctxt,0); factor(); 
+    passed=symbol.class; next₋token(&Ctxt); factor(); 
     House(🅒,3,left,form,passed); }
 } /*  'multiplication' has higher precedence than 'addition'. */
 
 void expression(void)
 { enum symbol₋class passed=plus; struct dynamic₋bag * left;
    if (symbol₋equal(plus) || symbol₋equal(minus)) { 
-    passed=symbol.class; next₋token(&Ctxt,0); } term(); left=form; 
+    passed=symbol.class; next₋token(&Ctxt); } term(); left=form; 
    if (passed==minus) { left=new₋Unary(left,minus); }
    while (symbol₋equal(plus) || symbol₋equal(minus)) { 
-    passed=symbol.class; next₋token(&Ctxt,0); term(); 
+    passed=symbol.class; next₋token(&Ctxt); term(); 
     House(🅒,3,left,form,passed); }
 } /*  'addition' has not as high precedence as 'multiplication'. */
 
@@ -312,7 +314,7 @@ void condition(void)
      if (symbol₋equal(eql) || symbol₋equal(neq) || symbol₋equal(lss) || 
       symbol₋equal(leq) || symbol₋equal(gtr) || symbol₋equal(geq)) 
      { enum symbol₋class passed=symbol.class; 
-       next₋token(&Ctxt,0); expression(); House(🅒,3,left,form,passed);
+       next₋token(&Ctxt); expression(); House(🅒,3,left,form,passed);
      } /* else {
        error(2,"condition: invalid operator");
        next₋token(&Ctxt,0);
@@ -333,7 +335,7 @@ void opt₋etter(void)
    statement();
 }
 
-int faschion₋se₋p(int * newline₋on₋termirender)
+int faschion₋se₋p()
 {
    return !(retrospect.class==ident || retrospect.class==callsym || 
     retrospect.class==beginsym || retrospect.class==ifsym);
@@ -353,10 +355,11 @@ void statement(void)
     else { error(2,"neither assignment, call nor introduction"); }
    }
    else if (enrich(callsym,ident)) { expect(ident); House(🅖,1,symbol₋passed.gritty.store.regularOrIdent); }
-   else if (match(beginsym)) { do { statement(); } while (newline₋match(semicolon)); expect(endsym); House(🅗,1,form); }
+   else if (match(beginsym)) { do { statement(); Ctxt.carrier=1; } while (newline₋match(semicolon)); 
+    Ctxt.carrier=0; expect(endsym); House(🅗,1,form); }
    else if (match(ifsym)) { condition(); expect(thensym); statement(); at₋opt(elsesym,opt₋etter); House(🅙,1,form); }
    /* else if (match(whilesym)) { condition(); expect(dosym); statement(); } */ /* notera att 'undvikande utav vānster' ska vara tre abstraktion. */
-   else { error(2,"statement: syntax error"); next₋token(&Ctxt,0); }
+   else { error(2,"statement: syntax error"); next₋token(&Ctxt); }
 }
 
 void opt₋second(void)
@@ -403,7 +406,7 @@ void block(void)
    }
 }
 
-void program(void) { next₋token(&Ctxt,0); block(); valid(2,end₋of₋transmission₋and₋file,"incorrect signature"); }
+void program(void) { next₋token(&Ctxt); block(); valid(2,end₋of₋transmission₋and₋file,"incorrect signature"); }
 
 int main()
 {
@@ -419,7 +422,7 @@ int main()
    symbol₋passed.class = uninit₋symbol;
    identifiers = Alloc(sizeof(struct collection));
    if (init₋regularpool(identifiers)) { return 1; }
-   text = Run(U"constant abcd=321+1,dcba=123;\nvariable cdeg,gec,cgb\ntranscript foo() begin\n call window;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end\n transcript fie()\nbegin\n call view\nend\n transcript fue()\nbegin\ncall control end");
+   text = Run(U"constant abcd=321+1,dcba=123;\nvariable cdeg,gec,cgb\ntranscript foo() begin\n call window1; call window2;\nif cdeg <> gec then begin cgb:=1+1; abcd() end else begin cgb:=1-1 end end\n transcript fie()\nbegin\n call view\nend\n transcript fue()\nbegin\ncall control end");
    program();
    assign(form);
 #if defined TRACE₋SYNTAX
@@ -427,7 +430,7 @@ int main()
    print₋tree(tree->var);
    print₋tree(tree->pct);
 #endif
-   codegenerate();
+   codegenerate(); /* a.k.a 'ferry' and 'tooth'. (code and documentation.) */
 #if defined TRACE₋SYMBOL
    __builtin_int_t symbol₋count=collection₋count(identifiers)/4;
    Nonabsolute 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 relative=0,previous₋relative=0;
