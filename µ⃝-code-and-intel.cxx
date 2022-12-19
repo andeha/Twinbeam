@@ -140,7 +140,7 @@ unagain:
 }
 
 void codegenerate()
-{ struct dynamic₋bag * item=form; Nonabsolut symbol;
+{ struct dynamic₋bag * item=tree; Nonabsolut symbol;
    print(
 "#define END(symbol)\n"
 "#define START(symbol)\n\n"
@@ -161,7 +161,9 @@ again:
    print(
 "    sub   24,rsp\n"
 /* rdi, rsi, rdx, rcx, r8, r9 then right to left pushed. */
+   /* 􀉈: cutaway until ✂️. */
 "    fnstcw 64[rax]\n"
+   /* ✂️ */
 "    mov   13,rax\n"
 "    add   24,rsp\n"
    );

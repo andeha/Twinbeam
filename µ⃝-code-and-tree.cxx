@@ -37,7 +37,7 @@ struct dynamic₋bag * new₋Expression(struct dynamic₋bag * left, struct dyna
 struct dynamic₋bag * new₋Unary(struct dynamic₋bag * item, enum symbol₋class op)
 {
    struct dynamic₋bag *node = Alloc(sizeof(struct dynamic₋bag));
-   struct dynamic₋bag init = { .T=op, .expression=item };
+   struct dynamic₋bag init = { .T=op, .element=item };
    *node=init;
    return node;
 }
@@ -90,7 +90,8 @@ void print₋tree(struct dynamic₋bag * item)
    case branch₋goto₋optsym: print("branch ⬚\n", ﹟run(item->X.store.regularOrIdent)); break;
    case ifsym: print("compare\n"); indentation+=1; print₋tree(item->compare₋then); 
     print₋tree(item->compare₋else); indentation+=-1; break;
-   case afterward: trace("afterward"); break;
+   case afterward: print("afterward @⬚\n", ﹟d((__builtin_int_t)item->memory)); indentation+=1; 
+    print₋tree(item->l); if (item->r) print₋tree(item->r); else print("<unassigned>\n"); break;
    case constsym: print("constsym\n"); each(item->sequence,detail); break;
    case varsym: print("varsym\n"); each(item->sequence,detail); break;
    case procsym: print("procsym '⬚'\n", ﹟run(item->X.store.regularOrIdent)); 
@@ -114,10 +115,11 @@ void House(int type, int count, ...)
     enum symbol₋class op = va_unqueue(enum symbol₋class);
     form = new₋Expression((struct dynamic₋bag *)left,(struct dynamic₋bag *)right,op);
     break; }
-   case 🅔: { void * item = va_unqueue(struct dynamic₋bag *);
-    int type = va_unqueue(int);
-    form = new₋Statement(type);
-    form->expression = (struct dynamic₋bag *)item;
+   case 🅔: { Nonabsolut left = va_unqueue(Nonabsolut);
+    void * right = va_unqueue(struct dynamic₋bag *);
+    form = new₋Statement(additionssym);
+    form->l = new₋Identifier(left);
+    form->r = (struct dynamic₋bag *)right;
     break; }
    case 🅕: { Nonabsolut identity = va_unqueue(Nonabsolut);
     void * right = va_unqueue(struct dynamic₋bag *);
@@ -159,17 +161,17 @@ void House(int type, int count, ...)
    case 🅠: { refers tree = va_unqueue(struct dynamic₋bag *);
     refers reads = va_unqueue(struct dynamic₋bag *);
     if (tree->art==ΨΛΩ) { tree->art=reads; } 
-    else { reads->prev=tree->art->last,tree->art->last->next=reads,tree->art->last=reads; }
+    else { reads->prev=tree->art->last; if (tree->art->last) tree->art->last->next=reads; tree->art->last=reads; }
     break; }
    case 🅡: { refers tree = va_unqueue(struct dynamic₋bag *);
     refers reads = va_unqueue(struct dynamic₋bag *);
     if (tree->var==ΨΛΩ) { tree->var=reads; }
-    else { reads->prev=tree->var->last,tree->var->last->next=reads,tree->var->last=reads; }
+    else { reads->prev=tree->var->last; if (tree->var->last) tree->var->last->next=reads; tree->var->last=reads; }
     break; }
    case 🅩: { refers tree = va_unqueue(struct dynamic₋bag *);
     refers reads = va_unqueue(struct dynamic₋bag *);
     if (tree->pct == ΨΛΩ) { tree->pct=reads; }
-    else { reads->prev=tree->pct->last,tree->pct->last->next=reads,tree->pct->last=reads; }
+    else { reads->prev=tree->pct->last; if (tree->pct->last) tree->pct->last->next=reads; tree->pct->last=reads; }
     break; }
    }
    va_epilogue
