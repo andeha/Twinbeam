@@ -19,7 +19,6 @@ enum language₋mode { mode₋initial, mode₋integer, mode₋regular, mode₋fi
 struct language₋context {
   __builtin_int_t tip₋unicode;
   int carrier; /* 'retrospect did purge newline' and 'retrospect₋detail and retrospect₋summar differs' and 'summar is always ahead'. */
-  /* the 'summar₍y₎' wins over 'general' in'System setting' retrospect contrared the north. */
   enum language₋mode state;
   char32̄_t regular[2048];
   short syms₋in₋regular;
@@ -349,7 +348,7 @@ void statement(void)
    else if (match(ident)) { struct dynamic₋bag * meat=ΨΛΩ; 
     Nonabsolut callee₋and₋identifier=symbol.gritty.store.regularOrIdent;
     if (match(lparen)) { if (!symbol₋equal(rparen)) { actual₋list(); meat=form; } expect(rparen); 
-     House(🅣,meat,callee₋and₋identifier); }
+     House(🅣,2,meat,callee₋and₋identifier); }
     else if (match(afterward)) { condition(); House(🅕,2,callee₋and₋identifier,form); }
     else { error(2,"neither assignment, call nor introduction"); }
    }
