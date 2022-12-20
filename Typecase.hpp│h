@@ -1,6 +1,6 @@
 /**  document #, acceptable and enclavable platform ✁ until ✂️.
                                              ͡                                
-    ■ = 1, □ = 0, ⬚ = Unknown, Ɀ = Sampled/dereferenced, Ç=Reconciled, and ⤪ 
+    ■ = 1, □ = 0, ⬚ = Unknown, Ɀ = Sampled/dereferenced, Ç=Reconciled, and ⤪. 
     Logic and one-liners: ≅ ≠ ⋍ ~ ⟶ ⟷ ⊂⊄⊆⊈ ⊃ (Małuszyński inclusion) ∩∪ ∈∉
       ¬∧∨ ≤≥ ≰ ≱ ∞ ∀∃∄ ⊨ ∅ 𝟄 √ ∑∏ ∂∆ ∇𝛻 ∫∬∭ ℕℤℂℍℝ ℚ ¶ ⌈⌉ ⌊⌋ log₁₀ log₃ logρ₍ₓ₎
       𝘦․𝘨 𝐊 (ᵃ𝑛/ᵇ𝑛), where n∈[1,∞) = a₁/(b₁ + a₂/(b₂ + …) ∆ ∁ ∓ ∝ ∟ ∢ ∥ ∶ ∷ ≚ ⊩ ⊺ ⊤
@@ -19,7 +19,7 @@
     Parentheses and temporals: ⎛⎜⎝   ⎞⎟⎠        ◯ ♢ ▢ (...also: 'valid' and 'transaction'.)
     Sub/super: ⁻⁺⁽¹ˣ⁾⁼ⁱⁿ ᵢᵣᵤᵥᵦᵧᵨᵩᵪ₊₋₌₍₎⨧ₐₑₒₓₔⱼᵃⁿᵈᵉʰᵊᵇⁱʲˡˢᵋᵌᵍᵎᵏᵐⁿᵒᵖʳᵗᵘᵙᵚᵛˣʸᴬᴮᴴᴵᴺᵅᵝᵞᵟᵋᶿᵠᵡ
     Matrices and conditionals: ⎡⎢⎣ ⋱ ⋰ ⋮ ⎤⎥⎦  ⎧⎨⎩  ⎫⎬⎭  ⎪
-    Misc¹: ℃/˚C/ºC ℉/˚F/ºF ® © ™ № ºª pµ Ω ℊ ϵε϶— ∁ ≙ ⋈ ⫝ ⦣⧄⧅⧆⧇ ⧈ ⧉ ╳ ☩ ₧ ₥
+    Misc¹: ℃/˚C/ºC ℉/˚F/ºF 2pi '" ® © ™ № ºª pµ Ω ℊ ϵε϶— ∁ ≙ ⋈ ⫝ ⦣⧄⧅⧆⧇ ⧈ ⧉ ╳ ☩ ₧ ₥
     Chemistry hobbyist: ⇾ ₀₁₂₃₄₅₆₇₈₉
     Math additionals: ± ∓ ∔ ×
                                                                              
@@ -123,6 +123,7 @@
     
    Actuals: ⇀ ↽ U+a0 (No-break space), ⇀ ↽ U+20 (Space), ⇀⁠↽ U+2060 
     (Word joiner), ⇀―↽ U+2015 (Horizontal bar). Note Zero-with-(no-break)-space and '%<cr>' is not equalent.
+    ⇀‧↽ U+2027 (Hyphenation point) ⇀ ↽ U+2028 (Line separator) ⇀ ↽ U+2029 (Paragraph separator)
                                                                              
    Switches and Buttons: ⌘ Command (U+2318), ⌥ Option (U+2325),              
      ⇧ Shift (U+21e7), ⎋ ESC (U+238b), ⇪ Capslock (U+21ea),                  
