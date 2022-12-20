@@ -156,7 +156,7 @@ again:
      ctxt->regular[ctxt->syms₋in₋regular]=uc;
      ctxt->syms₋in₋regular+=1;
      ctxt->state = mode₋regular;
-     if (!(U'a' <= uc₊₁ && uc₊₁ <= U'z')) {
+     if (!(U'a' <= uc₊₁ && uc₊₁ <= U'z') && !(U'0' <= uc₊₁ && uc₊₁ <= U'9')) {
        if (!trie₋keyword(ctxt->syms₋in₋regular,ctxt->regular,&sym,&(Ctxt.keys))) { confess(keyword); }
        confess(identifier); }
    }
@@ -185,47 +185,51 @@ void next₋token(struct language₋context * ctxt)
   if (y != 0) { error(1,"scanner error: advanced failure"); exit(2); }
 
 #if defined TRACE₋TOKENS
+  typedef void (^Print)(char *);
+  Print token = ^(char * rend) { print("⬚ (⬚,⬚,⬚,⬚)\n", ﹟s7(rend), 
+   ﹟d(symbol.gritty.column₋first), ﹟d(symbol.gritty.column₋last), 
+   ﹟d(symbol.gritty.lineno₋first), ﹟d(symbol.gritty.lineno₋last)); };
   switch (symbol.class) {
-  case ident: print("identifier\n"); break;
-  case number: print("integer-constant\n"); break;
-  case lparen: print("'('\n"); break;
-  case rparen: print("')'\n"); break;
-  case times: print("'*'\n"); break;
-  case divide: print("'/'\n"); break;
-  case plus: print("'+'\n"); break;
-  case minus: print("'-'\n"); break;
-  case neq: print("'<>'\n"); break;
-  case lss: print("'<'\n"); break;
-  case leq: print("'<='\n"); break;
-  case gtr: print("'>'\n"); break;
-  case geq: print("'>='\n"); break;
-  case callsym: print("'call'\n"); break;
-  case ifsym: print("'if'\n"); break;
-  case thensym: print("'then'\n"); break;
-  case elsesym: print("'else'\n"); break;
+  case ident: token("identifier"); break;
+  case number: token("integer-constant"); break;
+  case lparen: token("'('"); break;
+  case rparen: token("')'"); break;
+  case times: token("'*'"); break;
+  case divide: token("'/'"); break;
+  case plus: token("'+'"); break;
+  case minus: token("'-'"); break;
+  case neq: token("'<>'"); break;
+  case lss: token("'<'"); break;
+  case leq: token("'<='"); break;
+  case gtr: token("'>'"); break;
+  case geq: token("'>='"); break;
+  case callsym: token("'call'"); break;
+  case ifsym: token("'if'"); break;
+  case thensym: token("'then'"); break;
+  case elsesym: token("'else'"); break;
   /* case whilesym: print("'while'\n"); break;
   case dosym: print("'do'\n"); break; */
-  case branch₋goto₋optsym: print("'branch-goto-opt'\n"); break;
-  case constsym: print("'constant'\n"); break;
-  case comma: print("','\n"); break;
-  case varsym: print("'var'\n"); break;
-  case procsym: print("'transcript'\n"); break;
-  case oddsym: print("'odd'\n"); break;
-  case beginsym: print("'begin'\n"); break;
-  case endsym: print("'end'\n"); break;
-  case eql: print("'='\n"); break;
-  case colon: print("':'\n"); break;
-  case afterward: print("':='\n"); break;
-  case semicolon: print("';'\n"); break;
-  case end₋of₋transmission₋and₋file: print("completion\n"); break;
-  case sectionsym: print("'@*'\n"); break;
-  case textsym: print("'@'\n"); break;
-  case lformalrefpressym: print("'@<'\n"); break;
-  case rformalpresentsym: print("'@>='\n"); break;
-  case rformalreferencesym: print("'@>'\n"); break;
-  case additionssym: print("'additions'\n"); break;
-  case label: print("label\n"); break;
-  default: print("period and non-sorted generalization.");
+  case branch₋goto₋optsym: token("'branch-goto-opt'"); break;
+  case constsym: token("'constant'"); break;
+  case comma: token("','"); break;
+  case varsym: token("'var'"); break;
+  case procsym: token("'transcript'"); break;
+  case oddsym: token("'odd'"); break;
+  case beginsym: token("'begin'"); break;
+  case endsym: token("'end'"); break;
+  case eql: token("'='"); break;
+  case colon: token("':'"); break;
+  case afterward: token("':='"); break;
+  case semicolon: token("';'"); break;
+  case end₋of₋transmission₋and₋file: token("completion"); break;
+  case sectionsym: token("'@*'"); break;
+  case textsym: token("'@'"); break;
+  case lformalrefpressym: token("'@<'"); break;
+  case rformalpresentsym: token("'@>='"); break;
+  case rformalreferencesym: token("'@>'"); break;
+  case additionssym: token("'additions'"); break;
+  case label: token("label"); break;
+  default: vfprint("period and non-sorted generalization.\n");
   }
 #endif
 } /* .IF. .ELSE. .END. .INCLUDE. .DEFINE. */
