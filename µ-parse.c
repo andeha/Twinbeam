@@ -67,20 +67,24 @@ void error(int type, char text[], ...)
 
 struct collection * identifiers;
 
-void assign₋symbol(enum symbol₋class s, Symbol * sym) { sym->class=s; }
+void assign₋symbol(enum symbol₋class s, Symbol * sym, short count₋impression)
+{
+   sym->class=s, sym->gritty.column₋last+=count₋impression;
+}
 
 int symbol₋equal(enum symbol₋class s) { return symbol.class==s; }
 
 int copy₋identifier(struct language₋context * ctxt, Symbol * out)
-{ assign₋symbol(ident,out); Nonabsolut reference = collection₋count(identifiers)/4;
+{ Nonabsolut reference = collection₋count(identifiers)/4;
    char32̄_t * ucs=ctxt->regular; __builtin_int_t tetras=ctxt->syms₋in₋regular;
    if (copy₋append₋onto₋regular(identifiers,tetras,ucs,Alloc,&reference)) { return -1; }
    if (regularpool₋datum₋text(identifiers,tetras,reference)) { return -1; }
+   assign₋symbol(ident,out,tetras);
    return 0;
 }
 
 int copy₋number(struct language₋context * ctxt, Symbol * out, int type)
-{ assign₋symbol(number,out);
+{ assign₋symbol(number,out,-1);
    switch (type)
    {
    case 1:
@@ -104,8 +108,8 @@ int next₋token₋inner(struct language₋context * ctxt, Symbol * out)
    🧵(identifier,integer₋constant,keyword,trouble,completion) {
    case identifier: copy₋identifier(ctxt,out); ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
    case integer₋constant: copy₋number(ctxt,out,1); Ctxt.ongoing=0; ctxt->state=mode₋initial; return 0;
-   case keyword: assign₋symbol(sym,out); ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
-   case completion: assign₋symbol(end₋of₋transmission₋and₋file,out); return 0;
+   case keyword: assign₋symbol(sym,out,ctxt->syms₋in₋regular); ctxt->syms₋in₋regular=0; ctxt->state=mode₋initial; return 0;
+   case completion: assign₋symbol(end₋of₋transmission₋and₋file,out,0); return 0;
    case trouble: return -1;
    }
 again:
@@ -124,34 +128,35 @@ again:
       return 0;
      } else { print("newline-found-and-not-passed\n"); } */
      ctxt->render₋newline₋last+=1;
-     out->gritty.column₋last=0,out->gritty.lineno₋last+=1;
+     out->gritty.column₋last=0,out->gritty.column₋first=0,out->gritty.lineno₋last+=1, 
+     out->gritty.lineno₋first=0;
    }
    else if (STATE(mode₋initial) && uc == U'\xd') { }
    else if (STATE(mode₋initial) && uc == U' ') { }
    else if (STATE(mode₋initial) && uc == U'\t') { }
-   else if (STATE(mode₋initial) && uc == U'(') { assign₋symbol(lparen,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U')') { assign₋symbol(rparen,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'*') { assign₋symbol(times,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'/') { assign₋symbol(divide,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'+') { assign₋symbol(plus,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'-') { assign₋symbol(minus,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'=') { assign₋symbol(eql,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'<' && uc₊₁ == U'>') { ctxt->tip₋unicode+=1; assign₋symbol(neq,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'<' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; assign₋symbol(leq,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'<') { assign₋symbol(lss,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'>' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; assign₋symbol(geq,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'>') { assign₋symbol(gtr,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U';') { assign₋symbol(semicolon,out); return 0; } /* @<semicolon₋processed@> twice. */
-   else if (STATE(mode₋initial) && uc == U':' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; assign₋symbol(afterward,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U':') { assign₋symbol(colon,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U',') { assign₋symbol(comma,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'.') { assign₋symbol(period,out); print("754 period\n"); return 0; }
-   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'*') { assign₋symbol(sectionsym,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'@') { assign₋symbol(textsym,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'<') { assign₋symbol(lformalrefpressym,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>' && uc₊2 == U'=') { assign₋symbol(rformalpresentsym,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>') { assign₋symbol(rformalreferencesym,out); return 0; }
-   else if (STATE(mode₋initial) && uc == U'\x2405') { assign₋symbol(symbol₋for₋enquery,out); return 0; }
+   else if (STATE(mode₋initial) && uc == U'(') { assign₋symbol(lparen,out,1); return 0; }
+   else if (STATE(mode₋initial) && uc == U')') { assign₋symbol(rparen,out,1); return 0; }
+   else if (STATE(mode₋initial) && uc == U'*') { assign₋symbol(times,out,1); return 0; }
+   else if (STATE(mode₋initial) && uc == U'/') { assign₋symbol(divide,out,1); return 0; }
+   else if (STATE(mode₋initial) && uc == U'+') { assign₋symbol(plus,out,1); return 0; }
+   else if (STATE(mode₋initial) && uc == U'-') { assign₋symbol(minus,out,1); return 0; }
+   else if (STATE(mode₋initial) && uc == U'=') { assign₋symbol(eql,out,1); return 0; }
+   else if (STATE(mode₋initial) && uc == U'<' && uc₊₁ == U'>') { ctxt->tip₋unicode+=1; assign₋symbol(neq,out,2); return 0; }
+   else if (STATE(mode₋initial) && uc == U'<' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; assign₋symbol(leq,out,2); return 0; }
+   else if (STATE(mode₋initial) && uc == U'<') { assign₋symbol(lss,out,1); return 0; }
+   else if (STATE(mode₋initial) && uc == U'>' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; assign₋symbol(geq,out,2); return 0; }
+   else if (STATE(mode₋initial) && uc == U'>') { assign₋symbol(gtr,out,1); return 0; }
+   else if (STATE(mode₋initial) && uc == U';') { assign₋symbol(semicolon,out,1); return 0; } /* @<semicolon₋processed@> twice. */
+   else if (STATE(mode₋initial) && uc == U':' && uc₊₁ == U'=') { ctxt->tip₋unicode+=1; assign₋symbol(afterward,out,2); return 0; }
+   else if (STATE(mode₋initial) && uc == U':') { assign₋symbol(colon,out,1); return 0; }
+   else if (STATE(mode₋initial) && uc == U',') { assign₋symbol(comma,out,1); return 0; }
+   else if (STATE(mode₋initial) && uc == U'.') { assign₋symbol(period,out,1); print("754 period\n"); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'*') { assign₋symbol(sectionsym,out,2); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@') { assign₋symbol(textsym,out,1); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'<') { assign₋symbol(lformalrefpressym,out,2); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>' && uc₊2 == U'=') { assign₋symbol(rformalpresentsym,out,3); return 0; }
+   else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>') { assign₋symbol(rformalreferencesym,out,2); return 0; }
+   else if (STATE(mode₋initial) && uc == U'\x2405') { assign₋symbol(symbol₋for₋enquery,out,1); return 0; }
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
      if (ctxt->syms₋in₋regular == 2048) { error(1,"identifier and keyword too long"); confess(trouble); }
      ctxt->regular[ctxt->syms₋in₋regular]=uc;
