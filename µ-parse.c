@@ -117,13 +117,14 @@ again:
    uc₊₁ = lift₋count >= 2 ? U' ' : *(text.unicodes + i + 1);
    uc₊2 = lift₋count >= 1 ? U' ' : *(text.unicodes + i + 2);
    if (STATE(mode₋initial) && uc == U'\xa') {
-    if (ctxt->carrier) {
-      print("termirender equal to semicolon enabled and return passed as semicolon occurred\n");
+    /* if (ctxt->carrier) {
+      print("termirender equal to semicolon enabled and carriage passed as semicolon occurred\n");
       assign₋symbol(semicolon,out);
       ctxt->carrier=0;
       return 0;
-     } else { print("newline-found-and-not-passed\n"); }
+     } else { print("newline-found-and-not-passed\n"); } */
      ctxt->render₋newline₋last+=1;
+     out->gritty.column₋last=0,out->gritty.lineno₋last+=1;
    }
    else if (STATE(mode₋initial) && uc == U'\xd') { }
    else if (STATE(mode₋initial) && uc == U' ') { }
@@ -182,16 +183,20 @@ void next₋token(struct language₋context * ctxt)
     symbol = retrospect;
   }
   y = next₋token₋inner(ctxt,&retrospect);
+  int retrospect₋class = retrospect.class;
+  if (retrospect₋class == ident || retrospect₋class == callsym ||
+    retrospect₋class == beginsym || retrospect₋class == ifsym) 
+  { ctxt->carrier=0; } else { ctxt->carrier=1; }
   if (y != 0) { error(1,"scanner error: advanced failure"); exit(2); }
 
 #if defined TRACE₋TOKENS
   typedef void (^Print)(char *);
-  Print token = ^(char * rend) { print("⬚ (⬚,⬚,⬚,⬚)\n", ﹟s7(rend), 
+  Print token = ^(char * rend) { print("⬚ (⬚-⬚, line ⬚-⬚)\n", ﹟s7(rend), 
    ﹟d(symbol.gritty.column₋first), ﹟d(symbol.gritty.column₋last), 
    ﹟d(symbol.gritty.lineno₋first), ﹟d(symbol.gritty.lineno₋last)); };
   switch (symbol.class) {
   case ident: token("identifier"); break;
-  case number: token("integer-constant"); break;
+  case number: token("integer-constant"); break; /* for later 'fixpoint-constant'. */
   case lparen: token("'('"); break;
   case rparen: token("')'"); break;
   case times: token("'*'"); break;
@@ -240,14 +245,14 @@ int match(enum symbol₋class s) { if (symbol₋equal(s)) { next₋token(&Ctxt);
 
 int expect(enum symbol₋class s) { if (match(s)) return 1; error(2,"expect: unexpected symbol (⬚)", ﹟d((__builtin_int_t)(symbol.class))); return 0; }
 
-int enrich(enum symbol₋class s, enum symbol₋class not₋passed) { if (symbol₋equal(s) && retrospect.class == not₋passed) { next₋token(&Ctxt); return 1; } return 0; }
+int enrich(enum symbol₋class s, enum symbol₋class not₋passed, int assumption) { if (symbol₋equal(s) && retrospect.class == not₋passed && Ctxt.carrier == assumption) { next₋token(&Ctxt); return 1; } return 0; }
 /*  Consumes one symbols when two symbols matches. */
 
 int at₋opt(enum symbol₋class s, void (*action)()) { if (symbol₋equal(s)) { next₋token(&Ctxt); action(); } return 0; }
 
 void valid(int type, enum symbol₋class s, char msg[]) { if (!symbol₋equal(s)) { error(type,msg); } }
 
-int newline₋match(enum symbol₋class s) { if (symbol₋equal(s)) { next₋token(&Ctxt); return 1; } return 0; }
+int newline₋match(enum symbol₋class s) { if (symbol₋equal(s) || Ctxt.carrier==1) { next₋token(&Ctxt); return 1; } return 0; }
 
 /* int superfluous₋expect(enum symbol₋class s) { if (newline₋match(s)) return 1; error(2,"expect: unexpected symbol (⬚)", ﹟d((__builtin_int_t)(symbol.class))); return 0; } */
 
@@ -339,11 +344,11 @@ void opt₋etter(void)
    statement();
 }
 
-int faschion₋se₋p()
+/* int faschion₋se₋p()
 {
    return !(retrospect.class==ident || retrospect.class==callsym || 
     retrospect.class==beginsym || retrospect.class==ifsym);
-}
+} */
 
 void statement(void)
 {
@@ -358,8 +363,8 @@ void statement(void)
     else if (match(afterward)) { condition(); House(🅕,2,callee₋and₋identifier,form); }
     else { error(2,"neither assignment, call nor introduction"); }
    }
-   else if (enrich(callsym,ident)) { expect(ident); House(🅖,1,symbol₋passed.gritty.store.regularOrIdent); }
-   else if (match(beginsym)) { do { statement(); Ctxt.carrier=1; } while (newline₋match(semicolon)); 
+   else if (enrich(callsym,ident,0)) { expect(ident); House(🅖,1,symbol₋passed.gritty.store.regularOrIdent); }
+   else if (match(beginsym)) { Ctxt.carrier=0; do { statement(); } while (newline₋match(semicolon)); 
     Ctxt.carrier=0; expect(endsym); House(🅗,1,form); }
    else if (match(ifsym)) { condition(); expect(thensym); statement(); at₋opt(elsesym,opt₋etter); House(🅙,1,form); }
    /* else if (match(whilesym)) { condition(); expect(dosym); statement(); } */ /* notera att 'undvikande utav vānster' ska vara tre abstraktion. */
