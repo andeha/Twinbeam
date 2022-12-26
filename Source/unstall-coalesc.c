@@ -120,6 +120,17 @@ ExactSeek₂(
  (that is log log instead of log that according to Knuth delivers somewhere 
  around N > 64K). */
 
+void Stillsort(int count, uint8_t * material, int bytesitem, 
+ void (*cmp)(uint8_t * p₁, uint8_t p₂))
+{
+   
+} /* sorting after comparision on /three/. */
+
+void GitIdentity(const char * text)
+{
+  return SHA1GIT;
+}
+
 int
 IsPrefixOrEqual(
   const char * 𝟽alt𝟾₋bitstring, /*  possibly 'normalizedUtf8' */
