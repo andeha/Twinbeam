@@ -14,7 +14,8 @@ enum symbol₋class { ident=1, number, times, divide, plus, minus, lparen,
 /* clang -g -fmodules-ts -fimplicit-modules -fmodule-map-file=🚦.modules µ-parse.c \
  ../Apps/Source/Releases/libTwinbeam-x86_64.a ../Apps/Additions/monolith-sequent.c */
 
-enum language₋mode { mode₋initial, mode₋integer, mode₋regular, mode₋fixpoint, mode₋collection };
+enum language₋mode { mode₋initial, mode₋integer, mode₋regular, 
+ mode₋fixpoint, mode₋collection, mode₋sing₋le₋ekunem };
 
 struct language₋context {
   __builtin_int_t tip₋unicode;
@@ -157,6 +158,8 @@ again:
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>' && uc₊2 == U'=') { assign₋symbol(rformalpresentsym,out,3); return 0; }
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>') { assign₋symbol(rformalreferencesym,out,2); return 0; }
    else if (STATE(mode₋initial) && uc == U'\x2405') { assign₋symbol(symbol₋for₋enquery,out,1); return 0; }
+   else if (STATE(mode₋initial) && uc == U'?#') { ctxt->state=mode₋sing₋le₋ekunem; }
+   else if (STATE(mode₋initial) && uc == U'#?') { ctxt->state=mode₋sing₋le₋ekunem; }
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
      if (ctxt->syms₋in₋regular == 2048) { error(1,"identifier and keyword too long"); confess(trouble); }
      ctxt->regular[ctxt->syms₋in₋regular]=uc;
@@ -483,4 +486,4 @@ again:
  fashion₋se₋p = semicolon₋alternatively₋termirender₋and₋not(ident,'call','begin','if')
  block₋p₋se = termirender₋and₋not('transcript','var','const')
  
- 􀈐-language.c */
+  */
