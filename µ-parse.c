@@ -15,7 +15,7 @@ enum symbol₋class { ident=1, number, times, divide, plus, minus, lparen,
  ../Apps/Source/Releases/libTwinbeam-x86_64.a ../Apps/Additions/monolith-sequent.c */
 
 enum language₋mode { mode₋initial, mode₋integer, mode₋regular, 
- mode₋fixpoint, mode₋collection, mode₋sing₋le₋ekunem };
+ mode₋fixpoint, mode₋collection, mode₋single₋ekunem };
 
 struct language₋context {
   __builtin_int_t tip₋unicode;
