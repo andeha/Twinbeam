@@ -158,8 +158,8 @@ again:
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>' && uc₊2 == U'=') { assign₋symbol(rformalpresentsym,out,3); return 0; }
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>') { assign₋symbol(rformalreferencesym,out,2); return 0; }
    else if (STATE(mode₋initial) && uc == U'\x2405') { assign₋symbol(symbol₋for₋enquery,out,1); return 0; }
-   else if (STATE(mode₋initial) && uc == U'?#') { ctxt->state=mode₋sing₋le₋ekunem; }
-   else if (STATE(mode₋initial) && uc == U'#?') { ctxt->state=mode₋sing₋le₋ekunem; }
+   else if (STATE(mode₋initial) && uc == U'?#') { ctxt->state=mode₋single₋ekunem; }
+   else if (STATE(mode₋initial) && uc == U'#?') { ctxt->state=mode₋single₋ekunem; }
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
      if (ctxt->syms₋in₋regular == 2048) { error(1,"identifier and keyword too long"); confess(trouble); }
      ctxt->regular[ctxt->syms₋in₋regular]=uc;
