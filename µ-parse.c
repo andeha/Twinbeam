@@ -15,11 +15,12 @@ enum symbol₋class { ident=1, number, times, divide, plus, minus, lparen,
  ../Apps/Source/Releases/libTwinbeam-x86_64.a ../Apps/Additions/monolith-sequent.c */
 
 enum language₋mode { mode₋initial, mode₋integer, mode₋regular, 
- mode₋fixpoint, mode₋collection, mode₋single₋ekunem };
+ mode₋fixpoint, mode₋collection, mode₋single₋ekunem, mode₋multiple₋line };
 
 struct language₋context {
   __builtin_int_t tip₋unicode;
-  int carrier; /* 'retrospect did purge newline' and 'retrospect₋detail and retrospect₋summar differs' and 'summar is always ahead'. */
+  int carrier; /* 'retrospect did purge newline' and 'retrospect₋detail and 
+   retrospect₋summar differs' and 'summar is always ahead'. */
   enum language₋mode state;
   char32̄_t regular[2048];
   short syms₋in₋regular;
@@ -158,8 +159,6 @@ again:
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>' && uc₊2 == U'=') { assign₋symbol(rformalpresentsym,out,3); return 0; }
    else if (STATE(mode₋initial) && uc == U'@' && uc₊₁ == U'>') { assign₋symbol(rformalreferencesym,out,2); return 0; }
    else if (STATE(mode₋initial) && uc == U'\x2405') { assign₋symbol(symbol₋for₋enquery,out,1); return 0; }
-   else if (STATE(mode₋initial) && uc == U'?#') { ctxt->state=mode₋single₋ekunem; }
-   else if (STATE(mode₋initial) && uc == U'#?') { ctxt->state=mode₋single₋ekunem; }
    else if ((STATE(mode₋initial) && letter(uc)) || (STATE(mode₋regular) && (letter(uc) || digit(uc)))) {
      if (ctxt->syms₋in₋regular == 2048) { error(1,"identifier and keyword too long"); confess(trouble); }
      ctxt->regular[ctxt->syms₋in₋regular]=uc;
