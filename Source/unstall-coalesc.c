@@ -126,9 +126,9 @@ void Stillsort(int count, uint8_t * material, int bytesitem,
    
 } /* sorting after comparision on /three/. */
 
-void Identity₋Tb(char * text)
+void Identity₋Tb(char ** text)
 {
-  return SHA1GIT;
+  *text=SHA1GIT;
 }
 
 int
