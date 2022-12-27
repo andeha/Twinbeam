@@ -126,7 +126,7 @@ void Stillsort(int count, uint8_t * material, int bytesitem,
    
 } /* sorting after comparision on /three/. */
 
-void GitIdentity(const char * text)
+void Identity₋Tb(const char * text)
 {
   return SHA1GIT;
 }

@@ -1029,5 +1029,5 @@ typedef char8₋t uchar; typedef uint32_t uint32; typedef uint8_t byte;
 #define min(x₁, x₂) ((x₂) < (x₁) ? (x₂) : (x₁))
 #define max(x₁, x₂) ((x₁) < (x₂) ? (x₂) : (x₁))
 
-EXT₋C void Gitidentity(const char * ᐧ * ᐧ text);
+EXT₋C void Identity₋Tb(const char * ᐧ * ᐧ text);
 
