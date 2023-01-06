@@ -76,6 +76,7 @@ typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎ma
 #define Ieee754₋ARITHMETICS₋KEY
 #undef OPTIMIZED₋NONGENERAL
 #undef UNEXISTING₋IEEE754
+#define 𝟷𝟸𝟾₋bit₋integers
 #elif defined __MM__
 #define 𝟷𝟸𝟾₋bit₋integer₋available
 #define Synthetic₋𝟷𝟸𝟾₋bit₋integers /* this case encaged 128-bit integer and no 'overloading'. */
@@ -792,8 +793,8 @@ typedef struct Bitfield Bitfield;
 #pragma recto blue, white and yellow collection and time series
 
 struct Act { __builtin_int_t memory; };
-EXT₋C __builtin_int_t monoton₋ordinal(int * ᐧ wrapped, struct Act * ᐝ ❶);
-EXT₋C void init₋monoton(struct Act * ᐝ ❶, __builtin_int_t oldest);
+EXT₋C __builtin_int_t monoton₋ordinal(int * ᐝ wrapped, struct Act * ᐧ ❶);
+EXT₋C void init₋monoton(struct Act * ᐧ ❶, __builtin_int_t oldest);
 /*  retrieve a unique value in a 'strict monotonic increasing serie. Wraps (𝄇) at 
  BUILTIN₋INT₋MAX. */
 
@@ -981,7 +982,7 @@ EXT₋C int Present₋timeserie₋overview(int count, struct Unicodes keys[ᐧ],
  Timeserie₋pod out);
 #endif
 
-typedef void * ᐝ thesaurus₋ref, * ᐝ identity₋ref;
+typedef void * ᐝ thesaurus₋ref, * ᐝ regular₋ref;
 int related₋evidence(struct Unicodes key₋similar, void (^ ᐧ right)(int count, 
  struct Unicodes values[ᐧ]), thesaurus₋ref ᐝ opaque);
 int dissociate₋all(struct Unicodes key₋similar, thesaurus₋ref * ᐝ opaque);
@@ -990,13 +991,13 @@ int form₋ōnymon(struct Unicodes key₋copy, struct Unicodes value₋copy,
  int shares, thesaurus₋ref * ᐝ opaque, ALLOC alloc);
 #if defined 𝟷𝟸𝟾₋bit₋integers
 EXT₋C __uint128_t FNV1b(__builtin_int_t bytes, void * ᐝ material);
-typedef void * notepointer;
-struct w₋node { __int128_t key; notepointer note; struct w₋node *left,*right; };
-EXT₋C struct w₋node * impression₋store(identity₋ref opaque, __uint128_t fineprint, 
- notepointer material, ALLOC alloc);
-EXT₋C struct w₋node * ᐧ impresssion₋seek(identity₋ref opaque, __uint128_t fineprint);
-EXT₋C notepointer jot(struct Unicodes token, identity₋ref * ᐧ opaque, __builtin_int 
- notebytes, ALLOC alloc, INIT init);
+typedef void * ᐝ note₋ref;
+struct w₋node { __int128_t key; note₋ref note; struct w₋node * ᐝ left, * ᐝ right; };
+EXT₋C struct w₋node * ᐝ impression₋store(regular₋ref opaque, __uint128_t fineprint, 
+ note₋ref material, ALLOC alloc);
+EXT₋C struct w₋node * ᐝ impression₋seek(regular₋ref opaque, __uint128_t fineprint);
+EXT₋C note₋ref jot(struct Unicodes token, regular₋ref * ᐧ opaque, __builtin_int_t 
+ notebytes, ALLOC ᐧ alloc, INIT ᐧ init);
 #endif
 
 typedef __builtin_int_t Nonabsolute; /* index to Unicode, not impression. */
