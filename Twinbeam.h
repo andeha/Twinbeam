@@ -982,13 +982,17 @@ EXT₋C int Present₋timeserie₋overview(int count, struct Unicodes keys[ᐧ],
  Timeserie₋pod out);
 #endif
 
-typedef void * ᐝ thesaurus₋ref, * ᐝ regular₋ref;
-int related₋evidence(struct Unicodes key₋similar, void (^ ᐧ right)(int count, 
- struct Unicodes values[ᐧ]), thesaurus₋ref ᐝ opaque);
-int dissociate₋all(struct Unicodes key₋similar, thesaurus₋ref * ᐝ opaque);
-int dissociate₋one(struct Unicodes key₋similar, int idx, thesaurus₋ref * ᐝ opaque);
-int form₋ōnymon(struct Unicodes key₋copy, struct Unicodes value₋copy, 
- int shares, thesaurus₋ref * ᐝ opaque, ALLOC alloc);
+typedef __builtin_int_t Nonabsolute; /* index to Unicode, not impression. */
+EXT₋C int regularpool₋datum₋text(struct collection * ᐧ 🅗, int32_t tetras, 
+ Nonabsolute relative);
+EXT₋C int regularpool₋at(struct collection * ᐧ 🅗, Nonabsolute relative, void 
+ (^ ᐧ segment)(int symbols₋total, int count₋segments, int symbols₋segment[ᐧ], 
+ char32̄_t * ᐧ segment[ᐧ]));
+EXT₋C int optional₋uninit₋regularpool(struct collection * ᐧ 🅷, FALLOW fallow);
+EXT₋C int init₋regularpool(struct collection * ᐧ 🅷);
+EXT₋C int copy₋append₋onto₋regular(struct collection * ᐧ 🅗, int32_t tetras, 
+ char32̄_t cs[ᐧ], ALLOC alloc, Nonabsolute * ᐧ relative);
+
 #if defined 𝟷𝟸𝟾₋bit₋integers
 EXT₋C __uint128_t FNV1b(__builtin_int_t bytes, void * ᐝ material);
 typedef void * ᐝ note₋ref;
@@ -1000,16 +1004,13 @@ EXT₋C note₋ref jot(struct Unicodes token, regular₋ref * ᐧ opaque, __buil
  notebytes, ALLOC ᐧ alloc, INIT ᐧ init);
 #endif
 
-typedef __builtin_int_t Nonabsolute; /* index to Unicode, not impression. */
-EXT₋C int regularpool₋datum₋text(struct collection * ᐧ 🅗, int32_t tetras, 
- Nonabsolute relative);
-EXT₋C int regularpool₋at(struct collection * ᐧ 🅗, Nonabsolute relative, void 
- (^ ᐧ segment)(int symbols₋total, int count₋segments, int symbols₋segment[ᐧ], 
- char32̄_t * ᐧ segment[ᐧ]));
-EXT₋C int optional₋uninit₋regularpool(struct collection * ᐧ 🅷, FALLOW fallow);
-EXT₋C int init₋regularpool(struct collection * ᐧ 🅷);
-EXT₋C int copy₋append₋onto₋regular(struct collection * ᐧ 🅗, int32_t tetras, 
- char32̄_t cs[ᐧ], ALLOC alloc, Nonabsolute * ᐧ relative);
+typedef void * ᐝ thesaurus₋ref, * ᐝ regular₋ref;
+int related₋evidence(struct Unicodes key₋similar, void (^ ᐧ right)(int count, 
+ struct Unicodes values[ᐧ]), thesaurus₋ref ᐝ opaque);
+int dissociate₋all(struct Unicodes key₋similar, thesaurus₋ref * ᐝ opaque);
+int dissociate₋one(struct Unicodes key₋similar, int idx, thesaurus₋ref * ᐝ opaque);
+int form₋ōnymon(struct Unicodes key₋copy, struct Unicodes value₋copy, 
+ int shares, thesaurus₋ref * ᐝ opaque, ALLOC alloc);
 
 struct guid { struct endian { uint64_t aware; uint64_t similar; } endian; };
 struct guid Guid();
