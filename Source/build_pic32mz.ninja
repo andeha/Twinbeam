@@ -52,7 +52,7 @@ build $objs/state-relay.o: c tee-metric.c
 build $objs/symbol-compar.o: c stochast-symbol.c
 build $objs/three-biblio.o: c reference-three.c
 build $objs/unique-comput.o: c comput-unique.c
-build $objs/mellan-rātt.o: c flera-index.c
+build $objs/mellan-rātt.o: c bowler-ketter.c
 build $objs/languag-persist.o: c latitude-arab.c
 build emit-content: toc
 default $stem-library

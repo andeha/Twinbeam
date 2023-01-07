@@ -52,7 +52,7 @@ build $objs/text-length.o: c impress-length.c
 build $objs/transmit-radio.o: c serial-symbol.c
 build $objs/transparent-navaron.o: c symbol-tiles.c
 build $objs/twice-fail.o: c tee-metric.c
-build $objs/hāgkomme-frukt.o: c flera-index.c
+build $objs/hāgkomme-frukt.o: c bowler-ketter.c
 build $objs/languag-cathark.o: c latitude-arab.c
 build emit-content: toc
 default $stem-library

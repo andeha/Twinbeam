@@ -51,7 +51,7 @@ build $objs/rollno-ensolut.o: c nonsol-utroll.c
 build $objs/symbol-semati.o: c stochast-symbol.c
 build $objs/timuli-metri.o: c tee-metric.c
 build $objs/unstall-irection.o: c unstall-coalesc.c
-build $objs/glossar-many.o: c flera-index.c
+build $objs/glossar-many.o: c bowler-ketter.c
 build $objs/scrabble-tile.o: c latitude-arab.c
 build $objs/dā-rad.o: c parad-sekvent.c
 build emit-content: toc

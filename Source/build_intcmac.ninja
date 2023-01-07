@@ -47,7 +47,7 @@ build $objs/symbol-unison.o: c pamphlet-symbol.c
 build $objs/tesby-istra.o: c chim-model.c
 build $objs/unique-comput.o: c comput-unique.c
 build $objs/unstall-bank.o: c unstall-coalesc.c
-build $objs/index-company.o: c flera-index.c
+build $objs/index-company.o: c bowler-ketter.c
 build $objs/lattice-trie.o: c latitude-arab.c
 build $objs/val-arr.o: c parad-sekvent.c
 default $library-root
