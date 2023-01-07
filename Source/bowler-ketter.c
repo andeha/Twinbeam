@@ -2,6 +2,10 @@
 
 import Twinbeam;
 
+#if !defined usage₋𝟷𝟸𝟾₋bit₋integer
+#error "Requires the one-hundred-twenty-eight-bit type __uint128_t"
+#endif
+
 int form₋ōnymon(struct Unicodes key₋copy, struct value₋copy, int shares, 
  void ** opaque, ALLOC alloc)
 {
