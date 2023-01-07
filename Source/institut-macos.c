@@ -16,33 +16,9 @@ __builtin_int_t Heap₋object₋size(void * ref) { return malloc_size(ref); }
 void * Alloc(__builtin_int_t bytes) { return Heap₋alloc(bytes); }
 void Fallow(void * ref) ⓣ { Heap₋unalloc(ref); }
 
-void *
-mapfileʳᵚ( /*  a․𝘬․a 'findAndmap'. */
-  const char * canonicalUtf8RegularOrLinkpath, 
-  __builtin_int_t bytesOffset, 
-  __builtin_int_t fourKpages𝘖rZero, __builtin_int_t bytesAugment, 
-  /*  optionally later 𝙴𝙾𝚃 at 𝙴𝙾𝙵 i․𝘦 0x00000004 (Unicode) or 0x4 (utf-8). */
-  __builtin_int_t * bytesActual
-)
-{ void * p; __builtin_int_t bytesafterprune, readbytes;
-   int fd = open(canonicalUtf8RegularOrLinkpath,O_RDONLY);
-   if (fd == -1) { return ΨΛΩ; } struct stat sb;
-   if (fstat(fd,&sb) == -1) { goto err; }
-   if (S_ISDIR(sb.st_mode)) { goto err; }
-   if (S_ISLNK(sb.st_mode)) { goto err; }
-   /*  not a regular file nor a soft link. */
-   bytesafterprune = sb.st_size - bytesOffset;
-   if (bytesafterprune < 0) { goto err; }
-   *bytesActual = fourKpages𝘖rZero == 0 ? bytesafterprune : 
-     min(fourKpages𝘖rZero*4096, bytesafterprune);
-   readbytes = bytesAugment + *bytesActual;
-   p = mmap(0,readbytes,PROT_READ,MAP_SHARED,fd,bytesOffset);
-   if (p == MAP_FAILED) { goto err; }
-   return p;
-err:
-   if (close(fd) == -1) { return ΨΛΩ; }
-   return ΨΛΩ;
-} /*  see --<🥽 Cordal.cpp> when constant and --<🥽 Memclone.cpp>{Copy} when branch. */
+/*  do not call 'MacosMemorymap'. */
+
+/*  see --<🥽 Cordal.cpp> when constant and --<🥽 Memclone.cpp>{Copy} when branch. */
 
 int
 TransformAndResolve(
@@ -72,21 +48,7 @@ again:
 
 #pragma header seldom used arrangements
 
-/* __builtin_int_t
-preadv(int fd, 
-  const struct iovec * iov, int iovcnt, 
-  off_t byteoffset
-) / * ⬷ usage of ssize_t from 'sys/uio.h'. (As well as 'pwritev'.) * /
-{  __builtin_int_t acc=0;
-  for (__builtin_int_t i=0; i<iovcnt; ++i) {
-    char * dst=iov[i].iov_base; size_t nbyte=iov[i].iov_len;
-    ssize_t bytesread=pread(fd,dst,nbyte,offset+acc);
-    if (bytesread < 0) { return bytesread; }
-    acc += bytesread;
-    if (bytesread == 0) { i=iovcnt; }
-  }
-  return acc;
-} */ /*  improved version available in --<Reconcile.cpp ∧ Tape.h>{'syncro_read' alt. 'syncro_write'}. */
+/*  improved version available in --<Reconcile.cpp ∧ Tape.h>{'syncro_read' alt. 'syncro_write'}. */
 
 #pragma recto modern read and write
 
