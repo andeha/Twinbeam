@@ -76,7 +76,7 @@ typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎ma
 #define Ieee754₋ARITHMETICS₋KEY
 #undef OPTIMIZED₋NONGENERAL
 #undef UNEXISTING₋IEEE754
-#define 𝟷𝟸𝟾₋bit₋integers
+#define usage₋𝟷𝟸𝟾₋bit₋integer
 #elif defined __MM__
 #define 𝟷𝟸𝟾₋bit₋integer₋available
 #define Synthetic₋𝟷𝟸𝟾₋bit₋integers /* this case encaged 128-bit integer and no 'overloading'. */
@@ -993,24 +993,24 @@ EXT₋C int init₋regularpool(struct collection * ᐧ 🅷);
 EXT₋C int copy₋append₋onto₋regular(struct collection * ᐧ 🅗, int32_t tetras, 
  char32̄_t cs[ᐧ], ALLOC alloc, Nonabsolute * ᐧ relative);
 
-#if defined 𝟷𝟸𝟾₋bit₋integers
+#if defined usage₋𝟷𝟸𝟾₋bit₋integer
 EXT₋C __uint128_t FNV1b(__builtin_int_t bytes, void * ᐝ material);
-typedef void * ᐝ note₋ref;
+typedef void * ᐝ note₋ref, * ᐝ regular₋ref;
 struct w₋node { __int128_t key; note₋ref note; struct w₋node * ᐝ left, * ᐝ right; };
 EXT₋C struct w₋node * ᐝ impression₋store(regular₋ref opaque, __uint128_t fineprint, 
  note₋ref material, ALLOC alloc);
 EXT₋C struct w₋node * ᐝ impression₋seek(regular₋ref opaque, __uint128_t fineprint);
 EXT₋C note₋ref jot(struct Unicodes token, regular₋ref * ᐧ opaque, __builtin_int_t 
  notebytes, ALLOC ᐧ alloc, INIT ᐧ init);
-#endif
 
-typedef void * ᐝ thesaurus₋ref, * ᐝ regular₋ref;
+typedef void * ᐝ thesaurus₋ref;
 int related₋evidence(struct Unicodes key₋similar, void (^ ᐧ right)(int count, 
  struct Unicodes values[ᐧ]), thesaurus₋ref ᐝ opaque);
 int dissociate₋all(struct Unicodes key₋similar, thesaurus₋ref * ᐝ opaque);
 int dissociate₋one(struct Unicodes key₋similar, int idx, thesaurus₋ref * ᐝ opaque);
 int form₋ōnymon(struct Unicodes key₋copy, struct Unicodes value₋copy, 
  int shares, thesaurus₋ref * ᐝ opaque, ALLOC alloc);
+#endif
 
 struct guid { struct endian { uint64_t aware; uint64_t similar; } endian; };
 struct guid Guid();
