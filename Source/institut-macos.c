@@ -159,7 +159,12 @@ Symbols(
   const char * utf8exepath,
   void (^symbol)(const char * sym, uint64_t addr, int * stop))
 { __builtin_int_t bytesActual;
-    uint8_t * obj = (uint8_t *)mapfileʳᵚ(utf8exepath, 0, 0, 0, &bytesActual);
+    int fd = open((const char *)utf8exepath, O_RDONLY | O_SYMLINK);
+    if (fd == -1) { return; }
+    struct stat sb; if (fstat(fd,&sb) == -1) { return; }
+    uint8_t * obj = Heap₋alloc(sb.st_size); 
+    bytesActual = pread(fd,obj,sb.st_size,0);
+    if (bytesActual != sb.st_size) { return; }
     uint8_t * obj_p = obj;
     
     struct mach_header_64 * header = (struct mach_header_64 *)obj_p;
