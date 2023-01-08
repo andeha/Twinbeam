@@ -21,4 +21,6 @@ Bootloader: [pic32mz.hex](https://github.com/andeha/Twinbeam/releases/download/t
 
 [2] The Microchip [PIC32MM0256GPM064](https://eu.mouser.com/datasheet/2/268/50002576a%20PIC32MM%20USB%20Curiosity%20Development%20Board%20-1113849.pdf), the [PIC32MX5XX/6XX/7XX](http://ww1.microchip.com/downloads/en/DeviceDoc/60001156J.pdf) Family Data Sheets.
 
-[3] The [Intel Hex](https://en.wikipedia.org/wiki/Intel_HEX) format.
+[3] Low-cost [Motor Control](https://ww1.microchip.com/downloads/en/Appnotes/90003152a.pdf) application note.
+
+[4] The [Intel Hex](https://en.wikipedia.org/wiki/Intel_HEX) format.
