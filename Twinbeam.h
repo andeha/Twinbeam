@@ -226,6 +226,8 @@ struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * ᐧ text; };
 /*  type 'char' C implementation dependent whether signed/unsigned. 
  See '-fno-signed-char'. */
 typedef char32̄_t * ᐝ unicode₋shatter;
+EXT₋C void unalloc₋shatter(unicode₋shatter text);
+EXT₋C unicode₋shatter persist₋as₋shatter(struct Unicodes uc);
 typedef char * MEXICAN₋REFERENCE keyput₋shatter;
 
 EXT₋C int Play(void (^ ᐧ composition)(struct Unicodes serial), 
@@ -302,7 +304,7 @@ EXT₋C Argᴾ ﹟regs(__builtin_uint_t mask); /* cached at printout. */
 EXT₋C Argᴾ ﹟plat(__builtin_uint_t mask); /* non-cached at primtout. */
 EXT₋C Argᴾ ﹟λ₁(void (^ ᐧ fragment)(serial₋present ᐧ,void * ᐝ),void * ᐝ);
 EXT₋C Argᴾ ﹟λ₂(void (^ ᐧ fragment)(primary₋present ᐧ,void * ᐝ),void * ᐝ);
-#if !defined UNEXISTING₋IEEE754
+#if defined usage₋𝙸𝚎𝚎𝚎𝟽𝟻𝟺₋arithmetics
 EXT₋C Argᴾ ﹟F(double f, int method) ⓣ;
 EXT₋C Argᴾ ﹟F(float f, int method) ⓣ;
 #endif

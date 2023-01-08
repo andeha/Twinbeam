@@ -53,7 +53,7 @@ inexorable void binary₋out(__builtin_uint_t x, Unicode₋out out, int * amend)
     , ^(char s) { unicode₋out((char32̄_t)s,out,amend); });
 }
 
-#if !defined UNEXISTING₋IEEE754
+#if !defined usage₋𝙸𝚎𝚎𝚎𝟽𝟻𝟺₋arithmetics
 inexorable void double₋out(double ℝ, Unicode₋out out, int * amend, int method)
 { char text[56]; int letters;
    switch (method)
@@ -81,7 +81,7 @@ inexorable void double₋out(double ℝ, Unicode₋out out, int * amend, int met
 }
 #endif
 
-#if defined 𝟷𝟸𝟾₋bit₋integer₋available
+#if defined usage₋𝟷𝟸𝟾₋bit₋integer
 inexorable void signed128₋out(__int128_t I, Unicode₋out out, int * amend)
 {
    Base𝕫(I,10,0,^(char zerotoninealtneg) { sevenbit₋utf8(&zerotoninealtneg,1,out,amend); });
@@ -126,11 +126,11 @@ again:
      case 7: uctext₋out(a.value.ucs.unicodes,a.value.ucs.tetras,out,&printedSymbolsExcept0); break;
      case 9: unicode₋out((char32̄_t)a.value.possibly₋signed₋c,out,&printedSymbolsExcept0); break;
      case 10: unicode₋out(a.value.uc,out,&printedSymbolsExcept0); break;
-#if defined 𝟷𝟸𝟾₋bit₋integer₋available
+#if defined usage₋𝟷𝟸𝟾₋bit₋integer
      case 12: unsigned128₋out(a.value.U,out,&printedSymbolsExcept0); break;
      case 13: signed128₋out(a.value.I,out,&printedSymbolsExcept0); break;
 #endif
-#if !defined UNEXISTING₋IEEE754
+#if !defined usage₋𝙸𝚎𝚎𝚎𝟽𝟻𝟺₋arithmetics
      case 14: double₋out(a.value.non₋fixpoint.material.f₁,out,&printedSymbolsExcept0,a.value.non₋fixpoint.numberformat); break;
      case 15: double₋out((double)a.value.non₋fixpoint.material.f₂,out,&printedSymbolsExcept0,a.value.non₋fixpoint.numberformat); break;
 #endif

@@ -39,7 +39,7 @@ Argᴾ ﹟S(struct Unicodes uc) ⓣ { Argᴾ y = { { .ucs={ uc.unicodes,
 Argᴾ ﹟c7(char c) { Argᴾ y = { { .possibly₋signed₋c=c }, 9 }; return y; }
 /* warning 'comparision of non-signed integers' requires additional bits in machine word. */
 Argᴾ ﹟C(char32̄_t C) { Argᴾ y = { { .uc=C }, 10 }; return y; }
-#if defined 𝟷𝟸𝟾₋bit₋integer₋available
+#if defined usage₋𝟷𝟸𝟾₋bit₋integer
 Argᴾ ﹟U(__uint128_t U) { Argᴾ y = { { .U=U }, 12 }; return y; }
 Argᴾ ﹟I(__int128_t I) { Argᴾ y = { { .I=I }, 13 }; return y; }
 #endif
@@ -111,7 +111,7 @@ inexorable void binary₋out(__builtin_uint_t x, Eightbit₋out out, int * amend
     , ^(char s) { sevenbit₋utf8(&s,1,out,amend); });
 }
 
-#if !defined UNEXISTING₋IEEE754
+#if !defined usage₋𝙸𝚎𝚎𝚎𝟽𝟻𝟺₋arithmetics
 inexorable void double₋out(double ℝ, Eightbit₋out out, int * amend, int method)
 { char text[56]; int letters;
    switch (method)
@@ -139,7 +139,7 @@ inexorable void double₋out(double ℝ, Eightbit₋out out, int * amend, int me
 }
 #endif
 
-#if defined 𝟷𝟸𝟾₋bit₋integer₋available
+#if defined usage₋𝟷𝟸𝟾₋bit₋integer
 inexorable void signed128₋out(__int128_t I, Eightbit₋out out, int * amend)
 {
    Base𝕫(I,10,0, ^(char zerotoninealtneg) { sevenbit₋utf8(&zerotoninealtneg,1,out,amend); });
@@ -183,11 +183,11 @@ again:
        void * context) { if (!anfang) { print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); }    \
        else { Anfang(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, NULL); } }; a.value.λ.scalar(set,        \
        a.value.λ.context); */ break; }
-#if defined 𝟷𝟸𝟾₋bit₋integer₋available
+#if defined usage₋𝟷𝟸𝟾₋bit₋integer
       case 12: unsigned128₋out(a.value.U,out,&printedBytesExcept0); break;
       case 13: signed128₋out(a.value.I,out,&printedBytesExcept0); break;
 #endif
-#if !defined UNEXISTING₋IEEE754
+#if !defined usage₋𝙸𝚎𝚎𝚎𝟽𝟻𝟺₋arithmetics
       case 14: double₋out(a.value.non₋fixpoint.material.f₁,out,&printedBytesExcept0,a.value.non₋fixpoint.numberformat); break;
       case 15: double₋out((double)a.value.non₋fixpoint.material.f₂,out,&printedBytesExcept0,a.value.non₋fixpoint.numberformat); break;
 #endif

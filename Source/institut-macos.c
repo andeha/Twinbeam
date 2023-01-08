@@ -20,6 +20,8 @@ void Fallow(void * ref) ⓣ { Heap₋unalloc(ref); }
 
 /*  see --<🥽 Cordal.cpp> when constant and --<🥽 Memclone.cpp>{Copy} when branch. */
 
+/*  improved version available in --<Reconcile.cpp ∧ Tape.h>{'syncro_read' alt. 'syncro_write'}. */
+
 int
 TransformAndResolve(
   struct Unicodes path, 
@@ -31,6 +33,8 @@ TransformAndResolve(
    final((char *)u8s);
    return 0;
 }
+
+#pragma header seldom used arrangements
 
 #if defined __x86_64__
 __attribute__ ((target("rdrnd")))
@@ -45,10 +49,6 @@ again:
 #endif
   if (y == 0) { goto again; }
 }
-
-#pragma header seldom used arrangements
-
-/*  improved version available in --<Reconcile.cpp ∧ Tape.h>{'syncro_read' alt. 'syncro_write'}. */
 
 #pragma recto modern read and write
 

@@ -21,7 +21,8 @@ build libTwinbeam-x86_64:  library $objs/abacus-modern.o                     $
  $objs/polisi-acceler.o $objs/raljant-three.o $objs/rollno-ensolut.o         $
  $objs/symbol-relief.o $objs/symbol-transmi.o $objs/symbol-unison.o          $
  $objs/tesby-istra.o $objs/unique-comput.o $objs/unstall-bank.o              $
- $objs/index-company.o $objs/lattice-trie.o $objs/val-arr.o
+ $objs/index-company.o $objs/lattice-trie.o $objs/val-arr.o                  $
+ $objs/syrup-toronto.o $objs/supren-symbol.o
 build $objs/abacus-modern.o: c anglosax-sequent.c
 build $objs/analys-inclus.o: c spark-amend.c
 build $objs/bless-pass.o: asm church-pass.S
@@ -50,5 +51,7 @@ build $objs/unstall-bank.o: c unstall-coalesc.c
 build $objs/index-company.o: c bowler-ketter.c
 build $objs/lattice-trie.o: c latitude-arab.c
 build $objs/val-arr.o: c parad-sekvent.c
+build $objs/syrup-toronto.o: c concrete-solid.c
+build $objs/supren-symbol.o: c symbol-dynam.c
 default $library-root
 

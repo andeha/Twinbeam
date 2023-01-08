@@ -25,7 +25,9 @@ build libTwinbeam_macarm:  library $objs/arkebu-referen.o                    $
  $objs/parabol-versati.o $objs/pincett-heritan.o $objs/practi-natur.o        $
  $objs/product-ronolo.o $objs/retros-inclus.o $objs/rollno-ensolut.o         $
  $objs/symbol-semati.o $objs/timuli-metri.o $objs/unstall-irection.o         $
- $objs/glossar-many.o $objs/scrabble-tile.o $objs/dā-rad.o
+ $objs/glossar-many.o $objs/scrabble-tile.o $objs/califor-bank.o             $
+ $objs/dea-transg.o $objs/amorf-symbol.o
+
 build $objs/arkebu-referen.o: c reference-three.c
 build $objs/carusel-opini.o: c deter-lock.c
 build $objs/circu-anglosa.o: c anglosax-sequent.c
@@ -53,7 +55,9 @@ build $objs/timuli-metri.o: c tee-metric.c
 build $objs/unstall-irection.o: c unstall-coalesc.c
 build $objs/glossar-many.o: c bowler-ketter.c
 build $objs/scrabble-tile.o: c latitude-arab.c
-build $objs/dā-rad.o: c parad-sekvent.c
+build $objs/califor-bank.o: c parad-sekvent.c
+build $objs/dea-transg.o: c concrete-solid.c
+build $objs/amorf-symbol.o: c symbol-dynam.c
 build emit-content: toc
 default $arm-library
 
