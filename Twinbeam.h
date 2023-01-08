@@ -217,10 +217,25 @@ EXT₋C void ieee754₋Scientific₋Rendition(double ℝ, char * ᐧ fiftysix₋
 EXT₋C void ieee754₋Saturn₋Rendition(double ℝ, char * ᐧ fiftysix₋ten₋base, int * ᐧ letters);
 EXT₋C void ieee754₋Monetary₋Rendition(double ℝ, char * ᐧ fiftysix₋ten₋base, int * ᐧ letters);
 EXT₋C void ieee754₋Scandinavian₋Monetary₋Rendition(double ℝ, char * ᐧ fiftysix₋ten₋base, int * ᐧ letters);
-EXT₋C int print(const char * ᐝ sevenbit₋utf8format, ...) ⓣ;
-EXT₋C int vfprint(const char * ᐝ sevenbit₋utf8format, ...);
+
+fostrat₋defi sevenbit₋text { __builtin_int_t count; char * ᐧ keyputs; } sevenbit₋text;
+EXT₋C inline sevenbit₋text empty₋sevenbit() { sevenbit₋text y = { 0, "" }; return y; }
+struct utf8₋text { __builtin_int_t bytes; char8₋t * ᐧ u8s; };
+struct Unicodes { __builtin_int_t tetras; char32̄_t * ᐧ unicodes; };
+struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * ᐧ text; };
+/*  type 'char' C implementation dependent whether signed/unsigned. 
+ See '-fno-signed-char'. */
+typedef char32̄_t * ᐝ unicode₋shatter;
+typedef char * MEXICAN₋REFERENCE keyput₋shatter;
+
+EXT₋C int Play(void (^ ᐧ composition)(struct Unicodes serial), 
+ char32̄_t * ᐧ text, ...) ⓣ;
+EXT₋C int Play(char32̄_t * ᐧ text, __builtin_va_list params, void 
+ (^ ᐧ composition)(struct Unicodes serial)) ⓣ;
 typedef void (^Printout)(char8₋t * ᐧ u8s, __builtin_int_t bytes);
-EXT₋C int print(Printout ᐧ out, const char * ᐝ sevenbit₋utf8format, ...) ⓣ;
+EXT₋C int print(Printout ᐧ out, const char * ᐝ sevenbit₋utf8format, ...) ⓣ; /* 1) current, 2) future-dynamic, 3) toggle-back-to-current. (ARAB-CRAB-MAY-BE-REDRAWN) */
+EXT₋C int vfprint(const char * ᐝ sevenbit₋utf8format, ...);
+EXT₋C int print(const char * ᐝ sevenbit₋utf8format, ...) ⓣ;
 
 #if defined usage₋𝟷𝟸𝟾₋bit₋integer
 union Q6364 { __int128_t frac; __uint128_t bits; };
@@ -233,15 +248,6 @@ EXT₋C void sequent₋Saturn₋Rendition(Sequenta ℝ, char * ᐧ fiftysix₋te
 EXT₋C void sequent₋Scientific₋Rendition(Sequenta ℝ, char * ᐧ fiftysix₋ten₋base, int * ᐧ letters);
 typedef Sequenta (^computational)(Sequenta x);
 enum Newtoncontrol { Newton₋ok, Newton₋abort, Newton₋done };
-fostrat₋defi sevenbit₋text { __builtin_int_t count; char * ᐧ keyputs; } sevenbit₋text;
-EXT₋C inline sevenbit₋text empty₋sevenbit() { sevenbit₋text y = { 0, "" }; return y; }
-struct utf8₋text { __builtin_int_t bytes; char8₋t * ᐧ u8s; };
-struct Unicodes { __builtin_int_t tetras; char32̄_t * ᐧ unicodes; };
-struct 𝟽₋bitPath𝘖rBytes { __builtin_int_t bytes; char * ᐧ text; };
-/*  type 'char' C implementation dependent whether signed/unsigned. 
- See '-fno-signed-char'. */
-typedef char32̄_t * ᐝ unicode₋shatter;
-typedef char * MEXICAN₋REFERENCE keyput₋shatter;
 
 typedef void (^primary₋present)(__builtin_int_t count, char32̄_t * ᐧ symbols);
 typedef void (^serial₋present)(char8₋t * ᐧ u8s, __builtin_int_t bytes);
@@ -695,12 +701,6 @@ EXT₋C PROMINENT int Tactic(char8₋t * ᐧ u8s, void (^ ᐧ sometime)(struct U
    sometime(text);
    return 0;
 }
-
-EXT₋C int Play(void (^ ᐧ composition)(struct Unicodes serial), 
- char32̄_t * ᐧ text, ...) ⓣ;
-
-EXT₋C int Play(char32̄_t * ᐧ text, __builtin_va_list params, void 
- (^ ᐧ composition)(struct Unicodes serial)) ⓣ;
 
 struct trie₋word { struct trie₋word * ᐝ downhill₋letters[25]; int residue[25]; }; /* note z_k in TeX ❡§ 920. */
 typedef struct trie₋word Trie;
