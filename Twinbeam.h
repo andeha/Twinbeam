@@ -742,43 +742,26 @@ EXT₋C uint8_t * ᐧ convoj₋relative(__builtin_int_t idx, struct collection *
 EXT₋C int Snapshot(const struct collection original, struct collection * ᐝ pristine);
 EXT₋C int ToggleNetworkAndNative(struct collection region, __builtin_int_t 
  bytes₋skip, __builtin_int_t bytes, void (^ ᐧ ping)(int * ᐧ stop), void (^ ᐧ completion)
- (__builtin_int_t bytes)); 
-
+ (__builtin_int_t bytes));
 enum Sentinel { sentinel₋cyclic, sentinel₋last, /*, linear, bilinear, */ 
  sentinel₋crash, sentinel₋bound };
 EXT₋C MACRO uint64_t /* a․𝘬․a 'ieee754dbl₋pattern' */ intel(uint32_t ˡᵒword, 
  uint32_t wordʰⁱ) { return ((uint64_t)wordʰⁱ)<<32 | ˡᵒword; }
 
-/* When 'change', 'delete' and 'type', see --<2ᵈ-𝔣ow.hpp> and --<arabic-edit.c>. */
-
 uint32_t PROMINENT EXT₋C ᵗᵍᵍˡendian(uint32_t x) ⓣ { return __builtin_bswap32(x); }
 uint64_t PROMINENT EXT₋C ᵗᵍᵍˡendian(uint64_t x) ⓣ { return __builtin_bswap64(x); }
 /*  a․𝘬․a 'toggleNetworkAndNative'. */
+
+#pragma recto retrieve and search
 
 EXT₋C void * ᐝ ExactSeek₂(const void * ᐝ key, const void * ᐝ base, size_t num, 
  size_t size, int (^ ᐧ cmp)(const void * ᐝ key, const void * ᐝ elt));
 
 EXT₋C int IsPrefixOrEqual(const char * ᐧ 𝟽alt𝟾₋bitstring, const char * ᐧ 𝟽alt𝟾₋bitprefix);
-/*  returns `int` indicating difference at branch, -1 if equal and `0` when 
+/*  returns 'int' indicating difference at branch, -1 if equal and `0` when 
  string contains neither prefix nor is equal. */
 
-typedef struct Textsearch { __builtin_int_t text₋offset₋bytes; } Borderedsearch;
-EXT₋C int AssociativelyEqual(enum Encoding encoded, __builtin_int_t bytes, 
- uint8_t * ᐝ material, struct sevenbit₋text recollection, Borderedsearch * ᐝ ctxt);
-/*  find referenced bandit with context when right-to-left and vague recoll-
- ection. A number indicating the number of tokens required to recollect is 
- computed. Note that pre-indexed search does not operate properly given 'vague 
- recollection' due to the swedish sentence 'falla mellan stolar'. */
-
-typedef struct Unicodeblock {
-  __builtin_int_t linesOffsetFirst, linesOffsetLast, column₁, column₂;
-  __builtin_int_t tetrasRelativeFirst, tetrasRelativeLast;
-} UnicodeInterval;
-
-typedef struct PresentativeErrorUnicode { __builtin_int_t line1ˢᵗ, bytesOffset1ˢᵗ, lineLast, 
- bytesOffsetInclLast; } Utf8Interval; /*  e․𝘨 wrongly coded utf-8. */
-
-union Reference { struct PresentativeErrorUnicode byteserie; struct Unicodeblock volatile₋primary; };
+/* when 'change', 'delete' and 'type', see --<arabic-edit.c>. */
 
 #pragma recto  😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
