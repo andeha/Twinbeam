@@ -173,25 +173,29 @@ typedef unsigned int char32̄_t;
 #define non₋evident₋Ieee754₋kahn₋specification₋in₋silicon
 #define non₋evident₋single₋instruction₋multiple₋data₋in₋silicon
 #endif /*  Tensilica Lx6 is Ieee754 single-precision only. (UNEXISTING₋IEEE754) */
-#if defined(non₋evident₋sixtyfour₋bit₋arithmetic₋in₋silicon) || defined(select₋synthetic₋64₋bit₋integer)
+#if defined(non₋evident₋sixtyfour₋bit₋arithmetic₋in₋silicon) ||             \
+ defined(select₋synthetic₋64₋bit₋integer)
 #include "Source/arithm-mmix.incl.h"
 #define usage₋synthetic₋𝟼𝟺₋bit₋integer
 #else
 #define usage₋𝟼𝟺₋bit₋integer
 #endif
-#if defined(non₋evident₋onehundredtwentyeight₋bit₋arithmetic₋in₋silicon) || defined(select₋synthetic₋128₋bit₋integer)
+#if defined(non₋evident₋onehundredtwentyeight₋bit₋arithmetic₋in₋silicon) || \
+ defined(select₋synthetic₋128₋bit₋integer)
 #include "Source/final-muldiv.incl.h"
 #define usage₋synthetic₋𝟷𝟸𝟾₋bit₋integer /* this case encaged 128-bit integer and no 'overloading'. */
 #else
 #define usage₋𝟷𝟸𝟾₋bit₋integer
 #endif
-#if defined(non₋evident₋Ieee754₋kahn₋specification₋in₋silicon) || defined(select₋synthetic₋Ieee754₋arithmetics)
+#if defined(non₋evident₋Ieee754₋kahn₋specification₋in₋silicon) ||           \
+ defined(select₋synthetic₋Ieee754₋arithmetics)
 #include "Source/sequen-ieee754.incl.h"
 #define usage₋sequent₋𝙸𝚎𝚎𝚎𝟽𝟻𝟺₋arithmetics
 #else
 #define usage₋𝙸𝚎𝚎𝚎𝟽𝟻𝟺₋arithmetics
 #endif
-#if defined(non₋evident₋single₋instruction₋multiple₋data₋in₋silicon) || defined(select₋synthetic₋single₋instruction₋multiple₋data₋type)
+#if defined(non₋evident₋single₋instruction₋multiple₋data₋in₋silicon) ||     \
+ defined(select₋synthetic₋single₋instruction₋multiple₋data₋type)
 #include "Source/seri-simd.incl.h"
 #define usage₋serial₋𝚜𝚒𝚗𝚐𝚕𝚎₋𝚒𝚗𝚜𝚝𝚛𝚞𝚌𝚝𝚒𝚘𝚗₋𝚖𝚞𝚕𝚝𝚒𝚙𝚕𝚎₋𝚍𝚊t𝚊₋type
 #else
