@@ -72,7 +72,7 @@ typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎ma
 #define EXT₋C
 #endif
 #define FOSSILATED
-#define PROMINENT MACRO
+#define PROMINENT
 #define false 0
 #define true (! false)
 #if defined __mips__
@@ -765,7 +765,9 @@ EXT₋C int IsPrefixOrEqual(const char * ᐧ 𝟽alt𝟾₋bitstring, const char
 /*  returns 'int' indicating difference at branch, -1 if equal and `0` when 
  string contains neither prefix nor is equal. */
 
-/* when 'change', 'delete' and 'type', see --<arabic-edit.c>. */
+/*  when 'change', 'delete' and 'type', see --<arabic-edit.c>. */
+
+/*  when 'save', 'reconcile' and 'branch', see --<􀐒 cabinet-detail.c>. */
 
 #pragma recto  😐🎤💀 ”𝑇ℎ𝑒 ⚰️”
 
