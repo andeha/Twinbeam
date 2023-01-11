@@ -19,15 +19,16 @@ int optional₋uninit₋regularpool(struct collection * ᐧ 🅗, FALLOW fallow)
 int regularpool₋datum₋text(struct collection * ᐧ 🅷, int32_t tetras, 
  Nonabsolute relative)
 {
-   uint32_t * ation = (uint32_t *)collection₋relative(4*relative,🅷);
+   uint32_t * ation = (uint32_t *)collection₋relative(relative,🅷);
    if (ation) { *ation=tetras; }
    return 0;
 }
 
 int copy₋append₋onto₋regular(struct collection * ᐧ 🅷, int32_t tetras, 
- char32̄_t cs[], ALLOC alloc, Nonabsolute *   relative)
-{
-   if (copy₋append₋items(4*tetras,cs,🅷,alloc)) { return -1; }
+ char32̄_t cs[], ALLOC alloc, Nonabsolute * relative)
+{ char32̄_t init[] = { 0x0000 };
+   if (copy₋append₋items(1,init,🅷,alloc)) { return -1; }
+   if (copy₋append₋items(tetras,cs,🅷,alloc)) { return -1; }
    return 0;
 }
 
@@ -39,10 +40,11 @@ int regularpool₋at(struct collection * ᐧ 🅷, Nonabsolute reference, void (
    char32̄_t * assort[segment₋sum]; int symbols[segment₋sum];
    __builtin_int_t symbol₋idx=reference,segment₋idx=0,symbol₋augment,symbol₋summand=0;
 again:
-   if (segment₋idx == 0) {  __builtin_int_t page₋number=(4*reference)/PAGE₋SIZE, 
-      symbolslots₋per₋page=PAGE₋SIZE/4, symbols₋until₋end₋of₋page = reference - 
-      page₋number*symbolslots₋per₋page;
-     symbol₋augment = min(symbols₋until₋end₋of₋page,symbol₋count);
+   if (segment₋idx == 0) {
+     __builtin_int_t page₋number=(4*reference)/PAGE₋SIZE, 
+      unionslots₋per₋page=PAGE₋SIZE/4, 
+      symbols₋until₋end₋of₋first = reference - page₋number*unionslots₋per₋page;
+     symbol₋augment = min(symbols₋until₋end₋of₋first,symbol₋count);
    } else if (segment₋idx == segment₋sum - 1) { symbol₋augment = symbol₋count - symbol₋idx; }
    else { symbol₋augment = PAGE₋SIZE; }
    symbols[segment₋idx] = symbol₋augment;
