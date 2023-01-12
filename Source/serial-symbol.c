@@ -48,7 +48,7 @@ Argᴾ ﹟plat(__builtin_uint_t mask) { Argᴾ y = { { .x=mask }, 19 }; return y
 /* ⬷ Print between 0 and 31 non-high-volatile registers. */
 Argᴾ ﹟λ₁(void (^fragment)(serial₋present, void *), void * ctx) {
  Argᴾ y = { { .λ₁={ ctx, fragment } }, 20 }; return y; }
-Argᴾ ﹟λ₂(void (^fragment)(primary₋present, void *), void * ctx) {
+Argᴾ ﹟λ₂(void (^fragment)(symbol₋present, void *), void * ctx) {
  Argᴾ y = { { .λ₂={ ctx, fragment } }, 21 }; return y; }
 
 Argᴾ ﹟F(double f, int method) ⓣ { Argᴾ y = { { .non₋fixpoint.material.f₁=f }, 14 }; return y; }
@@ -61,6 +61,13 @@ Argᴾ ﹟pagefill(int verso₋not₋recto) { } */
 #pragma recto in /retrospect/ hidden yet simple
 
 typedef void (^Eightbit₋out)(__builtin_int_t bytes, char8₋t * u8s);
+
+inexorable void lambda₋out(Serialfragment block, void * ctxt, Eightbit₋out out, int * amend)
+{ int 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 augment=0;
+   serial₋present present = ^(char8₋t * u8s, __builtin_int_t bytes) { out(bytes,u8s); augment+=bytes; };
+   block(present,ctxt);
+   *amend += augment;
+}
 
 inexorable void u8stream₋out(char8₋t * u8s, __builtin_int_t bytes, Eightbit₋out out, int * amend)
 {
@@ -197,7 +204,7 @@ again:
       case 19: platform₋reflect(a.value.x, 
         ^(char32̄_t uc) { unicode₋out(uc,out,&printedBytesExcept0); });
        break;
-      case 20: break; /* lambda 1 */
+      case 20: lambda₋out(a.value.λ₁.block,a.value.λ₁.ctxt,out,&printedBytesExcept0); break;
       case 21: break; /* lambda 2 */
       default:
         unicode₋out(U'꠷',out,&printedBytesExcept0);

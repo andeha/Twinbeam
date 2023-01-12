@@ -72,7 +72,8 @@ typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎ma
 #define EXT₋C
 #endif
 #define FOSSILATED
-#define PROMINENT
+#define PROMINENT inline
+#define SYMBOL₋EMBOSSED
 #define false 0
 #define true (! false)
 #if defined __mips__
@@ -255,11 +256,11 @@ EXT₋C void sequent₋Scientific₋Rendition(Sequenta ℝ, char * ᐧ fiftysix�
 typedef Sequenta (^computational)(Sequenta x);
 enum Newtoncontrol { Newton₋ok, Newton₋abort, Newton₋done };
 
-typedef void (^primary₋present)(__builtin_int_t count, char32̄_t * ᐧ symbols);
+typedef void (^symbol₋present)(__builtin_int_t count, char32̄_t * ᐧ symbols);
 typedef void (^serial₋present)(char8₋t * ᐧ u8s, __builtin_int_t bytes);
 /* a pointer is not marked 'indirect' alternatively 'direct' but with an -out suffix. */
-typedef void (^Fragment1)(serial₋present ᐧ, void * ᐝ);
-typedef void (^Fragment2)(primary₋present ᐧ, void * ᐝ);
+typedef void (^Serialfragment)(serial₋present ᐧ, void * ᐝ);
+typedef void (^Symbolfragment)(symbol₋present ᐧ, void * ᐝ);
 
 typedef struct 𝓟 {
   union {
@@ -283,8 +284,8 @@ typedef struct 𝓟 {
 #if defined usage₋𝟷𝟸𝟾₋bit₋integer
     __uint128_t U; __int128_t I;
 #endif
-    struct { void * ᐝ ctxt; Fragment1 ᐧ block; } λ₁;
-    struct { void * ᐝ ctxt; Fragment2 ᐧ block; } λ₂;
+    struct { void * ᐝ ctxt; Serialfragment ᐧ block; } λ₁;
+    struct { void * ᐝ ctxt; Symbolfragment ᐧ block; } λ₂;
   } value;
   int kind;
 } Argᴾ;
@@ -307,7 +308,7 @@ EXT₋C Argᴾ ﹟U(__uint128_t U); Argᴾ ﹟I(__int128_t I);
 EXT₋C Argᴾ ﹟regs(__builtin_uint_t mask); /* cached at printout. */
 EXT₋C Argᴾ ﹟plat(__builtin_uint_t mask); /* non-cached at primtout. */
 EXT₋C Argᴾ ﹟λ₁(void (^ ᐧ fragment)(serial₋present ᐧ,void * ᐝ),void * ᐝ);
-EXT₋C Argᴾ ﹟λ₂(void (^ ᐧ fragment)(primary₋present ᐧ,void * ᐝ),void * ᐝ);
+EXT₋C Argᴾ ﹟λ₂(void (^ ᐧ fragment)(symbol₋present ᐧ,void * ᐝ),void * ᐝ);
 #if defined usage₋𝙸𝚎𝚎𝚎𝟽𝟻𝟺₋arithmetics
 EXT₋C Argᴾ ﹟F(double f, int method) ⓣ;
 EXT₋C Argᴾ ﹟F(float f, int method) ⓣ;
@@ -592,9 +593,9 @@ inline EXT₋C double ConvertAndCast(int64_t measure, int reciproc)
    );                                                                        
 #elif defined __x86_64__ && defined OPTIMIZED₋NONGENERAL
    asm {                                                                     
-     fild rdi                   /*  see Intel.FBLD and Intel.FBSTP. */     
+     fild rdi                   /*  see Intel.FBLD and Intel.FBSTP. */       
      fstp xmm0                                                               
-   } /*  enabled by '-fms-extension'. */                                   
+   } /*  enabled by '-fms-extension'. */                                     
 #endif
 } OPT_Si_FOCAL /*  a․𝘬․a 'Cast' and 'Convert'. */
 
