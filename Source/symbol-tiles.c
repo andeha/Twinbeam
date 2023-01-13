@@ -93,6 +93,18 @@ inexorable void unsigned128₋out(__uint128_t U, Unicode₋out out, int * amend)
 }
 #endif
 
+inexorable void lambda₋bytes(Serialfragment block, void * ctxt, Unicode₋out out, int * amend)
+{
+   serial₋present line = ^(char8₋t * u8s, __builtin_int_t bytes) { u8stream₋out(u8s,bytes,out,amend); };
+   block(line,ctxt);
+}
+
+inexorable void lambda₋symbols(Symbolfragment block, void * ctxt, Unicode₋out out, int * amend)
+{
+   symbol₋present primary = ^(__builtin_int_t tetras, char32̄_t * uc) { uctext₋out(uc,tetras,out,amend); };
+   block(primary,ctxt);
+}
+
 FOCAL
 int
 Play(
@@ -136,8 +148,8 @@ again:
 #endif
      case 17: break; /* regs */
      case 19: break; /* plat */
-     case 20: break; /* lambda 1 */
-     case 21: break; /* lambda 2 */
+     case 20: lambda₋bytes(a.value.λ₁.block,a.value.λ₁.ctxt,out,&printedSymbolsExcept0); break;
+     case 21: lambda₋symbols(a.value.λ₂.block,a.value.λ₂.ctxt,out,&printedSymbolsExcept0); break;
      default:
        unicode₋out(U'꠷',out,&printedSymbolsExcept0);
        break;

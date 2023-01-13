@@ -62,13 +62,6 @@ Argᴾ ﹟pagefill(int verso₋not₋recto) { } */
 
 typedef void (^Eightbit₋out)(__builtin_int_t bytes, char8₋t * u8s);
 
-inexorable void lambda₋out(Serialfragment block, void * ctxt, Eightbit₋out out, int * amend)
-{ int 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 augment=0;
-   serial₋present present = ^(char8₋t * u8s, __builtin_int_t bytes) { out(bytes,u8s); augment+=bytes; };
-   block(present,ctxt);
-   *amend += augment;
-}
-
 inexorable void u8stream₋out(char8₋t * u8s, __builtin_int_t bytes, Eightbit₋out out, int * amend)
 {
    out(bytes,u8s); *amend += bytes;
@@ -158,6 +151,19 @@ inexorable void unsigned128₋out(__uint128_t U, Eightbit₋out out, int * amend
 }
 #endif
 
+inexorable void lambda₋bytes(Serialfragment block, void * ctxt, Eightbit₋out out, int * amend₋bytes)
+{ int 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 augment=0;
+   serial₋present line = ^(char8₋t * u8s, __builtin_int_t bytes) { out(bytes,u8s); augment+=bytes; };
+   block(line,ctxt);
+   *amend₋bytes += augment;
+}
+
+inexorable void lambda₋symbols(Symbolfragment block, void * ctxt, Eightbit₋out out, int * amend₋bytes)
+{
+   symbol₋present primary = ^(__builtin_int_t tetras, char32̄_t * uc) { uctext₋out(uc,tetras,out,amend₋bytes); };
+   block(primary,ctxt);
+}
+
 int
 print﹟(
   void (^output)(char8₋t * u8s, __builtin_int_t bytes), 
@@ -204,8 +210,8 @@ again:
       case 19: platform₋reflect(a.value.x, 
         ^(char32̄_t uc) { unicode₋out(uc,out,&printedBytesExcept0); });
        break;
-      case 20: lambda₋out(a.value.λ₁.block,a.value.λ₁.ctxt,out,&printedBytesExcept0); break;
-      case 21: break; /* lambda 2 */
+      case 20: lambda₋bytes(a.value.λ₁.block,a.value.λ₁.ctxt,out,&printedBytesExcept0); break;
+      case 21: lambda₋symbols(a.value.λ₂.block,a.value.λ₂.ctxt,out,&printedBytesExcept0); break;
       default:
         unicode₋out(U'꠷',out,&printedBytesExcept0);
         break;
