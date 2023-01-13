@@ -44,13 +44,16 @@ int regularpool₋at(struct collection * ᐧ 🅷, Nonabsolute relative,
    short segment₋sum = last₋segment - first₋segment + 1;
    char32̄_t * reference[segment₋sum]; short length₋table[segment₋sum];
    __builtin_int_t start₋next = (1 + relative), idx = 0, 
-    length₋left = symbol₋count;
+    length₋left = symbol₋count, symbols₋util₋swap, palm₋start₋idx =
+     CELLS₋ROOM*(relative/CELLS₋ROOM);
 again:
    if (length₋left <= 0) { text(symbol₋count,segment₋sum,length₋table,reference); return 0; }
    reference[idx] = (char32̄_t *)collection₋relative(start₋next,🅷);
-   length₋table[idx] = length₋left < CELLS₋ROOM ? : ;
+   symbols₋util₋swap = CELLS₋ROOM - (start₋next - palm₋start₋idx);
+   length₋table[idx] = symbols₋util₋swap;
    length₋left = length₋left - length₋table[idx];
    start₋next += length₋table[idx];
+   palm₋start₋idx += CELLS₋ROOM; 
    idx+=1; goto again;
 }
 

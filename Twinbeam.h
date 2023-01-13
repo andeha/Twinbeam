@@ -72,7 +72,7 @@ typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎ma
 #define EXT₋C
 #endif
 #define FOSSILATED
-#define PROMINENT inline
+#define PROMINENT MACRO
 #define SYMBOL₋EMBOSSED
 #define false 0
 #define true (! false)
@@ -995,7 +995,7 @@ typedef __builtin_int_t Nonabsolute; /* index to Unicode, not impression. */
 EXT₋C int regularpool₋datum₋text(struct collection * ᐧ 🅗, int32_t tetras, 
  Nonabsolute relative);
 EXT₋C int regularpool₋at(struct collection * ᐧ 🅗, Nonabsolute relative, void 
- (^ ᐧ segment)(int symbols₋total, int count₋segments, int symbols₋segment[ᐧ], 
+ (^ ᐧ text)(short symbols₋total, short count₁, short count₂[ᐧ], 
  char32̄_t * ᐧ segment[ᐧ]));
 EXT₋C int optional₋uninit₋regularpool(struct collection * ᐧ 🅷, FALLOW fallow);
 EXT₋C int init₋regularpool(struct collection * ᐧ 🅷);
