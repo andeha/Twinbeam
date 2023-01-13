@@ -57,7 +57,7 @@ Base𝕫(
    Base𝕟((__builtin_uint_t)ℤ, base, digitsOr0, output);
 }
 
-#if defined 𝟷𝟸𝟾₋bit₋integer₋available
+#if defined usage₋𝟷𝟸𝟾₋bit₋integer
 
 void
 Base𝕟(
