@@ -2,7 +2,8 @@
 
 import Twinbeam;
 
-#define PAGE₋SIZE 8192
+#define PAGE₋SIZE 8192 /* =bytes per tile. */
+#define CELLS₋ROOM 2048 /* =symbols and lengths per tile. */
 
 int init₋regularpool(struct collection * ᐧ 🅗)
 {
@@ -33,28 +34,23 @@ int copy₋append₋onto₋regular(struct collection * ᐧ 🅷, int32_t tetras,
    return 0;
 }
 
-int regularpool₋at(struct collection * ᐧ 🅷, Nonabsolute reference, void (^ ᐧ 
- segment)(int symbols₋total, int count₋segments, int symbols₋segment[ᐧ], 
-  char32̄_t * ᐧ segment[ᐧ]))
-{ uint32_t symbol₋count=*(uint32_t *)collection₋relative(reference,🅷);
-   int segment₋sum = 1 + (4*symbol₋count)/PAGE₋SIZE;
-   char32̄_t * assort[segment₋sum]; int symbols[segment₋sum];
-   __builtin_int_t symbol₋idx=reference,segment₋idx=0,symbol₋augment,symbol₋summand=0;
+int regularpool₋at(struct collection * ᐧ 🅷, Nonabsolute relative, 
+ void (^ ᐧ text)(short tetra₋length, short count₁, short count₂[ᐧ], 
+ char32̄_t * ᐧ segment[ᐧ]))
+{ uint32_t symbol₋count=*(uint32_t *)collection₋relative(relative,🅷);
+   __builtin_int_t first₋segment = (relative+1)/CELLS₋ROOM;
+   __builtin_int_t absolut₋relative = relative + symbol₋count;
+   __builtin_int_t last₋segment = absolut₋relative/CELLS₋ROOM;
+   short segment₋sum = last₋segment - first₋segment + 1;
+   char32̄_t * reference[segment₋sum]; short length₋table[segment₋sum];
+   __builtin_int_t start₋next = (1 + relative), idx = 0, 
+    length₋left = symbol₋count;
 again:
-   if (segment₋idx == 0) {
-     __builtin_int_t page₋number=(4*reference)/PAGE₋SIZE, 
-      unionslots₋per₋page=PAGE₋SIZE/4, 
-      symbols₋until₋end₋of₋first = reference - page₋number*unionslots₋per₋page;
-     symbol₋augment = min(symbols₋until₋end₋of₋first,symbol₋count);
-   } else if (segment₋idx == segment₋sum - 1) { symbol₋augment = symbol₋count - symbol₋idx; }
-   else { symbol₋augment = PAGE₋SIZE; }
-   symbols[segment₋idx] = symbol₋augment;
-   assort[segment₋idx] = (char32̄_t *)collection₋relative(4 + 4*symbol₋idx,🅷);
-   if (segment₋idx >= segment₋sum)
-   {
-     segment(symbol₋count,segment₋sum,symbols,assort);
-     return 0;
-   }
-   segment₋idx+=1,symbol₋idx+=symbol₋augment; goto again;
+   if (length₋left <= 0) { text(symbol₋count,segment₋sum,length₋table,reference); return 0; }
+   reference[idx] = (char32̄_t *)collection₋relative(start₋next,🅷);
+   length₋table[idx] = length₋left < CELLS₋ROOM ? : ;
+   length₋left = length₋left - length₋table[idx];
+   start₋next += length₋table[idx];
+   idx+=1; goto again;
 }
 
