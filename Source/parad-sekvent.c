@@ -28,6 +28,7 @@ int copy₋append₋onto₋regular(struct collection * ᐧ 🅷, int32_t tetras,
  char32̄_t cs[], ALLOC alloc, Nonabsolute * relative)
 { char32̄_t init[] = { 0x0000 };
    if (copy₋append₋items(1,init,🅷,alloc)) { return -1; }
+   *relative = (Nonabsolute)collection₋count(🅷);
    if (copy₋append₋items(tetras,cs,🅷,alloc)) { return -1; }
    return 0;
 }
