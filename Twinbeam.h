@@ -949,7 +949,7 @@ EXT₋C int Timestamp(enum Encoding encoded, int bytes, uint8_t * ᐧ material,
 typedef struct __coro_t coro_t;
 typedef int (* ᐧ coro_function_t)(coro_t * ᐧ);
 typedef struct __coro_t * ᐧ ϵ₋int₁;
-typedef int (* ᐧ Coroutine)(ϵ₋int₁ coro);
+typedef int (* ᐧ Coroutine)(ϵ₋int₁ coro); /* a․𝘬․a 'hāllen' alternatively 'inte-hāllen' frivilje. */
 
 EXT₋C coro_t * ᐧ coro_await(Coroutine coroutine);
 EXT₋C int coro_resume(coro_t * ᐧ coro);

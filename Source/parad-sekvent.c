@@ -2,8 +2,8 @@
 
 import Twinbeam;
 
-#define PAGE₋SIZE 8192 /* =bytes per tile. */
-#define CELLS₋ROOM 2048 /* =symbols and lengths per tile. */
+#define PAGE₋SIZE 16384 /* =bytes per tile. */
+#define CELLS₋ROOM 4096 /* =symbols and lengths per tile. */
 
 int init₋regularpool(struct collection * ᐧ 🅗)
 {
@@ -28,8 +28,8 @@ int regularpool₋datum₋text(struct collection * ᐧ 🅷, int32_t tetras,
 int copy₋append₋onto₋regular(struct collection * ᐧ 🅷, int32_t tetras, 
  char32̄_t cs[], ALLOC alloc, Nonabsolute * relative)
 { char32̄_t helicop[] = { 0x0000 };
+   *relative = (Nonabsolute)collection₋count(🅷);
    if (copy₋append₋items(1,helicop,🅷,alloc)) { return -1; }
-   *relative = (Nonabsolute)collection₋count(🅷) - 1;
    if (copy₋append₋items(tetras,cs,🅷,alloc)) { return -1; }
    return 0;
 }
@@ -50,7 +50,7 @@ again:
    if (length₋left <= 0) { text(symbol₋count,segment₋sum,length₋table,reference); return 0; }
    reference[idx] = (char32̄_t *)collection₋relative(start₋next,🅷);
    symbols₋util₋swap = CELLS₋ROOM - (start₋next - palm₋start₋idx);
-   length₋table[idx] = symbols₋util₋swap;
+   length₋table[idx] = min(symbols₋util₋swap,symbol₋count);
    length₋left = length₋left - length₋table[idx];
    start₋next += length₋table[idx];
    palm₋start₋idx += CELLS₋ROOM; 
