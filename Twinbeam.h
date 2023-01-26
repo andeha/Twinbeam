@@ -744,7 +744,7 @@ EXT₋C int copy₋include₋convoj(ALLOC alloc, struct collection * ᐝ 🅵₁
  collection * ᐝ 🅵₂, __builtin_int_t count, __builtin_int_t bytes[ᐧ], ...);
 EXT₋C __builtin_int_t convoj₋count(struct collection * ᐝ 🅵₁, struct collection * ᐝ 🅵₂);
 EXT₋C uint8_t * ᐧ convoj₋relative(__builtin_int_t idx, struct collection * ᐝ 🅵₁, 
- struct collection * ᐝ 🅵₂); /*  a․𝘬․a 'sequence'. */
+ struct collection * ᐝ 🅵₂); /*  a․𝘬․a 'sequence' and 'bandit₋convoj'. */
 
 EXT₋C int Snapshot(const struct collection original, struct collection * ᐝ pristine);
 EXT₋C int ToggleNetworkAndNative(struct collection region, __builtin_int_t 
