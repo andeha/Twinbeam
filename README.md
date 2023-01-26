@@ -2,7 +2,7 @@
 
 Modern software for Intel x86-64 and PIC32/MIPS. Currently recumbent in the Github project ['Minimum'](https://github.com/andeha/Minimum/tree/main/ClibTwinbeam).
 
-Contains details for utf-8, `Array`, `Map` and `Chronology`. To use, include portions of the `Twinbeam.h` header and link with its corresponding `libTwinbeam_pic32mz_*.a` or `libTwinbeam_macOS_*.a` archive.
+Contains details for utf-8, `Array`, `List`, `Map` and `Chronology`. To use, include portions of the `Twinbeam.h` header and link with its corresponding `libTwinbeam_pic32mz_*.a` or `libTwinbeam_macOS_*.a` archive.
 
 Requires [`llvm`](https://llvm.org), [`ninja`](https://ninja-build.org) and — for MIPS development — a pic32mz development board and at-least 'Textmate' and 'Sublime Text'.
 
