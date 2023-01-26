@@ -240,7 +240,7 @@ EXT₋C int Play(void (^ ᐧ composition)(struct Unicodes serial),
 EXT₋C int Play(char32̄_t * ᐧ text, __builtin_va_list params, void 
  (^ ᐧ composition)(struct Unicodes serial)) ⓣ;
 typedef void (^Printout)(char8₋t * ᐧ u8s, __builtin_int_t bytes);
-EXT₋C int print(Printout ᐧ out, const char * ᐝ sevenbit₋utf8format, ...) ⓣ; /* 1) current, 2) future-dynamic, 3) toggle-back-to-current. (ARAB-CRAB-MAY-BE-REDRAWN) */
+EXT₋C int print(Printout ᐧ out, const char * ᐝ sevenbit₋utf8format, ...) ⓣ;
 EXT₋C int vfprint(const char * ᐝ sevenbit₋utf8format, ...);
 EXT₋C int print(const char * ᐝ sevenbit₋utf8format, ...) ⓣ;
 
@@ -383,6 +383,8 @@ typedef void (* ᐧ FALLOW)(void * ᐧ);
 EXT₋C void * ᐝ Heap₋alloc(__builtin_int_t);
 EXT₋C __builtin_int_t Heap₋object₋size(void * ᐧ);
 EXT₋C void Heap₋unalloc(void * ᐧ);
+EXT₋C void * ᐧ Cons₋alloc(__builtin_int_t);
+EXT₋C void Cons₋fallow(void * ᐧ);
 EXT₋C int Fallow(unsigned expeditionary, void * ᐧ 𝟺kbframes[ᐧ], __builtin_int_t ﹟) ⓣ;
 EXT₋C int ContiguousAcquire(unsigned expeditionary, void * ᐧ * ᐧ fourkilobytespace, __builtin_int_t ﹟);
 EXT₋C int CoalescingAcquire(unsigned expeditionary, void * ᐧ fourkilobytes[ᐧ], __builtin_int_t ﹟);
