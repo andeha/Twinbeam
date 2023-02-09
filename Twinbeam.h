@@ -36,7 +36,7 @@ typedef int64_t             __builtin_int_t; /*  a․𝘬․a 'sequenta'. */
 #define ΨΛΩ (0)
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
 #define TriboolUninit 0xFFFFFFFFFFFFFFFE
-#define TriboolUnarbitrated 0xFFFFFFFFFFFFFFFD
+#define TriboolUnarbitrated 0xFFFFFFFFFFFFFFFD /* for later 'interval' alternatively 'recollect'. */
 #endif
 typedef unsigned short      uint16_t; /*  c𝘧․ Q16. */
 typedef short               int16_t; /* ≡ ᵐⁱᵖˢint. */
@@ -452,6 +452,14 @@ inline void _Block₋release(const void * ᐝ arg) { Heap₋unalloc((void *)arg)
 typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
+
+typedef void Material; typedef void Concell;
+int append₋at₋end(int, void (^)(int, Material **),Conscell **,Conscell **,int) ⓣ;
+int unqueue(int, void (^)(int, Material *), Conscell **, Conscell **) ⓣ;
+int rollback₋pop(void (^)(Material *), Conscell **, Conscell **) ⓣ;
+int is₋empty(Conscell *, Conscell *) ⓣ;
+void recollect(void (^every)(Material *,int),Conscell *,Conscell *) ⓣ;
+int uninit₋list(void (^removed)(Material *, Material **),Conscell *,Conscell *, Material **) ⓣ;
 
 #pragma recto reading direction, planning and endianess
 
