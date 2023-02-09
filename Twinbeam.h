@@ -453,13 +453,13 @@ typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
 
-typedef void Material; typedef void Concell;
-int append₋at₋end(int, void (^)(int, Material **),Conscell **,Conscell **,int) ⓣ;
-int unqueue(int, void (^)(int, Material *), Conscell **, Conscell **) ⓣ;
-int rollback₋pop(void (^)(Material *), Conscell **, Conscell **) ⓣ;
-int is₋empty(Conscell *, Conscell *) ⓣ;
-void recollect(void (^every)(Material *,int),Conscell *,Conscell *) ⓣ;
-int uninit₋list(void (^removed)(Material *, Material **),Conscell *,Conscell *, Material **) ⓣ;
+typedef void Material; typedef void Conscell;
+int append₋at₋end(int, void (^ ᐝ)(int, Material * ᐧ * ᐧ),Conscell * ᐧ * ᐧ,Conscell * ᐧ * ᐧ,int) ⓣ;
+int unqueue(int, void (^ ᐝ)(int, Material * ᐧ), Conscell * ᐧ * ᐧ, Conscell * ᐧ * ᐧ) ⓣ;
+int rollback₋pop(void (^ ᐝ)(Material * ᐧ), Conscell * ᐧ * ᐧ, Conscell * ᐧ * ᐧ) ⓣ;
+int is₋empty(Conscell * ᐧ, Conscell * ᐧ) ⓣ;
+void recollect(void (^ ᐧ every)(Material * ᐧ,int),Conscell * ᐧ,Conscell * ᐧ) ⓣ;
+int uninit₋list(void (^ ᐧ removed)(Material * ᐧ, Material * ᐧ * ᐧ),Conscell * ᐧ,Conscell * ᐧ, Material * ᐧ * ᐧ) ⓣ;
 
 #pragma recto reading direction, planning and endianess
 
