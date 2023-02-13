@@ -53,6 +53,6 @@ build $objs/lattice-trie.o: c latitude-arab.c
 build $objs/val-arr.o: c parad-sekvent.c
 build $objs/syrup-toronto.o: c concrete-solid.c
 build $objs/supren-symbol.o: c symbol-dynam.c
-build $objs/memory-coalesc.o: c couvert-antagoni.c
+build $objs/memory-coalesc.o: c couvert-antagni.c
 default $library-root
 

@@ -58,7 +58,7 @@ build $objs/scrabble-tile.o: c latitude-arab.c
 build $objs/califor-bank.o: c parad-sekvent.c
 build $objs/dea-transg.o: c concrete-solid.c
 build $objs/amorf-symbol.o: c symbol-dynam.c
-build $objs/collect-mall.o: couvert-antagoni.c
+build $objs/collect-mall.o: couvert-antagni.c
 build emit-content: toc
 default $arm-library
 

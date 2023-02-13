@@ -10,6 +10,7 @@ module Twinbeam
   module Arm_Simd { requires neon
    header "/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/arm_acle.h"
    header "/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/arm_neon.h" }
+  /* header "Source/platform-natives.h" */
   header "Twinbeam.h"
   header "Additions/model-wide.h"
   header "Source/fifo-slow.h"
@@ -52,13 +53,6 @@ module Unistd [system]
   }
 }
 
-module Unixsignal [system]
-{
-  module AAPL_big { requires macos
-    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/signal.h"
-  }
-}
-
 module Stdio [system]
 {
   module AAPL_big { requires macos
@@ -67,7 +61,20 @@ module Stdio [system]
   }
 }
 
-module MacosMemorymap
+module Stat [system]
+{
+  module AAPL_big { requires macos
+    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h"
+  }
+}
+module Unixsignal [system]
+{
+  module AAPL_big { requires macos
+    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/signal.h"
+  }
+}
+
+/* module MacosMemorymap
 {
   module AAPL_big { requires macos
     header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/mman.h"
@@ -76,7 +83,7 @@ module MacosMemorymap
     header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/fcntl.h"
     header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h"
   }
-} /*  access written files from a mac drive. */
+}  access written files from a mac drive. */
 
 module AsynchronousIO
 { requires macos

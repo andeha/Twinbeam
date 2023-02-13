@@ -1,20 +1,37 @@
 /*  macos-institut.c | primary-memory-branch and masked async-writes. */
 
 import Twinbeam;
-import MacosMemorymap;
+/* import MacosMemorymap; */
 import AsynchronousIO;
 import UnittestsOnMac;
 import Unistd; /*  declaration of 'readlink'. */
 import Unixsignal;
-import Stdio;
 import Malloc;
+import Stdio; /* 'popen' and 'pclose'. */
+import Stat;
 
-void * Heap₋alloc(__builtin_int_t bytes) { return malloc(bytes); }
-void Heap₋unalloc(void * ref) { free(ref); }
+void * Heap₋alloc(__builtin_int_t bytes)
+{
+   return malloc(bytes);
+} /*  a․𝘬․a 'malloc₋alloc'. */
+
+void * Alloc(__builtin_int_t bytes) ⓣ
+{
+   return Heap₋alloc(bytes);
+} /*  a․𝘬․a 'User₋alloc'. */
+
+void * Cons₋alloc(__builtin_int_t object₋bytes)
+{
+   return Heap₋alloc(object₋bytes);
+} /*  a․𝘬․a 'Coalesc₋alloc'. */
+
 __builtin_int_t Heap₋object₋size(void * ref) { return malloc_size(ref); }
 
-void * Alloc(__builtin_int_t bytes) { return Heap₋alloc(bytes); }
+void Heap₋unalloc(void * ref) { free(ref); }
+
 void Fallow(void * ref) ⓣ { Heap₋unalloc(ref); }
+
+void Cons₋fallow(void * reference) { Heap₋unalloc(reference); }
 
 /*  do not call 'MacosMemorymap'. */
 
@@ -34,7 +51,7 @@ TransformAndResolve(
    return 0;
 }
 
-#pragma header seldom used arrangements
+#pragma recto seldom used arrangements
 
 #if defined __x86_64__
 __attribute__ ((target("rdrnd")))
@@ -152,7 +169,35 @@ int Cattle(struct Unicodes * regularpathOrΨΛΩ, struct collection * branch,
     return 0;
 } /*  a․𝘬․a 'Reconcile', 'Stock', 'Settle' and 'Arbitrate'. See also 'rsync'. */
 
-#pragma recto unit testing symbol find
+#pragma recto commands installed and big com-put-err
+
+int Order(void (^out)(char32̄_t * ucs, __builtin_int_t bytes), char32̄_t * command, ...)
+{ int y1, 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 y2,status=0; pid_t pid; size_t 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 bytes₋read;
+   va_prologue(command)
+   y1 = Play(command,__various,^(struct Unicodes serial) {
+     char8₋t text[4*serial.tetras]; __builtin_int_t u8bytes;
+     y2 = UnicodeToUtf8(serial.tetras,serial.unicodes,text,&u8bytes);
+     if (y2 != 0) goto unagain2;
+     text[u8bytes] = '\0';
+     FILE * fp = popen((char *)text,"r");
+     if (fp == ΨΛΩ) goto unagain2;
+     uint8_t buffer[4097];
+again:
+     if (ferror(fp)) { y2 = -1; goto unagain1; }
+     if (feof(fp)) goto unagain1;
+     bytes₋read = fread(buffer,1,4096,fp);
+     buffer[bytes₋read] = '\0'; printf("%s",buffer);
+      /* out(char32,bytes) */ goto again;
+unagain1:
+     pclose(fp);
+unagain2:
+     ;
+   });
+   va_epilogue
+   return y2;
+}
+
+#pragma recto unit testing and symbol find in executables
 
 void
 Symbols(
