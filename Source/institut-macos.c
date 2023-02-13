@@ -1,14 +1,9 @@
 /*  macos-institut.c | primary-memory-branch and masked async-writes. */
 
 import Twinbeam;
-/* import MacosMemorymap; */
-import AsynchronousIO;
-import UnittestsOnMac;
-import Unistd; /*  declaration of 'readlink'. */
-import Unixsignal;
-import Malloc;
-import Stdio; /* 'popen' and 'pclose'. */
-import Stat;
+/* import MacosMemorymap, do not call 'MacosMemorymap' and do not call 'aio'. */
+
+#include <malloc/malloc.h>
 
 void * Heap₋alloc(__builtin_int_t bytes)
 {
@@ -32,8 +27,6 @@ void Heap₋unalloc(void * ref) { free(ref); }
 void Fallow(void * ref) ⓣ { Heap₋unalloc(ref); }
 
 void Cons₋fallow(void * reference) { Heap₋unalloc(reference); }
-
-/*  do not call 'MacosMemorymap'. */
 
 /*  see --<🥽 Cordal.cpp> when constant and --<🥽 Memclone.cpp>{Copy} when branch. */
 
@@ -68,6 +61,12 @@ again:
 }
 
 #pragma recto modern read and write
+
+#include <aio.h> /* Addition/heavy-duty/Tape.h */
+#include <unistd.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <signal.h>
 
 int superfluous_async_read(struct aiocb cb, int job, const char * utf8file, 
  int bytes, uint8_t * material, int byteoffset)
@@ -171,6 +170,8 @@ int Cattle(struct Unicodes * regularpathOrΨΛΩ, struct collection * branch,
 
 #pragma recto commands installed and big com-put-err
 
+#include <stdio.h>
+
 int Order(void (^out)(char32̄_t * ucs, __builtin_int_t bytes), char32̄_t * command, ...)
 { int y1, 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 y2,status=0; pid_t pid; size_t 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 bytes₋read;
    va_prologue(command)
@@ -198,6 +199,10 @@ unagain2:
 }
 
 #pragma recto unit testing and symbol find in executables
+
+#include <mach-o/loader.h>
+#include <mach-o/nlist.h>
+#include <sys/stat.h>
 
 void
 Symbols(

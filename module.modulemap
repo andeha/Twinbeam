@@ -46,65 +46,12 @@ module peripherial_controller_legacypoint {
 
 /* ... */
 
-module Unistd [system]
+/* module Unistd [system]
 {
   module AAPL_big { requires macos
     header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h"
   }
-}
-
-module Stdio [system]
-{
-  module AAPL_big { requires macos
-    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h"
-    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h"
-  }
-}
-
-module Stat [system]
-{
-  module AAPL_big { requires macos
-    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h"
-  }
-}
-module Unixsignal [system]
-{
-  module AAPL_big { requires macos
-    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/signal.h"
-  }
-}
-
-/* module MacosMemorymap
-{
-  module AAPL_big { requires macos
-    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/mman.h"
-    textual header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types.h"
-    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h"
-    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/fcntl.h"
-    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h"
-  }
-}  access written files from a mac drive. */
-
-module AsynchronousIO
-{ requires macos
-  header "Twinbeam.h" /* includes */
-  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/aio.h"
-  /* header "Additions/heavy-duty/Tape.h" */
-  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h"
-  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/fcntl.h"
-  header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/errno.h"
-}
-
-module UnittestsOnMac
-{ requires macos
-   header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/loader.h"
-   header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/nlist.h"
-} /* ⬷ to implement unit testing on mac. */
-
-module Malloc
-{ requires macos
-   header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/malloc.h"
-}
+} */
 
 module System
 {
