@@ -59,22 +59,6 @@ module System
   header "Additions/nebbiolo-system.h"
 }
 
-module MacosClassicterminal
-{
-  module AAPL_big { requires macos
-    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/termios.h"
-    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/select.h"
-  }
-}
-
-module MacosModernterminal
-{
-  module AAPL_big { requires macos
-    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h"
-    header "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/dispatch.h"
-  }
-} /*  the 'dispatch' framework. */
-
 /* module Twinbeam_with_stdcpp
 { requires cplusplus
   config_macros ADDITIONAL_LINKERSYMBOLS
