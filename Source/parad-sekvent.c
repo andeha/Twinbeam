@@ -47,7 +47,9 @@ int regularpool₋at(struct collection * ᐧ 🅷, Nonabsolute relative,
     length₋left = symbol₋count, symbols₋util₋swap, palm₋start₋idx =
      CELLS₋ROOM*(relative/CELLS₋ROOM);
 again:
-   if (length₋left <= 0) { text(symbol₋count,segment₋sum,length₋table,reference); return 0; }
+   if (length₋left <= 0) { text(symbol₋count,segment₋sum,length₋table, 
+    reference); return 0; }
+   /* print("start-next ⬚\n", ﹟d(start₋next)); */
    reference[idx] = (char32̄_t *)collection₋relative(start₋next,🅷);
    symbols₋util₋swap = CELLS₋ROOM - (start₋next - palm₋start₋idx);
    length₋table[idx] = min(symbols₋util₋swap,symbol₋count);
