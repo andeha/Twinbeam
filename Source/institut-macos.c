@@ -1,7 +1,6 @@
 /*  macos-institut.c | primary-memory-branch and masked async-writes. */
 
 import Twinbeam;
-/* import MacosMemorymap, do not call 'MacosMemorymap' and do not call 'aio'. */
 
 #include <malloc/malloc.h>
 
@@ -12,7 +11,7 @@ void * Heap₋alloc(__builtin_int_t bytes)
 
 void * Alloc(__builtin_int_t bytes) ⓣ
 {
-   return Heap₋alloc(bytes);
+   return calloc(bytes,1);
 } /*  a․𝘬․a 'User₋alloc'. */
 
 void * Cons₋alloc(__builtin_int_t object₋bytes)
@@ -32,6 +31,8 @@ void Cons₋fallow(void * reference) { Heap₋unalloc(reference); }
 
 /*  improved version available in --<Reconcile.cpp ∧ Tape.h>{'syncro_read' alt. 'syncro_write'}. */
 
+/* do not call 'MacosMemorymap' and do not call 'aio'. */
+
 int
 TransformAndResolve(
   struct Unicodes path, 
@@ -39,7 +40,7 @@ TransformAndResolve(
 )
 {
    char8₋t u8s[path.tetras*4]; __builtin_int_t actual;
-   if (UnicodeToUtf8(path.tetras,path.unicodes,u8s,&actual)) { return -1; }
+   if (UnicodeToUtf8(path.tetras,path.unicodes,u8s,&actual)) return -1;
    final((char *)u8s);
    return 0;
 }
@@ -57,7 +58,7 @@ again:
 #elif defined __armv8a__
    y = __builtin_arm_rndr(out); /* asm { mrs x0, RNDR } also 'mrs x1, NZCV'. */
 #endif
-  if (y == 0) { goto again; }
+  if (y == 0) goto again;
 }
 
 #pragma recto modern read and write
@@ -139,8 +140,6 @@ int InitAIO(void (^jots)(const char * utf8logformat, ...))
 }
 
 /* When the flag 'O_DIRECT' is not include when 'open': */
-int fsync₁(struct aiocb cb) { return aio_fsync(O_SYNC,&cb); } /*  a․𝘬․a 'async_fsync'. */
-int fsync₂(int fd) { return fsync(fd); } /*  a․𝘬․a 'sync_fsync'. */
 
 #pragma recto even less used arrangements
 
@@ -210,11 +209,11 @@ Symbols(
   void (^symbol)(const char * sym, uint64_t addr, int * stop))
 { __builtin_int_t bytesActual;
     int fd = open((const char *)utf8exepath, O_RDONLY | O_SYMLINK);
-    if (fd == -1) { return; }
-    struct stat sb; if (fstat(fd,&sb) == -1) { return; }
+    if (fd == -1) return;
+    struct stat sb; if (fstat(fd,&sb) == -1) return;
     uint8_t * obj = Heap₋alloc(sb.st_size); 
     bytesActual = pread(fd,obj,sb.st_size,0);
-    if (bytesActual != sb.st_size) { return; }
+    if (bytesActual != sb.st_size) return;
     uint8_t * obj_p = obj;
     
     struct mach_header_64 * header = (struct mach_header_64 *)obj_p;
@@ -236,7 +235,7 @@ Symbols(
             uint32_t idx = entry->n_un.n_strx;
             if ((entry->n_type & N_TYPE) == N_SECT) { symbol(strtable + idx, 
               entry->n_value,&outerStop); }
-            if (outerStop) { return; }
+            if (outerStop) return;
          }
       } else if (lc->cmd == LC_SEGMENT) {
          struct segment_command * segment = (struct segment_command *)obj_p;
