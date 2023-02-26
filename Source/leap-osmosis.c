@@ -23,27 +23,25 @@ struct guid Guid()
    return g;
 }
 
-struct fragment { uint32_t d₁; uint16_t d₂, d₃; uint8_t d₄[8]; };
-union innerguid { struct guid outer; struct fragment inner; };
-
-Argᴾ ﹟leap(struct guid g₂)
+Argᴾ ﹟leap(struct guid G)
 {
-   typedef void (^Lambda)(serial₋present, void *);
-   Lambda guidprint = ^(serial₋present fragment, void * guid) {
-     union innerguid g₁; short 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 brk=0; char8₋t bounded[20],*pb=bounded;
+   struct fragment { uint32_t d₁; uint16_t d₂,d₃; uint8_t d₄[8]; };
+   union innerguid { struct guid outer; struct fragment inner; };
+   Serialfragment guid₋print = ^(serial₋present fragment, void * guid) {
+     union innerguid g; short 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 brk=0; char8₋t bounded[20],*pb=bounded;
      typedef void (^Append)(char);
      Append append = ^(char c) { pb[brk]=c; brk+=1; };
      Append out = ^(char c) { append(c); };
-     g₁.outer = ((union innerguid)g₂).outer; /* a․𝘬․a g₁.ounter = g₂. */
-     Base𝕟((__builtin_uint_t)(g₁.inner.d₁),16,4,out); append('-');
-     Base𝕟((__builtin_uint_t)(g₁.inner.d₂),16,2,out); append('-');
-     Base𝕟((__builtin_uint_t)(g₁.inner.d₃),16,2,out); append('-');
+     g.outer = ((union innerguid)G).outer; /* a․𝘬․a g₁.ounter = g₂. */
+     Base𝕟((__builtin_uint_t)(g.inner.d₁),16,4,out); append('-');
+     Base𝕟((__builtin_uint_t)(g.inner.d₂),16,2,out); append('-');
+     Base𝕟((__builtin_uint_t)(g.inner.d₃),16,2,out); append('-');
      for (short i=0; i<8; i+=1) {
-       __builtin_uint_t f = g₁.inner.d₄[i];
+       __builtin_uint_t f = g.inner.d₄[i];
        Base𝕟(f,16,1,out);
      }
      fragment(bounded,brk);
    };
-   return ﹟λ₁(guidprint,&g₂);
+   return ﹟λ₁(guid₋print,&G);
 } /* a․𝘬․a print("⬚", ﹟λ(leap,&g)). */
 
