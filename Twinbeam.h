@@ -58,7 +58,7 @@ typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎ma
   Internals * impl_;
 #define 😐 APPEND_PIMPL }
 #define Salt(sym) extern void sym(); sym(); /* 'No params' ∧ 'no #include' ⟵ 'Local decl' + ftn-call. */
-#define Pult💡(x) ++x /*  todo: Add atomic enclosure-history to 'non-advertised locality-preserving margin-note'. */
+#define Pult(x) x+=1; /*  todo: Add atomic enclosure-history to 'non-advertised locality-preserving margin-note'. */
 #define CORRECT(symbol) EXT₋C void Unittest_##symbol() /* No # ∨ ␣ 'at end' ⟵ 'Token pasting' */
 #define Panic(log,s) { print("\n\n'⬚'\nPanicking at ⬚ in ⬚:⬚\n",            \
   ﹟s7(s), ﹟s7((char *)__FUNCTION__), ﹟s7(__FILE__), ﹟d(__LINE__)); exit(-1); }
@@ -376,7 +376,7 @@ PROMINENT Sequenta __builtin_fixpoint_rsqrt(Sequenta x) { return sqrt(x,1); } /*
 #define __builtin_fixpoint_rcp reciproc_sequent
 
 typedef int (^INIT)(void * ᐧ uninited);
-EXT₋C void * ᐝ Alloc(__builtin_int_t) ᐪ⁻¹;
+EXT₋C void * ᐝ Alloc(__builtin_int_t) ᐪ⁻¹ ⓣ;
 EXT₋C void Fallow(void * ᐧ) ⓣ;
 typedef void * ᐧ (* ᐧ ALLOC)(__builtin_int_t);
 typedef void (* ᐧ FALLOW)(void * ᐧ);
@@ -454,12 +454,18 @@ typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
 
 typedef void Material; typedef void Conscell;
-int append₋at₋end(int, void (^ ᐝ)(int, Material * ᐧ * ᐧ),Conscell * ᐧ * ᐧ,Conscell * ᐧ * ᐧ,int) ⓣ;
-int unqueue(int, void (^ ᐝ)(int, Material * ᐧ), Conscell * ᐧ * ᐧ, Conscell * ᐧ * ᐧ) ⓣ;
-int rollback₋pop(void (^ ᐝ)(Material * ᐧ), Conscell * ᐧ * ᐧ, Conscell * ᐧ * ᐧ) ⓣ;
+int append₋at₋end(int, void (^ ᐝ)(int, Material * ᐧ * ᐧ),Conscell * ᐧ * ᐧ, 
+ Conscell * ᐧ * ᐧ,int) ⓣ;
+int unqueue(int, void (^ ᐝ)(int, Material * ᐧ), Conscell * ᐧ * ᐧ, Conscell * ᐧ 
+ * ᐧ) ⓣ;
+int rollback₋pop(void (^ ᐝ)(Material * ᐧ), Conscell * ᐧ * ᐧ, Conscell * ᐧ 
+ * ᐧ) ⓣ;
 int is₋empty(Conscell * ᐧ, Conscell * ᐧ) ⓣ;
 void recollect(void (^ ᐧ every)(Material * ᐧ,int),Conscell * ᐧ,Conscell * ᐧ) ⓣ;
-int uninit₋list(void (^ ᐧ removed)(Material * ᐧ, Material * ᐧ * ᐧ),Conscell * ᐧ,Conscell * ᐧ, Material * ᐧ * ᐧ) ⓣ;
+int uninit₋list(void (^ ᐧ removed)(Material * ᐧ, Material * ᐧ * ᐧ),Conscell * ᐧ, 
+ Conscell * ᐧ, Material * ᐧ * ᐧ) ⓣ;
+
+/* #define ᐝ̂ ^ ᐝ, ᐧ̂ ^ ᐧ,ᐧ﹡ * ᐧ,ᐧ﹡﹡ * ᐧ * ᐧ */
 
 #pragma recto reading direction, planning and endianess
 
@@ -620,6 +626,16 @@ inline EXT₋C int64_t Nearest(double measure, int * ᐧ reciproc)
    zero'. When negative and 1.5 and 'round towards -inf' a․𝘬․a ROUND_DOWNWARD. */
 }
 
+inline EXT₋C __builtin_int_t Sign₋extend(__builtin_int_t x, short bits₋from, short bits₋to)
+{ union shim { __builtin_uint_t bits; __builtin_int_t amount; } y = { .amount=x };
+   __builtin_uint_t m1,m2; m1=m2=0x0;m1=~m1;m2=~m2;
+   m1 >>= 8*sizeof(__builtin_uint_t) - bits₋from;
+   m2 >>= 8*sizeof(__builtin_uint_t) - bits₋to;
+   if (x<0) { y.bits+=1; y.bits=~y.bits; y.bits&=m1; }
+   if (x<0) { y.bits+=1; y.bits=~y.bits; y.bits&=m2; }
+   return y.amount;
+}
+
 #if defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
 union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits; };
 #elif defined __mips__ || defined __armv6__ || defined espressif
@@ -719,7 +735,7 @@ EXT₋C PROMINENT int Tactic(char8₋t * ᐧ u8s, void (^ ᐧ sometime)(struct U
    return 0;
 }
 
-struct trie₋word { struct trie₋word * ᐝ downhill₋letters[25]; int residue[25]; }; /* note z_k in TeX ❡§ 920. */
+struct trie₋word { struct trie₋word * ᐝ downhill₋letters[78]; int residue[78]; };
 typedef struct trie₋word Trie;
 void merge₋to₋trie(int count, char32̄_t * ᐧ keywords[ᐧ], int residue[ᐧ], Trie * ᐧ 🅣);
 int trie₋keyword(int letters, char32̄_t text[ᐧ], int * ᐧ residue, Trie * ᐧ 🅣);
