@@ -11,8 +11,9 @@ CORRECT(Collection_1)
    char32̄_t * text = U"hello world";
    if (copy₋append₋items(11+1,text,&🅰,Alloc)) 
     ENSURE(false,"error when copy-append items");
-   uint8_t * byteref = collection₋relative(5,&🅰);
-   char32̄_t ucref = *(char32̄_t *)byteref;
+   uint8_t * byteref = collection₋relative(8,&🅰);
+   char32̄_t uc = *(char32̄_t *)byteref;
+   ENSURE(uc == U'r',"error when retrieving material");
     __builtin_int_t count = collection₋count(&🅰);
    ENSURE(count=3,"wrong number of elements")
    if (deinit₋collection(&🅰, Fallow)) 
