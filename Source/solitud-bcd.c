@@ -29,13 +29,13 @@ void int₋and₋bigint(int64_t /* base-2 */ ℤ, 𝓵₋bigint * z)
    z->signbit=PLUS; if (ℤ<0) { z->signbit=MINUS; ℤ=-ℤ; }
    i=0; do { z->digits[i] = ℤ % 10; ℤ /= 10; i+=1; } while (ℤ);
    z->lastdigit=i; if (ℤ == 0) z->lastdigit=0;
-}
+} /* digits stored in 'little-endian' in 'digits' array. */
 
 int digits₋and₋bigint(char * digits, 𝓵₋bigint * z)
 { char c; int length=sevenbit₋strlen(digits),i=0;
    bcd₋bigint₋zero(z);
 again:
-   c = *(i+digits-length);
+   c = *(digits+length-1-i);
    if (c == ΨΛΩ) { z->lastdigit=i; return 0; }
    if (!(0x30 <= c && c < 0x3a)) { return -1; }
    z->digits[i]= c - '0';
