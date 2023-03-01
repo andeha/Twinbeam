@@ -3,54 +3,18 @@
 optflags = -g
 src = ../Source
 additions = ../Additions
-objs = .objs/7703a312-55B9-44da-A792-ebbcf9f87665_tbunits
+objs = .objs/7703a312-55B9-44da-A792-ebbcf9f89665_tbunits
 include ../tools.ninja
 cflags = $platflags $macoscflags $optflags
 include ../macos/laptop-big.ninja
 
 rule link
-  command = xcrun ld $maclnkflags -o $out $in $libtwinbeam
+  command = xcrun ld $maclnkflags -o $out $in ../Source/Releases/libTwinbeam-x86_64.a
 # ../Thirdparty/libfreetype_macos.a
 
-build twinbeam-units: link $objs/analys-annuitet.o $objs/analys-numeri.o     $
- $objs/annuitet-collection.o $objs/backpack-memory.o $objs/builtins-macos.o  $
- $objs/cache-tempo.o $objs/casette-array.o $objs/chronology.o                $
- $objs/compute.o $objs/duration-epoch.o $objs/ende-code.o $objs/exception.o  $
- $objs/fingerprint.o $objs/harness.o $objs/help-shirt.o                      $
- $objs/interval-array.o $objs/method-dispersiv.o $objs/metod-sophom.o        $
- $objs/misc-base.o $objs/pct-symbol.o $objs/print.o $objs/procurement.o      $
- $objs/symbol-casette.o $objs/text-length.o $objs/tree-search.o              $
- $objs/unknown-time.o                                                        $
-                                                                             $
- $objs/❩†$ utf8.o
+build twinbeam-units: link $objs/harness.o $objs/❩†$ utf8.o $objs/❩†$ three.o
 
 build $objs/❩†$ utf8.o: c ❩†$ utf8.c
-
-build $objs/compute.o: c $src/anglosax-sequent.c
-build $objs/procurement.o: c $src/arrange-fifo.c
-build $objs/backpack-memory.o: c $src/best-first.c
-build $objs/help-shirt.o: c $src/chim-model.c
-build $objs/exception.o: asm $src/church-pass.S
-build $objs/method-dispersiv.o: c $src/comput-unique.c
-build $objs/interval-array.o: c $src/convoj-sequen.c
-build $objs/cache-tempo.o: c $src/deter-lock.c
-build $objs/chronology.o: c $src/icati-irrevers.c
-build $objs/text-length.o: c $src/impress-length.c
-build $objs/builtins-macos.o: cms $src/institut-macos.c
-build $objs/fingerprint.o: c $src/leap-osmosis.c
-# build $objs/institut-neverla.o: c $src/nevada-institut.c
-build $objs/duration-epoch.o: c $src/nonsol-utroll.c
-build $objs/ende-code.o: c $src/pamphlet-symbol.c
-build $objs/tree-search.o: c $src/portable-tree.c
-build $objs/annuitet-collection.o: c $src/prefix-spark.c
-build $objs/analys-numeri.o: c $src/progre-option.c
-build $objs/casette-array.o: c $src/reference-three.c
-build $objs/print.o: c $src/serial-symbol.c
-build $objs/metod-sophom.o: c $src/solitud-bcd.c
-build $objs/analys-annuitet.o: c $src/spark-amend.c
-build $objs/pct-symbol.o: c $src/stochast-symbol.c
-build $objs/symbol-casette.o: c $src/symbol-tiles.c
-build $objs/unknown-time.o: c $src/tee-metric.c
-build $objs/misc-base.o: c $src/unstall-coalesc.c
+build $objs/❩†$ three.o: c ❩†$ three.c
 build $objs/harness.o: c ../macOS/harness.c
 default twinbeam-units
