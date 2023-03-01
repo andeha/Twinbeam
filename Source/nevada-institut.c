@@ -36,7 +36,22 @@ __builtin_int_t Heap₋object₋size(void * ref) { return backpack₋object₋si
 void Heap₋unalloc(void * ref) { backpack₋free(ref); }
 
 void Fallow(void * ref) { Heap₋unalloc(ref); }
+
 void * Alloc(__builtin_int_t bytes) { return Heap₋alloc(bytes); }
+
+void * _Block₋copy(const void * block)
+{
+  struct Block₋layout * origin = (struct Block₋layout *)block;
+  __builtin_int_t size = origin->descriptor->size;
+  struct Block₋layout * copy = Heap₋alloc(size);
+  Copy8Memory((ByteAlignedRef)copy,(ByteAlignedRef)origin,size);
+  return copy;
+}
+
+void _Block₋release(const void * block)
+{
+   Heap₋unalloc(block);
+}
 
 void RandomInteger(uint64_t * out)
 {

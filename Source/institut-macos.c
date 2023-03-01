@@ -27,6 +27,20 @@ void Fallow(void * ref) ⓣ { Heap₋unalloc(ref); }
 
 void Cons₋fallow(void * reference) { Heap₋unalloc(reference); }
 
+void * _Block₋copy(const void * block)
+{
+   struct Block₋layout * origin = (struct Block₋layout *)block;
+   __builtin_int_t size=origin->descriptor->size;
+   struct Block₋layout * copy = (struct Block₋layout *)Heap₋alloc(size);
+   Copy8Memory((ByteAlignedRef)copy,(ByteAlignedRef)origin,size);
+   return copy;
+}
+
+void _Block₋release(const void * block)
+{
+   Heap₋unalloc((void *)block);
+}
+
 /*  see --<🥽 Cordal.cpp> when constant and --<🥽 Memclone.cpp>{Copy} when branch. */
 
 /*  improved version available in --<Reconcile.cpp ∧ Tape.h>{'syncro_read' alt. 'syncro_write'}. */

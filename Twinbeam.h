@@ -65,7 +65,7 @@ typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎ma
 #define ENSURE(c,s) { if (!(c)) { Panic(Testlog,s); } }
 #define FOCAL /* repoussé inexorable. */
 #define ENCLAVED
-#define MENTATIVE void /*  a․𝘬․a 'ONLY₋FOR₋SOFT₋REALTIME' and ARGUMENTATIVE. */
+#define MENTATIVE /*  a․𝘬․a 'ONLY₋FOR₋SOFT₋REALTIME' and ARGUMENTATIVE. */
 #if defined __cplusplus
 #define EXT₋C extern "C"
 #else
@@ -444,11 +444,8 @@ struct Block₋descriptor { unsigned long int reserved; unsigned long int size;
  void (* ᐝ copy)(void * ᐝ dst, void * ᐝ src); void (* ᐝ dispose)(void * ᐝ); };
 struct Block₋layout { void * ᐝ isa; int flags; int reserved; void (* ᐝ invoke)(void * ᐝ, 
  ...); struct Block₋descriptor * ᐝ descriptor; };
-inline void * ᐝ _Block₋copy(const void * ᐝ arg) { struct Block₋layout * block = (struct 
- Block₋layout *)arg; struct Block₋layout * y = (struct Block₋layout *)Heap₋alloc(
- block->descriptor->size); Copy8Memory((ByteAlignedRef)y, (ByteAlignedRef)
- block, block->descriptor->size); return y; }
-inline void _Block₋release(const void * ᐝ arg) { Heap₋unalloc((void *)arg); }
+void * ᐝ _Block₋copy(const void * ᐝ block);
+void _Block₋release(const void * ᐝ block);
 typedef __builtin_uint_t BinaryChoice; BITMASK(BinaryChoice) {
   BinaryChoiceToLeft = 0b0, BinaryChoiceToRight = 0b1 };
 #define NEVERBLURTS /* Fortunately undefined for script, kiddies. */
@@ -1021,7 +1018,7 @@ typedef __builtin_int_t Nonabsolute; /* index to Unicode, not impression. */
 EXT₋C int regularpool₋datum₋text(struct collection * ᐧ 🅗, int32_t tetras, 
  Nonabsolute relative);
 EXT₋C int regularpool₋at(struct collection * ᐧ 🅗, Nonabsolute relative, void 
- (^ ᐧ text)(short symbols₋total, short count₁, short count₂[ᐧ], 
+ (^ ᐧ text)(short symbols₋total, short fragments, short symbols[ᐧ], 
  char32̄_t * ᐧ segment[ᐧ]));
 EXT₋C int optional₋uninit₋regularpool(struct collection * ᐧ 🅷, FALLOW fallow);
 EXT₋C int init₋regularpool(struct collection * ᐧ 🅷);
