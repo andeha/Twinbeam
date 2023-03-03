@@ -2,7 +2,7 @@
 
 import Twinbeam;
 
-typedef void (^Unicode₋out)( __builtin_int_t tetras, char32̄_t * uc);
+typedef void (^Unicode₋out)(__builtin_int_t tetras, char32̄_t * uc);
 
 inexorable void uctext₋out(char32̄_t * ucs, __builtin_int_t tetras, Unicode₋out out, int * amend)
 {
@@ -110,24 +110,26 @@ int
 Play(
   char32̄_t * text,
   __builtin_va_list params,
-  void (^composition)(struct Unicodes serial)
+  void (^composition)(__builtin_int_t total, char32̄_t * ucs)
 ) ⓣ
-{ struct Unicodes serial; Argᴾ a; char32̄_t uc, *serial₋text;
-  __builtin_int_t i=0,count₋uc; 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 struct collection symbols;
-  int printedSymbolsExcept0=0;
-   if (collection₋init(4,4096,&symbols)) { return -1; }
+{ struct collection 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 symbols; __builtin_int_t i=0;
+    
    Unicode₋out out = ^(__builtin_int_t tetras, char32̄_t * uc) {
-     for (__builtin_int_t i=0; i<tetras; i+=1) {
-       *(char32̄_t *)collection₋relative(i,&symbols) = *(i + uc);
-     }
+     if (copy₋append₋items(tetras,uc,&symbols,Heap₋alloc)) { return; }
+     /* for (int j=0; j<tetras; j+=1) {
+       *(char32̄_t *)collection₋relative(j,&symbols) = *(j + uc);
+     } */
    };
+   
+   if (collection₋init(4,4096,&symbols)) return -1;
+   __builtin_int_t total;
+   char32̄_t uc, *consecutive;
+   struct Unicodes serial; Argᴾ a;
+   int printedSymbolsExcept0=0;
 again:
    uc = *(i + text);
-   if (uc == 0x0000) { goto unagain; }
-   if (uc != U'⬚') {
-     char32̄_t * loc = (char32̄_t *)collection₋relative(i,&symbols);
-     *loc = uc; printedSymbolsExcept0+=1;
-   }
+   if (uc == 0x0000) goto unagain;
+   if (uc != U'⬚') { unicode₋out(uc,out,&printedSymbolsExcept0); }
    else {
      a = __builtin_va_arg(params,Argᴾ);
      switch (a.kind) {
@@ -157,22 +159,21 @@ again:
    }
    i+=1; goto again;
 unagain:
-   count₋uc = collection₋count(&symbols);
-   serial₋text = (char32̄_t *)Heap₋alloc(count₋uc);
-   for (i=0; i<count₋uc; i+=1) {
-     *(i+serial₋text) = *(char32̄_t *)collection₋relative(i,&symbols);
+   total = collection₋count(&symbols);
+   consecutive = (char32̄_t *)Heap₋alloc(total);
+   for (i=0; i<total; i+=1) {
+     *(i+consecutive) = *(char32̄_t *)collection₋relative(i,&symbols);
    }
-   serial.tetras=count₋uc,serial.unicodes=serial₋text;
-   composition(serial);
+   composition(total,consecutive);
    if (deinit₋collection(&symbols,Heap₋unalloc)) { return -2; }
-   Heap₋unalloc(serial₋text);
+   Heap₋unalloc(consecutive);
    return printedSymbolsExcept0;
 }
 
 FOCAL
 int
 Play(
-  void (^serial)(struct Unicodes), 
+  void (^serial)(__builtin_int_t total, char32̄_t * ucs), 
   char32̄_t * text, 
   ...
 ) ⓣ
