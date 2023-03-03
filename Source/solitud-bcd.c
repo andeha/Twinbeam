@@ -23,13 +23,27 @@ inexorable __builtin_int_t sevenbit₋strlen(char * s)
    return (__builtin_int_t)p - (__builtin_int_t)s;
 }
 
-void int₋and₋bigint(int64_t /* base-2 */ ℤ, 𝓵₋bigint * z)
-{ int i=0;
-   for (i=0; i<DIGITS; i+=1) z->digits[i]=0;
-   z->signbit=PLUS; if (ℤ<0) { z->signbit=MINUS; ℤ=-ℤ; }
-   i=0; do { z->digits[i] = ℤ % 10; ℤ /= 10; i+=1; } while (ℤ);
-   z->lastdigit=i; if (ℤ == 0) z->lastdigit=0;
-} /* digits stored in 'little-endian' in 'digits' array. */
+void int₋and₋bigint(int64_t /* base-2 */ s, 𝓵₋bigint * n)
+{   int i;            /* counter */
+   int t;            /* int to work with */
+
+   if (s >= 0) n->signbit = PLUS;
+   else n->signbit = MINUS;
+
+   for (i=0; i<DIGITS; i++) n->digits[i] = (char) 0;
+
+   n->lastdigit = -1;
+
+   t = abs(s);
+
+   while (t > 0) {
+      n->lastdigit ++;
+      n->digits[ n->lastdigit ] = (t % 10);
+      t = t / 10;
+   }
+
+   if (s == 0) n->lastdigit = 0;
+} /* digits stored 'little-endian' in the 'digits' array. */
 
 int digits₋and₋bigint(char * digits, 𝓵₋bigint * z)
 { char c; int length=sevenbit₋strlen(digits),i=0;
@@ -104,9 +118,8 @@ void bcd₋bigint₋subtract(𝓵₋bigint * x₁, 𝓵₋bigint * x₂, 𝓵₋
 }
 
 void bcd₋bigint₋multiply(𝓵₋bigint * x₁, 𝓵₋bigint * x₂, 𝓵₋bigint * z)
-{ int i,j; bigint row, local;
+{ int i,j; bigint row=*x₁,local;
    bcd₋bigint₋zero(z);
-   row = *x₁;
    for (i=0; i<=x₂->lastdigit; i+=1)
    {
       for (j=1; j<=x₂->digits[i]; j+=1)
@@ -151,14 +164,16 @@ void bcd₋bigint₋divide(𝓵₋bigint * x₁, 𝓵₋bigint * x₂, 𝓵₋bi
 void bcd₋bigint₋shift(𝓵₋bigint * z, __builtin_int_t I)
 { __builtin_int_t i;
    if (z->lastdigit == 0 && z->digits[0] == 0) return;
-   for (i=z->lastdigit; i>=0; i=i-1) { z->digits[i+I]=z->digits[i]; }
-   for (i=0; i<I; i+=1) { z->digits[i]=0; }
+   for (i=z->lastdigit; i>=0; i=i-1) z->digits[i+I]=z->digits[i];
+   for (i=0; i<I; i+=1) z->digits[i]=0;
    z->lastdigit = I + z->lastdigit;
 }
 
 int bcd₋bigint₋compare(𝓵₋bigint * x₁, 𝓵₋bigint * x₂)
 { __builtin_int_t i;
-   if (x₁->signbit ^ x₂->signbit) { return x₂->signbit; }
+   // if (x₁->signbit ^ x₂->signbit) { return x₂->signbit; }
+   if (x₁->signbit == MINUS && x₂->signbit == PLUS) return PLUS;
+   if (x₁->signbit == PLUS && x₂->signbit == MINUS) return MINUS;
    if (x₂->lastdigit > x₁->lastdigit) return PLUS * x₁->signbit;
    if (x₁->lastdigit > x₂->lastdigit) return MINUS * x₁->signbit;
    for (i=x₁->lastdigit; i>=0; i=i-1) {
