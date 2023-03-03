@@ -188,9 +188,9 @@ int Cattle(struct Unicodes * regularpathOrΨΛΩ, struct collection * branch,
 int Order(void (^out)(char32̄_t * ucs, __builtin_int_t bytes), char32̄_t * command, ...)
 { int y1, 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 y2,status=0; pid_t pid; size_t 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 bytes₋read;
    va_prologue(command)
-   y1 = Play(command,__various,^(struct Unicodes serial) {
-     char8₋t text[4*serial.tetras]; __builtin_int_t u8bytes;
-     y2 = UnicodeToUtf8(serial.tetras,serial.unicodes,text,&u8bytes);
+   y1 = Play(command,__various,^(__builtin_int_t total, char32̄_t * ucs) {
+     char8₋t text[4*total]; __builtin_int_t u8bytes;
+     y2 = UnicodeToUtf8(total,ucs,text,&u8bytes);
      if (y2 != 0) goto unagain2;
      text[u8bytes] = '\0';
      FILE * fp = popen((char *)text,"r");

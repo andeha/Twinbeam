@@ -235,10 +235,10 @@ EXT₋C void unalloc₋shatter(unicode₋shatter text);
 EXT₋C unicode₋shatter persist₋as₋shatter(struct Unicodes uc);
 typedef char * MEXICAN₋REFERENCE keyput₋shatter;
 
-EXT₋C int Play(void (^ ᐧ composition)(struct Unicodes serial), 
+EXT₋C int Play(void (^ ᐧ composition)(__builtin_int_t total, char32̄_t * ᐧ ucs), 
  char32̄_t * ᐧ text, ...) ⓣ;
 EXT₋C int Play(char32̄_t * ᐧ text, __builtin_va_list params, void 
- (^ ᐧ composition)(struct Unicodes serial)) ⓣ;
+ (^ ᐧ composition)(__builtin_int_t total, char32̄_t * ᐧ ucs)) ⓣ;
 typedef void (^Printout)(char8₋t * ᐧ u8s, __builtin_int_t bytes);
 EXT₋C int print(Printout ᐧ out, const char * ᐝ sevenbit₋utf8format, ...) ⓣ;
 EXT₋C int vfprint(const char * ᐝ sevenbit₋utf8format, ...);
