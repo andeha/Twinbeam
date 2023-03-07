@@ -1015,15 +1015,16 @@ EXT₋C int Present₋timeserie₋overview(int count, struct Unicodes keys[ᐧ],
 #endif
 
 typedef __builtin_int_t Nonabsolute; /* index to Unicode, not impression. */
+EXT₋C int init₋regularpool(struct collection * ᐧ 🅷);
+EXT₋C int copy₋prepare₋datum(struct collection * ᐧ 🅷, ALLOC alloc);
+EXT₋C int copy₋append₋onto₋regular(struct collection * ᐧ 🅗, int32_t tetras, 
+ char32̄_t cs[ᐧ], ALLOC alloc);
 EXT₋C int regularpool₋datum₋text(struct collection * ᐧ 🅗, int32_t tetras, 
  Nonabsolute relative);
 EXT₋C int regularpool₋at(struct collection * ᐧ 🅗, Nonabsolute relative, void 
  (^ ᐧ text)(short symbols₋total, short fragments, short symbols[ᐧ], 
  char32̄_t * ᐧ segment[ᐧ]));
 EXT₋C int optional₋uninit₋regularpool(struct collection * ᐧ 🅷, FALLOW fallow);
-EXT₋C int init₋regularpool(struct collection * ᐧ 🅷);
-EXT₋C int copy₋append₋onto₋regular(struct collection * ᐧ 🅗, int32_t tetras, 
- char32̄_t cs[ᐧ], ALLOC alloc, Nonabsolute * ᐧ relative);
 
 #if defined usage₋𝟷𝟸𝟾₋bit₋integer
 EXT₋C __uint128_t FNV1b(__builtin_int_t bytes, void * ᐝ material);
