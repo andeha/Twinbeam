@@ -2,9 +2,9 @@
 
 import Twinbeam;
 
-extern void Anfang(char32̄_t prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, uint8_t * image) {
+extern void Fancy(char32̄_t prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, uint8_t * image) {
  print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); } /* read --<🥢 𝙎𝙪𝙨𝙝𝙞 𝘾𝙝𝙚́𝙛.cpp> and --<Impressions.hpp>
- for details on PNG::IHDR. */
+ for details on PNG::IHDR. \also 'anfang'. */
 
 extern void register₋reflect(__builtin_uint_t mask, 
  void (^out)(char32̄_t uc)) { out((char32̄_t)U'∎'); }
