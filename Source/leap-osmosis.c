@@ -42,6 +42,6 @@ Argᴾ ﹟leap(struct guid G)
      }
      fragment(bounded,brk);
    };
-   return ﹟λ₁(guid₋print,&G);
+   return ﹟λ₁(copy₋block(guid₋print),&G);
 } /* a․𝘬․a print("⬚", ﹟λ(leap,&g)). */
 
