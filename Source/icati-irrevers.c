@@ -32,7 +32,7 @@ Juliandate(
 }
 
 Juliandayno
-Serial(int32_t m /* 1-12 */, int32_t d /* 1-31 */, int32_t y)
+Tellus(int32_t m /* 1-12 */, int32_t d /* 1-31 */, int32_t y)
 { 
    if (m == 1 || m == 2) { y = y - 1; m += 12; }
    int64_t A = (int64_t)(y/100);
@@ -52,7 +52,7 @@ Serial(int32_t m /* 1-12 */, int32_t d /* 1-31 */, int32_t y)
 int instant(int32_t material[], chronology₋UQ32 frac, 
  chronology₋instant * v)
 { union Ntp₋stomp ntp;
-   Juliandayno julian = Serial(material[1],material[2], material[0]);
+   Juliandayno julian = Tellus(material[1],material[2], material[0]);
    ntp.mil.frac = frac;
    ntp.mil.seconds = 60*60*material[3] + 60*material[4] + material[5];
    ntp.mil.seconds += julian*24*60*60;
@@ -98,13 +98,16 @@ void present₋instant(chronology₋instant v, int incl₋frac,
  void (^out)(char digitHyphenColonPeriodOrSpace))
 { int32_t h,m,s; chronology₋UQ32 frac;
    if (reveille(v,&h,&m,&s,&frac)) { return; }
+   union Ntp₋stomp ntp; ntp.bits = v;
+   Juliandayno day = ntp.mil.seconds/(60*60*24);
+   int32_t M,d,y;
+   Juliandate(day,&M,&d,&y);
    /* struct chronology₋time on₋clock = chronology₋since₋midnight(v); */
-   struct chronology₋day at₋five = calendar(v);
-   Base𝕫(((__builtin_int_t)at₋five.y), 10, 0, ^(char digitAltNeg) {
+   Base𝕫(((__builtin_int_t)y), 10, 0, ^(char digitAltNeg) {
     out(digitAltNeg); } ); out('-');
-   /* M */ Base𝕫(((__builtin_int_t)at₋five.M), 10, 2, 
+   /* M */ Base𝕫(((__builtin_int_t)M), 10, 2, 
     ^(char digitAltNeg) { out(digitAltNeg); } ); out('-');
-   /* d */ Base𝕫(((__builtin_int_t)at₋five.d), 10, 2, 
+   /* d */ Base𝕫(((__builtin_int_t)d), 10, 2, 
     ^(char digitAltNeg) { out(digitAltNeg); } ); out(' ');
    /* h */ Base𝕫(((__builtin_int_t)h + 5), 10, 2, 
     ^(char digitAltNeg) { out(digitAltNeg); } ); out(':');
