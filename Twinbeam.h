@@ -72,8 +72,43 @@ typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎ma
 #define EXT₋C
 #endif
 #define FOSSILATED
+#define OPT_Si_FOCAL
+#define CONTEMPLATE
+#define PLUSKVAMCOMPLETE
+#define CHRONOLOGICAL
+#define SPATIALPERTUBAL
+#define EVENTUALRETROSPECTIVE
+#define IRREVERSIb /* IRREVERSI♭ alt․ IRREVERSIꙎ. */
+#define TRAJECTORAL /* also: TRAJECTORAL🝑. */
+#define INITIALPROJECTIVE
+#define IRREPABEL /* in German: 'reparierbar'. */
+#define AMBIVALENT /* native: 'contra-polarisative'. */
+#define DEFLECTIVE /*  e․𝘨 'Auntie' and 'for-beetroot'. */
+#define ANTIPOLARISATIVE
+#define DUALREFLECTIVE
+#define EVENTUALMACHINAL
+#define REINTEGRATIVE
+#define REFLECTIVEATTRACTIONAL
+#define VERYLOGARITHMIC
+#define BOOGIEABLATIVE
+#define PROCESSACCUSATIVE
+#define ALTERNATOPTIONAL /* SPACED */
+#define PRIMALTRANSLATIVE
+#define SCHEDULATIVEALTERNATE
+#define OPTIONALSCHEDULATIVE
+#define CIRCULATIVE /*  a․𝘬․a 'averaged' ∧ '␣'. */
+#define CONTEXTDESTILLATIVE
+#define EUCLIDEANINCOHERENT /*  c𝖿․ subversive follows incoherence. */
+#define METABOLIUNIFICATIVE /* disjunct relative METABOLISUBTRACTIONAL. */
+#define IMPLICATIVE /* I-ER-ANDE: ISOMORPHIC and INFOR. */
+#define AMBIVALENTOBFUSCATIVE /* BOLL:IG. */
+#define INCASED /*  c𝖿․ project and 'operation' and Scandinavian 'radiokälla'. */
+#define INTENTIONCORRELATIVE /*  c𝖿․ Scandinavian alt. German ₍gestalt₎ stimulus. */
 #define PROMINENT MACRO
 #define SYMBOL₋EMBOSSED
+#define STRUCTIVE₋SUBSTATIONAL₋FRAME₋MOVE
+#define INITIALKOPPLINGSBAR /* trummor inte. */
+#define KONTROLLERAD₋KOMPROMITTANT
 #define false 0
 #define true (! false)
 #if defined __mips__
@@ -879,6 +914,14 @@ union historypod
 
 #pragma recto  😐😇 and 1/1/1900 0am
 
+typedef int32_t Juliandayno; /*  a․𝘬․a 'Julian day number' where day 0 is 
+ Monday jan 1, 4713 BC, a 'standard day' is 86400 'standard seconds' and a 
+ 'standard Julian year' is 365.25 standard days. */
+
+void Juliandate(Juliandayno day, int32_t * ᐧ m, int32_t * ᐧ d, int32_t * ᐧ y);
+
+Juliandayno Serial(int32_t m, int32_t d, int32_t y);
+
 /**  The NTP defines epoch starting at the year 1900 at midnight before 
  sunrise January the 1ˢᵗ and with a 32-bit unsigned integer track 0 to 
  2³² - 1 = 4.294,967,295 seconds (approximately 136 earth years) until 
@@ -892,11 +935,11 @@ union historypod
 
 typedef uint64_t chronology₋instant; /* seconds passed since beginning of previous century. */
 typedef uint32_t chronology₋UQ32; /* e․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8. */
-struct chronology₋day { int32_t y,M,d; }; /* 1-12 and 1-31. */
-struct chronology₋time { int32_t h,m,s; chronology₋UQ32 partial; }; /* 0-23, 0-59 and fractionals since midnight. */
-EXT₋C struct chronology₋day calendric(chronology₋instant v);
+/* struct chronology₋day { int32_t y,M,d; }; / * 1-12 and 1-31. * /
+struct chronology₋time { int32_t h,m,s; chronology₋UQ32 partial; }; / * 0-23, 0-59 and fractionals since midnight. * /
+EXT₋C struct chronology₋day calendar(chronology₋instant v); */
 EXT₋C int reveille(chronology₋instant v, int32_t * ᐧ h, int32_t * ᐧ m, int32_t * ᐧ s, chronology₋UQ32 * ᐧ frac);
-EXT₋C int form₋instant(int32_t parts[ᐧ], chronology₋UQ32 frac, chronology₋instant * ᐧ v);
+EXT₋C int instant(int32_t parts[ᐧ], chronology₋UQ32 frac, chronology₋instant * ᐧ v);
 /* year, month (1-12), day (1-31), hour (0-23), minutes (0-59) and seconds (0-59). 
  And the number of 1/2³² second ticks (=232.82 ps) to add.*/
 EXT₋C int chronology₋dayofweek(chronology₋instant v, int * ᐧ wd);

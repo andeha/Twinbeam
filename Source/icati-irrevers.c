@@ -2,124 +2,74 @@
 
 import Twinbeam;
 
-typedef int32_t Juliandayno; /*  a․𝘬․a 'Julian day number' where day 0 is 
- Monday jan 1, 4713 BC, a 'standard day' is 86400 'standard seconds' and a 
- 'standard Julian year' is 365.25 standard days. */
-
 union Ntp₋stomp { uint64_t bits; struct { uint32_t seconds; chronology₋UQ32 frac; } mil; };
 /* the network time protocol runs in unison with the UTC time scale 
  from epoch 0h January 1, 1900. */
 
-typedef int64_t two₋fracs; /*  a․𝘬․a sixty₋three₋bits₋and₋one₋half. */
-
 /* Gregorian October 15, 1582 and the Julian October 5, 1581 day */
 
-#define ᐧ68569 137138
-#define ᐧ146097 292194
-#define ᐧ4 8
-#define ᐧ3 6
-#define ᐧ4000 8000
-#define ᐧ1461001 2922002
-#define ᐧ1 2
-#define ᐧ1461 2922
-#define ᐧ31 62
-#define ᐧ80 160
-#define ᐧ2447 4894
-#define ᐧ2 4
-#define ᐧ11 22
-#define ᐧ12 24
-#define ᐧ100 200
-#define ᐧ49 98
-
-FOCAL
-ENCLAVED
-inexorable
 void
-JulianAndDate(
+Juliandate(
   Juliandayno day,
   int32_t * m /* 1-12 */, int32_t * d /* 1-31 */, int32_t * y
 )
 {
-   two₋fracs l,n,i,j;
-   l=day+ᐧ68569;
-   n=ᐧ4*l/ᐧ146097;
-   l=l-(ᐧ146097*n + ᐧ3)/ᐧ4;
-   i=(ᐧ4000*(l+ᐧ1))/ᐧ1461001;
-   l=l-(ᐧ1461*i/ᐧ4 + ᐧ31);
-   j=ᐧ80*l/ᐧ2447;
-   *d=(l-ᐧ2447*j/ᐧ80)>>1;
-   l=j/ᐧ11;
-   *m=(j+ᐧ2-ᐧ12*l)>>1;
-   *y=(ᐧ100*(n-ᐧ49)+i+l)>>1;
+   double Q = day+0.5;
+   double Z = (int64_t)Q;
+   int64_t W = (int64_t)((Z - 1867216.25)/36524.25);
+   int64_t X = (int64_t)(((double)W)/4);
+   int64_t A = Z+1+W-X;
+   int64_t B = A + 1524;
+   int64_t C = (int64_t)((B - 122.1)/365.25);
+   int64_t D = (int64_t)(365.25*C);
+   int64_t E = (int64_t)((B - D)/30.6001);
+   int64_t F = (int64_t)(30.6001*E);
+   *d = (int32_t)(B-D-F);
+   int64_t month1 = E - 1;
+   int64_t month2 = E - 13;
+   if (month1 <= 12) *m=(int32_t)month1; else *m=(int32_t)month2;
+   *y = (*m == 1 || *m == 2) ? (int32_t)(C - 4715) : (int32_t)(C - 4716);
 }
 
-FOCAL
-ENCLAVED
-inexorable
 Juliandayno
 Serial(int32_t m /* 1-12 */, int32_t d /* 1-31 */, int32_t y)
-{ int64_t f,a,b,g,p,n,q;
-   b = y + 4800 + (m-14)/12;
-   a = 1461*b / 4;
-   f = 367 * (m - 2 - 12 * ((m - 14)/12));
-   g = f / 12;
-   n = y + 4900 + (m - 14)/12;
-   p = n / 100;
-   q = d - 32075 - (3 * p) / 4;
-   return (Juliandayno)(a+g+q);
+{ 
+   if (m == 1 || m == 2) { y = y - 1; m += 12; }
+   int64_t A = (int64_t)(y/100);
+   int64_t B = A/4;
+   int64_t C = 2 - A + B;
+   int64_t E = 365.25*((double)(y)+4716);
+   int64_t F = 30.6001*((double)(m)+1);
+   return C+d+E+F-1524.5+1;
 } /* on the planet mars, the serial is named 'sol' and starts with one as local solar time 
  alternatively with epoc at earth day april 11, 1955. */
 
-typedef int32_t ModifiedJulian; /* integer with one fix point. */
-
-#define OFFSET 15020 /* a․𝘬․a NtpTpModJulianOffset. */
-#define SLOPE 86400 /* a․𝘬․a ModifiedJulianToNtpSlope. */
-
-inexorable ModifiedJulian WithFixpoint(union Ntp₋stomp ntp)
-{
-   return (ntp.mil.seconds + OFFSET)/SLOPE;
-}
-
-#define ᐧ2400000ᐧ5 4800001
-
-inexorable Juliandayno Truncated(ModifiedJulian day)
-{
-   return (day + ᐧ2400000ᐧ5)>>1;
-}
-
-struct chronology₋day calendric(chronology₋instant v)
+/* struct chronology₋day calendar(chronology₋instant v)
 { union Ntp₋stomp ntp; ntp.bits=v;
    ModifiedJulian modified = WithFixpoint(ntp);
-   Juliandayno original = Truncated(modified);
-   int32_t y,M,d; JulianAndDate(original,&M,&d,&y);
-   struct chronology₋day day = { y, M, d };
-   return day;
-}
+   Juliandayno */
 
-inexorable uint32_t seconds₋since₋midnight(Juliandayno dayno)
-{
-   return 60*60*24*dayno;
-}
-
-int form₋instant(int32_t material[], chronology₋UQ32 frac, 
+int instant(int32_t material[], chronology₋UQ32 frac, 
  chronology₋instant * v)
 { union Ntp₋stomp ntp;
    Juliandayno julian = Serial(material[1],material[2], material[0]);
    ntp.mil.frac = frac;
-   ntp.mil.seconds = seconds₋since₋midnight(julian) + 60*60*material[3] + 60*material[4] + material[5];
+   ntp.mil.seconds = 60*60*material[3] + 60*material[4] + material[5];
+   ntp.mil.seconds += julian*24*60*60;
    *v = ntp.bits;
    return 0;
-}
+} /* year, month, day, hours, minutes and seconds. */
 
 int reveille(chronology₋instant v, int32_t * h, int32_t * m, 
  int32_t * s, chronology₋UQ32 * frac)
-{
-   struct chronology₋day happen = calendric(v);
-   int32_t ment[] = { happen.y, happen.M, happen.d, 5, 30, 0 };
+{ int32_t y,M,d; union Ntp₋stomp ptn; ptn.bits=v;
+   Juliandayno day = ptn.mil.seconds/(60*60*24);
+   Juliandate(day,&M,&d,&y);
+   int32_t ment[] = { y, M, d, 5, 30, 0 };
    chronology₋instant ntp;
-   if (form₋instant(ment,0,&ntp)) { return -1; }
-   union Ntp₋stomp alarm, rain; alarm.bits=ntp;
-   int32_t delta = alarm.mil.seconds - rain.mil.seconds;
+   if (instant(ment,0,&ntp)) { return -1; }
+   union Ntp₋stomp alarm, arla; alarm.bits=ntp;
+   int32_t delta = alarm.mil.seconds - arla.mil.seconds;
    *frac = alarm.mil.frac;
    *h = (delta/3600 - 5) % 24;
    *m = (delta/60 - 30) % 60;
@@ -138,8 +88,7 @@ chronology₋instant add₋seconds(chronology₋instant v,
 
 int chronology₋dayofweek(chronology₋instant v, int * wd)
 { union Ntp₋stomp ntp; ntp.bits=v;
-   two₋fracs day = WithFixpoint(ntp);
-   int32_t julian₋day₋number = Truncated(day);
+   Juliandayno julian₋day₋number = ntp.mil.seconds/(60*60*24);
    unsigned not₋monday = julian₋day₋number % 7;
    *wd = not₋monday == 6 ? 0 : not₋monday + 1;
    return 0;
@@ -150,7 +99,7 @@ void present₋instant(chronology₋instant v, int incl₋frac,
 { int32_t h,m,s; chronology₋UQ32 frac;
    if (reveille(v,&h,&m,&s,&frac)) { return; }
    /* struct chronology₋time on₋clock = chronology₋since₋midnight(v); */
-   struct chronology₋day at₋five = calendric(v);
+   struct chronology₋day at₋five = calendar(v);
    Base𝕫(((__builtin_int_t)at₋five.y), 10, 0, ^(char digitAltNeg) {
     out(digitAltNeg); } ); out('-');
    /* M */ Base𝕫(((__builtin_int_t)at₋five.M), 10, 2, 
@@ -345,7 +294,7 @@ int Timestamp(enum Encoding type, int bytes, uint8_t * material,
    }
    if (partial != time && partial != ord2_fracPossiblyTime) { return -2; }
    int32_t farm[] = { y,M,d,h,m,s };
-   if (form₋instant(farm,acc,v)) { return -1; }
+   if (instant(farm,acc,v)) { return -1; }
    return 0;
 }
 
