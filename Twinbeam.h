@@ -1021,7 +1021,7 @@ EXT₋C int Present₋timeserie₋transacts(struct Unicodes key, __builtin_int_t
  __builtin_int_t retrospect₋count, struct timeserie * ᐝ 🅙, Timeserie₋row out);
 EXT₋C int Present₋timeserie₋overview(int count, struct Unicodes keys[ᐧ], struct timeserie * ᐝ 🅙, 
  Timeserie₋pod out);
-#endif
+#endif /* see application and details in SIGMOD '13 June 22-27 and conversation. */
 
 typedef __builtin_int_t Nonabsolute; /* index to Unicode, not impression. */
 EXT₋C int init₋regularpool(struct collection * ᐧ 🅷);
