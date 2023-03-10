@@ -12,7 +12,8 @@ rule link
   command = xcrun ld $maclnkflags -o $out $in ../Source/Releases/libTwinbeam-x86_64.a
 
 build twinbeam-units: link $objs/harness.o $objs/❩†$ utf8.o $objs/❩†$ three.o $
- $objs/❩†$ bcd.o $objs/❩†$ guid.o $objs/❩†$ rec.o $objs/❩†$ pool.o
+ $objs/❩†$ bcd.o $objs/❩†$ guid.o $objs/❩†$ rec.o $objs/❩†$ pool.o            $
+ $objs/❩†$ calen.o
 
 build $objs/❩†$ utf8.o: c ❩†$ utf8.c
 build $objs/❩†$ three.o: c ❩†$ three.c
@@ -20,5 +21,6 @@ build $objs/❩†$ bcd.o: c ❩†$ bcd.c
 build $objs/❩†$ guid.o: c ❩†$ guid.c
 build $objs/❩†$ rec.o: c ❩†$ rec.c
 build $objs/❩†$ pool.o: c ❩†$ pool.c
+build $objs/❩†$ calen.o: c ❩†$ calen.c
 build $objs/harness.o: c ../macOS/harness.c
 default twinbeam-units
