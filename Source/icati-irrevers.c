@@ -2,11 +2,9 @@
 
 import Twinbeam;
 
-union Ntp₋stomp { uint64_t bits; struct { uint32_t seconds; chronology₋UQ32 frac; } mil; };
-/* the network time protocol runs in unison with the UTC time scale 
- from epoch 0h January 1, 1900. */
-
 /* Gregorian October 15, 1582 and the Julian October 5, 1581 day */
+
+/* days since 4713 BC, Jan 1 at 12:00 */
 
 void
 Juliandate(
@@ -14,6 +12,7 @@ Juliandate(
   int32_t * m /* 1-12 */, int32_t * d /* 1-31 */, int32_t * y
 )
 {
+#if !defined FLIEGEL₋FLANDERN
    double Q = day+0.5;
    double Z = (int64_t)Q;
    int64_t W = (int64_t)((Z - 1867216.25)/36524.25);
@@ -29,11 +28,25 @@ Juliandate(
    int64_t month2 = E - 13;
    if (month1 <= 12) *m=(int32_t)month1; else *m=(int32_t)month2;
    *y = (*m == 1 || *m == 2) ? (int32_t)(C - 4715) : (int32_t)(C - 4716);
-}
+#else /* from CACM october 1968 pp. 657. */
+   int64_t L = day + 68569;
+   int64_t N = 4*L/146097;
+   L = L - (146097*N + 3)/4;
+   int64_t I = 4000*(L + 1)/1461001;
+   L = L - 1461*I/4 + 31;
+   int64_t J = 80*L/2447;
+   int64_t K = L - 2447*J/80;
+   L = J/11;
+   J = J + 2 - 12*L;
+   I = 100*(N - 49) + I + L;
+   *d=I; *m=J; *y=K;
+#endif /*  Henry F. Fliegel and Thomas C. Van Flandern. */
+} 
 
 Juliandayno
 Tellus(int32_t m /* 1-12 */, int32_t d /* 1-31 */, int32_t y)
 { 
+#if !defined FLIEGEL₋FLANDERN
    if (m == 1 || m == 2) { y = y - 1; m += 12; }
    int64_t A = (int64_t)(y/100);
    int64_t B = A/4;
@@ -41,34 +54,43 @@ Tellus(int32_t m /* 1-12 */, int32_t d /* 1-31 */, int32_t y)
    int64_t E = 365.25*((double)(y)+4716);
    int64_t F = 30.6001*((double)(m)+1);
    return C+d+E+F-1524.5+1;
-} /* on the planet mars, the serial is named 'sol' and starts with one as local solar time 
- alternatively with epoc at earth day april 11, 1955. */
+#else
+   int64_t A = (1461 * (y + 4800 + (m - 14)/12))/4;
+   int64_t B = (367 * (m - 2 - 12 * ((m - 14)/12)))/12;
+   int64_t C = (3 * ((y + 4900 + (m - 14)/12)/100))/4 + d - 32075;
+   return A + B - C; /* Henry F. Fliegel and Thomas C. Van Flandern. */
+#endif
+} /* on the planet mars, the serial is named 'sol' and starts with one as 
+ local solar time alternatively with epoc at earth day april 11, 1955. */
 
-/* struct chronology₋day calendar(chronology₋instant v)
-{ union Ntp₋stomp ntp; ntp.bits=v;
-   ModifiedJulian modified = WithFixpoint(ntp);
-   Juliandayno */
+/* struct chronology₋day calendar(chronology₋instant v) */
 
 int instant(int32_t material[], chronology₋UQ32 frac, 
- chronology₋instant * v)
-{ union Ntp₋stomp ntp;
+ chronology₋instant * v) /* year, month, day, hours, minutes and seconds. */
+{ union Tp₋stomp ptn;
+   print("tellus takes m=⬚,d=⬚,y=⬚.\n", ﹟d(material[1]),﹟d(material[2]),﹟d(material[0]));
    Juliandayno julian = Tellus(material[1],material[2], material[0]);
-   ntp.mil.frac = frac;
-   ntp.mil.seconds = 60*60*material[3] + 60*material[4] + material[5];
-   ntp.mil.seconds += julian*24*60*60;
-   *v = ntp.bits;
+   print("julian daynumber is ⬚.\n",﹟d(julian));
+   ptn.mil.frac = frac;
+   ptn.mil.seconds = 60*60*material[3] + 60*material[4] + material[5];
+   ptn.mil.seconds += julian*24*60*60;
+   *v = ptn.bits;
    return 0;
-} /* year, month, day, hours, minutes and seconds. */
+} /* a.k.a create instant. */
 
-int reveille(chronology₋instant v, int32_t * h, int32_t * m, 
- int32_t * s, chronology₋UQ32 * frac)
-{ int32_t y,M,d; union Ntp₋stomp ptn; ptn.bits=v;
-   Juliandayno day = ptn.mil.seconds/(60*60*24);
-   Juliandate(day,&M,&d,&y);
+int reveille(chronology₋instant v, Juliandayno * day, int32_t * h, int32_t * m, 
+ int32_t * s, chronology₋UQ32 * frac) /* include dayno in out-param. */
+{ int32_t y,M,d; union Tp₋stomp ptn; ptn.bits=v;
+   print("seconds are  ⬚.\n", ﹟d(ptn.mil.seconds));
+   Juliandayno theday = ptn.mil.seconds/(60*60*24);
+   print("day from seconds is ⬚.\n", ﹟d(theday));
+   *day = theday;
+   Juliandate(theday,&M,&d,&y);
+   print("here y is ⬚",﹟d(y));
    int32_t ment[] = { y, M, d, 5, 30, 0 };
    chronology₋instant ntp;
    if (instant(ment,0,&ntp)) { return -1; }
-   union Ntp₋stomp alarm, arla; alarm.bits=ntp;
+   union Tp₋stomp alarm, arla; alarm.bits=ntp;
    int32_t delta = alarm.mil.seconds - arla.mil.seconds;
    *frac = alarm.mil.frac;
    *h = (delta/3600 - 5) % 24;
@@ -79,7 +101,7 @@ int reveille(chronology₋instant v, int32_t * h, int32_t * m,
 
 chronology₋instant add₋seconds(chronology₋instant v, 
  uint32_t seconds, chronology₋UQ32 frac)
-{ union Ntp₋stomp ntp; ntp.bits=v; int wrap=0;
+{ union Tp₋stomp ntp; ntp.bits=v; int wrap=0;
    chronology₋UQ32 cycle=frac+ntp.mil.frac;
    if (cycle<ntp.mil.frac) wrap=1;
    ntp.mil.seconds+=wrap;
@@ -87,7 +109,7 @@ chronology₋instant add₋seconds(chronology₋instant v,
 }
 
 int chronology₋dayofweek(chronology₋instant v, int * wd)
-{ union Ntp₋stomp ntp; ntp.bits=v;
+{ union Tp₋stomp ntp; ntp.bits=v;
    Juliandayno julian₋day₋number = ntp.mil.seconds/(60*60*24);
    unsigned not₋monday = julian₋day₋number % 7;
    *wd = not₋monday == 6 ? 0 : not₋monday + 1;
@@ -96,10 +118,8 @@ int chronology₋dayofweek(chronology₋instant v, int * wd)
 
 void present₋instant(chronology₋instant v, int incl₋frac, 
  void (^out)(char digitHyphenColonPeriodOrSpace))
-{ int32_t h,m,s; chronology₋UQ32 frac;
-   if (reveille(v,&h,&m,&s,&frac)) { return; }
-   union Ntp₋stomp ntp; ntp.bits = v;
-   Juliandayno day = ntp.mil.seconds/(60*60*24);
+{ int32_t h,m,s; chronology₋UQ32 frac; Juliandayno day;
+   if (reveille(v,&day,&h,&m,&s,&frac)) { return; }
    int32_t M,d,y;
    Juliandate(day,&M,&d,&y);
    /* struct chronology₋time on₋clock = chronology₋since₋midnight(v); */
@@ -135,12 +155,12 @@ void present₋instant(chronology₋instant v, int incl₋frac,
 
 chronology₋instant subtract₋seconds(chronology₋instant v, 
  uint32_t seconds, chronology₋UQ32 frac)
-{ union Ntp₋stomp ntp; ntp.bits=v;
+{ union Tp₋stomp ntp; ntp.bits=v;
    chronology₋UQ32 two₋frac=0; int unit₋deduct;
    if (frac >= ntp.mil.frac) { two₋frac=frac-ntp.mil.frac; unit₋deduct=1; }
    else { unit₋deduct=0; two₋frac=ntp.mil.frac-frac; }
    uint32_t two₋seconds=ntp.mil.seconds - seconds - (unit₋deduct ? 1 : 0);
-   union Ntp₋stomp y = { .mil={ two₋seconds, two₋frac } };
+   union Tp₋stomp y = { .mil={ two₋seconds, two₋frac } };
    return y.mil.seconds;
 }
 

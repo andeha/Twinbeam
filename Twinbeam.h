@@ -901,10 +901,13 @@ Juliandayno Tellus(int32_t m, int32_t d, int32_t y);
 
 typedef uint64_t chronology₋instant; /* seconds passed since beginning of previous century. */
 typedef uint32_t chronology₋UQ32; /* e․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8. */
-/* struct chronology₋day { int32_t y,M,d; }; / * 1-12 and 1-31. * /
-struct chronology₋time { int32_t h,m,s; chronology₋UQ32 partial; }; / * 0-23, 0-59 and fractionals since midnight. * /
-EXT₋C struct chronology₋day calendar(chronology₋instant v); */
-EXT₋C int reveille(chronology₋instant v, int32_t * ᐧ h, int32_t * ᐧ m, int32_t * ᐧ s, chronology₋UQ32 * ᐧ frac);
+union Tp₋stomp { uint64_t bits; struct { uint32_t seconds; chronology₋UQ32 frac; } mil; };
+
+/* the network time protocol runs in unison with the UTC time scale 
+ from epoch 0h January 1, 1900. */
+/* 0-23, 0-59 and fractionals since midnight. */
+EXT₋C int reveille(chronology₋instant v, Juliandayno * ᐧ d,  int32_t * ᐧ h, 
+ int32_t * ᐧ m, int32_t * ᐧ s, chronology₋UQ32 * ᐧ frac);
 EXT₋C int instant(int32_t parts[ᐧ], chronology₋UQ32 frac, chronology₋instant * ᐧ v);
 /* year, month (1-12), day (1-31), hour (0-23), minutes (0-59) and seconds (0-59). 
  And the number of 1/2³² second ticks (=232.82 ps) to add.*/
