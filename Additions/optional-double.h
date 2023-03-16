@@ -87,10 +87,10 @@ void Uniform(double *out); /* *out ∈ [0, 1) */
 
 #pragma recto in cases of 'high-precision Ieee754'
 
-typedef long double binary128; /* 2⁻¹⁶³⁸² ≈ 
+typedef long double float128; /* 2⁻¹⁶³⁸² ≈ 
   3.3621 × 10⁻⁴⁹³² - 2⁻¹⁶³⁸⁴ − 2⁻¹⁶²⁷¹ ≈ 1.1897 × 10⁻⁴⁹³² */
 #if defined __x86_64__ /* ¬`x86_fp80` ∧ `ieee754₂₀₀₈𝚋𝚒𝚗𝚊𝚛𝚢𝟷𝟸𝟾` */
-typedef binary128 maxprec;
+typedef float128 maxprec;
 #elif defined __mips__
 typedef double maxprec;
 #endif

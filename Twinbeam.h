@@ -905,9 +905,9 @@ union Tp₋stomp { uint64_t bits; struct { uint32_t seconds; chronology₋UQ32 f
 
 /* the network time protocol runs in unison with the UTC time scale 
  from epoch 0h January 1, 1900. */
-/* 0-23, 0-59 and fractionals since midnight. */
-EXT₋C int reveille(chronology₋instant v, Juliandayno * ᐧ d,  int32_t * ᐧ h, 
- int32_t * ᐧ m, int32_t * ᐧ s, chronology₋UQ32 * ᐧ frac);
+/* struct chronology₋time { int32_t h,m,s; chronology₋UQ32 partial; }; / * 0-23, 0-59 and fractionals since midnight. * /
+EXT₋C struct chronology₋day calendar(chronology₋instant v); */
+EXT₋C int reveille(chronology₋instant v, Juliandayno * ᐧ d,  int32_t * ᐧ h, int32_t * ᐧ m, int32_t * ᐧ s, chronology₋UQ32 * ᐧ frac);
 EXT₋C int instant(int32_t parts[ᐧ], chronology₋UQ32 frac, chronology₋instant * ᐧ v);
 /* year, month (1-12), day (1-31), hour (0-23), minutes (0-59) and seconds (0-59). 
  And the number of 1/2³² second ticks (=232.82 ps) to add.*/
@@ -1072,6 +1072,14 @@ typedef float float⁺ʳ; typedef double double⁺ʳ;
 /**  relative-fixative types. */
 
 typedef char8₋t uchar; typedef uint32_t uint32; typedef uint8_t byte;
+
+typedef double float64; typedef int32_t binary32; typedef char32̄_t ucode;
+
+#if defined usage₋𝟷𝟸𝟾₋bit₋integer
+typedef __int128_t binary128; typedef __uint128_t ubinary128;
+#endif
+
+typedef __builtin_int_t machine;
 
 #define min(x₁, x₂) ((x₂) < (x₁) ? (x₂) : (x₁))
 #define max(x₁, x₂) ((x₁) < (x₂) ? (x₂) : (x₁))
