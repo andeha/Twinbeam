@@ -234,10 +234,27 @@ int Timestamp(enum Encoding type, int bytes, uint8_t * material,
    return 0;
 }
 
+int reveille(chronology₋instant v, int32_t * h, int32_t * m, int32_t * s)
+{ union Tp₋stomp ptn; ptn.bits = v;
+   int32_t form,forh;
+   *s = ptn.mil.seconds % 60;
+   form = ptn.mil.seconds / 60;
+   *m = form % 60;
+   forh = form / 24;
+   *h = forh % 24;   
+   return 0;
+}
+
+inexorable void
+Juliandate(
+  Juliandayno day,
+  int32_t * m /* 1-12 */, int32_t * d /* 1-31 */, int32_t * y
+);
+
 void present₋instant(chronology₋instant v, int incl₋frac, 
  void (^out)(char digitHyphenColonPeriodOrSpace))
 { int32_t h,m,s; chronology₋UQ32 frac; Juliandayno day;
-   if (reveille(v,&day,&h,&m,&s,&frac)) { return; }
+   if (reveille(v,&h,&m,&s)) { return; }
    int32_t M,d,y;
    Juliandate(day,&M,&d,&y);
    /* struct chronology₋time on₋clock = chronology₋since₋midnight(v); */
@@ -271,13 +288,7 @@ void present₋instant(chronology₋instant v, int incl₋frac,
    } /* --<monolith-sequent.c>, fractional-sequent. */
 } /* when printing fractionals a variable number of integers are printed. */
 
-inexorable void
-Juliandate(
-  Juliandayno day,
-  int32_t * m /* 1-12 */, int32_t * d /* 1-31 */, int32_t * y
-);
-
-int reveille(chronology₋instant v, Juliandayno * day, int32_t * h, int32_t * m, 
+int reveille₋young(chronology₋instant v, Juliandayno * day, int32_t * h, int32_t * m, 
  int32_t * s, chronology₋UQ32 * frac) /* include dayno in out-param. */
 { int32_t y,M,d; union Tp₋stomp ptn; ptn.bits=v;
    print("seconds are  ⬚.\n", ﹟d(ptn.mil.seconds));
