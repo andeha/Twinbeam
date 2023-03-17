@@ -911,7 +911,7 @@ union Tp₋stomp { uint64_t bits; struct { uint32_t seconds; chronology₋UQ32 f
  from epoch 0h January 1, 1900. */
 /* struct chronology₋time { int32_t h,m,s; chronology₋UQ32 partial; }; / * 0-23, 0-59 and fractionals since midnight. * /
 EXT₋C struct chronology₋day calendar(chronology₋instant v); */
-EXT₋C int reveille(chronology₋instant v, Juliandayno * ᐧ d,  int32_t * ᐧ h, int32_t * ᐧ m, int32_t * ᐧ s, chronology₋UQ32 * ᐧ frac);
+EXT₋C int reveille(chronology₋instant v, int32_t * ᐧ h, int32_t * ᐧ m, int32_t * ᐧ s);
 EXT₋C int instant(int32_t parts[ᐧ], chronology₋UQ32 frac, chronology₋instant * ᐧ v);
 /* year, month (1-12), day (1-31), hour (0-23), minutes (0-59) and seconds (0-59). 
  And the number of 1/2³² second ticks (=232.82 ps) to add.*/

@@ -253,9 +253,10 @@ Juliandate(
 
 void present₋instant(chronology₋instant v, int incl₋frac, 
  void (^out)(char digitHyphenColonPeriodOrSpace))
-{ int32_t h,m,s; chronology₋UQ32 frac; Juliandayno day;
+{ int32_t h,m,s; chronology₋UQ32 frac;
    if (reveille(v,&h,&m,&s)) { return; }
-   int32_t M,d,y;
+   union Tp₋stomp ptn; ptn.bits=v;
+   int32_t M,d,y; Juliandayno day = 1 + ptn.mil.seconds/86400;
    Juliandate(day,&M,&d,&y);
    /* struct chronology₋time on₋clock = chronology₋since₋midnight(v); */
    Base𝕫(((__builtin_int_t)y), 10, 0, ^(char digitAltNeg) {
