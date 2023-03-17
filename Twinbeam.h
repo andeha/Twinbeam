@@ -884,9 +884,13 @@ typedef int32_t Juliandayno; /*  a․𝘬․a 'Julian day number' where day 0 is
  Monday jan 1, 4713 BC, a 'standard day' is 86400 'standard seconds' and a 
  'standard Julian year' is 365.25 standard days. */
 
-void Juliandate(Juliandayno day, int32_t * ᐧ m, int32_t * ᐧ d, int32_t * ᐧ y);
-
 Juliandayno Tellus(int32_t m, int32_t d, int32_t y);
+
+struct chronology₋day { int32_t y,M,d; };
+MACRO __builtin_int_t earthdays(chronology₋day d₁, chronology₋day d₂)
+{
+  return Tellus(d₁.M,d₁.d,d₁.y) - Tellus(d₂.M,d₂.d,d₂.y);
+} /* Tellus increments to 'next day' at noon each day. */
 
 /**  The NTP defines epoch starting at the year 1900 at midnight before 
  sunrise January the 1ˢᵗ and with a 32-bit unsigned integer track 0 to 
@@ -898,6 +902,9 @@ Juliandayno Tellus(int32_t m, int32_t d, int32_t y);
  admittance.
  
  One minute of geographic latitude per hour = 1 kn = 1852.0 m/h. (Knot). */
+
+void Juliandate(Juliandayno day, int32_t * ᐧ m, int32_t * ᐧ d, int32_t * ᐧ y);
+
 
 typedef uint64_t chronology₋instant; /* seconds passed since beginning of previous century. */
 typedef uint32_t chronology₋UQ32; /* e․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8. */
