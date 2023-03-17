@@ -6,43 +6,6 @@ import Twinbeam;
 
 /* days since 4713 BC, Jan 1 at 12:00 */
 
-void
-Juliandate(
-  Juliandayno day,
-  int32_t * m /* 1-12 */, int32_t * d /* 1-31 */, int32_t * y
-)
-{
-#if !defined FLIEGEL₋FLANDERN
-   double Q = day+0.5;
-   double Z = (int64_t)Q;
-   int64_t W = (int64_t)((Z - 1867216.25)/36524.25);
-   int64_t X = (int64_t)(((double)W)/4);
-   int64_t A = Z+1+W-X;
-   int64_t B = A + 1524;
-   int64_t C = (int64_t)((B - 122.1)/365.25);
-   int64_t D = (int64_t)(365.25*C);
-   int64_t E = (int64_t)((B - D)/30.6001);
-   int64_t F = (int64_t)(30.6001*E);
-   *d = (int32_t)(B-D-F);
-   int64_t month1 = E - 1;
-   int64_t month2 = E - 13;
-   if (month1 <= 12) *m=(int32_t)month1; else *m=(int32_t)month2;
-   *y = (*m == 1 || *m == 2) ? (int32_t)(C - 4715) : (int32_t)(C - 4716);
-#else /* from CACM october 1968 pp. 657. */
-   int64_t L = day + 68569;
-   int64_t N = 4*L/146097;
-   L = L - (146097*N + 3)/4;
-   int64_t I = 4000*(L + 1)/1461001;
-   L = L - 1461*I/4 + 31;
-   int64_t J = 80*L/2447;
-   int64_t K = L - 2447*J/80;
-   L = J/11;
-   J = J + 2 - 12*L;
-   I = 100*(N - 49) + I + L;
-   *d=I; *m=J; *y=K;
-#endif /*  Henry F. Fliegel and Thomas C. Van Flandern. */
-} 
-
 Juliandayno
 Tellus(int32_t m /* 1-12 */, int32_t d /* 1-31 */, int32_t y)
 { 
@@ -61,9 +24,17 @@ Tellus(int32_t m /* 1-12 */, int32_t d /* 1-31 */, int32_t y)
    return A + B - C; /* Henry F. Fliegel and Thomas C. Van Flandern. */
 #endif
 } /* on the planet mars, the serial is named 'sol' and starts with one as 
- local solar time alternatively with epoc at earth day april 11, 1955. */
+ local solar time alternatively with epoch at earth day april 11, 1955. */
 
 /* struct chronology₋day calendar(chronology₋instant v) */
+
+/* Van Flandern and Pulkkinen improved to a short for for dates after 1900. */
+
+/* Fliegel and Flandern was later improved by P. M Muller and R. N Wimberly to: */
+
+// JD = 367*Y - 7*(Y+(M+9)/12)/4 - 3*((Y + (M-9)/7)/100) + 1)/4 + (275*M)/9 + D + 1721029
+
+// julian days gives us a tool to measure interval of time in-between to calendric dates.
 
 int instant(int32_t material[], chronology₋UQ32 frac, 
  chronology₋instant * v) /* year, month, day, hours, minutes and seconds. */
@@ -76,28 +47,7 @@ int instant(int32_t material[], chronology₋UQ32 frac,
    ptn.mil.seconds += julian*24*60*60;
    *v = ptn.bits;
    return 0;
-} /* a.k.a create instant. */
-
-int reveille(chronology₋instant v, Juliandayno * day, int32_t * h, int32_t * m, 
- int32_t * s, chronology₋UQ32 * frac) /* include dayno in out-param. */
-{ int32_t y,M,d; union Tp₋stomp ptn; ptn.bits=v;
-   print("seconds are  ⬚.\n", ﹟d(ptn.mil.seconds));
-   Juliandayno theday = ptn.mil.seconds/(60*60*24);
-   print("day from seconds is ⬚.\n", ﹟d(theday));
-   *day = theday;
-   Juliandate(theday,&M,&d,&y);
-   print("here y is ⬚",﹟d(y));
-   int32_t ment[] = { y, M, d, 5, 30, 0 };
-   chronology₋instant ntp;
-   if (instant(ment,0,&ntp)) { return -1; }
-   union Tp₋stomp alarm, arla; alarm.bits=ntp;
-   int32_t delta = alarm.mil.seconds - arla.mil.seconds;
-   *frac = alarm.mil.frac;
-   *h = (delta/3600 - 5) % 24;
-   *m = (delta/60 - 30) % 60;
-   *s = delta % 60;
-   return 0;
-}
+} /* a․k․a 'create instant'. */
 
 chronology₋instant add₋seconds(chronology₋instant v, 
  uint32_t seconds, chronology₋UQ32 frac)
@@ -108,51 +58,6 @@ chronology₋instant add₋seconds(chronology₋instant v,
    return ntp.bits;
 }
 
-int chronology₋dayofweek(chronology₋instant v, int * wd)
-{ union Tp₋stomp ntp; ntp.bits=v;
-   Juliandayno julian₋day₋number = ntp.mil.seconds/(60*60*24);
-   unsigned not₋monday = julian₋day₋number % 7;
-   *wd = not₋monday == 6 ? 0 : not₋monday + 1;
-   return 0;
-}
-
-void present₋instant(chronology₋instant v, int incl₋frac, 
- void (^out)(char digitHyphenColonPeriodOrSpace))
-{ int32_t h,m,s; chronology₋UQ32 frac; Juliandayno day;
-   if (reveille(v,&day,&h,&m,&s,&frac)) { return; }
-   int32_t M,d,y;
-   Juliandate(day,&M,&d,&y);
-   /* struct chronology₋time on₋clock = chronology₋since₋midnight(v); */
-   Base𝕫(((__builtin_int_t)y), 10, 0, ^(char digitAltNeg) {
-    out(digitAltNeg); } ); out('-');
-   /* M */ Base𝕫(((__builtin_int_t)M), 10, 2, 
-    ^(char digitAltNeg) { out(digitAltNeg); } ); out('-');
-   /* d */ Base𝕫(((__builtin_int_t)d), 10, 2, 
-    ^(char digitAltNeg) { out(digitAltNeg); } ); out(' ');
-   /* h */ Base𝕫(((__builtin_int_t)h + 5), 10, 2, 
-    ^(char digitAltNeg) { out(digitAltNeg); } ); out(':');
-   /* m */ Base𝕫(((__builtin_int_t)m + 30), 10, 2, 
-    ^(char digitAltNeg) { out(digitAltNeg); } ); out(':');
-   /* s */ Base𝕫(((__builtin_int_t)s), 10, 2, 
-    ^(char digitAltNeg) { out(digitAltNeg); } );
-   if (incl₋frac) { out('.');
-     int64_t iv=0xffffffff&v,delta=10; int j;
-     int64_t unity=0b1ll<<32,half=unity/2;
-     iv = iv % unity;
-     iv = 10 * iv + 5;
-     if (iv == 5) { out('0'); return; }
-     do {
-       if (unity<delta) {
-         iv = iv + half - (delta / 2);
-       }
-       uint64_t present = iv / unity;
-       out('0' + present);
-       iv = 10*(iv % unity);
-       delta = 10*delta; j+=1;
-     } while (iv<=delta);
-   } /* --<monolith-sequent.c>, fractional-sequent. */
-} /* when printing fractionals a variable number of integers are printed. */
-
 chronology₋instant subtract₋seconds(chronology₋instant v, 
  uint32_t seconds, chronology₋UQ32 frac)
 { union Tp₋stomp ntp; ntp.bits=v;
@@ -162,6 +67,14 @@ chronology₋instant subtract₋seconds(chronology₋instant v,
    uint32_t two₋seconds=ntp.mil.seconds - seconds - (unit₋deduct ? 1 : 0);
    union Tp₋stomp y = { .mil={ two₋seconds, two₋frac } };
    return y.mil.seconds;
+}
+
+int chronology₋dayofweek(chronology₋instant v, int * wd)
+{ union Tp₋stomp ntp; ntp.bits=v;
+   Juliandayno julian₋day₋number = ntp.mil.seconds/(60*60*24);
+   unsigned not₋monday = julian₋day₋number % 7;
+   *wd = not₋monday == 6 ? 0 : not₋monday + 1;
+   return 0;
 }
 
 chronology₋instant Timezone(chronology₋instant v, 
@@ -321,3 +234,109 @@ int Timestamp(enum Encoding type, int bytes, uint8_t * material,
    return 0;
 }
 
+void present₋instant(chronology₋instant v, int incl₋frac, 
+ void (^out)(char digitHyphenColonPeriodOrSpace))
+{ int32_t h,m,s; chronology₋UQ32 frac; Juliandayno day;
+   if (reveille(v,&day,&h,&m,&s,&frac)) { return; }
+   int32_t M,d,y;
+   Juliandate(day,&M,&d,&y);
+   /* struct chronology₋time on₋clock = chronology₋since₋midnight(v); */
+   Base𝕫(((__builtin_int_t)y), 10, 0, ^(char digitAltNeg) {
+    out(digitAltNeg); } ); out('-');
+   /* M */ Base𝕫(((__builtin_int_t)M), 10, 2, 
+    ^(char digitAltNeg) { out(digitAltNeg); } ); out('-');
+   /* d */ Base𝕫(((__builtin_int_t)d), 10, 2, 
+    ^(char digitAltNeg) { out(digitAltNeg); } ); out(' ');
+   /* h */ Base𝕫(((__builtin_int_t)h + 5), 10, 2, 
+    ^(char digitAltNeg) { out(digitAltNeg); } ); out(':');
+   /* m */ Base𝕫(((__builtin_int_t)m + 30), 10, 2, 
+    ^(char digitAltNeg) { out(digitAltNeg); } ); out(':');
+   /* s */ Base𝕫(((__builtin_int_t)s), 10, 2, 
+    ^(char digitAltNeg) { out(digitAltNeg); } );
+   if (incl₋frac) { out('.');
+     int64_t iv=0xffffffff&v,delta=10; int j;
+     int64_t unity=0b1ll<<32,half=unity/2;
+     iv = iv % unity;
+     iv = 10 * iv + 5;
+     if (iv == 5) { out('0'); return; }
+     do {
+       if (unity<delta) {
+         iv = iv + half - (delta / 2);
+       }
+       uint64_t present = iv / unity;
+       out('0' + present);
+       iv = 10*(iv % unity);
+       delta = 10*delta; j+=1;
+     } while (iv<=delta);
+   } /* --<monolith-sequent.c>, fractional-sequent. */
+} /* when printing fractionals a variable number of integers are printed. */
+
+inexorable void
+Juliandate(
+  Juliandayno day,
+  int32_t * m /* 1-12 */, int32_t * d /* 1-31 */, int32_t * y
+);
+
+int reveille(chronology₋instant v, Juliandayno * day, int32_t * h, int32_t * m, 
+ int32_t * s, chronology₋UQ32 * frac) /* include dayno in out-param. */
+{ int32_t y,M,d; union Tp₋stomp ptn; ptn.bits=v;
+   print("seconds are  ⬚.\n", ﹟d(ptn.mil.seconds));
+#if !defined FLIEGEL₋FLANDERN
+   Juliandayno theday = 2435330 + ptn.mil.seconds/(60*60*24); /* 1 1 1 */
+#else
+   Juliandayno theday = 0 + ptn.mil.seconds/(60*60*24);
+#endif
+   print("day from seconds is ⬚.\n", ﹟d(theday));
+   *day = theday;
+   Juliandate(theday,&M,&d,&y);
+   print("here y is ⬚",﹟d(y));
+   int32_t ment[] = { y, M, d, 5, 30, 0 };
+   chronology₋instant ptn2;
+   print("instant recieves ⬚, ⬚ and ⬚.\n",﹟d(y),﹟d(M),﹟d(d));
+   if (instant(ment,0,&ptn2)) { return -1; }
+   union Tp₋stomp alarm, arla; alarm.bits=ptn2;
+   print("instant de₋return ⬚.\n", ﹟d(alarm.mil.seconds));
+   int32_t delta = alarm.mil.seconds - arla.mil.seconds;
+   *frac = alarm.mil.frac;
+   *h = (delta/3600 + 5) % 24;
+   *m = (delta/60 + 30) % 60;
+   *s = delta % 60;
+   return 0;
+}
+
+inexorable void
+Juliandate(
+  Juliandayno day,
+  int32_t * m /* 1-12 */, int32_t * d /* 1-31 */, int32_t * y
+)
+{
+#if !defined FLIEGEL₋FLANDERN
+   double Q = day+0.5;
+   double Z = (int64_t)Q;
+   int64_t W = (int64_t)((Z - 1867216.25)/36524.25);
+   int64_t X = (int64_t)(((double)W)/4);
+   int64_t A = Z+1+W-X;
+   int64_t B = A + 1524;
+   int64_t C = (int64_t)((B - 122.1)/365.25);
+   int64_t D = (int64_t)(365.25*C);
+   int64_t E = (int64_t)((B - D)/30.6001);
+   int64_t F = (int64_t)(30.6001*E);
+   *d = (int32_t)(B-D-F);
+   int64_t month1 = E - 1;
+   int64_t month2 = E - 13;
+   if (month1 <= 12) *m=(int32_t)month1; else *m=(int32_t)month2;
+   *y = (*m == 1 || *m == 2) ? (int32_t)(C - 4715) : (int32_t)(C - 4716);
+#else /* from CACM october 1968 pp. 657. */
+   int64_t L = day + 68569;
+   int64_t N = 4*L/146097;
+   L = L - (146097*N + 3)/4;
+   int64_t I = 4000*(L + 1)/1461001;
+   L = L - 1461*I/4 + 31;
+   int64_t J = 80*L/2447;
+   int64_t K = L - 2447*J/80;
+   L = J/11;
+   J = J + 2 - 12*L;
+   I = 100*(N - 49) + I + L;
+   *d=I; *m=J; *y=K;
+#endif /*  Henry F. Fliegel and Thomas C. Van Flandern. */
+} 
