@@ -237,11 +237,14 @@ int Timestamp(enum Encoding type, int bytes, uint8_t * material,
 int reveille(chronology₋instant v, int32_t * h, int32_t * m, int32_t * s)
 { union Tp₋stomp ptn; ptn.bits = v;
    int32_t form,forh;
+   /* print("reville 2023-03-19 09:38:55 recieves ⬚",﹟d(ptn.mil.seconds)); */
    *s = ptn.mil.seconds % 60;
    form = ptn.mil.seconds / 60;
+   /* print("form is ⬚", ﹟d(form)); */
    *m = form % 60;
    forh = form / 24;
-   *h = forh % 24;   
+   *h = forh % 24;  
+   /* print("reville computes ⬚, ⬚ and ⬚.\n",﹟d(*h),﹟d(*m),﹟d(*s)); */ 
    return 0;
 }
 
@@ -292,22 +295,17 @@ void present₋instant(chronology₋instant v, int incl₋frac,
 int reveille₋young(chronology₋instant v, Juliandayno * day, int32_t * h, int32_t * m, 
  int32_t * s, chronology₋UQ32 * frac) /* include dayno in out-param. */
 { int32_t y,M,d; union Tp₋stomp ptn; ptn.bits=v;
-   print("seconds are  ⬚.\n", ﹟d(ptn.mil.seconds));
 #if !defined FLIEGEL₋FLANDERN
    Juliandayno theday = 2435330 + ptn.mil.seconds/(60*60*24); /* 1 1 1 */
 #else
    Juliandayno theday = 0 + ptn.mil.seconds/(60*60*24);
 #endif
-   print("day from seconds is ⬚.\n", ﹟d(theday));
    *day = theday;
    Juliandate(theday,&M,&d,&y);
-   print("here y is ⬚",﹟d(y));
    int32_t ment[] = { y, M, d, 5, 30, 0 };
    chronology₋instant ptn2;
-   print("instant recieves ⬚, ⬚ and ⬚.\n",﹟d(y),﹟d(M),﹟d(d));
    if (instant(ment,0,&ptn2)) { return -1; }
    union Tp₋stomp alarm, arla; alarm.bits=ptn2;
-   print("instant de₋return ⬚.\n", ﹟d(alarm.mil.seconds));
    int32_t delta = alarm.mil.seconds - arla.mil.seconds;
    *frac = alarm.mil.frac;
    *h = (delta/3600 + 5) % 24;
