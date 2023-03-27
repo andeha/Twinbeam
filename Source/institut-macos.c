@@ -2,6 +2,7 @@
 
 import Twinbeam;
 
+#include <stdlib.h>
 #include <malloc/malloc.h>
 
 void * Heap₋alloc(__builtin_int_t bytes)
@@ -23,7 +24,7 @@ __builtin_int_t Heap₋object₋size(void * ref) { return malloc_size(ref); }
 
 void Heap₋unalloc(void * ref) { free(ref); }
 
-void Fallow(void * ref) ⓣ { Heap₋unalloc(ref); }
+void Fallow(void * ref) ⓣ { Heap₋unalloc(ref); } /* always use this. */
 
 void Cons₋fallow(void * reference) { Heap₋unalloc(reference); }
 
