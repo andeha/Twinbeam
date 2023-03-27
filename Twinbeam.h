@@ -166,7 +166,7 @@ typedef unsigned int char32̄_t;
 /* we use the `struct sequent` type instead of the built-in `double` type. */
 #elif defined __MZ__
 #define non₋evident₋sityfour₋bit₋arithmetic₋in₋silicon /* requires ull-suffix. */
-#define evident₋onehundredtwentyeight₋bit₋arithmetic₋in₋silicon /* flag -fforce-enable-int128 and '__SIZEOF_INT128__' is set from 'pic32nda' when on Mips. */
+#define non₋evident₋onehundredtwentyeight₋bit₋arithmetic₋in₋silicon /* flag -fforce-enable-int128 and '__SIZEOF_INT128__' is set from 'pic32nda' when on Mips. */
 #define evident₋Ieee754₋khan₋specification₋in₋silicon
 #define non₋evident₋single₋intruction₋multiple₋data₋in₋silicon
 #elif defined __armv6__ || defined espressif
@@ -177,29 +177,29 @@ typedef unsigned int char32̄_t;
 #endif /*  Tensilica Lx6 is Ieee754 single-precision only. (UNEXISTING₋IEEE754) */
 #if defined(non₋evident₋sixtyfour₋bit₋arithmetic₋in₋silicon) ||             \
  defined(select₋synthetic₋64₋bit₋integer)
-#include "Source/arithm-mmix.incl.h"
 #define usage₋synthetic₋𝟼𝟺₋bit₋integer
+#include "Source/arithm-mmix.incl.h"
 #else
 #define usage₋𝟼𝟺₋bit₋integer
 #endif
 #if defined(non₋evident₋onehundredtwentyeight₋bit₋arithmetic₋in₋silicon) || \
  defined(select₋synthetic₋128₋bit₋integer)
-#include "Source/final-muldiv.incl.h"
 #define usage₋synthetic₋𝟷𝟸𝟾₋bit₋integer /* this case encaged 128-bit integer and no 'overloading'. */
+#include "Source/final-muldiv.incl.h"
 #else
 #define usage₋𝟷𝟸𝟾₋bit₋integer
 #endif
 #if defined(non₋evident₋Ieee754₋kahn₋specification₋in₋silicon) ||           \
  defined(select₋synthetic₋Ieee754₋arithmetics)
-#include "Source/sequen-ieee754.incl.h"
 #define usage₋sequent₋𝙸𝚎𝚎𝚎𝟽𝟻𝟺₋arithmetics
+#include "Source/sequen-ieee754.incl.h"
 #else
 #define usage₋𝙸𝚎𝚎𝚎𝟽𝟻𝟺₋arithmetics
 #endif
 #if defined(non₋evident₋single₋instruction₋multiple₋data₋in₋silicon) ||     \
  defined(select₋synthetic₋single₋instruction₋multiple₋data₋type)
-#include "Source/seri-simd.incl.h"
 #define usage₋serial₋𝚜𝚒𝚗𝚐𝚕𝚎₋𝚒𝚗𝚜𝚝𝚛𝚞𝚌𝚝𝚒𝚘𝚗₋𝚖𝚞𝚕𝚝𝚒𝚙𝚕𝚎₋𝚍𝚊t𝚊₋type
+#include "Source/seri-simd.incl.h"
 #else
 #define usage₋traditional₋𝚜𝚒𝚗𝚐𝚕𝚎₋𝚒𝚗𝚜𝚝𝚛𝚞𝚌𝚝𝚒𝚘𝚗₋𝚖𝚞𝚕𝚝𝚒𝚙𝚕𝚎₋𝚍𝚊t𝚊₋type
 #endif
@@ -245,7 +245,7 @@ EXT₋C int print(Printout ᐧ out, const char * ᐝ sevenbit₋utf8format, ...)
 EXT₋C int vfprint(const char * ᐝ sevenbit₋utf8format, ...);
 EXT₋C int print(const char * ᐝ sevenbit₋utf8format, ...) ⓣ;
 
-#if defined usage₋𝟷𝟸𝟾₋bit₋integer
+#if defined usage₋𝟷𝟸𝟾₋bit₋integer || defined usage₋synthetic₋𝟷𝟸𝟾₋bit₋integer
 union Q6364 { __int128_t frac; __uint128_t bits; };
 #endif
 struct sequent { union Q6364 detail; int valid; };
@@ -756,7 +756,7 @@ EXT₋C int collection₋init(unsigned bytes₋per₋item, unsigned
  bytes₋per₋tile, struct collection * ᐝ 🅰);
 EXT₋C int copy₋append₋items(__builtin_int_t count₋not₋bytes, void * ᐧ 
  bytes₋objects, struct collection * ᐝ 🅰, ALLOC alloc);
-EXT₋C uint8_t * ᐧ collection₋relative(__builtin_int_t idx, struct collection * ᐝ 🅰);
+EXT₋C uint8_t * ᐝ collection₋relative(__builtin_int_t idx, struct collection * ᐝ 🅰);
 /*  a․𝘬․a 'collection₋at'. */
 EXT₋C __builtin_int_t collection₋count(struct collection * ᐝ 🅰);
 EXT₋C int deinit₋collection(struct collection * ᐝ 🅰, FALLOW fallow);
