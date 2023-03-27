@@ -34,7 +34,7 @@ void int₋and₋bigint(int64_t /* base-2 */ s, 𝓵₋bigint * n)
 
    n->lastdigit = -1;
 
-   t = abs(s);
+   t = llabs(s);
 
    while (t > 0) {
       n->lastdigit ++;
