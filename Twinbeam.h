@@ -168,7 +168,7 @@ typedef unsigned int char32̄_t;
 #define non₋evident₋sityfour₋bit₋arithmetic₋in₋silicon /* requires ull-suffix. */
 #define non₋evident₋onehundredtwentyeight₋bit₋arithmetic₋in₋silicon /* flag -fforce-enable-int128 and '__SIZEOF_INT128__' is set from 'pic32nda' when on Mips. */
 #define evident₋Ieee754₋khan₋specification₋in₋silicon
-#define non₋evident₋single₋intruction₋multiple₋data₋in₋silicon
+#define non₋evident₋single₋instruction₋multiple₋data₋in₋silicon
 #elif defined __armv6__ || defined espressif
 #define non₋evident₋sixtyfour₋bit₋arithmetic₋in₋silicon
 #define non₋evident₋onehundredtwentyeight₋bit₋arithmtic₋in₋silicon
@@ -843,7 +843,6 @@ union β₋simd
 
 #if defined usage₋serial₋𝚜𝚒𝚗𝚐𝚕𝚎₋𝚒𝚗𝚜𝚝𝚛𝚞𝚌𝚝𝚒𝚘𝚗₋𝚖𝚞𝚕𝚝𝚒𝚙𝚕𝚎₋𝚍𝚊t𝚊₋type
 typedef union β₋simd simd_tᵦ;
-/* typedef double simd_tᵦ[2]; */
 #elif defined __armv8a__
 typedef __attribute__ ((neon_vector_type(2))) double float64x2_t;
 typedef float64x2_t simd_tᵦ;
