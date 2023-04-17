@@ -10,3 +10,9 @@ CORRECT(Utf8ToUnicode_1)
    ENSURE(c == 0x00041 && followers == 0, "Utf8ToUnicode_1 1");
 }
 
+CORRECT(UnicodeToUtf8_1)
+{
+   if (UnicodeToUtf8(U'Ξ', ^(char8₋t * ξ, short bytes) { 
+     ENSURE(bytes == 2 && *(ξ+0) == 0xce && *(ξ+1)==0x9e, "UnicodeToUtf8_1 2");
+   })) ENSURE(false, "UnicodeToUtf8_1 1");
+}
