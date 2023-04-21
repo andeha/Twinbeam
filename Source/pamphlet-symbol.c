@@ -27,7 +27,7 @@ again:
      break;
     default: return -1;
    }
-   j+=bytes,i+=1;
+   i+=bytes,j+=1;
    goto again;
 unagain:
    *tetras=j;
