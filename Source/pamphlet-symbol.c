@@ -13,21 +13,21 @@ again:
    if (248 <= first) { return -1; }
    bytes = __builtin_clz(~(first<<24));
    switch (bytes) {
-    case 1: *(prealloc₋out + j + 0) = first;
+    case 0: *(prealloc₋out + j) = first;
      break;
-    case 2: *(prealloc₋out + j + 1) = 
+    case 1: *(prealloc₋out + j) = 
       (0b11111 & first)<<6 | (mask & *(ξ+1));
      break;
-    case 3: *(prealloc₋out + j + 2) = 
+    case 2: *(prealloc₋out + j) = 
       (0b1111 & first)<<12 | (mask & *(ξ+1))<<6 | (mask & *(ξ+2));
      break;
-    case 4: *(prealloc₋out + j + 3) = 
+    case 3: *(prealloc₋out + j) = 
      (0b111 & first)<<18 | (mask & *(ξ+1))<<12 | (mask & *(ξ+2))<<6 | 
      (mask & *(ξ+3));
      break;
     default: return -1;
    }
-   i+=bytes,j+=1;
+   i+=bytes+1,j+=1;
    goto again;
 unagain:
    *tetras=j;
