@@ -1,12 +1,12 @@
 /*  harness.c | running exercises on a macintosh computer. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 #define BUILDINFO_COPYRIGHT_MESSAGE "Copyright " PROGRESS_START_YEAR "—"     \
  PROGRESS_BUILD_YEAR " " BUILDINFO_BRAND
 #define BUILDINFO_BRAND "Sublimates crucis 🎲"
-#define PROGRESS_START_YEAR __STRING(2016)
-#define PROGRESS_BUILD_YEAR __STRING(2022)
+#define PROGRESS_START_YEAR QUOTE(2016)
+#define PROGRESS_BUILD_YEAR QUOTE(2022)
 #define cycles __rdtsc /* and __dwt_cyccnt. */
 
 inexorable void printGreetings()
