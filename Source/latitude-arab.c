@@ -1,6 +1,6 @@
 /*  latitude-arab.c | suffix tried by non-egyptian. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 int trie₋keyword(int count, char32̄_t text[], int * residue, Trie * ᐧ 🆃)
 { int i=0,word₋index; char32̄_t letter; 

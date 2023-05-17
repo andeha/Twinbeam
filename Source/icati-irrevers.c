@@ -1,6 +1,6 @@
 /*  icati-irrevers.c | sometime church-chime. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 /* Gregorian October 15, 1582 and the Julian October 5, 1581 day */
 

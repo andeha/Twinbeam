@@ -17,18 +17,19 @@ rule library
   command = $librarian-pic32 rcs Releases/$out\_$sha1git.a $in             ; $
   ln -f Releases/$out\_$sha1git.a Releases/$out.a; printf $sha1git
 
-build libTwinbeam_pic32mm:  library $objs/analys-coalesc.o                   $
- $objs/annuitet-coalesc.o $objs/book-nonpsalm.o $objs/clot-referen.o         $
+build libTwinbeam_pic32mm:  library $objs/spark-amend.o                      $
+ $objs/prefix-spark.o $objs/book-nonpsalm.o $objs/clot-referen.o             $
  $objs/complic-abdun.o $objs/constrai-coalesc.o $objs/detail-encode.o        $
  $objs/detergent-hand.o $objs/etui-police.o $objs/institu-nevada.o           $
  $objs/sheriff-step.o $objs/macarong-kastanj.o $objs/milit-confit.o          $
  $objs/mixture-national.o $objs/mm-not-mz.o $objs/model-vision.o             $
  $objs/passage-stary.o $objs/procure-sheriff.o $objs/proof-teko.o            $
  $objs/sequent-guiness.o $objs/serial-juice.o $objs/text-length.o            $
- $objs/transmit-radio.o $objs/transparent-navaron.o $objs/twice-fail.o       $
- $objs/hāgkomme-frukt.o $objs/languag-cathark.o
-build $objs/analys-coalesc.o: c spark-amend.c
-build $objs/annuitet-coalesc.o: c prefix-spark.c
+ $objs/transmit-radio.o $objs/transparent-navaron.o $objs/hāgkomme-frukt.o   $
+ $objs/languag-cathark.o $build/generat-spark.o
+build $objs/spark-amend.o: c italian-amend.c
+build $objs/prefix-spark.o: c italian-init.c
+build $objs/generat-spark.o: c italian-analys.c
 build $objs/book-nonpsalm.o: c reference-three.c
 build $objs/clot-referen.o: c portable-tree.c
 build $objs/complic-abdun.o: c icati-irrevers.c
@@ -51,9 +52,11 @@ build $objs/serial-juice.o: c comput-unique.c
 build $objs/text-length.o: c impress-length.c
 build $objs/transmit-radio.o: c serial-symbol.c
 build $objs/transparent-navaron.o: c symbol-tiles.c
-build $objs/twice-fail.o: c tee-metric.c
 build $objs/hāgkomme-frukt.o: c bowler-ketter.c
 build $objs/languag-cathark.o: c latitude-arab.c
+# bulid $objs/_.c: c concrete-solid.c
+# build $objs/_.c: c symbol-dynam.c
+# build $objs/_.c c couvert-antagoni.c
 build emit-content: toc
 default $stem-library
 

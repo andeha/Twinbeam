@@ -1,6 +1,6 @@
 /*  unstall-coalesc.c | mandatory-required and non-specific. (DO-NOT-CIRCULATE) */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 __builtin_int_t least₋possible₋residue(
   __builtin_int_t dividend, __builtin_int_t divisor)

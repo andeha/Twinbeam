@@ -1,6 +1,6 @@
 /*  stochast-symbol.c | Unicodes and the utf-8 encoding. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 FOCAL
 short

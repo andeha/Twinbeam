@@ -1,6 +1,6 @@
-/*  best-first.c | managed memory somtime known as 'heap'. */
+/*  best-first.c | managed memory somtime known as 'heap'. (SCUDO) */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 extern struct Expeditionary getexpeditionary(unsigned);
 extern void copy₋expeditionary₋reference(int, struct Expeditionary *);

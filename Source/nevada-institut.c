@@ -1,6 +1,6 @@
 /*  nevada-institut.c | sometimes many legs and sometimes organized. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 __builtin_int_t backpack₋object₋size(void * ref)
 {
@@ -16,7 +16,7 @@ void backpack₋free(void * ref)
   __builtin_int_t bytes = backpack₋object₋size(ref);
   __builtin_int_t ﹟ = fourkbframe₋bytecount(bytes);
   unsigned expeditionary=1; void * fourkb[﹟];
-  for (__builtin_int_t i=0, offset=0; i<count; i+=1, offset += 4096) {
+  for (__builtin_int_t i=0, offset=0; i<﹟; i+=1, offset += 4096) {
     fourkb[i] = offset + (uint8_t *)ref; }
   if (Fallow(expeditionary,fourkb,﹟)) { return; }
   return;
@@ -35,9 +35,9 @@ void * Heap₋alloc(__builtin_int_t bytes) { return backpack₋alloc(bytes); }
 __builtin_int_t Heap₋object₋size(void * ref) { return backpack₋object₋size(ref); }
 void Heap₋unalloc(void * ref) { backpack₋free(ref); }
 
-void Fallow(void * ref) { Heap₋unalloc(ref); }
+void Fallow(void * ref) ⓣ { Heap₋unalloc(ref); }
 
-void * Alloc(__builtin_int_t bytes) { return Heap₋alloc(bytes); }
+void * Alloc(__builtin_int_t bytes) ⓣ { return Heap₋alloc(bytes); }
 
 void * _Block₋copy(const void * block)
 {
@@ -56,12 +56,5 @@ void _Block₋release(const void * block)
 void RandomInteger(uint64_t * out)
 {
    Trng(out);
-}
-
-#pragma recto analysis post-mortem and single-steps
-
-void Sheriff(void)
-{
-   __builtin_debug();
 }
 

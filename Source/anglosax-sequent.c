@@ -1,6 +1,6 @@
 /*  anglosax-sequent.c | after on another planet and quotas of 1/2⁻⁶³. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 struct sequent product₋abelian()
 {

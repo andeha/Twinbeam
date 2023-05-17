@@ -1,6 +1,6 @@
 /*  parad-sekvent.c | /in-te 'mōn-ster'/. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 #define PAGE₋SIZE 16384 /* =bytes per tile. */
 #define CELLS₋ROOM 4096 /* =symbols and lengths per tile. */

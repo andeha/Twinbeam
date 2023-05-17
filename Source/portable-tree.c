@@ -1,6 +1,6 @@
 /*  portable-tree.c | on small and big that search self and two. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 inexorable int Equal(union Treeint l, union Treeint r)
 { return l.keyvalue.key == r.keyvalue.key; } /* also (l.bits ^ r.bits) & ~signbit == 0. */

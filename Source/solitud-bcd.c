@@ -1,6 +1,6 @@
 /*  solitud-bcd.c | Jon Bentley decimal arithetics. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 #define PLUS +1
 #define MINUS -1

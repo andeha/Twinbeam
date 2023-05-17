@@ -1,6 +1,7 @@
 /*  arrange-fifo.c | one, zero or two halves are always returned. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
+#include "fifo-slow.h"
 
 int init₋fifo(struct fifo * 🅵, __builtin_int_t words, void * one₋tile)
 { 🅵->words₋to₋unity=words;

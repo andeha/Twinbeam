@@ -1,6 +1,6 @@
 /*  impression-length.c | Twinbeam (c22 and clang for x86_64 and Mips.) */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 __builtin_int_t
 Utf8BytesUntilZero(

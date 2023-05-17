@@ -1,6 +1,6 @@
 /*  pamphlet-symbol.c | expands to not more than 'times four'. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 int Utf8ToUnicode(__builtin_int_t u8bytes, char8₋t * encoded, char32̄_t * 
  prealloc₋out, __builtin_int_t * tetras) ⓣ

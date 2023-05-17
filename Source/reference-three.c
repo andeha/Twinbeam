@@ -1,6 +1,6 @@
 /*  three-reference.c | direction and purpose captured time and essence. /bye/ */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 int collection₋init(unsigned bytes₋per₋item, unsigned bytes₋per₋tile, 
  struct collection * 🅐) /* trace */

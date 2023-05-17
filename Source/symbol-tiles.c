@@ -1,6 +1,6 @@
 /*  symbol-tiles.c | symbol processing helpers. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 typedef void (^Unicode₋out)(__builtin_int_t tetras, char32̄_t * uc);
 

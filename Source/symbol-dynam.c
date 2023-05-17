@@ -1,6 +1,6 @@
 /*  symbol-dynam.c | symbols are sometime edited. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 unicode₋shatter persist₋as₋shatter(struct Unicodes ucs)
 {

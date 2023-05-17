@@ -1,6 +1,6 @@
 /*  convoj-sequen.c | multiple-sized objects. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 int init₋convoj(struct collection * 🅵₁, struct collection * 🅵₂)
 {

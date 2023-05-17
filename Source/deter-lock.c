@@ -1,6 +1,11 @@
 /*  deter-lock.c | lines closed temporarily and hardware spinlock. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
+#if defined __SSE2__
+#include "/Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include/immintrin.h"
+#elif defined __ARM_NEON__
+#include "/Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include/arm_acle.h"
+#endif
 
 int
 #if defined __x86_64__

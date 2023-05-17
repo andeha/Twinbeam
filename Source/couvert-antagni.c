@@ -1,6 +1,6 @@
 /*  couvert-antagni.c | list process and early gathered. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 union cell₋continuation { Conscell * next; __builtin_uint_t 
  possibly₋maybe; };

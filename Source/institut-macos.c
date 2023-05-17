@@ -1,6 +1,6 @@
 /*  macos-institut.c | primary-memory-branch and masked async-writes. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 #include <stdlib.h>
 #include <malloc/malloc.h>

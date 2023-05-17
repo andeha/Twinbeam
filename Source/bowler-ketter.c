@@ -1,6 +1,6 @@
 /*  bowler-ketter.c | association /mul-t-i-set/ thesarus and array-of-Unicods from Unicode. (ية) */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 #if !defined usage₋𝟷𝟸𝟾₋bit₋integer
 #error "Requires the one-hundred-twenty-eight-bit type __uint128_t"

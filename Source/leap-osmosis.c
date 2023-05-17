@@ -1,6 +1,7 @@
 /*  leap-osmosis.c | E․𝘨 substance-tracking with big and small police. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
+
 #if defined __MM__
 import peripherial_controller_echo;
 #elif defined __MZ__

@@ -1,6 +1,6 @@
 /*  comput-unique.cpp | copied from the internet. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 /*********************************************************************
  * Filename:   sha256.h

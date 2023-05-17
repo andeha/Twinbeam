@@ -1,15 +1,15 @@
-/*  chim-model.c | a.k.a 'preferences'. */
+/*  chim-model.c | also known as a 'preference'. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
-FOCAL int IMUL(short id, int32_t left, int32_t right, uint32_t * low, 
+int IMUL(short id, int32_t left, int32_t right, uint32_t * low, 
  uint32_t * high, int * negative)
 {
-   union physic { struct { uint32_t lo, hi; } 𝓛; uint64_t h; } right;
+   union rad { struct { uint32_t lo, hi; } 𝓘; uint64_t bits; } 𝓞;
    union realizable { uint64_t bits; int64_t amount; } y;
    extern uint32_t cumulative₋🅷[4], cumulative₋🅻[4];
-   y.amount = left * right; right.h = y.amount; *low = right.𝓛.low; *high = right.𝓛.high;
-   cumulative₋🅷[id] = right.𝓛.high; cumulative₋🅻[id] = right.𝓛.low;
+   y.amount = left * right; 𝓞.bits = y.amount; *low = 𝓞.𝓘.lo; *high = 𝓞.𝓘.hi;
+   cumulative₋🅷[id] = 𝓞.𝓘.hi; cumulative₋🅻[id] = 𝓞.𝓘.lo;
    *negative = (0x80000000 & cumulative₋🅷[id]) ? 1 : 0;
    return 0;
 }
@@ -17,11 +17,12 @@ FOCAL int IMUL(short id, int32_t left, int32_t right, uint32_t * low,
 int32_t invsignextend(int64_t figure)
 {
    int neg = figure < 0;
-   int32_t y = neg ? -figure : figure;
+   int32_t y = (int32_t)(neg ? -figure : figure);
    return y;
-}
+} /* a․𝘬․a 'sign-cutaway'. See the microMIPS32 instruction set and 'seh' and 
+ 'seb' for one instruction encoding. */
 
-FOCAL int IADD(short id, int32_t left, int32_t right, uint32_t * sum, 
+int IADD(short id, int32_t left, int32_t right, uint32_t * sum, 
  int * negative, int * overflow)
 {
    union realizable { uint32_t bits; int32_t amount; };
@@ -29,12 +30,12 @@ FOCAL int IADD(short id, int32_t left, int32_t right, uint32_t * sum,
    int64_t thesis = right + left;
    if (thesis > 0x7fffffffffffffff) { *overflow=1; }
    if (thesis > 0xffffffffffffffff) { *overflow=1; }
-   *sum = sinvignextend(thesis);
+   *sum = invsignextend(thesis);
    *negative = 0x8000000000000000 & thesis ? 1 : 0;
    return 0;
 }
 
-FOCAL int INEG(short id, int32_t custom, uint32_t * reflection, 
+int INEG(short id, int32_t custom, uint32_t * reflection, 
  int * negative)
 {
    union realizable { uint32_t bits; int32_t amount; } xoxXooox = { .amount=custom };

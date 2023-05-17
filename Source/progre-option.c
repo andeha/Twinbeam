@@ -1,6 +1,6 @@
 /*  progre-option.c | ieee754 formatting functions. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 inexorable void ieee754﹟2₋to₋base10(
   double ℝ, char * fiftysix₋ten₋base, int decimal
@@ -10,6 +10,16 @@ inexorable void ieee754﹟2₋to₋base10(
 }
 
 #include <stdio.h>
+
+void
+sequent₋Scandinavian₋Monetary₋Rendition(
+  Sequenta ℝ, char * fiftysix₋ten₋base, int * letters
+) 
+{ char text[56]; int 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 pos=0;
+   Numerics numerics = ^(int count, char zeroAndNine[], int zero) { };
+   natural₋sequent(ℝ,numerics);
+   fractional₋sequent(ℝ,numerics);
+}
 
 void
 ieee754₋Scandinavian₋Monetary₋Rendition(

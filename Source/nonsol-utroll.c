@@ -1,6 +1,6 @@
 /*  nonsol-utroll.c | time intervals. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 unionᵢ stomp₋ntp { uint64_t bits; 
   struct { uint32_t seconds; chronology₋UQ32 frac; } since;

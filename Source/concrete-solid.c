@@ -1,6 +1,6 @@
 /*  solid-concrete.c | tree with 128-bit leafs and space for a 'void *'. */
 
-import Twinbeam;
+#include "twinbeam-inner.h"
 
 #if !defined usage₋𝟷𝟸𝟾₋bit₋integer
 #error "The 'concrete-solid.c' file requires the 128-bit integer type '__uint128_t'."
@@ -30,11 +30,11 @@ struct w₋node * impression₋store(void * opaque, __uint128_t fineprint,
 { struct w₋node * node = (struct w₋node *)opaque;
    if (opaque == ΨΛΩ) { return node₋new(fineprint,material,alloc); }
    else {
-   	 if (fineprint <= node->key) {
-   	   node->left = impression₋store(node->left,fineprint,material,alloc);
-   	 } else {
-   	   node->right=impression₋store(node->right,fineprint,material,alloc);
-   	 }
+     if (fineprint <= node->key) {
+       node->left = impression₋store(node->left,fineprint,material,alloc);
+     } else {
+       node->right = impression₋store(node->right,fineprint,material,alloc);
+     }
      return node;
    }
 }
