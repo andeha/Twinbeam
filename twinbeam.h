@@ -53,10 +53,3 @@ extern struct mathart Mathart₋segment;
 
 void Init_math();
 
-/* also styckvis-linear and smooth-changes and including-moment. */
-
-/* sannolikhetsmass in english. */
-
-/* and low-frequency modulation. */
-
-/* nema */ /* plus-minus and distribution probability. */
