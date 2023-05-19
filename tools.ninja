@@ -1,12 +1,17 @@
 # tools.ninja — settings for macos and Pic32.
-small-runtime = /Users/<user or project name>/Monitor/Apps/pic32rt
-host-big = /Users/<user or project name>/Monitor/Apps/macOS
-tools-small = /Users/<user or project name>/mips-tools/14.0.6
-modulefile = /Users/<user or project name>/Monitor/Apps/module.modulemap
-gencdflags = -fblocks -fno-rtti -fno-coroutines-ts -fno-exceptions           $
+small-runtime = /Users/<user or project name>/Projects/Monitor/Apps/pic32rt
+host-big = /Users/<user or project name>/Projects/Monitor/Apps/macOS
+tools-small = /Users/<user or project name>/Projects/mips-tools/12.0.0
+# modulefile = /Users/<user or project name>/Projects/Monitor/Apps/module.modulemap
+commandline-sdkpath = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+xcodeapp-sdkpath = /Applications/Xcode.app/Contents/Developer/Platforms/MacOS$
+X.platform/Developer/SDKs/MacOSX.sdk
+gencdflags1 = -fblocks -fno-signed-char -fno-builtin -Wno-c99-designator     $
+ -Wincomplete-umbrella -Wmodule-conflict -Wno-format
+gencdflags2 = -fblocks -fno-rtti -fno-coroutines-ts -fno-exceptions          $
  -fno-signed-char -fno-builtin -Wno-c++20-designator -Wno-c99-designator     $
  -Wincomplete-umbrella -Wmodule-conflict -Wno-format
-moduleflags = -fmodules-ts -fimplicit-modules -fmodule-map-file=$modulefile
+# moduleflags = -fmodules-ts -fimplicit-modules -fmodule-map-file=$modulefile
 pic32mmflags = -target mipsel -mfloat-abi=soft -mcpu=mips32r6 -mabi=o32      $
  -mmicromips -D__MM__
 pic32mzflags = -target mipsel -mfloat-abi=hard -mcpu=mips32r5 -mabi=o32      $
@@ -15,13 +20,10 @@ pic32m0cflags = -target arm-none-eabi -mcpu=cortex-m0 -mfloat-abi=soft       $
  -mthumb
 pic32nda = -fforce-enable-int128 -mmsa -gdwarf-5
 espressif-V = -target riscv32-unknown-elf -march=rv32imc -mabi=ilp32 # ilp32d
-commandline-sdkpath = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
-xcodeapp-sdkpath = /Applications/Xcode.app/Contents/Developer/Platforms/MacOS$
-X.platform/Developer/SDKs/MacOSX.sdk
 macoscflags_withxcode = -isysroot $xcodeapp-sdkpath
 macoscflags_commandline = -isysroot $commandline-sdkpath
 macoscflags = $macoscflags_commandline
-denominator-version = -macos_version_min 12.4
+denominator-version = -macos_version_min 13.0
 maclnkflags = $denominator-version -syslibroot $commandline-sdkpath -lSystem $
  -lc++
 # Only when not in a 𝑝𝑟𝑖𝑣𝑎𝑡𝑒 repository, but in a 𝑝𝑢𝑏𝑙𝑖𝑐 github.com area: 'git 
@@ -29,8 +31,8 @@ maclnkflags = $denominator-version -syslibroot $commandline-sdkpath -lSystem $
 sha1git = `git log -1 '--pretty=format:%h'`
 librarian-pic32 = $tools-small/llvm-ar
 librarian-mac = xcrun ar
-compiler-macos = xcrun clang $gencdflags $moduleflags
-compiler-pic32 = $tools-small/clang-14 $gencdflags $moduleflags
+compiler-macos = xcrun clang  -I../ 
+compiler-pic32 = $tools-small/clang-12 -I../
 intel-mac = -target x86_64-apple-darwin21
 appleSoC-mac = -target arm64-apple-macos12 -D __armv8a__ -march=armv8.5-a+tme
 
