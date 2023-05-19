@@ -1,6 +1,6 @@
 /*  ❩† calen.c | calendric alembics. */
 
-import Twinbeam;
+#include "twinbeam.h"
 
 typedef int32_t Juliandayno;
 

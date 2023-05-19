@@ -1,6 +1,6 @@
 /*  ❩† rec.c | recording variable arguments to string. */
 
-import Twinbeam;
+#include "twinbeam.h"
 
 CORRECT(Record_1)
 {

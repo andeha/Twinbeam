@@ -1,6 +1,6 @@
 /*  ❩† bcd.c | base ten math routines. */
 
-import Twinbeam;
+#include "twinbeam.h"
 #include <stdio.h>
 
 void print_bignum(𝓵₋bigint * n)

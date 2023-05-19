@@ -1,6 +1,6 @@
 /*  ❩† pool.c | storing idnetifiers and strings in a pool. */
 
-import Twinbeam;
+#include "twinbeam.h"
 
 CORRECT(pool_amend)
 { struct collection H;

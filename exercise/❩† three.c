@@ -1,6 +1,6 @@
 /* ❩† three.c | the collection tests. */
 
-import Twinbeam;
+#include "twinbeam.h"
 
 CORRECT(Collection_1)
 {

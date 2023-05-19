@@ -1,6 +1,6 @@
 /* ❩† utf8.c | symbols and recollection. */
 
-import Twinbeam;
+#include "twinbeam.h"
 
 CORRECT(Utf8ToUnicode_1)
 {
@@ -12,7 +12,7 @@ CORRECT(Utf8ToUnicode_1)
 
 CORRECT(UnicodeToUtf8_1)
 {
-   if (UnicodeToUtf8(U'Ξ', ^(char8₋t * ξ, short bytes) { 
+   if (UnicodeToUtf8(U'Ξ', ^(char8₋t * ξ, short bytes) {
      ENSURE(bytes == 2 && *(ξ+0) == 0xce && *(ξ+1)==0x9e, "UnicodeToUtf8_1 2");
    })) ENSURE(false, "UnicodeToUtf8_1 1");
 }
@@ -27,7 +27,7 @@ CORRECT(Utf8ToUnicode_2)
 
 CORRECT(UnicodeToUtf8_2)
 {
-   char32̄_t decoded[] = { U'A', U'B', U'C' }; 
+   char32̄_t decoded[] = { U'A', U'B', U'C' };
    char8₋t prealloc[4*3]; __builtin_int_t u8bytes;
    if (UnicodeToUtf8(3,decoded,prealloc,&u8bytes)) ENSURE(false, "UnicodeToUtf8_2 1");
 }

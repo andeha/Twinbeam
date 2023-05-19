@@ -1,6 +1,6 @@
 /*  ❩† guid.c | unique identifier. */
 
-import Twinbeam;
+#include "twinbeam.h"
 
 CORRECT(guid_print)
 {
