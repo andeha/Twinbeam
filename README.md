@@ -15,6 +15,12 @@ For Xcode 9 and llvm-6: [libTwinbeam_macOS.a](https://github.com/andeha/Twinbeam
 
 Bootloader: [pic32mz.hex](https://github.com/andeha/Twinbeam/releases/download/twinbeam_prerel2/bootloader_mz_0f5fabc.hex) (*Rev. `0f5fabc`, Friday, August 3, 2018.*)
 
+## To compile
+
+1) Edit `small-runtime`, `host-big` and `tools-small` in `tools.ninja`.
+2) Enter `cd Source` and `mkdir Releases`.
+3) Build with `ninja -f build_intcmac.ninja` and `ninja -f build_armmac.ninja`.
+
 ## References
 
 [1] The [Intel® 64 and IA-32 Architectures Software Developer Manual: Vol 3](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.pdf) document.
