@@ -73,6 +73,7 @@ typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎ma
 #endif
 #define FOSSILATED
 #define OPT_Si_FOCAL
+#define PROMINENT MACRO
 #define false 0
 #define true (! false)
 #if defined __mips__
@@ -632,6 +633,31 @@ inline EXT₋C __builtin_int_t Sign₋extend(__builtin_int_t x, short bits₋fro
    return y.amount;
 }
 
+inline EXT₋C __builtin_int_t Clz(uint32_t x) ⓣ
+{
+   const uint8_t debruijn[32] = { 
+     31, 22, 30, 21, 18, 10, 29, 2, 20, 17, 15, 13, 9, 6, 28, 1, 
+     23, 19, 11, 3, 16, 14, 7, 24, 12, 4, 8, 25, 5, 26, 27, 0
+   };
+   if (x == 0) return 32;
+   x |= x >> 1;
+   x |= x >> 2;
+   x |= x >> 4;
+   x |= x >> 8;
+   x |= x >> 16;
+   return debruijn[(uint32_t)(x * 0x07C4ACDDul) >> 27];
+}
+
+inline EXT₋C __builtin_int_t Ctz(uint32_t x) ⓣ
+{
+   const uint8_t debruijn[32] = { 
+     0, 1, 28, 2, 29, 14, 24, 3, 30, 22, 20, 15, 25, 17, 4, 8, 
+     31, 27, 13, 23, 21, 19, 16, 7, 26, 12, 18, 6, 11, 5, 10, 9
+   };
+   if (x == 0) return 32;
+   return debruijn[((x & -(int32_t)x) * 0x0077CB531ul) >> 27];
+}
+
 #if defined __x86_64__ || defined __armv8a__ || defined Kirkbridge
 union Treeint { struct { int64_t key; uint64_t val; } keyvalue; __uint128_t bits; };
 #elif defined __mips__ || defined __armv6__ || defined espressif
@@ -1003,7 +1029,7 @@ typedef union historypod (* ᐧ timeserie₋summation)(union historypod x₁, un
 enum timeserie₋operation { ts₋create, ts₋update, ts₋delta, ts₋remove };
 EXT₋C int timeserie₋init(version₋ts * ᐧ revision, version₋ts earliest, 
  unsigned int snapshot₋cycle, struct timeserie * ᐝ 🅹);
-EXT₋C void timeserie₋uninit(struct timeserie * ᐝ 🅹);
+EXT₋C int timeserie₋uninit(struct timeserie * ᐝ 🅹);
 typedef void (^line₋completed)(struct timeserie₋entry row, version₋ts revision);
 EXT₋C int timeserie₋commit(version₋ts * ᐧ revision, line₋completed ᐝ persisted, 
  struct timeserie * ᐝ 🅙, timeserie₋summation addition);
