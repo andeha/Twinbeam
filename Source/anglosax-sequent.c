@@ -49,9 +49,9 @@ again:
      else { acc = acc + (x₂<<shift); }
    }
    lo=hi; mask<<=1; shift+=1; goto again;
-} /* see Andrew D. Booth, A signed binary multiplication technique, 
- Quart. Journ. Mech. and Applled Math., Vol. IV Pt. 2(1951) and 
- [github.com]--[andeha]--[Twinbeam]--[wiki]--<Reading List>--<Binary multiplication>. */
+} /* see Andrew D. Booth, A signed binary multiplication technique, Quart. 
+ Journ. Mech. and Applied Math., Vol. IV Pt. 2(1951) and [github.com]--[
+ andeha]--[Twinbeam]--[wiki]--<Reading List>--<Binary multiplication>. */
 
 struct sequent multiply_sequent(Sequenta x₁, Sequenta x₂)
 { __int128_t mask=0xffffffffffffffff;
