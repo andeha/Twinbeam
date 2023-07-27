@@ -9,7 +9,7 @@ Requires [`llvm`](https://llvm.org), [`ninja`](https://ninja-build.org) and — 
 Do not forget to visit [`Examples`](https://github.com/BlinkingEmotions/Fanfare), the [llvm2pic32](https://raw.githubusercontent.com/wiki/andeha/Twinbeam/llvm2pic32.1.pdf)/[pdb](https://raw.githubusercontent.com/wiki/andeha/Twinbeam/pdb.1.pdf) manual pages
  and the Twinbeam [wiki](https://github.com/andeha/Twinbeam/wiki).
 
-## Index 
+### Entry points 
 
 | Topic | Where in tree |
 | --- | --- |
