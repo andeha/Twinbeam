@@ -9,6 +9,17 @@ Requires [`llvm`](https://llvm.org), [`ninja`](https://ninja-build.org) and — 
 Do not forget to visit [`Examples`](https://github.com/BlinkingEmotions/Fanfare), the [llvm2pic32](https://raw.githubusercontent.com/wiki/andeha/Twinbeam/llvm2pic32.1.pdf)/[pdb](https://raw.githubusercontent.com/wiki/andeha/Twinbeam/pdb.1.pdf) manual pages
  and the Twinbeam [wiki](https://github.com/andeha/Twinbeam/wiki).
 
+## Index 
+
+| Topic | Where in tree |
+| --- | --- |
+| Compiler | [Projects]--<[retros-compi.c](https://github.com/BlinkingEmotions/Fanfare/blob/main/%F4%80%90%92%20retros-compi.c)> |
+| Presenting bits on terminal | [Pic32step-pdb]--<[present-out.c](https://github.com/andeha/Pic32step-pdb/blob/master/present-out.c)‌> <br>and --<[regs-mm.c](https://github.com/andeha/Pic32step-pdb/blob/master/regs-mm.c)> |
+| Typecase | [Twinbeam]--<[Typecase.hpp│h](https://github.com/andeha/Twinbeam/blob/master/Typecase.hpp│h)> |
+| Uart logging | [Twinbeam]--...--<[serial-symbol.c](https://github.com/andeha/Twinbeam/blob/master/Source/serial-symbol.c)> | 
+| Unicode parser | [Projects]--<[turbin-normal.c](https://github.com/BlinkingEmotions/Fanfare/blob/main/%F4%80%96%86%20turbin-normal.c)> |
+
+
 ## Prebuilt
 
 For Xcode 9 and llvm-6: [libTwinbeam_macOS.a](https://github.com/andeha/Twinbeam/releases/download/twinbeam_prerel4/libTwinbeam_macOS_75eb7d7.a), [libTwinbeam_pic32mz.a](https://github.com/andeha/Twinbeam/releases/download/twinbeam_prerel4/libTwinbeam_pic32mz_75eb7d7.a), [Twinbeam.h](https://github.com/andeha/Twinbeam/releases/download/twinbeam_prerel4/Twinbeam.h). (*Rev. `75eb7d7`, Friday, August 21, 2018.*)
