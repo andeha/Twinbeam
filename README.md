@@ -14,6 +14,7 @@ Requires [`llvm`](https://llvm.org), [`ninja`](https://ninja-build.org) and — 
 | Coroutines | [Cox-route]--<[coro-main.c](https://github.com/andeha/Cox-route/blob/main/coro-main.c)> |
 | Linked lists | [Project]--<[eff.c](https://github.com/BlinkingEmotions/Fanfare/blob/main/∎%7C∎%20eff.c)><br>and --<[radbanc.c](https://github.com/BlinkingEmotions/Fanfare/blob/main/∎%7C∎%20radbanc.c)> |
 | Presenting bits on terminal | [Pic32step-pdb]--<[present-out.c](https://github.com/andeha/Pic32step-pdb/blob/master/present-out.c)><br>and --<[regs-mm.c](https://github.com/andeha/Pic32step-pdb/blob/master/regs-mm.c)> |
+| Red-black tree | [Project]--<[eff.c](https://github.com/BlinkingEmotions/Fanfare/blob/main/∎%7C∎%20eff.c)> |
 | Typecase | [Twinbeam]--<[Typecase.hpp│h](https://github.com/andeha/Twinbeam/blob/master/Typecase.hpp│h)> |
 | Uart logging | [Twinbeam]--...--<[serial-symbol.c](https://github.com/andeha/Twinbeam/blob/master/Source/serial-symbol.c)> | 
 | Unicode parsing | [Projects]--<[turbin-normal.c](https://github.com/BlinkingEmotions/Fanfare/blob/main/%F4%80%96%86%20turbin-normal.c)> |
