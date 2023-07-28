@@ -20,6 +20,7 @@ Digest the source tree starting from any of the topics listed below.
 | Typecase | [Twinbeam]--<[Typecase.hpp│h](https://github.com/andeha/Twinbeam/blob/master/Typecase.hpp│h)> |
 | Uart logging | [Twinbeam]--...--<[serial-symbol.c](https://github.com/andeha/Twinbeam/blob/master/Source/serial-symbol.c)> | 
 | Unicode parsing | [Projects]--<[turbin-normal.c](https://github.com/BlinkingEmotions/Fanfare/blob/main/%F4%80%96%86%20turbin-normal.c)> |
+| View- and window controller | [Minimum]--<[histories.swift](https://github.com/andeha/Minimum/blob/main/histories.swift)> |
 
 Do not forget to visit [`Examples`](https://github.com/BlinkingEmotions/Fanfare), the [llvm2pic32](https://raw.githubusercontent.com/wiki/andeha/Twinbeam/llvm2pic32.1.pdf)/[pdb](https://raw.githubusercontent.com/wiki/andeha/Twinbeam/pdb.1.pdf) manual pages and the Twinbeam [wiki](https://github.com/andeha/Twinbeam/wiki).
 
