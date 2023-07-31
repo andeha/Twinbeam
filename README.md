@@ -6,9 +6,9 @@ Contains details for utf-8, `Array`, `List`, `Ma-p` and `Chronology`. To use, in
 
 Requires [`llvm`](https://llvm.org), [`ninja`](https://ninja-build.org) and — for MIPS development — a pic32mz development board and at-least 'Textmate' and 'Sublime Text'.
 
-## Entry points, topics and an index 
+## Entry points and topics
 
-Digest the source tree starting from any of the topics listed below.
+Digest the source tree starting from any of the topics listed in the index below.
 
 | Topic | Where in tree |
 | --- | --- |
