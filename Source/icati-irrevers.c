@@ -18,10 +18,10 @@ Tellus(int32_t m /* 1-12 */, int32_t d /* 1-31 */, int32_t y)
    int64_t F = 30.6001*((double)(m)+1);
    return C+d+E+F-1524.5+1;
 #else
-   int64_t A = (1461 * (y + 4800 + (m - 14)/12))/4;
-   int64_t B = (367 * (m - 2 - 12 * ((m - 14)/12)))/12;
-   int64_t C = (3 * ((y + 4900 + (m - 14)/12)/100))/4 + d - 32075;
-   return A + B - C; /* Henry F. Fliegel and Thomas C. Van Flandern. */
+   int64_t A = 1461 * (y + 4800 + (m - 14)/12)/4;
+   int64_t B = 367 * (m - 2 - (m - 14)/12*12)/12;
+   int64_t C = 3 * ((y + 4900 + (m - 14)/12)/100)/4;
+   return d - 32075 + A + B - C; /* Henry F. Fliegel and Thomas C. Van Flandern. */
 #endif
 } /* on the planet mars, the serial is named 'sol' and starts with one as 
  local solar time alternatively with epoch at earth day april 11, 1955. */
