@@ -8,7 +8,7 @@ Requires [`llvm`](https://llvm.org), [`ninja`](https://ninja-build.org) and — 
 
 ## Entry points and topics
 
-Digest the source tree starting from any of the topics listed in the index below.
+Digest the source tree starting from any of the topics listed in the index below:
 
 | Topic | Where in tree |
 | --- | --- |
