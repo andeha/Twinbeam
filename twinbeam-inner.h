@@ -930,7 +930,7 @@ inline int32_t Earthdays(Gregorian₋date d₁, Gregorian₋date d₂)
 
 typedef uint64_t chronology₋instant; /* seconds passed since beginning of previous century. */
 typedef uint32_t chronology₋UQ32; /* e․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8. */
-union Tp₋stomp { uint64_t bits; struct { uint32_t seconds; chronology₋UQ32 frac; } mil; };
+union Ntp₋stomp { uint64_t bits; struct { uint32_t seconds; chronology₋UQ32 frac; } mil; };
 
 /* the network time protocol runs in unison with the UTC time scale 
  from epoch 0h January 1, 1900. */
