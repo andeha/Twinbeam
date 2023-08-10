@@ -17,6 +17,8 @@
 /*  see '𝗇𝗆' for details. */
 typedef signed char         int8_t;
 typedef unsigned char       uint8_t;
+typedef unsigned short      uint16_t; /*  c𝘧․ Q16. */
+typedef short               int16_t; /* ≡ ᵐⁱᵖˢint. */
 typedef unsigned long long  uint64_t;
 typedef long long           int64_t;
 #if defined  __mips__ || defined __armv6__ || defined espressif
@@ -27,20 +29,17 @@ typedef int32_t             __builtin_int_t;
 #define TriboolUnknown 0xFFFFFFFF
 #define TriboolUninit 0xFFFFFFFE
 #define TriboolUnarbitrated 0xFFFFFFFD
-#define ΨΛΩ (0)
 #elif defined __armv8a__ || defined __x86_64__ || defined Kirkbridge /* Mac-arm and E51-arm. */
 typedef unsigned int        uint32_t;
 typedef int                 int32_t; /* ≢'long'. */
 typedef uint64_t            __builtin_uint_t;
 typedef int64_t             __builtin_int_t; /*  a․𝘬․a 'sequenta'. */
-#define ΨΛΩ (0)
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
 #define TriboolUninit 0xFFFFFFFFFFFFFFFE
 #define TriboolUnarbitrated 0xFFFFFFFFFFFFFFFD /* for later 'interval' alternatively 'recollect'. */
 #endif
-typedef unsigned short      uint16_t; /*  c𝘧․ Q16. */
-typedef short               int16_t; /* ≡ ᵐⁱᵖˢint. */
 typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎material'. */
+#define ΨΛΩ (0)
 /* TREEALTERNAT 
   ◻︎ ◻︎ ◻︎  ◻︎ ◻︎ ◼︎ 
   ◻︎ ◼︎ ◻  ◼ ◻ ◻ 
@@ -903,16 +902,17 @@ union historypod
 
 #pragma recto  😐😇 and 1/1/1900 0am
 
-typedef int32_t Juliandayno; /*  a․𝘬․a 'Julian day number' where day 0 is 
- Monday jan 1, 4713 BC, a 'standard day' is 86400 'standard seconds' and a 
- 'standard Julian year' is 365.25 standard days. */
+typedef int32_t Juliandaynumber; /*  where day 0 is Monday jan 1, 4713 BC. */
 
-Juliandayno Tellus(int32_t m, int32_t d, int32_t y);
+EXT₋C Juliandaynumber Tellus(int32_t Greg₋M, int32_t Greg₋d, int32_t Greg₋y);
+EXT₋C void Julian(Juliandaynumber day, int32_t * ᐧ Greg₋M /* 1-12 */, int32_t * 
+ ᐧ Greg₋d /* 1-31 */, int32_t * ᐧ Greg₋y);
 
-struct chronology₋day { int32_t y,M,d; };
-MACRO __builtin_int_t earthdays(struct chronology₋day d₁, struct chronology₋day d₂)
+typedef struct chronology₋date { int32_t y,M,d; } Gregorian₋date;
+
+inline int32_t Earthdays(Gregorian₋date d₁, Gregorian₋date d₂)
 {
-  return Tellus(d₁.M,d₁.d,d₁.y) - Tellus(d₂.M,d₂.d,d₂.y);
+  return Tellus(d₂.M,d₂.d,d₂.y) - Tellus(d₁.M,d₁.d,d₁.y);
 } /* Tellus increments to 'next day' at noon each day. */
 
 /**  The NTP defines epoch starting at the year 1900 at midnight before 
