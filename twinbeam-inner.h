@@ -900,7 +900,7 @@ union historypod
 
 #endif
 
-#pragma recto  😐😇 and 1/1/1900 0am
+#pragma recto Tellus increments to 'next day' at noon each day.
 
 typedef int32_t Juliandaynumber; /*  where day 0 is Monday jan 1, 4713 BC. */
 
@@ -913,7 +913,9 @@ typedef struct chronology₋date { int32_t y,M,d; } Gregorian₋date;
 inline int32_t Earthdays(Gregorian₋date d₁, Gregorian₋date d₂)
 {
   return Tellus(d₂.M,d₂.d,d₂.y) - Tellus(d₁.M,d₁.d,d₁.y);
-} /* Tellus increments to 'next day' at noon each day. */
+}
+
+#pragma recto  😐😇 and 1/1/1900 0am
 
 /**  The NTP defines epoch starting at the year 1900 at midnight before 
  sunrise January the 1ˢᵗ and with a 32-bit unsigned integer track 0 to 
