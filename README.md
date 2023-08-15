@@ -16,12 +16,7 @@ Digest the source tree starting from any of the topics listed in the index below
 | Compiler | [Projects]--<[retros-compi.c](https://github.com/BlinkingEmotions/Fanfare/blob/main/%F4%80%90%92%20retros-compi.c)> |
 | Coroutines | [Cox-route]--<[coro-main.c](https://github.com/andeha/Cox-route/blob/main/coro-main.c)> |
 | Linked lists | [Project]--<[eff.c](https://github.com/BlinkingEmotions/Fanfare/blob/main/∎%7C∎%20eff.c)><br>and --<[radbanc.c](https://github.com/BlinkingEmotions/Fanfare/blob/main/∎%7C∎%20radbanc.c)> |
-| Maths | [arctan](https://github.com/andeha/distorsion-projection/blob/main/sequent-sinuativ.c)&nbsp;[cos](https://github.com/andeha/distorsion-projection/blob/main/captu-radio.c) 
-[ln](https://github.com/andeha/distorsion-projection/blob/main/abundan-invert.c)
-[sin](https://github.com/andeha/distorsion-projection/blob/main/captu-radio.c) 
-[tan](https://github.com/andeha/distorsion-projection/blob/main/sequent-sinuativ.c)
-[tanh⁻¹]()
-[tanh]()
+| Maths | [arctan](https://github.com/andeha/distorsion-projection/blob/main/sequent-sinuativ.c)&nbsp;[cos](https://github.com/andeha/distorsion-projection/blob/main/captu-radio.c)&nbsp;[ln](https://github.com/andeha/distorsion-projection/blob/main/abundan-invert.c)&nbsp;[sin](https://github.com/andeha/distorsion-projection/blob/main/captu-radio.c)&nbsp;[tan](https://github.com/andeha/distorsion-projection/blob/main/sequent-sinuativ.c)&nbsp;[tanh⁻¹]()&nbsp;[tanh]()
 |
 | Presenting bits on terminal | [Pic32step-pdb]--<[present-out.c](https://github.com/andeha/Pic32step-pdb/blob/master/present-out.c)><br>and --<[regs-mm.c](https://github.com/andeha/Pic32step-pdb/blob/master/regs-mm.c)> |
 | Red-black tree | [Project]--<[eff.c](https://github.com/BlinkingEmotions/Fanfare/blob/main/∎%7C∎%20eff.c)> |
