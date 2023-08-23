@@ -2,67 +2,101 @@
 
 builtin typeset BUNDLEID='ABCD1234'
 builtin typeset TEAMID='4321ABCD'
-
+# \also prompt> schema 'TEAMID=$S and BUNDLEID=$S'.
 builtin typeset progname=$0
-builtin typeset signcode
+builtin typeset dontsign=""
 
 function usage
 {
    cat << HEREDOC
    
-   Usage: $progname [--sign]
+   Usage: $progname [--dontsign]
    
    optional arguments
     -h, --help     show this message and exit
-    --sign         sign code after compilation
+    --dontsign     do not sign code after compilation
    
 HEREDOC
 }
 
 while [[ $# -gt 0 ]]; do
   case $1 in
-   -s | --codesign)
+   --nosign | --nocodesign | --dontsign )
      shift
-     signcode="yes"
+     dontsign="yes"
      ;;
-   -help | --help | -h | --h \? )
+   -help | --help | -h | --h | \? )
      usage
      exit 1
      ;;
   esac
 done
 
-#  alternatively prompt> schema 'TEAMID=$S and BUNDLEID=$S'.
+function compile_mathematics()
+{
+   builtin typeset -gx TOOLS_SMALL=''
+   builtin typeset -gx MAPFILE=''
+   builtin typeset -gx UNISON=''
+   builtin typeset -gx PLATFLAGS=''
+   ninja -C ../distorsion-projection/build_intc-and-arm.ninja
+   builtin typeset -gx UNISON=''
+   builtin typeset -gx PLATFLAGS=''
+   ninja -C ../distorsion-projection/build_intc-and-arm.ninja
+   builtin typeset -gx UNISON=''
+   builtin typeset -gx PLATFLAGS=''
+   ninja -C ../distorsion-projection/build_mz-and-mm.ninja
+   builtin typeset -gx UNISON=''
+   builtin typeset -gx PLATFLAGS=''
+   ninja -C ../distorsion-projection/build_mz-and-mm.ninja
+}
+
+function compile_minimum()
+{
+   builtin typeset -gx MINIMUMPLATFORM='-target arm64-apple-macos12 -D __armv8a__'
+   ninja -C ../Minimum -f build.ninja
+   mv ../Minimum/Minimum.app/Contents/MacOS/Minimum ../Minimum/Minimum.arm64
+   builtin typeset -gx MINIMUMPLATFORM='-target x86_64-apple-darwin21'
+   ninja -C ../Minimum -f build.ninja
+   mv ../Minimum/Minimum.app/Contents/MacOS/Minimum ../Minimum/Minimum.x86_64
+   lipo -create -output ../Minimum.app/Contents/MacOS/Minimum             \
+     ../Minimum/Minimum.x86_64 ../Minimum/Minimum.arm64
+   if [[ -z "$dontsign" ]]; then
+     codesign -f -s ${TEAMID} -o runtime --timestamp -i {BUNDLEID} ../Minimum/Minimum.app
+   fi
+}
 
 ninja -C Source -f build_armmac.ninja                               || exit 1
-ninja -C Source -f build_pic32mz.ninja                              || exit 1
-ninja -C Source -f build_pic32mm.ninja                              || exit 1
 ninja -C Source -f build_intcmac.ninja                              || exit 1
-lipo -create -output libTwinbeam_macos.a libTwinbeam-x86_64.a            \
- libTwinbeam_macarm.a                                               || exit 1
-if [[ -n "$signcode" ]]; then
-  codesign -s ${TEAMID} -f -o runtime --timestamp -i ${BUNDLEID} libTwinbeam_macos.a
+lipo -create -output Source/Releases/libTwinbeam_macos.a                  \
+ Source/Releases/libTwinbeam-x86_64.a                                     \
+ Source/Releases/libTwinbeam_macarm.a                               || exit 1
+if [[ -z "$dontsign" ]]; then
+  codesign -s ${TEAMID} -f -o runtime --timestamp -i ${BUNDLEID}          \
+ Source/Releases/libTwinbeam_macos.a
 # codesign -s - -f -o runtime --timestamp libTwinbeam_macarm.a
 fi
-#  lipo -create ... as of Xcode 13.2 only for arm and intel and not mips.
-ninja -C Bootloader -f build-mm.ninja                               || exit 1
-ninja -C Bootloader -f build-mzda.ninja                             || exit 1
+# ninja -C Source -f build_pic32mz.ninja                              || exit 1
+# ninja -C Source -f build_pic32mm.ninja                              || exit 1
+# lipo -create ... as of Xcode 13.2 only for arm and intel and not mips.
+# compile_mathematics
+ninja -C exercise -f build.ninja                                    || exit 1
+if [[ -n "$dontsign" ]]; then
+  lldb exercise/twinbeam-units
+else
+  exercise/twinbeam-units
+fi
 # ninja -C macOS -f :work:.ninja.ninja /work/.ninja.ninja           || exit 1
-ninja -C Sprinkle/pdb                                               || exit 1
+# ninja -C Bootloader -f build-mm.ninja                               || exit 1
+# ninja -C Bootloader -f build-mzda.ninja                             || exit 1
+# ninja -C Sprinkle/pdb                                               || exit 1
 #  see progress on --<􀖆 assemble.cpp> and --<􀐒 retrospect.c>.
 # Examples: dbgout ledflash helloworld fpu bldc usb twinsh turbine radio
 # flightcontroller attokernel sdhc
 # ninja -C Examples/😐/
-ninja -C exercise -f build.ninja                                    || exit 1
-ninja -C ../helixsh build_macos.ninja                               || exit 1
-builtin typeset -gx MINIMUMPLATFORM='-target arm64-apple-macos12 -D __armv8a__'
-ninja -C ../Minimum -f build.ninja
-mv ../Minimum/Minimum.app/Contents/MacOS/Minimum ../Minimum/Minimum.arm64
-builtin typeset -gx MINIMUMPLATFORM='-target x86_64-apple-darwin21'
-ninja -C ../Minimum -f build.ninja
-mv ../Minimum/Minimum.app/Contents/MacOS/Minimum ../Minimum/Minimum.x86_64
-lipo -create -output ../Minimum.app/Contents/MacOS/Minimum               \
- ../Minimum/Minimum.x86_64 ../Minimum/Minimum.arm64
-if [[ -n "$signcode" ]]; then
-  codesign -f -s ${TEAMID} -o runtime --timestamp -i {BUNDLEID} ../Minimum/Minimum.app
-fi
+# ninja -C ../helixsh build_macos.ninja                               || exit 1
+./../Projects/retro-mac.sh retros-compi
+./../Projects/retro-mac.sh c-maskin
+./../Projects/retro-mac.sh essence-turbin
+./../Projects/retro-mac.sh parent-kabinett
+# compile_minimum
+
