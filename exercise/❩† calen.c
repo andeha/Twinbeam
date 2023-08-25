@@ -1,6 +1,6 @@
 /*  ❩† calen.c | calendric alembics. */
 
-#include "twinbeam.h"
+#include "Twinbeam.h"
 
 CORRECT(calendar_tellus)
 {
@@ -19,28 +19,49 @@ CORRECT(calendar_julian)
    ENSURE(y2==1970 && m2==1 && d2==1, "error in `Julian`.");
 }
 
-CORRECT(calendar_reville_instant)
+CORRECT(calendar_1_reveille_instant)
 { chronology₋instant v;
-   int32_t parts[] = { 2023, 1, 31, 18, 01, 04 }; chronology₋UQ32 frac1=0;
-   if (instant(parts,frac1,&v)) ENSURE(false,"error unformi.");
+   int32_t parts[] = { 2023, 1, 31, 18, 01, 04 }; chronology₋UQ32 frac₁=0;
+   if (Instant(parts,frac₁,&v)) ENSURE(false,"error in `Instant`.");
    union Ntp₋stomp ptn; ptn.bits=v;
-   print("computed v from instant is ⬚.\n", ﹟d(ptn.since.seconds));
-   int32_t h, m, s; chronology₋UQ32 frac2; Juliandaynumber day;
-   if (reveille(v,&h,&m,&s)) ENSURE(false,"error reveille.");
-   int32_t M,d,y;
-   /* Juliandate(day,&M,&d,&y);
-   print("⬚-(0)⬚-(0)⬚ (0)⬚:(0)⬚:(0)⬚.\n",﹟d(y),﹟d(M),﹟d(d),﹟d(h),﹟d(m),﹟d(s));
-   /* ENSURE(day == 100, "instant error"); */
-   print("day is ⬚.\n", ﹟d(day));
+   print("seconds from from epoch is ⬚.\n", ﹟d(ptn.since.seconds));
+   int32_t y,M,d,h,m,s; chronology₋UQ32 frac₂=ptn.since.frac;
+   if (Reveille(v,&y,&M,&d,&h,&m,&s)) ENSURE(false,"error in `Reveille`.");
+   print("date is ⬚-(0)⬚-(0)⬚ (0)⬚:(0)⬚:(0)⬚.\n",﹟d(y),﹟d(M),﹟d(d),﹟d(h),﹟d(m),﹟d(s));
 }
 
-CORRECT(calendar_present_timestamp)
+CORRECT(calendar_add)
+{ chronology₋instant v₁,v₂;
+   chronology₋UQ32 frac=0; uint32_t seconds=100;
+   int32_t parts[] = { 2023, 1, 31, 18, 01, 04 };
+   if (Instant(parts,frac,&v₁)) ENSURE(false,"error in `Instant`.");
+   v₂ = add₋seconds(v₁,seconds,frac);
+}
+
+CORRECT(calendar_subtract)
+{ chronology₋instant v₁,v₂;
+   chronology₋UQ32 frac=0; uint32_t seconds=100;
+   int32_t parts[] = { 2023, 1, 31, 18, 01, 04 };
+   if (Instant(parts,frac,&v₁)) ENSURE(false,"error in `Instant`.");
+   v₂ = subtract₋seconds(v₁,seconds,frac);
+}
+
+CORRECT(calendar_2_present_timestamp_seconds)
 { chronology₋instant v; int incl₋frac=0;
    uint8_t * material = (uint8_t *)U"2023-03-09 13:29:12 ";
-   if (Timestamp(encoding₋unicode,19*4,material,&v)) ENSURE(false,"error in `Timestamp`.");
+   if (Timestamp(encoding₋unicode,19*4,material,&v)) ENSURE(false,"error in `Timestamp` 1.");
    present₋instant(v,incl₋frac,^(char digitHyphenColonPeriodOrSpace) {
     print("⬚", ﹟c7(digitHyphenColonPeriodOrSpace));
    });
    print(".\n");
 }
 
+CORRECT(calendar_present_timestamp_fractional)
+{ chronology₋instant v; int incl₋frac=1;
+   uint8_t * material = (uint8_t *)U"2023-08-24 09:46:52.504030201";
+   if (Timestamp(encoding₋unicode,29*4,material,&v)) ENSURE(false,"error in `Timestamp` 2.");
+   present₋instant(v,incl₋frac,^(char digitHyphenColonPeriodOrSpace) {
+     print("⬚", ﹟c7(digitHyphenColonPeriodOrSpace));
+   });
+   print(".\n");
+}
