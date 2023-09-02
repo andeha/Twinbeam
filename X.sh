@@ -34,20 +34,28 @@ done
 
 function compile_mathematics()
 {
-   builtin typeset -gx TOOLS_SMALL=''
-   builtin typeset -gx MAPFILE=''
-   builtin typeset -gx UNISON=''
-   builtin typeset -gx PLATFLAGS=''
-   ninja -C ../distorsion-projection/build_intc-and-arm.ninja
-   builtin typeset -gx UNISON=''
-   builtin typeset -gx PLATFLAGS=''
-   ninja -C ../distorsion-projection/build_intc-and-arm.ninja
-   builtin typeset -gx UNISON=''
-   builtin typeset -gx PLATFLAGS=''
-   ninja -C ../distorsion-projection/build_mz-and-mm.ninja
-   builtin typeset -gx UNISON=''
-   builtin typeset -gx PLATFLAGS=''
-   ninja -C ../distorsion-projection/build_mz-and-mm.ninja
+   local mathfiles=(
+  "../distorsion-projection/abundan-invert.c"
+  "../distorsion-projection/captu-radio.c"
+  "../distorsion-projection/circula-convers.c"
+  "../distorsion-projection/iumoid-twothree.c"
+  "../distorsion-projection/napier-exponen.c"
+  "../distorsion-projection/satur-calculat.c"
+  "../distorsion-projection/sequent-sinuativ.c"
+   )
+   for file in $mathfiles
+   do
+     xcrun clang -I . -target x86_64-apple-darwin21 -c $file -o /tmp/$file:t:r.o
+   done
+   ar rcs ./Source/Releases/libTwinbeam-x86_64.a                            \
+     /tmp/abundan-invert.o  /tmp/captu-radio.o    /tmp/circula-convers.o    \
+     /tmp/iumoid-twothree.o /tmp/napier-exponen.o /tmp/satur-calculat.o     \
+     /tmp/sequent-sinuativ.o
+#   builtin typeset sha1git=`git log -1 '--pretty=format:%h'`
+#   builtin typeset armcpu="lib${UNISON}_$sha1git.a"
+   rm /tmp/abundan-invert.o  /tmp/captu-radio.o    /tmp/circula-convers.o
+   rm /tmp/iumoid-twothree.o /tmp/napier-exponen.o /tmp/satur-calculat.o
+   rm /tmp/sequent-sinuativ.o
 }
 
 function compile_minimum()
@@ -67,18 +75,21 @@ function compile_minimum()
 
 ninja -C Source -f build_armmac.ninja                               || exit 1
 ninja -C Source -f build_intcmac.ninja                              || exit 1
-lipo -create -output Source/Releases/libTwinbeam_macos.a                  \
+
+compile_mathematics
+
+lipo -create -output Source/Releases/libTwinbeam-macos.a                  \
  Source/Releases/libTwinbeam-x86_64.a                                     \
  Source/Releases/libTwinbeam_macarm.a                               || exit 1
+
 if [[ -z "$dontsign" ]]; then
   codesign -s ${TEAMID} -f -o runtime --timestamp -i ${BUNDLEID}          \
- Source/Releases/libTwinbeam_macos.a
+ Source/Releases/libTwinbeam-macos.a
 # codesign -s - -f -o runtime --timestamp libTwinbeam_macarm.a
 fi
 # ninja -C Source -f build_pic32mz.ninja                              || exit 1
 # ninja -C Source -f build_pic32mm.ninja                              || exit 1
 # lipo -create ... as of Xcode 13.2 only for arm and intel and not mips.
-# compile_mathematics
 ninja -C exercise -f build.ninja                                    || exit 1
 if [[ -n "$dontsign" ]]; then
   lldb exercise/twinbeam-units
