@@ -568,7 +568,7 @@ typedef union octa {
       unsigned mantissah : 20;
       unsigned exponent  : 11;
       unsigned sign      :  1;
-   } binary64; /*  a․𝘬․a 'ieee754b﹟𝟸'. */
+   } binary64; /*  a․𝘬․a 'ieee754b﹟𝟸 little-endian'. */
    /* struct { … } ieee754b﹟𝟷𝟶; a․𝘬․a 'decimal64'. */
    /* struct { 
       unsigned absolute  : 31;
@@ -900,9 +900,9 @@ union historypod
 
 #endif
 
-#pragma recto Tellus increments to 'next day' at noon each day.
+#pragma recto Gregorian calendar in effect after October, 1582
 
-typedef int32_t Juliandaynumber; /*  where day 0 is Monday jan 1, 4713 BC. */
+typedef int32_t Juliandaynumber; /*  where day 0 is Monday jan 1 4713 BC. */
 
 EXT₋C Juliandaynumber Tellus(int32_t Greg₋M, int32_t Greg₋d, int32_t Greg₋y);
 EXT₋C void Julian(Juliandaynumber day, int32_t * ᐧ Greg₋M /* 1-12 */, int32_t * 
@@ -913,31 +913,37 @@ typedef struct chronology₋date { int32_t y,M,d; } Gregorian₋date;
 inline int32_t Earthdays(Gregorian₋date d₁, Gregorian₋date d₂)
 {
   return Tellus(d₂.M,d₂.d,d₂.y) - Tellus(d₁.M,d₁.d,d₁.y);
-}
+} /* Tellus increments to 'next day' at noon each day. */
 
-#pragma recto  😐😇 and 1/1/1900 0am
+#pragma recto 😐😇 and 1/1/1900 0am
 
 /**  The NTP defines epoch starting at the year 1900 at midnight before 
  sunrise January the 1ˢᵗ and with a 32-bit unsigned integer track 0 to 
  2³² - 1 = 4.294,967,295 seconds (approximately 136 earth years) until 
- a wrap occurs.
- 
- A correct abbreviation for the unit of time and also the measurements 
+ a wrap occurs. */
+
+typedef uint64_t Ntp₋bits;
+typedef uint32_t chronology₋UQ32; /* e․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8. */
+
+union Ntp₋stomp { Ntp₋bits bits; struct mil { uint32_t seconds; 
+ chronology₋UQ32 frac; } since; };
+
+typedef Ntp₋bits chronology₋instant; /* seconds passed since beginning of previous century. */
+
+ /* A correct abbreviation for the unit of time and also the measurements 
  of duration is 's'. It is not 'S' which stands for Siemens and 
  admittance.
  
  One minute of geographic latitude per hour = 1 kn = 1852.0 m/h. (Knot). */
 
-typedef uint64_t chronology₋instant; /* seconds passed since beginning of previous century. */
-typedef uint32_t chronology₋UQ32; /* e․𝘨 0.101₂ = 1×1/2 + 0×1/4 + 1×1/8 = 5/8. */
-union Ntp₋stomp { uint64_t bits; struct { uint32_t seconds; chronology₋UQ32 frac; } mil; };
 
 /* the network time protocol runs in unison with the UTC time scale 
  from epoch 0h January 1, 1900. */
 /* struct chronology₋time { int32_t h,m,s; chronology₋UQ32 partial; }; / * 0-23, 0-59 and fractionals since midnight. * /
 EXT₋C struct chronology₋day calendar(chronology₋instant v); */
-EXT₋C int reveille(chronology₋instant v, int32_t * ᐧ h, int32_t * ᐧ m, int32_t * ᐧ s);
-EXT₋C int instant(int32_t parts[ᐧ], chronology₋UQ32 frac, chronology₋instant * ᐧ v);
+EXT₋C int Reveille(chronology₋instant v, int32_t * ᐧ y, int32_t * ᐧ M, int32_t 
+ * ᐧ d, int32_t * ᐧ h, int32_t * ᐧ m, int32_t * ᐧ s);
+EXT₋C int Moments(int32_t parts[ᐧ], chronology₋UQ32 frac, chronology₋instant * ᐧ v);
 /* year, month (1-12), day (1-31), hour (0-23), minutes (0-59) and seconds (0-59). 
  And the number of 1/2³² second ticks (=232.82 ps) to add.*/
 EXT₋C int chronology₋dayofweek(chronology₋instant v, int * ᐧ wd);
