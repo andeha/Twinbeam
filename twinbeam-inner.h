@@ -1,8 +1,8 @@
 /* 
  * twinbeam-inner.h (and libTwinbeam-pic32mz|x86_64.a)                       
- * C23 and C++20 for clang to x86_64, Arm/AAPL M1-M2, Esp32 and Mips.        
+ * C23 and C++20 for clang to x86_64, Arm/AAPL M1-M4, Esp32 and Mips.        
  * Mips compiled using clang version 12.0.0 and x86_64 compiled on AAPL's    
- *'Command-line tools' (not Xcode) version 14.0.3.
+ *'Command-line tools' (not Xcode) version 16.0.0.
  */
 
 /*  at command-line, define with '-Dselect₋synthetic₋Ieee754₋arithmetics', 
@@ -24,14 +24,14 @@ typedef int32_t             __builtin_int_t;
 #define TriboolUnknown 0xFFFFFFFF
 #define TriboolUninit 0xFFFFFFFE
 #define TriboolUnarbitrated 0xFFFFFFFD
-#elif defined __arm64__ || defined __x86_64__ || defined Kirkbridge /* Mac-arm and E51-arm. */
+#elif defined __arm64__ || defined __x86_64__ || defined Kirkbridge
 typedef unsigned int        uint32_t;
 typedef int                 int32_t; /* ≢'long'. */
 typedef uint64_t            __builtin_uint_t;
-typedef int64_t             __builtin_int_t; /*  a․𝘬․a 'sequenta'. */
+typedef int64_t             __builtin_int_t;
 #define TriboolUnknown 0xFFFFFFFFFFFFFFFF
 #define TriboolUninit 0xFFFFFFFFFFFFFFFE
-#define TriboolUnarbitrated 0xFFFFFFFFFFFFFFFD /* for later 'interval' alternatively 'recollect'. */
+#define TriboolUnarbitrated 0xFFFFFFFFFFFFFFFD /* for 'interval' and 'recollect'. */
 #endif
 typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎material'. */
 typedef __builtin_int_t machine;
@@ -49,9 +49,9 @@ typedef __builtin_int_t machine;
   ◻ ◼ ◻  ◻ ◼ ◻ */
 #define BITMASK(type) enum : type
 #define Mips __asm__ __volatile__ (/* ".set noat   \n" */ ".set noreorder  \n" ".set nomacro    \n"
-#define Intel👈 __asm { .intel_syntax noprefix /* Requires -fms-extensions */
+#define Intel👈 __asm { .intel_syntax noprefix /* Requires -fms-extensions. */
 #define IntelPlusATT👉 asm { .att_syntax .text
-#define ArmDS1S1 asm {
+#define Arm asm {
 #define ⓣ __attribute__((overloadable))
 #define APPEND_PIMPL                                                         \
   struct Internals;                                                          \
@@ -73,41 +73,6 @@ typedef __builtin_int_t machine;
 #endif
 #define FOSSILATED
 #define OPT_Si_FOCAL
-#define CONTEMPLATE
-#define PLUSKVAMCOMPLETE
-#define CHRONOLOGICAL
-#define SPATIALPERTUBAL
-#define EVENTUALRETROSPECTIVE
-#define IRREVERSIb /* IRREVERSI♭ alt․ IRREVERSIꙎ. */
-#define TRAJECTORAL /* also: TRAJECTORAL🝑. */
-#define INITIALPROJECTIVE
-#define IRREPABEL /* in German: 'reparierbar'. */
-#define AMBIVALENT /* native: 'contra-polarisative'. */
-#define DEFLECTIVE /*  e․𝘨 'Auntie' and 'for-beetroot'. */
-#define ANTIPOLARISATIVE
-#define DUALREFLECTIVE
-#define EVENTUALMACHINAL
-#define REINTEGRATIVE
-#define REFLECTIVEATTRACTIONAL
-#define VERYLOGARITHMIC
-#define BOOGIEABLATIVE
-#define PROCESSACCUSATIVE
-#define ALTERNATOPTIONAL /* SPACED */
-#define PRIMALTRANSLATIVE
-#define SCHEDULATIVEALTERNATE
-#define OPTIONALSCHEDULATIVE
-#define CIRCULATIVE /*  a․𝘬․a 'averaged' ∧ '␣'. */
-#define CONTEXTDESTILLATIVE
-#define EUCLIDEANINCOHERENT /*  c𝖿․ subversive follows incoherence. */
-#define METABOLIUNIFICATIVE /* disjunct relative METABOLISUBTRACTIONAL. */
-#define IMPLICATIVE /* I-ER-ANDE: ISOMORPHIC and INFOR. */
-#define AMBIVALENTOBFUSCATIVE /* BOLL:IG. */
-#define INCASED /*  c𝖿․ project and 'operation' and Scandinavian 'radiokälla'. */
-#define INTENTIONCORRELATIVE /*  c𝖿․ Scandinavian alt. German ₍gestalt₎ stimulus. */
-#define PROMINENT MACRO
-#define SYMBOL₋EMBOSSED
-#define STRUCTIVE₋SUBSTATIONAL₋FRAME₋MOVE
-#define INITIALKOPPLINGSBAR /* trummor inte. */
 #define KONTROLLERAD₋KOMPROMITTANT
 #define false 0
 #define true (! false)

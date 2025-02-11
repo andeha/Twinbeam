@@ -2,13 +2,14 @@
 
 builtin typeset TEAMID='A12B34C5DE'
 # \also prompt> schema 'TEAMID=$S and BUNDLEID=$S'.
+builtin typeset SDKPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 builtin typeset progname=$0
 builtin typeset artefact="Release"
 builtin typeset dontsign=""
 
 builtin typeset sha1git=`git log -1 '--pretty=format:%h'`
 
-function usage 
+function usage
 {
    cat << HEREDOC
    
@@ -38,7 +39,7 @@ if [[ ! -d $artefact ]]; then
   mkdir $artefact
 fi
 
-function compile_twinbeam 
+function compile_twinbeam
 {
    local material=(
   "Source/impress-length.c"
@@ -55,7 +56,7 @@ function compile_twinbeam
   "../distorsion-projection/satur-calculat.c"
   "../distorsion-projection/sequent-sinuativ.c"
    )
-   for file in $material
+   for file in $material 
    do
      /usr/bin/clang -I . -target $2 -DSHA1GIT=\"$sha1git\" -c $file          \
       -o $artefact/$file:t:r.o
@@ -91,5 +92,31 @@ if [[ -z "$dontsign" ]]; then
   codesign -s ${TEAMID} -f -o runtime --timestamp $artefact/libTwinbeam-macos.a
 fi
 
+function compile_unittests
+{
+   local material=(
+  "Exercise/❩† utf8.c"
+  "macOS/harness.c"
+   )
+   
+   for file in $material 
+   do
+     /usr/bin/clang -I . -DSHA1GIT=\"$sha1git\" -c $file                     \
+      -o $artefact/$file:t:r.o
+   done
+   
+   /usr/bin/ld -o $artefact/twinbeam-units $artefact/harness.o               \
+    $artefact/❩†\ utf8.o                                                     \
+    $artefact/libTwinbeam-macos.a                                            \
+    -syslibroot $SDKPATH                                                     \
+    -lSystem                                                                 \
+   
+   if [[ -z "$dontsign" ]]; then 
+    codesign -s ${TEAMID} -f --options library --timestamp $artefact/twinbeam-units
+   fi
+   
+   rm Release/❩†\ utf8.o Release/harness.o
+}
 
+compile_unittests
 

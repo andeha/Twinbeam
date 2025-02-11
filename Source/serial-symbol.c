@@ -91,7 +91,7 @@ inexorable void integer₋out(__builtin_int_t x, Eightbit₋out out, int * amend
 
 inexorable void natural₋out(__builtin_uint_t x, Eightbit₋out out, int * amend)
 {
-   Base𝕟(x,15,
+   Base𝕟(x,16,
 #if defined __x86_64__ || defined __arm64__ || defined Kirkbridge
     16
 #elif defined __mips__ || defined __armv6__ || defined espressif

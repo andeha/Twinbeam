@@ -59,55 +59,53 @@ again:
   if (y == 0) goto again;
 }
 
-#pragma recto unit testing and symbol find in executables
+#pragma recto unit test with 'symbol find' in executables
 
-#include <unistd.h>
-#include <fcntl.h>
 #include <mach-o/loader.h>
 #include <mach-o/nlist.h>
-#include <sys/stat.h>
+#include <mach-o/dyld.h>
+#include <string.h>
 
 void
 Symbols(
   const char * utf8exepath,
   void (^symbol)(const char * sym, uint64_t addr, int * stop))
-{ __builtin_int_t bytesActual;
-    int fd = open((const char *)utf8exepath, O_RDONLY | O_SYMLINK);
-    if (fd == -1) return;
-    struct stat sb; if (fstat(fd,&sb) == -1) return;
-    uint8_t * obj = Cattle(sb.st_size);
-    bytesActual = pread(fd,obj,sb.st_size,0);
-    if (bytesActual != sb.st_size) return;
-    uint8_t * obj_p = obj;
-    
-    struct mach_header_64 * header = (struct mach_header_64 *)obj_p;
-    obj_p += sizeof *header;
-    struct section * sections = 0;
-    uint32_t nsects;
-    
-    int 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 outerStop = false;
+{
+    uint8_t * base = (uint8_t *)_dyld_get_image_header(0);
+    struct mach_header_64 * header = (struct mach_header_64 *)base;
+    uint8_t * pointer = base + sizeof(struct mach_header_64);
+    struct symtab_command * symbols = NULL;
+    uint64_t segment1_vaddr = 0x0000000100000000;
     
     for (int i=0; i<header->ncmds; i+=1) {
-      struct load_command *lc = (struct load_command *)obj_p;
-      if (lc->cmd == LC_SYMTAB) {
-         struct symtab_command *symtab = (struct symtab_command *)obj_p;
-         obj_p += sizeof *symtab;
-         struct nlist_64 *ns = (struct nlist_64 *)(obj + symtab->symoff);
-         char * strtable = (char *)(obj + symtab->stroff);
-         for (int i = 0; i < symtab->nsyms; i+=1) {
-            struct nlist_64 *entry = ns + i;
-            uint32_t idx = entry->n_un.n_strx;
-            if ((entry->n_type & N_TYPE) == N_SECT) { symbol(strtable + idx, 
-              entry->n_value,&outerStop); }
-            if (outerStop) return;
+      struct load_command * load = (struct load_command *)pointer;
+      /* print("command is ⬚\n", ﹟x((uint64_t)load->cmd)); */
+      if (load->cmd == LC_SYMTAB) {
+         symbols = (struct symtab_command *)pointer;
+      }
+      else if (load->cmd == LC_SEGMENT_64) {
+         struct segment_command_64 * segment;
+         segment = (struct segment_command_64 *)pointer;
+         if (strcmp(segment->segname, "__TEXT") == 0) {
+           segment1_vaddr = segment->vmaddr;
+           /* __builtin_dump_struct(segment,&printf); */
          }
-      } else if (lc->cmd == LC_SEGMENT) {
-         struct segment_command * segment = (struct segment_command *)obj_p;
-         obj_p += sizeof *segment;
-         nsects = segment->nsects;
-         sections = (struct section *)obj_p;
-         obj_p += nsects * sizeof *sections;
-      } else { obj_p += lc->cmdsize; }
+      }
+      pointer += load->cmdsize;
+    }
+    
+    /* Symbol table is remembered in the variable `symbols`. */
+    int 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 outerStop = false;
+    struct nlist_64 * entries = (struct nlist_64 *)(base + symbols->symoff);
+    char * strings = (char *)(base + symbols->stroff);
+    for (int i=0; i<symbols->nsyms; i+=1) {
+      struct nlist_64 * entry = entries + i;
+      /* __builtin_dump_struct(entry,&printf); */
+      uint32_t index = entry->n_un.n_strx;
+      if ((entry->n_type & N_TYPE) == N_SECT) {
+        uint64_t address = (uint64_t)(entry->n_value) - segment1_vaddr;
+        symbol(strings + index, address + (uint64_t)base, &outerStop); }
+      if (outerStop) return;
     }
 }
 
