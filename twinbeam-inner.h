@@ -35,6 +35,7 @@ typedef int64_t             __builtin_int_t;
 #endif
 typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎material'. */
 typedef __builtin_int_t machine;
+typedef __bf16 bfloat16;
 #define inexorable static __attribute__ ((internal_linkage))
 #define MACRO inline __attribute__((always_inline))
 #define structᵢ struct /* __attribute__((internal_linkage)) */
