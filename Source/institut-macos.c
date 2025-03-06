@@ -44,19 +44,25 @@ void platform₋reflect(__builtin_uint_t mask,
 #pragma recto seldom used arrangements
 
 #if defined __arm64__
+#include <time.h>
 __attribute__ ((target("rand")))
 #elif defined __x86_64__
 __attribute__ ((target("rdrnd")))
 #endif
 void RandomInteger(uint64_t * out)
 { int y;
-again:
 #if defined __x86_64__
+again:
    y = __builtin_ia32_rdrand64_step(out);
+   if (y == 0) goto again;
 #elif defined __arm64__
-   y = __builtin_arm_rndr(out); /* asm { mrs x0, RNDR } also 'mrs x1, NZCV'. */
+   /* y = __builtin_arm_rndr(out); a․𝘬․a asm { mrs x0, RNDR }. */
+   static __uint128_t state = 1;
+   if (state == 1) { state = (unsigned)time(NULL); }
+#define UINT128(hi, lo) (((__uint128_t) (hi)) << 64 | (lo))
+   state *= UINT128(0x0fc94e3bf4e9ab32,0x866458cd56f5e605);
+   *out = state >> 64;
 #endif
-  if (y == 0) goto again;
 }
 
 #pragma recto unit test with 'symbol find' in executables
