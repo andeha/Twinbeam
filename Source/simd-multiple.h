@@ -32,6 +32,19 @@ inline simd_tᵦ __builtin_simd_rcpᵦ(simd_tᵦ 𝒙) { union β₋simd z =
 #define __builtin_simd_rsqrtᵦ vrsqrteq_f64
 #define __builtin_simd_sqrtᵦ vsqrtq_f64
 #define __builtin_simd_rcpᵦ vrecpeq_f64
+#define simd_initᵧ vdupq_n_f16
+#define __builtin_simd_addᵧ vaddq_f16
+#define __builtin_simd_subᵧ vsubq_f16
+#define __builtin_simd_mulᵧ vmulq_f16
+#define __builtin_simd_divᵧ vdivq_f16
+#define __builtin_simd_minᵧ vminq_f16
+#define __builtin_simd_maxᵧ vmaxq_f16
+#define __builtin_simd_rsqrtᵧ vrsqrteq_f16
+#define __builtin_simd_sqrtᵧ vsqrtq_f16
+#define __builtin_simd_rcpᵧ vrecpeq_f16
+#define simd_initᵩ vdupq_n_bf16
+MACRO float brain(bfloat16_t x) ⓣ { return vcvtah_f32_bf16(x); }
+MACRO bfloat16_t brain(float x) ⓣ { return vcvth_bf16_f32(x); }
 #elif defined __x86_64__
 __m128d _mm_rcp_pd(__m128d);
 __m128d _mm_rsqrt_pd(__m128d);
