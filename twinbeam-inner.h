@@ -35,7 +35,7 @@ typedef int64_t             __builtin_int_t;
 #endif
 typedef __builtin_uint_t Tribool; /*  c𝘧․ 'obekant' and 'embargo ₍im₎material'. */
 typedef __builtin_int_t machine;
-typedef __bf16 bfloat16;
+typedef __bf16 bfloat16_t; typedef __fp16 float16_t;
 #define inexorable static __attribute__ ((internal_linkage))
 #define MACRO inline __attribute__((always_inline))
 #define structᵢ struct /* __attribute__((internal_linkage)) */
@@ -860,7 +860,8 @@ union β₋simd
 typedef union β₋simd simd_tᵦ;
 #elif defined __arm64__
 typedef __attribute__ ((neon_vector_type(2))) double float64x2_t;
-typedef float64x2_t simd_tᵦ;
+typedef __attribute__ ((neon_vector_type(8))) float16_t float16x8_t;
+typedef float64x2_t simd_tᵦ; typedef float16x8_t simd_tᵧ;
 #elif defined __x86_64__
 typedef double __attribute__ ((__vector_size__(16), __aligned__(16))) __m128d;
 typedef __m128d simd_tᵦ;
