@@ -10,43 +10,181 @@ extern void platform₋reflect(__builtin_uint_t mask,
 
 #pragma recto Inte₋ger₋s
 
-Argᴾ ﹟d(__builtin_int_t d) { Argᴾ y = { .value.d=d, .kind=1 }; return y; }
-Argᴾ ﹟x(__builtin_uint_t x) { Argᴾ y = { { .x=x }, 2 }; return y; }
-Argᴾ ﹟b(__builtin_uint_t b) { Argᴾ y = { { .b=b }, 3 }; return y; }
-Argᴾ ﹟s8(char8₋t * u8s) ⓣ {
-  __builtin_int_t bytes = Utf8BytesUntilZero(u8s,BUILTIN₋INT₋MAX);
-  Argᴾ y = { { .encoded={ u8s, bytes } }, 4 }; return y; }
-Argᴾ ﹟s8(__builtin_int_t bytes, char8₋t * unterminated₋u8s) ⓣ {
-  Argᴾ y = { { .encoded={ unterminated₋u8s, bytes } }, 4 }; return y; }
-Argᴾ ﹟s7(char * sevenbit₋utf8) /* ⓣ */ {
-  char8₋t * u8s = (char8₋t *)sevenbit₋utf8;
-  __builtin_int_t bytes = Utf8BytesUntilZero(u8s,BUILTIN₋INT₋MAX);
-  Argᴾ y = { { .encoded={ u8s, bytes } }, 4 }; return y; }
-/* Argᴾ ﹟s7(const char * sevenbit₋utf8) ⓣ { return ﹟s7((char *)sevenbit₋utf8); } */
-Argᴾ ﹟S(__builtin_int_t tetras, char32̄_t * uc₋unterminated) ⓣ {
-  Argᴾ y = { { .ucs={ uc₋unterminated, tetras } }, 7 }; return y; }
-Argᴾ ﹟S(char32̄_t * ucs) ⓣ {
-  __builtin_int_t tetras = TetrasUntilZero(ucs,BUILTIN₋INT₋MAX);
-  Argᴾ y = { { .ucs={ ucs, tetras } }, 7 }; return y; }
-Argᴾ ﹟S(struct Unicodes uc) ⓣ { Argᴾ y = { { .ucs={ uc.unicodes, 
-  uc.tetras } }, 7 }; return y; }
-Argᴾ ﹟c7(char c) { Argᴾ y = { { .possibly₋signed₋c=c }, 9 }; return y; }
-/* warning 'comparision of non-signed integers' requires additional bits in machine word. */
-Argᴾ ﹟C(char32̄_t C) { Argᴾ y = { { .uc=C }, 10 }; return y; }
-#if defined usage₋𝟷𝟸𝟾₋bit₋integer
-Argᴾ ﹟U(__uint128_t U) { Argᴾ y = { { .U=U }, 12 }; return y; }
-Argᴾ ﹟I(__int128_t I) { Argᴾ y = { { .I=I }, 13 }; return y; }
-#endif
-Argᴾ ﹟regs(__builtin_uint_t mask) { Argᴾ y = { { .x=mask }, 17 }; return y; }
-Argᴾ ﹟plat(__builtin_uint_t mask) { Argᴾ y = { { .x=mask }, 19 }; return y; }
-/* ⬷ Print between 0 and 31 non-high-volatile registers. */
-Argᴾ ﹟λ₁(void (^fragment)(serial₋present, void *), void * ctx) {
- Argᴾ y = { { .λ₁={ ctx, fragment } }, 20 }; return y; }
-Argᴾ ﹟λ₂(void (^fragment)(symbol₋present, void *), void * ctx) {
- Argᴾ y = { { .λ₂={ ctx, fragment } }, 21 }; return y; }
+Argᴾ ﹟d(__builtin_int_t d)
+{
+   Serialfragment integer₋print = ^(serial₋present fragment, machine * 
+    symbol₋amend, void * context) {
+      short 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 brk=0; char8₋t bounded[30],*pb=bounded;
+      Base𝕫(d,10,0, ^(char c) { pb[brk]=c; brk+=1; });
+      fragment(bounded,brk); *symbol₋amend+=brk;
+   };
+   return ﹟λ₁(copy₋block(integer₋print),ΨΛΩ);
+}
 
-Argᴾ ﹟F(double f, int method) ⓣ { Argᴾ y = { { .non₋fixpoint.material.f₁=f }, 14 }; return y; }
-Argᴾ ﹟F(float f, int method) ⓣ { Argᴾ y = { { .non₋fixpoint.material.f₂=f }, 15 }; return y; }
+Argᴾ ﹟x(__builtin_uint_t x)
+{
+   Serialfragment natural₋print = ^(serial₋present fragment, machine * 
+    symbol₋amend, void * context) {
+      short 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 brk=0; char8₋t bounded[30],*pb=bounded;
+      Base𝕟(x,16,
+#if defined __x86_64__ || defined __arm64__ || defined Kirkbridge
+    16
+#elif defined __mips__ || defined __armv6__ || defined espressif
+    8
+#endif
+    , ^(char c) { pb[brk]=c; brk+=1; });
+      fragment(bounded,brk); *symbol₋amend+=brk;
+   };
+   return ﹟λ₁(copy₋block(natural₋print),ΨΛΩ);
+}
+
+Argᴾ ﹟b(__builtin_uint_t b)
+{
+   Serialfragment binary₋print = ^(serial₋present fragment, machine * 
+    symbol₋amend, void * context) {
+      short 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 brk=0; char8₋t bounded[70],*pb=bounded;
+      Base𝕟(b,2,
+#if defined __x86_64__ || defined __arm64__ || defined Kirkbridge
+    64
+#elif defined __mips__ || defined __armv6__ || defined espressif
+    32
+#endif
+    , ^(char c) { pb[brk]=c; brk+=1; });
+      fragment(bounded,brk); *symbol₋amend+=brk;
+   };
+   return ﹟λ₁(copy₋block(binary₋print),ΨΛΩ);
+}
+
+Argᴾ ﹟s8(char8₋t * u8s) ⓣ
+{
+   Serialfragment text₋print = ^(serial₋present fragment, machine * 
+    symbol₋amend, void * context) {
+       __builtin_int_t bytes = Utf8BytesUntilZero(u8s,BUILTIN₋INT₋MAX);
+       fragment(u8s,bytes); *symbol₋amend+=bytes;
+   };
+   return ﹟λ₁(copy₋block(text₋print),ΨΛΩ);
+}
+
+Argᴾ ﹟s8(__builtin_int_t bytes, char8₋t * u8s) ⓣ
+{
+   Serialfragment text₋print = ^(serial₋present fragment, machine * 
+    symbol₋amend, void * context) {
+       fragment(u8s,bytes); *symbol₋amend+=bytes;
+   };
+   return ﹟λ₁(copy₋block(text₋print),ΨΛΩ);
+}
+
+Argᴾ ﹟s7(char * sevenbit₋utf8)
+{
+   Serialfragment text₋print = ^(serial₋present fragment, machine * 
+    symbol₋amend, void * context) {
+       char8₋t * u8s = (char8₋t *)sevenbit₋utf8;
+       __builtin_int_t bytes = Utf8BytesUntilZero(u8s,BUILTIN₋INT₋MAX);
+       fragment(u8s,bytes); *symbol₋amend+=bytes;
+   };
+   return ﹟λ₁(copy₋block(text₋print),ΨΛΩ);
+}
+
+Argᴾ ﹟S(__builtin_int_t tetras, char32̄_t * uc₋unterminated) ⓣ
+{
+   Symbolfragment text₋print = ^(symbol₋present fragment, machine * 
+    symbol₋amend, void * context) {
+      fragment(tetras,uc₋unterminated); *symbol₋amend+=tetras;
+   };
+   return ﹟λ₂(copy₋block(text₋print),ΨΛΩ);
+}
+
+Argᴾ ﹟S(char32̄_t * ucs) ⓣ
+{
+   Symbolfragment text₋print = ^(symbol₋present fragment, machine * 
+    symbol₋amend, void * context) {
+     __builtin_int_t tetras = TetrasUntilZero(ucs,BUILTIN₋INT₋MAX);
+     fragment(tetras,ucs); *symbol₋amend+=tetras;
+   };
+   return ﹟λ₂(copy₋block(text₋print),ΨΛΩ);
+}
+
+Argᴾ ﹟S(struct Unicodes uc) ⓣ
+{
+   Symbolfragment text₋print = ^(symbol₋present fragment, machine * 
+    symbol₋amend, void * context) {
+      fragment(uc.tetras,uc.unicodes); *symbol₋amend+=uc.tetras;
+   };
+   return ﹟λ₂(copy₋block(text₋print),ΨΛΩ);
+}
+
+Argᴾ ﹟c7(char c)
+{
+   Serialfragment letter₋print = ^(serial₋present fragment, machine * 
+    symbol₋amend, void * context) { char8₋t letter=(char8₋t)c;
+       fragment(&letter,1); *symbol₋amend+=1;
+   };
+   return ﹟λ₁(copy₋block(letter₋print),ΨΛΩ);
+} /* warning 'comparision of non-signed integers' requires additional bits in machine word. */
+
+Argᴾ ﹟C(char32̄_t C)
+{
+   Symbolfragment letter₋print = ^(symbol₋present fragment, machine * 
+    symbol₋amend, void * context) { char32̄_t letter=C; 
+      fragment(1,&letter); *symbol₋amend+=1;
+   };
+   return ﹟λ₂(copy₋block(letter₋print),ΨΛΩ);
+}
+
+#if defined usage₋𝟷𝟸𝟾₋bit₋integer
+
+Argᴾ ﹟U(__uint128_t U)
+{
+   Serialfragment natural₋print = ^(serial₋present fragment, machine * 
+    symbol₋amend, void * context) {
+      short 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 brk=0; char8₋t bounded[30],*pb=bounded;
+      Base𝕟(U,10,0, ^(char c) { pb[brk]=c; brk+=1; });
+      fragment(bounded,brk); *symbol₋amend+=brk;
+   };
+   return ﹟λ₁(copy₋block(natural₋print),ΨΛΩ);
+}
+
+Argᴾ ﹟I(__int128_t I)
+{
+   Serialfragment integer₋print = ^(serial₋present fragment, machine * 
+    symbol₋amend, void * context) {
+      short 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 brk=0; char8₋t bounded[30],*pb=bounded;
+      Base𝕫(I,10,0, ^(char c) { pb[brk]=c; brk+=1; });
+      fragment(bounded,brk); *symbol₋amend+=brk;
+   };
+   return ﹟λ₁(copy₋block(integer₋print),ΨΛΩ);
+}
+
+#endif
+
+Argᴾ ﹟F(double ℝ, int method) ⓣ
+{
+   Serialfragment real₋print = ^(serial₋present fragment, machine * 
+    symbol₋amend, void * context) { char text[100]; int letters;
+      switch (method) {
+      case 1: ieee754₋Scientific₋Rendition(ℝ,text,&letters); break;
+      case 2: ieee754₋Saturn₋Rendition(ℝ,text,&letters); break;
+      case 3: ieee754₋Monetary₋Rendition(ℝ,text,&letters); break;
+      case 4: ieee754₋Scandinavian₋Monetary₋Rendition(ℝ,text,&letters); break;
+      }
+      fragment((char8₋t *)text,letters); *symbol₋amend+=letters;
+   };
+   return ﹟λ₁(copy₋block(real₋print),ΨΛΩ);
+}
+
+Argᴾ ﹟F(float ℝ, int method) ⓣ
+{
+   return ﹟F((double)ℝ, method);
+}
+
+/* Argᴾ ﹟regs(__builtin_uint_t mask) { Argᴾ y = { { .x=mask }, 17 }; return y; }
+Argᴾ ﹟plat(__builtin_uint_t mask) { Argᴾ y = { { .x=mask }, 19 }; return y; } */
+/* ⬷ Print between 0 and 31 non-high-volatile registers. */
+
+Argᴾ ﹟λ₁(void (^fragment)(serial₋present, machine *, void *), void * ctx) {
+ Argᴾ y = { { .λ₁={ ctx, fragment } }, 20 }; return y; }
+Argᴾ ﹟λ₂(void (^fragment)(symbol₋present, machine *, void *), void * ctx) {
+ Argᴾ y = { { .λ₂={ ctx, fragment } }, 21 }; return y; }
 
 /* Argᴾ ﹟hfill() { }
 Argᴾ ﹟vfill() { }
@@ -58,114 +196,31 @@ extern void Fancy(char32̄_t prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶,
 
 Argᴾ ﹟Italic(__builtin_int_t tetras, char32̄_t * uc₋unterminated) { return ﹟S(tetras,uc₋unterminated); }
 
-#pragma recto in /retrospect/ hidden yet simple
+#pragma recto in /retrospect/ hidden yet simple */
 
 typedef void (^Eightbit₋out)(__builtin_int_t bytes, char8₋t * u8s);
 
-inexorable void u8stream₋out(char8₋t * u8s, __builtin_int_t bytes, Eightbit₋out out, int * amend)
-{
-   out(bytes,u8s); *amend += bytes;
-}
-
-inexorable void unicode₋out(char32̄_t uc, Eightbit₋out out, int * amend)
+inexorable void unicode₋out(char32̄_t uc, Eightbit₋out out, machine * amend)
 {
    UnicodeToUtf8(uc, ^(char8₋t * u8s, short bytes) { out(bytes,u8s); *amend+=bytes; });
 }
 
-inexorable void uctext₋out(char32̄_t * ucs, __builtin_int_t tetras, Eightbit₋out out, int * amend)
+inexorable void lambda₋bytes(Serialfragment block, void * ctxt, Eightbit₋out out, machine * amend₋bytes)
 {
-   char8₋t u8s[4*tetras]; __builtin_int_t actual;
-   UnicodeToUtf8(tetras,ucs,u8s,&actual);
-   u8stream₋out(u8s,actual,out,amend);
+   serial₋present line = ^(char8₋t * u8s, __builtin_int_t bytes) { out(bytes,u8s); };
+   block(line,amend₋bytes,ctxt);
+   release₋block(block);
 }
 
-inexorable void sevenbit₋utf8(char * sevenbit₋text, __builtin_int_t bytes, Eightbit₋out out, int * amend)
+inexorable void lambda₋symbols(Symbolfragment block, void * ctxt, Eightbit₋out out, machine * amend₋bytes)
 {
-   u8stream₋out((char8₋t *)sevenbit₋text,bytes,out,amend);
-}
-
-inexorable void integer₋out(__builtin_int_t x, Eightbit₋out out, int * amend)
-{
-   Base𝕫(x,10,0, ^(char s) { sevenbit₋utf8(&s,1,out,amend); });
-}
-
-inexorable void natural₋out(__builtin_uint_t x, Eightbit₋out out, int * amend)
-{
-   Base𝕟(x,16,
-#if defined __x86_64__ || defined __arm64__ || defined Kirkbridge
-    16
-#elif defined __mips__ || defined __armv6__ || defined espressif
-    8
-#endif
-    , ^(char s) { sevenbit₋utf8(&s,1,out,amend); });
-}
-
-inexorable void binary₋out(__builtin_uint_t x, Eightbit₋out out, int * amend)
-{
-   Base𝕟(x,2,
-#if defined __x86_64__ || defined __arm64__ || defined Kirkbridge
-    64
-#elif defined __mips__ || defined __armv6__ || defined espressif
-    32
-#endif
-    , ^(char s) { sevenbit₋utf8(&s,1,out,amend); });
-}
-
-#if !defined usage₋𝙸𝚎𝚎𝚎𝟽𝟻𝟺₋arithmetics
-
-inexorable void double₋out(double ℝ, Eightbit₋out out, int * amend, int method)
-{ char text[56]; int letters;
-   switch (method)
-   {
-   case 1:
-     ieee754₋Scientific₋Rendition(ℝ,text,&letters);
-     sevenbit₋utf8(text,letters,out,amend);
-     break;
-   case 2:
-     ieee754₋Saturn₋Rendition(ℝ,text,&letters);
-     sevenbit₋utf8(text,letters,out,amend);
-     break;
-   case 3:
-     ieee754₋Monetary₋Rendition(ℝ,text,&letters);
-     sevenbit₋utf8(text,letters,out,amend);
-     break;
-   case 4:
-     ieee754₋Scandinavian₋Monetary₋Rendition(ℝ,text,&letters);
-     sevenbit₋utf8(text,letters,out,amend);
-     break;
-   default:
-     unicode₋out(U'⋻',out,amend);
-     break;
-   }
-}
-
-#endif
-
-#if defined usage₋𝟷𝟸𝟾₋bit₋integer
-
-inexorable void signed128₋out(__int128_t I, Eightbit₋out out, int * amend)
-{
-   Base𝕫(I,10,0, ^(char zerotoninealtneg) { sevenbit₋utf8(&zerotoninealtneg,1,out,amend); });
-}
-
-inexorable void unsigned128₋out(__uint128_t U, Eightbit₋out out, int * amend)
-{
-   Base𝕟(U,10,0, ^(char zerotonine) { sevenbit₋utf8(&zerotonine,1,out,amend); });
-}
-
-#endif
-
-inexorable void lambda₋bytes(Serialfragment block, void * ctxt, Eightbit₋out out, int * amend₋bytes)
-{ int 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 augment=0;
-   serial₋present line = ^(char8₋t * u8s, __builtin_int_t bytes) { out(bytes,u8s); augment+=bytes; };
-   block(line,ctxt);
-   *amend₋bytes += augment;
-}
-
-inexorable void lambda₋symbols(Symbolfragment block, void * ctxt, Eightbit₋out out, int * amend₋bytes)
-{
-   symbol₋present primary = ^(__builtin_int_t tetras, char32̄_t * uc) { uctext₋out(uc,tetras,out,amend₋bytes); };
-   block(primary,ctxt);
+   symbol₋present primary = ^(__builtin_int_t tetras, char32̄_t * ucs) {
+      char8₋t u8s[4*tetras]; __builtin_int_t actual;
+      UnicodeToUtf8(tetras,ucs,u8s,&actual);
+      out(actual,u8s); *amend₋bytes += actual;
+   };
+   block(primary,amend₋bytes,ctxt);
+   release₋block(block);
 }
 
 int
@@ -175,7 +230,7 @@ print﹟(
   __builtin_va_list argument
 )
 { __builtin_int_t i=0,incr; short followers; char32̄_t uc;
-   char8₋t * leadOr8Bit; 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 int printedBytesExcept0=0;
+   char8₋t * leadOr8Bit; 𝑓𝑙𝑢𝑐𝑡𝑢𝑎𝑛𝑡 machine printedBytesExcept0=0;
    Eightbit₋out out = ^(__builtin_int_t bytes, char8₋t * u8s) { output(u8s,bytes); };
 again:
     leadOr8Bit = i + (char8₋t *)utf8format;
@@ -188,32 +243,17 @@ again:
     else if (uc != U'⬚') { unicode₋out(uc,out,&printedBytesExcept0); }
     else {
       Argᴾ a = __builtin_va_arg(argument,Argᴾ);
-      switch (a.kind) {
-      case 1: integer₋out(a.value.d,out,&printedBytesExcept0); break;
-      case 2: natural₋out(a.value.x,out,&printedBytesExcept0); break;
-      case 3: binary₋out(a.value.b,out,&printedBytesExcept0); break;
-      case 4: u8stream₋out(a.value.encoded.utf8,a.value.encoded.bytes,out,&printedBytesExcept0); break;
-      case 7: uctext₋out(a.value.ucs.unicodes,a.value.ucs.tetras,out,&printedBytesExcept0); break;
-      case 9: unicode₋out((char32̄_t)a.value.possibly₋signed₋c,out,&printedBytesExcept0); break;
-      case 10: unicode₋out(a.value.uc,out,&printedBytesExcept0); break;
-      case 11: { /* Argᴾ::Unicode set = ^(int anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶,  \
+      switch (a.kind) { /*
+      case 11: { / * Argᴾ::Unicode set = ^(int anfang, char32_t& prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶,  \
        void * context) { if (!anfang) { print("⬚", ﹟C(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶)); }    \
        else { Anfang(prvNxt𝖤𝖮𝖳𝘖𝘳𝟶𝚡𝟶𝟶𝟶𝟶, NULL); } }; a.value.λ.scalar(set,        \
-       a.value.λ.context); */ break; }
-#if defined usage₋𝟷𝟸𝟾₋bit₋integer
-      case 12: unsigned128₋out(a.value.U,out,&printedBytesExcept0); break;
-      case 13: signed128₋out(a.value.I,out,&printedBytesExcept0); break;
-#endif
-#if !defined usage₋𝙸𝚎𝚎𝚎𝟽𝟻𝟺₋arithmetics
-      case 14: double₋out(a.value.non₋fixpoint.material.f₁,out,&printedBytesExcept0,a.value.non₋fixpoint.numberformat); break;
-      case 15: double₋out((double)a.value.non₋fixpoint.material.f₂,out,&printedBytesExcept0,a.value.non₋fixpoint.numberformat); break;
-#endif
+       a.value.λ.context); * / break; }
       case 17: register₋reflect(a.value.x,
         ^(char32̄_t uc) { unicode₋out(uc,out,&printedBytesExcept0); });
        break;
       case 19: platform₋reflect(a.value.x, 
         ^(char32̄_t uc) { unicode₋out(uc,out,&printedBytesExcept0); });
-       break;
+       break; */
       case 20: lambda₋bytes(a.value.λ₁.block,a.value.λ₁.ctxt,out,&printedBytesExcept0); break;
       case 21: lambda₋symbols(a.value.λ₂.block,a.value.λ₂.ctxt,out,&printedBytesExcept0); break;
       default:
@@ -232,9 +272,9 @@ extern long write(int fd, const void * s, long unsigned nbyte);
 
 #elif defined __mips__ || defined __armv6__ || defined espressif || defined Kirkbridge
 
-extern void (^Putₒ)(char8₋t * u8s, __builtin_int_t bytes);
-extern void (^Trace₁)(char8₋t * u8s, __builtin_int_t bytes);
-extern void (^Trace₂)(char8₋t * u8s, __builtin_int_t bytes);
+extern void (*Putₒ)(char8₋t * u8s, __builtin_int_t bytes);
+extern void (*Trace₁)(char8₋t * u8s, __builtin_int_t bytes);
+extern void (*Trace₂)(char8₋t * u8s, __builtin_int_t bytes);
 
 #endif
 
@@ -248,9 +288,8 @@ vfprint(
 )
 { int y;
 #if defined __x86_64__ || defined __arm64__
-   int original = false;
-   int descript = original ? 1 /* stdout */ : 2 /* stderr */;
-   Reversed₋out out = ^(char8₋t * u8s, __builtin_int_t bytes) { write(descript, (const void *)u8s, bytes); };
+   const int stderr = 2;
+   Reversed₋out out = ^(char8₋t * u8s, __builtin_int_t bytes) { write(stderr, (const void *)u8s, bytes); };
 #elif defined __mips__ || defined espressif || defined __armv6__ || defined Kirkbridge
    Reversed₋out out = ^(char8₋t * u8s, __builtin_int_t bytes) { Trace₁(u8s,bytes); };
 #endif
@@ -264,7 +303,8 @@ int
 print(const char * utf8format, ...) ⓣ /* all variable arguments are of the type `Argᴾ`. */
 { int y;
 #if defined __x86_64__ || defined __arm64__
-   Reversed₋out out = ^(char8₋t * u8s, __builtin_int_t bytes) { write(1, (const void *)u8s, bytes); };
+   const int stdout = 1;
+   Reversed₋out out = ^(char8₋t * u8s, __builtin_int_t bytes) { write(stdout, (const void *)u8s, bytes); };
 #elif defined __mips__ || defined espressif || defined __armv6__ || defined Kirkbridge
    Reversed₋out out = ^(char8₋t * u8s, __builtin_int_t bytes) { Putₒ(u8s,bytes); };
 #endif
@@ -292,7 +332,8 @@ Emphase(
 )
 { int y=0; va_prologue(utf8format);
 #if defined __x86_64__ || defined __arm64__
-   Reversed₋out out = ^(char8₋t * u8s, __builtin_int_t bytes) { write(1, (const void *)u8s, bytes); };
+   const int stdout = 1;
+   Reversed₋out out = ^(char8₋t * u8s, __builtin_int_t bytes) { write(stdout, (const void *)u8s, bytes); };
 #elif defined __mips__ || defined espressif || defined __armv6__ || defined Kirkbridge
    Reversed₋out out = ^(char8₋t * u8s, __builtin_int_t bytes) { Putₒ(u8s,bytes); };
 #endif
