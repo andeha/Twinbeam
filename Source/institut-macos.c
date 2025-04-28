@@ -27,6 +27,78 @@ void _Block₋release(const void * block)
    free((void *)block);
 }
 
+#pragma recto buddy list
+
+struct allocation {
+   uint64_t bytes;
+   int free;
+   struct allocation * next;
+};
+
+void * heap₋allocations = ΨΛΩ;
+
+inexorable struct allocation * firstfit₋in₋allocations(
+  struct allocation ** previous, uint64_t bytes
+)
+{ int qualified=0;
+   struct allocation * head = heap₋allocations;
+again:
+   if (head == ΨΛΩ) { return ΨΛΩ; }
+   qualified = head->free && head->bytes >= bytes;
+   if (qualified) { return head; }
+   *previous = head;
+   head = head->next;
+   goto again;
+}
+
+#include <sys/mman.h>
+
+inexorable struct allocation * 
+allocate₋consecutive(
+  struct allocation * last, uint64_t bytes
+)
+{ struct allocation * block;
+   int prot = PROT_READ | PROT_WRITE, 
+    flags = MAP_ANONYMOUS | MAP_PRIVATE, 
+    fd = -1, offset=0;
+   size_t length = bytes+sizeof(struct allocation);
+   block = mmap(0,length,prot,flags,fd,offset);
+   if (block == MAP_FAILED) { return ΨΛΩ; }
+   if (last != ΨΛΩ) { last->next = block; }
+   block->bytes = bytes;
+   block->free = 0;
+   block->next = ΨΛΩ;
+   return block;
+}
+
+void * Heap₋alloc(uint64_t bytes)
+{
+   if (bytes <= 0 ) { return ΨΛΩ; }
+   struct allocation * block;
+   if (heap₋allocations == ΨΛΩ) {
+      block = allocate₋consecutive(ΨΛΩ,bytes);
+      if (block == ΨΛΩ) { return ΨΛΩ; }
+      heap₋allocations = block;
+   } else {
+      struct allocation * last = heap₋allocations;
+      block = firstfit₋in₋allocations(&last,bytes);
+      if (block == ΨΛΩ) {
+         block = allocate₋consecutive(last,bytes);
+         if (block == ΨΛΩ) { return ΨΛΩ; }
+      } else {
+         block->free = 0;
+      }
+   }
+   return block + 1;
+}
+
+void Free₋heap(void * p)
+{
+   if (p == ΨΛΩ) { return; }
+   struct allocation * block = (struct allocation *)p - 1;
+   block->free = 0;
+}
+
 #pragma recto platform-specifics
 
 void register₋reflect(__builtin_uint_t mask, 

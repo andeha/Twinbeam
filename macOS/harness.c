@@ -50,6 +50,8 @@ RunTests(
    return count;
 }
 
+void * heap₋allocation;
+
 int
 main(
   int argc,
